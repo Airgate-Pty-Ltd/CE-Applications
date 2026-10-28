@@ -1,0 +1,33 @@
+{
+  "validators": [
+    {
+      "name": "hallucination.guard.context_only",
+      "type": "context_span_check",
+      "config": {
+        "require_all_claims_backed": true,
+        "max_unbacked_sentences": 0
+      },
+      "fail_action": "repair_or_refuse"
+    },
+    {
+      "name": "clause.numbering.check",
+      "type": "regex",
+      "pattern": "\\\\b(\\\\d+(?:\\\\.\\\\d+){1,3})\\\\b",
+      "fail_action": "report_only"
+    },
+    {
+      "name": "reasoning.chain.logged",
+      "type": "decision_logging",
+      "must_log": [
+        "Which clauses were retrieved",
+        "Confidence score + reason",
+        "Which documents were checked",
+        "User answers to clarifications",
+        "Severity classification + rationale",
+        "Escalations triggered"
+      ],
+      "output_format": "Internal audit log (JSON, not shown to user)",
+      "user_visibility": "Summary: 'Analysis based on 156 requirements, 12 clarifications, 3 document reviews. 94% confidence in findings.'"
+    }
+  ]
+}

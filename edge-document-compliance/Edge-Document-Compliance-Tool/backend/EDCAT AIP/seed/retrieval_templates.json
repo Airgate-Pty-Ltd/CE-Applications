@@ -1,0 +1,26 @@
+{
+  "templates": [
+    {
+      "name": "retrieval.clause.qa",
+      "kind": "retrieval",
+      "template": {
+        "prompt": "EDCAT QUERY:\\n{user_query}\\n\\nCONTEXT SNIPPETS (authoritative):\\n{snippets}\\nRESPONSE FORMAT:\\nRequirement: <quote the relevant line(s)>\\nIntent: <explain the requirement>\\nCommon Gaps: <typical issues>\\nEvidence Examples: <objective evidence>\\nRecommendation: <actionable improvement>\\n{citations_block}",
+        "citations_block": "Sources: {citations}"
+      }
+    },
+    {
+      "name": "draft.procedure.section",
+      "kind": "draft",
+      "template": {
+        "prompt": "Write the {section} section for a Procedure using the organization\u2019s template rules. Define WHAT and WHY, avoid HOW. Use single spacing, paragraph headers (no bullets as headers), and include MDL linkage language. Draw only from CONTEXT with citations.\\n\\nCONTEXT:\\n{snippets}\\n\\nReturn plain text suitable for direct paste."
+      }
+    },
+    {
+      "name": "mapping.cross.standard",
+      "kind": "mapping",
+      "template": {
+        "prompt": "Map the following requirement to target standards. Provide clause IDs, short rationale, and citations for each match.\\nSOURCE: {source_clause}\\nTARGETS: {targets}\\n\\nCONTEXT:\\n{snippets}"
+      }
+    }
+  ]
+}

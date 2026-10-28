@@ -1,0 +1,1193 @@
+<title>CMMC Compass</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap">
+<style>
+/* ── TOKEN SYSTEM ── */
+:root {
+  --bg: #0B1622;
+  --bg2: #0F1D2E;
+  --surf1: #132237;
+  --surf2: #1C3050;
+  --surf3: #243860;
+  --border: #2A4060;
+  --border-light: #1E3248;
+  --t1: #ECF2FA;
+  --t2: #8AADC8;
+  --t3: #4E6E88;
+  --accent: #F0A500;
+  --accent-dim: rgba(240,165,0,0.12);
+  --accent-mid: rgba(240,165,0,0.25);
+  --green: #2EC87A;
+  --green-dim: rgba(46,200,122,0.13);
+  --red: #E55050;
+  --red-dim: rgba(229,80,80,0.13);
+  --amber: #F07830;
+  --amber-dim: rgba(240,120,48,0.13);
+  --radius: 4px;
+  --radius-lg: 8px;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #EEF3FA;
+    --bg2: #E4EBF5;
+    --surf1: #FFFFFF;
+    --surf2: #F0F5FC;
+    --surf3: #E0EAF6;
+    --border: #C4D4E8;
+    --border-light: #D8E6F4;
+    --t1: #0B1622;
+    --t2: #3A5870;
+    --t3: #6A88A0;
+    --accent: #B87800;
+    --accent-dim: rgba(184,120,0,0.10);
+    --accent-mid: rgba(184,120,0,0.20);
+    --green: #1A8C56;
+    --green-dim: rgba(26,140,86,0.12);
+    --red: #C83030;
+    --red-dim: rgba(200,48,48,0.12);
+    --amber: #B85A18;
+    --amber-dim: rgba(184,90,24,0.12);
+  }
+}
+:root[data-theme="light"] {
+  --bg: #EEF3FA; --bg2: #E4EBF5; --surf1: #FFFFFF; --surf2: #F0F5FC; --surf3: #E0EAF6;
+  --border: #C4D4E8; --border-light: #D8E6F4; --t1: #0B1622; --t2: #3A5870; --t3: #6A88A0;
+  --accent: #B87800; --accent-dim: rgba(184,120,0,0.10); --accent-mid: rgba(184,120,0,0.20);
+  --green: #1A8C56; --green-dim: rgba(26,140,86,0.12);
+  --red: #C83030; --red-dim: rgba(200,48,48,0.12);
+  --amber: #B85A18; --amber-dim: rgba(184,90,24,0.12);
+}
+:root[data-theme="dark"] {
+  --bg: #0B1622; --bg2: #0F1D2E; --surf1: #132237; --surf2: #1C3050; --surf3: #243860;
+  --border: #2A4060; --border-light: #1E3248; --t1: #ECF2FA; --t2: #8AADC8; --t3: #4E6E88;
+  --accent: #F0A500; --accent-dim: rgba(240,165,0,0.12); --accent-mid: rgba(240,165,0,0.25);
+  --green: #2EC87A; --green-dim: rgba(46,200,122,0.13);
+  --red: #E55050; --red-dim: rgba(229,80,80,0.13);
+  --amber: #F07830; --amber-dim: rgba(240,120,48,0.13);
+}
+
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--t1);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+img { max-width: 100%; }
+
+/* ── TYPOGRAPHY ── */
+.syne { font-family: 'Syne', sans-serif; }
+h1,h2,h3,h4 { font-family: 'Syne', sans-serif; text-wrap: balance; line-height: 1.15; }
+h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+h4 { font-size: 1rem; font-weight: 600; }
+p { max-width: 68ch; color: var(--t2); }
+.label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+a { color: var(--accent); text-decoration: none; }
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 1180px; margin: 0 auto; padding: 0 2rem; }
+section { padding: 5rem 0; }
+section + section { border-top: 1px solid var(--border-light); }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border-light);
+  backdrop-filter: blur(12px);
+  padding: 0 2rem;
+}
+.nav-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: flex; align-items: center; gap: 2rem;
+  height: 54px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+  color: var(--t1);
+}
+.nav-logo .compass-mark {
+  width: 22px; height: 22px;
+  background: var(--accent);
+  clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
+}
+.nav-links { display: flex; gap: 0; margin-left: auto; }
+.nav-links a {
+  font-size: 0.82rem; font-weight: 500; color: var(--t3);
+  padding: 0 0.9rem; height: 54px; display: flex; align-items: center;
+  transition: color 0.15s;
+  border-bottom: 2px solid transparent;
+}
+.nav-links a:hover { color: var(--t1); }
+.nav-badge {
+  margin-left: 1rem;
+  font-size: 0.72rem; font-weight: 600; font-family: 'Syne', sans-serif;
+  background: var(--accent-dim); color: var(--accent);
+  border: 1px solid var(--accent-mid);
+  padding: 0.2rem 0.7rem; border-radius: 20px;
+}
+
+/* ── HERO ── */
+.hero { padding: 5rem 0 4rem; position: relative; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1fr 360px; gap: 4rem; align-items: center; }
+.hero-eyebrow { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.5rem; }
+.hero-eyebrow span { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; }
+.hero h1 { margin-bottom: 1.25rem; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero p { font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 52ch; }
+.hero-cta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.btn-primary {
+  font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.88rem;
+  background: var(--accent); color: #0B1622;
+  padding: 0.65rem 1.5rem; border-radius: var(--radius);
+  border: none; cursor: pointer; text-decoration: none; display: inline-block;
+  letter-spacing: 0.02em;
+}
+.btn-secondary {
+  font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.88rem;
+  background: transparent; color: var(--t2);
+  padding: 0.65rem 1.5rem; border-radius: var(--radius);
+  border: 1px solid var(--border); cursor: pointer;
+}
+.hero-stats { display: flex; flex-direction: column; gap: 0; }
+.hero-stat {
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border-light);
+  background: var(--surf1);
+}
+.hero-stat + .hero-stat { border-top: none; }
+.hero-stat:first-child { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+.hero-stat:last-child { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+.hero-stat-num {
+  font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
+  color: var(--t1); line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.hero-stat-num.accent { color: var(--accent); }
+.hero-stat-num.green { color: var(--green); }
+.hero-stat-num.red { color: var(--red); }
+.hero-stat-label { font-size: 0.8rem; color: var(--t3); margin-top: 0.2rem; }
+
+/* ── SECTION HEADER ── */
+.section-header { margin-bottom: 3rem; }
+.section-header .label { margin-bottom: 0.75rem; display: block; }
+.section-header h2 { margin-bottom: 0.75rem; }
+.section-header p { font-size: 1.05rem; }
+
+/* ── PROBLEM SECTION ── */
+.problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.problem-card {
+  background: var(--surf1); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 1.75rem;
+}
+.problem-card-icon {
+  width: 36px; height: 36px; margin-bottom: 1rem;
+  border-radius: var(--radius); display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.problem-card h3 { margin-bottom: 0.5rem; font-size: 1rem; }
+.problem-card p { font-size: 0.88rem; max-width: none; }
+.problem-stat-bar {
+  margin-top: 3rem;
+  background: var(--surf1); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 1.75rem 2rem;
+}
+.pb-label-row { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
+.pb-label { font-size: 0.82rem; color: var(--t2); }
+.pb-val { font-size: 0.82rem; color: var(--t2); font-variant-numeric: tabular-nums; }
+.pb-track { background: var(--surf2); border-radius: 2px; height: 6px; margin-bottom: 1.25rem; overflow: hidden; }
+.pb-fill { height: 100%; border-radius: 2px; }
+
+/* ── WHY TOOLS FAIL ── */
+.fail-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+.fail-table th {
+  font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--t3);
+  text-align: left; padding: 0.75rem 1rem;
+  background: var(--surf2); border-bottom: 1px solid var(--border);
+}
+.fail-table th:first-child { border-radius: var(--radius) 0 0 0; }
+.fail-table th:last-child { border-radius: 0 var(--radius) 0 0; text-align: center; }
+.fail-table td {
+  padding: 0.85rem 1rem; font-size: 0.88rem; color: var(--t2);
+  border-bottom: 1px solid var(--border-light);
+}
+.fail-table td:first-child { color: var(--t1); font-weight: 500; }
+.fail-table td:last-child { text-align: center; }
+.check-y { color: var(--green); font-size: 1.1rem; }
+.check-n { color: var(--red); font-size: 1.1rem; }
+.check-p { color: var(--amber); font-size: 1rem; }
+
+/* ── SOLUTION PILLARS ── */
+.pillars-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 2rem; background: var(--border-light); border-radius: var(--radius-lg); overflow: hidden; }
+.pillar {
+  background: var(--surf1); padding: 1.5rem 1.25rem;
+}
+.pillar-num {
+  font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
+  color: var(--border); line-height: 1; margin-bottom: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+.pillar h4 { font-size: 0.88rem; color: var(--t1); margin-bottom: 0.4rem; }
+.pillar p { font-size: 0.78rem; color: var(--t3); max-width: none; }
+.pillar-accent { border-top: 2px solid var(--accent); }
+.pillar-green { border-top: 2px solid var(--green); }
+.pillar-amber { border-top: 2px solid var(--amber); }
+.pillar-red { border-top: 2px solid var(--red); }
+.pillar-blue { border-top: 2px solid #5B8DE8; }
+
+/* ── DEMO SECTION ── */
+.demo-section { background: var(--bg2); padding: 5rem 0; }
+.demo-chrome {
+  background: var(--surf1); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.demo-titlebar {
+  background: var(--surf2); border-bottom: 1px solid var(--border-light);
+  padding: 0.6rem 1rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.demo-dot { width: 10px; height: 10px; border-radius: 50%; }
+.demo-dot-r { background: #E55050; }
+.demo-dot-y { background: var(--accent); }
+.demo-dot-g { background: var(--green); }
+.demo-url {
+  flex: 1; background: var(--surf1); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.22rem 0.75rem;
+  font-size: 0.75rem; color: var(--t3); font-family: monospace;
+  margin: 0 1rem;
+}
+.demo-tabs {
+  display: flex; border-bottom: 1px solid var(--border-light);
+  background: var(--surf2);
+}
+.demo-tab {
+  font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.05em; padding: 0.7rem 1.25rem; cursor: pointer;
+  color: var(--t3); border-bottom: 2px solid transparent;
+  transition: all 0.15s; text-transform: uppercase;
+}
+.demo-tab.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--surf1); }
+.demo-body { min-height: 520px; }
+.demo-panel { display: none; padding: 1.5rem; }
+.demo-panel.active { display: block; }
+
+/* ── DEMO: DASHBOARD ── */
+.dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+.dash-sprs {
+  display: flex; align-items: baseline; gap: 0.5rem;
+  background: var(--surf2); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 0.75rem 1.25rem;
+}
+.sprs-num { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--amber); line-height: 1; }
+.sprs-max { font-size: 0.8rem; color: var(--t3); }
+.sprs-label { font-size: 0.7rem; color: var(--t3); text-transform: uppercase; letter-spacing: 0.08em; font-family: 'Syne', sans-serif; margin-top: 0.1rem; }
+.dash-progress { display: flex; gap: 1rem; align-items: center; }
+.dash-prog-item { text-align: center; }
+.dash-prog-num { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; line-height: 1; }
+.dash-prog-label { font-size: 0.68rem; color: var(--t3); margin-top: 0.15rem; }
+
+.domain-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.domain-cell {
+  aspect-ratio: 1.2;
+  border-radius: var(--radius); cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: transform 0.12s, box-shadow 0.12s;
+  position: relative; overflow: hidden;
+  padding: 0.4rem;
+}
+.domain-cell:hover { transform: scale(1.04); box-shadow: 0 4px 16px rgba(0,0,0,0.3); z-index: 2; }
+.domain-cell.status-green { background: var(--green-dim); border: 1px solid rgba(46,200,122,0.3); }
+.domain-cell.status-amber { background: var(--amber-dim); border: 1px solid rgba(240,120,48,0.3); }
+.domain-cell.status-red { background: var(--red-dim); border: 1px solid rgba(229,80,80,0.3); }
+.domain-cell.status-gray { background: var(--surf2); border: 1px solid var(--border-light); }
+.domain-cell.status-selected { box-shadow: 0 0 0 2px var(--accent); }
+.dc-id { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; }
+.dc-pct { font-size: 0.65rem; font-variant-numeric: tabular-nums; margin-top: 0.1rem; }
+.domain-cell.status-green .dc-id { color: var(--green); }
+.domain-cell.status-amber .dc-id { color: var(--amber); }
+.domain-cell.status-red .dc-id { color: var(--red); }
+.domain-cell.status-gray .dc-id { color: var(--t3); }
+
+.domain-detail {
+  margin-top: 1rem; background: var(--surf2); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 1rem 1.25rem;
+  display: none;
+}
+.domain-detail.visible { display: block; }
+.dd-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+.dd-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; }
+.dd-practices { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.practice-pill {
+  font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 20px;
+  cursor: pointer; font-family: 'Syne', sans-serif; font-weight: 600; letter-spacing: 0.04em;
+  transition: opacity 0.12s;
+}
+.practice-pill:hover { opacity: 0.8; }
+.pp-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(46,200,122,0.3); }
+.pp-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(240,120,48,0.3); }
+.pp-red { background: var(--red-dim); color: var(--red); border: 1px solid rgba(229,80,80,0.3); }
+.pp-gray { background: var(--surf1); color: var(--t3); border: 1px solid var(--border); }
+
+/* ── DEMO: ASSESSMENT PANEL ── */
+.assess-layout { display: grid; grid-template-columns: 1fr 280px; gap: 1.25rem; }
+.assess-main { }
+.assess-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.assess-domain-badge {
+  font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; background: var(--accent-dim); color: var(--accent);
+  border: 1px solid var(--accent-mid); padding: 0.18rem 0.6rem; border-radius: 3px;
+}
+.assess-id { font-family: monospace; font-size: 0.8rem; color: var(--t3); }
+.assess-practice-title { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; }
+.assess-plain-box {
+  background: var(--accent-dim); border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0; padding: 0.75rem 1rem; margin-bottom: 1rem;
+}
+.assess-plain-box .label { color: var(--accent); margin-bottom: 0.3rem; display: block; font-size: 0.65rem; }
+.assess-plain-box p { font-size: 0.85rem; color: var(--t1); max-width: none; }
+.assess-evidence-box {
+  background: var(--surf2); border: 1px solid var(--border-light);
+  border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 1rem;
+}
+.assess-evidence-box .label { margin-bottom: 0.5rem; display: block; font-size: 0.65rem; }
+.evidence-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--t2); padding: 0.25rem 0; }
+.evidence-icon { font-size: 0.7rem; color: var(--t3); }
+.status-picker { display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.status-btn {
+  font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+  padding: 0.4rem 0.85rem; border-radius: 20px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surf2); color: var(--t3);
+  transition: all 0.15s;
+}
+.status-btn.selected-not { background: var(--red-dim); color: var(--red); border-color: rgba(229,80,80,0.4); }
+.status-btn.selected-partial { background: var(--amber-dim); color: var(--amber); border-color: rgba(240,120,48,0.4); }
+.status-btn.selected-full { background: var(--green-dim); color: var(--green); border-color: rgba(46,200,122,0.4); }
+.assess-sidebar { }
+.teach-box {
+  background: var(--surf2); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1rem;
+}
+.teach-box-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+.teach-icon {
+  width: 28px; height: 28px; background: var(--accent-dim); border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center; font-size: 0.8rem;
+  color: var(--accent); flex-shrink: 0;
+}
+.teach-box-title { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--t1); }
+.teach-box p { font-size: 0.78rem; color: var(--t2); max-width: none; }
+.teach-box ul { font-size: 0.78rem; color: var(--t2); padding-left: 1.1rem; }
+.teach-box ul li { margin-bottom: 0.25rem; }
+.next-btn {
+  width: 100%; font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.78rem;
+  background: var(--surf2); border: 1px solid var(--border); color: var(--t2);
+  padding: 0.5rem; border-radius: var(--radius); cursor: pointer; margin-top: 0.5rem;
+  transition: all 0.15s;
+}
+.next-btn:hover { border-color: var(--accent); color: var(--accent); }
+.nav-row { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
+.nav-row span { font-size: 0.78rem; color: var(--t3); font-variant-numeric: tabular-nums; }
+.nav-btn {
+  font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 600;
+  padding: 0.4rem 0.85rem; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--surf2); color: var(--t2); cursor: pointer;
+}
+
+/* ── DEMO: OUTPUTS ── */
+.outputs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.output-card {
+  background: var(--surf2); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 1.25rem;
+}
+.output-card-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+.output-icon {
+  width: 32px; height: 32px; border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0;
+}
+.output-card h4 { font-size: 0.88rem; }
+.output-card p { font-size: 0.78rem; color: var(--t3); max-width: none; margin-top: 0.2rem; }
+.score-row { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; font-size: 0.8rem; border-bottom: 1px solid var(--border-light); }
+.score-row:last-child { border-bottom: none; }
+.score-domain { color: var(--t2); font-family: monospace; font-size: 0.75rem; }
+.score-val { font-variant-numeric: tabular-nums; font-weight: 600; }
+.gap-item { padding: 0.45rem 0; font-size: 0.8rem; color: var(--t2); border-bottom: 1px solid var(--border-light); display: flex; gap: 0.5rem; align-items: flex-start; }
+.gap-item:last-child { border-bottom: none; }
+.gap-priority { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 3px; flex-shrink: 0; margin-top: 1px; }
+.gp-high { background: var(--red-dim); color: var(--red); }
+.gp-med { background: var(--amber-dim); color: var(--amber); }
+.doc-list-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0; font-size: 0.8rem; color: var(--t2); border-bottom: 1px solid var(--border-light); }
+.doc-list-item:last-child { border-bottom: none; }
+.doc-status { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.ds-ready { background: var(--green); }
+.ds-partial { background: var(--amber); }
+.ds-pending { background: var(--t3); }
+.dl-name { flex: 1; }
+.dl-pct { font-size: 0.72rem; color: var(--t3); font-variant-numeric: tabular-nums; }
+
+/* ── BUSINESS CASE ── */
+.business-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.revenue-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+.revenue-table th {
+  font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--t3);
+  text-align: left; padding: 0.6rem 0.75rem;
+  background: var(--surf2); border-bottom: 1px solid var(--border);
+}
+.revenue-table td {
+  padding: 0.7rem 0.75rem; font-size: 0.85rem; color: var(--t2);
+  border-bottom: 1px solid var(--border-light);
+  font-variant-numeric: tabular-nums;
+}
+.revenue-table td:first-child { color: var(--t1); font-weight: 500; }
+.revenue-table tr.highlight td { background: var(--accent-dim); }
+.revenue-table tr.highlight td:first-child { color: var(--accent); }
+.market-stack { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; }
+.market-bar { display: flex; align-items: center; gap: 1rem; }
+.mb-label { font-size: 0.78rem; color: var(--t2); width: 50px; text-align: right; font-family: 'Syne', sans-serif; font-weight: 600; }
+.mb-track { flex: 1; height: 24px; background: var(--surf2); border-radius: 2px; overflow: hidden; position: relative; }
+.mb-fill { height: 100%; border-radius: 2px; display: flex; align-items: center; padding: 0 0.5rem; }
+.mb-fill span { font-size: 0.72rem; font-weight: 600; font-family: 'Syne', sans-serif; white-space: nowrap; }
+
+/* ── ROADMAP ── */
+.roadmap-track {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 2rem;
+  border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden;
+}
+.roadmap-phase { padding: 1.5rem 1.25rem; }
+.roadmap-phase + .roadmap-phase { border-left: 1px solid var(--border-light); }
+.phase-num {
+  font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--t3); margin-bottom: 0.3rem;
+}
+.phase-year { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--t1); margin-bottom: 0.75rem; }
+.phase-items { display: flex; flex-direction: column; gap: 0.35rem; }
+.phase-item { font-size: 0.78rem; color: var(--t2); display: flex; align-items: flex-start; gap: 0.4rem; }
+.phase-item::before { content: '—'; color: var(--t3); flex-shrink: 0; }
+.roadmap-phase.current { background: var(--surf1); }
+.roadmap-phase.current .phase-year { color: var(--accent); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border-light); padding: 2rem 0;
+  background: var(--bg2);
+}
+.footer-inner { max-width: 1180px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; }
+.footer-note { font-size: 0.78rem; color: var(--t3); }
+.footer-brand { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--t2); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-direction: row; }
+  .hero-stat { flex: 1; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .pillars-grid { grid-template-columns: 1fr 1fr; }
+  .business-layout { grid-template-columns: 1fr; }
+  .assess-layout { grid-template-columns: 1fr; }
+  .outputs-grid { grid-template-columns: 1fr; }
+  .roadmap-track { grid-template-columns: 1fr 1fr; }
+  .domain-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .hero-stats { flex-direction: column; }
+  .pillars-grid { grid-template-columns: 1fr; }
+  .domain-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="compass-mark"></div>
+      <span>Compass</span>
+    </div>
+    <div class="nav-links">
+      <a href="#problem">The Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#demo">Prototype</a>
+      <a href="#business">Business Case</a>
+      <a href="#roadmap">Roadmap</a>
+    </div>
+    <span class="nav-badge">Conform-Edge Confidential</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="page-wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">
+          <div class="compass-mark" style="width:14px;height:14px;"></div>
+          <span>Conform-Edge · Product Concept</span>
+        </div>
+        <h1>CMMC compliance<br>that <em>teaches</em> as it<br>assesses</h1>
+        <p>Every tool on the market gives you a checklist. None of them tell you what "implemented" actually means for your business, or how to get there. Compass does both — simultaneously.</p>
+        <div class="hero-cta">
+          <a class="btn-primary" href="#demo">See the prototype</a>
+          <a class="btn-secondary" href="#business">Business case</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num accent" data-count="39.4">$6.8B</div>
+          <div class="hero-stat-label">CMMC compliance market, growing to $39.4B by 2034 · 21.5% CAGR</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num red">8%</div>
+          <div class="hero-stat-label">of Level 2 contractors have completed certification as of mid-2026</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num green">220K</div>
+          <div class="hero-stat-label">DIB companies affected — most with no IT staff and no path forward</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="page-wrap">
+    <div class="section-header">
+      <span class="label">The Challenge</span>
+      <h2>Why CMMC is uniquely hard to navigate</h2>
+      <p>CMMC is not a checkbox exercise. It's 110 practices across 14 domains, each with implementation evidence, documentation, and an assessment by a credentialed third party — for a population that largely runs on spreadsheets and a single IT generalist.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-card-icon" style="background:var(--red-dim);color:var(--red);">💸</div>
+        <h3>The cost is disqualifying</h3>
+        <p>First-year Level 2 compliance costs range from $75K to $300K per organization. Third-party assessment alone runs $50K–$200K, with C3PAO backlogs now 24–30 months deep. Small manufacturers simply cannot absorb this without understanding the problem first.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon" style="background:var(--amber-dim);color:var(--amber);">🧩</div>
+        <h3>The language is opaque</h3>
+        <p>NIST 800-171 was written for federal IT administrators, not shop floor managers. "Establish and maintain baseline configurations" means nothing to an owner who runs MRO work with three engineers. No tool currently translates this in context, at the point of assessment.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon" style="background:var(--accent-dim);color:var(--accent);">📋</div>
+        <h3>Gap reports don't close gaps</h3>
+        <p>Every tool on the market produces a gap analysis. What it does not produce is a path from where you are to where you need to be, specific to your company size, contract types, and existing controls. The report lands and sits.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon" style="background:var(--green-dim);color:var(--green);">⏱</div>
+        <h3>Training is disconnected from doing</h3>
+        <p>CMMC training programs and CMMC assessment tools are entirely separate products. You learn in one place, then figure out what to do in another. The conceptual bridge — "here's what this practice means in your context right now" — doesn't exist.</p>
+      </div>
+    </div>
+    <div class="problem-stat-bar">
+      <div class="label" style="margin-bottom:1rem;display:block;">Defense Industrial Base Compliance Status — Level 2 (2026)</div>
+      <div class="pb-label-row"><span class="pb-label">Certification complete</span><span class="pb-val" style="color:var(--green);">8%</span></div>
+      <div class="pb-track"><div class="pb-fill" style="width:8%;background:var(--green);"></div></div>
+      <div class="pb-label-row"><span class="pb-label">Assessment in progress</span><span class="pb-val" style="color:var(--amber);">42%</span></div>
+      <div class="pb-track"><div class="pb-fill" style="width:42%;background:var(--amber);"></div></div>
+      <div class="pb-label-row"><span class="pb-label">Pre-assessment / self-assessment only</span><span class="pb-val" style="color:var(--t3);">50%</span></div>
+      <div class="pb-track" style="margin-bottom:0;"><div class="pb-fill" style="width:50%;background:var(--t3);"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GAP -->
+<section id="gap">
+  <div class="page-wrap">
+    <div class="section-header">
+      <span class="label">Market Gap</span>
+      <h2>Why the market hasn't solved this yet</h2>
+      <p>The current landscape is flooded with tools that claim to simplify CMMC. None of them close the loop between understanding and implementation.</p>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="fail-table">
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th>GRC Platforms<br><span style="font-weight:400;font-size:0.7rem;color:var(--t3);">Vanta, Drata, Hyperproof</span></th>
+            <th>Checklist Tools<br><span style="font-weight:400;font-size:0.7rem;color:var(--t3);">CUI Institute, StrikeGraph</span></th>
+            <th>Training Programs<br><span style="font-weight:400;font-size:0.7rem;color:var(--t3);">CyberSheath, WTI</span></th>
+            <th style="color:var(--accent);">Compass<br><span style="font-weight:400;font-size:0.7rem;color:var(--accent-mid);">Conform-Edge</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Practice-by-practice assessment</td>
+            <td class="check-y">✓</td><td class="check-y">✓</td><td class="check-n">✗</td><td class="check-y">✓</td>
+          </tr>
+          <tr>
+            <td>Plain-English translation at point of use</td>
+            <td class="check-n">✗</td><td class="check-n">✗</td><td class="check-p">~</td><td class="check-y">✓</td>
+          </tr>
+          <tr>
+            <td>Contextual "what does this mean for my business" guidance</td>
+            <td class="check-n">✗</td><td class="check-n">✗</td><td class="check-n">✗</td><td class="check-y">✓</td>
+          </tr>
+          <tr>
+            <td>Remediation steps specific to your gap</td>
+            <td class="check-p">~</td><td class="check-n">✗</td><td class="check-n">✗</td><td class="check-y">✓</td>
+          </tr>
+          <tr>
+            <td>Auto-generates SSP, SPRS score, POA&amp;M</td>
+            <td class="check-y">✓</td><td class="check-p">~</td><td class="check-n">✗</td><td class="check-y">✓</td>
+          </tr>
+          <tr>
+            <td>Evidence collection built in</td>
+            <td class="check-y">✓</td><td class="check-n">✗</td><td class="check-n">✗</td><td class="check-y">✓</td>
+          </tr>
+          <tr>
+            <td>Auditable, versioned, C3PAO-ready output</td>
+            <td class="check-y">✓</td><td class="check-n">✗</td><td class="check-n">✗</td><td class="check-y">✓</td>
+          </tr>
+          <tr>
+            <td>Priced for SMB defense contractors</td>
+            <td class="check-n">✗</td><td class="check-p">~</td><td class="check-p">~</td><td class="check-y">✓</td>
+          </tr>
+          <tr>
+            <td>Teaches while it assesses</td>
+            <td class="check-n">✗</td><td class="check-n">✗</td><td class="check-n">✗</td><td class="check-y">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:1rem;font-size:0.8rem;color:var(--t3);">~ Partial or third-party integration required</p>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="page-wrap">
+    <div class="section-header">
+      <span class="label">The Framework</span>
+      <h2>Five systems, one guided experience</h2>
+      <p>Compass is not a checklist with a score at the end. It is a structured, progressive workflow that closes the gap between regulatory intent and operational reality — at every step.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar pillar-accent">
+        <div class="pillar-num">01</div>
+        <h4>Onboard</h4>
+        <p>Company profile, contract types, CUI scope, and existing controls. Compass uses this to calibrate guidance throughout — what N/A actually means for you.</p>
+      </div>
+      <div class="pillar pillar-green">
+        <div class="pillar-num">02</div>
+        <h4>Assess + Teach</h4>
+        <p>Practice by practice, in plain English. Each practice shows what it means, what evidence looks like, what "partial" vs. "full" looks like for your company size. Answer as you learn.</p>
+      </div>
+      <div class="pillar pillar-amber">
+        <div class="pillar-num">03</div>
+        <h4>Remediate</h4>
+        <p>Every gap generates a prioritized, specific action list. Not "implement multi-factor authentication" — "here are three MFA options that work with your existing Microsoft 365 environment."</p>
+      </div>
+      <div class="pillar pillar-red">
+        <div class="pillar-num">04</div>
+        <h4>Document</h4>
+        <p>SSP, POA&M, and SPRS score generated continuously as you work. Every answer is timestamped, every revision versioned. Your evidence package assembles itself.</p>
+      </div>
+      <div class="pillar pillar-blue">
+        <div class="pillar-num">05</div>
+        <h4>Audit-Ready</h4>
+        <p>C3PAO interview prep, evidence index, domain-by-domain readiness summary. Compass tells you when you're ready, not when you think you are.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="demo-section" id="demo">
+  <div class="page-wrap">
+    <div class="section-header">
+      <span class="label">Interactive Prototype</span>
+      <h2>This is what it looks like</h2>
+      <p>A working mockup of the Compass interface — domain heat map, practice assessment, and output generation. Click domains and practices to explore.</p>
+    </div>
+    <div class="demo-chrome">
+      <div class="demo-titlebar">
+        <div class="demo-dot demo-dot-r"></div>
+        <div class="demo-dot demo-dot-y"></div>
+        <div class="demo-dot demo-dot-g"></div>
+        <div class="demo-url">app.compass.conformedge.com · Acme Defense Manufacturing · CMMC Level 2</div>
+      </div>
+      <div class="demo-tabs">
+        <div class="demo-tab active" onclick="switchTab('dashboard')">Domain Overview</div>
+        <div class="demo-tab" onclick="switchTab('assess')">Practice Assessment</div>
+        <div class="demo-tab" onclick="switchTab('outputs')">Score &amp; Outputs</div>
+      </div>
+      <div class="demo-body">
+
+        <!-- DASHBOARD TAB -->
+        <div class="demo-panel active" id="tab-dashboard">
+          <div class="dash-header">
+            <div>
+              <div class="label" style="margin-bottom:0.3rem;">CMMC Level 2 Progress — Acme Defense Manufacturing</div>
+              <div style="font-size:0.8rem;color:var(--t3);">Last assessed: today · 14 domains · 110 practices</div>
+            </div>
+            <div style="display:flex;gap:0.75rem;align-items:center;">
+              <div class="dash-progress">
+                <div class="dash-prog-item"><div class="dash-prog-num" style="color:var(--green);">52</div><div class="dash-prog-label">Complete</div></div>
+                <div class="dash-prog-item"><div class="dash-prog-num" style="color:var(--amber);">28</div><div class="dash-prog-label">Partial</div></div>
+                <div class="dash-prog-item"><div class="dash-prog-num" style="color:var(--red);">30</div><div class="dash-prog-label">Gap</div></div>
+              </div>
+              <div class="dash-sprs">
+                <div>
+                  <div class="sprs-label">SPRS Score</div>
+                  <div style="display:flex;align-items:baseline;gap:0.3rem;">
+                    <div class="sprs-num">62</div>
+                    <div class="sprs-max">/ 110</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="domain-grid" id="domainGrid">
+            <!-- populated by JS -->
+          </div>
+
+          <div class="domain-detail" id="domainDetail">
+            <div class="dd-header">
+              <div>
+                <div class="dd-title" id="dd-title">Configuration Management (CM)</div>
+                <div style="font-size:0.75rem;color:var(--t3);margin-top:0.2rem;" id="dd-sub">9 practices · 2 complete, 4 partial, 3 gaps</div>
+              </div>
+              <a class="btn-primary" href="#" onclick="goToAssess();return false;" style="font-size:0.72rem;padding:0.35rem 0.85rem;">Assess this domain →</a>
+            </div>
+            <div class="label" style="margin-bottom:0.5rem;display:block;">Practices</div>
+            <div class="dd-practices" id="dd-practices">
+              <!-- populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ASSESSMENT TAB -->
+        <div class="demo-panel" id="tab-assess">
+          <div class="assess-layout">
+            <div class="assess-main">
+              <div class="assess-eyebrow">
+                <span class="assess-domain-badge">Configuration Management</span>
+                <span class="assess-id">CM.2.061</span>
+                <span style="font-size:0.75rem;color:var(--t3);">Practice 3 of 9</span>
+              </div>
+              <div class="assess-practice-title">Establish and maintain baseline configurations and inventories of organizational systems throughout their life cycle.</div>
+
+              <div class="assess-plain-box">
+                <span class="label">What this means</span>
+                <p>You need to know exactly what hardware and software lives on your network — and document what a "normal" system looks like. If a machine gets compromised or misconfigured, this baseline is what you compare against to catch the difference.</p>
+              </div>
+
+              <div class="label" style="margin-bottom:0.5rem;display:block;">Your implementation status</div>
+              <div class="status-picker">
+                <button class="status-btn" onclick="selectStatus(this,'not')">Not Implemented</button>
+                <button class="status-btn selected-partial" onclick="selectStatus(this,'partial')">Partially Implemented</button>
+                <button class="status-btn" onclick="selectStatus(this,'full')">Fully Implemented</button>
+                <button class="status-btn" onclick="selectStatus(this,'na')">Not Applicable</button>
+              </div>
+
+              <div class="assess-evidence-box">
+                <span class="label">Evidence for this practice</span>
+                <div class="evidence-item"><span class="evidence-icon">📄</span> Asset inventory spreadsheet (hardware) — last updated 3 months ago</div>
+                <div class="evidence-item"><span class="evidence-icon">📄</span> Software license registry — partial coverage only</div>
+                <div class="evidence-item" style="color:var(--t3);"><span class="evidence-icon">➕</span> <span style="cursor:pointer;">Add evidence document or note…</span></div>
+              </div>
+
+              <div style="margin-top:0.5rem;padding:0.7rem;background:var(--amber-dim);border-radius:var(--radius);border:1px solid var(--amber-dim);">
+                <div class="label" style="color:var(--amber);margin-bottom:0.3rem;display:block;font-size:0.65rem;">Gap identified — Compass recommendation</div>
+                <p style="font-size:0.8rem;color:var(--t1);max-width:none;">Your hardware inventory exists but software coverage is incomplete and your baseline documentation doesn't specify acceptable configurations. For a company your size, a spreadsheet-based asset inventory supplemented with a tool like Lansweeper or PDQ Inventory covers this practice cost-effectively.</p>
+              </div>
+
+              <div class="nav-row">
+                <button class="nav-btn">← Previous practice</button>
+                <span>CM.2.061 · 3 / 9</span>
+                <button class="nav-btn">Next practice →</button>
+              </div>
+            </div>
+
+            <div class="assess-sidebar">
+              <div class="teach-box">
+                <div class="teach-box-head">
+                  <div class="teach-icon">📘</div>
+                  <div class="teach-box-title">Why this matters</div>
+                </div>
+                <p>C3PAO assessors consistently cite CM as one of the three most failed domains in DIB assessments. Baseline configurations are foundational — without them, you cannot detect unauthorized changes, which is the entire point of CMMC's configuration management requirements.</p>
+              </div>
+
+              <div class="teach-box">
+                <div class="teach-box-head">
+                  <div class="teach-icon">✅</div>
+                  <div class="teach-box-title">What "fully implemented" looks like</div>
+                </div>
+                <ul>
+                  <li>Complete hardware and software asset inventory, verified quarterly</li>
+                  <li>Documented standard configurations for each system type (server, workstation, network device)</li>
+                  <li>Process to approve and record deviations from baseline</li>
+                  <li>Evidence of last comparison against baseline (change control log)</li>
+                </ul>
+              </div>
+
+              <div class="teach-box">
+                <div class="teach-box-head">
+                  <div class="teach-icon">⚠️</div>
+                  <div class="teach-box-title">Common assessment failure points</div>
+                </div>
+                <ul>
+                  <li>Inventory exists but is months out of date</li>
+                  <li>Baseline documented for servers but not workstations</li>
+                  <li>No process documented for managing exceptions</li>
+                </ul>
+              </div>
+
+              <button class="next-btn" onclick="goToOutputs()">View your score &amp; outputs →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- OUTPUTS TAB -->
+        <div class="demo-panel" id="tab-outputs">
+          <div class="outputs-grid">
+            <div class="output-card">
+              <div class="output-card-head">
+                <div class="output-icon" style="background:var(--accent-dim);color:var(--accent);">📊</div>
+                <div><h4>Domain Scores</h4><p>SPRS contribution by domain</p></div>
+              </div>
+              <div class="score-row"><span class="score-domain">AC · Access Control</span><span class="score-val" style="color:var(--green);">+18 / 22</span></div>
+              <div class="score-row"><span class="score-domain">AT · Awareness &amp; Training</span><span class="score-val" style="color:var(--green);">+3 / 3</span></div>
+              <div class="score-row"><span class="score-domain">AU · Audit &amp; Accountability</span><span class="score-val" style="color:var(--amber);">+6 / 9</span></div>
+              <div class="score-row"><span class="score-domain">CM · Configuration Mgmt</span><span class="score-val" style="color:var(--amber);">+4 / 9</span></div>
+              <div class="score-row"><span class="score-domain">IA · Identification &amp; Auth</span><span class="score-val" style="color:var(--green);">+10 / 11</span></div>
+              <div class="score-row"><span class="score-domain">IR · Incident Response</span><span class="score-val" style="color:var(--amber);">+1 / 3</span></div>
+              <div class="score-row"><span class="score-domain">RA · Risk Assessment</span><span class="score-val" style="color:var(--red);">+0 / 5</span></div>
+              <div class="score-row"><span class="score-domain">SC · Systems &amp; Comms</span><span class="score-val" style="color:var(--amber);">+10 / 16</span></div>
+              <div style="padding:0.5rem 0;font-size:0.72rem;color:var(--t3);">+ 6 more domains…</div>
+              <div class="score-row" style="border-top:1px solid var(--border);padding-top:0.6rem;"><span style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;">SPRS Total</span><span class="score-val" style="color:var(--accent);font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;">62 / 110</span></div>
+            </div>
+
+            <div class="output-card">
+              <div class="output-card-head">
+                <div class="output-icon" style="background:var(--red-dim);color:var(--red);">⚡</div>
+                <div><h4>Priority Gaps</h4><p>Ranked by SPRS impact &amp; C3PAO risk</p></div>
+              </div>
+              <div class="gap-item"><span class="gap-priority gp-high">HIGH</span>RA domain — Risk Assessment entirely unaddressed (-5 SPRS). No risk assessment process, policy, or prior assessment exists.</div>
+              <div class="gap-item"><span class="gap-priority gp-high">HIGH</span>CM.2.062 — Establish and enforce security configuration settings not implemented. C3PAOs flag this in 78% of failed audits.</div>
+              <div class="gap-item"><span class="gap-priority gp-med">MED</span>IR.2.092 — Incident reporting process exists but not tested. Evidence of tabletop exercise required.</div>
+              <div class="gap-item"><span class="gap-priority gp-med">MED</span>AU.2.042 — Audit log review process documented but review frequency not defined or evidenced.</div>
+              <div class="gap-item"><span class="gap-priority gp-med">MED</span>SC.3.177 — FIPS-validated encryption not confirmed for data at rest. Certificate or system documentation required.</div>
+            </div>
+
+            <div class="output-card">
+              <div class="output-card-head">
+                <div class="output-icon" style="background:var(--green-dim);color:var(--green);">📁</div>
+                <div><h4>Generated Documents</h4><p>Auto-built from your assessment answers</p></div>
+              </div>
+              <div class="doc-list-item"><div class="doc-status ds-partial"></div><div class="dl-name">System Security Plan (SSP)</div><div class="dl-pct">72% complete</div></div>
+              <div class="doc-list-item"><div class="doc-status ds-ready"></div><div class="dl-name">SPRS Score Report</div><div class="dl-pct">Ready</div></div>
+              <div class="doc-list-item"><div class="doc-status ds-partial"></div><div class="dl-name">Plan of Action &amp; Milestones (POA&amp;M)</div><div class="dl-pct">Generating…</div></div>
+              <div class="doc-list-item"><div class="doc-status ds-pending"></div><div class="dl-name">C3PAO Evidence Index</div><div class="dl-pct">Pending completion</div></div>
+              <div class="doc-list-item"><div class="doc-status ds-pending"></div><div class="dl-name">Assessment Readiness Report</div><div class="dl-pct">Pending 8 gaps</div></div>
+            </div>
+
+            <div class="output-card">
+              <div class="output-card-head">
+                <div class="output-icon" style="background: rgba(91,141,232,0.13);color:#5B8DE8;">🎯</div>
+                <div><h4>Assessment Readiness</h4><p>C3PAO prep status</p></div>
+              </div>
+              <div style="margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+                  <span style="font-size:0.8rem;color:var(--t2);">Overall readiness</span>
+                  <span style="font-size:0.8rem;color:var(--amber);font-weight:600;font-family:'Syne',sans-serif;">Not ready</span>
+                </div>
+                <div class="pb-track"><div class="pb-fill" style="width:56%;background:var(--amber);"></div></div>
+              </div>
+              <div class="score-row"><span class="score-domain">Practices fully implemented</span><span class="score-val">52 / 110</span></div>
+              <div class="score-row"><span class="score-domain">Evidence attached</span><span class="score-val">41 / 52</span></div>
+              <div class="score-row"><span class="score-domain">Critical gaps remaining</span><span class="score-val" style="color:var(--red);">7</span></div>
+              <div class="score-row"><span class="score-domain">Est. time to readiness</span><span class="score-val">~90 days</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS CASE -->
+<section id="business">
+  <div class="page-wrap">
+    <div class="section-header">
+      <span class="label">Business Case</span>
+      <h2>Why this is the right product for Conform-Edge</h2>
+      <p>CMMC is fundamentally a quality management problem applied to cybersecurity. Conform-Edge has been solving quality management problems for 20 years. This is not a pivot — it's an adjacency.</p>
+    </div>
+    <div class="business-layout">
+      <div>
+        <h3 style="margin-bottom:1.5rem;">Revenue model</h3>
+        <table class="revenue-table">
+          <thead>
+            <tr><th>Scenario</th><th>Subscribers</th><th>Avg MRR</th><th>ARR</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Year 1 conservative</td><td>200</td><td>$600</td><td>$1.4M</td></tr>
+            <tr><td>Year 2 base case</td><td>600</td><td>$750</td><td>$5.4M</td></tr>
+            <tr class="highlight"><td>Year 3 target</td><td>2,000</td><td>$1,000</td><td>$24M</td></tr>
+            <tr><td>Year 5 scaled</td><td>6,000</td><td>$1,200</td><td>$86M</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.78rem;margin-top:0.75rem;">Pricing model: SaaS subscription per organization. Tier 1 (self-assessment, Level 1): $300/mo. Tier 2 (guided, Level 2, SSP/POA&M output): $800/mo. Tier 3 (enterprise, multi-site, C3PAO ready, AI remediation): $1,500+/mo.</p>
+
+        <h3 style="margin-top:2rem;margin-bottom:1rem;">Build investment</h3>
+        <table class="revenue-table">
+          <thead><tr><th>Item</th><th>Estimate</th></tr></thead>
+          <tbody>
+            <tr><td>Core platform (on existing C-E / VERA architecture)</td><td>$80K–$120K</td></tr>
+            <tr><td>CMMC practice knowledge base + AI guidance layer</td><td>$40K–$60K</td></tr>
+            <tr><td>Document generation engine (SSP / POA&M / SPRS)</td><td>$30K–$50K</td></tr>
+            <tr><td>C3PAO readiness + evidence management module</td><td>$20K–$40K</td></tr>
+            <tr class="highlight"><td>Total build estimate</td><td>$170K–$270K</td></tr>
+            <tr><td>Payback period (Year 1 conservative)</td><td>~18 months</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:1.25rem;">Market sizing</h3>
+        <div class="market-stack">
+          <div class="market-bar">
+            <span class="mb-label" style="font-size:0.65rem;">TAM</span>
+            <div class="mb-track">
+              <div class="mb-fill" style="width:100%;background:var(--surf3);">
+                <span style="color:var(--t3);">$6.8B CMMC compliance market (2025)</span>
+              </div>
+            </div>
+          </div>
+          <div class="market-bar">
+            <span class="mb-label" style="font-size:0.65rem;">SAM</span>
+            <div class="mb-track">
+              <div class="mb-fill" style="width:60%;background:var(--accent-dim);border:1px solid var(--accent-mid);">
+                <span style="color:var(--accent);">$800M · DIB SMBs, 50–500 employees</span>
+              </div>
+            </div>
+          </div>
+          <div class="market-bar">
+            <span class="mb-label" style="font-size:0.65rem;">SOM Y3</span>
+            <div class="mb-track">
+              <div class="mb-fill" style="width:12%;background:var(--green-dim);border:1px solid rgba(46,200,122,0.3);">
+                <span style="color:var(--green);">$24M</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;">
+          <h3 style="margin-bottom:1rem;">Conform-Edge fit</h3>
+          <div style="display:flex;flex-direction:column;gap:0.6rem;">
+            <div style="background:var(--surf1);border:1px solid var(--border-light);border-radius:var(--radius);padding:0.85rem 1rem;">
+              <div style="font-size:0.82rem;font-weight:600;margin-bottom:0.2rem;">Existing customer base is the target customer</div>
+              <p style="font-size:0.78rem;margin:0;">Aerospace and defense manufacturers — AS9100, AS9110, Part 145 — are exactly the companies that need CMMC Level 2. C-E serves them already.</p>
+            </div>
+            <div style="background:var(--surf1);border:1px solid var(--border-light);border-radius:var(--radius);padding:0.85rem 1rem;">
+              <div style="font-size:0.82rem;font-weight:600;margin-bottom:0.2rem;">VERA + M-AI architecture powers the intelligence layer</div>
+              <p style="font-size:0.78rem;margin:0;">The contextual guidance engine is M-AI. The UI framework is VERA. The platform exists — this is a new domain pack, not a new platform.</p>
+            </div>
+            <div style="background:var(--surf1);border:1px solid var(--border-light);border-radius:var(--radius);padding:0.85rem 1rem;">
+              <div style="font-size:0.82rem;font-weight:600;margin-bottom:0.2rem;">Phase II pause is a preparation window, not a signal to wait</div>
+              <p style="font-size:0.78rem;margin:0;">DoD suspended Phase II for small businesses in July 2026 due to cost concerns — but enforcement resumes. Companies that use the pause to prepare will dominate. Compass serves that window.</p>
+            </div>
+            <div style="background:var(--surf1);border:1px solid var(--border-light);border-radius:var(--radius);padding:0.85rem 1rem;">
+              <div style="font-size:0.82rem;font-weight:600;margin-bottom:0.2rem;">Brand moat: auditable, AI-integrated, framework-native</div>
+              <p style="font-size:0.78rem;margin:0;">GRC platforms bolt CMMC onto SOC 2. Compass is built from NIST 800-171 native. That's a differentiation that compounds as CMMC enforcement deepens.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="page-wrap">
+    <div class="section-header">
+      <span class="label">5-Year View</span>
+      <h2>Built for what's coming, not what's here</h2>
+      <p>NIST 800-171 is stable. CMMC enforcement deepens by year. The architecture decisions made now determine whether Compass is a point solution or a platform.</p>
+    </div>
+    <div class="roadmap-track">
+      <div class="roadmap-phase current">
+        <div class="phase-num">Now</div>
+        <div class="phase-year">2026</div>
+        <div class="phase-items">
+          <div class="phase-item">Phase II pause window — prep demand peaks</div>
+          <div class="phase-item">Level 1 + Level 2 self-assessment module</div>
+          <div class="phase-item">SSP / SPRS / POA&M generation</div>
+          <div class="phase-item">VERA + M-AI architecture, first 200 subscribers</div>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-num">Year 2</div>
+        <div class="phase-year">2027</div>
+        <div class="phase-items">
+          <div class="phase-item">Phase II enforcement resumes — conversion surge</div>
+          <div class="phase-item">C3PAO evidence package export, interview prep</div>
+          <div class="phase-item">Multi-user / multi-site support</div>
+          <div class="phase-item">Annex Quality CMMC training bundle integration</div>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-num">Year 3</div>
+        <div class="phase-year">2028</div>
+        <div class="phase-items">
+          <div class="phase-item">Level 3 (NIST 800-172) module launch</div>
+          <div class="phase-item">Continuous monitoring dashboard (post-certification)</div>
+          <div class="phase-item">Supplier CMMC flow-down module</div>
+          <div class="phase-item">$24M ARR target</div>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-num">Year 4</div>
+        <div class="phase-year">2029</div>
+        <div class="phase-items">
+          <div class="phase-item">C3PAO partnership / white-label program</div>
+          <div class="phase-item">Cross-framework bridge: CMMC + AS9100 + ISO 27001</div>
+          <div class="phase-item">Government / prime contractor channel sales</div>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-num">Year 5</div>
+        <div class="phase-year">2030</div>
+        <div class="phase-items">
+          <div class="phase-item">Full DIB compliance platform (cybersecurity + quality + regulatory)</div>
+          <div class="phase-item">Outcome Forge integration — close the implementation loop</div>
+          <div class="phase-item">Platform as the QMS of record for SMB defense</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;background:var(--surf1);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:2rem;">
+      <div class="label" style="margin-bottom:0.75rem;display:block;">Why this is still good in five years</div>
+      <p style="max-width:none;">The market risk most often cited is regulatory change. That risk is real but bounded: NIST 800-171 Rev 3 is the stable foundation and not subject to political risk in the way a single administration's rule might be. The bigger risk is commoditization — GRC platforms will eventually catch up on CMMC specificity. The moat is not the checklist. It is the teaching layer, the remediation specificity, the evidence management, and the audit-ready output. Those are compounding advantages as Compass accumulates user data on what gaps look like, what remediations work, and what C3PAOs actually examine. A platform that learns what "implemented" looks like across 6,000 defense manufacturers cannot be replicated by bolting a CMMC framework onto a SOC 2 tool.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-note">Conform-Edge confidential. Product concept for internal evaluation.</div>
+    <div class="footer-brand">Compass · by Conform-Edge</div>
+  </div>
+</footer>
+
+<script>
+// ── DATA ──
+const domains = [
+  { id:'AC', name:'Access Control', practices:22, done:18, partial:3, gap:1 },
+  { id:'AT', name:'Awareness & Training', practices:3, done:3, partial:0, gap:0 },
+  { id:'AU', name:'Audit & Accountability', practices:9, done:4, partial:3, gap:2 },
+  { id:'CM', name:'Configuration Mgmt', practices:9, done:2, partial:4, gap:3 },
+  { id:'IA', name:'Identification & Auth', practices:11, done:8, partial:2, gap:1 },
+  { id:'IR', name:'Incident Response', practices:3, done:1, partial:1, gap:1 },
+  { id:'MA', name:'Maintenance', practices:6, done:5, partial:1, gap:0 },
+  { id:'MP', name:'Media Protection', practices:9, done:3, partial:3, gap:3 },
+  { id:'PE', name:'Physical Protection', practices:6, done:6, partial:0, gap:0 },
+  { id:'PS', name:'Personnel Security', practices:2, done:2, partial:0, gap:0 },
+  { id:'RA', name:'Risk Assessment', practices:5, done:0, partial:2, gap:3 },
+  { id:'CA', name:'Security Assessment', practices:4, done:1, partial:2, gap:1 },
+  { id:'SC', name:'System & Comms Prot', practices:16, done:9, partial:4, gap:3 },
+  { id:'SI', name:'System & Info Integrity', practices:11, done:7, partial:2, gap:2 },
+];
+
+function getStatus(d) {
+  if (d.gap === 0 && d.partial === 0) return 'green';
+  if (d.gap === 0 && d.partial > 0) return 'amber';
+  if (d.gap > 0 && d.done > d.gap) return 'amber';
+  if (d.gap > 0 && d.done === 0 && d.partial === 0) return 'red';
+  return d.gap >= d.done ? 'red' : 'amber';
+}
+
+function buildDomainGrid() {
+  const grid = document.getElementById('domainGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  domains.forEach((d, i) => {
+    const status = getStatus(d);
+    const pct = Math.round((d.done / d.practices) * 100);
+    const cell = document.createElement('div');
+    cell.className = `domain-cell status-${status}`;
+    cell.innerHTML = `<div class="dc-id">${d.id}</div><div class="dc-pct">${pct}%</div>`;
+    cell.title = d.name;
+    cell.addEventListener('click', () => showDomainDetail(d, cell));
+    grid.appendChild(cell);
+  });
+}
+
+function showDomainDetail(d, cell) {
+  // deselect all
+  document.querySelectorAll('.domain-cell').forEach(c => c.classList.remove('status-selected'));
+  cell.classList.add('status-selected');
+
+  const detail = document.getElementById('domainDetail');
+  const title = document.getElementById('dd-title');
+  const sub = document.getElementById('dd-sub');
+  const practices = document.getElementById('dd-practices');
+
+  title.textContent = `${d.name} (${d.id})`;
+  sub.textContent = `${d.practices} practices · ${d.done} complete, ${d.partial} partial, ${d.gap} gaps`;
+
+  // Build practice pills
+  practices.innerHTML = '';
+  for (let i = 1; i <= d.practices; i++) {
+    const pill = document.createElement('span');
+    pill.className = 'practice-pill';
+    let cls, label;
+    if (i <= d.done) { cls = 'pp-green'; label = 'Done'; }
+    else if (i <= d.done + d.partial) { cls = 'pp-amber'; label = 'Partial'; }
+    else { cls = 'pp-red'; label = 'Gap'; }
+    pill.className = `practice-pill ${cls}`;
+    pill.textContent = `${d.id}.${i < 10 ? '0'+i : i}`;
+    pill.title = label;
+    pill.addEventListener('click', () => goToAssess());
+    practices.appendChild(pill);
+  }
+
+  detail.classList.add('visible');
+}
+
+// ── TAB SWITCHING ──
+function switchTab(name) {
+  document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.demo-panel').forEach(p => p.classList.remove('active'));
+  const tabs = document.querySelectorAll('.demo-tab');
+  const panels = document.querySelectorAll('.demo-panel');
+  const map = { dashboard: 0, assess: 1, outputs: 2 };
+  tabs[map[name]].classList.add('active');
+  panels[map[name]].classList.add('active');
+}
+
+function goToAssess() { switchTab('assess'); }
+function goToOutputs() { switchTab('outputs'); }
+
+// ── STATUS PICKER ──
+function selectStatus(btn, status) {
+  document.querySelectorAll('.status-btn').forEach(b => {
+    b.classList.remove('selected-not', 'selected-partial', 'selected-full');
+  });
+  if (status === 'not') btn.classList.add('selected-not');
+  else if (status === 'partial') btn.classList.add('selected-partial');
+  else if (status === 'full') btn.classList.add('selected-full');
+}
+
+// ── INIT ──
+buildDomainGrid();
+</script>

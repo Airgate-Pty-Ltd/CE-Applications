@@ -1,0 +1,987 @@
+{
+  "version": "1.0",
+  "type": "regulatory_patterns",
+  "description": "Training patterns for FAA, EASA, CASA, FDA regulatory codes with broken/partial variations",
+  "examples": [
+    {
+      "broken": "FAA Part 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "FAA-PART-21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "FAA Part 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "faa part 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "FAA21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "FAA-21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "AA Part 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FA Part 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA art 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Prt 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Pat 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Par 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Part 1",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Part 2",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "AFA Part 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA aPrt 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "Part 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "part 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "PART 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "Pt 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "pt 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "P21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "p21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "FAA Part 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "FAA-PART-145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "FAA Part 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "faa part 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "FAA145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "FAA-145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "AA Part 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FA Part 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA art 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Prt 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Pat 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Par 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Part 45",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Part 15",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA Part 14",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "AFA Part 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "Part 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "part 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "PART 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "Pt 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "pt 145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "P145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "p145",
+      "correct": "FAA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "EASA Part 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "EASA-PART-145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "EASA Part 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "easa part 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "EASA145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ASA Part 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ESA Part 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "EAA Part 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "EAS Part 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "EASA art 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "EASA Prt 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "EASA Pat 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "EASA Par 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "EASA Part 45",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "EASA Part 15",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "Part 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "part 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "PART 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "Pt 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "pt 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "P145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "p145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "CASA Part 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "CASA-PART-21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "CASA Part 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "casa part 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "CASA21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ASA Part 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "CSA Part 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "CAA Part 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "CAS Part 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "CASA art 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "CASA Prt 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "CASA Pat 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "CASA Par 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "CASA Part 1",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "CASA Part 2",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "Part 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "part 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "PART 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "Pt 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "pt 21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "P21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "p21",
+      "correct": "CASA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "21 CFR Part 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "21-CFR-820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "21 CFR 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "21CFR820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "21CFR Part 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "1 CFR Part 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "2 CFR Part 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 FR Part 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CR Part 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CF Part 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CFR art 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CFR Prt 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CFR Pat 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CFR Par 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CFR Part 20",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "Part 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "part 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "PART 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "Pt 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "pt 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "P820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "p820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "21 CFR Part 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "21-CFR-11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "21 CFR 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "21CFR11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "21 CFR Part 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "1 CFR Part 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "2 CFR Part 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 FR Part 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CR Part 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CF Part 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CFR art 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CFR Prt 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CFR Pat 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CFR Par 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "21 CFR Part 1",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "Part 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "part 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "PART 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "Pt 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "pt 11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "P11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "p11",
+      "correct": "21 CFR Part 11",
+      "intent": "query_regulatory",
+      "pattern_type": "part_variation"
+    },
+    {
+      "broken": "MDSAP",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "MDSAP",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "mdsap",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "MDSAP Audit",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "MDSAP Program",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "DSAP",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "MSAP",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "MDAP",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "MDSP",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "MDSA",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "DMSAP",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "MSDAP",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "MDASP",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "MDSPA",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "mdsap",
+      "correct": "MDSAP",
+      "intent": "query_regulatory",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "FAA21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "common_typo",
+      "note": "Missing space and Part"
+    },
+    {
+      "broken": "FAA 21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "common_typo",
+      "note": "Missing Part"
+    },
+    {
+      "broken": "FAA-PT-21",
+      "correct": "FAA Part 21",
+      "intent": "query_regulatory",
+      "pattern_type": "common_typo",
+      "note": "Abbreviated Part"
+    },
+    {
+      "broken": "EASA 145",
+      "correct": "EASA Part 145",
+      "intent": "query_regulatory",
+      "pattern_type": "common_typo",
+      "note": "Missing Part"
+    },
+    {
+      "broken": "21CFR820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "common_typo",
+      "note": "Missing spaces"
+    },
+    {
+      "broken": "CFR 820",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "common_typo",
+      "note": "Missing 21"
+    },
+    {
+      "broken": "21 CFR 82",
+      "correct": "21 CFR Part 820",
+      "intent": "query_regulatory",
+      "pattern_type": "common_typo",
+      "note": "Missing digit"
+    }
+  ],
+  "total_examples": 162
+}

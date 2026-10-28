@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAA Part 145 Evidence-Readiness Audit Tool | Conform-Edge</title>
+<style>
+  :root {
+    --navy:#0a1628;--steel:#1e3a5f;--ink:#1a2332;--slate:#2d4a6b;
+    --silver:#c8d8e8;--pearl:#f0f4f8;--white:#ffffff;
+    --ready:#16a34a;--ready-bg:#dcfce7;
+    --conditional:#d97706;--conditional-bg:#fef3c7;
+    --notready:#dc2626;--notready-bg:#fee2e2;
+    --na:#64748b;--na-bg:#f1f5f9;
+    --accent:#2563eb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--pearl);color:var(--ink);min-height:100vh;}
+  header{background:var(--navy);color:var(--white);padding:20px 32px;display:flex;justify-content:space-between;align-items:center;}
+  header h1{font-size:1.25rem;font-weight:700;letter-spacing:.02em;}
+  header p{font-size:.75rem;color:var(--silver);margin-top:2px;}
+  .brand{font-size:.7rem;color:var(--silver);opacity:.8;text-align:right;}
+  main{max-width:1100px;margin:0 auto;padding:28px 24px;}
+  .intro{background:var(--white);border:1px solid var(--silver);border-radius:8px;padding:20px 24px;margin-bottom:24px;}
+  .intro h2{color:var(--steel);font-size:1rem;margin-bottom:8px;}
+  .intro p{font-size:.85rem;color:var(--ink);line-height:1.55;}
+  .bilateral-flag{margin-top:12px;display:flex;align-items:center;gap:10px;font-size:.85rem;}
+  .bilateral-flag label{font-weight:600;color:var(--steel);}
+  section.domain{background:var(--white);border:1px solid var(--silver);border-radius:8px;margin-bottom:18px;overflow:hidden;}
+  .domain-header{background:var(--navy);color:var(--white);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+  .domain-title{font-size:.9rem;font-weight:700;}
+  .domain-ref{font-size:.75rem;color:var(--silver);}
+  .domain-verdict{font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap;}
+  .verdict-ready{background:var(--ready-bg);color:var(--ready);}
+  .verdict-conditional{background:var(--conditional-bg);color:var(--conditional);}
+  .verdict-notready{background:var(--notready-bg);color:var(--notready);}
+  .verdict-pending{background:var(--na-bg);color:var(--na);}
+  .domain-body{padding:16px 20px;}
+  .evidence-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+  .evidence-table th{background:var(--pearl);color:var(--steel);font-weight:600;padding:7px 10px;text-align:left;border-bottom:2px solid var(--silver);}
+  .evidence-table td{padding:7px 10px;border-bottom:1px solid var(--silver);vertical-align:middle;}
+  .evidence-table tr:last-child td{border-bottom:none;}
+  .crit{color:var(--notready);font-weight:700;margin-left:4px;}
+  .radio-group{display:flex;gap:8px;flex-wrap:wrap;}
+  .radio-group label{display:flex;align-items:center;gap:4px;font-size:.8rem;cursor:pointer;padding:3px 8px;border-radius:10px;border:1px solid var(--silver);white-space:nowrap;}
+  .radio-group label:hover{border-color:var(--accent);}
+  .radio-group input[type=radio]{accent-color:var(--accent);}
+  .r-complete{border-color:var(--ready)!important;background:var(--ready-bg);}
+  .r-partial{border-color:var(--conditional)!important;background:var(--conditional-bg);}
+  .r-missing{border-color:var(--notready)!important;background:var(--notready-bg);}
+  .r-na{border-color:var(--na)!important;background:var(--na-bg);}
+  #results{display:none;background:var(--white);border:1px solid var(--silver);border-radius:8px;padding:24px;margin-top:24px;}
+  .overall-banner{padding:16px 20px;border-radius:8px;margin-bottom:20px;display:flex;align-items:center;gap:16px;}
+  .overall-ready{background:var(--ready-bg);border:2px solid var(--ready);}
+  .overall-conditional{background:var(--conditional-bg);border:2px solid var(--conditional);}
+  .overall-notready{background:var(--notready-bg);border:2px solid var(--notready);}
+  .overall-label{font-size:1.2rem;font-weight:800;}
+  .overall-sub{font-size:.85rem;margin-top:2px;}
+  .result-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:20px;}
+  .result-card{border-radius:6px;padding:12px 14px;border:1px solid var(--silver);}
+  .result-card h4{font-size:.8rem;font-weight:700;margin-bottom:4px;}
+  .result-card .vc{font-size:.85rem;font-weight:700;}
+  .remediation h3{font-size:.95rem;font-weight:700;color:var(--steel);margin-bottom:12px;}
+  .rem-item{display:flex;gap:10px;margin-bottom:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;align-items:flex-start;}
+  .rem-notready{background:var(--notready-bg);border-left:3px solid var(--notready);}
+  .rem-conditional{background:var(--conditional-bg);border-left:3px solid var(--conditional);}
+  .rem-tag{font-weight:700;min-width:80px;}
+  .advisory{background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:14px;margin-top:16px;font-size:.82rem;}
+  .advisory h4{color:var(--accent);font-weight:700;margin-bottom:6px;}
+  .btn{background:var(--navy);color:var(--white);border:none;border-radius:6px;padding:11px 28px;font-size:.9rem;font-weight:700;cursor:pointer;letter-spacing:.02em;}
+  .btn:hover{background:var(--steel);}
+  .btn-row{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;}
+  .disclaimer{font-size:.72rem;color:var(--na);margin-top:20px;padding:10px;background:var(--pearl);border-radius:4px;line-height:1.5;}
+  @media(max-width:600px){.radio-group{flex-direction:column;}.result-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>FAA Part 145 Evidence-Readiness Audit Tool</h1>
+    <p>Pre-inspection evidence-completeness assessment for Certificated Repair Stations</p>
+  </div>
+  <div class="brand">Conform-Edge<br>Quality Intelligence</div>
+</header>
+
+<main>
+<div class="intro">
+  <h2>How to use this tool</h2>
+  <p>For each evidence item, select <strong>Complete</strong> (documented, current, and retrievable), <strong>Partial</strong> (exists but has gaps or is outdated), <strong>Missing</strong> (not in place), or <strong>N/A</strong> (not applicable to your certificate/ratings). Items marked <strong style="color:var(--notready)">★ Critical</strong> will set the domain to <em>Not Ready</em> if missing. Results show your readiness posture — they do not constitute an FAA determination or certificate readiness certification.</p>
+  <div class="bilateral-flag">
+    <label for="bilateral">EASA bilateral approval (Form 8 / MAG)?</label>
+    <input type="checkbox" id="bilateral"> Yes — show EASA advisory
+  </div>
+</div>
+
+<div id="domains-container"></div>
+
+<div class="btn-row">
+  <button class="btn" onclick="assess()">Assess Readiness</button>
+  <button class="btn" style="background:var(--slate)" onclick="resetAll()">Reset</button>
+</div>
+
+<div id="results"></div>
+
+<p class="disclaimer">
+  <strong>Disclaimer:</strong> This tool provides a self-assessment of evidence readiness based on intent-based interpretation of 14 CFR Part 145 requirements. Results indicate a readiness posture only — they do not constitute FAA regulatory compliance, certificate renewal authorization, or FSDO inspection clearance. Rating-specific evidence requirements (e.g., turbine engine vs. airframe vs. avionics) may differ from general certificate requirements; consult your FSDO or a qualified Part 145 DER/consultant for ratings-specific review. Tool basis: 14 CFR Part 145 (all subparts), AC 145-9G, AC 145-10. Conform-Edge Quality Consulting LLC — self-assessment tool only.
+</p>
+</main>
+
+<script>
+const DOMAINS = [
+  {
+    id:"opspecs",
+    title:"Operations Specifications",
+    ref:"§145.51 / §145.55",
+    items:[
+      {id:"os1", label:"Current OpSpecs on file (not expired, correct FAA office)", critical:true},
+      {id:"os2", label:"All work authorizations listed match current scope of work", critical:true},
+      {id:"os3", label:"Any deviations or limitations properly noted and maintained", critical:false},
+      {id:"os4", label:"OpSpecs accessible to relevant personnel", critical:false}
+    ]
+  },
+  {
+    id:"housing",
+    title:"Housing & Facilities",
+    ref:"§145.201–203",
+    items:[
+      {id:"hf1", label:"Facilities adequate for authorized scope of work", critical:false},
+      {id:"hf2", label:"Controlled/segregated areas for work in progress, serviceable, and unsalvageable parts", critical:false},
+      {id:"hf3", label:"Environmental controls appropriate (lighting, cleanliness, FOD prevention)", critical:false},
+      {id:"hf4", label:"Facilities documentation (lease, ownership, or equivalent) on file if relevant", critical:false}
+    ]
+  },
+  {
+    id:"equipment",
+    title:"Equipment, Materials & Tools",
+    ref:"§145.109 / §145.207–213",
+    items:[
+      {id:"eq1", label:"Equipment and tools required for authorized scope available and serviceable", critical:true},
+      {id:"eq2", label:"Calibration records current for all measurement/test equipment", critical:true},
+      {id:"eq3", label:"Out-of-calibration equipment controls (quarantine, OOT disposition process) documented", critical:false},
+      {id:"eq4", label:"Materials and parts approved per §21 / supplier approval process documented", critical:false},
+      {id:"eq5", label:"Shelf-life and suspect/unapproved parts controls in place", critical:false}
+    ]
+  },
+  {
+    id:"personnel",
+    title:"Personnel & Certifications",
+    ref:"§145.151–157",
+    items:[
+      {id:"pe1", label:"Accountable Manager designated in writing; current OpSpecs reflect designation", critical:true},
+      {id:"pe2", label:"All authorized return-to-service personnel identified; certifications/repairman certs current", critical:true},
+      {id:"pe3", label:"Work authorization records (who is authorized for what) maintained and current", critical:false},
+      {id:"pe4", label:"Supervisory qualifications documented for all shop supervisors", critical:false}
+    ]
+  },
+  {
+    id:"training",
+    title:"Training Program & Records",
+    ref:"§145.163 / AC 145-9G",
+    items:[
+      {id:"tr1", label:"Written training program established covering initial, OJT, and recurrent training", critical:true},
+      {id:"tr2", label:"Training records for all personnel current (annual recurrent confirmed)", critical:true},
+      {id:"tr3", label:"Human Factors (HF) initial training records on file for all relevant personnel", critical:true},
+      {id:"tr4", label:"Awareness training records (security, safety) on file where required", critical:false},
+      {id:"tr5", label:"Instructor qualifications documented for in-house trainers", critical:false}
+    ]
+  },
+  {
+    id:"qc",
+    title:"Quality Control System",
+    ref:"§145.109 / §145.211",
+    items:[
+      {id:"qc1", label:"Quality Control Manual (or equivalent) approved, current, accessible", critical:true},
+      {id:"qc2", label:"Inspection procedures documented for all authorized work scope", critical:true},
+      {id:"qc3", label:"Return-to-service (RTS) authorization process documented; 8130-3/EASA Form 1 process in place", critical:true},
+      {id:"qc4", label:"In-process inspection checkpoints defined in work card/task cards", critical:false},
+      {id:"qc5", label:"Non-conformance / unsalvageable parts process documented and records maintained", critical:false},
+      {id:"qc6", label:"Audit / self-evaluation program documented and records on file", critical:false}
+    ]
+  },
+  {
+    id:"records",
+    title:"Records & Documentation",
+    ref:"§145.219–221",
+    items:[
+      {id:"rec1", label:"Work orders / maintenance records retained for minimum 2 years (or longer per customer/contract)", critical:true},
+      {id:"rec2", label:"Return-to-service documents (8130-3, EASA Form 1, CoC) issued and copies retained", critical:true},
+      {id:"rec3", label:"Parts traceability records (airworthiness tags, manufacturing approvals) retained with work order", critical:false},
+      {id:"rec4", label:"Records control process documented (storage, retrieval, protection from damage)", critical:false}
+    ]
+  },
+  {
+    id:"inspection",
+    title:"Inspector Qualifications & Inspection System",
+    ref:"§145.157 / §145.161",
+    items:[
+      {id:"in1", label:"Inspectors qualified per §145.157 (experience, training, examination)", critical:true},
+      {id:"in2", label:"Inspector qualification records on file and current", critical:true},
+      {id:"in3", label:"Inspection authority/stamp control documented (issuance, revocation, audit)", critical:false},
+      {id:"in4", label:"NDT authorizations current (if applicable); Level II/III certifications on file", critical:false}
+    ]
+  },
+  {
+    id:"contracted",
+    title:"Contracted Maintenance",
+    ref:"§145.217",
+    items:[
+      {id:"cm1", label:"Written contracts in place for all outsourced maintenance tasks", critical:false},
+      {id:"cm2", label:"Contractor capability / approval status verified and documented", critical:false},
+      {id:"cm3", label:"Work orders and records from contractors retained per §145.219", critical:false},
+      {id:"cm4", label:"Oversight process (audits, receiving inspection of returned work) documented", critical:false}
+    ]
+  },
+  {
+    id:"drug",
+    title:"Drug & Alcohol Program",
+    ref:"§145.53 / 14 CFR Part 120",
+    items:[
+      {id:"da1", label:"Drug and Alcohol Prevention Program (DAPP) in place per Part 120 (if required)", critical:true},
+      {id:"da2", label:"Supervisor anti-drug and alcohol misuse awareness training records current", critical:true},
+      {id:"da3", label:"Testing records and vendor/MRO contracts on file (if applicable)", critical:false},
+      {id:"da4", label:"Program administrator identified; program reviewed per current Part 120 requirements", critical:false}
+    ]
+  }
+];
+
+function buildDomains(){
+  const c=document.getElementById('domains-container');
+  DOMAINS.forEach(d=>{
+    const sec=document.createElement('section');
+    sec.className='domain';
+    sec.innerHTML=`
+      <div class="domain-header">
+        <div>
+          <div class="domain-title">${d.title}</div>
+          <div class="domain-ref">${d.ref}</div>
+        </div>
+        <span class="domain-verdict verdict-pending" id="vd-${d.id}">Not Assessed</span>
+      </div>
+      <div class="domain-body">
+        <table class="evidence-table">
+          <thead><tr><th style="width:60%">Evidence Item</th><th>Status</th></tr></thead>
+          <tbody>
+            ${d.items.map(item=>`
+              <tr>
+                <td>${item.label}${item.critical?'<span class="crit">★ Critical</span>':''}</td>
+                <td>
+                  <div class="radio-group">
+                    <label class="r-complete"><input type="radio" name="${item.id}" value="complete"> Complete</label>
+                    <label class="r-partial"><input type="radio" name="${item.id}" value="partial"> Partial</label>
+                    <label class="r-missing"><input type="radio" name="${item.id}" value="missing"> Missing</label>
+                    <label class="r-na"><input type="radio" name="${item.id}" value="na"> N/A</label>
+                  </div>
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+    c.appendChild(sec);
+  });
+}
+
+function getResponse(id){
+  const radios=document.getElementsByName(id);
+  for(const r of radios) if(r.checked) return r.value;
+  return null;
+}
+
+function domainVerdict(domain){
+  let anyMissing=false, anyPartial=false, anyUnanswered=false;
+  let critMissing=false;
+  domain.items.forEach(item=>{
+    const r=getResponse(item.id);
+    if(!r){anyUnanswered=true; return;}
+    if(r==='missing'){anyMissing=true; if(item.critical) critMissing=true;}
+    if(r==='partial') anyPartial=true;
+  });
+  if(anyUnanswered) return 'pending';
+  if(critMissing) return 'notready';
+  if(anyMissing) return 'notready';
+  if(anyPartial) return 'conditional';
+  return 'ready';
+}
+
+function assess(){
+  let notReadyCount=0, conditionalCount=0;
+  const domainResults=[];
+  const remediationItems=[];
+
+  DOMAINS.forEach(d=>{
+    const v=domainVerdict(d);
+    domainResults.push({domain:d, verdict:v});
+    const vEl=document.getElementById('vd-'+d.id);
+    vEl.className='domain-verdict';
+    if(v==='ready'){vEl.classList.add('verdict-ready');vEl.textContent='Ready';}
+    else if(v==='conditional'){vEl.classList.add('verdict-conditional');vEl.textContent='Conditional';conditionalCount++;}
+    else if(v==='notready'){vEl.classList.add('verdict-notready');vEl.textContent='Not Ready';notReadyCount++;}
+    else{vEl.classList.add('verdict-pending');vEl.textContent='Pending';}
+    if(v==='notready'||v==='conditional') remediationItems.push({domain:d,verdict:v});
+  });
+
+  let overall='ready', overallLabel='READY', overallSub='Evidence posture is substantially complete. Review Conditional domains before your inspection.';
+  if(notReadyCount>0){
+    overall='notready';
+    overallLabel='NOT READY';
+    overallSub=`${notReadyCount} domain(s) have critical evidence gaps requiring immediate action before any inspection.`;
+  } else if(conditionalCount>0){
+    overall='conditional';
+    overallLabel='CONDITIONAL';
+    overallSub=`${conditionalCount} domain(s) have partial evidence. Resolve before inspection to avoid findings.`;
+  }
+
+  const bilateral=document.getElementById('bilateral').checked;
+  const easaAdvisory=bilateral?`
+    <div class="advisory">
+      <h4>⚡ EASA Bilateral Advisory (MAG CHG 10)</h4>
+      <p>Your station holds EASA bilateral approval. MAG Change 10 (effective October 10, 2025) introduced new requirements including: <strong>Section 20 — SMS/SMSVP</strong> (a Safety Management System / SMS Voluntary Program must be in place or formally addressed), updated <strong>Accountable Manager</strong> duties (Section 4.1), annual audits of non-EASA contractors (Section 14), and EASA Form 3-145 updates. Verify your EASA Supplement has been updated to MAG CHG 10 compliance and that these evidence items are present in your QC system. Consider the EASA SMS/SMSVP Compliance Starter Kit for MAG §20 documentation.</p>
+    </div>`:'';
+
+  remediationItems.sort((a,b)=>(a.verdict==='notready'&&b.verdict!=='notready')?-1:(b.verdict==='notready'&&a.verdict!=='notready')?1:0);
+
+  const remHtml=remediationItems.length===0?'<p style="color:var(--ready);font-weight:600">No remediation items — all domains ready.</p>':
+    remediationItems.map(ri=>`
+      <div class="rem-item rem-${ri.verdict}">
+        <span class="rem-tag">${ri.verdict==='notready'?'NOT READY':'CONDITIONAL'}</span>
+        <div><strong>${ri.domain.title}</strong> (${ri.domain.ref})<br>
+          ${ri.domain.items.filter(i=>{const r=getResponse(i.id);return r==='missing'||r==='partial';})
+            .map(i=>`<span style="font-size:.78rem">${getResponse(i.id)==='missing'?'❌':'⚠️'} ${i.label}${i.critical?' ★':''}</span>`).join('<br>')}
+        </div>
+      </div>`).join('');
+
+  const cardsHtml=domainResults.map(r=>`
+    <div class="result-card" style="border-left:4px solid var(--${r.verdict==='ready'?'ready':r.verdict==='conditional'?'conditional':r.verdict==='notready'?'notready':'na'})">
+      <h4>${r.domain.title}</h4>
+      <div class="vc" style="color:var(--${r.verdict==='ready'?'ready':r.verdict==='conditional'?'conditional':r.verdict==='notready'?'notready':'na'})">
+        ${r.verdict==='ready'?'✓ Ready':r.verdict==='conditional'?'⚠ Conditional':r.verdict==='notready'?'✗ Not Ready':'— Pending'}
+      </div>
+    </div>`).join('');
+
+  const resultsDiv=document.getElementById('results');
+  resultsDiv.style.display='block';
+  resultsDiv.innerHTML=`
+    <h2 style="font-size:1rem;font-weight:700;color:var(--steel);margin-bottom:16px">Evidence-Readiness Results</h2>
+    <div class="overall-banner overall-${overall}">
+      <div>
+        <div class="overall-label" style="color:var(--${overall==='ready'?'ready':overall==='conditional'?'conditional':'notready'})">${overallLabel}</div>
+        <div class="overall-sub">${overallSub}</div>
+        <div style="font-size:.75rem;margin-top:4px;color:var(--na)">${notReadyCount} Not Ready · ${conditionalCount} Conditional · ${DOMAINS.length-notReadyCount-conditionalCount} Ready/N-A</div>
+      </div>
+    </div>
+    <div class="result-grid">${cardsHtml}</div>
+    <div class="remediation"><h3>Prioritized Remediation</h3>${remHtml}</div>
+    ${easaAdvisory}
+    <div style="margin-top:16px;font-size:.75rem;color:var(--na)">Results as of ${new Date().toLocaleDateString()}. Self-assessment only — not an FAA determination or certificate readiness authorization.</div>
+    <div class="btn-row">
+      <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+      <button class="btn" style="background:var(--slate)" onclick="copyJSON()">Export JSON</button>
+    </div>`;
+  resultsDiv.scrollIntoView({behavior:'smooth'});
+}
+
+function copyJSON(){
+  const data={tool:"FAA Part 145 Evidence-Readiness Audit Tool",date:new Date().toISOString(),domains:{}};
+  DOMAINS.forEach(d=>{
+    data.domains[d.id]={title:d.title,items:{}};
+    d.items.forEach(i=>{data.domains[d.id].items[i.id]={label:i.label,critical:i.critical,response:getResponse(i.id)};});
+  });
+  navigator.clipboard&&navigator.clipboard.writeText(JSON.stringify(data,null,2));
+  alert('JSON copied to clipboard.');
+}
+
+function resetAll(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.domain-verdict').forEach(el=>{el.className='domain-verdict verdict-pending';el.textContent='Not Assessed';});
+  document.getElementById('results').style.display='none';
+}
+
+buildDomains();
+</script>
+</body>
+</html>

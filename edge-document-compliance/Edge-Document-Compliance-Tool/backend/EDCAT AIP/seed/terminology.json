@@ -1,0 +1,70 @@
+{
+  "glossary": [
+    {
+      "term": "Procedure",
+      "definition": "Compliance document that defines WHAT is done and WHY it is required; never prescribes HOW.",
+      "do": [
+        "State compliance intent",
+        "Reference standards and forms",
+        "Describe scope and applicability"
+      ],
+      "dont": [
+        "Step-by-step instructions",
+        "UI clicks",
+        "Proprietary process details"
+      ],
+      "mapping": [
+        "AS9100 4\u201310 (various, per subject)"
+      ],
+      "style": {
+        "single_spacing": true,
+        "paragraph_headers": true
+      }
+    },
+    {
+      "term": "Work Instruction",
+      "definition": "Operational, step-by-step description of HOW tasks are performed; proprietary content; not shared with customers/regulators.",
+      "do": [
+        "Explicit steps",
+        "Screenshots allowed",
+        "Version with system names genericized"
+      ],
+      "dont": [
+        "Policy statements",
+        "Mandates beyond the task scope"
+      ],
+      "mapping": [
+        "Supports procedures only"
+      ]
+    },
+    {
+      "term": "Record",
+      "definition": "Objective evidence retained to demonstrate conformance and effective operation of the QMS.",
+      "do": [
+        "Retention per retention matrix",
+        "Traceable identifiers"
+      ],
+      "mapping": [
+        "AS9100 7.5.3.2"
+      ]
+    },
+    {
+      "term": "Objective Evidence",
+      "definition": "Verifiable information, records, or statements of fact that support the existence of a condition or compliance to a requirement.",
+      "examples": [
+        "Completed form with signatures",
+        "Calibration certificate",
+        "Training record with effectiveness review"
+      ]
+    },
+    {
+      "term": "Gap",
+      "definition": "Missing, incomplete, or misaligned documentation or evidence versus a cited requirement.",
+      "classes": [
+        "Documentation gap",
+        "Evidence gap",
+        "Practice gap"
+      ]
+    }
+  ]
+}

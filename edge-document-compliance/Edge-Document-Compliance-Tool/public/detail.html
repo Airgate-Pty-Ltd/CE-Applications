@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Requirement Details - EDCAT Administrator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #0a0e17;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+      border-bottom: 1px solid #2d3748;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-back {
+      background: none;
+      border: none;
+      color: #00d4aa;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .header-back:hover {
+      color: #00e0b6;
+    }
+
+    .header-title {
+      flex: 1;
+    }
+
+    .header-title h1 {
+      font-size: 20px;
+      color: #00d4aa;
+      margin: 0;
+    }
+
+    .header-title p {
+      font-size: 12px;
+      color: #a0aec0;
+      margin-top: 4px;
+    }
+
+    .header-type-badge {
+      padding: 6px 12px;
+      background: rgba(0, 212, 170, 0.2);
+      border: 1px solid #00d4aa;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #00d4aa;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #2d3748;
+      margin-bottom: 24px;
+      background: #1a1f2e;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .tab {
+      padding: 12px 20px;
+      background: none;
+      border: none;
+      color: #a0aec0;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .tab:hover {
+      color: #e2e8f0;
+      background: #15191f;
+    }
+
+    .tab.active {
+      color: #00d4aa;
+      border-bottom-color: #00d4aa;
+    }
+
+    .tab-icon {
+      margin-right: 6px;
+    }
+
+    /* TAB CONTENT */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* CONTENT SECTIONS */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #2d3748;
+    }
+
+    .section-header h2 {
+      color: #00d4aa;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #00d4aa;
+      color: #0f1419;
+    }
+
+    .btn-primary:hover {
+      background: #00e0b6;
+      box-shadow: 0 4px 12px rgba(0, 212, 170, 0.3);
+    }
+
+    .btn-secondary {
+      background: #2d3748;
+      color: #a0aec0;
+      border: 1px solid #2d3748;
+    }
+
+    .btn-secondary:hover {
+      background: #3d4758;
+      color: #e2e8f0;
+    }
+
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.2);
+      color: #f43f5e;
+      border: 1px solid #f43f5e;
+    }
+
+    .btn-danger:hover {
+      background: rgba(244, 63, 94, 0.3);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* INFO CARDS */
+    .info-card {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .info-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .info-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-label {
+      color: #a0aec0;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .info-value {
+      color: #e2e8f0;
+      font-size: 14px;
+    }
+
+    /* REQUIREMENTS TABLE */
+    .requirements-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .requirements-table thead {
+      background: #0f1419;
+    }
+
+    .requirements-table th {
+      padding: 12px;
+      text-align: left;
+      color: #00d4aa;
+      font-size: 12px;
+      font-weight: 600;
+      border-bottom: 1px solid #2d3748;
+    }
+
+    .requirements-table td {
+      padding: 12px;
+      border-bottom: 1px solid #2d3748;
+      font-size: 13px;
+    }
+
+    .requirements-table tbody tr:hover {
+      background: #15191f;
+    }
+
+    .requirement-clause {
+      color: #00d4aa;
+      font-weight: 600;
+    }
+
+    .requirement-text {
+      color: #a0aec0;
+    }
+
+    .confidence-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      background: rgba(0, 212, 170, 0.2);
+      color: #00d4aa;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+
+    /* EDIT FORM */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #a0aec0;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      background: #0f1419;
+      border: 1px solid #2d3748;
+      border-radius: 4px;
+      color: #e2e8f0;
+      font-size: 13px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #00d4aa;
+      box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+    }
+
+    /* STATUS */
+    .status-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-parsed {
+      background: rgba(0, 212, 170, 0.2);
+      color: #00d4aa;
+    }
+
+    .status-pending {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+
+    .status-error {
+      background: rgba(244, 63, 94, 0.2);
+      color: #f43f5e;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #a0aec0;
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid #2d3748;
+      border-top-color: #00d4aa;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <button class="header-back" onclick="window.history.back()">←</button>
+  <div class="header-title">
+    <h1 id="headerTitle">Requirement Details</h1>
+    <p id="headerSubtitle"></p>
+  </div>
+  <div class="header-type-badge" id="typeBadge"></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('overview', event)">
+      <span class="tab-icon">📋</span>Overview
+    </button>
+    <button class="tab" onclick="switchTab('parse', event)">
+      <span class="tab-icon">⚙️</span>Parse & Requirements
+    </button>
+  </div>
+
+  <!-- TAB 1: OVERVIEW -->
+  <div class="tab-content active" id="tab-overview">
+    <div class="section-header">
+      <h2>Overview</h2>
+      <div class="action-buttons">
+        <button class="btn btn-primary" onclick="exportData()">📥 Export</button>
+        <button class="btn btn-secondary" onclick="refreshData()">🔄 Refresh</button>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div id="overviewContent">
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: PARSE & REQUIREMENTS -->
+  <div class="tab-content" id="tab-parse">
+    <div class="section-header">
+      <h2>Parse Document & View Requirements</h2>
+      <div class="action-buttons" id="parseActionButtons" style="display: none;">
+        <input type="text" id="requirementsSearchInput" placeholder="Search requirements..." 
+               style="padding: 8px 12px; background: #0f1419; border: 1px solid #2d3748; border-radius: 4px; color: #e2e8f0; font-size: 13px; min-width: 250px;"
+               onkeyup="handleRequirementsSearch(event)" />
+        <button class="btn btn-secondary" onclick="clearRequirementsSearch()">Clear</button>
+      </div>
+    </div>
+
+    <!-- Parse Interface -->
+    <div id="parseContent" style="margin-bottom: 24px;"></div>
+    
+    <!-- Requirements Display -->
+    <div id="requirementsContent">
+      <div class="loading">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script>
+  // Get URL parameters
+  const params = new URLSearchParams(window.location.search);
+  let type = params.get('type'); // 'standard', 'customer', 'regulatory'
+  let id = params.get('id');
+
+  let currentItem = null;
+  let currentRequirements = [];
+
+  // Validate parameters - allow type-only for new uploads
+  function validateParameters() {
+    // Type is required, but id is optional (for new uploads)
+    if (!type) {
+      console.error('[INIT] Missing required parameter: type', { type, id });
+      const overviewEl = document.getElementById('overviewContent');
+      if (overviewEl) {
+        overviewEl.innerHTML = 
+          `<div class="empty-state">
+            <div class="empty-state-icon">⚠️</div>
+            <h3>Missing Type Parameter</h3>
+            <p>This page requires a type parameter in the URL.</p>
+            <p style="font-size: 12px; margin-top: 12px;">Example: /detail.html?type=standard</p>
+            <p style="font-size: 12px; margin-top: 8px; color: #a0aec0;">Or with an ID: /detail.html?type=standard&id=123</p>
+            <button class="btn btn-secondary" onclick="window.history.back()" style="margin-top: 16px;">
+              ← Go Back
+            </button>
+          </div>`;
+      }
+      // Disable all tabs except Edit (for new uploads)
+      document.querySelectorAll('.tab').forEach(tab => {
+        if (!tab.textContent.includes('Edit')) {
+          tab.disabled = true;
+          tab.style.opacity = '0.5';
+        }
+      });
+      return false;
+    }
+    
+    // If we have type but no id, allow Edit tab for new uploads
+    if (type && !id) {
+      // Enable Edit tab for new uploads
+      const editTab = document.querySelector('.tab[onclick*="edit"]');
+      if (editTab) {
+        editTab.disabled = false;
+        editTab.style.opacity = '1';
+      }
+      // Show message in overview
+      const overviewEl = document.getElementById('overviewContent');
+      if (overviewEl) {
+        overviewEl.innerHTML = 
+          `<div class="empty-state">
+            <div class="empty-state-icon">📤</div>
+            <h3>Upload New ${type.charAt(0).toUpperCase() + type.slice(1)}</h3>
+            <p>Use the <strong>Edit</strong> tab to upload a new ${type} document.</p>
+            <p style="font-size: 12px; margin-top: 12px; color: #a0aec0;">After upload, you'll be redirected to the detail page.</p>
+          </div>`;
+      }
+      // Switch to Edit tab automatically
+      setTimeout(() => {
+        const editTabBtn = document.querySelector('.tab[onclick*="edit"]');
+        if (editTabBtn) {
+          editTabBtn.click();
+        }
+      }, 100);
+      return true; // Allow initialization for new uploads
+    }
+    
+    return true;
+  }
+
+  // Tab switching
+  function switchTab(tabName, event) {
+    if (event) event.preventDefault();
+    
+    // Validate we have type and id before switching tabs
+    if (!type || !id) {
+      console.error('[switchTab] Cannot switch tabs - missing type or id');
+      return;
+    }
+    
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    
+    if (event && event.target) {
+      event.target.closest('.tab')?.classList.add('active');
+    }
+    document.getElementById(`tab-${tabName}`)?.classList.add('active');
+
+    // Load content if not loaded yet
+    try {
+      if (tabName === 'overview') {
+        loadOverview(); // This now includes edit form and status sections
+      }
+      if (tabName === 'parse') {
+        loadParseInterface();
+        loadRequirements();
+      }
+    } catch (error) {
+      console.error(`[switchTab] Error loading ${tabName}:`, error);
+    }
+  }
+
+  // INITIALIZATION
+  async function init() {
+    try {
+      console.log(`[INIT] Loading ${type} with id: ${id || 'NEW'}`);
+
+      // Only try to load existing item if we have an id
+      if (id) {
+        if (type === 'standard') {
+          await loadStandard();
+        } else if (type === 'customer') {
+          await loadCustomer();
+        } else if (type === 'regulatory') {
+          await loadRegulatory();
+        } else {
+          throw new Error(`Unknown type: ${type}. Must be 'standard', 'customer', or 'regulatory'`);
+        }
+      }
+      // If no id, validateParameters() will show the upload interface
+
+      loadOverview();
+    } catch (error) {
+      console.error('Init error:', error);
+      const overviewEl = document.getElementById('overviewContent');
+      if (overviewEl) {
+        overviewEl.innerHTML = 
+          `<div class="empty-state">
+            <div class="empty-state-icon">❌</div>
+            <h3>Error Loading Data</h3>
+            <p>${escapeHtml(error.message)}</p>
+            <button class="btn btn-secondary" onclick="window.history.back()" style="margin-top: 16px;">
+              ← Go Back
+            </button>
+          </div>`;
+      }
+    }
+  }
+
+  async function loadStandard() {
+    const response = await fetch(`/api/requirements/standards`);
+    const data = await response.json();
+    
+    if (!data.success || !data.standards) {
+      throw new Error('Failed to load standards');
+    }
+    
+    currentItem = data.standards.find(s => s.id === id);
+    
+    if (!currentItem) throw new Error('Standard not found');
+
+    document.getElementById('headerTitle').textContent = currentItem.code || currentItem.name;
+    document.getElementById('headerSubtitle').textContent = currentItem.name || '';
+    document.getElementById('typeBadge').textContent = '📖 Standard';
+    
+    // Refresh the item after a delay to ensure latest data
+    setTimeout(async () => {
+      try {
+        await refreshStandardData();
+      } catch (err) {
+        console.error('Error refreshing standard data:', err);
+      }
+    }, 500);
+  }
+  
+  async function refreshStandardData() {
+    // Reload standard to get latest data (requirements count, status, etc.)
+    // Use the parse status endpoint to get the most accurate count
+    try {
+      const statusResponse = await fetch(`/api/parse/status/${id}`);
+      const statusData = await statusResponse.json();
+      
+      if (statusData.success) {
+        // Update currentItem with the actual count from parsed_requirements table
+        if (currentItem) {
+          currentItem.total_requirements = statusData.requirementsCount;
+          currentItem.totalRequirements = statusData.requirementsCount;
+          currentItem.requirements_count = statusData.requirementsCount;
+          currentItem.parsed_at = statusData.isParsed ? (currentItem.parsed_at || new Date().toISOString()) : null;
+        }
+      }
+    } catch (statusError) {
+      console.warn('[refreshStandardData] Could not fetch parse status:', statusError);
+    }
+    
+    // Also fetch from standards endpoint for other fields
+    const response = await fetch(`/api/requirements/standards`);
+    const data = await response.json();
+    
+    if (data.success && data.standards) {
+      const updatedItem = data.standards.find(s => s.id === id);
+      if (updatedItem) {
+        // Merge the parse status count with the standards data
+        if (currentItem && currentItem.total_requirements !== undefined) {
+          updatedItem.total_requirements = currentItem.total_requirements;
+          updatedItem.totalRequirements = currentItem.totalRequirements;
+          updatedItem.requirements_count = currentItem.requirements_count;
+        }
+        currentItem = updatedItem;
+        // Reload overview to update display
+        loadOverview();
+        // Reload parse interface if on that tab
+        if (document.getElementById('tab-parse') && document.getElementById('tab-parse').classList.contains('active')) {
+          loadParseInterface();
+          loadRequirements();
+        }
+      }
+    }
+  }
+
+  async function loadCustomer() {
+    // Customer requirements are now stored in standards table with file_category='customer'
+    const response = await fetch(`/api/requirements/standards?category=customer`);
+    const data = await response.json();
+    
+    if (!data.success || !data.standards) {
+      throw new Error('Failed to load customer requirements');
+    }
+    
+    const customer = data.standards.find(s => s.id === id);
+    
+    if (!customer) throw new Error('Customer requirement not found');
+
+    currentItem = {
+      id: customer.id,
+      code: customer.code,
+      name: customer.name || customer.code,
+      type: 'customer',
+      file_category: customer.file_category,
+      uploaded_at: customer.uploaded_at,
+      parsed_at: customer.parsed_at,
+      requirements_count: customer.requirements_count || 0
+    };
+
+    document.getElementById('headerTitle').textContent = currentItem.name;
+    document.getElementById('headerSubtitle').textContent = 'Customer Requirements';
+    document.getElementById('typeBadge').textContent = '🏢 Customer';
+  }
+
+  async function loadRegulatory() {
+    // FIXED: Regulatory documents are stored in standards table with file_category='regulatory'
+    try {
+      const response = await fetch(`/api/requirements/standards?category=regulatory`);
+      const data = await response.json();
+      
+      if (!data.success || !data.standards) {
+        throw new Error('Failed to load regulatory requirements');
+      }
+      
+      const regulatory = data.standards.find(s => s.id === id);
+      
+      if (!regulatory) {
+        // Fallback: try requirements table
+        console.log(`⚠️ Regulatory not found in standards table, trying requirements table for id: ${id}`);
+        const reqResponse = await fetch(`/api/requirements/standards/${id}/requirements`);
+        const reqData = await reqResponse.json();
+        
+        if (reqData.success && reqData.requirements && reqData.requirements.length > 0) {
+          // Found in requirements table, create a synthetic currentItem
+          currentItem = {
+            id: id,
+            code: reqData.requirements[0].standard_code || 'REGULATORY',
+            name: reqData.requirements[0].standard_name || 'Regulatory Requirement',
+            type: 'regulatory',
+            file_category: 'regulatory',
+            total_requirements: reqData.requirements.length,
+            requirements_count: reqData.requirements.length
+          };
+        } else {
+          throw new Error('Regulatory source not found');
+        }
+      } else {
+        currentItem = {
+          id: regulatory.id,
+          code: regulatory.code,
+          name: regulatory.name || regulatory.code,
+          type: 'regulatory',
+          file_category: regulatory.fileCategory || 'regulatory',
+          uploaded_at: regulatory.uploadedAt,
+          parsed_at: regulatory.parsed_at,
+          total_requirements: regulatory.totalRequirements || 0,
+          requirements_count: regulatory.totalRequirements || 0,
+          agency: regulatory.authority_source || regulatory.authority || null,
+          regulatory_body: regulatory.authority_source || regulatory.authority || null
+        };
+      }
+
+      document.getElementById('headerTitle').textContent = currentItem.name;
+      document.getElementById('headerSubtitle').textContent = currentItem.agency || currentItem.regulatory_body || 'Regulatory Requirements';
+      document.getElementById('typeBadge').textContent = '⚖️ Regulatory';
+    } catch (error) {
+      console.error('Error loading regulatory:', error);
+      throw new Error(`Regulatory source not found: ${error.message}`);
+    }
+  }
+
+  async function loadOverview() {
+    const content = document.getElementById('overviewContent');
+    
+    if (!currentItem) {
+      content.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+      return;
+    }
+
+    let html = '';
+    if (type === 'standard') {
+      // Get actual requirements count from API
+      let requirementsCount = currentItem.totalRequirements || currentItem.total_requirements || currentItem.requirements_count || 0;
+      
+      // Try to fetch actual count if it's 0
+      if (requirementsCount === 0 && id) {
+        try {
+          const reqResponse = await fetch(`/api/requirements/standards/${id}/requirements`);
+          const reqData = await reqResponse.json();
+          if (reqData.success && reqData.requirements) {
+            requirementsCount = reqData.requirements.length;
+            currentItem.totalRequirements = requirementsCount;
+          }
+        } catch (err) {
+          console.error('Error fetching requirements count:', err);
+        }
+      }
+      
+      const isParsed = requirementsCount > 0 || currentItem.parsed_at;
+      const uploadedAt = currentItem.uploadedAt || currentItem.uploaded_at;
+      const authority = currentItem.authority_source || currentItem.authority || currentItem.authoritySource || 'N/A';
+      
+      html = `
+        <div style="margin-bottom: 24px;">
+          <h3 style="color: #00d4aa; margin-bottom: 16px; font-size: 16px;">📋 Standard Information</h3>
+          <div class="info-card">
+            <div class="info-row">
+              <div class="info-label">Code</div>
+              <div class="info-value">${escapeHtml(currentItem.code || 'N/A')}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Name</div>
+              <div class="info-value">${escapeHtml(currentItem.name || 'N/A')}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Authority</div>
+              <div class="info-value">${escapeHtml(authority)}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Requirements</div>
+              <div class="info-value">${requirementsCount}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Status</div>
+              <div class="info-value">
+                ${isParsed
+                  ? '<span class="status-badge status-parsed">✓ Parsed</span>' 
+                  : '<span class="status-badge status-pending">⏱️ Pending</span>'}
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Uploaded</div>
+              <div class="info-value">${uploadedAt ? new Date(uploadedAt).toLocaleString() : 'N/A'}</div>
+            </div>
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 24px;" id="overviewEditSection">
+          <h3 style="color: #00d4aa; margin-bottom: 16px; font-size: 16px;">✏️ Edit Standard</h3>
+          <div class="info-card" id="overviewEditContent">
+            <div class="loading"><div class="spinner"></div></div>
+          </div>
+        </div>
+        
+        <div id="overviewStatusSection">
+          <h3 style="color: #00d4aa; margin-bottom: 16px; font-size: 16px;">✓ Status & History</h3>
+          <div class="info-card" id="overviewStatusContent">
+            <div class="loading"><div class="spinner"></div></div>
+          </div>
+        </div>
+      `;
+    } else if (type === 'customer') {
+      html = `
+        <div class="info-row">
+          <div class="info-label">Customer Name</div>
+          <div class="info-value">${escapeHtml(currentItem.name)}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Type</div>
+          <div class="info-value">Customer Requirements</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Documents</div>
+          <div class="info-value" id="customerDocCount">Loading...</div>
+        </div>
+      `;
+    } else if (type === 'regulatory') {
+      html = `
+        <div class="info-row">
+          <div class="info-label">Authority</div>
+          <div class="info-value">${escapeHtml(currentItem.agency || currentItem.regulatory_body || 'N/A')}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">URL</div>
+          <div class="info-value"><a href="${escapeHtml(currentItem.url)}" target="_blank" style="color: #00d4aa;">${escapeHtml(currentItem.url)}</a></div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Status</div>
+          <div class="info-value">
+            ${currentItem.is_active 
+              ? '<span class="status-badge status-parsed">✓ Active</span>' 
+              : '<span class="status-badge status-error">⛔ Inactive</span>'}
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Last Scraped</div>
+          <div class="info-value">${currentItem.last_scraped ? new Date(currentItem.last_scraped).toLocaleDateString() : 'Never'}</div>
+        </div>
+      `;
+    }
+
+    content.innerHTML = html;
+    
+    // Load edit form and status in their sections immediately after HTML is set
+    if (type === 'standard') {
+      // Use requestAnimationFrame to ensure DOM is ready
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          if (document.getElementById('overviewEditContent')) {
+            loadEditFormForOverview();
+          }
+          if (document.getElementById('overviewStatusContent')) {
+            loadStatusForOverview();
+          }
+        }, 50);
+      });
+    }
+  }
+  
+  async function loadEditFormForOverview() {
+    const content = document.getElementById('overviewEditContent');
+    if (!content) {
+      console.warn('[loadEditFormForOverview] overviewEditContent element not found');
+      return;
+    }
+    
+    if (!currentItem) {
+      content.innerHTML = '<div class="empty-state">Unable to load edit form.</div>';
+      return;
+    }
+    
+    let html = `
+      <div class="form-group">
+        <label>📤 Upload/Replace Document</label>
+        <div style="margin-bottom: 12px;">
+          <button class="btn btn-secondary" onclick="document.getElementById('overview-upload-standard').click()" style="width: 100%;">
+            + Upload New Standard Document
+          </button>
+          <input type="file" id="overview-upload-standard" accept=".pdf,.doc,.docx" onchange="handleOverviewUpload(event, 'standard')" style="display: none;">
+        </div>
+        <div id="overview-upload-status" style="font-size: 12px; color: #a0aec0; margin-top: 8px;"></div>
+        <p style="font-size: 11px; color: #64748b; margin-top: 8px;">Upload a new document to replace the existing file. The document will be stored in the database.</p>
+      </div>
+      <div class="form-group">
+        <label>Code</label>
+        <input type="text" id="overviewEditCode" value="${escapeHtml(currentItem.code || '')}" readonly style="width: 100%; padding: 10px; background: #0f1419; border: 1px solid #2d3748; border-radius: 4px; color: #a0aec0; font-size: 13px;">
+      </div>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="overviewEditName" value="${escapeHtml(currentItem.name || '')}" style="width: 100%; padding: 10px; background: #0f1419; border: 1px solid #2d3748; border-radius: 4px; color: #e2e8f0; font-size: 13px;">
+      </div>
+      <div class="form-group">
+        <label>Authority Source</label>
+        <input type="text" id="overviewEditAuthority" value="${escapeHtml(currentItem.authority_source || currentItem.authority || '')}" style="width: 100%; padding: 10px; background: #0f1419; border: 1px solid #2d3748; border-radius: 4px; color: #e2e8f0; font-size: 13px;">
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea id="overviewEditNotes" rows="3" style="width: 100%; padding: 10px; background: #0f1419; border: 1px solid #2d3748; border-radius: 4px; color: #e2e8f0; font-size: 13px;">${escapeHtml(currentItem.notes || '')}</textarea>
+      </div>
+      <div style="display: flex; gap: 8px; margin-top: 16px;">
+        <button type="button" class="btn btn-primary" onclick="saveOverviewChanges()" style="flex: 1;">
+          💾 Save Changes
+        </button>
+        <button type="button" class="btn btn-danger" onclick="deleteStandard()" style="flex: 1;">
+          🗑️ Delete Standard
+        </button>
+      </div>
+      <p style="font-size: 11px; color: #f43f5e; margin-top: 8px; text-align: center;">
+        ⚠️ Deleting will permanently remove this standard and all its requirements
+      </p>
+    `;
+    
+    content.innerHTML = html;
+  }
+  
+  async function loadStatusForOverview() {
+    const content = document.getElementById('overviewStatusContent');
+    if (!content) {
+      console.warn('[loadStatusForOverview] overviewStatusContent element not found');
+      return;
+    }
+    
+    if (!currentItem) {
+      content.innerHTML = '<div class="empty-state">Unable to load status.</div>';
+      return;
+    }
+    
+    let html = `
+      <div class="info-row">
+        <div class="info-label">Created</div>
+        <div class="info-value">${new Date(currentItem.uploadedAt || currentItem.uploaded_at || currentItem.created_at || Date.now()).toLocaleString()}</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Last Updated</div>
+        <div class="info-value">${new Date(currentItem.updated_at || currentItem.uploadedAt || currentItem.uploaded_at || Date.now()).toLocaleString()}</div>
+      </div>
+    `;
+
+    if (type === 'standard') {
+      const requirementsCount = currentItem.totalRequirements || currentItem.total_requirements || currentItem.requirements_count || 0;
+      const isParsed = requirementsCount > 0 || currentItem.parsed_at;
+      
+      html += `
+        <div class="info-row">
+          <div class="info-label">Parse Status</div>
+          <div class="info-value">
+            ${isParsed
+              ? `✓ Parsed (${requirementsCount} requirements extracted)` 
+              : '⏱️ Pending - Click "Parse & Requirements" tab to parse'}
+          </div>
+        </div>
+        ${isParsed && currentItem.parsed_at ? `
+        <div class="info-row">
+          <div class="info-label">Parsed At</div>
+          <div class="info-value">${new Date(currentItem.parsed_at).toLocaleString()}</div>
+        </div>
+        ` : ''}
+      `;
+    }
+
+    content.innerHTML = html;
+  }
+  
+  async function saveOverviewChanges() {
+    if (!currentItem || !id) {
+      alert('Cannot save: No standard loaded');
+      return;
+    }
+    
+    const name = document.getElementById('overviewEditName')?.value;
+    const authority = document.getElementById('overviewEditAuthority')?.value;
+    const notes = document.getElementById('overviewEditNotes')?.value;
+    
+    try {
+      const response = await fetch(`/api/requirements/standards/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name || currentItem.name,
+          authority_source: authority || currentItem.authority_source,
+          notes: notes || currentItem.notes
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        alert('✅ Standard updated successfully!');
+        await refreshStandardData();
+        loadOverview(); // Reload to show updated data
+      } else {
+        alert(`❌ Failed to update: ${data.error || data.message || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Error saving changes:', error);
+      alert(`❌ Error: ${error.message}`);
+    }
+  }
+  
+  async function deleteStandard() {
+    if (!currentItem || !id) {
+      alert('Cannot delete: No standard loaded');
+      return;
+    }
+    
+    const standardName = currentItem.name || currentItem.code || 'this standard';
+    const requirementsCount = currentItem.totalRequirements || currentItem.total_requirements || 0;
+    const confirmMessage = `Are you sure you want to DELETE "${standardName}"?\n\nThis will permanently delete:\n- The standard record\n- All ${requirementsCount} extracted requirements\n- The uploaded document file\n\nThis action CANNOT be undone!`;
+    
+    if (!confirm(confirmMessage)) {
+      return;
+    }
+    
+    // Double confirmation for safety
+    if (!confirm('⚠️ FINAL WARNING: This will permanently delete everything. Continue?')) {
+      return;
+    }
+    
+    try {
+      const response = await fetch(`/api/requirements/standards/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        alert('✅ Standard deleted successfully!');
+        // Redirect back to main page
+        window.location.href = '/';
+      } else {
+        alert(`❌ Failed to delete: ${data.error || data.message || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Error deleting standard:', error);
+      alert(`❌ Error: ${error.message}`);
+    }
+  }
+
+  async function loadRequirements(searchTermParam = '') {
+    const content = document.getElementById('requirementsContent');
+    
+    // Get search term from input field if not provided as parameter
+    let searchTerm = searchTermParam;
+    if (!searchTerm) {
+      const searchInput = document.getElementById('requirementsSearchInput');
+      if (searchInput) {
+        searchTerm = searchInput.value.trim();
+      }
+    }
+    
+    if (type === 'standard' || type === 'regulatory' || type === 'customer') {
+      try {
+        console.log(`[loadRequirements] Fetching requirements for standard ${id}...`);
+        const response = await fetch(`/api/requirements/standards/${id}/requirements`);
+        const data = await response.json();
+        
+        console.log(`[loadRequirements] API response:`, {
+          success: data.success,
+          requirementsCount: data.requirements?.length || 0,
+          hasRequirements: !!(data.requirements && data.requirements.length > 0),
+          sampleRequirement: data.requirements?.[0],
+          fullResponse: data
+        });
+        
+        // CRITICAL: Check if content element exists
+        if (!content) {
+          console.error(`[loadRequirements] ❌ requirementsContent element not found!`);
+          return;
+        }
+
+        if (data.success && data.requirements && data.requirements.length > 0) {
+          console.log(`[loadRequirements] ✓ Rendering ${data.requirements.length} requirements`);
+          // Store all requirements for client-side filtering if needed
+          allRequirements = data.requirements;
+          
+          // Filter requirements if search term is provided (client-side filtering for better UX)
+          let filteredRequirements = data.requirements;
+          if (searchTerm) {
+            const searchLower = searchTerm.toLowerCase();
+            filteredRequirements = data.requirements.filter(req => {
+              const clauseText = (req.fullRef || req.clauseRef || req.clauseNumber || '').toLowerCase();
+              const paragraphText = (req.subjectText || req.clauseTitle || '').toLowerCase();
+              const requirementText = (req.text || req.requirement_text || '').toLowerCase();
+              return clauseText.includes(searchLower) || 
+                     paragraphText.includes(searchLower) || 
+                     requirementText.includes(searchLower);
+            });
+          }
+
+          if (filteredRequirements.length === 0 && searchTerm) {
+            content.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div>No requirements found matching "${escapeHtml(searchTerm)}".</div>`;
+            return;
+          }
+
+          let html = '<table class="requirements-table" style="width: 100%; border-collapse: collapse; margin-top: 20px;"><thead><tr style="background: var(--primary-dark); color: white;">' +
+            '<th style="padding: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.2); width: 15%;">Clause / Subclause</th>' +
+            '<th style="padding: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.2); width: 20%;">Paragraph</th>' +
+            '<th style="padding: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.2); width: 65%;">Requirement Statement</th>' +
+            '</tr></thead><tbody>';
+
+          filteredRequirements.forEach(req => {
+            // Column 1: Clause/Subclause - CRITICAL FIX: Use clauseNumber (subclause) or fullRef
+            let clauseDisplay = '';
+            if (req.clauseNumber) {
+              // clauseNumber contains subclause (e.g., "8.5.1")
+              clauseDisplay = req.clauseNumber;
+            } else if (req.fullRef) {
+              clauseDisplay = req.fullRef;
+            } else if (req.clauseRef) {
+              clauseDisplay = req.clauseRef;
+              if (req.subRef) {
+                clauseDisplay += '.' + req.subRef;
+              }
+            } else {
+              clauseDisplay = 'N/A';
+            }
+
+            // Column 2: Paragraph - CRITICAL FIX: Use subjectText which contains paragraph (P1, P2, etc.)
+            let paragraphDisplay = '';
+            if (req.subjectText && req.subjectText !== 'implicit' && req.subjectText !== 'Untitled') {
+              paragraphDisplay = req.subjectText;
+            } else {
+              paragraphDisplay = 'Untitled';
+            }
+
+            // Column 3: Requirement Statement
+            const requirementText = escapeHtml(req.text || req.requirement_text || 'No requirement text');
+
+            html += `<tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 12px; font-weight: 600; color: var(--primary); font-family: monospace; font-size: 13px; vertical-align: top;">${escapeHtml(clauseDisplay)}</td>
+              <td style="padding: 12px; color: var(--text-light); font-size: 12px; vertical-align: top;">${escapeHtml(paragraphDisplay)}</td>
+              <td style="padding: 12px; color: var(--text-dark); line-height: 1.6; vertical-align: top;">${requirementText}</td>
+            </tr>`;
+          });
+
+          html += '</tbody></table>';
+          html += `<div style="margin-top: 16px; padding: 12px; background: rgba(22, 160, 133, 0.1); border-radius: 4px; color: var(--text-light); font-size: 12px;">
+            ${searchTerm ? `Showing ${filteredRequirements.length} of ${data.requirements.length} requirement(s)` : `Total: ${data.requirements.length} requirement(s) extracted`}
+          </div>`;
+          console.log(`[loadRequirements] ✓ Setting innerHTML (${html.length} chars)`);
+          content.innerHTML = html;
+          console.log(`[loadRequirements] ✓ innerHTML set, content.children.length: ${content.children.length}`);
+        } else {
+          console.warn(`[loadRequirements] ❌ No requirements found. Response:`, data);
+          console.warn(`[loadRequirements] ❌ data.success: ${data.success}, data.requirements:`, data.requirements);
+          const message = data.success 
+            ? `No requirements found. API returned ${data.requirements?.length || 0} requirements. Check console for details.`
+            : `Error: ${data.error || 'Unknown error'}`;
+          if (content) {
+            content.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📄</div>${message}</div>`;
+          } else {
+            console.error(`[loadRequirements] ❌ Cannot set message - content element is null!`);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading requirements:', error);
+        content.innerHTML = `<div class="empty-state">Error loading requirements: ${error.message}</div>`;
+      }
+    } else {
+      content.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📄</div>Requirements view for ' + type + ' coming soon.</div>';
+    }
+  }
+
+  async function loadEditForm() {
+    const content = document.getElementById('editFormContent');
+    
+    // If no type, show error
+    if (!type) {
+      content.innerHTML = '<div class="empty-state">Missing type parameter. Please go back and select a requirement type.</div>';
+      return;
+    }
+    
+    // Ensure currentItem is loaded
+    if (!currentItem && id) {
+      console.log('[loadEditForm] currentItem is null, attempting to reload...');
+      try {
+        if (type === 'customer') {
+          await loadCustomer();
+        } else if (type === 'standard') {
+          await loadStandard();
+        } else if (type === 'regulatory') {
+          await loadRegulatory();
+        }
+      } catch (error) {
+        console.error('[loadEditForm] Error reloading:', error);
+        content.innerHTML = `<div class="empty-state">Error loading ${type}: ${escapeHtml(error.message)}</div>`;
+        return;
+      }
+    }
+    
+    if (!currentItem) {
+      content.innerHTML = '<div class="empty-state">Unable to load item details. Please go back and try again.</div>';
+      return;
+    }
+    
+    let html = '';
+    if (type === 'standard') {
+      html = `
+        <div class="form-group">
+          <label>📤 Upload Document</label>
+          <div style="margin-bottom: 12px;">
+            <button class="btn btn-secondary" onclick="document.getElementById('detail-upload-standard').click()" style="width: 100%;">
+              + Upload New Standard Document
+            </button>
+            <input type="file" id="detail-upload-standard" accept=".pdf,.doc,.docx" onchange="handleDetailUpload(event, 'standard')" style="display: none;">
+          </div>
+          <div id="detail-upload-status" style="font-size: 12px; color: #a0aec0; margin-top: 8px;"></div>
+        </div>
+        <div class="form-group">
+          <label>Code</label>
+          <input type="text" id="editCode" value="${escapeHtml(currentItem.code || '')}" readonly>
+        </div>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="editName" value="${escapeHtml(currentItem.name || '')}">
+        </div>
+        <div class="form-group">
+          <label>Authority Source</label>
+          <input type="text" id="editAuthority" value="${escapeHtml(currentItem.authority_source || currentItem.authority || '')}">
+        </div>
+        <div class="form-group">
+          <label>Notes</label>
+          <textarea id="editNotes" rows="4">${escapeHtml(currentItem.notes || '')}</textarea>
+        </div>
+      `;
+    } else if (type === 'customer') {
+      html = `
+        <div class="form-group">
+          <label>📤 Upload Document</label>
+          <div style="margin-bottom: 12px;">
+            <button class="btn btn-secondary" onclick="document.getElementById('detail-upload-customer').click()" style="width: 100%;">
+              + Upload Customer Requirements Document
+            </button>
+            <input type="file" id="detail-upload-customer" accept=".pdf,.doc,.docx" multiple onchange="handleDetailUpload(event, 'customer')" style="display: none;">
+          </div>
+          <div id="detail-upload-status" style="font-size: 12px; color: #a0aec0; margin-top: 8px;"></div>
+        </div>
+        <div class="form-group">
+          <label>Customer Name</label>
+          <input type="text" id="editName" value="${escapeHtml(currentItem.name || currentItem.code || '')}">
+        </div>
+        <div class="form-group">
+          <label>Contact Email</label>
+          <input type="email" id="editEmail" placeholder="email@company.com">
+        </div>
+      `;
+    } else if (type === 'regulatory') {
+      html = `
+        <div class="form-group">
+          <label>📤 Upload Document</label>
+          <div style="margin-bottom: 12px;">
+            <button class="btn btn-secondary" onclick="document.getElementById('detail-upload-regulatory').click()" style="width: 100%;">
+              + Upload Regulatory Document
+            </button>
+            <input type="file" id="detail-upload-regulatory" accept=".pdf,.doc,.docx" onchange="handleDetailUpload(event, 'regulatory')" style="display: none;">
+          </div>
+          <div id="detail-upload-status" style="font-size: 12px; color: #a0aec0; margin-top: 8px;"></div>
+        </div>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="editName" value="${escapeHtml(currentItem.name)}">
+        </div>
+        <div class="form-group">
+          <label>URL</label>
+          <input type="url" id="editUrl" value="${escapeHtml(currentItem.url)}">
+        </div>
+        <div class="form-group">
+          <label>Agency</label>
+          <input type="text" id="editAgency" value="${escapeHtml(currentItem.agency || currentItem.regulatory_body || '')}">
+        </div>
+      `;
+    }
+
+    content.innerHTML = html;
+  }
+
+  async function handleDetailUpload(event, fileType) {
+    await handleUpload(event, fileType, 'detail-upload-status');
+  }
+  
+  async function handleOverviewUpload(event, fileType) {
+    await handleUpload(event, fileType, 'overview-upload-status');
+  }
+  
+  async function handleUpload(event, fileType, statusElementId) {
+    // Allow uploads even without id (for new items)
+    // But we need at least the type
+    if (!type) {
+      console.error('[handleUpload] Cannot upload - missing type');
+      alert('Error: Missing page type parameter. Please go back and select a requirement type.');
+      return;
+    }
+
+    const files = Array.from(event.target.files || []);
+    if (files.length === 0) {
+      console.log('[handleUpload] No files selected');
+      return;
+    }
+
+    const statusEl = document.getElementById(statusElementId);
+    if (statusEl) {
+      statusEl.textContent = `Uploading ${files.length} file(s)...`;
+      statusEl.style.color = '#ffc107';
+    }
+
+    try {
+      const formData = new FormData();
+      files.forEach(file => {
+        formData.append('files', file);
+      });
+      
+      // Normalize type: URL uses singular (standard), API expects plural (standards)
+      let apiType = fileType;
+      if (fileType === 'standard') {
+        apiType = 'standards';
+      } else if (fileType === 'customer') {
+        apiType = 'customer'; // Keep as is
+      } else if (fileType === 'regulatory') {
+        apiType = 'regulatory'; // Keep as is
+      }
+      formData.append('type', apiType);
+
+      // For standards, include the standard ID if we're updating an existing one
+      // If no id, this will create a new standard
+      if (type === 'standard') {
+        if (id) {
+          formData.append('standardId', id);
+        }
+        // For new standards, the upload API will create the standard record
+      }
+
+      // For customers, include customer ID if available
+      // If no id, this will create a new customer
+      if (type === 'customer') {
+        if (id) {
+          formData.append('customerId', id);
+        }
+        // For new customers, the upload API will create the customer record
+      }
+
+      // For regulatory, include regulatory ID if available
+      if (type === 'regulatory' && id) {
+        formData.append('regulatoryId', id);
+      }
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errorData;
+        try {
+          errorData = JSON.parse(errorText);
+        } catch {
+          errorData = { error: errorText || `HTTP ${response.status}` };
+        }
+        throw new Error(errorData.error || errorData.message || `Upload failed with status ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      if (result.success) {
+        if (statusEl) {
+          statusEl.textContent = `✅ Successfully uploaded ${files.length} file(s)`;
+          statusEl.style.color = '#00d4aa';
+        }
+        
+        // If this was a new item (no id), redirect to the detail page with the new id
+        if (!id && result.standardId) {
+          // New standard was created
+          window.location.href = `/detail.html?type=standard&id=${result.standardId}`;
+          return;
+        } else if (!id && result.customerId) {
+          // New customer was created
+          window.location.href = `/detail.html?type=customer&id=${result.customerId}`;
+          return;
+        } else if (!id && result.regulatoryId) {
+          // New regulatory source was created
+          window.location.href = `/detail.html?type=regulatory&id=${result.regulatoryId}`;
+          return;
+        }
+        
+        // Reload the item data after a short delay (for existing items)
+        if (id && type === 'standard') {
+          setTimeout(async () => {
+            try {
+              await refreshStandardData();
+              // Reload sections if visible
+              if (document.getElementById('overviewEditContent')) {
+                loadEditFormForOverview();
+              }
+              if (document.getElementById('overviewStatusContent')) {
+                loadStatusForOverview();
+              }
+            } catch (reloadError) {
+              console.error('[handleUpload] Error reloading after upload:', reloadError);
+            }
+          }, 1500);
+        } else if (id) {
+          // For non-standards, reload the item
+          setTimeout(async () => {
+            try {
+              await init();
+            } catch (reloadError) {
+              console.error('[handleUpload] Error reloading after upload:', reloadError);
+            }
+          }, 1000);
+        } else {
+          // For new items without an id returned, refresh the page to show the new item
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        }
+      } else {
+        throw new Error(result.error || result.message || 'Upload failed');
+      }
+    } catch (error) {
+      console.error('[handleUpload] Upload error:', error);
+      const statusEl = document.getElementById(statusElementId);
+      if (statusEl) {
+        statusEl.textContent = `❌ Upload failed: ${error.message}`;
+        statusEl.style.color = '#f43f5e';
+      } else {
+        alert(`Upload failed: ${error.message}`);
+      }
+    } finally {
+      // Reset file input
+      if (event && event.target) {
+        event.target.value = '';
+      }
+    }
+  }
+
+  async function loadParseInterface() {
+    const content = document.getElementById('parseContent');
+    const actionButtons = document.getElementById('parseActionButtons');
+
+    if ((type === 'standard' || type === 'customer' || type === 'regulatory') && currentItem) {
+      // Get actual requirements count
+      let requirementsCount = currentItem.totalRequirements || currentItem.total_requirements || currentItem.requirements_count || 0;
+      const isParsed = requirementsCount > 0 || currentItem.parsed_at;
+      
+      if (!isParsed) {
+        content.innerHTML = `
+          <div class="info-card">
+            <h3 style="color: #00d4aa; margin-bottom: 16px; font-size: 16px;">⚙️ Parse Document</h3>
+            <div class="info-row">
+              <div class="info-label">Status</div>
+              <div class="info-value"><span class="status-badge status-pending">⏱️ Not yet parsed</span></div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 16px; width: 100%;" onclick="parseStandard()">
+              ⚙️ Start Parse Now
+            </button>
+            <p style="font-size: 12px; color: #a0aec0; margin-top: 12px;">This will extract requirements from the uploaded document. This may take a few moments.</p>
+          </div>
+        `;
+        if (actionButtons) actionButtons.style.display = 'none';
+      } else {
+        content.innerHTML = `
+          <div class="info-card">
+            <h3 style="color: #00d4aa; margin-bottom: 16px; font-size: 16px;">⚙️ Parse Document</h3>
+            <div class="info-row">
+              <div class="info-label">Status</div>
+              <div class="info-value"><span class="status-badge status-parsed">✓ Parsed (${requirementsCount} requirements)</span></div>
+            </div>
+            ${currentItem.parsed_at ? `
+            <div class="info-row">
+              <div class="info-label">Parsed At</div>
+              <div class="info-value">${new Date(currentItem.parsed_at).toLocaleString()}</div>
+            </div>
+            ` : ''}
+            <button class="btn btn-secondary" style="margin-top: 16px; width: 100%;" onclick="reParseStandard()">
+              🔄 Re-Parse (Will overwrite existing requirements)
+            </button>
+            <p style="font-size: 12px; color: #a0aec0; margin-top: 12px;">Re-parsing will delete existing requirements and extract fresh ones with updated parsing logic.</p>
+          </div>
+        `;
+        if (actionButtons) actionButtons.style.display = 'flex';
+      }
+    } else if (type === 'customer' || type === 'regulatory') {
+      // FIXED: Enable parsing for customer and regulatory documents
+      const isParsed = (currentItem.totalRequirements || currentItem.total_requirements || currentItem.requirements_count || 0) > 0 || currentItem.parsed_at;
+      
+      if (!isParsed) {
+        content.innerHTML = `
+          <div class="info-card">
+            <h3 style="color: #00d4aa; margin-bottom: 16px; font-size: 16px;">⚙️ Parse ${type === 'customer' ? 'Customer Requirements' : 'Regulatory Requirements'}</h3>
+            <div class="info-row">
+              <div class="info-label">Status</div>
+              <div class="info-value">⏱️ Pending</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Requirements</div>
+              <div class="info-value">0</div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 16px; width: 100%;" onclick="parseStandard()">
+              ⚙️ Start Parse Now
+            </button>
+            <p style="font-size: 12px; color: #a0aec0; margin-top: 12px;">Click to extract requirements from this document.</p>
+          </div>
+        `;
+        if (actionButtons) actionButtons.style.display = 'flex';
+      } else {
+        const requirementsCount = currentItem.totalRequirements || currentItem.total_requirements || currentItem.requirements_count || 0;
+        content.innerHTML = `
+          <div class="info-card">
+            <h3 style="color: #00d4aa; margin-bottom: 16px; font-size: 16px;">✓ Parse Status</h3>
+            <div class="info-row">
+              <div class="info-label">Status</div>
+              <div class="info-value"><span class="status-badge status-parsed">✓ Parsed</span></div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Requirements</div>
+              <div class="info-value">${requirementsCount}</div>
+            </div>
+            ${currentItem.parsed_at ? `
+            <div class="info-row">
+              <div class="info-label">Parsed At</div>
+              <div class="info-value">${new Date(currentItem.parsed_at).toLocaleString()}</div>
+            </div>
+            ` : ''}
+            <button class="btn btn-secondary" style="margin-top: 16px; width: 100%;" onclick="reParseStandard()">
+              🔄 Re-Parse (Will overwrite existing requirements)
+            </button>
+            <p style="font-size: 12px; color: #a0aec0; margin-top: 12px;">Re-parsing will delete existing requirements and extract fresh ones with updated parsing logic.</p>
+          </div>
+        `;
+        if (actionButtons) actionButtons.style.display = 'flex';
+      }
+    } else {
+      content.innerHTML = '<div class="empty-state">Unknown document type.</div>';
+      if (actionButtons) actionButtons.style.display = 'none';
+    }
+  }
+
+  async function loadStatus() {
+    const content = document.getElementById('statusContent');
+    
+    let html = `
+      <div class="info-row">
+        <div class="info-label">Created</div>
+        <div class="info-value">${new Date(currentItem.uploaded_at || currentItem.created_at || Date.now()).toLocaleString()}</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Last Updated</div>
+        <div class="info-value">${new Date(currentItem.updated_at || currentItem.uploaded_at || Date.now()).toLocaleString()}</div>
+      </div>
+    `;
+
+    if (type === 'standard') {
+      html += `
+        <div class="info-row">
+          <div class="info-label">Parse Status</div>
+          <div class="info-value">
+            ${currentItem.parsed_at || currentItem.requirements_count > 0
+              ? `✓ Parsed on ${currentItem.parsed_at ? new Date(currentItem.parsed_at).toLocaleDateString() : 'Previously'}` 
+              : '⏱️ Pending'}
+          </div>
+        </div>
+      `;
+    }
+
+    content.innerHTML = html;
+  }
+
+  // ACTIONS
+  async function parseStandard() {
+    if (!validateParameters()) return;
+    if (!confirm('Start parsing this standard? This may take a few moments.')) return;
+
+    const parseBtn = document.querySelector('#tab-parse .btn-primary');
+    if (parseBtn) {
+      parseBtn.disabled = true;
+      parseBtn.textContent = '⏳ Parsing...';
+    }
+
+    try {
+      console.log(`📡 Parsing standard: /api/parse/standard/${id}`);
+      const response = await fetch(`/api/parse/standard/${id}`, { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log(`📡 Parse response status: ${response.status}`);
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const reqCount = data.requirementsCount || data.clausesExtracted || data.count || 0;
+        alert(`✅ Parsed successfully!\n${reqCount} requirements extracted.`);
+        
+        // Refresh the standard data
+        await refreshStandardData();
+        
+        // Reload parse interface and requirements
+        loadParseInterface();
+        loadRequirements();
+        
+        // If overview tab is active, reload it to show updated status
+        if (document.getElementById('tab-overview').classList.contains('active')) {
+          loadOverview();
+        }
+      } else {
+        const errorMsg = data.error || data.message || 'Unknown error';
+        console.error('Parse error:', errorMsg);
+        alert(`❌ Parse failed: ${errorMsg}\n\nIf the standard was already parsed, try re-parsing from the Parse tab.`);
+      }
+    } catch (error) {
+      console.error('Parse request error:', error);
+      alert(`❌ Error: ${error.message}\n\nPlease check the console for details.`);
+    } finally {
+      if (parseBtn) {
+        parseBtn.disabled = false;
+        parseBtn.textContent = '⚙️ Start Parse Now';
+      }
+    }
+  }
+
+  async function reParseStandard() {
+    if (!validateParameters()) return;
+    const docType = type === 'customer' ? 'customer requirements' : type === 'regulatory' ? 'regulatory requirements' : 'standard';
+    if (!confirm(`Re-parse this ${docType}? This will DELETE all existing requirements and extract fresh ones with updated parsing logic. Continue?`)) return;
+
+    const parseBtn = document.querySelector('#tab-parse .btn-secondary');
+    if (parseBtn) {
+      parseBtn.disabled = true;
+      parseBtn.textContent = '⏳ Re-parsing...';
+    }
+
+    try {
+      console.log(`📡 Re-parsing standard: /api/parse/standard/${id}?force=true`);
+      const response = await fetch(`/api/parse/standard/${id}?force=true`, { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log(`📡 Re-parse response status: ${response.status}`);
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const reqCount = data.requirementsCount || data.clausesExtracted || data.count || 0;
+        alert(`✅ Re-parsed successfully!\n${reqCount} requirements extracted.`);
+        
+        // Refresh the standard data
+        await refreshStandardData();
+        
+        // Reload parse interface and requirements
+        loadParseInterface();
+        loadRequirements();
+        
+        // If overview tab is active, reload it to show updated status
+        if (document.getElementById('tab-overview').classList.contains('active')) {
+          loadOverview();
+        }
+      } else {
+        const errorMsg = data.error || data.message || 'Unknown error';
+        console.error('Re-parse error:', errorMsg);
+        alert(`❌ Re-parse failed: ${errorMsg}`);
+      }
+    } catch (error) {
+      console.error('Re-parse request error:', error);
+      alert(`❌ Error: ${error.message}`);
+    } finally {
+      if (parseBtn) {
+        parseBtn.disabled = false;
+        parseBtn.textContent = '🔄 Re-Parse (Will overwrite existing requirements)';
+      }
+    }
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text || '';
+    return div.innerHTML;
+  }
+
+  // Action functions
+  function exportData() {
+    alert('Export to PDF/Excel coming soon');
+  }
+
+  function refreshData() {
+    if (validateParameters()) {
+      init();
+    }
+  }
+
+  function saveChanges() {
+    alert('Save functionality coming soon');
+  }
+
+  function resetForm() {
+    if (validateParameters()) {
+      // Reset is now handled in overview
+      if (document.getElementById('overviewEditContent')) {
+        loadEditFormForOverview();
+      }
+    }
+  }
+
+  function handleRequirementsSearch(event) {
+    // Trigger search on Enter key or after typing stops (debounced)
+    if (event.key === 'Enter') {
+      const searchInput = document.getElementById('requirementsSearchInput');
+      const searchTerm = searchInput ? searchInput.value.trim() : '';
+      loadRequirements(searchTerm);
+    } else if (event.type === 'keyup') {
+      // Debounce: wait 300ms after user stops typing
+      clearTimeout(window.requirementsSearchTimeout);
+      window.requirementsSearchTimeout = setTimeout(() => {
+        const searchInput = document.getElementById('requirementsSearchInput');
+        const searchTerm = searchInput ? searchInput.value.trim() : '';
+        loadRequirements(searchTerm);
+      }, 300);
+    }
+  }
+
+  function clearRequirementsSearch() {
+    const searchInput = document.getElementById('requirementsSearchInput');
+    if (searchInput) {
+      searchInput.value = '';
+    }
+    loadRequirements('');
+  }
+
+  function searchRequirements() {
+    const searchInput = document.getElementById('requirementsSearchInput');
+    if (searchInput) {
+      searchInput.focus();
+    }
+  }
+
+  function downloadAuditTrail() {
+    alert('Audit trail download coming soon');
+  }
+
+  // Initialize on page load (only if we have valid parameters)
+  window.addEventListener('load', () => {
+    if (validateParameters()) {
+      init();
+    } else {
+      console.error('[detail.html] Cannot initialize - missing type or id parameters');
+    }
+  });
+</script>
+
+</body>
+</html>
+

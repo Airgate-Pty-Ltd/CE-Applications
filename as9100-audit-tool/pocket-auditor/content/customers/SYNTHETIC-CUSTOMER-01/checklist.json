@@ -1,0 +1,25 @@
+{
+ "customer_id": "SYNTHETIC-CUSTOMER-01",
+ "owner": "SYNTHETIC Customer Ltd",
+ "source_citation": "SYNTHETIC customer checklist for the sample",
+ "imported_at": "2026-10-08T14:00:00",
+ "sha256": "3d5f51c5dc410d4387a888870c2dbe8d46d2c490c9a78e9db4287312e8f8a4ff",
+ "rows": [
+  {
+   "ref": "SYN-1",
+   "question": "SYNTHETIC: Is the customer-specified tooling tag scheme applied at each bench?",
+   "evidence": [
+    "Tooling tag log",
+    "Bench photo"
+   ]
+  },
+  {
+   "ref": "SYN-2",
+   "question": "SYNTHETIC: How is the customer's first-article approval recorded before series release?",
+   "evidence": [
+    "First-article report",
+    "Customer approval record"
+   ]
+  }
+ ]
+}

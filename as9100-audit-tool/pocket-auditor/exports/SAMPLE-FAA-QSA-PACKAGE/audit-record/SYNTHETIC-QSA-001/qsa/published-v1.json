@@ -1,0 +1,197 @@
+{
+ "audit_id": "SYNTHETIC-QSA-001",
+ "by_element": {
+  "ADDITIONAL": 1,
+  "Manufacturing Processes": 1,
+  "Organizational Management": 1,
+  "Supplier Control": 1
+ },
+ "criteria": [
+  {
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "comments": "",
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that the production certificate is available as required. This should include all attachments, such as the Production Limitation Record (PLR)."
+   ],
+   "criteria_ref": "101",
+   "criterion_id": "REG:FAA QSA 1.0:Organizational Management:101",
+   "evidence_ids": [],
+   "finding_id": null,
+   "kind": "CRITERION",
+   "origin": "FAA_SOURCE",
+   "procedure": "",
+   "question": "Is the production approval/authorization retained at the audited facility in which the product is manufactured and was it available to the FAA upon request?",
+   "source_citation": null,
+   "source_sha256": "a659ebdf754692463303a39d0dc07c17d61db125f403d2be1d95fc526ac2e86a",
+   "source_sheet": "Organizational Management",
+   "status": "DRAFT_SOURCE_IMPORTED"
+  },
+  {
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "comments": "",
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—",
+    "(1) Preparation of work instructions and revisions to work instructions to ensure the work functions to be performed are satisfactorily accomplished. Work instructions include the following:",
+    "(a) Sequence of operations;",
+    "(b) Accept/reject criteria;",
+    "(c) Workmanship criteria;",
+    "(d) Inspection methods;",
+    "(e) Tolerance limits;",
+    "(f) Environmental conditions;",
+    "(g) Sampling plans;",
+    "(h) Special drawing notes;",
+    "(i) Skilled personnel (certified) required;",
+    "(j) Special precautions for critical product protection;",
+    "(k) Part marking and identification;",
+    "(l) Part stamp location requirements when defined by approved data;",
+    "(m) Inspection of assemblies to detect inclusion of foreign objects before closure;",
+    "(n) Reinspection of parts and assemblies that are reopened, disassembled, or tampered with; and",
+    "(o) Contamination control in hydraulic installations (for example, purging, filtration, charging, and disposal).",
+    "(2) Coordination of initial release and changes to work instructions with affected departments, such as Planning and Quality, to ensure manufacturing processes are adequately controlled.",
+    "(3) Authorized quality organization personnel review work instructions and changes before release to ensure—",
+    "(a) Inspection points are located in the manufacturing process at points that ensure conformity to FAA-approved design.",
+    "(b) Adequate inspection equipment will be available and will be controlled for accuracy, as necessary.",
+    "(c) Drawing number and revision level are referred to.",
+    "(4) Method by which temporary changes are approved by authorized personnel.",
+    "(5) Control of the number of temporary changes allowed before requiring complete incorporation of work instructions.",
+    "(6) Control and documentation of revisions to work instructions.",
+    "(7) Method by which revisions are identified on the work instructions.",
+    "(8) Record of work instruction changes.",
+    "(9) Control of obsolete work instructions.",
+    "(10) Reflection of design changes that correct unsafe conditions identified in ADs.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "criteria_ref": "401",
+   "criterion_id": "REG:FAA QSA 1.0:Manufacturing Processes:401",
+   "evidence_ids": [],
+   "finding_id": null,
+   "kind": "CRITERION",
+   "origin": "FAA_SOURCE",
+   "procedure": "",
+   "question": "Are work instructions and revisions to work instructions reviewed, approved, controlled, and documented?",
+   "source_citation": null,
+   "source_sha256": "a659ebdf754692463303a39d0dc07c17d61db125f403d2be1d95fc526ac2e86a",
+   "source_sheet": "Manufacturing Processes",
+   "status": "DRAFT_SOURCE_IMPORTED"
+  },
+  {
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "comments": "",
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Criteria for supplier acceptability based as a minimum on audit results and quality performance history for the commodities or services provided.",
+    "(2) Collection, audit, and reporting of quality performance data.",
+    "(3) A list of suppliers that have been reviewed, audited, and found to be acceptable.",
+    "(4) Removal of suppliers from the approved list that do not meet stated requirements.",
+    "(5) Notification of the FAA of new priority parts suppliers.",
+    "(6) Methods for procurement from suppliers that require special control.",
+    "(7) Furnishing a current list to suppliers containing sources audited by the PAH.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "criteria_ref": "601",
+   "criterion_id": "REG:FAA QSA 1.0:Supplier Control:601",
+   "evidence_ids": [],
+   "finding_id": null,
+   "kind": "CRITERION",
+   "origin": "FAA_SOURCE",
+   "procedure": "",
+   "question": "Is the use of approved suppliers required?",
+   "source_citation": null,
+   "source_sha256": "a659ebdf754692463303a39d0dc07c17d61db125f403d2be1d95fc526ac2e86a",
+   "source_sheet": "Supplier Control",
+   "status": "DRAFT_SOURCE_IMPORTED"
+  },
+  {
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "comments": "",
+   "condition_text": [],
+   "criteria_ref": "ADD-0001",
+   "criterion_id": "REG:FAA QSA 1.0 ADDITIONAL:ADD-0001",
+   "evidence_ids": [],
+   "finding_id": null,
+   "kind": null,
+   "origin": "ADDED_BY_AUDITOR",
+   "procedure": "",
+   "question": "SYNTHETIC: is the bench calibration label current?",
+   "source_citation": "SYNTHETIC source citation for the sample",
+   "source_sha256": null,
+   "source_sheet": "ADDITIONAL",
+   "status": "PROPOSED_ADDITION"
+  }
+ ],
+ "element_context": [
+  {
+   "source_sheet": "Organizational Management",
+   "text": "Organizational Management"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "text": "FAA-approved quality systems manuals or procedures manuals/handbooks to determine if current data ensure that regulatory requirements are met, if conforming products, articles, and parts are manufactured, and if design approval systems are maintained and controlled."
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "text": "facility procedures (related to the production approval facility) that are not part of the facility’s FAA-approved data to determine if the current procedures impact any of the system elements."
+  },
+  {
+   "source_sheet": "Design Control",
+   "text": "Design Control"
+  },
+  {
+   "source_sheet": "Design Control",
+   "text": "Documented procedures"
+  },
+  {
+   "source_sheet": "Design Control",
+   "text": "design system, design approval system, and quality system data to determine if current data are FAA-approved."
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "text": "Software Quality Assurance"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "text": "Engineering Processes that relate to Software QA and Compliance"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "text": "PAH supplier records by selecting a random sample of PAH supplier audit reports. (Refer to appendix H, section 6, paragraph 1a to this order.)"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "text": "Compliance to Facility Procedures and Quality Requirements."
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "text": "Material Receiving, Handling & Storage"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "text": "Warehouse Process, Shipping and Receiving"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "text": "b. Material Receiving, Handling, and Storage. The methods used to accept and protect raw materials, parts, subassemblies, assemblies, and completed products during receipt, manufacture, inspection, test, storage, and preparation for shipment."
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "text": "FAI/In Process/Final Inspections"
+  }
+ ],
+ "published_at": "2026-10-08T09:05:00",
+ "record_type": "qsa_selection",
+ "selected_count": 4,
+ "source": {
+  "file": "content/faa-qsa/faa-qsa-audit-checklist-1.0.json",
+  "file_sha256": "52a591694c4550d6b57fb3a1fed340a1017df5abd8d157d5be384dd67569126a",
+  "licence_scope": "BURRANA_PRIVATE_SOURCE",
+  "standard": "FAA QSA 1.0",
+  "status": "DRAFT_SOURCE_IMPORTED",
+  "xlsx_source_sha256": "a659ebdf754692463303a39d0dc07c17d61db125f403d2be1d95fc526ac2e86a"
+ },
+ "version": 1
+}

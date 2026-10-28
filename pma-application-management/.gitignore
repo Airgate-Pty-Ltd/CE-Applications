@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.env
+*.env.local
+apps/api/uploads/
+uploads/
+apps/api/prisma/migrations/
+*.log
+.DS_Store
+Thumbs.db
+.claude/
+
+# Build / temp artifacts
+screenshots/
+coverage/
+
+# Evidence uploads (never version-control tenant source documents)
+apps/api/storage/
+storage/

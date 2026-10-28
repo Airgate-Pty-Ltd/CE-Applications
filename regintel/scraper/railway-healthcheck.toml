@@ -1,0 +1,14 @@
+# Railway Cron service — weekly link health check.
+#
+# Separate from the daily ingestion run. Probes every URL in the source
+# register, writes health-report.md, and proposes replacements for dead links.
+#
+# Schedule: 09:00 UTC every Monday. Link rot is slow; weekly is plenty and
+# keeps traffic to the authorities light.
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "python sources/healthcheck.py --rediscover"
+cronSchedule = "0 9 * * 1"
+restartPolicyType = "never"

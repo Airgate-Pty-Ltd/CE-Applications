@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calibration &amp; OOT Impact Manager — Conform-Edge</title>
+<style>
+:root{--navy:#0b1f33;--panel:#12293f;--steel:#5b7488;--ink:#e8eef4;--good:#2e9e6b;--warn:#d8a12a;--bad:#c1493f;--line:#22405a}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif;background:var(--navy);color:var(--ink)}
+header{padding:20px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+h1{font-size:19px;margin:0;letter-spacing:.3px}.brand{color:var(--steel);font-size:12px;text-transform:uppercase;letter-spacing:2px}
+main{max-width:1040px;margin:0 auto;padding:22px}
+h2{font-size:14px;color:#8fb0c8;margin:22px 0 6px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+label.f{display:block;font-size:13px;color:#a9bccb;margin:8px 0 3px}
+input,select,textarea{width:100%;background:var(--navy);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font:14px system-ui}
+.row{display:flex;gap:12px;flex-wrap:wrap}.row>div{flex:1;min-width:150px}
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}.opts label{border:1px solid var(--line);border-radius:7px;padding:6px 11px;cursor:pointer;font-size:13px}
+.opts input{width:auto;margin-right:6px}
+.btn{background:var(--steel);color:#04121f;border:0;border-radius:8px;padding:11px 18px;font-weight:600;cursor:pointer;margin:6px 8px 0 0}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.t-good{background:rgba(46,158,107,.18);color:#7fe0b3}.t-warn{background:rgba(216,161,42,.18);color:#f0cf7f}.t-bad{background:rgba(193,73,63,.2);color:#f0a49c}
+.verdict{border-radius:10px;padding:16px 18px;margin:12px 0;border:1px solid var(--line)}
+.score{font-size:30px;font-weight:700}
+.step{border-left:3px solid var(--steel);padding:6px 12px;margin:8px 0;background:rgba(91,116,136,.08);border-radius:0 8px 8px 0}
+.step.bad{border-left-color:var(--bad);background:rgba(193,73,63,.08)}.step.warn{border-left-color:var(--warn);background:rgba(216,161,42,.08)}
+.muted{color:var(--steel);font-size:12px}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}th,td{border:1px solid var(--line);padding:6px 8px;text-align:left}th{color:#8fb0c8}
+</style></head><body>
+<header><div><h1>Calibration &amp; OOT Impact Manager</h1><div class="brand">Conform-Edge &middot; Out-of-Tolerance Reverse-Traceability Engine</div></div>
+<div class="muted">Self-contained. No data leaves this page.</div></header>
+<main>
+<p>When a gauge or instrument comes back <b>out of tolerance (OOT)</b> at calibration, AS9100 7.1.5.2 requires you to assess and act on the validity of previous measuring results. This tool runs a deterministic <b>reverse-traceability decision</b>: it weighs the OOT magnitude against your measurement guard-band, ranks affected product between last-known-good and discovery, and outputs a <b>recall/containment recommendation</b> with the required records.</p>
+
+<h2>1. Instrument &amp; OOT finding</h2>
+<div class="card">
+ <div class="row">
+  <div><label class="f">Instrument ID</label><input id="gid" placeholder="e.g. CMM-04 / MIC-118"></div>
+  <div><label class="f">Characteristic tolerance (± , in measurement units)</label><input id="tol" type="number" step="any" placeholder="e.g. 0.05"></div>
+  <div><label class="f">OOT error found (how far reading was off)</label><input id="err" type="number" step="any" placeholder="e.g. 0.03"></div>
+ </div>
+ <div class="row">
+  <div><label class="f">Direction of error</label><select id="dir"><option value="unknown">Unknown / both</option><option value="pass">Would falsely PASS bad parts (accepts nonconforming)</option><option value="fail">Would falsely FAIL good parts (rejects conforming)</option></select></div>
+  <div><label class="f">Product safety / airworthiness characteristic?</label>
+   <div class="opts"><label><input type="radio" name="kc" value="yes">Yes / KC or flight-critical</label><label><input type="radio" name="kc" value="no" checked>No</label></div></div>
+ </div>
+</div>
+
+<h2>2. Exposure window</h2>
+<div class="card">
+ <div class="row">
+  <div><label class="f">Last "as-found in-tolerance" calibration date</label><input id="lastgood" type="date"></div>
+  <div><label class="f">Date OOT discovered</label><input id="disc" type="date"></div>
+  <div><label class="f"># of lots/parts measured with this instrument in the window</label><input id="qty" type="number" step="1" placeholder="e.g. 42"></div>
+ </div>
+ <div class="row">
+  <div><label class="f">Product disposition since window opened</label>
+   <div class="opts"><label><input type="radio" name="ship" value="stock" checked>Mostly in-house / stock</label><label><input type="radio" name="ship" value="shipped">Shipped to customer / installed</label></div></div>
+  <div><label class="f">Independent re-verification possible (redundant gauge, SPC, or downstream check)?</label>
+   <div class="opts"><label><input type="radio" name="reverify" value="yes">Yes</label><label><input type="radio" name="reverify" value="no" checked>No</label></div></div>
+ </div>
+</div>
+
+<button class="btn" onclick="run()">Run impact decision</button>
+<button class="btn ghost" onclick="window.print()">Print / PDF</button>
+<button class="btn ghost" onclick="exportJson()">Export decision (JSON)</button>
+<div id="out"></div>
+<p class="muted" style="margin-top:24px">Reference: AS9100 7.1.5.2 (measurement traceability, action on invalid results) by intent only. Self-preparation aid; the accountable quality function owns the final disposition.</p>
+</main>
+<script>
+function val(id){return document.getElementById(id).value;}
+function radio(n){const e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:'';}
+function run(){
+ const tol=parseFloat(val('tol')), err=parseFloat(val('err'));
+ const qty=parseInt(val('qty')||'0',10);
+ const dir=val('dir'), kc=radio('kc'), ship=radio('ship'), reverify=radio('reverify');
+ const out=document.getElementById('out'); out.innerHTML='';
+ if(isNaN(tol)||isNaN(err)||tol<=0){out.innerHTML='<p class="t-warn tag">Enter a valid tolerance (&gt;0) and OOT error.</p>';return;}
+ // Ratio of error to tolerance = how much of the acceptance band the OOT could have masked
+ const ratio=err/tol;                       // e.g. 0.6 = error is 60% of tolerance
+ let sevScore=0, drivers=[];
+ if(ratio>=1){sevScore+=4;drivers.push('OOT error meets or exceeds the full characteristic tolerance — any accept/reject decision near a limit is untrustworthy.');}
+ else if(ratio>=0.5){sevScore+=3;drivers.push('OOT error is ≥50% of tolerance — parts near the limit were likely misjudged.');}
+ else if(ratio>=0.2){sevScore+=2;drivers.push('OOT error is 20–50% of tolerance — borderline parts are suspect.');}
+ else {sevScore+=1;drivers.push('OOT error is <20% of tolerance — limited but non-zero risk to near-limit parts.');}
+ if(dir==='pass'){sevScore+=2;drivers.push('Error direction would falsely ACCEPT nonconforming product — escape risk, not just scrap risk.');}
+ else if(dir==='unknown'){sevScore+=1;drivers.push('Error direction unknown — must assume it could accept bad product.');}
+ if(kc==='yes'){sevScore+=3;drivers.push('Characteristic is a KC / safety / airworthiness feature — low tolerance for residual risk.');}
+ if(ship==='shipped'){sevScore+=2;drivers.push('Affected product has shipped or been installed — containment extends beyond the facility.');}
+ if(reverify==='no'){sevScore+=1;drivers.push('No independent re-verification path — cannot cheaply prove product good.');}
+ else {sevScore-=1;drivers.push('Independent re-verification exists — can screen affected product without full recall.');}
+ // Decision bands
+ let verdict,cls,actions=[];
+ if(sevScore>=8){verdict='RECALL / CONTAIN — treat product in window as nonconforming until proven good';cls='bad';}
+ else if(sevScore>=5){verdict='CONTAIN & SCREEN — quarantine window product, re-verify before release';cls='warn';}
+ else {verdict='DOCUMENT & MONITOR — low impact; record rationale, no recall';cls='good';}
+ // Build required-action list (deterministic)
+ actions.push(['Freeze the instrument',3,'Remove '+(val('gid')||'the instrument')+' from service and tag "OOT — do not use" pending disposition.']);
+ if(sevScore>=5){
+  actions.push(['Define the suspect population',3,'Identify all '+(qty||'N')+' lots/parts measured between last-good calibration and discovery — this is the reverse-traceability window.']);
+  if(reverify==='yes') actions.push(['Screen, don’t scrap',2,'Use the independent check (redundant gauge / SPC / downstream) to re-verify window product before deciding scope of recall.']);
+  else actions.push(['Re-measure with a verified instrument',2,'Re-measure a risk-based sample (weight toward near-limit results) with an in-tolerance instrument.']);
+ }
+ if(sevScore>=8){
+  actions.push(['Customer notification / recall decision',3,(ship==='shipped'?'Product has shipped — initiate customer notification and recall/return per contract and, if airworthiness is affected, applicable reporting.':'Hold all window product; treat as nonconforming pending re-verification.')]);
+  if(kc==='yes') actions.push(['Escape & safety review',3,'Because a KC/safety characteristic is involved, run this through the nonconformance/escape process and product-safety review.']);
+ }
+ actions.push(['Record the validity assessment',2,'Document the OOT magnitude, affected-period reasoning, disposition, and effectiveness check — this is the 7.1.5.2 record an auditor will ask for.']);
+ actions.push(['Correct root cause of the OOT',1,'Address why the instrument drifted (interval too long, handling, environment) and adjust calibration interval if warranted.']);
+ // Render
+ const pct=Math.min(100,Math.round(sevScore/12*100));
+ let html='<div class="verdict"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'+
+  '<div><b>Impact decision</b><br><span class="tag t-'+cls+'">'+verdict+'</span></div><div class="score">'+pct+'<span class="muted">/100 risk</span></div></div>';
+ html+='<p class="muted" style="margin-top:12px">Error/tolerance ratio: <b>'+ratio.toFixed(2)+'</b> &middot; Suspect window: '+(val('lastgood')||'?')+' → '+(val('disc')||'?')+' &middot; '+(qty||'N')+' lots/parts.</p>';
+ html+='<p class="muted">Why:</p>';drivers.forEach(d=>{html+='<div class="step">'+d+'</div>';});
+ html+='<h2>Required actions (in order)</h2><table><tr><th>#</th><th>Action</th><th>Priority</th><th>Detail</th></tr>';
+ actions.sort((a,b)=>b[1]-a[1]).forEach((a,i)=>{const p=a[1]===3?'<span class="tag t-bad">Must</span>':a[1]===2?'<span class="tag t-warn">Should</span>':'<span class="tag t-good">Then</span>';
+  html+='<tr><td>'+(i+1)+'</td><td>'+a[0]+'</td><td>'+p+'</td><td>'+a[2]+'</td></tr>';});
+ html+='</table></div>';
+ out.innerHTML=html;
+ window._decision={instrument:val('gid'),tol:tol,err:err,ratio:+ratio.toFixed(3),direction:dir,kc:kc,shipped:ship,reverify:reverify,qty:qty,window:[val('lastgood'),val('disc')],riskScore:sevScore,riskPct:pct,verdict:verdict,drivers:drivers,actions:actions.map(a=>({action:a[0],priority:a[1],detail:a[2]}))};
+ out.scrollIntoView({behavior:'smooth'});
+}
+function exportJson(){if(!window._decision){run();}if(!window._decision)return;const blob=new Blob([JSON.stringify(window._decision,null,2)],{type:'application/json'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='oot-impact-decision.json';a.click();}
+</script></body></html>

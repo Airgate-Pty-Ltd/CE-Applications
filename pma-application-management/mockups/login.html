@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in · PMA Autopilot</title>
+  <link rel="stylesheet" href="assets/vera.css" />
+</head>
+<body>
+  <div class="center-screen">
+    <form class="panel panel-hi" style="width:400px" onsubmit="return false">
+      <div class="brand" style="margin-bottom:4px">CONFORM<em>-</em>EDGE <span class="brand-tool">· PMA Autopilot</span></div>
+      <p class="small muted" style="margin-top:0">FAA Part 21 / AC 21.303-4 PMA drafting. Drafts only — never for FAA submission.</p>
+
+      <label class="mfi">Email</label>
+      <input class="minp" type="email" value="ada@acme-aero.com" />
+      <label class="mfi">Password</label>
+      <input class="minp" type="password" value="••••••••••••" />
+
+      <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="location.href='dashboard.html'">Sign in</button>
+      <div class="small muted" style="margin-top:12px;text-align:center;cursor:pointer" onclick="this.parentNode.querySelector('#reg').style.display='block';this.style.display='none'">New organization? Register</div>
+
+      <div id="reg" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px">
+        <div class="label" style="margin-bottom:8px">Create organization</div>
+        <label class="mfi">Organization name</label><input class="minp" placeholder="Acme Aerospace LLC" />
+        <label class="mfi">Organization slug</label><input class="minp" placeholder="acme-aero" />
+        <label class="mfi">Your full name</label><input class="minp" placeholder="Ada Admin" />
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="location.href='dashboard.html'">Create organization</button>
+      </div>
+    </form>
+  </div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

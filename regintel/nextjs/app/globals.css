@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design tokens, derived from the Conform-Edge brand so RegIntel and the
+ * marketing site read as one product. Source of truth is the website repo
+ * (conform-edge-website/tailwind.config.ts):
+ *
+ *     ink   #0c2132  the exact logo plate colour
+ *     teal  #14b8a6  primary accent  (bright #2dd4bf, deep #0d9488)
+ *     violet #8b5cf6 secondary       (bright #a78bfa)
+ *
+ * The website is dark-only, because its brand PNGs have the navy plate baked
+ * in. RegIntel is deliberately NOT: this is a data-dense feed read for long
+ * stretches, so the surfaces stay light and only the chrome — rail, badges,
+ * accents — matches the site exactly. The handoff still feels continuous
+ * because the rail a user lands on is the same navy they just left.
+ *
+ * Accent values are picked for contrast on their own background, not copied
+ * flat from the site: teal #14b8a6 is only 2.6:1 on white, so light mode uses
+ * the deep teal and dark mode the bright one.
+ *
+ * Severity (crit/high/norm/low/good) is a separate semantic scale and stays
+ * red/amber/slate/grey. Amber no longer competes with the accent now that the
+ * accent is teal, which is a small win: on this product amber means "deadline
+ * approaching", and it should not also mean "brand".
+ */
+:root {
+  --canvas: #F5F8FB;
+  --surface: #FFFFFF;
+  --surface-2: #FAFBFD;
+  --line: #E5EAF1;
+  --line-strong: #D2DAE6;
+  --ink: #0E1729;
+  --muted: #5A6576;
+  --faint: #8A93A4;
+
+  /* Chrome matches the website exactly: same plate the logo sits on. */
+  --rail: #0C2132;
+  --rail-ink: #C8D6E2;
+  --rail-dim: #7E96AB;
+  --brand: #0C2132;
+
+  /* Teal deep, not the site's #14b8a6 — 3.9:1 on white rather than 2.6:1. */
+  --accent: #0D9488;
+  --accent-soft: #E3F5F2;
+  /* Readable on --accent-soft. Selected chips previously used the amber
+     severity ink, which was fine against a gold tint and wrong against teal. */
+  --accent-ink: #0F766E;
+  /* Brand violet as the secondary, darkened for readable link text. */
+  --steel: #7C3AED;
+
+  --crit-bg: #FDECEC; --crit-line: #E5484D; --crit-ink: #B42318;
+  --high-bg: #FBEFE0; --high-line: #E8871E; --high-ink: #A85B0B;
+  --norm-bg: #E8EFF4; --norm-line: #3E6B87; --norm-ink: #23485E;
+  --low-bg:  #F0F3F6; --low-line: #94A6B4; --low-ink: #566876;
+  /* "Good" is the brand teal — it is the one severity that is also on-brand. */
+  --good-bg: #E3F5F2; --good-line: #14B8A6; --good-ink: #0F766E;
+
+  --shadow-card: 0 1px 2px rgba(16,23,41,.04), 0 1px 3px rgba(16,23,41,.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode sits on the site's own plate colour and its deeper shade. */
+    --canvas: #081724;
+    --surface: #0C2132;
+    --surface-2: #0A1C2B;
+    --line: #17364C;
+    --line-strong: #21485F;
+    --ink: #E2E8F0;          /* the website's body text colour */
+    --muted: #9BB0C0;
+    --faint: #6E8798;
+
+    --rail: #081724;
+    --rail-ink: #C8D6E2;
+    --rail-dim: #7E96AB;
+    --brand: #11304A;        /* ink.raised */
+
+    /* Bright teal reads on navy where the deep one would not. */
+    --accent: #2DD4BF;
+    --accent-soft: #10312F;
+    --accent-ink: #7FE7DA;
+    --steel: #A78BFA;        /* violet.bright */
+
+    --crit-bg: #2A1517; --crit-line: #F06A6E; --crit-ink: #F3A0A2;
+    --high-bg: #2A1E10; --high-line: #F09A3E; --high-ink: #F0BE86;
+    --norm-bg: #12293A; --norm-line: #5B8CA8; --norm-ink: #A9C7DA;
+    --low-bg:  #14232F; --low-line: #55707E; --low-ink: #9BB0C0;
+    --good-bg: #0B2E2B; --good-line: #2DD4BF; --good-ink: #7FE7DA;
+
+    --shadow-card: 0 1px 2px rgba(0,0,0,.3), 0 1px 3px rgba(0,0,0,.35);
+  }
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Keyboard focus is always visible */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+/* Print styles for report PDF export */
+@media print {
+  nav, .no-print { display: none !important; }
+  body { background: white !important; color: black !important; }
+}

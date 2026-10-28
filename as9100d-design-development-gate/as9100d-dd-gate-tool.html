@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AS9100D Design & Development Gate Tool | Conform-Edge</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0f1117;color:#e2e8f0;min-height:100vh}
+header{background:linear-gradient(135deg,#1e2a4a 0%,#162032 100%);padding:18px 32px;border-bottom:2px solid #2d4a7a;display:flex;align-items:center;gap:16px}
+header .brand{font-size:11px;letter-spacing:2px;color:#64b5f6;text-transform:uppercase;font-weight:600}
+header h1{font-size:20px;font-weight:700;color:#e8f4fd}
+header .sub{font-size:12px;color:#90caf9;margin-top:2px}
+.clause-badge{background:#1565c0;color:#bbdefb;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:600;margin-left:auto}
+.container{max-width:960px;margin:0 auto;padding:24px 20px}
+.step-nav{display:flex;gap:0;margin-bottom:28px;border-radius:8px;overflow:hidden;border:1px solid #2d3748}
+.step-btn{flex:1;padding:11px 8px;background:#1a1f2e;color:#94a3b8;font-size:12px;font-weight:600;text-align:center;cursor:pointer;border:none;border-right:1px solid #2d3748;transition:all .2s;text-transform:uppercase;letter-spacing:.5px}
+.step-btn:last-child{border-right:none}
+.step-btn.active{background:#1565c0;color:#fff}
+.step-btn.done{background:#1b3a2a;color:#4ade80}
+.card{background:#1a1f2e;border:1px solid #2d3748;border-radius:10px;padding:24px;margin-bottom:20px}
+.card h2{font-size:16px;font-weight:700;color:#90caf9;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.card .stage-desc{font-size:13px;color:#94a3b8;margin-bottom:18px;line-height:1.5}
+.field-group{margin-bottom:16px}
+label{display:block;font-size:12px;font-weight:600;color:#90caf9;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+input[type=text],textarea,select{width:100%;padding:9px 12px;background:#0f1117;border:1px solid #2d3748;border-radius:6px;color:#e2e8f0;font-size:13px}
+input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:#1565c0}
+textarea{height:72px;resize:vertical}
+.gate-items{display:grid;gap:10px;margin-top:12px}
+.gate-item{background:#0f1117;border:1px solid #2d3748;border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:border-color .2s}
+.gate-item:hover{border-color:#1565c0}
+.gate-item input[type=checkbox]{width:17px;height:17px;cursor:pointer;flex-shrink:0;margin-top:2px;accent-color:#1565c0}
+.gate-item-body{flex:1}
+.gate-item-title{font-size:13px;font-weight:600;color:#e2e8f0}
+.gate-item-ref{font-size:11px;color:#64b5f6;margin-top:2px}
+.critical-flag{font-size:10px;background:#7f1d1d;color:#fca5a5;border-radius:3px;padding:1px 6px;margin-left:8px;font-weight:700;vertical-align:middle}
+.btn-row{display:flex;gap:10px;margin-top:20px}
+.btn{padding:10px 24px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:#1565c0;color:#fff}
+.btn-primary:hover{background:#1976d2}
+.btn-secondary{background:#2d3748;color:#e2e8f0}
+.btn-secondary:hover{background:#374151}
+.btn-export{background:#0f3a1a;color:#4ade80;border:1px solid #166534}
+.verdict-panel{border-radius:10px;padding:22px 24px;margin-bottom:20px;display:none}
+.verdict-PROCEED{background:#0f3a1a;border:2px solid #16a34a}
+.verdict-CONDITIONAL{background:#2d1f00;border:2px solid #d97706}
+.verdict-HOLD{background:#3b0c0c;border:2px solid #dc2626}
+.verdict-label{font-size:24px;font-weight:800;margin-bottom:6px}
+.verdict-PROCEED .verdict-label{color:#4ade80}
+.verdict-CONDITIONAL .verdict-label{color:#fbbf24}
+.verdict-HOLD .verdict-label{color:#f87171}
+.verdict-sub{font-size:13px;color:#94a3b8;margin-bottom:14px}
+.gate-summary{display:grid;gap:8px;margin-top:12px}
+.gate-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(255,255,255,.04);border-radius:6px;font-size:13px}
+.gate-row .gate-name{color:#cbd5e1}
+.badge{border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700}
+.badge-pass{background:#166534;color:#4ade80}
+.badge-warn{background:#92400e;color:#fcd34d}
+.badge-fail{background:#7f1d1d;color:#fca5a5}
+.missing-list{margin-top:14px}
+.missing-list h4{font-size:12px;font-weight:700;color:#fca5a5;text-transform:uppercase;margin-bottom:8px}
+.missing-list ul{list-style:none;display:grid;gap:4px}
+.missing-list li{font-size:12px;color:#fcd34d;padding-left:14px;position:relative}
+.missing-list li::before{content:'⚠';position:absolute;left:0}
+.narrative-box{background:#0f1117;border:1px solid #374151;border-radius:6px;padding:14px;font-size:12px;color:#94a3b8;line-height:1.7;white-space:pre-wrap;margin-top:14px}
+.hidden{display:none}
+.progress-bar{height:4px;background:#1a1f2e;border-radius:2px;margin-bottom:24px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#1565c0,#2196f3);border-radius:2px;transition:width .4s ease}
+.overall-panel{background:#1a1f2e;border:1px solid #2d3748;border-radius:10px;padding:20px;margin-bottom:20px}
+.overall-panel h3{font-size:14px;font-weight:700;color:#90caf9;margin-bottom:12px}
+.stage-pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.pill-pass{background:#166534;color:#4ade80}
+.pill-warn{background:#92400e;color:#fcd34d}
+.pill-fail{background:#7f1d1d;color:#fca5a5}
+.pill-na{background:#1e293b;color:#64748b}
+footer{text-align:center;padding:24px;font-size:11px;color:#4b5563;border-top:1px solid #1e293b;margin-top:32px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Conform-Edge · Powered by QMS Intelligence</div>
+    <h1>AS9100D Design &amp; Development Gate Tool</h1>
+    <div class="sub">Clause 8.3 Stage Gate Review · Evidence Readiness · Go/No-Go Decision</div>
+  </div>
+  <div class="clause-badge">AS9100D Cl. 8.3</div>
+</header>
+<div class="container">
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:16.6%"></div></div>
+
+<div class="step-nav">
+  <button class="step-btn active" onclick="goStep(0)" id="tab0">1 · Project</button>
+  <button class="step-btn" onclick="goStep(1)" id="tab1">2 · Planning Gate</button>
+  <button class="step-btn" onclick="goStep(2)" id="tab2">3 · Inputs Gate</button>
+  <button class="step-btn" onclick="goStep(3)" id="tab3">4 · Outputs Gate</button>
+  <button class="step-btn" onclick="goStep(4)" id="tab4">5 · V&amp;V Gate</button>
+  <button class="step-btn" onclick="goStep(5)" id="tab5">6 · Results</button>
+</div>
+
+<!-- Step 0: Project Setup -->
+<div id="step0">
+<div class="card">
+  <h2>📋 Project Identification</h2>
+  <div class="stage-desc">Enter the design &amp; development project details. This information populates the gate review record.</div>
+  <div class="field-group"><label>Project / Part Number</label><input type="text" id="projNum" placeholder="e.g., P/N 1234-A, Project ALPHA"></div>
+  <div class="field-group"><label>Project Title / Description</label><input type="text" id="projTitle" placeholder="Brief description of the design or development activity"></div>
+  <div class="field-group"><label>D&amp;D Activity Type</label>
+    <select id="ddType">
+      <option value="">— Select —</option>
+      <option value="new_design">New Product Design</option>
+      <option value="design_change">Design Change / Modification</option>
+      <option value="new_process">New Manufacturing / Service Process Development</option>
+      <option value="process_change">Process Change (significant)</option>
+      <option value="software_dev">Software / Firmware Development</option>
+    </select>
+  </div>
+  <div class="field-group"><label>Organization / Program</label><input type="text" id="orgName" placeholder="Organization name or customer program"></div>
+  <div class="field-group"><label>Review Date</label><input type="text" id="revDate" placeholder="e.g., 2026-09-09"></div>
+  <div class="field-group"><label>Applicable Standard(s)</label>
+    <select id="stdSelect">
+      <option value="AS9100D">AS9100D (Aerospace)</option>
+      <option value="AS9100D+ISO9001">AS9100D + ISO 9001:2015</option>
+      <option value="ISO9001">ISO 9001:2015</option>
+      <option value="AS9100D+AS9115">AS9100D + AS9115 (Software)</option>
+    </select>
+  </div>
+  <div class="btn-row"><button class="btn btn-primary" onclick="goStep(1)">Next: Planning Gate →</button></div>
+</div>
+</div>
+
+<!-- Step 1: Planning Gate (8.3.2) -->
+<div id="step1" class="hidden">
+<div class="card">
+  <h2>📐 Gate 1 — Design &amp; Development Planning (Cl. 8.3.2)</h2>
+  <div class="stage-desc">Verify that D&amp;D planning requirements are established before design work begins. All critical items must be satisfied to proceed.</div>
+  <div class="gate-items" id="planningItems"></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goStep(0)">← Back</button>
+    <button class="btn btn-primary" onclick="goStep(2)">Next: Inputs Gate →</button>
+  </div>
+</div>
+</div>
+
+<!-- Step 2: Inputs Gate (8.3.3) -->
+<div id="step2" class="hidden">
+<div class="card">
+  <h2>📥 Gate 2 — Design &amp; Development Inputs (Cl. 8.3.3)</h2>
+  <div class="stage-desc">Verify that all required D&amp;D inputs have been identified, reviewed, and are adequate and unambiguous before design release.</div>
+  <div class="gate-items" id="inputItems"></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goStep(1)">← Back</button>
+    <button class="btn btn-primary" onclick="goStep(3)">Next: Outputs Gate →</button>
+  </div>
+</div>
+</div>
+
+<!-- Step 3: Outputs Gate (8.3.4 + 8.3.5) -->
+<div id="step3" class="hidden">
+<div class="card">
+  <h2>📤 Gate 3 — D&amp;D Outputs &amp; Reviews (Cl. 8.3.4 / 8.3.5)</h2>
+  <div class="stage-desc">Verify that D&amp;D outputs meet input requirements and that design reviews have been conducted at planned stages.</div>
+  <div class="gate-items" id="outputItems"></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goStep(2)">← Back</button>
+    <button class="btn btn-primary" onclick="goStep(4)">Next: V&amp;V Gate →</button>
+  </div>
+</div>
+</div>
+
+<!-- Step 4: V&V Gate (8.3.6 + 8.3.7) -->
+<div id="step4" class="hidden">
+<div class="card">
+  <h2>✅ Gate 4 — Verification, Validation &amp; Transfer (Cl. 8.3.6 / 8.3.7)</h2>
+  <div class="stage-desc">Verify that design verification and validation activities are complete and that design changes are properly controlled before production release.</div>
+  <div class="gate-items" id="vvItems"></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goStep(3)">← Back</button>
+    <button class="btn btn-primary" onclick="computeAndShow()">Generate Gate Results →</button>
+  </div>
+</div>
+</div>
+
+<!-- Step 5: Results -->
+<div id="step5" class="hidden">
+<div id="verdictPanel" class="verdict-panel"></div>
+<div class="overall-panel">
+  <h3>Gate Status by Stage</h3>
+  <div class="stage-pills" id="stagePills"></div>
+</div>
+<div class="card">
+  <h2>📊 Detailed Gate Findings</h2>
+  <div class="gate-summary" id="detailSummary"></div>
+</div>
+<div class="card">
+  <h2>📝 D&amp;D Gate Review Record (Cl. 8.3 Narrative)</h2>
+  <div class="narrative-box" id="narrativeBox"></div>
+</div>
+<div class="btn-row">
+  <button class="btn btn-secondary" onclick="goStep(3)">← Revise Inputs</button>
+  <button class="btn btn-export" onclick="exportJSON()">⬇ Export JSON Record</button>
+</div>
+<!-- M-AI Reserved Interface -->
+<div id="mai-interface" data-mai-domain="as9100d-design-development" data-mai-version="1.0" data-mai-reserved="true" style="display:none"></div>
+</div>
+
+</div><!-- end container -->
+<footer>Conform-Edge Quality Consulting LLC · AS9100D Cl. 8.3 Design &amp; Development Gate Tool v1.0 · For internal use and client QMS implementation support · Not a substitute for qualified QMS advice</footer>
+
+<script>
+// Gate item definitions
+const GATES = {
+  planning: [
+    {id:'p1', text:'D&D stages and activities are defined and documented', ref:'8.3.2(a)', critical:true},
+    {id:'p2', text:'Reviews, verification and validation activities are defined for each stage', ref:'8.3.2(b)', critical:true},
+    {id:'p3', text:'Responsibilities and authorities for D&D are defined', ref:'8.3.2(c)', critical:true},
+    {id:'p4', text:'Internal and external resource needs are identified', ref:'8.3.2(d)', critical:false},
+    {id:'p5', text:'Interface management between different functions is addressed', ref:'8.3.2(e)', critical:false},
+    {id:'p6', text:'Customer and external party involvement/requirements are addressed', ref:'8.3.2(f)', critical:false},
+    {id:'p7', text:'Configuration management approach is defined (AS9100D)', ref:'8.3.2(g)', critical:false},
+    {id:'p8', text:'Key characteristics and special processes are identified where applicable', ref:'8.3.2 Note / AS9100D §8.5.1.2', critical:false},
+  ],
+  inputs: [
+    {id:'i1', text:'Functional and performance requirements are documented', ref:'8.3.3(a)', critical:true},
+    {id:'i2', text:'Statutory and regulatory requirements applicable to product/service are identified', ref:'8.3.3(b)', critical:true},
+    {id:'i3', text:'Customer and internal standards/specifications are captured as inputs', ref:'8.3.3(c)', critical:false},
+    {id:'i4', text:'Information from previous similar D&D activities is considered', ref:'8.3.3(d)', critical:false},
+    {id:'i5', text:'Conflicts, ambiguities or incompleteness in inputs have been resolved', ref:'8.3.3', critical:true},
+    {id:'i6', text:'Product safety requirements and airworthiness considerations are addressed (AS9100D)', ref:'8.3.3 / AS9100D §8.1.3', critical:false},
+    {id:'i7', text:'Risk analysis (FMEA or equivalent) has been performed on inputs', ref:'8.3.3 / 6.1', critical:false},
+  ],
+  outputs: [
+    {id:'o1', text:'D&D outputs meet input requirements (traceability confirmed)', ref:'8.3.4(a)', critical:true},
+    {id:'o2', text:'Outputs provide adequate information for production and service provision', ref:'8.3.4(b)', critical:true},
+    {id:'o3', text:'Acceptance criteria are defined and referenced in outputs', ref:'8.3.4(c)', critical:true},
+    {id:'o4', text:'Outputs specify products/processes requiring monitoring, measurement, testing or inspection', ref:'8.3.4(d)', critical:false},
+    {id:'o5', text:'Design reviews have been conducted at planned stages', ref:'8.3.5(a)', critical:true},
+    {id:'o6', text:'Design review participants include representatives from relevant functions', ref:'8.3.5(a)', critical:false},
+    {id:'o7', text:'Records of design reviews, including open action items, are maintained', ref:'8.3.5 / 7.5', critical:false},
+    {id:'o8', text:'Configuration management (drawing/document control) is applied to D&D outputs', ref:'8.3.4 / AS9100D §8.1.2', critical:false},
+  ],
+  vv: [
+    {id:'v1', text:'Design verification activities confirm outputs meet inputs (test, analysis, or inspection)', ref:'8.3.6(a)', critical:true},
+    {id:'v2', text:'Records of verification results are maintained', ref:'8.3.6 / 7.5', critical:true},
+    {id:'v3', text:'Design validation confirms the product meets intended use / customer requirements', ref:'8.3.6(b)', critical:true},
+    {id:'v4', text:'Validation is completed before product delivery or use (or disposition documented)', ref:'8.3.6(b)', critical:false},
+    {id:'v5', text:'Records of validation results (including V&V failures and dispositions) are maintained', ref:'8.3.6 / 7.5', critical:false},
+    {id:'v6', text:'Any design changes during V&V have been evaluated for impact and authorized', ref:'8.3.7', critical:true},
+    {id:'v7', text:'Design change records include rationale, risk assessment, and approval', ref:'8.3.7', critical:false},
+    {id:'v8', text:'Production readiness / design transfer to manufacturing has been verified', ref:'8.3.7 / AS9100D §8.1.2', critical:false},
+  ]
+};
+
+let currentStep = 0;
+
+function renderGateItems(containerId, items) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map(item => `
+    <label class="gate-item">
+      <input type="checkbox" id="chk_${item.id}" />
+      <div class="gate-item-body">
+        <div class="gate-item-title">${item.text}${item.critical ? '<span class="critical-flag">CRITICAL</span>' : ''}</div>
+        <div class="gate-item-ref">Ref: ${item.ref}</div>
+      </div>
+    </label>
+  `).join('');
+}
+
+function goStep(n) {
+  document.getElementById('step'+currentStep).classList.add('hidden');
+  document.getElementById('step'+n).classList.remove('hidden');
+  document.querySelectorAll('.step-btn').forEach((b,i) => {
+    b.classList.remove('active');
+    if(i < n) b.classList.add('done'); else b.classList.remove('done');
+  });
+  document.getElementById('tab'+n).classList.add('active');
+  currentStep = n;
+  const pct = ((n+1)/6)*100;
+  document.getElementById('progressFill').style.width = pct+'%';
+}
+
+function getGateResults(items) {
+  const results = { total:0, checked:0, missing:[], criticalMissing:[] };
+  items.forEach(item => {
+    results.total++;
+    const chk = document.getElementById('chk_'+item.id);
+    if(chk && chk.checked) { results.checked++; }
+    else {
+      results.missing.push(item.text);
+      if(item.critical) results.criticalMissing.push(item.text);
+    }
+  });
+  return results;
+}
+
+function gateVerdict(res) {
+  if(res.criticalMissing.length > 0) return 'HOLD';
+  const pct = res.checked/res.total;
+  if(pct >= 0.9) return 'PROCEED';
+  if(pct >= 0.65) return 'CONDITIONAL';
+  return 'HOLD';
+}
+
+function computeAndShow() {
+  const g = {
+    planning: getGateResults(GATES.planning),
+    inputs: getGateResults(GATES.inputs),
+    outputs: getGateResults(GATES.outputs),
+    vv: getGateResults(GATES.vv)
+  };
+  const v = {
+    planning: gateVerdict(g.planning),
+    inputs: gateVerdict(g.inputs),
+    outputs: gateVerdict(g.outputs),
+    vv: gateVerdict(g.vv)
+  };
+
+  // Overall verdict
+  let overall = 'PROCEED';
+  if(Object.values(v).includes('HOLD')) overall = 'HOLD';
+  else if(Object.values(v).includes('CONDITIONAL')) overall = 'CONDITIONAL';
+
+  // Total items
+  const allMissing = [
+    ...g.planning.missing.map(m=>'[Planning] '+m),
+    ...g.inputs.missing.map(m=>'[Inputs] '+m),
+    ...g.outputs.missing.map(m=>'[Outputs] '+m),
+    ...g.vv.missing.map(m=>'[V&V] '+m)
+  ];
+  const allCritMissing = [
+    ...g.planning.criticalMissing.map(m=>'[Planning] '+m),
+    ...g.inputs.criticalMissing.map(m=>'[Inputs] '+m),
+    ...g.outputs.criticalMissing.map(m=>'[Outputs] '+m),
+    ...g.vv.criticalMissing.map(m=>'[V&V] '+m)
+  ];
+
+  const verdictMsg = {
+    'PROCEED': 'All gate criteria met. D&D activity may proceed to next phase or production release.',
+    'CONDITIONAL': 'Non-critical gaps identified. Proceed with documented open-item register and defined closure dates.',
+    'HOLD': 'One or more critical gate criteria not met. D&D activity must not proceed until critical items are resolved.'
+  };
+
+  const projNum = document.getElementById('projNum').value || 'Not specified';
+  const projTitle = document.getElementById('projTitle').value || 'Not specified';
+  const ddType = document.getElementById('ddType').value || 'Not specified';
+  const orgName = document.getElementById('orgName').value || 'Not specified';
+  const revDate = document.getElementById('revDate').value || new Date().toISOString().split('T')[0];
+  const std = document.getElementById('stdSelect').value;
+
+  // Verdict panel
+  const vp = document.getElementById('verdictPanel');
+  vp.className = 'verdict-panel verdict-'+overall;
+  vp.style.display = 'block';
+  vp.innerHTML = `
+    <div class="verdict-label">GATE DECISION: ${overall}</div>
+    <div class="verdict-sub">${verdictMsg[overall]}</div>
+    ${allCritMissing.length > 0 ? `<div class="missing-list"><h4>Critical Items Not Satisfied (${allCritMissing.length})</h4><ul>${allCritMissing.map(m=>'<li>'+m+'</li>').join('')}</ul></div>` : ''}
+    ${allMissing.length > 0 && allCritMissing.length === 0 ? `<div class="missing-list"><h4 style="color:#fcd34d">Open Items (${allMissing.length})</h4><ul>${allMissing.map(m=>'<li style="color:#e2e8f0">'+m+'</li>').join('')}</ul></div>` : ''}
+  `;
+
+  // Stage pills
+  const pn = ['Planning (8.3.2)','Inputs (8.3.3)','Outputs (8.3.4/5)','V&V (8.3.6/7)'];
+  const vs = [v.planning, v.inputs, v.outputs, v.vv];
+  const pillClass = {PROCEED:'pill-pass',CONDITIONAL:'pill-warn',HOLD:'pill-fail'};
+  document.getElementById('stagePills').innerHTML = pn.map((n,i) => `<span class="pill ${pillClass[vs[i]]}">${n}: ${vs[i]}</span>`).join('');
+
+  // Detail summary
+  const gNames = ['Gate 1 — Planning','Gate 2 — Inputs','Gate 3 — Outputs','Gate 4 — V&V'];
+  const gData = [g.planning, g.inputs, g.outputs, g.vv];
+  const vData = [v.planning, v.inputs, v.outputs, v.vv];
+  const badgeClass = {PROCEED:'badge-pass',CONDITIONAL:'badge-warn',HOLD:'badge-fail'};
+  document.getElementById('detailSummary').innerHTML = gNames.map((n,i) => `
+    <div class="gate-row">
+      <span class="gate-name">${n}</span>
+      <span>${gData[i].checked}/${gData[i].total} satisfied · ${gData[i].criticalMissing.length} critical open</span>
+      <span class="badge ${badgeClass[vData[i]]}">${vData[i]}</span>
+    </div>
+  `).join('');
+
+  // Narrative
+  const totalChecked = g.planning.checked + g.inputs.checked + g.outputs.checked + g.vv.checked;
+  const totalItems = g.planning.total + g.inputs.total + g.outputs.total + g.vv.total;
+  const narrative = `AS9100D DESIGN & DEVELOPMENT GATE REVIEW RECORD
+Standard: ${std}
+Project / P/N: ${projNum}
+Description: ${projTitle}
+Activity Type: ${ddType}
+Organization: ${orgName}
+Review Date: ${revDate}
+Generated: ${new Date().toISOString()}
+
+OVERALL GATE DECISION: ${overall}
+${verdictMsg[overall]}
+
+GATE SUMMARY:
+  Gate 1 – Planning (Cl. 8.3.2):       ${g.planning.checked}/${g.planning.total} satisfied — ${v.planning}
+  Gate 2 – Inputs (Cl. 8.3.3):         ${g.inputs.checked}/${g.inputs.total} satisfied — ${v.inputs}
+  Gate 3 – Outputs (Cl. 8.3.4/8.3.5):  ${g.outputs.checked}/${g.outputs.total} satisfied — ${v.outputs}
+  Gate 4 – V&V (Cl. 8.3.6/8.3.7):     ${g.vv.checked}/${g.vv.total} satisfied — ${v.vv}
+  TOTAL:                                 ${totalChecked}/${totalItems} satisfied
+
+${allCritMissing.length > 0 ? 'CRITICAL OPEN ITEMS (must close before proceeding):\n' + allCritMissing.map((m,i)=>`  ${i+1}. ${m}`).join('\n') + '\n' : ''}
+${allMissing.filter(m=>!allCritMissing.includes(m.replace(/^\[(.*?)\] /,''))).length > 0 ? 'NON-CRITICAL OPEN ITEMS:\n' + allMissing.filter(m=>!allCritMissing.some(c=>m.includes(c))).map((m,i)=>`  ${i+1}. ${m}`).join('\n') + '\n' : ''}
+REVIEWER NOTES:
+This gate review was completed using the Conform-Edge AS9100D Design & Development Gate Tool v1.0. Results reflect the organization's self-assessment and do not constitute certification body or regulatory determination. All open items should be entered into the organization's corrective action or open-item register with assigned owners and closure dates.`;
+
+  document.getElementById('narrativeBox').textContent = narrative;
+
+  // Store for export
+  window._ddGateData = { projNum, projTitle, ddType, orgName, revDate, std, overall, verdict: verdictMsg[overall], gates: {planning:{...g.planning,verdict:v.planning}, inputs:{...g.inputs,verdict:v.inputs}, outputs:{...g.outputs,verdict:v.outputs}, vv:{...g.vv,verdict:v.vv}}, criticalMissing:allCritMissing, allMissing, totalChecked, totalItems, tool:'as9100d-dd-gate-tool-v1.0' };
+
+  goStep(5);
+}
+
+function exportJSON() {
+  if(!window._ddGateData) return;
+  const blob = new Blob([JSON.stringify(window._ddGateData, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'DD-Gate-Review-'+(window._ddGateData.projNum||'record').replace(/[^a-z0-9]/gi,'_')+'-'+new Date().toISOString().split('T')[0]+'.json';
+  a.click();
+}
+
+// Init
+renderGateItems('planningItems', GATES.planning);
+renderGateItems('inputItems', GATES.inputs);
+renderGateItems('outputItems', GATES.outputs);
+renderGateItems('vvItems', GATES.vv);
+</script>
+</body>
+</html>

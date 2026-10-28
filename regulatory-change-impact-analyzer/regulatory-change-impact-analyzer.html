@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regulatory Change Impact Analyzer | Conform-Edge</title>
+<style>
+:root {
+  --navy: #1e2a47; --steel: #4a6fa5; --steel-light: #6b8cbe;
+  --ink: #1a1a2e; --bg: #f0f4f9; --panel: #ffffff; --border: #c8d4e8;
+  --green: #166534; --green-bg: #f0fdf4;
+  --amber: #92400e; --amber-bg: #fffbeb;
+  --red: #991b1b; --red-bg: #fef2f2;
+  --text: #1e2a47; --muted: #64748b; --tag-bg: #e8eef8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+header { background: var(--navy); color: #fff; padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
+header h1 { font-size: 18px; font-weight: 700; }
+header span { font-size: 12px; background: var(--steel); padding: 3px 8px; border-radius: 4px; }
+.main { max-width: 900px; margin: 0 auto; padding: 28px 20px; }
+.disclaimer { background: var(--amber-bg); border: 1px solid #fcd34d; border-radius: 8px; padding: 12px 16px; font-size: 12px; color: var(--amber); margin-bottom: 20px; }
+.progress { display: flex; margin-bottom: 28px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.progress-step { flex: 1; padding: 10px 14px; font-size: 12px; font-weight: 600; background: var(--panel); color: var(--muted); text-align: center; border-right: 1px solid var(--border); }
+.progress-step:last-child { border-right: none; }
+.progress-step.active { background: var(--navy); color: #fff; }
+.progress-step.done { background: var(--steel); color: #fff; }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.card h2 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+.form-row.full { grid-template-columns: 1fr; }
+.form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+label { font-size: 12px; font-weight: 600; color: var(--navy); }
+label .req { color: var(--red); margin-left: 2px; }
+select, input[type="text"], input[type="date"], textarea { border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-size: 13px; color: var(--text); background: var(--bg); width: 100%; font-family: inherit; }
+select:focus, input:focus, textarea:focus { outline: 2px solid var(--steel); border-color: var(--steel); background: #fff; }
+textarea { min-height: 72px; resize: vertical; }
+.scope-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
+.scope-item { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-size: 13px; cursor: pointer; transition: background 0.15s; }
+.scope-item:hover { background: var(--tag-bg); }
+.scope-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--steel); }
+.scope-item.checked { background: var(--tag-bg); border-color: var(--steel); }
+.btn { padding: 10px 24px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.btn-primary { background: var(--steel); color: #fff; }
+.btn-primary:hover { background: var(--navy); }
+.btn-secondary { background: var(--bg); color: var(--navy); border: 1px solid var(--border); }
+.btn-row { display: flex; gap: 12px; margin-top: 20px; }
+.hidden { display: none !important; }
+/* Results */
+.verdict-box { border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; border: 2px solid; }
+.verdict-IMMEDIATE { background: var(--red-bg); border-color: #fca5a5; }
+.verdict-SHORT-TERM { background: var(--amber-bg); border-color: #fcd34d; }
+.verdict-MONITOR { background: var(--green-bg); border-color: #86efac; }
+.verdict-NONE { background: var(--bg); border-color: var(--border); }
+.v-label { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.v-info { font-size: 13px; line-height: 1.6; }
+.urgency-IMMEDIATE { color: var(--red); font-weight: 700; }
+.urgency-SHORT-TERM { color: var(--amber); font-weight: 700; }
+.urgency-MONITOR { color: var(--green); font-weight: 700; }
+.section-title { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+th { background: var(--navy); color: #fff; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 12px; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: var(--bg); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.tag-IMMEDIATE { background: var(--red-bg); color: var(--red); border: 1px solid #fca5a5; }
+.tag-SHORT-TERM { background: var(--amber-bg); color: var(--amber); border: 1px solid #fcd34d; }
+.tag-MONITOR { background: var(--green-bg); color: var(--green); border: 1px solid #86efac; }
+.tag-safety { background: #fef2f2; color: var(--red); border: 1px solid #fca5a5; }
+.narrative { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-size: 13px; line-height: 1.7; color: var(--muted); margin-top: 12px; white-space: pre-wrap; }
+.mai-badge { display: inline-flex; align-items: center; gap: 6px; background: #ede9fe; border: 1px solid #c4b5fd; border-radius: 6px; padding: 4px 10px; font-size: 11px; color: #5b21b6; font-weight: 600; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Regulatory Change Impact Analyzer</h1>
+  <span>Conform-Edge</span>
+</header>
+
+<div class="main">
+  <div class="disclaimer">
+    <strong>Scope:</strong> This tool identifies potentially affected QMS clause areas, document types, and action urgency based on the change information you provide. It does not constitute a legal determination of regulatory applicability. Your organization retains responsibility for confirming applicability and taking required actions.
+  </div>
+
+  <div class="progress" id="progress">
+    <div class="progress-step active" id="ps1">1 · Change Details</div>
+    <div class="progress-step" id="ps2">2 · Organization Scope</div>
+    <div class="progress-step" id="ps3">3 · Impact Report</div>
+  </div>
+
+  <!-- STEP 1: Change Details -->
+  <div id="step1">
+    <div class="card">
+      <h2>Step 1 — Regulatory Change Details</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Issuing Authority <span class="req">*</span></label>
+          <select id="authority">
+            <option value="">Select authority...</option>
+            <option value="FAA">FAA (Federal Aviation Administration)</option>
+            <option value="EASA">EASA (European Union Aviation Safety Agency)</option>
+            <option value="UK-CAA">UK CAA</option>
+            <option value="CAAC">CAAC (Civil Aviation Administration of China)</option>
+            <option value="CASA">CASA (Civil Aviation Safety Authority — Australia)</option>
+            <option value="TCCA">Transport Canada (TCCA)</option>
+            <option value="ISO">ISO (International Organization for Standardization)</option>
+            <option value="IAQG">IAQG (AS-series standards)</option>
+            <option value="IATF">IATF 16949</option>
+            <option value="FDA">FDA (U.S. Food & Drug Administration)</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Change Type <span class="req">*</span></label>
+          <select id="changeType">
+            <option value="">Select type...</option>
+            <option value="final-rule">Final Rule / Regulation (effective)</option>
+            <option value="amendment">Amendment to existing regulation</option>
+            <option value="standard-revision">Standard Revision (new edition)</option>
+            <option value="ac-guidance">Advisory Circular / Guidance update</option>
+            <option value="nprm">NPRM / Proposed Rule (not yet final)</option>
+            <option value="ad">Airworthiness Directive</option>
+            <option value="safo">SAFO / Safety Alert</option>
+            <option value="bilateral">Bilateral Agreement change</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Change Title / Reference <span class="req">*</span></label>
+          <input type="text" id="changeTitle" placeholder="e.g. MAG Change 10, ISO 9001:2026, 14 CFR Part 145 SMS NPRM...">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Effective Date</label>
+          <input type="date" id="effectiveDate">
+        </div>
+        <div class="form-group">
+          <label>Safety / Airworthiness Impact?</label>
+          <select id="safetyFlag">
+            <option value="no">No — quality/documentation change</option>
+            <option value="yes">Yes — affects safety-of-flight or airworthiness</option>
+            <option value="production">Yes — affects production approval or certification basis</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Change Summary (brief description of what changed)</label>
+          <textarea id="changeSummary" placeholder="Describe what changed — new requirements, deleted sections, revised obligations, new forms, etc."></textarea>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="goStep2()">Next: Organization Scope →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Scope -->
+  <div id="step2" class="hidden">
+    <div class="card">
+      <h2>Step 2 — Your Organization's Certification / Approval Scope</h2>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Select all that apply to your organization. The impact engine will identify which of your certifications / approvals are potentially affected.</p>
+      <div class="scope-grid" id="scopeGrid">
+        <label class="scope-item" id="sc-as9100d"><input type="checkbox" value="AS9100D" onchange="toggleScope(this)"> AS9100D</label>
+        <label class="scope-item" id="sc-as9110c"><input type="checkbox" value="AS9110C" onchange="toggleScope(this)"> AS9110C (MRO)</label>
+        <label class="scope-item" id="sc-as9120b"><input type="checkbox" value="AS9120B" onchange="toggleScope(this)"> AS9120B (Distributor)</label>
+        <label class="scope-item" id="sc-iso9001"><input type="checkbox" value="ISO9001" onchange="toggleScope(this)"> ISO 9001:2015</label>
+        <label class="scope-item" id="sc-iatf"><input type="checkbox" value="IATF" onchange="toggleScope(this)"> IATF 16949</label>
+        <label class="scope-item" id="sc-iso13485"><input type="checkbox" value="ISO13485" onchange="toggleScope(this)"> ISO 13485 / QMSR</label>
+        <label class="scope-item" id="sc-faa145"><input type="checkbox" value="FAA145" onchange="toggleScope(this)"> FAA Part 145</label>
+        <label class="scope-item" id="sc-faa21"><input type="checkbox" value="FAA21" onchange="toggleScope(this)"> FAA Part 21</label>
+        <label class="scope-item" id="sc-easa145"><input type="checkbox" value="EASA145" onchange="toggleScope(this)"> EASA Part 145</label>
+        <label class="scope-item" id="sc-easa21"><input type="checkbox" value="EASA21" onchange="toggleScope(this)"> EASA Part 21</label>
+        <label class="scope-item" id="sc-ukcaa"><input type="checkbox" value="UKCAA" onchange="toggleScope(this)"> UK CAA Part 145</label>
+        <label class="scope-item" id="sc-caac"><input type="checkbox" value="CAAC" onchange="toggleScope(this)"> CAAC CCAR-145</label>
+        <label class="scope-item" id="sc-iso14001"><input type="checkbox" value="ISO14001" onchange="toggleScope(this)"> ISO 14001</label>
+        <label class="scope-item" id="sc-mdsap"><input type="checkbox" value="MDSAP" onchange="toggleScope(this)"> MDSAP</label>
+        <label class="scope-item" id="sc-iso45001"><input type="checkbox" value="ISO45001" onchange="toggleScope(this)"> ISO 45001</label>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="showStep(1)">← Back</button>
+        <button class="btn btn-primary" onclick="generateReport()">Generate Impact Report →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: Report -->
+  <div id="step3" class="hidden">
+    <div id="reportOut"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="showStep(1)">← New Analysis</button>
+      <button class="btn btn-primary" onclick="exportJSON()">Export JSON</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── IMPACT TAXONOMY ──────────────────────────────────────────────────────────
+// Maps [authority][changeType] → { affects: [scope codes], clauses: [], docTypes: [], actions: [], urgencyBase }
+
+const TAXONOMY = {
+  FAA: {
+    'final-rule': {
+      affects: ['FAA145','FAA21','EASA145'],
+      clauses: ['FAA Part 145 §145.5 definitions','FAA Part 145 §145.109 personnel','FAA Part 145 §145.163 training','FAA Part 145 §145.207 quality system'],
+      docTypes: ['Quality Manual','RSM (Repair Station Manual)','Training Manual','Procedures — affected sections'],
+      actions: ['Review change against RSM section-by-section','Identify RSM revision scope','Submit revised RSM per §145.209 timeline if required','Update training records / competency matrix','Brief Quality team'],
+      urgencyBase: 'SHORT-TERM'
+    },
+    'amendment': {
+      affects: ['FAA145','FAA21'],
+      clauses: ['Applicable Part 145 or Part 21 subpart'],
+      docTypes: ['RSM / Quality Manual — affected sections','Affected procedures / WIs'],
+      actions: ['Read amendment for scope','Map to current RSM','Revise affected documents','Train affected personnel'],
+      urgencyBase: 'SHORT-TERM'
+    },
+    'ac-guidance': {
+      affects: ['FAA145','FAA21'],
+      clauses: ['Policy / acceptable means of compliance'],
+      docTypes: ['RSM reference to acceptable means','Procedures using former AC guidance'],
+      actions: ['Review new AC against current procedures','Determine if procedures still acceptable','Update if needed — no mandatory timeline but document decision'],
+      urgencyBase: 'MONITOR'
+    },
+    'nprm': {
+      affects: ['FAA145','FAA21'],
+      clauses: ['Proposed — not yet effective'],
+      docTypes: ['N/A — monitor only'],
+      actions: ['Read NPRM for anticipated scope','Comment period may be open — consider submitting comments','Begin internal impact scoping now to prepare for final rule'],
+      urgencyBase: 'MONITOR'
+    },
+    'ad': {
+      affects: ['FAA145','FAA21','AS9100D','AS9110C'],
+      clauses: ['AD tracking per §145.109','AS9110C clause 8.1 (airworthiness directives)'],
+      docTypes: ['AD Compliance Log','Maintenance procedures — affected ATA chapter','Work Order system'],
+      actions: ['Add AD to tracking log immediately','Determine effectivity on articles in shop','Update affected maintenance procedures','Notify aircraft owners/operators as applicable'],
+      urgencyBase: 'IMMEDIATE'
+    },
+    'safo': {
+      affects: ['FAA145'],
+      clauses: ['Safety culture / safety communication'],
+      docTypes: ['Safety communication records','Safety bulletin / alert log'],
+      actions: ['Brief relevant personnel','Document acknowledgment','Assess if operational procedure change needed'],
+      urgencyBase: 'MONITOR'
+    },
+    'bilateral': {
+      affects: ['FAA145','EASA145','UKCAA'],
+      clauses: ['EASA Supplement / MAG compliance','Bilateral agreement obligations'],
+      docTypes: ['EASA Supplement','MAG compliance evidence','Bilateral oversight records'],
+      actions: ['Identify which bilateral is changing (US-EU BASA, US-UK, etc.)','Review Supplement for affected sections','Update Supplement and submit to FAA/EASA per timeline','Confirm no gap in bilateral coverage'],
+      urgencyBase: 'SHORT-TERM'
+    }
+  },
+  EASA: {
+    'final-rule': {
+      affects: ['EASA145','EASA21','FAA145'],
+      clauses: ['EASA Part 145.A.30','EASA Part 145.A.50','EASA Part 145.A.60','EASA Part 145.A.65'],
+      docTypes: ['MOE (Maintenance Organisation Exposition)','Procedures — affected sections'],
+      actions: ['Review regulation against MOE','Identify MOE revision scope','Submit to Competent Authority per Part 145.A.70','Update training'],
+      urgencyBase: 'SHORT-TERM'
+    },
+    'nprm': {
+      affects: ['EASA145','EASA21'],
+      clauses: ['Proposed — monitor'],
+      docTypes: ['N/A — monitor'],
+      actions: ['Review NPA/CRD for scope','Consider responding to consultation','Begin internal impact scoping'],
+      urgencyBase: 'MONITOR'
+    },
+    'bilateral': {
+      affects: ['FAA145','EASA145','UKCAA'],
+      clauses: ['MAG CHG applicable section','EASA Supplement structure'],
+      docTypes: ['EASA Supplement','MAG compliance matrix','Bilateral oversight checklist'],
+      actions: ['Identify specific MAG change','Map to EASA Supplement section','Revise Supplement','Submit to FAA Technical Agent / EASA within required timeline'],
+      urgencyBase: 'SHORT-TERM'
+    },
+    'ac-guidance': {
+      affects: ['EASA145','EASA21'],
+      clauses: ['AMC / GM update'],
+      docTypes: ['MOE references to AMC','Affected procedures'],
+      actions: ['Review AMC for acceptable means changes','Update procedures if current means no longer acceptable','Document rationale if keeping current approach'],
+      urgencyBase: 'MONITOR'
+    }
+  },
+  ISO: {
+    'standard-revision': {
+      affects: ['ISO9001','AS9100D','AS9110C','AS9120B','ISO13485','ISO14001','ISO45001','IATF','MDSAP'],
+      clauses: ['All changed clauses in new edition'],
+      docTypes: ['Quality Manual','Procedures — all affected clauses','Training materials','Internal audit checklists'],
+      actions: ['Obtain new standard edition','Perform clause-by-clause gap analysis','Update QMS documentation to new clause structure','Revise internal audit program','Notify CB of pending scope change','Plan re-certification or staged transition','Train internal auditors on new requirements'],
+      urgencyBase: 'SHORT-TERM'
+    }
+  },
+  IAQG: {
+    'standard-revision': {
+      affects: ['AS9100D','AS9110C','AS9120B'],
+      clauses: ['All revised clauses in new IAQG edition'],
+      docTypes: ['Quality Manual','Aerospace-specific procedures (FAI, counterfeit, KC, SMS)','Internal audit checklist'],
+      actions: ['Check OASIS for new edition effective date and transition period','Perform gap analysis against new edition','Update documentation','Coordinate with CB for surveillance / recertification timeline','Update OASIS record'],
+      urgencyBase: 'SHORT-TERM'
+    }
+  },
+  IATF: {
+    'standard-revision': {
+      affects: ['IATF'],
+      clauses: ['All revised IATF 16949 clauses + CSR updates'],
+      docTypes: ['Quality Manual','Control Plan','APQP/PPAP documentation','Customer-Specific Requirement matrices'],
+      actions: ['Review IATF Sanctioned Interpretations for new edition','Perform internal gap analysis','Update CSR matrices for all OEM customers','Revise PPAP/APQP procedures','Notify CB'],
+      urgencyBase: 'SHORT-TERM'
+    }
+  },
+  FDA: {
+    'final-rule': {
+      affects: ['ISO13485','MDSAP'],
+      clauses: ['21 CFR Part 820 / QMSR','Device QMS requirements'],
+      docTypes: ['Quality Manual','Design History File','Device Master Record','Complaint handling procedures'],
+      actions: ['Identify QMSR delta from QSR','Perform clause-by-clause gap analysis','Revise QMS documentation','Update DHF / DMR / DHR procedures','Verify MDR reporting procedures current','Train quality team'],
+      urgencyBase: 'SHORT-TERM'
+    },
+    'ac-guidance': {
+      affects: ['ISO13485','MDSAP'],
+      clauses: ['Affected guidance topic'],
+      docTypes: ['Procedures referencing former guidance','Quality system records'],
+      actions: ['Review guidance update','Determine impact on current procedures','Update if needed','Document decision'],
+      urgencyBase: 'MONITOR'
+    }
+  },
+  CAAC: {
+    'final-rule': {
+      affects: ['CAAC'],
+      clauses: ['CCAR-145 applicable section'],
+      docTypes: ['Quality Manual (bilingual)','Maintenance procedures','CAAC AMO documents'],
+      actions: ['Review CCAR change for English-language summary','Identify affected AMO documents','Revise and resubmit to CAAC as required','Update bilingual procedures'],
+      urgencyBase: 'SHORT-TERM'
+    }
+  },
+  'UK-CAA': {
+    'final-rule': {
+      affects: ['UKCAA'],
+      clauses: ['UK Part 145 / BCAR applicable section'],
+      docTypes: ['MOE (UK variant)','Procedures — affected sections'],
+      actions: ['Review UK CAA change','Map to MOE','Submit revision to UK CAA','Update training'],
+      urgencyBase: 'SHORT-TERM'
+    }
+  },
+  OTHER: {
+    'final-rule': {
+      affects: [],
+      clauses: ['Review applicable standard/regulation'],
+      docTypes: ['Quality Manual and directly affected procedures'],
+      actions: ['Obtain and read the change document','Perform gap analysis against current QMS','Identify affected documents','Plan and execute updates'],
+      urgencyBase: 'SHORT-TERM'
+    }
+  }
+};
+
+// Default fallback
+const DEFAULT_IMPACT = {
+  clauses: ['Review applicable clause(s)'],
+  docTypes: ['Quality Manual','Directly affected procedures'],
+  actions: ['Read and understand the change','Identify affected QMS elements','Plan updates','Update documentation','Train personnel'],
+  urgencyBase: 'MONITOR'
+};
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toggleScope(cb) {
+  const lbl = cb.closest('.scope-item');
+  if (cb.checked) lbl.classList.add('checked');
+  else lbl.classList.remove('checked');
+}
+
+function showStep(n) {
+  document.getElementById('step1').classList.toggle('hidden', n !== 1);
+  document.getElementById('step2').classList.toggle('hidden', n !== 2);
+  document.getElementById('step3').classList.toggle('hidden', n !== 3);
+  ['ps1','ps2','ps3'].forEach((id,i) => {
+    const el = document.getElementById(id);
+    el.className = 'progress-step';
+    if (i + 1 === n) el.classList.add('active');
+    else if (i + 1 < n) el.classList.add('done');
+  });
+}
+
+function goStep2() {
+  const auth = document.getElementById('authority').value;
+  const ct = document.getElementById('changeType').value;
+  const title = document.getElementById('changeTitle').value.trim();
+  if (!auth || !ct || !title) { alert('Please fill in Authority, Change Type, and Change Title.'); return; }
+  showStep(2);
+}
+
+function getSelectedScope() {
+  return [...document.querySelectorAll('#scopeGrid input[type="checkbox"]:checked')].map(cb => cb.value);
+}
+
+function generateReport() {
+  const scope = getSelectedScope();
+  if (scope.length === 0) { alert('Please select at least one certification / approval scope.'); return; }
+
+  const authority = document.getElementById('authority').value;
+  const changeType = document.getElementById('changeType').value;
+  const changeTitle = document.getElementById('changeTitle').value.trim();
+  const effectiveDate = document.getElementById('effectiveDate').value;
+  const safetyFlag = document.getElementById('safetyFlag').value;
+  const changeSummary = document.getElementById('changeSummary').value.trim();
+
+  // ─── IMPACT ENGINE ────────────────────────────────────────────────────────
+  const authTaxonomy = TAXONOMY[authority] || {};
+  const typeTaxonomy = authTaxonomy[changeType] || DEFAULT_IMPACT;
+
+  // Determine affected scope intersection
+  const affectedScopes = scope.filter(s => !typeTaxonomy.affects || typeTaxonomy.affects.length === 0 || typeTaxonomy.affects.includes(s));
+  const hasImpact = affectedScopes.length > 0 || Object.keys(authTaxonomy).length === 0;
+
+  // Urgency override: safety/airworthiness or AD
+  let urgency = typeTaxonomy.urgencyBase || 'MONITOR';
+  let safetyOverride = false;
+  if (safetyFlag === 'yes' || safetyFlag === 'production') { urgency = 'IMMEDIATE'; safetyOverride = true; }
+  if (changeType === 'ad') { urgency = 'IMMEDIATE'; safetyOverride = true; }
+  if (changeType === 'nprm') urgency = 'MONITOR';
+
+  // Scope labels
+  const SCOPE_LABELS = {
+    AS9100D:'AS9100D',AS9110C:'AS9110C (MRO)',AS9120B:'AS9120B (Distributor)',
+    ISO9001:'ISO 9001:2015',IATF:'IATF 16949',ISO13485:'ISO 13485 / QMSR',
+    FAA145:'FAA Part 145',FAA21:'FAA Part 21',EASA145:'EASA Part 145',
+    EASA21:'EASA Part 21',UKCAA:'UK CAA Part 145',CAAC:'CAAC CCAR-145',
+    ISO14001:'ISO 14001',MDSAP:'MDSAP',ISO45001:'ISO 45001'
+  };
+
+  // Build narrative
+  const narrative = buildNarrative({ authority, changeType, changeTitle, effectiveDate, safetyFlag, urgency, safetyOverride, affectedScopes, scope, typeTaxonomy, hasImpact });
+
+  // Store for export
+  window._reportData = { authority, changeType, changeTitle, effectiveDate, safetyFlag, urgency, safetyOverride, affectedScopes, clauses: typeTaxonomy.clauses, docTypes: typeTaxonomy.docTypes, actions: typeTaxonomy.actions, narrative, generated: new Date().toISOString() };
+
+  // ─── RENDER ───────────────────────────────────────────────────────────────
+  let html = '';
+  const vClass = `verdict-${urgency}`;
+
+  html += `<div class="mai-badge">M-AI Kernel Interface — Domain: regulatory-change-impact | Status: ARCHITECTURE DEFINED | Runtime: RESERVED</div>`;
+
+  html += `<div class="verdict-box ${vClass}">
+    <div class="v-label urgency-${urgency}">⚡ ${urgency === 'IMMEDIATE' ? 'IMMEDIATE ACTION REQUIRED' : urgency === 'SHORT-TERM' ? 'SHORT-TERM ACTION (≤6 months)' : 'MONITOR — Prepare Early'}</div>
+    <div class="v-info">
+      ${escHtml(changeTitle)} issued by ${escHtml(authority)}${effectiveDate ? ` — effective ${effectiveDate}` : ''}.
+      ${safetyOverride ? '<br><strong>⚠ Safety/airworthiness or production-approval impact detected — IMMEDIATE timeline applies regardless of other factors.</strong>' : ''}
+      ${changeType === 'nprm' ? '<br><em>This is a proposed rule (NPRM) — not yet effective. Begin impact scoping now to prepare for the final rule.</em>' : ''}
+      ${!hasImpact ? '<br>No direct intersection identified between this change and your selected scope. Verify applicability with your regulatory advisor.' : ''}
+    </div>
+  </div>`;
+
+  if (hasImpact && affectedScopes.length > 0) {
+    html += `<div class="card"><h2>Scope Intersection</h2>`;
+    html += `<div class="section-title">Potentially Affected Certifications / Approvals</div>`;
+    html += `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">`;
+    affectedScopes.forEach(s => {
+      html += `<span class="tag tag-IMMEDIATE">${escHtml(SCOPE_LABELS[s]||s)}</span>`;
+    });
+    html += `</div>`;
+
+    const notAffected = scope.filter(s => !affectedScopes.includes(s));
+    if (notAffected.length > 0) {
+      html += `<div class="section-title" style="margin-top:12px;">No Direct Intersection Identified</div>`;
+      html += `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;">`;
+      notAffected.forEach(s => html += `<span class="tag tag-MONITOR">${escHtml(SCOPE_LABELS[s]||s)}</span>`);
+      html += `</div><p style="font-size:12px;color:var(--muted);">Verify independently — scope taxonomy is guidance, not a compliance determination.</p>`;
+    }
+    html += `</div>`;
+  }
+
+  // Clause families
+  if (typeTaxonomy.clauses && typeTaxonomy.clauses.length > 0) {
+    html += `<div class="card"><h2>Potentially Affected Clause Areas</h2>`;
+    html += `<table><thead><tr><th>#</th><th>Clause Area / Requirement</th><th>Urgency</th></tr></thead><tbody>`;
+    typeTaxonomy.clauses.forEach((c,i) => {
+      html += `<tr><td>${i+1}</td><td>${escHtml(c)}</td><td><span class="tag tag-${urgency}">${urgency}</span></td></tr>`;
+    });
+    html += `</tbody></table></div>`;
+  }
+
+  // Document types
+  if (typeTaxonomy.docTypes && typeTaxonomy.docTypes.length > 0) {
+    html += `<div class="card"><h2>Potentially Affected Document Types</h2>`;
+    html += `<div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    typeTaxonomy.docTypes.forEach(d => html += `<span style="background:var(--tag-bg);border:1px solid var(--border);border-radius:6px;padding:4px 12px;font-size:12px;">${escHtml(d)}</span>`);
+    html += `</div></div>`;
+  }
+
+  // Action plan
+  if (typeTaxonomy.actions && typeTaxonomy.actions.length > 0) {
+    html += `<div class="card"><h2>Action Plan</h2>`;
+    html += `<table><thead><tr><th>#</th><th>Action</th><th>Urgency</th></tr></thead><tbody>`;
+    typeTaxonomy.actions.forEach((a,i) => {
+      const u = i === 0 && safetyOverride ? 'IMMEDIATE' : (i < 2 ? urgency : 'SHORT-TERM');
+      html += `<tr><td>${i+1}</td><td>${escHtml(a)}</td><td><span class="tag tag-${u}">${u}</span></td></tr>`;
+    });
+    html += `</tbody></table>`;
+    html += `<p style="font-size:12px;color:var(--muted);margin-top:8px;">Actions are a starting framework. Your regulatory advisor should confirm applicability and any submission requirements.</p>`;
+    html += `</div>`;
+  }
+
+  // Narrative
+  html += `<div class="card"><h2>Management Review Narrative</h2>`;
+  html += `<div class="narrative">${escHtml(narrative)}</div></div>`;
+
+  document.getElementById('reportOut').innerHTML = html;
+  showStep(3);
+}
+
+function buildNarrative({ authority, changeType, changeTitle, effectiveDate, urgency, safetyOverride, affectedScopes, typeTaxonomy }) {
+  const date = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+  const typeLabel = { 'final-rule':'Final Rule','amendment':'Amendment','standard-revision':'Standard Revision','ac-guidance':'Guidance Update','nprm':'Proposed Rule (NPRM)','ad':'Airworthiness Directive','safo':'Safety Alert (SAFO)','bilateral':'Bilateral Agreement Change' }[document.getElementById('changeType').value] || 'Change';
+
+  return `Regulatory Change Impact Assessment — ${date}
+
+Change: ${changeTitle}
+Authority: ${authority} | Type: ${typeLabel}${effectiveDate ? ` | Effective: ${effectiveDate}` : ''}
+Action Urgency: ${urgency}${safetyOverride ? ' (SAFETY/AIRWORTHINESS OVERRIDE APPLIED)' : ''}
+
+Scope Intersection: ${affectedScopes.length > 0 ? affectedScopes.join(', ') : 'No direct intersection identified — verify applicability'}
+
+Potentially Affected Clause Areas:
+${(typeTaxonomy.clauses||[]).map((c,i) => `${i+1}. ${c}`).join('\n')}
+
+Potentially Affected Document Types:
+${(typeTaxonomy.docTypes||[]).map((d,i) => `${i+1}. ${d}`).join('\n')}
+
+Recommended Actions:
+${(typeTaxonomy.actions||[]).map((a,i) => `${i+1}. ${a}`).join('\n')}
+
+Note: This impact assessment is a structured starting point. The organization retains responsibility for confirming applicability, consulting regulatory advisors, and taking required action within applicable timelines. This tool does not constitute a legal or compliance determination.`;
+}
+
+function exportJSON() {
+  if (!window._reportData) return;
+  const blob = new Blob([JSON.stringify(window._reportData, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `regulatory-change-impact-${window._reportData.generated?.slice(0,10)||'export'}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

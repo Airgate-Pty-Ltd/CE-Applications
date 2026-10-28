@@ -1,0 +1,61 @@
+{
+  "playbooks": [
+    {
+      "name": "gap.severity.classify",
+      "kind": "gap",
+      "severity_matrix": [
+        {
+          "severity": "CRITICAL",
+          "description": "Audit failure / regulatory finding likely",
+          "criteria": [
+            "Required by regulator (e.g., FAA Part 145)",
+            "No documented evidence exists",
+            "Affects safety-critical process"
+          ],
+          "vera_response": "🔴 **CRITICAL GAP** — Regulatory exposure. Recommend immediate action plan."
+        },
+        {
+          "severity": "HIGH",
+          "description": "Audit observation / corrective action probable",
+          "criteria": [
+            "Gap is documented but practice is inconsistent",
+            "Evidence exists but incomplete",
+            "Affects QMS core processes"
+          ],
+          "vera_response": "🟠 **HIGH PRIORITY** — Likely audit finding. Develop containment + correction plan."
+        },
+        {
+          "severity": "MEDIUM",
+          "description": "Process improvement opportunity",
+          "criteria": [
+            "Best-practice gap",
+            "Partial evidence exists",
+            "Affects support processes"
+          ],
+          "vera_response": "🟡 **MEDIUM** — Improvement opportunity. Can address in next review cycle."
+        },
+        {
+          "severity": "LOW",
+          "description": "Documentation / formatting issue",
+          "criteria": [
+            "Practice is compliant, documentation needs update",
+            "Minor style/format issue"
+          ],
+          "vera_response": "🟢 **LOW** — Documentation refinement. Queue for next update."
+        }
+      ],
+      "risk_factors": {
+        "regulator": {
+          "faa": 1.5,
+          "easa": 1.4,
+          "iso": 1.0
+        },
+        "sector": {
+          "aerospace": 1.5,
+          "medical": 1.3,
+          "automotive": 1.1
+        }
+      }
+    }
+  ]
+}

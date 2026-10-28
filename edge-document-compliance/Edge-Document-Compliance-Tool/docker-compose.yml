@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+<<<<<<< HEAD
+  postgres:
+    image: postgres:15-alpine
+    container_name: compliance-gap-db
+    environment:
+      POSTGRES_DB: compliance_gap
+=======
+  postgres-compliance:
+    image: postgres:15-alpine
+    container_name: edcat-compliance-db
+    environment:
+      POSTGRES_DB: edcat_compliance_library
+>>>>>>> 9f85f14f3c7d19ed9730264d7100ee55935ba047
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+<<<<<<< HEAD
+      - postgres-data:/var/lib/postgresql/data
+=======
+      - compliance-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres-customer:
+    image: postgres:15-alpine
+    container_name: edcat-customer-db
+    environment:
+      POSTGRES_DB: edcat_customer_data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - customer-data:/var/lib/postgresql/data
+>>>>>>> 9f85f14f3c7d19ed9730264d7100ee55935ba047
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+<<<<<<< HEAD
+  postgres-data:
+=======
+  compliance-data:
+  customer-data:
+>>>>>>> 9f85f14f3c7d19ed9730264d7100ee55935ba047
+

@@ -1,0 +1,31 @@
+# Review ownership.
+#
+# A team handle rather than an individual: this repository is an asset intended
+# for sale, and ownership should survive a change of maintainer without a commit.
+# No personal names appear anywhere in this repository, including here.
+#
+# SETUP REQUIRED: create the `maintainers` team in the owning organisation and
+# grant it write access, or this file resolves to nobody and silently assigns no
+# reviewer.
+#
+# Note: this repository is trunk-only — everything lands on main and no branch
+# survives — so CODEOWNERS assigns reviewers only if pull requests are ever
+# introduced. It is here so ownership is declared, not because a PR flow exists.
+
+*                       @Airgate-Pty-Ltd/maintainers
+
+# The decision layer. Changes here alter what the product determines, not how it
+# looks — routing, dispositions, gates, and record integrity all live below.
+/src/engine/            @Airgate-Pty-Ltd/maintainers
+/src/documents/         @Airgate-Pty-Ltd/maintainers
+
+# The clean-room gate and CI. A weakening change here is the one that cannot be
+# undone later, because git history is permanent.
+/scripts/               @Airgate-Pty-Ltd/maintainers
+/.husky/                @Airgate-Pty-Ltd/maintainers
+/.github/               @Airgate-Pty-Ltd/maintainers
+
+# Regulatory content and citations.
+/src/content/           @Airgate-Pty-Ltd/maintainers
+/REGULATORY-SOURCES.md  @Airgate-Pty-Ltd/maintainers
+/LICENSE                @Airgate-Pty-Ltd/maintainers

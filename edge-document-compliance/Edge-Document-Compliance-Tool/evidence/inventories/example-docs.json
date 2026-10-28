@@ -1,0 +1,27 @@
+[
+  {
+    "id": "P-720-01",
+    "title": "Competence, Training and Awareness",
+    "type": "Procedure",
+    "contentSummary": "Defines competence determination, training delivery, effectiveness measurement; retains records.",
+    "clausesReferenced": ["7.2", "7.3"],
+    "keywords": ["competence", "training", "education", "experience", "records", "effectiveness"]
+  },
+  {
+    "id": "WI-720-002",
+    "title": "Evaluating Training Effectiveness",
+    "type": "WorkInstruction",
+    "contentSummary": "Stepwise method to evaluate and document training effectiveness.",
+    "clausesReferenced": ["7.2"],
+    "keywords": ["evaluation", "criteria", "competence"]
+  },
+  {
+    "id": "P-870-01",
+    "title": "Control of Nonconforming Outputs",
+    "type": "Procedure",
+    "contentSummary": "Identification, segregation, disposition, and release authority for nonconforming product; NCR records.",
+    "clausesReferenced": ["8.7"],
+    "keywords": ["nonconforming", "segregation", "disposition", "release", "records"]
+  }
+]
+

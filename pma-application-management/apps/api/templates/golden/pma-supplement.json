@@ -1,0 +1,73 @@
+{
+  "templateId": "pma-supplement",
+  "title": "Unnumbered PMA Supplement",
+  "scope": "GOLDEN",
+  "note": "Organization-agnostic. Structure is fixed by AC 21.303-4 Appendix C and implemented by F-851-46 Rev A. Only {{tokens}} vary by tenant/case.",
+  "source": [
+    "AC 21.303-4 (3/21/14) Appendix C — Draft PMA Supplement",
+    "F-851-46 Rev A — Unnumbered PMA Supplement Burrana Form",
+    "SOP-851-12 Rev C — Filling Instructions"
+  ],
+
+  "headerBlock": {
+    "title": "FEDERAL AVIATION ADMINISTRATION – PARTS MANUFACTURER APPROVAL",
+    "grid": [
+      ["{{tenant.legalNameUpper}}", "PMA No.", "{{tenant.pmaNumber}}"],
+      ["{{tenant.addressLine1}}", "Supplement No.", "{{case.supplementNumber}}"],
+      ["{{tenant.addressLine2}}", "Date", "{{case.supplementDate}}"]
+    ],
+    "note": "SOP-851-12 Filling Instructions item 2: the Supplement No. and Date fields SHALL BE LEFT BLANK on submission."
+  },
+
+  "columns": [
+    "Article Name",
+    "Article Number",
+    "Approved Replacement for Article Number",
+    "Approval Basis and Approved Design Data",
+    "Make/TCH Eligibility",
+    "Model/Series Eligibility"
+  ],
+
+  "basisStatementTemplates": {
+    "note": "SOP-851-12 Filling Instructions item 8 — capture method depends on what is being submitted. Wording must not differ from the FAA Orders and sample supplement.",
+    "TC": [
+      "Identicaly Per 14 CFR § 21.303, Licensing Agreement between {{case.licensorName}} and {{tenant.legalName}}. Doc. {{case.licenseDocNumber}}, dated {{case.licenseDocDate}}",
+      "TC: {{article.approvalRef}}",
+      "DWG No: {{article.drawingNumber}}",
+      "Rev: {{article.drawingRev}}",
+      "Date: {{article.drawingDate}} or later FAA-Approved revisions."
+    ],
+    "STC": [
+      "STC No: {{article.approvalRef}}",
+      "DWG No: {{article.drawingNumber}}",
+      "Rev: {{article.drawingRev}}",
+      "Date: {{article.drawingDate}} or later FAA approved revisions."
+    ],
+    "DRAWING": [
+      "Identicality per 14 CFR § 21.303, Licensing Agreement between {{case.licensorName}} and {{tenant.legalName}}. {{case.licenseFileNumber}} dated {{case.licenseFileDate}}",
+      "DWG No: {{article.drawingNumber}}",
+      "Rev: {{article.drawingRev}}",
+      "Date: {{article.drawingDate}} or later FAA approved revisions."
+    ]
+  },
+
+  "closing": {
+    "endMarker": "--------------------End of Listing--------------------",
+    "proceduresNote": "The procedures that have been accepted by the type certificate or TSO authorization holder and its cognizant FAA certification branch, for minor changes to original articles used on type-certificated products, are also acceptable for incorporating the same minor changes on identical PMA replacement articles. The PMA holder must be able to show traceability relating to the TC, STC, or TSO authorization holder on all minor changes incorporated by this procedure. When these procedures are no longer applicable because of completion of the production contract, or termination of the licensing agreement or business relationship, all subsequent minor design changes to the PMA articles must be submitted in a manner as determined by the certification branch. Major design changes (reference 14 CFR 21.319 and 21.619) to drawings and specifications are to be handled in the same manner as that for an original PMA.",
+    "signatureBlock": "{{tenant.faaOffice.signatureBlockLines}}"
+  },
+
+  "footer": "Page {{page}} of {{pages}}",
+
+  "formattingRules": [
+    { "rule": "Times New Roman 12pt, bold for table titles.", "source": "SOP-851-12 Filling Instructions item 3" },
+    { "rule": "Times New Roman 12pt for the core of the supplement.", "source": "SOP-851-12 Filling Instructions item 4" },
+    { "rule": "No '.' in the Model Eligibility column unless part of the model number.", "source": "SOP-851-12 Filling Instructions item 5" },
+    { "rule": "No borders — gridlines only.", "source": "SOP-851-12 Filling Instructions item 6" },
+    { "rule": "Do not insert page breaks; maintain one contiguous table regardless of page count.", "source": "SOP-851-12 Filling Instructions item 7" },
+    { "rule": "Do not use wording different from the FAA Orders and sample supplement.", "source": "SOP-851-12 Filling Instructions item 7" },
+    { "rule": "One article name and number per row; do not add extra fields, rows, or columns.", "source": "AC 21.303-4 Appendix C" },
+    { "rule": "Header and page-number footer must appear on every page.", "source": "AC 21.303-4 Appendix C" },
+    { "rule": "Aim for <= 10 pages; if exceeded, notify the FAA office of the total page count.", "source": "SOP-851-12 Filling Instructions; F-851-45 item 2.C" }
+  ]
+}

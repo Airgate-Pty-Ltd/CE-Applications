@@ -1,0 +1,213 @@
+{
+  "schemaVersion": "1.0.0",
+  "packId": "as9100d-demo",
+  "source": {
+    "designation": "AS9100D",
+    "revision": "Rev D (2016)",
+    "publisher": "SAE / IAQG",
+    "sourceType": "standard",
+    "publicDomain": false,
+    "verification": {
+      "status": "UNVERIFIED"
+    }
+  },
+  "mapVersion": "0.2.0",
+  "effectiveDate": "2026-10-11",
+  "changelog": [
+    "0.2.0 — Prototype demonstration obligations (5). Not a validated comprehensive audit pack."
+  ],
+  "license": {
+    "owner": "Conform-Edge Quality Consulting LLC",
+    "statement": "Intent-based audit content authored by Conform-Edge. This pack contains no reproduction of AS9100D requirement text, notes, definitions, or annexes.",
+    "externalDocumentNotice": "AS9100D is published by SAE/IAQG. Each user must hold their own licensed copy."
+  },
+  "appliesWhen": {
+    "certificationsAny": [
+      "AS9100D"
+    ]
+  },
+  "groups": [
+    {
+      "groupId": "demo",
+      "label": "Prototype demonstration",
+      "order": 1
+    }
+  ],
+  "items": [
+    {
+      "itemId": "AS9100D-8.5.2-01",
+      "clauseRef": "8.5.2",
+      "groupId": "demo",
+      "label": "Identification and traceability of outputs",
+      "intent": "Each delivered lot can be traced back through production to the material and process records that justify its conformity.",
+      "question": "Establish by tracing sampled shipped lots backwards that identification is maintained and traceability can actually be reconstructed.",
+      "evidence": [
+        "Shipping records",
+        "Travelers / work orders",
+        "Material certifications",
+        "Interview with stores / production control"
+      ],
+      "ncPattern": "Identifier changes between operations with no linking record",
+      "findingStem": "Objective evidence shows the requirement is not met: {evidence}. The intent of clause 8.5.2 is not met.",
+      "appliesWhen": {
+        "activitiesAny": [
+          "manufacture",
+          "distribute"
+        ]
+      },
+      "obligations": [
+        {
+          "obligationId": "OB-8.5.2",
+          "paragraph": "8.5.2",
+          "attributes": [
+            "T1",
+            "T2",
+            "T3"
+          ],
+          "relatedObligations": [
+            "OB-7.1.5.2-a"
+          ]
+        }
+      ]
+    },
+    {
+      "itemId": "AS9100D-7.1.5.2-01",
+      "clauseRef": "7.1.5.2",
+      "groupId": "demo",
+      "label": "Measuring equipment calibrated at defined intervals against traceable standards",
+      "intent": "Equipment used to accept product is demonstrably accurate at the time it is used, because it is calibrated within its interval against standards that trace to national or international references.",
+      "question": "Establish that equipment in use was within its calibration interval when used and that calibration is traceable.",
+      "evidence": [
+        "Calibration register",
+        "Calibration certificates",
+        "Work order tool logs",
+        "Calibration procedure",
+        "Deviation / extension log"
+      ],
+      "ncPattern": "Register is updated but usage is not checked against it",
+      "findingStem": "Objective evidence shows the requirement is not met: {evidence}. The intent of clause 7.1.5.2 is not met.",
+      "appliesWhen": {
+        "activitiesAny": [
+          "manufacture",
+          "distribute"
+        ]
+      },
+      "obligations": [
+        {
+          "obligationId": "OB-7.1.5.2-a",
+          "paragraph": "7.1.5.2(a)",
+          "attributes": [
+            "C1",
+            "C2",
+            "C3"
+          ],
+          "relatedObligations": [
+            "OB-8.5.2"
+          ]
+        }
+      ]
+    },
+    {
+      "itemId": "AS9100D-8.4.2-01",
+      "clauseRef": "8.4.2",
+      "groupId": "demo",
+      "label": "Verification of externally provided processes and products",
+      "intent": "The organization decides, and then actually performs, the verification needed to be confident that what an external provider supplies meets requirements.",
+      "question": "Establish that defined receiving verification is performed and recorded for outsourced special-process product (anodize).",
+      "evidence": [
+        "Approved-supplier entry",
+        "Receiving inspection records",
+        "Certificates of conformity",
+        "Supplier portal records"
+      ],
+      "ncPattern": "Certificate held only in a portal not under the organization’s retention control",
+      "findingStem": "Objective evidence shows the requirement is not met: {evidence}. The intent of clause 8.4.2 is not met.",
+      "appliesWhen": {
+        "activitiesAny": [
+          "manufacture",
+          "distribute"
+        ]
+      },
+      "obligations": [
+        {
+          "obligationId": "OB-8.4.2-d",
+          "paragraph": "8.4.2(d)",
+          "attributes": [
+            "S1",
+            "S2",
+            "S3"
+          ],
+          "relatedObligations": []
+        }
+      ]
+    },
+    {
+      "itemId": "AS9100D-7.2-01",
+      "clauseRef": "7.2",
+      "groupId": "demo",
+      "label": "Effectiveness of actions taken to acquire competence",
+      "intent": "When the organization acts to close a competence gap, it confirms the action worked, using a method it defines, rather than assuming completion equals competence.",
+      "question": "Establish that effectiveness of competence actions is evaluated against defined criteria — by whatever method the organization uses.",
+      "evidence": [
+        "Competence / training records",
+        "Evaluation results (in whatever form the organization uses)",
+        "Qualification or authorization records",
+        "Supervisor interview"
+      ],
+      "ncPattern": "Completion recorded but effectiveness never judged",
+      "findingStem": "Objective evidence shows the requirement is not met: {evidence}. The intent of clause 7.2 is not met.",
+      "appliesWhen": {
+        "activitiesAny": [
+          "manufacture"
+        ]
+      },
+      "obligations": [
+        {
+          "obligationId": "OB-7.2-c",
+          "paragraph": "7.2(c)",
+          "attributes": [
+            "P1",
+            "P2",
+            "P3",
+            "P4"
+          ],
+          "relatedObligations": []
+        }
+      ]
+    },
+    {
+      "itemId": "AS9100D-8.5.1.2-01",
+      "clauseRef": "8.5.1.2",
+      "groupId": "demo",
+      "label": "Validation and control of special processes",
+      "intent": "Where output cannot be fully verified afterwards, the process itself is proven capable, its equipment and people are qualified, and it is kept in control and revalidated.",
+      "question": "Establish that the in-house heat-treat process is validated and that equipment and personnel qualification are current.",
+      "evidence": [
+        "Process specification and approval",
+        "Equipment survey / qualification records",
+        "Personnel qualification matrix",
+        "Revalidation records"
+      ],
+      "ncPattern": "Survey overdue",
+      "findingStem": "Objective evidence shows the requirement is not met: {evidence}. The intent of clause 8.5.1.2 is not met.",
+      "appliesWhen": {
+        "activitiesAny": [
+          "manufacture"
+        ]
+      },
+      "obligations": [
+        {
+          "obligationId": "OB-8.5.1.2",
+          "paragraph": "8.5.1.2",
+          "attributes": [
+            "V1",
+            "V2",
+            "V3",
+            "V4"
+          ],
+          "relatedObligations": []
+        }
+      ]
+    }
+  ]
+}

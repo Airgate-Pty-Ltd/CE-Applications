@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Remote Inspection</title>
+    <script>
+      // Apply the theme before first paint.
+      //
+      // This has to run inline and synchronously: resolving the theme in React
+      // means the page paints once in the default theme and again in the chosen
+      // one, which reads as a flash every single load. That is the only reason
+      // this logic is duplicated from src/ui/theme/theme.ts, and a test asserts
+      // the storage key below still matches the module's.
+      ;(function () {
+        try {
+          var stored = window.localStorage.getItem('remote-inspection.theme')
+          var preference = stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system'
+          var dark =
+            preference === 'dark' ||
+            (preference === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.classList.toggle('dark', dark)
+        } catch (error) {
+          // Blocked storage is not a reason to fail to render.
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

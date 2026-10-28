@@ -1,0 +1,35 @@
+meta:
+  name: AS9100D
+  version: "Rev D"
+  publisher: "IAQG"
+  scope: "Aerospace QMS"
+  jurisdiction: "Global"
+
+clauses:
+  - id: "7.2"
+    title: "Competence"
+    level: 1
+    text: >
+      The organization shall determine the necessary competence for persons
+      doing work under its control that affects the performance and
+      effectiveness of the quality management system. The organization shall
+      ensure that these persons are competent on the basis of appropriate
+      education, training, or experience. Where applicable, the organization
+      shall take actions to acquire the necessary competence, and evaluate the
+      effectiveness of the actions taken. The organization shall retain
+      appropriate documented information as evidence of competence.
+    char_start: 0
+    char_end: 500
+
+  - id: "8.7"
+    title: "Control of nonconforming outputs"
+    level: 1
+    text: >
+      The organization shall ensure that outputs that do not conform to their
+      requirements are identified and controlled to prevent their unintended
+      use or delivery. The organization shall take appropriate action based on
+      the nature of the nonconformity and its effect on the conformity of
+      products and services.
+    char_start: 501
+    char_end: 1000
+

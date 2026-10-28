@@ -1,0 +1,141 @@
+{
+  "patterns": [
+    {
+      "pattern_id": "pat_001",
+      "pattern_name": "documentation_lifecycle_failure_mode",
+      "pattern_description": "Organizations often fail to maintain current documents throughout their lifecycle. Documents are created and approved, but review cycles are missed, obsolete documents remain in use, and document control becomes ineffective over time.",
+      "pattern_type": "common_gap",
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "appears_in_industries": ["aerospace", "medical_device", "automotive", "general_industry"],
+      "frequency_count": 850,
+      "significance_score": 0.88,
+      "interpretation": "This pattern indicates systemic weaknesses in document control processes. Root causes often include lack of automated systems, insufficient resources for document maintenance, and unclear ownership of document lifecycle.",
+      "vera_application": "Vera should flag when documents haven't been reviewed within required intervals, detect obsolete documents in use, and suggest automated document control systems. Pattern helps predict audit findings.",
+      "validation_confidence": 0.90
+    },
+    {
+      "pattern_id": "pat_002",
+      "pattern_name": "calibration_drift_systemic_error",
+      "pattern_description": "Measurement equipment calibration intervals are set without data-driven analysis. Equipment is calibrated on schedule but drifts out of tolerance before next calibration, causing undetected measurement errors in production.",
+      "pattern_type": "common_gap",
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "appears_in_industries": ["aerospace", "medical_device", "automotive", "general_industry"],
+      "frequency_count": 620,
+      "significance_score": 0.85,
+      "interpretation": "Calibration intervals are often set based on vendor recommendations or arbitrary schedules rather than actual performance data. This leads to products being measured with out-of-calibration equipment.",
+      "vera_application": "Vera should recommend statistical analysis of calibration data to optimize intervals, flag equipment with high drift rates, and suggest interim verification for critical measurements.",
+      "validation_confidence": 0.87
+    },
+    {
+      "pattern_id": "pat_003",
+      "pattern_name": "supplier_delegation_oversight_failure",
+      "pattern_description": "Organizations delegate significant work to suppliers but fail to maintain adequate oversight. Supplier performance degrades over time, quality issues emerge, but the organization lacks early warning indicators or effective supplier management processes.",
+      "pattern_type": "common_gap",
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "appears_in_industries": ["aerospace", "medical_device", "automotive"],
+      "frequency_count": 740,
+      "significance_score": 0.92,
+      "interpretation": "Once suppliers are approved, organizations often reduce monitoring. Supplier audits become perfunctory, performance data isn't analyzed, and problems aren't detected until product failures occur.",
+      "vera_application": "Vera should recommend supplier performance dashboards, regular supplier audits, incoming inspection trends analysis, and risk-based supplier management approaches.",
+      "validation_confidence": 0.89
+    },
+    {
+      "pattern_id": "pat_004",
+      "pattern_name": "corrective_action_recurrence_pattern",
+      "pattern_description": "Corrective actions are closed based on immediate fixes rather than root cause elimination. The same or similar nonconformities recur repeatedly because underlying systemic causes weren't addressed.",
+      "pattern_type": "common_gap",
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "appears_in_industries": ["aerospace", "medical_device", "automotive", "general_industry"],
+      "frequency_count": 920,
+      "significance_score": 0.94,
+      "interpretation": "Organizations treat symptoms rather than root causes. Corrective actions focus on immediate fixes (re-training, replacing parts) without addressing process design, resource allocation, or systemic issues.",
+      "vera_application": "Vera should analyze recurring nonconformities, require root cause analysis evidence, suggest effectiveness verification, and flag patterns indicating superficial corrective actions.",
+      "validation_confidence": 0.91
+    },
+    {
+      "pattern_id": "pat_005",
+      "pattern_name": "risk_assessment_formality_without_substance",
+      "pattern_description": "Risk assessments are performed to satisfy requirements but aren't used to drive decisions or controls. Risk registers exist but aren't referenced during planning, change management, or problem-solving.",
+      "pattern_type": "common_gap",
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485"],
+      "appears_in_industries": ["aerospace", "medical_device", "automotive", "general_industry"],
+      "frequency_count": 680,
+      "significance_score": 0.86,
+      "interpretation": "Risk-based thinking becomes a paperwork exercise. Risks are documented but don't influence resource allocation, process design, or control measures. This defeats the purpose of risk-based approaches.",
+      "vera_application": "Vera should verify risk assessments are referenced in decision-making, check that identified risks have corresponding controls, and ensure risks are reviewed when changes occur.",
+      "validation_confidence": 0.88
+    },
+    {
+      "pattern_id": "pat_006",
+      "pattern_name": "management_review_ceremony_without_action",
+      "pattern_description": "Management review meetings are held regularly with all required inputs, but outputs and decisions aren't clear or tracked. Action items are assigned but not followed up, and the review doesn't drive improvement.",
+      "pattern_type": "common_gap",
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "appears_in_industries": ["aerospace", "medical_device", "automotive", "general_industry"],
+      "frequency_count": 560,
+      "significance_score": 0.83,
+      "interpretation": "Management review becomes a compliance activity rather than a strategic decision-making forum. Inputs are reviewed but decisions aren't made, resources aren't allocated, and improvements aren't driven.",
+      "vera_application": "Vera should check for clear outputs and decisions from management review, verify action items are tracked, and ensure review drives resource allocation and improvements.",
+      "validation_confidence": 0.85
+    },
+    {
+      "pattern_id": "pat_007",
+      "pattern_name": "special_process_validation_one_time",
+      "pattern_description": "Special processes are validated initially but validation isn't maintained when changes occur. Process parameters drift, equipment ages, personnel change, but revalidation isn't triggered or performed.",
+      "pattern_type": "common_gap",
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "appears_in_industries": ["aerospace", "medical_device", "automotive"],
+      "frequency_count": 450,
+      "significance_score": 0.87,
+      "interpretation": "Organizations treat process validation as a one-time certification rather than an ongoing requirement. Changes that affect process capability aren't recognized as requiring revalidation.",
+      "vera_application": "Vera should identify special processes, verify validation includes change triggers, check for revalidation after equipment or process changes, and ensure validation is maintained.",
+      "validation_confidence": 0.86
+    },
+    {
+      "pattern_id": "pat_008",
+      "pattern_name": "configuration_management_fragmentation",
+      "pattern_description": "Configuration management is applied inconsistently across the organization. Some products or programs have strong configuration control while others lack it, leading to confusion, errors, and audit findings.",
+      "pattern_type": "common_gap",
+      "appears_in_standards": ["AS9100D"],
+      "appears_in_industries": ["aerospace"],
+      "frequency_count": 380,
+      "significance_score": 0.84,
+      "interpretation": "Configuration management is seen as project-specific rather than organizational. Organizations struggle to apply consistent configuration control across all products and programs.",
+      "vera_application": "Vera should verify configuration management applies to all applicable products, check for consistent application across programs, and identify gaps where configuration control is missing.",
+      "validation_confidence": 0.83
+    },
+    {
+      "pattern_id": "pat_009",
+      "pattern_name": "competence_assessment_lacks_evidence",
+      "pattern_description": "Personnel competence is assumed or assessed informally without documented evidence. Training records exist but don't demonstrate competence, and competence requirements aren't clearly defined for positions.",
+      "pattern_type": "common_gap",
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "appears_in_industries": ["aerospace", "medical_device", "automotive", "general_industry"],
+      "frequency_count": 720,
+      "significance_score": 0.81,
+      "interpretation": "Organizations conflate training with competence. Attending training is assumed to demonstrate competence without assessment or evaluation. Competence requirements aren't defined, so assessment isn't possible.",
+      "vera_application": "Vera should verify competence requirements are defined, check for evidence of competence assessment (not just training), and ensure personnel demonstrate competence before performing work.",
+      "validation_confidence": 0.82
+    },
+    {
+      "pattern_id": "pat_010",
+      "pattern_name": "internal_audit_independence_violation",
+      "pattern_description": "Internal auditors audit their own work or areas where they have responsibility. This violates independence requirements and reduces audit effectiveness, as auditors are reluctant to find problems in their own work.",
+      "pattern_type": "common_gap",
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "appears_in_industries": ["aerospace", "medical_device", "automotive", "general_industry"],
+      "frequency_count": 410,
+      "significance_score": 0.79,
+      "interpretation": "Small organizations especially struggle with independence due to limited personnel. However, even larger organizations sometimes assign auditors to areas where they have involvement.",
+      "vera_application": "Vera should check auditor assignments for independence violations, verify auditors don't audit their own work, and recommend cross-functional audit teams or external auditors when needed.",
+      "validation_confidence": 0.80
+    }
+  ]
+}
+
+
+
+
+
+
+

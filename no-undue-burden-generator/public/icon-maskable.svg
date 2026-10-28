@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="No Undue Burden Generator">
+  <!-- Maskable: all meaningful content sits inside the safe zone (centre 80%),
+       so platforms that crop to a circle or squircle do not clip it. -->
+  <rect width="512" height="512" fill="#0f172a"/>
+  <g transform="translate(51.2 51.2) scale(0.8)">
+    <path d="M136 132h180l60 60v188a20 20 0 0 1-20 20H136a20 20 0 0 1-20-20V152a20 20 0 0 1 20-20z" fill="#f8fafc"/>
+    <path d="M316 132l60 60h-60z" fill="#cbd5e1"/>
+    <rect x="156" y="232" width="180" height="14" rx="7" fill="#94a3b8"/>
+    <rect x="156" y="272" width="180" height="14" rx="7" fill="#94a3b8"/>
+    <rect x="156" y="312" width="112" height="14" rx="7" fill="#94a3b8"/>
+    <circle cx="344" cy="336" r="60" fill="#059669"/>
+    <path d="M316 336l20 20 40-44" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

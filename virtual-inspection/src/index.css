@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Two themes, one token set.
+ *
+ * Light is the default in the cascade, and `.dark` on the root element swaps
+ * the values. Light matters more than it looks: the presenter surface is a
+ * tablet held on a shop floor under bright light, where a black screen is the
+ * wrong answer. The inspector cockpit is the opposite - a desk, often dim, with
+ * the video meant to be the brightest thing in view.
+ *
+ * So the preference is the user's, not the product's, and it is remembered.
+ *
+ * Values are space-separated RGB triplets because Tailwind composes them with
+ * an alpha channel: `bg-signal-ok/20` has to work, and it cannot if the token
+ * is already a finished colour.
+ */
+@layer base {
+  :root {
+    --surface-base: 248 250 252;
+    --surface-panel: 255 255 255;
+    --surface-inset: 241 245 249;
+    --surface-accent: 226 232 240;
+    --surface-video: 15 23 42;
+
+    --edge: 203 213 225;
+
+    /* The ramp gets lighter as text gets less prominent, but it stops well
+       short of decorative. Every step still clears 3:1 against both the page
+       and a panel - a token exists to de-emphasise, not to hide. */
+    --content-primary: 15 23 42;
+    --content-secondary: 51 65 85;
+    --content-muted: 71 85 105;
+    --content-faint: 100 116 139;
+    --content-ghost: 124 139 158;
+
+    /* Darker than their dark-theme counterparts, to hold contrast on a light
+       surface. The same token name means the same thing in both themes. */
+    --signal-ok: 21 128 61;
+    --signal-warn: 161 98 7;
+    --signal-block: 185 28 28;
+    --signal-info: 29 78 216;
+
+    color-scheme: light;
+  }
+
+  .dark {
+    --surface-base: 11 15 20;
+    --surface-panel: 18 24 32;
+    --surface-inset: 26 34 48;
+    --surface-accent: 36 48 64;
+    --surface-video: 0 0 0;
+
+    --edge: 44 58 77;
+
+    /* The dim end of the dark ramp was below 3:1 against a panel before the
+       light theme existed. Adding the second theme surfaced it, so both were
+       corrected together rather than only the new one. */
+    --content-primary: 241 245 249;
+    --content-secondary: 203 213 225;
+    --content-muted: 148 163 184;
+    --content-faint: 125 139 160;
+    --content-ghost: 100 116 139;
+
+    --signal-ok: 62 167 106;
+    --signal-warn: 200 146 42;
+    --signal-block: 192 74 74;
+    --signal-info: 74 134 192;
+
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-surface-base text-content-primary antialiased;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded border border-edge bg-surface-panel;
+  }
+
+  .panel-head {
+    @apply border-b border-edge px-3 py-2 text-xs uppercase tracking-widest text-content-muted;
+  }
+
+  .btn {
+    @apply rounded border border-edge bg-surface-inset px-3 py-1.5 text-sm text-content-primary transition
+           hover:bg-surface-accent disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .btn-primary {
+    @apply border-signal-info/60 bg-signal-info/20 hover:bg-signal-info/30;
+  }
+
+  .btn-block {
+    @apply border-signal-block/60 bg-signal-block/20 hover:bg-signal-block/30;
+  }
+
+  .tag {
+    @apply inline-block rounded px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide;
+  }
+
+  .field {
+    @apply w-full rounded border border-edge bg-surface-base px-2 py-1.5 text-sm text-content-primary
+           placeholder:text-content-faint focus:border-signal-info focus:outline-none;
+  }
+}
+
+/*
+ * The document renderer.
+ *
+ * Deliberately paper-white in both themes. This is what a recipient prints and
+ * what a regulator reads, and it should look the same to the inspector
+ * approving it as it will on the page. In dark mode it reads as a sheet of
+ * paper on a desk; in light mode it needs a border to separate from the page,
+ * which is what the ring below is for.
+ */
+.doc {
+  @apply bg-white p-8 text-[13px] leading-relaxed text-slate-900 ring-1 ring-slate-300;
+}
+.doc header {
+  @apply mb-6 border-b border-slate-300 pb-3;
+}
+.doc h1 {
+  @apply text-xl font-semibold;
+}
+.doc .subtitle {
+  @apply mt-1 font-mono text-xs text-slate-600;
+}
+.doc h2 {
+  @apply mb-2 mt-6 border-b border-slate-200 pb-1 text-sm font-semibold uppercase tracking-wide text-slate-700;
+}
+.doc .note {
+  @apply mb-2 text-xs italic text-slate-600;
+}
+.doc dl {
+  @apply grid grid-cols-[220px_1fr] gap-x-4 gap-y-1;
+}
+.doc dt {
+  @apply text-slate-600;
+}
+.doc dd.mono {
+  @apply break-all font-mono text-xs;
+}
+.doc table {
+  @apply w-full border-collapse text-xs;
+}
+.doc th {
+  @apply border border-slate-300 bg-slate-100 p-1 text-left font-semibold;
+}
+.doc td {
+  @apply border border-slate-300 p-1 align-top;
+}
+.doc footer {
+  @apply mt-8 border-t border-slate-300 pt-3 text-xs italic text-slate-600;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .doc {
+    padding: 0;
+    box-shadow: none;
+    --tw-ring-color: transparent;
+  }
+}

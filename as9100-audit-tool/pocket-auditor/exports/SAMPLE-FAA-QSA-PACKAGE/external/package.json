@@ -1,0 +1,192 @@
+{
+ "assessments": [],
+ "audit": {
+  "type": "Pocket Auditor draft"
+ },
+ "audit_id": "SYNTHETIC-QSA-001",
+ "checklist_items": [],
+ "evidence": [
+  {
+   "auditor": "SYNTHETIC Auditor B",
+   "entry_sha256": "8ab29a7a137863ca9ff36826acb99d6c01ba4a5ed27a644cac077ac39bd88830",
+   "evidence_type": "record",
+   "id": "EVD-0002",
+   "record_sha256": "242c712028b6d885a72b97c904007d786195ce03753e14dcefd657ec56531c7a",
+   "source_ref": "SYN-CERT-2026-001",
+   "timestamp": "2026-10-08T09:10"
+  },
+  {
+   "auditor": "SYNTHETIC Auditor B",
+   "entry_sha256": "5a4da0ce240052dd4b379f66437e6b58f328639a0dd03bc897572b300ed27bd3",
+   "evidence_type": "controlled_document",
+   "id": "EVD-0003",
+   "record_sha256": "a1978d924256d27cc67c8139bdfca217c50d0499761ddee191ec750c47c99599",
+   "source_ref": "SYN-PROC-07-R3",
+   "timestamp": "2026-10-08T09:12"
+  },
+  {
+   "auditor": "SYNTHETIC Auditor B",
+   "entry_sha256": "39c94b23f1944638a51efcb78424ff19d8b55904fdae34bc6a9d512c47ae3e39",
+   "evidence_type": "photo_file",
+   "file_name": "SYNTHETIC-bench.jpg",
+   "file_sha256": "00cda3138ecae8414bfe0e7f0d70dfdc82bfe4e7914199a3c98c9f59481f6cba",
+   "id": "PHO-0005",
+   "record_sha256": "94c062f68199f655e0be6c9a51a87178ee8659e2f066c9eb02dc5c4d25dedd6c",
+   "requirement_id": "WITHHELD_FOR_LICENCE",
+   "timestamp": "2026-10-08T11:00"
+  }
+ ],
+ "export_id": "SAMPLE-EXTERNAL-001",
+ "findings": [],
+ "generated_at": "2026-10-08T13:05:00",
+ "interviews": [
+  {
+   "consent_state": "NOTIFIED",
+   "date_time": "2026-10-08T10:00",
+   "entry_sha256": "93a06b7ca0476b9b897bdfdbf11fbf97e57a38ec3b08b92516e72b367945decf",
+   "evidence_class": "direct_statement",
+   "id": "INT-0004",
+   "interviewer": "SYNTHETIC Auditor B",
+   "record_sha256": "6dce640ac5400c8277ce597f19686d040f9f023fb5abd84c0d26c08de18cf7d7"
+  }
+ ],
+ "manual": {
+  "reviewed_by": null,
+  "reviewed_on": null,
+  "sha256": null,
+  "source_class": null,
+  "status": null,
+  "uploaded_on": null
+ },
+ "not_assessed": [],
+ "organization": "External Recipient (sample)",
+ "package_version": "1.0",
+ "prior_car_reviews": [
+  {
+   "auditor_result": null,
+   "car_id": "CAR-SYN-101",
+   "entry_sha256": "6fff31c51dd868c0cd9063f65046cbac2a7d03dc7b8b35e2f4bf94c4f5284a94",
+   "id": "CAR-0006",
+   "linked_requirement": "WITHHELD_FOR_LICENCE",
+   "record_sha256": "d7a06e54ef40ea6bdcb3b7ceb59ddc4383798713e9a121fd77006f8045a6a3e8",
+   "state": "ACTIVE",
+   "status": "open"
+  }
+ ],
+ "sampling": [
+  {
+   "entry_sha256": "326a08efda319b0b70ee67f694184d694db39ba1aa8ab5293aecba512156c202",
+   "evidence_refs": [
+    "EVD-0002"
+   ],
+   "expanded": true,
+   "id": "SMP-0007",
+   "period": "Q3",
+   "record_sha256": "465ad446e7bf6a39c8e64c90d264a0c70e5f2faa941585ab29085f8c687c9a65",
+   "result": "NONCONFORMING",
+   "sample_identity": "SYN-J-101"
+  }
+ ],
+ "snapshot": {
+  "capture_ledger_head": "240ecdf4d6d0e4fe13869bbd432ce4867b9560e23854afe7932c16df3ca66510",
+  "capture_ledger_length": 13,
+  "licensed_source_sha256": "0af526813f6636639a37382a731e41e703ce23488882082d146d529fcbdd2c71",
+  "qsa_publication": null,
+  "reconciliation_status": "RECONCILED",
+  "sha256": "60d31236bdd37433a4f29f3dcda71714cf72f1e31ab999e71e82f384ca1613d8",
+  "snapshot_version": 1,
+  "standard": "AS9110C"
+ },
+ "sources": [
+  {
+   "edition": "eCFR snapshot 2026-09-01",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-09-01/title-14.xml?part=145",
+   "retrieved_on": "2026-10-08",
+   "sha256": "7f5e362ee7db965ce62cb402372bae331d39141f4890f9b2834dbfbf6a2f40d8",
+   "source_id": "FAA-14CFR-145",
+   "standard": "14 CFR Part 145",
+   "status": "unverified"
+  },
+  {
+   "edition": "eCFR snapshot 2026-09-01",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-09-01/title-14.xml?part=21",
+   "retrieved_on": "2026-10-08",
+   "sha256": "435031ef59dcfd99674ba96f7fca011b7e219e28bbf6211d54f124148525ea6e",
+   "source_id": "FAA-14CFR-21",
+   "standard": "14 CFR Part 21",
+   "status": "unverified"
+  },
+  {
+   "edition": "EUR-Lex",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R1321",
+   "retrieved_on": "2026-10-08",
+   "sha256": "38288e43cecde3e0736fd448567ba6f985829bfd296ece2a8c5f13ba6c873007",
+   "source_id": "EASA-PART145",
+   "standard": "Reg. (EU) 1321/2014 Annex II",
+   "status": "unverified"
+  },
+  {
+   "edition": "EUR-Lex",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32012R0748",
+   "retrieved_on": "2026-10-08",
+   "sha256": "1df842a116209fd3a9a7edf740086efe97827906d40fd147413989d76d383a53",
+   "source_id": "EASA-PART21",
+   "standard": "Reg. (EU) 748/2012 Annex I",
+   "status": "unverified"
+  },
+  {
+   "edition": "legislation.gov.uk",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://www.legislation.gov.uk/eur/2014/1321/annex/II/data.htm?view=plain",
+   "retrieved_on": "2026-10-08",
+   "sha256": "ca14aa6fa317197c5dd77314d6bebbb933ad13cb16049aa163fb9aafe665c171",
+   "source_id": "UK-PART145",
+   "standard": "UK retained Reg. (EU) 1321/2014 Annex II",
+   "status": "unverified"
+  },
+  {
+   "edition": "eff. 2022-07-01",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://xxgk.mot.gov.cn/gz/202202/W020220228592655663336.doc",
+   "retrieved_on": "2026-10-08",
+   "sha256": "d40c3ad9f8751c5cf9ed070ff08c0ae5f2493a9c62fa011b8c12af951cb90c8f",
+   "source_id": "CAAC-CCAR145-R4",
+   "standard": "CAAC CCAR-145-R4 (MOT Order 8/2022)",
+   "status": "unverified"
+  },
+  {
+   "edition": null,
+   "licence_scope_owner": null,
+   "licence_use": "UNVERIFIED_OR_UNAVAILABLE",
+   "next_review_due": null,
+   "publication_url": null,
+   "retrieved_on": null,
+   "sha256": null,
+   "source_id": "MX-AFAC-RAC145",
+   "standard": "MX AFAC RAC 145",
+   "status": "unavailable"
+  }
+ ],
+ "sources_withheld_for_licence": [
+  "AS9100D",
+  "AS9110C",
+  "FAA-QSA-1.0"
+ ],
+ "unresolved_items": []
+}

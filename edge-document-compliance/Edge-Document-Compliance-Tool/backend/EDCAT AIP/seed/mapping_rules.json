@@ -1,0 +1,43 @@
+{
+  "mappings": [
+    {
+      "name": "faa21.137_to_as9100",
+      "pairs": [
+        {
+          "source": "21.137(a)",
+          "targets": [
+            "AS9100 4.4",
+            "AS9100 5.3"
+          ],
+          "rationale": "Organizational structure and responsibilities"
+        },
+        {
+          "source": "21.137(f)",
+          "targets": [
+            "AS9100 8.6"
+          ],
+          "rationale": "Inspection and test; release authority"
+        },
+        {
+          "source": "21.137(k)",
+          "targets": [
+            "AS9100 7.5.3.2"
+          ],
+          "rationale": "Records retention and control"
+        }
+      ]
+    },
+    {
+      "name": "easa145_to_as9110",
+      "pairs": [
+        {
+          "source": "145.A.65(b)",
+          "targets": [
+            "AS9110 8.5.1"
+          ],
+          "rationale": "Maintenance data and execution control"
+        }
+      ]
+    }
+  ]
+}

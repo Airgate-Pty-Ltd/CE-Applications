@@ -1,0 +1,44 @@
+{
+  "ruleId": "PA-009",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "major",
+  "category": "traceability",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit_finding"
+  ],
+  "events": [
+    "audit.finding.created",
+    "audit.finding.updated"
+  ],
+  "description": "Finding cites only guidance material.",
+  "requiredFields": [
+    "cites_only_guidance"
+  ],
+  "findingText": "Finding cites only guidance material. Guidance never generates a finding on its own.",
+  "resolutionHint": "Cite the regulation, contract, standard or internal requirement the guidance supports.",
+  "clauseRefs": [],
+  "condition": {
+    "field": "cites_only_guidance",
+    "op": "eq",
+    "value": true
+  },
+  "decision": {
+    "decisionState": "ADVISE",
+    "permittedHostAction": "none"
+  },
+  "testCases": [
+    "PA-009-POS-001",
+    "PA-009-NEG-001",
+    "PA-009-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

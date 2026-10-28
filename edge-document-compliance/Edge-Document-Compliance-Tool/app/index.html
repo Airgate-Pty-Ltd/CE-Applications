@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDCAT Administrator - Intelligent Compliance Assessment</title>
+    <link rel="stylesheet" href="css/layout.css">
+    
+    <!-- ComplianceGap Modules (if needed) -->
+    <script type="module" src="../modules/complianceGapParser.js"></script>
+    <script type="module" src="../modules/complianceGapAnalyzer.js"></script>
+    <script type="module" src="../modules/complianceGapClarifier.js"></script>
+    <script type="module" src="../modules/complianceGapLearner.js"></script>
+    <script type="module" src="../modules/veraComplianceGapService.js"></script>
+</head>
+<body>
+<div class="app-container">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo-section">
+            <img src="/assets/conform-edge-logo.png" alt="Conform-Edge Logo" class="logo-img" onerror="this.onerror=null; this.src='/public/assets/conform-edge-logo.png'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='flex';};">
+            <div class="logo-icon" style="display: none;">⚡</div>
+            <div class="logo-text" style="display:flex; flex-direction:column;">
+                <h2 style="font-size: 20px; font-weight: 700; margin: 0; letter-spacing: 0.5px; color: white;">EDCAT Administrator</h2>
+                <p style="font-size: 12px; opacity: 0.95; margin: 2px 0 0 0; color: rgba(255,255,255,0.9);">Intelligent Compliance Assessment</p>
+            </div>
+        </div>
+        <div class="header-controls">
+            <button class="btn-icon" id="theme-toggle" onclick="toggleDarkMode()">🌙</button>
+        </div>
+    </div>
+    
+    <!-- Greeting Banner (below header) -->
+    <div id="greeting-banner" style="display: none; background: rgba(22, 160, 133, 0.1); border-bottom: 1px solid var(--border); padding: 12px 24px;">
+        <div style="font-weight: 600; color: var(--primary); font-size: 13px;" id="greeting-text"></div>
+        <div style="font-size: 11px; color: var(--text-light); margin-top: 4px;" id="greeting-note"></div>
+        <div style="font-size: 11px; color: var(--primary); margin-top: 6px; font-weight: 500;" id="greeting-tip"></div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- LEFT NAVIGATION PANEL -->
+        <div class="left-nav">
+            <div class="nav-item active" onclick="goToDashboard()" data-nav="dashboard">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </div>
+            <div class="nav-item" onclick="goToAdmin()" data-nav="admin">
+                <span class="nav-icon">👤</span>
+                <span>Admin</span>
+            </div>
+            <div class="nav-item" onclick="goToComplianceLibrary()" data-nav="compliance-library">
+                <span class="nav-icon">📚</span>
+                <span>Compliance Library</span>
+            </div>
+            <div class="nav-item" onclick="showReports()" data-nav="reports">
+                <span class="nav-icon">📊</span>
+                <span>Reports</span>
+            </div>
+        </div>
+        
+        <!-- ADMIN PANEL AREA (hidden by default) -->
+        <div class="left-area" id="admin-panel-area" style="display: none;">
+            <div class="section-header">
+                <div class="section-title">👤 User Management</div>
+            </div>
+            <div class="content-area" style="padding: 24px;">
+                <div style="margin-bottom: 24px;">
+                    <h3 class="section-heading" style="font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--text-dark);">Create New User</h3>
+                    <form id="new-user-form" class="user-form" style="display: grid; gap: 16px; background: var(--bg-card); padding: 24px; border-radius: 8px; border: 1px solid var(--border);">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div>
+                                <label class="form-label">Username *</label>
+                                <input type="text" id="new-username" class="form-input" required>
+                            </div>
+                            <div>
+                                <label class="form-label">Email *</label>
+                                <input type="email" id="new-email" class="form-input" required>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div>
+                                <label class="form-label">Full Name</label>
+                                <input type="text" id="new-fullname" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">Password</label>
+                                <input type="password" id="new-password" class="form-input">
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div>
+                                <label class="form-label">Role</label>
+                                <select id="new-role" class="form-input">
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="viewer">Viewer</option>
+                                    <option value="auditor">Auditor</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Access Level</label>
+                                <select id="new-access-level" class="form-input">
+                                    <option value="standard">Standard</option>
+                                    <option value="full">Full</option>
+                                    <option value="limited">Limited</option>
+                                    <option value="readonly">Read Only</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" onclick="createUser()" style="background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px;">
+                            Create User
+                        </button>
+                    </form>
+                </div>
+                <div>
+                    <h3 class="section-heading" style="font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--text-dark);">Authorized Users</h3>
+                    <div id="users-list" style="min-height: 200px;">
+                        <div class="no-data" style="padding: 40px;">Loading users...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPLIANCE LIBRARY AREA (hidden by default) -->
+        <div class="left-area" id="compliance-library-area" style="display: none;">
+            <div class="section-header">
+                <div class="section-title">📋 Compliance Requirement Management</div>
+                <div style="font-size: 12px; color: var(--text-light);">Select a requirement below to review, edit, or parse</div>
+            </div>
+            <div class="content-area">
+                <!-- THREE DROPDOWN SECTIONS -->
+                <div id="requirementSelectorSection" style="padding: 24px; background: var(--bg-card); border-radius: 8px; margin: 20px 0; border: 1px solid var(--border);">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                        <!-- SECTION 1: STANDARDS -->
+                        <div class="selector-section">
+                            <label class="selector-label">📖 Compliance Standards</label>
+                            <button class="upload-btn" onclick="document.getElementById('parser-qms-upload').click()" style="width: 100%; font-size: 13px; padding: 10px 14px; font-weight: 600; margin-bottom: 12px;">
+                                + Upload Standards Document
+                            </button>
+                            <input type="file" id="parser-qms-upload" accept=".pdf,.doc,.docx" multiple onchange="handleParserUpload(event, 'standards')" style="display: none;">
+                            <select id="standardsDropdown" class="selector-dropdown" onchange="handleStandardSelect()">
+                                <option value="">-- Select a Standard --</option>
+                            </select>
+                            <div class="selector-info" id="standardsInfo">0 standards available</div>
+                            <button class="selector-btn-primary" onclick="openRequirementDetail('standard')">
+                                Review Standard →
+                            </button>
+                        </div>
+
+                        <!-- SECTION 2: CUSTOMER REQUIREMENTS -->
+                        <div class="selector-section">
+                            <label class="selector-label">🏢 Customer Requirements</label>
+                            <button class="upload-btn" onclick="document.getElementById('parser-cust-upload').click()" style="width: 100%; font-size: 13px; padding: 10px 14px; font-weight: 600; margin-bottom: 12px;">
+                                + Upload Customer Requirements
+                            </button>
+                            <input type="file" id="parser-cust-upload" accept=".pdf,.doc,.docx" multiple onchange="handleParserUpload(event, 'customer')" style="display: none;">
+                            <select id="customerDropdown" class="selector-dropdown" onchange="handleCustomerSelect()">
+                                <option value="">-- Select Customer --</option>
+                            </select>
+                            <div class="selector-info" id="customerInfo">0 customers available</div>
+                            <button class="selector-btn-primary" onclick="openRequirementDetail('customer')">
+                                Review Customer →
+                            </button>
+                        </div>
+
+                        <!-- SECTION 3: REGULATORY REQUIREMENTS -->
+                        <div class="selector-section">
+                            <label class="selector-label">⚖️ Regulatory Requirements</label>
+                            <button class="upload-btn" onclick="document.getElementById('parser-reg-upload').click()" style="width: 100%; font-size: 13px; padding: 10px 14px; font-weight: 600; margin-bottom: 8px;">
+                                + Upload Regulations Document
+                            </button>
+                            <input type="file" id="parser-reg-upload" accept=".pdf,.doc,.docx" multiple onchange="handleParserUpload(event, 'regulatory')" style="display: none;">
+                            <button class="upload-btn" onclick="showAddWebsiteModal()" style="width: 100%; font-size: 12px; padding: 8px 12px; background: rgba(22, 160, 133, 0.1); margin-bottom: 8px;">
+                                + Add Regulatory Website URL
+                            </button>
+                            <button class="upload-btn" onclick="refreshRegulations()" style="width: 100%; font-size: 12px; padding: 8px 12px; background: rgba(245, 158, 11, 0.2); margin-bottom: 12px;" id="parser-refresh-regs-btn">
+                                🔄 Refresh Regulations
+                            </button>
+                            <select id="regulatoryDropdown" class="selector-dropdown" onchange="handleRegulatorySelect()">
+                                <option value="">-- Select Regulatory Body --</option>
+                            </select>
+                            <div class="selector-info" id="regulatoryInfo">0 regulatory sources available</div>
+                            <button class="selector-btn-primary" onclick="openRequirementDetail('regulatory')">
+                                Review Regulation →
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- QUICK STATS -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+                        <div class="selector-stat">
+                            <div class="selector-stat-value" id="statTotalStandards">0</div>
+                            <div class="selector-stat-label">Standards Loaded</div>
+                        </div>
+                        <div class="selector-stat">
+                            <div class="selector-stat-value" id="statParsedCount">0</div>
+                            <div class="selector-stat-label">Parsed</div>
+                        </div>
+                        <div class="selector-stat">
+                            <div class="selector-stat-value" id="statCustomerCount">0</div>
+                            <div class="selector-stat-label">Customers</div>
+                        </div>
+                        <div class="selector-stat">
+                            <div class="selector-stat-value" id="statRegulatoryCount">0</div>
+                            <div class="selector-stat-label">Regulatory Sources</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEFT MAIN AREA (Dashboard) -->
+        <div class="left-area" id="main-content-area">
+            <div class="section-header">
+                <div class="section-title">📊 Dashboard</div>
+                <div class="max-docs">Max 200 documents</div>
+            </div>
+            <div class="content-area">
+                <!-- UPLOAD ZONE WITH STATS -->
+                <div class="upload-stats-container">
+                    <div class="upload-zone" onclick="document.getElementById('doc-upload').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event)">
+                        <div class="upload-icon">📋</div>
+                        <div class="upload-title">Upload Customer Documents</div>
+                        <div class="upload-desc">Quality Manual, SOPs, Work Instructions, Procedures</div>
+                        <input type="file" id="doc-upload" accept=".pdf,.doc,.docx,.xls,.xlsx" multiple onchange="handleFileSelect(event)">
+                    </div>
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-number" id="doc-count">0</div>
+                            <div class="stat-label">Documents</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="page-count">0</div>
+                            <div class="stat-label">Pages</div>
+                        </div>
+                        <button class="features-toggle" onclick="toggleUploadFeatures()" id="features-toggle-btn" style="align-self: center;">
+                            ℹ️ Upload Information
+                        </button>
+                    </div>
+                </div>
+
+                <!-- FEATURES (hidden by default) -->
+                <div class="features" id="upload-features">
+                    <div class="feature-item">Upload in batches (up to 200 per assessment)</div>
+                    <div class="feature-item">Add more documents to same assessment</div>
+                    <div class="feature-item">Mix of PDF, Word, Excel formats</div>
+                </div>
+
+                <!-- CLIENT DOCUMENTS LIST -->
+                <div style="margin-top: 16px;">
+                    <div class="docs-list" id="doc-list"></div>
+                </div>
+
+                <!-- CHAT AREA -->
+                <div class="chat-area collapsed" id="chat-area">
+                    <div class="chat-header">
+                        💬 Vera
+                        <button class="chat-toggle" onclick="toggleChatArea()" id="chat-toggle-btn">Expand</button>
+                    </div>
+                    <div class="messages-area" id="messages-area">
+                        <div style="text-align: center; opacity: 0.5; margin: auto; font-size: 12px;">
+                            Ready for analysis...
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="message-input" class="input-field" placeholder="Ask for analysis or standards..." onkeydown="handleKeyPress(event)">
+                        <button class="btn-send" onclick="sendMessage()" id="send-btn">Send</button>
+                    </div>
+                </div>
+
+                <!-- REPORTS SECTION -->
+                <div id="reports-section" style="margin-top: 32px; padding-top: 32px; border-top: 2px solid var(--border);">
+                    <div class="section-header" style="border-bottom: none; padding-bottom: 16px;">
+                        <div class="section-title">📊 Reports</div>
+                    </div>
+                    
+                    <!-- Current Documentation Review Report -->
+                    <div class="report-card" style="margin-bottom: 24px;">
+                        <div class="report-header">
+                            <h3 style="font-size: 18px; font-weight: 700; color: var(--primary); margin: 0;">Current Documentation Review Report</h3>
+                            <span style="font-size: 12px; color: var(--text-light);">Last updated: <span id="review-report-date">-</span></span>
+                        </div>
+                        <div class="report-content" id="review-report-content">
+                            <div class="no-data">Loading report data...</div>
+                        </div>
+                    </div>
+
+                    <!-- Tool Success Rate Report -->
+                    <div class="report-card" style="margin-bottom: 24px;">
+                        <div class="report-header">
+                            <h3 style="font-size: 18px; font-weight: 700; color: var(--primary); margin: 0;">Tool Success Rate Report</h3>
+                            <span style="font-size: 12px; color: var(--text-light);">Last updated: <span id="success-report-date">-</span></span>
+                        </div>
+                        <div class="report-content" id="success-report-content">
+                            <div class="no-data">Loading report data...</div>
+                        </div>
+                    </div>
+
+                    <!-- Bounded AI Learning System Report -->
+                    <div class="report-card" style="margin-bottom: 24px;">
+                        <div class="report-header">
+                            <h3 style="font-size: 18px; font-weight: 700; color: var(--primary); margin: 0;">Bounded AI Learning System Report</h3>
+                            <span style="font-size: 12px; color: var(--text-light);">Last updated: <span id="ai-learning-report-date">-</span></span>
+                        </div>
+                        <div class="report-content" id="ai-learning-report-content">
+                            <div class="no-data">Loading report data...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR -->
+        <div class="right-sidebar">
+            <!-- REPORT DETAILS -->
+            <div class="sidebar-section">
+                <div class="section-box-header">📋 Report Details</div>
+                <div class="section-box-content">
+                    <div class="form-field">
+                        <label class="form-label">Customer ID *</label>
+                        <input type="text" id="customer-id" class="form-input" placeholder="e.g., acme_corp" required>
+                        <div style="font-size: 9px; color: var(--text-light); margin-top: 4px;">
+                            Used to isolate your data. Use lowercase letters, numbers, and underscores only.
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Customer Name</label>
+                        <input type="text" id="customer-name" class="form-input" placeholder="e.g., Boeing, Airbus">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Assessment Version</label>
+                        <input type="text" id="assessment-version" class="form-input" placeholder="e.g., v1.0, Rev A">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Completed</label>
+                        <input type="date" id="completion-date" class="form-input">
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: 12px;">
+                        <button onclick="saveCustomer()" style="flex: 1; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">
+                            Save
+                        </button>
+                        <button onclick="scrollToCustomer()" style="flex: 1; padding: 10px; background: rgba(22, 160, 133, 0.1); color: var(--primary); border: 1px solid var(--primary); border-radius: 6px; font-weight: 600; cursor: pointer;">
+                            View
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SAVED CUSTOMERS -->
+            <div class="sidebar-section">
+                <div class="section-box-header">💾 Saved Customers</div>
+                <div class="section-box-content">
+                    <div id="saved-customers-list" style="max-height: 300px; overflow-y: auto;">
+                        <div class="no-data">No saved customers yet</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ASSESSMENT SOURCES -->
+            <div class="sidebar-section">
+                <div class="section-box-header">📚 Assessment Sources</div>
+                <div class="section-box-content">
+                    <div class="form-field">
+                        <label class="form-label">Standards Used *</label>
+                        <select id="report-standards-select" class="form-input" multiple size="4" style="min-height: 80px;">
+                            <option value="">Loading standards...</option>
+                        </select>
+                        <div style="font-size: 9px; color: var(--text-light); margin-top: 4px;">
+                            Hold Ctrl/Cmd to select multiple standards
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Regulations Used</label>
+                        <select id="report-regulations-select" class="form-input" multiple size="4" style="min-height: 80px;">
+                            <option value="">Loading regulations...</option>
+                        </select>
+                        <div style="font-size: 9px; color: var(--text-light); margin-top: 4px;">
+                            Hold Ctrl/Cmd to select multiple regulations
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Customer Requirements Used</label>
+                        <select id="report-customer-reqs-select" class="form-input" multiple size="4" style="min-height: 80px;">
+                            <option value="">Loading customer requirements...</option>
+                        </select>
+                        <div style="font-size: 9px; color: var(--text-light); margin-top: 4px;">
+                            Hold Ctrl/Cmd to select multiple requirements
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXPORT REPORT -->
+            <div class="sidebar-section">
+                <div class="section-box-header">📥 Export Report</div>
+                <div class="section-box-content">
+                    <button onclick="exportCustomerReport()" style="width: 100%; padding: 12px 16px; background: var(--primary); color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 8px;">
+                        📄 Export Report for Customer
+                    </button>
+                    <div style="font-size: 11px; color: var(--text-light); text-align: center;">
+                        Generates a comprehensive compliance assessment report
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <span style="font-weight: 700; color: white;">CONFORM EDGE</span>
+                    <span style="font-size: 11px; color: rgba(255,255,255,0.8);">Quality Management Consulting</span>
+                </div>
+            </div>
+            <div class="footer-section">
+                <div class="footer-links">
+                    <a href="/legal/privacy-policy" class="footer-link">Privacy Policy</a>
+                    <a href="/legal/terms-of-service" class="footer-link">Terms of Service</a>
+                    <a href="/legal/data-ownership" class="footer-link">Data Ownership</a>
+                    <a href="/legal/cookie-policy" class="footer-link">Cookie Policy</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <div class="footer-copyright">
+                    <span>&copy; 2025 Conform-Edge QMS. All rights reserved.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Requirements Review Page Modal -->
+<div class="modal-overlay" id="requirements-review-modal" onclick="if(event.target === this) closeRequirementsReviewPage()">
+    <div class="modal" style="max-width: 90%; max-height: 90vh; width: 1200px;">
+        <div class="modal-header">
+            <h2>📋 Requirements Review - All Standards</h2>
+            <button class="modal-close" onclick="closeRequirementsReviewPage()">×</button>
+        </div>
+        <div style="padding: 20px; overflow-y: auto; max-height: calc(90vh - 80px);">
+            <div style="margin-bottom: 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <input type="text" id="requirements-review-search" placeholder="Search requirements..." 
+                       style="flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px;"
+                       onkeyup="filterRequirementsReview(event)">
+                <select id="requirements-review-standard-filter" onchange="filterRequirementsReview()" 
+                        style="padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px;">
+                    <option value="">All Standards</option>
+                </select>
+                <button onclick="exportRequirementsReview()" style="padding: 10px 16px; background: var(--primary); color: white; border: none; border-radius: 6px; font-size: 13px; cursor: pointer;">
+                    📥 Export
+                </button>
+            </div>
+            <div id="requirements-review-content" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6;">
+                <div style="text-align: center; padding: 40px; color: var(--text-light);">
+                    Loading requirements...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Website Modal -->
+<div class="modal-overlay" id="website-modal" onclick="if(event.target === this) closeWebsiteModal()">
+    <div class="modal">
+        <div class="modal-header">
+            Add Regulatory Website
+            <button class="modal-close" onclick="closeWebsiteModal()">×</button>
+        </div>
+        <form id="website-form" onsubmit="event.preventDefault(); addRegulatoryWebsite();">
+            <div class="form-field">
+                <label class="form-label">Website URL *</label>
+                <input type="url" id="website-url" class="form-input" placeholder="https://www.faa.gov/..." required>
+            </div>
+            <div class="form-field">
+                <label class="form-label">Name (Optional)</label>
+                <input type="text" id="website-name" class="form-input" placeholder="e.g., FAA Part 21 Regulations">
+            </div>
+            <div class="form-field">
+                <label class="form-label">Agency (Optional)</label>
+                <input type="text" id="website-agency" class="form-input" placeholder="e.g., FAA, EASA, CAAC">
+            </div>
+            <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px;">
+                <button type="button" class="btn-send" onclick="closeWebsiteModal()" style="background: var(--text-light);">Cancel</button>
+                <button type="submit" class="btn-send">Add Website</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Load modular JavaScript files (in order) -->
+<script src="js/state.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/chat.js"></script>
+
+<!-- COMPATIBILITY MODE: Load functions from original index.html -->
+<!-- This ensures all functionality works without breaking existing code -->
+<!-- The original public/index.html remains completely untouched -->
+<script>
+    // ===== COMPATIBILITY LAYER =====
+    // This script loads necessary functions from the original implementation
+    // OR provides working implementations that call the same backend APIs
+    
+    // Simple UI toggles
+    function toggleUploadFeatures() {
+        const features = document.getElementById('upload-features');
+        if (features) {
+            features.classList.toggle('show');
+        }
+    }
+    
+    function toggleChatArea() {
+        const chatArea = document.getElementById('chat-area');
+        const toggleBtn = document.getElementById('chat-toggle-btn');
+        if (chatArea && toggleBtn) {
+            if (chatArea.classList.contains('collapsed')) {
+                chatArea.classList.remove('collapsed');
+                chatArea.classList.add('expanded');
+                toggleBtn.textContent = 'Collapse';
+            } else {
+                chatArea.classList.remove('expanded');
+                chatArea.classList.add('collapsed');
+                toggleBtn.textContent = 'Expand';
+            }
+        }
+    }
+    
+    function scrollToCustomer() {
+        // Scroll to customer section in sidebar
+        const customerIdEl = document.getElementById('customer-id');
+        if (customerIdEl) {
+            customerIdEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+    
+    // ===== FILE UPLOAD HANDLERS =====
+    // These call the same backend APIs as the original implementation
+    
+    async function handleParserUpload(event, fileType) {
+        const files = Array.from(event.target.files);
+        if (!files.length) return;
+        
+        const loadingMsg = document.createElement('div');
+        loadingMsg.id = 'upload-loading';
+        loadingMsg.style.cssText = 'position: fixed; top: 20px; right: 20px; background: var(--primary); color: white; padding: 12px 20px; border-radius: 8px; z-index: 10000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);';
+        loadingMsg.textContent = `Uploading ${files.length} file(s)...`;
+        document.body.appendChild(loadingMsg);
+        
+        try {
+            const formData = new FormData();
+            files.forEach(file => formData.append('files', file));
+            formData.append('type', fileType === 'standards' ? 'standards' : fileType);
+            
+            if (appState?.currentCustomer?.id) {
+                formData.append('customerId', appState.currentCustomer.id);
+            }
+            
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                headers: appState?.currentCustomer?.id ? {
+                    'X-Customer-Id': appState.currentCustomer.id
+                } : {},
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                event.target.value = '';
+                loadingMsg.style.background = '#10b981';
+                loadingMsg.textContent = `✓ Successfully uploaded ${files.length} file(s)`;
+                setTimeout(() => loadingMsg.remove(), 3000);
+                
+                // Refresh dropdowns if available
+                if (typeof loadRequirements === 'function') {
+                    await loadRequirements();
+                }
+            } else {
+                throw new Error(result.message || 'Upload failed');
+            }
+        } catch (error) {
+            console.error('Upload error:', error);
+            loadingMsg.style.background = '#ef4444';
+            loadingMsg.textContent = `✗ Upload failed: ${error.message}`;
+            setTimeout(() => loadingMsg.remove(), 5000);
+        }
+    }
+    
+    // ===== DROPDOWN HANDLERS =====
+    
+    function handleStandardSelect() {
+        const dropdown = document.getElementById('standardsDropdown');
+        const selectedId = dropdown?.value;
+        if (!selectedId) return;
+        
+        // Store selected standard for later use
+        if (appState) {
+            appState.selectedStandardId = selectedId;
+        }
+    }
+    
+    function handleCustomerSelect() {
+        const dropdown = document.getElementById('customerDropdown');
+        const selectedId = dropdown?.value;
+        if (!selectedId) return;
+        
+        if (appState) {
+            appState.selectedCustomerId = selectedId;
+        }
+    }
+    
+    function handleRegulatorySelect() {
+        const dropdown = document.getElementById('regulatoryDropdown');
+        const selectedId = dropdown?.value;
+        if (!selectedId) return;
+        
+        if (appState) {
+            appState.selectedRegulatoryId = selectedId;
+        }
+    }
+    
+    // ===== NAVIGATION =====
+    
+    function openRequirementDetail(type) {
+        const id = type === 'standard' ? appState?.selectedStandardId :
+                   type === 'customer' ? appState?.selectedCustomerId :
+                   appState?.selectedRegulatoryId;
+        
+        if (!id) {
+            alert(`Please select a ${type} first`);
+            return;
+        }
+        
+        // Navigate to detail page (same as original)
+        window.location.href = `/detail.html?id=${id}&type=${type}`;
+    }
+    
+    // ===== MODAL HANDLERS =====
+    
+    function showAddWebsiteModal() {
+        const modal = document.getElementById('website-modal');
+        if (modal) {
+            modal.classList.add('show');
+        }
+    }
+    
+    function closeWebsiteModal() {
+        const modal = document.getElementById('website-modal');
+        if (modal) {
+            modal.classList.remove('show');
+        }
+    }
+    
+    async function addRegulatoryWebsite() {
+        const url = document.getElementById('website-url')?.value;
+        const name = document.getElementById('website-name')?.value;
+        const agency = document.getElementById('website-agency')?.value;
+        
+        if (!url) {
+            alert('Website URL is required');
+            return;
+        }
+        
+        try {
+            const response = await fetch('/api/regulatory/websites', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url, name, agency })
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                alert('✅ Website added successfully');
+                closeWebsiteModal();
+                document.getElementById('website-form')?.reset();
+                if (typeof refreshRegulations === 'function') {
+                    await refreshRegulations();
+                }
+            } else {
+                alert(`❌ Failed: ${result.error || result.message}`);
+            }
+        } catch (error) {
+            console.error('Error adding website:', error);
+            alert(`❌ Error: ${error.message}`);
+        }
+    }
+    
+    async function refreshRegulations() {
+        try {
+            const response = await fetch('/api/regulatory/websites');
+            const data = await response.json();
+            
+            if (data.success && data.websites) {
+                const dropdown = document.getElementById('regulatoryDropdown');
+                if (dropdown) {
+                    dropdown.innerHTML = '<option value="">-- Select Regulatory Body --</option>' +
+                        data.websites.map(w => `<option value="${w.id}">${w.name || w.url}</option>`).join('');
+                }
+                
+                const infoEl = document.getElementById('regulatoryInfo');
+                if (infoEl) {
+                    infoEl.textContent = `${data.websites.length} regulatory sources available`;
+                }
+            }
+        } catch (error) {
+            console.error('Error refreshing regulations:', error);
+        }
+    }
+    
+    // ===== USER MANAGEMENT =====
+    
+    async function createUser() {
+        const username = document.getElementById('new-username')?.value;
+        const email = document.getElementById('new-email')?.value;
+        const fullname = document.getElementById('new-fullname')?.value;
+        const password = document.getElementById('new-password')?.value;
+        const role = document.getElementById('new-role')?.value;
+        const accessLevel = document.getElementById('new-access-level')?.value;
+        
+        if (!username || !email) {
+            alert('Username and Email are required');
+            return;
+        }
+        
+        try {
+            const response = await fetch('/api/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username,
+                    email,
+                    fullname,
+                    password,
+                    role,
+                    accessLevel
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                alert('✅ User created successfully');
+                document.getElementById('new-user-form')?.reset();
+                if (typeof loadUsers === 'function') {
+                    await loadUsers();
+                }
+            } else {
+                alert(`❌ Failed: ${result.error || result.message}`);
+            }
+        } catch (error) {
+            console.error('Error creating user:', error);
+            alert(`❌ Error: ${error.message}`);
+        }
+    }
+    
+    // ===== REPORT EXPORT =====
+    
+    async function exportCustomerReport() {
+        const customerId = document.getElementById('customer-id')?.value;
+        if (!customerId) {
+            alert('Please enter a Customer ID first');
+            return;
+        }
+        
+        try {
+            const response = await fetch('/api/reports/export', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    customerId,
+                    customerName: document.getElementById('customer-name')?.value,
+                    assessmentVersion: document.getElementById('assessment-version')?.value,
+                    completionDate: document.getElementById('completion-date')?.value
+                })
+            });
+            
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `compliance-report-${customerId}-${Date.now()}.pdf`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            } else {
+                const result = await response.json();
+                alert(`❌ Export failed: ${result.error || result.message}`);
+            }
+        } catch (error) {
+            console.error('Error exporting report:', error);
+            alert(`❌ Error: ${error.message}`);
+        }
+    }
+    
+    // ===== REQUIREMENTS REVIEW =====
+    
+    function filterRequirementsReview(event) {
+        // Placeholder - would filter requirements list
+        console.log('Filter requirements review');
+    }
+    
+    function exportRequirementsReview() {
+        // Placeholder - would export requirements
+        console.log('Export requirements review');
+    }
+    
+    function closeRequirementsReviewPage() {
+        const modal = document.getElementById('requirements-review-modal');
+        if (modal) {
+            modal.classList.remove('show');
+        }
+    }
+    
+    // ===== CUSTOMER CONTEXT =====
+    
+    function updateCustomerContext(customerId) {
+        if (appState) {
+            appState.currentCustomer = { id: customerId };
+        }
+    }
+    
+    // ===== INITIALIZATION =====
+    // Load data on page load
+    
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Load requirements dropdowns
+        if (typeof loadRequirements === 'function') {
+            await loadRequirements();
+        }
+        
+        // Refresh regulations
+        await refreshRegulations();
+        
+        // Load users if in admin panel
+        if (typeof loadUsers === 'function') {
+            await loadUsers();
+        }
+    });
+</script>
+</body>
+</html>
+

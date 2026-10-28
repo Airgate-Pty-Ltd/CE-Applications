@@ -1,0 +1,43 @@
+{
+  "ruleId": "PA-002",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "major",
+  "category": "traceability",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit_finding"
+  ],
+  "events": [
+    "audit.finding.created",
+    "audit.finding.updated"
+  ],
+  "description": "Finding cites no requirement.",
+  "requiredFields": [
+    "requirement_ids"
+  ],
+  "findingText": "Finding cites no requirement. It cannot be traced or answered by the auditee.",
+  "resolutionHint": "Link the requirement(s) the evidence does not demonstrate.",
+  "clauseRefs": [],
+  "condition": {
+    "field": "requirement_ids",
+    "op": "is_empty"
+  },
+  "decision": {
+    "decisionState": "ADVISE",
+    "permittedHostAction": "none"
+  },
+  "testCases": [
+    "PA-002-POS-001",
+    "PA-002-NEG-001",
+    "PA-002-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

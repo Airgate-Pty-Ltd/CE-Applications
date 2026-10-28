@@ -1,0 +1,569 @@
+<!doctype html>
+<!--
+Conform-Edge Audit Toolkit — INTERACTIVE PRODUCT PROTOTYPE
+Phase B deliverable. Customer experience review BEFORE Code.
+
+SIMULATED vs REAL (engineering honesty — see §8.5 of directive):
+- Intelligent follow-ups, evidence sufficiency, citation checks: SCRIPTED demonstration logic,
+  not live MAK/M-AI. No MAK/M-AI names appear in the UI by design.
+- Requirement intent/questions/verification steps: Conform-Edge authored sample content (AS9100D),
+  NOT reproduced standard text. Synthetic.
+- Organization, records, samples, evidence: fictional (AeroTech Components). Not real audit evidence.
+- Offline/sync/camera/storage: represented, not wired to device hardware.
+- NCR Should Be/As Found gatekeeping: REAL deterministic logic running in this prototype.
+- Scope applicability resolution: REAL (same model as the validated framework resolver).
+MAK and M-AI are invisible background infrastructure and are never named in the customer UI.
+-->
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conform-Edge Audit Toolkit — Prototype</title>
+<style>
+:root{
+  --void:#080C12;--depth:#0D1420;--surface:#121A28;--raised:#17202F;
+  --border:#1E2D45;--border-dim:#17233a;
+  --signal:#0EA5E9;--signal-dim:#0C4A6E;--signal-glow:rgba(14,165,233,.12);
+  --critical:#EF4444;--critical-bg:rgba(239,68,68,.10);
+  --warning:#F59E0B;--warning-bg:rgba(245,158,11,.10);
+  --guide:#8B5CF6;--guide-bg:rgba(139,92,246,.10);
+  --ok:#10B981;--ok-bg:rgba(16,185,129,.10);
+  --neutral:#6B7280;
+  --t1:#F0F4F8;--t2:#94A3B8;--t3:#52637a;--tsig:#38BDF8;
+  --stage:#05080c;--guideText:#c4b5fd;
+  --mono:'JetBrains Mono',ui-monospace,monospace;--sans:'Inter',system-ui,sans-serif;
+}
+html[data-theme="light"]{
+  --void:#ffffff;--depth:#f7f9fc;--surface:#eef2f8;--raised:#e6ecf4;
+  --border:#d3dde9;--border-dim:#e5eaf1;
+  --t1:#0d1726;--t2:#44546b;--t3:#8694a6;--tsig:#0369a1;
+  --stage:#e9eef4;--guideText:#6d28d9;
+  --signal-glow:rgba(14,165,233,.14);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--stage);color:var(--t2);font-family:var(--sans);font-size:14px;line-height:1.5;transition:background .2s}
+.applegal{border-top:1px solid var(--border);margin-top:18px;padding:16px 2px 4px;text-align:center}
+.applegal .brand{font-weight:600;color:var(--t2);font-size:12px;letter-spacing:.02em}
+.applegal .links{margin:8px 0;display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center}
+.applegal .links a{color:var(--tsig);font-size:11px;text-decoration:none;cursor:pointer}
+.applegal .fine{color:var(--t3);font-size:10px;line-height:1.5;margin-top:6px}
+.stage{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px 0 40px}
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:14px;color:var(--t3);font-size:12px;font-family:var(--mono)}
+.toolbar button{background:var(--surface);border:1px solid var(--border);color:var(--t2);border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer;font-family:var(--sans)}
+.toolbar button.on{border-color:var(--signal);color:var(--tsig);background:var(--signal-glow)}
+/* device frame */
+.device{width:390px;height:820px;max-height:92vh;background:var(--void);border:1px solid var(--border);
+  border-radius:28px;overflow:hidden;position:relative;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.device.tablet{width:820px;height:720px;border-radius:18px}
+.thread{position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--signal);opacity:.18;z-index:5}
+/* top bar */
+.top{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);background:var(--depth);flex:0 0 auto}
+.top .back{cursor:pointer;color:var(--t2);font-size:18px;width:22px}
+.top .title{font-weight:600;color:var(--t1);font-size:15px;flex:1;line-height:1.2}
+.top .sub{font-size:11px;color:var(--t3);font-family:var(--mono)}
+.offline{font-size:10px;font-family:var(--mono);color:var(--ok);border:1px solid var(--border);border-radius:5px;padding:2px 6px}
+/* scroll body */
+.body{flex:1;overflow-y:auto;padding:16px;scrollbar-width:thin}
+.body::-webkit-scrollbar{width:6px}.body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.screen{display:none;animation:fade .18s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* bottom nav */
+.nav{display:flex;border-top:1px solid var(--border);background:var(--depth);flex:0 0 auto}
+.nav button{flex:1;background:none;border:none;color:var(--t3);padding:9px 0 11px;font-size:10px;cursor:pointer;font-family:var(--sans);display:flex;flex-direction:column;align-items:center;gap:3px}
+.nav button .ic{font-size:17px;line-height:1}
+.nav button.on{color:var(--tsig)}
+.nav button:disabled{opacity:.35}
+/* primitives */
+h2{color:var(--t1);font-size:18px;margin:2px 0 4px;font-weight:600}
+h3{color:var(--t1);font-size:13px;margin:0 0 8px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.muted{color:var(--t3)}.sm{font-size:12px}.mono{font-family:var(--mono)}
+.card{background:var(--depth);border:1px solid var(--border);border-radius:12px;padding:15px;margin-bottom:12px}
+.card.tap{cursor:pointer;transition:border-color .15s}.card.tap:active{border-color:var(--signal)}
+.card .lab{font-weight:600;color:var(--t1)}
+.row{display:flex;align-items:center;gap:10px}
+.spread{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pill{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:5px;background:var(--signal-glow);color:var(--tsig);white-space:nowrap}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:var(--mono);padding:2px 8px;border-radius:5px}
+.dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto}
+.t-ok{background:var(--ok-bg);color:var(--ok)} .t-ok .dot{background:var(--ok)}
+.t-crit{background:var(--critical-bg);color:var(--critical)} .t-crit .dot{background:var(--critical)}
+.t-warn{background:var(--warning-bg);color:var(--warning)} .t-warn .dot{background:var(--warning)}
+.t-neu{background:rgba(107,114,128,.12);color:var(--neutral)} .t-neu .dot{background:var(--neutral)}
+.t-sig{background:var(--signal-glow);color:var(--tsig)} .t-sig .dot{background:var(--signal)}
+button.btn{background:var(--signal);color:#04121c;border:none;border-radius:8px;padding:11px 16px;font-size:14px;font-weight:600;cursor:pointer;width:100%;font-family:var(--sans)}
+button.btn:disabled{background:var(--surface);color:var(--t3);cursor:not-allowed}
+button.ghost{background:transparent;border:1px solid var(--border);color:var(--t2);border-radius:8px;padding:9px 14px;font-size:13px;cursor:pointer;font-family:var(--sans)}
+button.ghost:active{border-color:var(--signal)}
+.chip{display:inline-block;border:1px solid var(--border);border-radius:20px;padding:7px 13px;margin:0 6px 8px 0;font-size:13px;color:var(--t2);cursor:pointer;user-select:none}
+.chip.on{border-color:var(--signal);background:var(--signal-glow);color:var(--tsig)}
+.kv{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--border-dim);font-size:13px}
+.kv:last-child{border:none}
+.kv .k{color:var(--t3);min-width:104px;font-size:11px;text-transform:uppercase;letter-spacing:.04em;flex:0 0 auto;padding-top:1px}
+.kv .v{color:var(--t2);flex:1}
+.guide{background:var(--guide-bg);border:1px solid var(--guide);border-left:3px solid var(--guide);border-radius:10px;padding:12px 14px;margin:12px 0}
+.guide .h{color:var(--guideText);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.guide .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.guide .acts button{font-size:12px;padding:6px 11px;border-radius:6px;border:1px solid var(--guide);background:transparent;color:var(--guideText);cursor:pointer;font-family:var(--sans)}
+.step{display:flex;gap:10px;padding:7px 0;font-size:13px;border-bottom:1px solid var(--border-dim)}
+.step:last-child{border:none}
+.step .n{font-family:var(--mono);color:var(--tsig);font-size:11px;flex:0 0 auto;width:18px}
+.progress{height:6px;background:var(--surface);border-radius:3px;overflow:hidden;margin:4px 0}
+.progress>span{display:block;height:100%;background:var(--signal)}
+textarea,input,select{width:100%;background:var(--void);border:1px solid var(--border);color:var(--t1);border-radius:8px;padding:10px;font-family:var(--sans);font-size:13px;margin-top:4px}
+textarea{resize:vertical;min-height:62px}
+label.fl{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;display:block;margin-top:12px}
+.sample-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border-dim);font-size:13px}
+.sample-row input{width:auto;margin:0}
+.gate{border-radius:10px;padding:11px 13px;margin:9px 0;font-size:12px;display:flex;gap:9px;align-items:flex-start}
+.gate.pass{background:var(--ok-bg);border:1px solid var(--ok);color:#6ee7b7}
+.gate.fail{background:var(--critical-bg);border:1px solid var(--critical);color:#fca5a5}
+.ncr-sec{border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px}
+.ncr-sec .h{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--t3);margin-bottom:8px}
+.ncr-sec.shouldbe{border-left:3px solid var(--signal)}
+.ncr-sec.asfound{border-left:3px solid var(--warning)}
+.emptyhint{color:var(--t3);font-size:12px;text-align:center;padding:24px 10px}
+.banner{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:11px;color:var(--t3);margin-bottom:14px;line-height:1.5}
+.dim{opacity:.5}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="toolbar">
+    <span>Conform-Edge Audit Toolkit — prototype</span>
+    <button id="btnPhone" class="on" onclick="setView('phone')">Phone</button>
+    <button id="btnTablet" onclick="setView('tablet')">Tablet</button>
+    <button id="btnTheme" onclick="toggleTheme()" style="margin-left:8px">◐ Light</button>
+    <span id="simnote" style="margin-left:8px">demo data · simulated guidance</span>
+  </div>
+  <div class="device" id="device">
+    <div class="thread"></div>
+    <div class="top">
+      <span class="back" id="back" onclick="goBack()" style="visibility:hidden">‹</span>
+      <div style="flex:1">
+        <div class="title" id="topTitle">Audit Toolkit</div>
+        <div class="sub" id="topSub"></div>
+      </div>
+      <span class="offline" id="offline">● Offline ready</span>
+    </div>
+    <div class="body" id="body"><!-- screens injected --></div>
+    <div class="nav" id="nav"></div>
+  </div>
+</div>
+
+<script>
+/* ---------------- DATA (synthetic, Conform-Edge authored) ---------------- */
+const ORG = {
+  name:"AeroTech Components", id:"ORG-ATC", type:"Aerospace component manufacturer",
+  site:"Building 2 — Ogden, UT", cert:"AS9100D", lastAudit:"2026-03 (surveillance)",
+  priorFindings:[{ref:"NCR-2026-003", clause:"8.4.1", note:"Supplier re-evaluation overdue — verify closure"}],
+  activities:["design","manufacture","distribute"]
+};
+// Auditable OBLIGATIONS (finer grain than clauses, per amendment). Authored, no standard text.
+const OBLIGATIONS = [
+ {id:"AS9100D-7.2c", clause:"7.2(c)", process:"Competence & Training", label:"Evaluate effectiveness of competence actions",
+  activities:["manufacture","design"],
+  intent:"When the organization acts to close a competence gap, it must confirm the action actually worked — not just that it was completed.",
+  objective:"Establish that, where competence actions were taken, their effectiveness was evaluated against defined acceptance criteria.",
+  steps:["Determine how required competence is identified","Find cases where a competence gap triggered action","Select completed actions for review","Identify the planned effectiveness-evaluation method","Verify the evaluation actually occurred","Compare results against acceptance criteria","Examine the response where an action was ineffective"],
+  evidence:["Competence/training records","Effectiveness evaluation results","Qualification/authorization records","Supervisor or trainee interview"],
+  weaknesses:["Completion recorded but effectiveness never evaluated","No defined acceptance criteria for 'effective'","Authorization to work independently granted before evaluation"],
+  related:["AS9100D-7.2a"],
+  population:[
+    {id:"TR-2026-011", who:"Insp. tech", done:"2026-08-30", eff:true},
+    {id:"TR-2026-014", who:"Prod. operator", done:"2026-09-14", eff:false},
+    {id:"TR-2026-016", who:"Insp. tech", done:"2026-09-02", eff:true},
+    {id:"TR-2026-019", who:"Prod. operator", done:"2026-09-21", eff:false},
+    {id:"TR-2026-022", who:"Planner", done:"2026-09-28", eff:true}
+  ]},
+ {id:"AS9100D-8.4.2", clause:"8.4.2", process:"Purchasing", label:"Type & extent of control over external providers",
+  activities:["manufacture","distribute","design"],
+  intent:"Controls placed on a supplier must match the risk that supplier's product or service poses to conforming product.",
+  objective:"Establish that control type and extent are determined from risk and verified in practice, not applied uniformly.",
+  steps:["Review how supplier risk is determined","Confirm control level is assigned from that risk","Sample POs/receiving for the assigned control","Verify the control was actually performed"],
+  evidence:["Approved supplier list with risk/control level","Purchase orders","Receiving/verification records"],
+  weaknesses:["Same control applied to all suppliers","Risk rating exists but is not reflected in receiving"],
+  related:["AS9100D-8.4.1"], population:[]},
+ {id:"AS9100D-8.5.1.3", clause:"8.5.1.3", process:"Production", label:"Validation of special processes",
+  activities:["manufacture"],
+  intent:"Where output cannot be fully verified by later inspection, the process itself must be proven capable and kept in control.",
+  objective:"Establish that special processes are validated, operators/equipment qualified, and revalidation triggers defined.",
+  steps:["Identify special processes in scope","Confirm validation records exist","Verify operator and equipment qualification","Check revalidation triggers and records"],
+  evidence:["Process validation records","Operator qualification","Equipment/parameter records"],
+  weaknesses:["Validation never refreshed after a parameter change","Operator qualification lapsed"],
+  related:[], population:[]},
+ {id:"AS9100D-8.7", clause:"8.7", process:"Nonconforming Product",
+  label:"Control of nonconforming outputs", activities:["manufacture","distribute"],
+  intent:"Product that does not conform is identified and prevented from unintended use until an authorized disposition is made.",
+  objective:"Establish that nonconforming product is controlled and dispositioned only by authorized persons.",
+  steps:["Trace a nonconformity from detection","Confirm identification and segregation","Verify disposition authority","Confirm records of use-as-is/repair approvals"],
+  evidence:["NCR records","Segregation method","Disposition approvals"],
+  weaknesses:["Tagged but left in normal flow","Disposition by unauthorized person"],
+  related:[], population:[]}
+];
+/* ---------------- STATE ---------------- */
+let S = {
+  view:"phone", screen:"home", stack:[],
+  audit:null, // created on setup
+};
+function newAudit(){
+  return {
+    id:"AUD-2026-114", org:ORG, type:"Surveillance", standard:"AS9100D", rev:"Rev D (2016)",
+    activities:["manufacture","distribute"], date:"2026-10-14",
+    processes:["Competence & Training","Purchasing","Production","Nonconforming Product"],
+    obligations:{}, // id -> {status, evidence:[], samples:[], note, eval}
+    findings:[], packVersion:"as9100d v0.1.0", resolverVersion:"resolver 1.0.0"
+  };
+}
+/* applicability — same model as the framework resolver */
+function applies(ob, acts){ return !ob.activities || ob.activities.some(a=>acts.includes(a)); }
+
+/* ---------------- NAV ---------------- */
+const NAV=[{id:"home",ic:"⌂",t:"Home"},{id:"plan",ic:"◳",t:"Plan"},{id:"audit",ic:"◎",t:"Audit"},{id:"findings",ic:"❏",t:"Findings"},{id:"report",ic:"▤",t:"Report"}];
+function toggleTheme(){const h=document.documentElement;const light=h.getAttribute('data-theme')==='light';
+  h.setAttribute('data-theme',light?'dark':'light');
+  document.getElementById('btnTheme').textContent=light?'◐ Light':'◑ Dark';}
+function setView(v){S.view=v;document.getElementById('device').classList.toggle('tablet',v==='tablet');
+  document.getElementById('btnPhone').classList.toggle('on',v==='phone');
+  document.getElementById('btnTablet').classList.toggle('on',v==='tablet');}
+function go(scr,push=true){ if(push&&S.screen!==scr)S.stack.push(S.screen); S.screen=scr; render(); }
+function goBack(){ if(S.stack.length){S.screen=S.stack.pop();render();} }
+function renderNav(){
+  const n=document.getElementById('nav');
+  n.innerHTML=NAV.map(x=>{
+    const on=S.screen===x.id||(x.id==='audit'&&['process','card'].includes(S.screen))||(x.id==='findings'&&['ncr'].includes(S.screen));
+    const dis=(!S.audit&&x.id!=='home'&&x.id!=='plan');
+    return `<button class="${on?'on':''}" ${dis?'disabled':''} onclick="go('${x.id}',false)"><span class="ic">${x.ic}</span>${x.t}</button>`;
+  }).join('');
+}
+/* ---------------- RENDER ---------------- */
+function render(){
+  renderNav();
+  const titles={home:["Audit Toolkit",""],plan:["Plan Audit",S.audit?S.audit.id:""],
+    setup:["New Audit","Setup"],audit:["Audit",S.audit?S.audit.id:""],process:["Process",""],
+    card:["Requirement",""],findings:["Findings & NCRs",S.audit?S.audit.id:""],
+    ncr:["Nonconformity",""],report:["Audit Report",S.audit?S.audit.id:""],settings:["Settings",""]};
+  const [tt,ts]=titles[S.screen]||["Audit Toolkit",""];
+  document.getElementById('topTitle').textContent=tt;
+  document.getElementById('topSub').textContent=ts;
+  document.getElementById('back').style.visibility=S.stack.length?'visible':'hidden';
+  document.getElementById('body').innerHTML=(VIEWS[S.screen]||(()=>'—'))();
+  document.getElementById('body').scrollTop=0;
+}
+const VIEWS={};
+VIEWS.home=()=>`
+  <div class="banner">Prototype — fictional organization and synthetic records. Guidance shown is a scripted demonstration. No live data or AI service is connected.</div>
+  <h2>Good morning, A. Reyes</h2>
+  <p class="muted sm">Signed in as the demonstration auditor. You have one audit scheduled this week.</p>
+  ${S.audit?auditSummaryCard():`
+  <div class="card tap" onclick="startSetup()">
+    <div class="spread"><span class="lab">Start a new audit</span><span class="pill">NEW</span></div>
+    <p class="muted sm" style="margin:8px 0 0">AeroTech Components · AS9100D surveillance due Oct 14</p>
+  </div>`}
+  <div class="card">
+    <h3>Content status</h3>
+    <div class="kv"><span class="k">AS9100D</span><span class="v">v0.1.0 · current <span class="tag t-ok"><span class="dot"></span>up to date</span></span></div>
+    <div class="kv"><span class="k">Last sync</span><span class="v mono sm">2026-10-10 06:12</span></div>
+    <div class="kv"><span class="k">Offline</span><span class="v">Field auditing available without connection</span></div>
+  </div>
+  ${legalFooter()}`;
+function auditSummaryCard(){
+  const a=S.audit, done=evaluatedCount(), total=applicableObs().length;
+  return `<div class="card tap" onclick="go('audit')">
+    <div class="spread"><span class="lab">${a.id} · ${a.org.name}</span><span class="tag t-sig"><span class="dot"></span>In progress</span></div>
+    <p class="muted sm" style="margin:8px 0 6px">${a.standard} ${a.type} · ${a.date}</p>
+    <div class="progress"><span style="width:${total?Math.round(done/total*100):0}%"></span></div>
+    <p class="muted sm" style="margin:6px 0 0">${done} of ${total} requirements evaluated · ${a.findings.length} finding(s)</p>
+  </div>`;
+}
+function startSetup(){ S.audit=newAudit(); go('setup'); }
+
+VIEWS.plan=()=>{
+  if(!S.audit) return `<div class="emptyhint">No active audit.<br><br><button class="btn" style="max-width:220px;margin:0 auto" onclick="startSetup()">Start new audit</button></div>`;
+  return VIEWS.setup();
+};
+VIEWS.setup=()=>{
+  const a=S.audit;
+  return `
+  <h2>${a.org.name}</h2>
+  <p class="muted sm">${a.org.type} · ${a.org.site}</p>
+  <div class="card">
+    <h3>Audit definition</h3>
+    <div class="kv"><span class="k">Standard</span><span class="v">${a.standard} ${a.rev}</span></div>
+    <div class="kv"><span class="k">Type</span><span class="v">${a.type}</span></div>
+    <div class="kv"><span class="k">Date</span><span class="v mono">${a.date}</span></div>
+  </div>
+  <div class="card">
+    <h3>Scope of business</h3>
+    <p class="muted sm" style="margin:0 0 10px">Applicable requirements update as you set scope.</p>
+    ${["design","manufacture","distribute","maintain"].map(x=>`<span class="chip ${a.activities.includes(x)?'on':''}" onclick="toggleAct('${x}')">${x[0].toUpperCase()+x.slice(1)}</span>`).join('')}
+  </div>
+  <div class="card">
+    <div class="spread"><h3 style="margin:0">Resolved coverage</h3><span class="pill">${applicableObs().length} applicable</span></div>
+    ${OBLIGATIONS.map(ob=>{const ap=applies(ob,a.activities);
+      return `<div class="kv"><span class="k mono">${ob.clause}</span><span class="v">${ob.label}
+        ${ap?'<span class="tag t-ok"><span class="dot"></span>in scope</span>':`<span class="tag t-neu"><span class="dot"></span>excluded</span><br><span class="muted sm">Scope has none of: ${ob.activities.join(', ')}</span>`}</span></div>`;}).join('')}
+  </div>
+  ${a.org.priorFindings.length?`<div class="guide"><div class="h">◆ Prior finding to follow up</div>
+    <div class="sm">${a.org.priorFindings[0].ref} (clause ${a.org.priorFindings[0].clause}): ${a.org.priorFindings[0].note}.</div>
+    <div class="muted sm" style="margin-top:6px">A lead for investigation — not evidence of a current nonconformity.</div></div>`:''}
+  <button class="btn" onclick="go('audit')">Begin audit →</button>`;
+};
+function toggleAct(x){const a=S.audit.activities;const i=a.indexOf(x);i>=0?a.splice(i,1):a.push(x);render();}
+function applicableObs(){return OBLIGATIONS.filter(ob=>applies(ob,S.audit.activities));}
+function obState(id){if(!S.audit.obligations[id])S.audit.obligations[id]={status:"notdone",evidence:[],samples:[],note:"",eval:""};return S.audit.obligations[id];}
+function evaluatedCount(){return applicableObs().filter(ob=>obState(ob.id).status!=="notdone").length;}
+
+VIEWS.audit=()=>{
+  const a=S.audit; if(!a) return VIEWS.home();
+  const byProc={};
+  applicableObs().forEach(ob=>{(byProc[ob.process]=byProc[ob.process]||[]).push(ob);});
+  return `
+  <div class="spread" style="margin-bottom:10px"><h2 style="margin:0">Processes</h2><span class="pill">${evaluatedCount()}/${applicableObs().length} done</span></div>
+  <p class="muted sm" style="margin:0 0 14px">Audit by process. Tap a process to work through its requirements.</p>
+  ${Object.keys(byProc).map(p=>{
+    const obs=byProc[p];const done=obs.filter(o=>obState(o.id).status!=="notdone").length;
+    return `<div class="card tap" onclick="openProcess('${p}')">
+      <div class="spread"><span class="lab">${p}</span><span class="tag ${done===obs.length?'t-ok':'t-neu'}"><span class="dot"></span>${done}/${obs.length}</span></div>
+      <div class="progress" style="margin-top:9px"><span style="width:${Math.round(done/obs.length*100)}%"></span></div>
+    </div>`;}).join('')}`;
+};
+let curProc=null;
+function openProcess(p){curProc=p;go('process');}
+VIEWS.process=()=>{
+  const obs=applicableObs().filter(o=>o.process===curProc);
+  return `<h2>${curProc}</h2><p class="muted sm" style="margin:0 0 14px">${obs.length} requirement(s) in scope for this process.</p>
+  ${obs.map(ob=>{const st=obState(ob.id);
+    const tag={notdone:'t-neu',demonstrated:'t-ok',pending:'t-warn',nc:'t-crit',insufficient:'t-warn',na:'t-neu'}[st.status]||'t-neu';
+    const lbl={notdone:'Not evaluated',demonstrated:'Demonstrated',pending:'Pending',nc:'Nonconformity',insufficient:'Insufficient evidence',na:'N/A'}[st.status];
+    return `<div class="card tap" onclick="openCard('${ob.id}')">
+      <div class="spread"><span class="mono sm" style="color:var(--tsig)">${ob.clause}</span><span class="tag ${tag}"><span class="dot"></span>${lbl}</span></div>
+      <div class="lab" style="margin-top:6px">${ob.label}</div>
+      <div class="muted sm" style="margin-top:4px">${st.evidence.length} evidence · ${st.samples.length} sampled</div>
+    </div>`;}).join('')}`;
+};
+/* ---------- THE AUDIT CARD ---------- */
+let curOb=null;
+function openCard(id){curOb=OBLIGATIONS.find(o=>o.id===id);go('card');}
+VIEWS.card=()=>{
+  const ob=curOb, st=obState(ob.id);
+  const g=guidanceFor(ob,st);
+  return `
+  <div class="spread"><span class="pill">${ob.clause}</span><span class="muted sm mono">${S.audit.standard} ${S.audit.rev}</span></div>
+  <h2 style="margin:8px 0 2px">${ob.label}</h2>
+  <div class="card">
+    <div class="kv"><span class="k">Intent</span><span class="v">${ob.intent}</span></div>
+    <div class="kv"><span class="k">Objective</span><span class="v">${ob.objective}</span></div>
+  </div>
+  <div class="card"><h3>Verification activities</h3>
+    ${ob.steps.map((s,i)=>`<div class="step"><span class="n">${i+1}</span><span>${s}</span></div>`).join('')}
+    <p class="muted sm" style="margin:10px 0 0">Audit activities — not additional obligations imposed by the standard.</p>
+  </div>
+  <div class="card"><h3>Evidence expected</h3>
+    <p class="muted sm" style="margin:-4px 0 8px">Relevant objective evidence. A document's presence is not proof the process is effective.</p>
+    ${ob.evidence.map(e=>`<div class="kv"><span class="v">• ${e}</span></div>`).join('')}
+  </div>
+  ${ob.population.length?sampleBlock(ob,st):''}
+  <div class="card"><h3>Objective evidence recorded</h3>
+    ${st.evidence.length?st.evidence.map((e,i)=>`<div class="kv"><span class="k mono">${e.kind}</span><span class="v">${e.ref} — ${e.note} ${e.contradicts?'<span class="tag t-crit"><span class="dot"></span>gap</span>':'<span class="tag t-ok"><span class="dot"></span>supports</span>'}</span></div>`).join(''):'<p class="muted sm">No evidence recorded yet.</p>'}
+    <div class="row" style="gap:8px;margin-top:10px">
+      <button class="ghost" style="flex:1" onclick="addEvidence('doc')">+ Document</button>
+      <button class="ghost" style="flex:1" onclick="addEvidence('interview')">+ Interview</button>
+      <button class="ghost" style="flex:1" onclick="addEvidence('photo')">+ Photo</button>
+    </div>
+  </div>
+  ${g?`<div class="guide"><div class="h">◆ ${g.head}</div><div class="sm">${g.body}</div>
+    <div class="acts">${g.actions.map(x=>`<button onclick="${x.fn}">${x.t}</button>`).join('')}</div></div>`:''}
+  <div class="card"><h3>Auditor evaluation</h3>
+    <label class="fl">Conclusion</label>
+    <select id="evalSel" onchange="setEval(this.value)">
+      ${[["notdone","— select —"],["demonstrated","Requirement demonstrated"],["insufficient","Insufficient objective evidence"],["pending","Potential nonconformity — fact unverified"],["nc","Nonconformity — requirement not met"],["na","Justified non-applicability"]].map(o=>`<option value="${o[0]}" ${st.status===o[0]?'selected':''}>${o[1]}</option>`).join('')}
+    </select>
+    <label class="fl">Rationale</label>
+    <textarea id="evalNote" onchange="setNote(this.value)" placeholder="Basis for the conclusion, referencing the evidence above.">${st.eval||''}</textarea>
+    ${st.status==='nc'?`<button class="btn" style="margin-top:12px" onclick="startNCR('${ob.id}')">Develop nonconformity (NCR) →</button>`:''}
+  </div>`;
+};
+function sampleBlock(ob,st){
+  return `<div class="card"><h3>Sampling</h3>
+    <p class="muted sm" style="margin:-4px 0 8px">Population: ${ob.population.length} completed competence actions. Select a representative sample and record results.</p>
+    ${ob.population.map(r=>{const picked=st.samples.includes(r.id);
+      return `<div class="sample-row"><input type="checkbox" ${picked?'checked':''} onchange="toggleSample('${r.id}')">
+        <span class="mono" style="color:var(--tsig)">${r.id}</span>
+        <span style="flex:1">${r.who} · ${r.done}</span>
+        ${picked?(r.eff?'<span class="tag t-ok"><span class="dot"></span>effectiveness verified</span>':'<span class="tag t-crit"><span class="dot"></span>no effectiveness eval</span>'):'<span class="muted sm">not reviewed</span>'}</div>`;}).join('')}
+    <p class="muted sm" style="margin:10px 0 0">${st.samples.length} of ${ob.population.length} reviewed. Record identifiers are retained with the audit.</p>
+  </div>`;
+}
+function toggleSample(id){const st=obState(curOb.id);const i=st.samples.indexOf(id);i>=0?st.samples.splice(i,1):st.samples.push(id);
+  // when a sample with a gap is reviewed, auto-capture the record as evidence
+  const rec=curOb.population.find(r=>r.id===id);
+  if(i<0&&rec){st.evidence.push({kind:"record",ref:rec.id,note:rec.eff?"effectiveness evaluated":"training complete; no effectiveness evaluation found",contradicts:!rec.eff});}
+  else if(i>=0){st.evidence=st.evidence.filter(e=>e.ref!==id);}
+  render();}
+function addEvidence(kind){const st=obState(curOb.id);
+  const demo={doc:{kind:"document",ref:"QOP-7.2 Rev 4",note:"Training procedure — defines completion, not effectiveness check",contradicts:false},
+    interview:{kind:"interview",ref:"Supervisor, Prod.",note:"confirmed effectiveness evals not completed for recent actions",contradicts:true},
+    photo:{kind:"photo",ref:"IMG-0442",note:"work area qualification board",contradicts:false}}[kind];
+  st.evidence.push(demo);render();}
+function setEval(v){obState(curOb.id).status=v;render();}
+function setNote(v){obState(curOb.id).eval=v;}
+/* scripted contextual guidance (stands in for background intelligence; no MAK/M-AI naming) */
+function guidanceFor(ob,st){
+  if(ob.id==="AS9100D-7.2c"){
+    const gapFound=st.evidence.some(e=>e.contradicts);
+    if(st.samples.length>0 && gapFound && st.status!=='nc')
+      return {head:"Potential unmet requirement",body:"Two sampled actions show training completed but no effectiveness evaluation recorded. Confirm no alternative evidence exists before concluding a nonconformity.",
+        actions:[{t:"Add follow-up question",fn:"addEvidence('interview')"},{t:"Mark potential NC",fn:"setEvalFromGuide('pending')"}]};
+    if(st.evidence.length>0 && st.samples.length===0)
+      return {head:"Additional verification recommended",body:"A training record documents completion, but effectiveness verification has not yet been established. Confirm competence was demonstrated before independent task authorization.",
+        actions:[{t:"Open sampling",fn:"scrollSample()"}]};
+  }
+  return null;
+}
+function setEvalFromGuide(v){obState(curOb.id).status=v;render();}
+function scrollSample(){render();}
+/* ---------- FINDINGS LIST ---------- */
+VIEWS.findings=()=>{
+  const a=S.audit;if(!a)return VIEWS.home();
+  const potential=applicableObs().filter(o=>["pending","nc"].includes(obState(o.id).status));
+  return `<h2>Findings</h2>
+  <p class="muted sm" style="margin:0 0 14px">${a.findings.length} formal NCR(s) · ${potential.length} potential</p>
+  ${a.findings.map(f=>`<div class="card tap" onclick="openNCR('${f.id}')">
+    <div class="spread"><span class="lab">${f.id}</span><span class="tag ${f.status==='Issued'?'t-crit':'t-warn'}"><span class="dot"></span>${f.status}</span></div>
+    <div class="muted sm mono" style="margin:6px 0 2px">${f.clause} · ${f.class}</div>
+    <div class="sm">${f.statement.slice(0,90)}…</div></div>`).join('')}
+  ${potential.filter(o=>!a.findings.some(f=>f.obId===o.id)).map(o=>`<div class="card tap" onclick="startNCR('${o.id}')">
+    <div class="spread"><span class="lab">${o.label}</span><span class="tag t-warn"><span class="dot"></span>potential</span></div>
+    <div class="muted sm mono" style="margin-top:5px">${o.clause} — develop NCR →</div></div>`).join('')}
+  ${!a.findings.length&&!potential.length?'<div class="emptyhint">No findings yet. Evaluate requirements in the Audit tab; mark one as a nonconformity to build an NCR.</div>':''}`;
+};
+/* ---------- NCR BUILDER (Should Be / As Found + gatekeeping) ---------- */
+let curNCR=null;
+function startNCR(obId){
+  const ob=OBLIGATIONS.find(o=>o.id===obId),st=obState(obId);
+  let f=S.audit.findings.find(x=>x.obId===obId);
+  if(!f){f={id:"NCR-2026-"+String(114+S.audit.findings.length).padStart(3,'0'),obId,
+    clause:ob.clause, clauseVerified:false, // starts UNVERIFIED on purpose (Scenario D)
+    shouldBe:"Where actions are taken to acquire necessary competence, the organization evaluates the effectiveness of those actions. [Conform-Edge paraphrase of the governing obligation — exact licensed text not reproduced.]",
+    asFound:"", class:"", statement:"", status:"Draft",
+    evidenceRefs:st.evidence.filter(e=>e.contradicts).map(e=>e.ref)};
+    S.audit.findings.push(f);}
+  curNCR=f;go('ncr');
+}
+function openNCR(id){curNCR=S.audit.findings.find(f=>f.id===id);go('ncr');}
+function ncrChecks(f){
+  return [
+    {ok:f.clauseVerified, msg:f.clauseVerified?"Clause reference verified to the subordinate paragraph ("+f.clause+")":"Exact governing paragraph not verified — confirm the requirement reference (e.g. 7.2(c), not parent 7.2) before issuing"},
+    {ok:!!f.shouldBe.trim(), msg:f.shouldBe.trim()?"Should Be states the governing obligation":"Should Be is empty"},
+    {ok:!!f.asFound.trim()&&f.asFound.length>30, msg:(f.asFound.trim().length>30)?"As Found describes an objective condition":"As Found must describe a specific, supportable condition — not a vague assertion"},
+    {ok:(f.evidenceRefs&&f.evidenceRefs.length>0), msg:(f.evidenceRefs&&f.evidenceRefs.length>0)?"Objective evidence linked ("+f.evidenceRefs.join(', ')+")":"No objective evidence linked to the As Found"},
+    {ok:!!f.class, msg:f.class?("Classification set: "+f.class):"Classification not set (scheme-based: Major / Minor)"},
+    {ok:!!f.statement.trim(), msg:f.statement.trim()?"Statement of nonconformity present":"Statement of nonconformity not written"}
+  ];
+}
+VIEWS.ncr=()=>{
+  const f=curNCR, checks=ncrChecks(f), passed=checks.every(c=>c.ok);
+  return `
+  <div class="spread"><h2 style="margin:0">${f.id}</h2><span class="tag ${f.status==='Issued'?'t-crit':'t-warn'}"><span class="dot"></span>${f.status}</span></div>
+  <p class="muted sm" style="margin:4px 0 12px">${S.audit.org.name} · ${S.audit.id} · ${curOb?curOb.process:''}</p>
+
+  <div class="ncr-sec">
+    <div class="h">GOVERNING REQUIREMENT</div>
+    <div class="row" style="gap:8px"><span class="pill">${f.clause}</span>
+      ${f.clauseVerified?'<span class="tag t-ok"><span class="dot"></span>verified</span>':'<span class="tag t-crit"><span class="dot"></span>unverified citation</span>'}</div>
+    ${!f.clauseVerified?`<div class="guide" style="margin:10px 0 0"><div class="h">◆ Finding review required</div>
+      <div class="sm">This draft cites the parent clause. The obligation sits in a subordinate paragraph. Verify the exact reference before issuing.</div>
+      <div class="acts"><button onclick="verifyClause()">Verify as 7.2(c)</button></div></div>`:''}
+  </div>
+
+  <div class="ncr-sec shouldbe"><div class="h">SHOULD BE — REQUIREMENT CONDITION</div>
+    <textarea onchange="curNCR.shouldBe=this.value">${f.shouldBe}</textarea>
+    <p class="muted sm" style="margin:8px 0 0">Accurate paraphrase of the governing obligation. Licensed standard text is not reproduced.</p>
+  </div>
+
+  <div class="ncr-sec asfound"><div class="h">AS FOUND — OBJECTIVELY VERIFIED CONDITION</div>
+    <textarea placeholder="What was observed, where, with which record/sample identifiers and dates." onchange="curNCR.asFound=this.value">${f.asFound}</textarea>
+    ${f.asFound?'':`<div class="acts" style="margin-top:8px"><button class="ghost" onclick="fillAsFound()">Draft from recorded evidence</button></div>`}
+    <div style="margin-top:10px">
+      <div class="h">Objective evidence linked</div>
+      ${(f.evidenceRefs&&f.evidenceRefs.length)?f.evidenceRefs.map(r=>`<span class="tag t-sig" style="margin:0 6px 6px 0"><span class="dot"></span>${r}</span>`).join(''):'<span class="muted sm">none</span>'}
+    </div>
+  </div>
+
+  <div class="card"><h3>Statement of nonconformity</h3>
+    <textarea placeholder="Concise gap between required and observed condition." onchange="curNCR.statement=this.value">${f.statement}</textarea>
+    <label class="fl">Classification (AS9100D scheme)</label>
+    <div>${["Major","Minor"].map(c=>`<span class="chip ${f.class===c?'on':''}" onclick="curNCR.class='${c}';render()">${c}</span>`).join('')}</div>
+  </div>
+
+  <div class="card"><h3>Issuance checks</h3>
+    ${checks.map(c=>`<div class="gate ${c.ok?'pass':'fail'}">${c.ok?'✓':'✗'} <span>${c.msg}</span></div>`).join('')}
+  </div>
+  <button class="btn" ${passed?'':'disabled'} onclick="issueNCR()">${passed?'Issue NCR for auditor approval':'Resolve checks to issue'}</button>
+  ${!passed?'<p class="muted sm" style="text-align:center;margin:10px 0 0">A deficient NCR cannot be finalized.</p>':''}`;
+};
+function verifyClause(){curNCR.clauseVerified=true;curNCR.clause="7.2(c)";render();}
+function fillAsFound(){
+  curNCR.asFound="During review of five completed competence actions (Competence & Training), two sampled records — TR-2026-014 (completed 2026-09-14) and TR-2026-019 (completed 2026-09-21) — documented training completion but contained no effectiveness-evaluation result in the reviewed records or the qualification system. The responsible supervisor confirmed effectiveness evaluations were not completed for these two actions.";
+  curNCR.statement="For two of five sampled completed competence actions, the organization did not demonstrate evaluation of the effectiveness of the actions taken, contrary to AS9100D §7.2(c).";
+  render();
+}
+function issueNCR(){curNCR.status="Issued";go('findings');}
+/* ---------- REPORT ---------- */
+VIEWS.report=()=>{
+  const a=S.audit;if(!a)return VIEWS.home();
+  const apps=applicableObs(),done=evaluatedCount(),issued=a.findings.filter(f=>f.status==='Issued');
+  return `<h2>Audit Report</h2><p class="muted sm" style="margin:0 0 12px">Draft — populated from audit activity.</p>
+  <div class="card"><h3>Summary</h3>
+    <div class="kv"><span class="k">Organization</span><span class="v">${a.org.name}</span></div>
+    <div class="kv"><span class="k">Standard</span><span class="v">${a.standard} ${a.rev}</span></div>
+    <div class="kv"><span class="k">Type / date</span><span class="v">${a.type} · ${a.date}</span></div>
+    <div class="kv"><span class="k">Coverage</span><span class="v">${done} of ${apps.length} applicable requirements evaluated</span></div>
+    <div class="kv"><span class="k">NCRs issued</span><span class="v">${issued.length}</span></div>
+  </div>
+  <div class="card"><h3>Processes examined</h3>
+    ${a.processes.map(p=>`<div class="kv"><span class="v">• ${p}</span></div>`).join('')}</div>
+  <div class="card"><h3>Nonconformities</h3>
+    ${issued.length?issued.map(f=>`<div style="padding:8px 0;border-bottom:1px solid var(--border-dim)">
+      <div class="spread"><span class="mono sm" style="color:var(--tsig)">${f.id} · ${f.clause}</span><span class="tag t-crit"><span class="dot"></span>${f.class}</span></div>
+      <div class="sm" style="margin-top:6px"><b style="color:var(--t2)">Should be:</b> ${f.shouldBe}</div>
+      <div class="sm" style="margin-top:4px"><b style="color:var(--t2)">As found:</b> ${f.asFound}</div>
+      </div>`).join(''):'<p class="muted sm">No nonconformities issued.</p>'}
+  </div>
+  <div class="card"><h3>Coverage & limitations</h3>
+    <p class="sm">Conclusions are based on the samples and evidence recorded. ${apps.length-done} applicable requirement(s) not yet evaluated. Sampling does not imply full-population conformity.</p>
+  </div>
+  <div class="card"><h3>Reproducibility</h3>
+    <div class="kv"><span class="k">Content pack</span><span class="v mono">${a.packVersion}</span></div>
+    <div class="kv"><span class="k">Resolver</span><span class="v mono">${a.resolverVersion}</span></div>
+    <div class="kv"><span class="k">Scope</span><span class="v mono">${a.activities.join(', ')}</span></div>
+  </div>
+  <button class="ghost" style="width:100%" onclick="alert('Prototype: PDF export and structured data export are represented here, not generated.')">Export professional PDF</button>`;
+};
+VIEWS.settings=()=>`<h2>Settings</h2>
+  <div class="card"><h3>Offline & content</h3>
+    <div class="kv"><span class="k">Offline mode</span><span class="v"><span class="tag t-ok"><span class="dot"></span>field auditing available</span></span></div>
+    <div class="kv"><span class="k">Advanced analysis</span><span class="v">Available when connected</span></div>
+    <div class="kv"><span class="k">Content updates</span><span class="v">AS9100D v0.1.0 · check on connect</span></div>
+  </div>
+  <div class="banner">This prototype demonstrates the customer experience. Background intelligence and governance operate silently and are never surfaced by name.</div>
+  ${legalFooter()}`;
+function legalFooter(){
+  return `<div class="applegal">
+    <div class="brand">Conform-Edge&nbsp;™ Audit Toolkit</div>
+    <div class="links">
+      <a onclick="alert('Prototype: Terms of Service would open here.')">Terms of Service</a>
+      <a onclick="alert('Prototype: Privacy Policy would open here.')">Privacy Policy</a>
+      <a onclick="alert('Prototype: End User License Agreement would open here.')">EULA</a>
+      <a onclick="alert('Prototype: Licenses & attributions would open here.')">Licenses</a>
+    </div>
+    <div class="fine">© 2026 Conform-Edge Quality Consulting LLC. All rights reserved. Audit Toolkit and Conform-Edge are trademarks of Conform-Edge Quality Consulting LLC.<br>
+    Standard designations (AS9100D, ISO, etc.) are referenced for identification only; each remains the property of its publisher. Users must hold their own licensed copy of any referenced standard.<br>
+    App v0.1.0 (prototype) · Content AS9100D v0.1.0</div>
+  </div>`;
+}
+render();
+</script>
+</body>
+</html>

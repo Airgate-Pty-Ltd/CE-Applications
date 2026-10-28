@@ -1,0 +1,30 @@
+{
+  "standard": {
+    "code": "IATF-16949-Guide",
+    "revision": "4th",
+    "title": "IATF 16949 Auditor Guide",
+    "authority": "IATF",
+    "citation_style": "page_line",
+    "parser_profile": "pdf_generic_v1",
+    "metadata": {
+      "domain": "Automotive"
+    }
+  },
+  "clauses": [
+    {
+      "clause_id": "1",
+      "label": "Introduction & use of guide",
+      "parent": null,
+      "order_index": 10
+    },
+    {
+      "clause_id": "2",
+      "label": "Competency & audit approach",
+      "parent": null,
+      "order_index": 20
+    }
+  ],
+  "crosswalk_targets": [
+    "IATF-16949"
+  ]
+}

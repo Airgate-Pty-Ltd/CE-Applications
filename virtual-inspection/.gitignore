@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-ssr/
+.vite/
+coverage/
+*.local
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# The clean-room denylist is customer/owner-supplied and MUST NEVER be committed.
+# It contains the very identifiers this repository is required not to carry.
+# See DESIGN-NOTES.md -> "Why the denylist lives outside the repository".
+tools/scrub/denylist.local.txt
+tools/scrub/denylist.*.local.txt

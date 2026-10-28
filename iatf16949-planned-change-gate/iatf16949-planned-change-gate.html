@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IATF 16949 Planned Change Gate | Conform-Edge</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: rgba(255,255,255,0.04); --surface2: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.10); --text: #e6edf3; --muted: #8b949e;
+  --accent: #58a6ff; --green: #3fb950; --yellow: #d29922; --red: #f85149;
+  --orange: #f0883e; --purple: #bc8cff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font: 14px/1.6 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+header { background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; gap: 16px; }
+.logo { font-size: 18px; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; }
+.logo span { color: var(--muted); font-weight: 400; }
+.badge { background: rgba(88,166,255,0.12); color: var(--accent); border: 1px solid rgba(88,166,255,0.25); border-radius: 4px; font-size: 11px; font-weight: 600; padding: 2px 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.subtitle { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+.clause-ref { display: inline-block; background: rgba(188,140,255,0.10); color: var(--purple); border: 1px solid rgba(188,140,255,0.25); border-radius: 4px; font-size: 11px; font-weight: 600; padding: 2px 8px; margin-right: 6px; }
+.gate-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+.gate-header { background: var(--surface2); padding: 14px 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); }
+.gate-num { width: 26px; height: 26px; border-radius: 50%; background: rgba(88,166,255,0.15); border: 1px solid rgba(88,166,255,0.3); color: var(--accent); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.gate-title { font-weight: 600; font-size: 14px; }
+.gate-clause { color: var(--muted); font-size: 12px; margin-left: auto; }
+.gate-body { padding: 18px 20px; }
+.question { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+.question:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.q-text { font-size: 13px; margin-bottom: 10px; line-height: 1.5; }
+.q-note { font-size: 11px; color: var(--muted); margin-top: 4px; font-style: italic; }
+.critical-badge { display: inline-block; background: rgba(248,81,73,0.12); color: var(--red); border: 1px solid rgba(248,81,73,0.25); border-radius: 3px; font-size: 10px; font-weight: 700; padding: 1px 6px; margin-left: 6px; text-transform: uppercase; }
+.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-opt { padding: 7px 18px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.15s; }
+.btn-opt:hover { border-color: var(--accent); color: var(--accent); }
+.btn-opt.selected-yes { background: rgba(63,185,80,0.12); border-color: var(--green); color: var(--green); }
+.btn-opt.selected-no { background: rgba(248,81,73,0.08); border-color: rgba(248,81,73,0.4); color: var(--red); }
+.btn-opt.selected-na { background: rgba(139,148,158,0.10); border-color: rgba(139,148,158,0.3); color: var(--muted); }
+.btn-opt.selected-partial { background: rgba(210,153,34,0.10); border-color: var(--yellow); color: var(--yellow); }
+.progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 28px; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--purple)); border-radius: 2px; transition: width 0.3s ease; }
+.result-panel { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 28px; margin-top: 28px; display: none; }
+.result-panel.show { display: block; }
+.verdict { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+.verdict.PROCEED { color: var(--green); }
+.verdict.HOLD { color: var(--yellow); }
+.verdict.ESCALATE { color: var(--red); }
+.verdict-label { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.score-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+.score-card-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.score-card-value { font-size: 20px; font-weight: 700; }
+.score-card-value.green { color: var(--green); }
+.score-card-value.yellow { color: var(--yellow); }
+.score-card-value.red { color: var(--red); }
+.section-title { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; margin-top: 20px; }
+.finding-list { list-style: none; }
+.finding-list li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.finding-list li:last-child { border-bottom: none; }
+.finding-icon { flex-shrink: 0; margin-top: 2px; }
+.ppap-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+.ppap-table th { background: var(--surface); padding: 8px 10px; text-align: left; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+.ppap-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.ppap-table tr:last-child td { border-bottom: none; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+.tag-required { background: rgba(248,81,73,0.12); color: var(--red); }
+.tag-notify { background: rgba(210,153,34,0.10); color: var(--yellow); }
+.tag-internal { background: rgba(63,185,80,0.10); color: var(--green); }
+.tag-na { background: rgba(139,148,158,0.08); color: var(--muted); }
+.action-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; }
+.btn-primary { background: var(--accent); color: #0d1117; }
+.btn-primary:hover { background: #79c0ff; }
+.btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.btn-row { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+.narrative-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-size: 12px; color: var(--muted); line-height: 1.7; margin-top: 8px; }
+.hard-stop { background: rgba(248,81,73,0.06); border: 1px solid rgba(248,81,73,0.2); border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; display: none; }
+.hard-stop.show { display: block; }
+.hard-stop-title { color: var(--red); font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+.hard-stop-text { font-size: 12px; color: var(--muted); }
+footer { text-align: center; color: var(--muted); font-size: 11px; padding: 32px; border-top: 1px solid var(--border); margin-top: 40px; }
+@media (max-width: 600px) { .container { padding: 20px 16px; } header { padding: 16px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Conform<span>-Edge</span></div>
+  <div class="badge">IATF 16949</div>
+  <div class="badge" style="background:rgba(188,140,255,0.10);color:var(--purple);border-color:rgba(188,140,255,0.25);">Planned Change</div>
+</header>
+
+<div class="container">
+  <h1>IATF 16949 Planned Change Gate Tool</h1>
+  <p class="subtitle">
+    <span class="clause-ref">Cl. 8.1</span>
+    <span class="clause-ref">Cl. 8.2.3.1</span>
+    <span class="clause-ref">Cl. 8.3.6</span>
+    Deterministic gate for automotive planned change — classification → PPAP trigger → customer notification → authorization
+  </p>
+
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+  <!-- GATE 1: Change Classification -->
+  <div class="gate-section">
+    <div class="gate-header">
+      <div class="gate-num">1</div>
+      <div class="gate-title">Change Classification</div>
+      <div class="gate-clause">Cl. 8.1 / 8.2.3.1</div>
+    </div>
+    <div class="gate-body">
+
+      <div class="question" data-id="q1">
+        <div class="q-text">Does this change affect the design, specifications, or approved drawings of a customer-approved product?<span class="critical-badge">Critical</span></div>
+        <div class="q-note">Includes tolerance changes, material substitutions, alternative components, dimensional changes.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q1" data-val="yes" onclick="setAnswer('q1','yes',this)">Yes</button>
+          <button class="btn-opt" data-q="q1" data-val="no" onclick="setAnswer('q1','no',this)">No</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q2">
+        <div class="q-text">Does this change affect the manufacturing process, method, sequence, or tooling (including dies, fixtures, gages)?<span class="critical-badge">Critical</span></div>
+        <div class="q-note">Includes new or replacement tooling, change of forming/machining/assembly process, sub-process method changes.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q2" data-val="yes" onclick="setAnswer('q2','yes',this)">Yes</button>
+          <button class="btn-opt" data-q="q2" data-val="no" onclick="setAnswer('q2','no',this)">No</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q3">
+        <div class="q-text">Does this change involve a new or different sub-supplier, or a change to the supply source for a controlled material/component?</div>
+        <div class="q-note">Includes supplier qualification changes, single-source substitutions, tier-2 sub-supplier changes that affect controlled characteristics.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q3" data-val="yes" onclick="setAnswer('q3','yes',this)">Yes</button>
+          <button class="btn-opt" data-q="q3" data-val="no" onclick="setAnswer('q3','no',this)">No</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q4">
+        <div class="q-text">Does this change involve a new or relocated manufacturing facility, production line, or plant location?</div>
+        <div class="q-note">Includes building changes, line transfers, new cell layouts, or outsourcing of previously in-house processes.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q4" data-val="yes" onclick="setAnswer('q4','yes',this)">Yes</button>
+          <button class="btn-opt" data-q="q4" data-val="no" onclick="setAnswer('q4','no',this)">No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GATE 2: PPAP Trigger Assessment -->
+  <div class="gate-section">
+    <div class="gate-header">
+      <div class="gate-num">2</div>
+      <div class="gate-title">PPAP Trigger Assessment</div>
+      <div class="gate-clause">AIAG PPAP 4th Ed. / VDA</div>
+    </div>
+    <div class="gate-body">
+
+      <div class="question" data-id="q5">
+        <div class="q-text">Do your applicable Customer-Specific Requirements (CSRs) explicitly list this change type as a PPAP trigger?<span class="critical-badge">Critical</span></div>
+        <div class="q-note">Check CSRs for GM, Ford, Stellantis, BMW, VW, Toyota, Hyundai, or your specific customers. CSR requirements override PPAP default logic.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q5" data-val="yes" onclick="setAnswer('q5','yes',this)">Yes</button>
+          <button class="btn-opt" data-q="q5" data-val="no" onclick="setAnswer('q5','no',this)">No</button>
+          <button class="btn-opt" data-q="q5" data-val="na" onclick="setAnswer('q5','na',this)">Not reviewed</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q6">
+        <div class="q-text">Does the change affect any Special Characteristics (SC/CC/KPC) on the approved control plan or drawing?<span class="critical-badge">Critical</span></div>
+        <div class="q-note">Special Characteristics include safety, regulatory, and functionally critical features designated by the customer or engineering.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q6" data-val="yes" onclick="setAnswer('q6','yes',this)">Yes</button>
+          <button class="btn-opt" data-q="q6" data-val="no" onclick="setAnswer('q6','no',this)">No</button>
+          <button class="btn-opt" data-q="q6" data-val="na" onclick="setAnswer('q6','na',this)">N/A — No SCs on part</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q7">
+        <div class="q-text">Has your PFMEA been reviewed for this change and updated where risk has increased?</div>
+        <div class="q-note">IATF 16949 Cl. 8.3.3.3 requires PFMEA to reflect the current process. Any new failure mode or change to detection/occurrence must be assessed.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q7" data-val="yes" onclick="setAnswer('q7','yes',this)">Yes — reviewed and current</button>
+          <button class="btn-opt" data-q="q7" data-val="partial" onclick="setAnswer('q7','partial',this)">In progress</button>
+          <button class="btn-opt" data-q="q7" data-val="no" onclick="setAnswer('q7','no',this)">Not yet</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q8">
+        <div class="q-text">Has the Control Plan been updated to reflect the changed process, with revised inspection methods, frequencies, and reaction plans?</div>
+        <div class="q-note">Cl. 8.5.1.1 requires control plans to be current. Changes to process or SC impact require documented control plan revision before production.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q8" data-val="yes" onclick="setAnswer('q8','yes',this)">Yes — updated</button>
+          <button class="btn-opt" data-q="q8" data-val="partial" onclick="setAnswer('q8','partial',this)">Draft in progress</button>
+          <button class="btn-opt" data-q="q8" data-val="no" onclick="setAnswer('q8','no',this)">Not yet</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GATE 3: Customer Notification & Approval -->
+  <div class="gate-section">
+    <div class="gate-header">
+      <div class="gate-num">3</div>
+      <div class="gate-title">Customer Notification & Approval</div>
+      <div class="gate-clause">Cl. 8.2.3.1 / CSR</div>
+    </div>
+    <div class="gate-body">
+
+      <div class="question" data-id="q9">
+        <div class="q-text">Has written notification been sent to the customer engineering or SQE contact for this change?<span class="critical-badge">Critical</span></div>
+        <div class="q-note">Cl. 8.2.3.1 requires customer notification before changes to products or processes. Notification must be documented.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q9" data-val="yes" onclick="setAnswer('q9','yes',this)">Yes — sent and on record</button>
+          <button class="btn-opt" data-q="q9" data-val="no" onclick="setAnswer('q9','no',this)">Not yet</button>
+          <button class="btn-opt" data-q="q9" data-val="na" onclick="setAnswer('q9','na',this)">Customer waived requirement</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q10">
+        <div class="q-text">If customer approval is required before implementation, has written approval been received?</div>
+        <div class="q-note">Some customers (GM, Ford, Stellantis) require explicit engineering approval before production with change. Check your PPAP approval letter / deviation permit requirements.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q10" data-val="yes" onclick="setAnswer('q10','yes',this)">Yes — approval received</button>
+          <button class="btn-opt" data-q="q10" data-val="no" onclick="setAnswer('q10','no',this)">No — still pending</button>
+          <button class="btn-opt" data-q="q10" data-val="na" onclick="setAnswer('q10','na',this)">N/A — notification only required</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q11">
+        <div class="q-text">Does this change require a deviation / production permit while the PPAP is being completed?</div>
+        <div class="q-note">IATF Cl. 8.7.1.3 governs customer-authorized deviations. A deviation is time-limited and quantity-limited — never a substitute for PPAP approval.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q11" data-val="yes" onclick="setAnswer('q11','yes',this)">Yes — deviation needed</button>
+          <button class="btn-opt" data-q="q11" data-val="no" onclick="setAnswer('q11','no',this)">No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GATE 4: Internal Authorization -->
+  <div class="gate-section">
+    <div class="gate-header">
+      <div class="gate-num">4</div>
+      <div class="gate-title">Internal Authorization & Evidence</div>
+      <div class="gate-clause">Cl. 8.1 / 8.5.6</div>
+    </div>
+    <div class="gate-body">
+
+      <div class="question" data-id="q12">
+        <div class="q-text">Has the change been reviewed and authorized by the designated internal authority (e.g., engineering, quality, cross-functional team)?</div>
+        <div class="q-note">Cl. 8.1 requires controlled implementation of planned changes. Internal authorization must be documented before production launch.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q12" data-val="yes" onclick="setAnswer('q12','yes',this)">Yes — authorized and documented</button>
+          <button class="btn-opt" data-q="q12" data-val="partial" onclick="setAnswer('q12','partial',this)">Verbal only / in progress</button>
+          <button class="btn-opt" data-q="q12" data-val="no" onclick="setAnswer('q12','no',this)">Not yet</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q13">
+        <div class="q-text">Has pre-production validation (run-at-rate, dimensional buy-off, or capability study) been completed for the changed process?</div>
+        <div class="q-note">Pre-launch production validation per Cl. 8.3.4 / PPAP Section 11. Evidence must be available before PPAP submission or production launch.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q13" data-val="yes" onclick="setAnswer('q13','yes',this)">Yes — validation complete</button>
+          <button class="btn-opt" data-q="q13" data-val="partial" onclick="setAnswer('q13','partial',this)">Partial / underway</button>
+          <button class="btn-opt" data-q="q13" data-val="no" onclick="setAnswer('q13','no',this)">Not yet</button>
+          <button class="btn-opt" data-q="q13" data-val="na" onclick="setAnswer('q13','na',this)">N/A — no production validation required</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q14">
+        <div class="q-text">Has the change been communicated to all affected internal functions (production, quality, logistics, purchasing, maintenance)?</div>
+        <div class="q-note">Cl. 8.5.6 change management requires downstream communication. Undocumented communication creates audit vulnerability.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q14" data-val="yes" onclick="setAnswer('q14','yes',this)">Yes — communicated and confirmed</button>
+          <button class="btn-opt" data-q="q14" data-val="partial" onclick="setAnswer('q14','partial',this)">Partial — some functions informed</button>
+          <button class="btn-opt" data-q="q14" data-val="no" onclick="setAnswer('q14','no',this)">Not yet</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Hard Stop display area -->
+  <div class="hard-stop" id="hardStop">
+    <div class="hard-stop-title">⛔ HARD STOP — Do not implement</div>
+    <div class="hard-stop-text" id="hardStopText"></div>
+  </div>
+
+  <button class="action-btn btn-primary" onclick="computeResult()" style="margin-top:16px;">Compute Gate Decision</button>
+
+  <!-- Result Panel -->
+  <div class="result-panel" id="resultPanel">
+    <div class="verdict" id="verdictText"></div>
+    <div class="verdict-label" id="verdictLabel"></div>
+
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="score-card-label">Gate Decision</div>
+        <div class="score-card-value" id="gateDecisionScore"></div>
+      </div>
+      <div class="score-card">
+        <div class="score-card-label">PPAP Required</div>
+        <div class="score-card-value" id="ppapScore"></div>
+      </div>
+      <div class="score-card">
+        <div class="score-card-label">Customer Action</div>
+        <div class="score-card-value" id="customerScore"></div>
+      </div>
+      <div class="score-card">
+        <div class="score-card-label">Open Items</div>
+        <div class="score-card-value" id="openItemsScore"></div>
+      </div>
+    </div>
+
+    <div class="section-title">PPAP Submission Requirements</div>
+    <table class="ppap-table">
+      <thead>
+        <tr>
+          <th>Element</th>
+          <th>Requirement</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="ppapTableBody"></tbody>
+    </table>
+
+    <div class="section-title">Open Actions Required Before Implementation</div>
+    <ul class="finding-list" id="findingList"></ul>
+
+    <div class="section-title">Management Review Narrative</div>
+    <div class="narrative-box" id="narrativeBox"></div>
+
+    <div class="btn-row">
+      <button class="action-btn btn-secondary" onclick="exportJSON()">Export JSON Record</button>
+      <button class="action-btn btn-secondary" onclick="resetAssessment()">Start New Assessment</button>
+    </div>
+  </div>
+</div>
+
+<footer>Conform-Edge Quality Consulting LLC &nbsp;·&nbsp; IATF 16949 Planned Change Gate Tool &nbsp;·&nbsp; Cl. 8.1 / 8.2.3.1 / 8.3.6 / 8.5.6 &nbsp;·&nbsp; AIAG PPAP 4th Ed. &nbsp;·&nbsp; Not a substitute for customer-specific requirements or legal advice.</footer>
+
+<script>
+const QUESTIONS = {
+  q1: { gate: 1, text: 'Design/specification change', critical: true },
+  q2: { gate: 1, text: 'Manufacturing process/tooling change', critical: true },
+  q3: { gate: 1, text: 'Sub-supplier / material source change', critical: false },
+  q4: { gate: 1, text: 'Facility / location / line transfer', critical: false },
+  q5: { gate: 2, text: 'CSR explicit PPAP trigger', critical: true },
+  q6: { gate: 2, text: 'Special Characteristics affected', critical: true },
+  q7: { gate: 2, text: 'PFMEA reviewed and updated', critical: false },
+  q8: { gate: 2, text: 'Control Plan updated', critical: false },
+  q9: { gate: 3, text: 'Customer notification sent', critical: true },
+  q10: { gate: 3, text: 'Customer written approval received', critical: false },
+  q11: { gate: 3, text: 'Deviation/production permit needed', critical: false },
+  q12: { gate: 4, text: 'Internal authorization documented', critical: false },
+  q13: { gate: 4, text: 'Pre-production validation complete', critical: false },
+  q14: { gate: 4, text: 'Internal communication complete', critical: false },
+};
+
+const answers = {};
+
+function setAnswer(qid, val, btn) {
+  answers[qid] = val;
+  const group = btn.closest('.btn-group');
+  group.querySelectorAll('.btn-opt').forEach(b => {
+    b.classList.remove('selected-yes','selected-no','selected-na','selected-partial');
+  });
+  btn.classList.add(val === 'yes' ? 'selected-yes' : val === 'no' ? 'selected-no' : val === 'na' ? 'selected-na' : 'selected-partial');
+  updateProgress();
+  checkHardStop();
+}
+
+function updateProgress() {
+  const total = Object.keys(QUESTIONS).length;
+  const answered = Object.keys(answers).length;
+  document.getElementById('progressFill').style.width = Math.round((answered / total) * 100) + '%';
+}
+
+function checkHardStop() {
+  const hs = document.getElementById('hardStop');
+  const stops = [];
+
+  // Critical: customer notification NOT sent AND change affects design or process
+  if ((answers.q1 === 'yes' || answers.q2 === 'yes') && answers.q9 === 'no') {
+    stops.push('Customer notification is required before implementation for this change type (Cl. 8.2.3.1). Do not proceed until notification is sent and documented.');
+  }
+  // Critical: CSR lists as trigger AND customer approval not received
+  if (answers.q5 === 'yes' && answers.q10 === 'no') {
+    stops.push('Your Customer-Specific Requirements mandate PPAP and/or approval for this change. Customer approval is still pending — implementation is blocked.');
+  }
+  // Critical: Special characteristics affected AND PFMEA/CP not started
+  if (answers.q6 === 'yes' && answers.q7 === 'no' && answers.q8 === 'no') {
+    stops.push('Special Characteristics are affected but neither PFMEA nor Control Plan has been updated. This is an IATF 16949 Cl. 8.3.3.3 / 8.5.1.1 compliance failure if production proceeds.');
+  }
+
+  if (stops.length > 0) {
+    hs.classList.add('show');
+    document.getElementById('hardStopText').innerHTML = stops.map(s => '• ' + s).join('<br><br>');
+  } else {
+    hs.classList.remove('show');
+  }
+}
+
+function computeResult() {
+  // Determine if PPAP is required
+  const designChange = answers.q1 === 'yes';
+  const processChange = answers.q2 === 'yes';
+  const supplierChange = answers.q3 === 'yes';
+  const facilityChange = answers.q4 === 'yes';
+  const csrTrigger = answers.q5 === 'yes';
+  const scAffected = answers.q6 === 'yes';
+
+  const ppapRequired = csrTrigger || scAffected || designChange ||
+    (processChange && (scAffected || csrTrigger)) || supplierChange || facilityChange;
+
+  // Identify open blockers
+  const blockers = [];
+  if ((designChange || processChange) && answers.q9 === 'no')
+    blockers.push({ icon: '🔴', text: 'Send written customer notification (Cl. 8.2.3.1)' });
+  if (answers.q5 === 'yes' && answers.q10 === 'no')
+    blockers.push({ icon: '🔴', text: 'Obtain written customer approval before implementation' });
+  if (answers.q7 === 'no' || answers.q7 === 'partial')
+    blockers.push({ icon: '🟡', text: 'Complete PFMEA review and update for changed process (Cl. 8.3.3.3)' });
+  if (answers.q8 === 'no' || answers.q8 === 'partial')
+    blockers.push({ icon: '🟡', text: 'Update Control Plan to reflect changed process and characteristics (Cl. 8.5.1.1)' });
+  if (answers.q12 === 'no' || answers.q12 === 'partial')
+    blockers.push({ icon: '🟡', text: 'Obtain documented internal authorization before production launch (Cl. 8.1)' });
+  if (answers.q13 === 'no' || answers.q13 === 'partial')
+    blockers.push({ icon: '🟡', text: 'Complete pre-production validation (run-at-rate / dimensional buy-off / capability study)' });
+  if (answers.q14 === 'no' || answers.q14 === 'partial')
+    blockers.push({ icon: '🟡', text: 'Communicate change to all affected internal functions with documented confirmation' });
+  if (answers.q11 === 'yes')
+    blockers.push({ icon: '🔵', text: 'Obtain customer-authorized deviation/production permit before shipping parts built to new process' });
+
+  // Determine verdict
+  const hardBlockers = blockers.filter(b => b.icon === '🔴').length;
+  let verdict, label;
+  if (hardBlockers > 0) {
+    verdict = 'ESCALATE';
+    label = 'Hard blockers exist — customer notification or approval missing. Do not implement without resolution.';
+  } else if (blockers.length > 0) {
+    verdict = 'HOLD';
+    label = 'Open internal actions remain. Resolve all items before production launch.';
+  } else {
+    verdict = 'PROCEED';
+    label = 'All gate requirements satisfied. Document the change record and proceed per your change management procedure.';
+  }
+
+  // PPAP table content
+  const ppapRows = [
+    { element: 'PPAP Required', req: ppapRequired ? 'YES' : 'Assess with customer', tag: ppapRequired ? 'tag-required' : 'tag-notify', note: csrTrigger ? 'Mandated by CSR' : scAffected ? 'Special Characteristics affected' : designChange ? 'Design change' : 'Assess change scope with customer' },
+    { element: 'PPAP Level', req: csrTrigger ? 'Per CSR' : ppapRequired ? 'Level 3 (default)', tag: 'tag-notify', note: 'Confirm with customer. CSR overrides default.' },
+    { element: 'PSW (Part Submission Warrant)', req: ppapRequired ? 'Required' : 'N/A', tag: ppapRequired ? 'tag-required' : 'tag-na', note: ppapRequired ? 'Must have customer signature before production' : '' },
+    { element: 'Dimensional Results', req: (ppapRequired || designChange) ? 'Required' : 'N/A', tag: (ppapRequired || designChange) ? 'tag-required' : 'tag-na', note: '' },
+    { element: 'Material/Performance Test Results', req: (designChange || scAffected) ? 'Required' : 'Conditional', tag: (designChange || scAffected) ? 'tag-required' : 'tag-notify', note: 'Required if design record references tests' },
+    { element: 'Process Capability Study (Cpk)', req: scAffected ? 'Required' : 'Conditional', tag: scAffected ? 'tag-required' : 'tag-notify', note: 'Cpk ≥ 1.67 for Special Characteristics (initial capability)' },
+    { element: 'Customer Deviation / Permit', req: answers.q11 === 'yes' ? 'Required before shipping' : 'Not needed', tag: answers.q11 === 'yes' ? 'tag-required' : 'tag-na', note: 'Time and quantity limited. Not a substitute for PPAP.' },
+  ];
+
+  document.getElementById('ppapTableBody').innerHTML = ppapRows.map(r =>
+    `<tr><td>${r.element}</td><td><span class="tag ${r.tag}">${r.req}</span></td><td style="color:var(--muted)">${r.note}</td></tr>`
+  ).join('');
+
+  // Finding list
+  document.getElementById('findingList').innerHTML = blockers.length > 0
+    ? blockers.map(b => `<li><span class="finding-icon">${b.icon}</span><span>${b.text}</span></li>`).join('')
+    : '<li><span class="finding-icon">✅</span><span>No open actions — all gate checks satisfied.</span></li>';
+
+  // Score cards
+  const verdictEl = document.getElementById('gateDecisionScore');
+  verdictEl.textContent = verdict;
+  verdictEl.className = 'score-card-value ' + (verdict === 'PROCEED' ? 'green' : verdict === 'HOLD' ? 'yellow' : 'red');
+
+  const ppapEl = document.getElementById('ppapScore');
+  ppapEl.textContent = ppapRequired ? 'Yes' : 'Assess';
+  ppapEl.className = 'score-card-value ' + (ppapRequired ? 'red' : 'yellow');
+
+  const custEl = document.getElementById('customerScore');
+  const custAction = answers.q9 === 'yes' ? (answers.q10 === 'yes' ? 'Approved' : 'Notified') : 'Required';
+  custEl.textContent = custAction;
+  custEl.className = 'score-card-value ' + (custAction === 'Approved' ? 'green' : custAction === 'Notified' ? 'yellow' : 'red');
+
+  const openEl = document.getElementById('openItemsScore');
+  openEl.textContent = blockers.length;
+  openEl.className = 'score-card-value ' + (blockers.length === 0 ? 'green' : blockers.length <= 2 ? 'yellow' : 'red');
+
+  // Verdict display
+  document.getElementById('verdictText').textContent = verdict;
+  document.getElementById('verdictText').className = 'verdict ' + verdict;
+  document.getElementById('verdictLabel').textContent = label;
+
+  // Narrative
+  const changeTypes = [];
+  if (answers.q1 === 'yes') changeTypes.push('product design/specification');
+  if (answers.q2 === 'yes') changeTypes.push('manufacturing process/tooling');
+  if (answers.q3 === 'yes') changeTypes.push('sub-supplier/material source');
+  if (answers.q4 === 'yes') changeTypes.push('facility/location');
+
+  const narrative = `IATF 16949 Planned Change Assessment — ${new Date().toLocaleDateString()}
+
+Change type(s): ${changeTypes.length > 0 ? changeTypes.join(', ') : 'not specified'}.
+PPAP determination: ${ppapRequired ? 'PPAP submission required' : 'No automatic PPAP trigger — confirm with customer'}.
+Special Characteristics: ${answers.q6 === 'yes' ? 'Affected — enhanced scrutiny required' : answers.q6 === 'na' ? 'N/A' : 'Not affected'}.
+Customer notification: ${answers.q9 === 'yes' ? 'Sent and on record' : answers.q9 === 'na' ? 'Waived' : 'PENDING — required before implementation'}.
+Customer approval: ${answers.q10 === 'yes' ? 'Received' : answers.q10 === 'na' ? 'Notification only required' : 'PENDING'}.
+PFMEA status: ${answers.q7 === 'yes' ? 'Current' : answers.q7 === 'partial' ? 'In progress' : 'Not updated'}.
+Control Plan status: ${answers.q8 === 'yes' ? 'Updated' : answers.q8 === 'partial' ? 'Draft in progress' : 'Not updated'}.
+Gate decision: ${verdict}. Open actions: ${blockers.length}.`;
+
+  document.getElementById('narrativeBox').textContent = narrative;
+
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function exportJSON() {
+  const data = {
+    tool: 'IATF 16949 Planned Change Gate Tool',
+    version: '1.0',
+    brand: 'Conform-Edge',
+    clauses: ['8.1','8.2.3.1','8.3.6','8.5.6'],
+    timestamp: new Date().toISOString(),
+    answers,
+    verdict: document.getElementById('verdictText').textContent,
+    openItems: document.querySelectorAll('#findingList li').length,
+    maiInterface: { domain: 'iatf-planned-change', reserved: true }
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url;
+  a.download = 'iatf-planned-change-' + new Date().toISOString().split('T')[0] + '.json';
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function resetAssessment() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.querySelectorAll('.btn-opt').forEach(b => b.classList.remove('selected-yes','selected-no','selected-na','selected-partial'));
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('hardStop').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{
+  "evidence": [
+    {
+      "title": "NCR-2026-0042: Fatigue-related error during night shift",
+      "extractedText": "During a 12-hour night shift on 2026-07-15, maintenance technician John Doe missed a critical inspection step on the EFX-7 power system. Root cause investigation revealed operator fatigue was a contributing factor. Technician had worked 10 hours prior to this 12-hour shift with minimal rest. Existing training does not address fatigue recognition or mitigation.",
+      "contentType": "text/plain",
+      "classification": "INTERNAL"
+    }
+  ],
+  "events": [
+    {
+      "title": "Night shift fatigue led to missed inspection",
+      "description": "Technician fatigue during 12-hour shift caused missed inspection step",
+      "themes": ["fatigue", "human-factors"],
+      "roles": ["maintenance_technician"],
+      "status": "REPORTED"
+    }
+  ],
+  "appropriatenessReviews": [
+    {
+      "hasCompetenceGap": true,
+      "competenceGapDescription": "Technician lacks awareness of fatigue signs and mitigation strategies",
+      "trainingReducesRisk": true,
+      "alternativesRanking": "Process improvement (mandatory rest periods) ranked higher, but training is primary intervention",
+      "expectedBehavior": "Technician self-monitors for fatigue and requests break if needed"
+    }
+  ],
+  "atoms": [
+    {
+      "title": "Fatigue Fundamentals",
+      "objective": "Identify signs of fatigue and understand impact on safety-critical tasks",
+      "content": "Fatigue is a state of reduced alertness and impaired decision-making. Key signs include: difficulty concentrating, slowed reaction time, mood changes, and physical signs (yawning, drooping eyelids). In safety-critical work like aircraft maintenance, even mild fatigue significantly increases error risk.",
+      "classification": "INTERNAL",
+      "duration_minutes": 8
+    },
+    {
+      "title": "Night Shift Fatigue: The NCR-2026-0042 Case Study",
+      "objective": "Apply fatigue awareness to real incident scenario",
+      "content": "During a 12-hour night shift, technician John Doe missed a critical inspection step. Investigation revealed he had worked 10 hours prior with minimal rest. The missed step could have resulted in safety failure if not caught by QA review. What went wrong? John did not recognize his own fatigue signs. What should have happened? John should have requested and taken a break when he noticed difficulty concentrating.",
+      "classification": "INTERNAL",
+      "duration_minutes": 15
+    },
+    {
+      "title": "Fatigue Self-Check Questions",
+      "objective": "Verify understanding of fatigue recognition and response",
+      "content": "Assessment questions: 1) Describe 2 signs of fatigue that should trigger a break request. 2) What are three mitigation strategies for fatigue during long shifts? 3) When should you report fatigue to your supervisor?",
+      "classification": "INTERNAL",
+      "duration_minutes": 2
+    }
+  ],
+  "learners": [
+    {
+      "id": "john.doe@burrana.com",
+      "name": "John Doe",
+      "email": "john.doe@burrana.com",
+      "role": "maintenance_technician",
+      "site": "Brisbane"
+    }
+  ]
+}

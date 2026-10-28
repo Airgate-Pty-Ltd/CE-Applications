@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repair Station Compliance Intelligence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1a2844 100%);
+            color: #e8ebf0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 20px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .header-status {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-indicator.critical {
+            background: #ef4444;
+            animation: pulse-critical 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes pulse-critical {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .alerts-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .alert {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .alert::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .alert-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .alert.critical {
+            border-left-color: #ef4444;
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .alert.high {
+            border-left-color: #f97316;
+            background: rgba(249, 115, 22, 0.08);
+            border-color: rgba(249, 115, 22, 0.2);
+        }
+
+        .alert.medium {
+            border-left-color: #eab308;
+            background: rgba(234, 179, 8, 0.08);
+            border-color: rgba(234, 179, 8, 0.2);
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .alert-title {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin-bottom: 4px;
+        }
+
+        .alert-meta {
+            font-size: 12px;
+            color: #cbd5e1;
+            display: flex;
+            gap: 16px;
+        }
+
+        .alert-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .alert.critical .alert-badge {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fecaca;
+        }
+
+        .alert.high .alert-badge {
+            background: rgba(249, 115, 22, 0.2);
+            color: #fdba74;
+        }
+
+        .alert.medium .alert-badge {
+            background: rgba(234, 179, 8, 0.2);
+            color: #fef08a;
+        }
+
+        .alert-section {
+            margin-bottom: 16px;
+        }
+
+        .alert-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .alert-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+        }
+
+        .alert-reasoning {
+            font-size: 13px;
+            color: #a1a7b3;
+            line-height: 1.5;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            margin: 8px 0;
+        }
+
+        .alert-consequence {
+            font-size: 13px;
+            padding: 12px;
+            border-radius: 4px;
+            background: rgba(239, 68, 68, 0.08);
+            border-left: 2px solid #ef4444;
+            color: #fecaca;
+            margin: 8px 0;
+        }
+
+        .alert-action {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            align-items: center;
+        }
+
+        .action-button {
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .action-button.primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+        }
+
+        .action-button.primary:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        }
+
+        .relationships {
+            font-size: 12px;
+            color: #94a3b8;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+            margin-top: 12px;
+        }
+
+        .relationships-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #cbd5e1;
+        }
+
+        .relationship-item {
+            padding: 4px 0;
+            font-size: 12px;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.02);
+            color: #cbd5e1;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .filter-button:hover, .filter-button.active {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .alert-count {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 30px;
+            color: #64748b;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+        }
+
+        .empty-state-text {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .alert {
+                padding: 16px;
+            }
+
+            .alert-title {
+                font-size: 14px;
+            }
+
+            .action-button {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+
+            .container {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <h1>Compliance Intelligence</h1>
+                <div style="font-size:11px;color:#94a3b8;margin-top:4px;">Rule-engine assessments — advisory only. Human authority controls all decisions.</div>
+            </div>
+            <div class="header-status">
+                <span class="status-indicator critical"></span>
+                <span id="alertCount">4 critical alerts</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="filter-bar">
+            <button class="filter-button active" onclick="filterAlerts('all')">All</button>
+            <button class="filter-button" onclick="filterAlerts('critical')">🔴 Critical</button>
+            <button class="filter-button" onclick="filterAlerts('high')">🟠 High</button>
+            <button class="filter-button" onclick="filterAlerts('medium')">🟡 Medium</button>
+        </div>
+
+        <div class="alerts-section">
+            <div class="section-title">⚠️ Immediate Attention Required</div>
+            <div class="alert-count" id="alertCountDetail">4 critical issues need your decision</div>
+            <div id="alertsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================================
+        // M-AI KERNEL-PATTERN RULE ENGINE (embedded, static-HTML variant)
+        // Added 2026-07-10 to resolve Technical-Debt.md items #3 and #7:
+        // "Hardcoded demo alerts presented as AI output" / "magic-number thresholds".
+        //
+        // This block is a clearly-labeled, deterministic, rules-only evaluation
+        // module that follows the exact condition grammar and DIM/rule schema used
+        // by the real M-AI Kernel (see builds/2026-07-03-MAI-KERNEL-BUILD/mai-kernel/
+        // lib/condition-evaluator.js and supplier-scorecard-v2/src/dims/*/manifest.json).
+        //
+        // HONEST STATUS: this is NOT the live mai-kernel runtime. There is no
+        // database, no adapter, no append-only ledger, no supersession tracking,
+        // and no tenant scoping here (those require the Postgres adapter and a
+        // backend, which this static, no-login, browser-only tool does not have).
+        // What changed: alerts are no longer hardcoded narrative objects — they are
+        // now the output of evaluating versioned rule JSON (same file also lives at
+        // artifact/mai-rules/repair-station-dim.manifest.json) against a station
+        // data snapshot, using the kernel's own operator grammar. Advisory only —
+        // human authority controls all decisions.
+        // ============================================================================
+
+        // --- Condition Evaluator: ported verbatim (same operator grammar) from
+        // mai-kernel/lib/condition-evaluator.js. Pure, deterministic, no LLM, no
+        // randomness, no side effects. ---
+        class MaiConditionEvaluator {
+            evaluate(condition, data) {
+                if (!condition || typeof condition !== 'object') return true;
+                try {
+                    return this._evaluateNode(condition, data);
+                } catch (err) {
+                    console.error('Condition evaluation error:', err);
+                    return false; // fail-safe: never trigger on a bad condition
+                }
+            }
+            _evaluateNode(node, data) {
+                if (node.all !== undefined) return node.all.every(c => this._evaluateNode(c, data));
+                if (node.any !== undefined) return node.any.some(c => this._evaluateNode(c, data));
+                if (node.not !== undefined) return !this._evaluateNode(node.not, data);
+                const field = node.field;
+                if (!field) throw new Error('Condition node missing field property');
+                const value = this._getFieldValue(field, data);
+                if (node.is_null !== undefined) return value === null || value === undefined;
+                if (node.not_null !== undefined) return !(value === null || value === undefined);
+                if (node.is_empty !== undefined) return this._isEmpty(value);
+                if (node.not_empty !== undefined) return !this._isEmpty(value);
+                if (node.eq !== undefined) return value === node.eq;
+                if (node.ne !== undefined) return value !== node.ne;
+                if (node.in !== undefined) return Array.isArray(node.in) && node.in.includes(value);
+                if (node.length_gte !== undefined) return typeof value === 'number' ? value >= node.length_gte : (value ?? '').length >= node.length_gte;
+                if (node.length_lt !== undefined) return typeof value === 'number' ? value < node.length_lt : (value ?? { length: 0 }).length < node.length_lt;
+                if (node.date_before_today !== undefined) return value ? new Date(value) < new Date(new Date().setHours(0,0,0,0)) : false;
+                if (node.date_after_today !== undefined) return value ? new Date(value) > new Date(new Date().setHours(23,59,59,999)) : false;
+                throw new Error(`Unknown operator in condition node: ${JSON.stringify(node)}`);
+            }
+            _getFieldValue(fieldPath, data) {
+                return fieldPath.split('.').reduce((v, part) => (v === null || v === undefined ? null : v[part]), data);
+            }
+            _isEmpty(value) {
+                if (value === null || value === undefined) return true;
+                if (typeof value === 'string') return value.trim() === '';
+                if (Array.isArray(value)) return value.length === 0;
+                return false;
+            }
+        }
+
+        // --- DIM rule manifest: canonical copy at artifact/mai-rules/repair-station-dim.manifest.json ---
+        // Keep this embedded copy and that file in sync (documented limitation —
+        // see manifest's "note_on_integration_status").
+        const MAI_DIM_REPAIR_STATION_READINESS = {
+            dim_id: 'repair-station-readiness',
+            version: '1.0',
+            authority_charter: 'All alerts are advisory, generated by a deterministic rules engine following the M-AI Kernel condition grammar. Human authority controls all decisions.',
+            rules: [
+                { id: 'SURV-001', dimension: 'Regulatory Surveillance', severity: 'critical',
+                  condition: { all: [ { field: 'surveillanceDaysPastDue', length_gte: 1 }, { field: 'approvalRenewalDaysRemaining', length_lt: 60 } ] } },
+                { id: 'CAPA-001', dimension: 'Corrective Action Aging', severity: 'major',
+                  condition: { field: 'outstandingCorrectiveActions', length_gte: 4 } },
+                { id: 'CAPA-002', dimension: 'Corrective Action Aging', severity: 'minor',
+                  condition: { all: [ { field: 'correctiveActionsOverdueDays', length_gte: 1 }, { field: 'outstandingCorrectiveActions', length_lt: 4 } ] } },
+                { id: 'STAFF-001', dimension: 'Certifying Staff Authorization', severity: 'major',
+                  condition: { field: 'certifyingStaffExpiringWithin60Days', length_gte: 1 } },
+                { id: 'SUPPLIER-001', dimension: 'Supplier Risk', severity: 'major',
+                  condition: { field: 'supplierRedRiskCount', length_gte: 1 } },
+                { id: 'AS9110C-001', dimension: 'QMS Maturity', severity: 'minor',
+                  condition: { field: 'as9110cScore', length_lt: 75 } }
+            ]
+        };
+
+        // Maps kernel severity vocabulary (critical/major/minor, matching the
+        // portfolio's live supplier-assessment DIM) onto this host's existing
+        // UI severity classes/filters (critical/high/medium) — no CSS changes needed.
+        const SEVERITY_MAP = { critical: 'critical', major: 'high', minor: 'medium' };
+
+        // --- Station snapshot: the real, versioned input data the rules evaluate.
+        // In a live backend this would be the kernel's event snapshot (hashed,
+        // persisted, timestamped). Here it is the static demo dataset for
+        // "Phoenix Air Maintenance", replacing the narrative-only hardcoded alerts. ---
+        const stationSnapshot = {
+            station: 'Phoenix Air Maintenance',
+            surveillanceDaysPastDue: 45,
+            approvalRenewalDaysRemaining: 30,
+            outstandingCorrectiveActions: 4,
+            correctiveActionsOverdueDays: 15,
+            certifyingStaffExpiringWithin60Days: 2,
+            certifyingStaffTotal: 14,
+            supplierRedRiskCount: 1,
+            supplierDefectRatePct: 3.2,
+            supplierDefectRatePriorPct: 0.8,
+            as9110cScore: 74
+        };
+
+        // Host-specific UI narrative layer (the FSA "7 questions" design in
+        // DESIGN-NOTES-FSA.md). This is an EXTENSION beyond the kernel's core rule
+        // schema (finding_text + resolution_hint only) — the kernel itself does not
+        // define what/why/changed/consequence/related; that richer narrative is this
+        // host's presentation design, keyed by rule id, and is preserved from the
+        // pre-patch static alerts so no existing UX content is lost.
+        const RSRD_ALERT_NARRATIVE = {
+            'SURV-001': {
+                title: 'FAA Surveillance Overdue', status: '45 days past due | Renewal due in 30 days',
+                what: 'Your FAA surveillance is overdue by 45 days. Your certification renewal expires in 30 days.',
+                why: 'Last surveillance: Jan 15, 2026. 12-month cycle required. Scheduling lapsed during management transition.',
+                changed: 'New: 2 certifying staff now expiring within 60 days, further complicating surveillance cycle.',
+                consequence: 'If unaddressed: FAA audit finding likely. Approval becomes non-current. Maintenance operations cannot continue.',
+                priority: 'Critical — Schedule within 30 days',
+                nextStep: 'Contact FSDO, book surveillance appointment',
+                related: ['3 approved suppliers', '14 certifying staff', '2 staff expiring soon']
+            },
+            'SUPPLIER-001': {
+                title: 'Supplier Risk Escalation', status: 'Supplier X moved to Red | Affects 3 repair stations',
+                what: 'Landing gear supplier (Supplier X) defect rate spiked to 3.2% (from 0.8% last month).',
+                why: 'Root cause identified: Supplier changed fastener vendors without notification. 15 shipments contaminated. Defects traced to fastener supplier process change.',
+                changed: 'New: 2 OEMs have escalation clauses triggered. 12 aircraft-in-maintenance now have parts from Red supplier.',
+                consequence: 'Risk: Supply chain break (next 10 days). Aircraft groundings likely. Contract penalties start day 8.',
+                priority: 'High — 10-day critical window',
+                nextStep: 'Quarantine parts, audit Supplier X, find replacement vendor',
+                related: ['SkyTech Engine Services affected', 'Gulf Coast Component affected', '2 OEMs notified']
+            },
+            'STAFF-001': {
+                title: 'Certifying Staff Expiration', status: '2 staff expiring in 60 days | 14 staff on roster',
+                what: 'Two key certifying staff authorizations expire in 60 days. This compounds the surveillance scheduling problem.',
+                why: 'Recurrent training wasn\'t scheduled. Training queue is backed up 4 weeks.',
+                changed: 'New: One staff member just transferred to another station (unplanned). Net loss of 2 authorized personnel this quarter.',
+                consequence: 'Risk: FAA surveillance cannot proceed without adequate staffing. Authorization gaps create a compliance finding.',
+                priority: 'High — 60-day remediation window',
+                nextStep: 'Enroll staff in recurrent training now (4-week queue). Hire contract certifying staff as bridge.',
+                related: ['FAA 145.163 training requirement', 'Maintenance operations', 'Surveillance readiness']
+            },
+            'CAPA-001': {
+                title: 'Outstanding Corrective Actions', status: '4 actions open | 1 overdue',
+                what: 'Four corrective actions are open; one is 15 days past due.',
+                why: 'Resource constraints (staff transition, supplier issues) have diverted attention from closure verification.',
+                changed: 'New: Effectiveness verification for one action has been delayed; new evidence required before closure.',
+                consequence: 'Risk: FAA will cite outstanding/ineffective corrective actions during surveillance.',
+                priority: 'Medium — Parallel with surveillance prep',
+                nextStep: 'Verify effectiveness this week for the oldest action. Accelerate evidence collection on the rest.',
+                related: ['Surveillance readiness', 'QMS compliance', 'Audit finding prevention']
+            },
+            'CAPA-002': {
+                title: 'Corrective Action Aging', status: 'Action overdue',
+                what: 'A corrective action is past its due date.',
+                why: 'Resource constraints have diverted attention from closure verification.',
+                changed: 'Effectiveness verification evidence is still outstanding.',
+                consequence: 'Risk: cited as an outstanding/ineffective corrective action during surveillance.',
+                priority: 'Medium — Parallel with surveillance prep',
+                nextStep: 'Verify effectiveness and close the action.',
+                related: ['QMS compliance']
+            },
+            'AS9110C-001': {
+                title: 'QMS Maturity Below Benchmark', status: 'AS9110C score 74 | benchmark 75',
+                what: 'AS9110C QMS maturity score (74) is below the internal 75-point benchmark.',
+                why: 'Gap analysis / refresher training has not been completed this cycle.',
+                changed: 'No prior-period comparison recorded for this station.',
+                consequence: 'Risk: QMS maturity gaps increase likelihood of findings during surveillance.',
+                priority: 'Medium',
+                nextStep: 'Conduct an AS9110C gap analysis and refresher training for the QMS team.',
+                related: ['QMS compliance', 'Surveillance readiness']
+            }
+        };
+
+        function evaluateStationAlerts(snapshot, dim, narrative) {
+            const evaluator = new MaiConditionEvaluator();
+            let nextId = 1;
+            return dim.rules
+                .filter(rule => evaluator.evaluate(rule.condition, snapshot))
+                .map(rule => {
+                    const n = narrative[rule.id] || {};
+                    return {
+                        id: nextId++,
+                        ruleId: rule.id,
+                        station: snapshot.station,
+                        severity: SEVERITY_MAP[rule.severity] || 'medium',
+                        title: n.title || rule.dimension,
+                        status: n.status || rule.dimension,
+                        what: n.what || `${rule.dimension} condition triggered (rule ${rule.id}).`,
+                        why: n.why || '',
+                        changed: n.changed || '',
+                        consequence: n.consequence || '',
+                        priority: n.priority || rule.severity,
+                        nextStep: n.nextStep || '',
+                        related: n.related || []
+                    };
+                });
+        }
+
+        const alerts = evaluateStationAlerts(stationSnapshot, MAI_DIM_REPAIR_STATION_READINESS, RSRD_ALERT_NARRATIVE);
+
+        function renderAlerts(filter = 'all') {
+            const container = document.getElementById('alertsContainer');
+            const filtered = filter === 'all' ? alerts : alerts.filter(a => a.severity === filter);
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">✓</div>
+                        <div class="empty-state-title">No alerts in this category</div>
+                        <div class="empty-state-text">All systems operating within normal parameters</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(alert => `
+                <div class="alert ${alert.severity}">
+                    <div class="alert-content">
+                        <div class="alert-header">
+                            <div>
+                                <div class="alert-title">${alert.title}</div>
+                                <div class="alert-meta">
+                                    <span>${alert.station}</span>
+                                    <span>${alert.status}</span>
+                                    <span title="Rule-engine reference — see artifact/mai-rules/repair-station-dim.manifest.json">Rule: ${alert.ruleId}</span>
+                                </div>
+                            </div>
+                            <span class="alert-badge">${alert.severity}</span>
+                        </div>
+
+                        <div class="alert-section">
+                            <div class="alert-section-title">What Is Happening?</div>
+                            <div class="alert-description">${alert.what}</div>
+                        </div>
+
+                        <div class="alert-section">
+                            <div class="alert-section-title">Why Is This Happening?</div>
+                            <div class="alert-reasoning">${alert.why}</div>
+                        </div>
+
+                        <div class="alert-section">
+                            <div class="alert-section-title">What Changed?</div>
+                            <div class="alert-reasoning">${alert.changed}</div>
+                        </div>
+
+                        <div class="alert-section">
+                            <div class="alert-consequence">⚠️ <strong>Consequence if unaddressed:</strong> ${alert.consequence}</div>
+                        </div>
+
+                        <div class="alert-section">
+                            <div class="alert-section-title">Next Steps</div>
+                            <div class="alert-description"><strong>${alert.priority}</strong></div>
+                            <div class="alert-description">${alert.nextStep}</div>
+                        </div>
+
+                        <div class="relationships">
+                            <div class="relationships-title">Related Records & Systems</div>
+                            ${alert.related.map(r => `<div class="relationship-item">→ ${r}</div>`).join('')}
+                        </div>
+
+                        <div class="alert-action">
+                            <button class="action-button primary">Take Action</button>
+                            <button class="action-button">Defer Decision</button>
+                            <button class="action-button">More Details</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterAlerts(severity) {
+            document.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (severity === 'all') {
+                document.getElementById('alertCountDetail').textContent = `${alerts.length} alerts requiring attention`;
+            } else {
+                const count = alerts.filter(a => a.severity === severity).length;
+                document.getElementById('alertCountDetail').textContent = `${count} ${severity} severity alerts`;
+            }
+
+            renderAlerts(severity);
+        }
+
+        // Initial render
+        renderAlerts();
+
+        // Update alert count
+        const criticalCount = alerts.filter(a => a.severity === 'critical').length;
+        document.getElementById('alertCount').textContent = `${criticalCount} critical alerts`;
+    </script>
+</body>
+</html>

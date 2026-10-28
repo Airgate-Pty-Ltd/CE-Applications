@@ -1,0 +1,24 @@
+{
+  "dimId": "iso42001-aims-governance",
+  "description": "Evaluates ISO/IEC 42001 AI Management System record completeness, linkage, and timeliness across the Statement of Applicability, risk register, risk treatments, objectives, audit findings, NCRs, and competence records.",
+  "subscribesTo": [
+    "soa.created", "soa.updated",
+    "risk.created", "risk.updated",
+    "risk_treatment.created", "risk_treatment.updated",
+    "objective.created", "objective.updated",
+    "audit_finding.created", "audit_finding.updated",
+    "ncr.created", "ncr.updated",
+    "competence.created", "competence.updated"
+  ],
+  "readsFields": {
+    "soa_entries": ["applicability", "justification", "control_ref", "linked_treatment_id"],
+    "risk_register": ["score", "owner"],
+    "risk_treatments": ["target_date", "status", "soa_control_ref"],
+    "objectives": ["measurable_target"],
+    "audit_findings": ["severity", "linked_ncr_id"],
+    "ncr_entries": ["due_date", "status"],
+    "competence_records": ["competence_review_due_date"]
+  },
+  "version": "1.0",
+  "publishedAt": "2026-07-10"
+}

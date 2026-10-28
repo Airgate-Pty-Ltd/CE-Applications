@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EASA Form 8 Self-Prep Assessment — Conform-Edge</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0f1e;--panel:rgba(15,25,60,0.85);--border:#1e3a6e;--accent:#4a9eff;--text:#e2e8f0;--muted:#94a3b8;--crit:#ef4444;--maj:#f59e0b;--min:#22c55e;--ok:#22c55e;--easa:rgba(74,158,255,0.08)}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;font-size:14px;min-height:100vh}
+.topbar{background:rgba(10,15,30,0.95);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;position:sticky;top:0;z-index:100}
+.brand{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.bn{font-size:16px;font-weight:700}
+.sub{font-size:12px;color:var(--muted)}
+.ct{max-width:960px;margin:0 auto;padding:20px}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:16px}
+.pt{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:7px}
+.info-bar{background:rgba(74,158,255,0.07);border:1px solid rgba(74,158,255,0.2);border-radius:6px;padding:10px 14px;font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6}
+.info-bar strong{color:var(--text)}
+.qblock{padding:13px 15px;border-left:3px solid var(--border);margin-bottom:10px;background:rgba(10,15,30,0.4);border-radius:0 5px 5px 0}
+.qblock.crit-q{border-left-color:rgba(239,68,68,0.5)}
+.qblock.easa-q{background:var(--easa)}
+.sec-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:4px}
+.qlabel{font-size:13px;line-height:1.55;margin-bottom:4px}
+.qbasis{font-size:11px;color:var(--muted);margin-bottom:9px;font-style:italic}
+.crit-mark{font-size:10px;color:var(--crit);margin-left:5px;font-style:normal}
+.easa-mark{font-size:10px;color:var(--accent);margin-left:5px;font-style:normal}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{display:flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid var(--border);border-radius:4px;cursor:pointer;font-size:12px;transition:background .15s;white-space:nowrap}
+.opt:hover{border-color:var(--accent)}
+.opt input{display:none}
+.opt.sel-0{background:rgba(239,68,68,.15);border-color:#ef4444;color:#ef4444}
+.opt.sel-1{background:rgba(245,158,11,.15);border-color:#f59e0b;color:#f59e0b}
+.opt.sel-2{background:rgba(34,197,94,.15);border-color:#22c55e;color:#22c55e}
+.meter-wrap{margin-bottom:16px}
+.meter-bar{height:8px;background:rgba(30,58,110,.4);border-radius:4px;overflow:hidden;margin-bottom:5px}
+.meter-fill{height:100%;border-radius:4px;transition:width .4s;background:linear-gradient(90deg,#ef4444,#f59e0b 50%,#22c55e)}
+.meter-label{font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.sg{background:rgba(15,25,60,.6);border:1px solid var(--border);border-radius:6px;padding:12px;text-align:center}
+.sg .v{font-size:22px;font-weight:700;margin-bottom:2px}
+.sg .l{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.verdict{padding:14px;border-radius:6px;font-size:14px;font-weight:600;text-align:center;margin-bottom:16px}
+.v-ready{background:rgba(34,197,94,.12);border:1px solid #22c55e;color:#22c55e}
+.v-partial{background:rgba(245,158,11,.12);border:1px solid #f59e0b;color:#f59e0b}
+.v-not-ready{background:rgba(239,68,68,.12);border:1px solid #ef4444;color:#ef4444}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:rgba(30,58,110,.4);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:7px 9px;text-align:left;border-bottom:1px solid var(--border)}
+td{padding:7px 9px;border-bottom:1px solid rgba(30,58,110,.3);vertical-align:top}
+.p-c{color:var(--crit);font-weight:700}.p-m{color:var(--maj)}.p-n{color:var(--min)}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.btn:hover{opacity:.85}.bsm{padding:4px 10px;font-size:12px}
+.bo{background:transparent;border:1px solid var(--border);color:var(--text)}
+.bo:hover{border-color:var(--accent);color:var(--accent)}
+.flex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.nb{background:rgba(10,15,30,.8);border:1px solid var(--border);border-radius:4px;padding:13px;font-size:13px;line-height:1.7;white-space:pre-wrap}
+.tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;margin-left:4px;vertical-align:middle;font-weight:700}
+.tag-c{background:rgba(239,68,68,.2);color:#ef4444;border:1px solid rgba(239,68,68,.3)}
+.tag-e{background:rgba(74,158,255,.2);color:#4a9eff;border:1px solid rgba(74,158,255,.3)}
+.disc{font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;padding-top:10px;line-height:1.5}
+@media print{.topbar{position:relative}.btn,.opts{pointer-events:none}body{background:#fff;color:#000}.panel{border:1px solid #ccc;background:#fff}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div>
+    <div class="brand">Conform-Edge</div>
+    <div class="bn">EASA Form 8 Self-Prep Assessment</div>
+    <div class="sub">FAA Part 145 / EASA Bilateral Oversight Readiness · MAG Change 10</div>
+  </div>
+  <div style="margin-left:auto" class="flex">
+    <button class="btn bo bsm" onclick="showResults()">View Results</button>
+    <button class="btn bsm" onclick="window.print()">Print / PDF</button>
+  </div>
+</div>
+
+<div class="ct">
+
+<div class="info-bar">
+  <strong>Scope:</strong> This tool assesses readiness for EASA Form 8 oversight visits conducted by FAA Technical Agents under the US-EU BASA Maintenance Annex Guidance (MAG) Change 10 (effective October 10, 2025). It covers all 22 MAG Supplement sections plus EASA-specific requirements that differ from FAA-only Part 145 compliance. <span class="tag tag-c">CRITICAL</span> sections represent areas where a score of 0 may result in immediate EASA approval suspension. <span class="tag tag-e">EASA DELTA</span> sections address requirements beyond FAA Part 145 baseline.
+</div>
+
+<div class="panel">
+  <div class="pt">Overall Readiness</div>
+  <div class="meter-wrap">
+    <div class="meter-bar"><div class="meter-fill" id="meterFill" style="width:0%"></div></div>
+    <div class="meter-label"><span>Not Ready</span><span id="meterPct">0%</span><span>Ready</span></div>
+  </div>
+  <div style="font-size:12px;color:var(--muted);text-align:center" id="progress">0 of 22 sections assessed</div>
+</div>
+
+<div id="questions"></div>
+
+<div class="panel" id="resultsPanel" style="display:none">
+  <div class="pt">Assessment Results</div>
+  <div class="summary-grid">
+    <div class="sg"><div class="v" id="rScore" style="color:var(--accent)">0%</div><div class="l">Overall Score</div></div>
+    <div class="sg"><div class="v" id="rCrit" style="color:var(--crit)">0</div><div class="l">Critical Gaps</div></div>
+    <div class="sg"><div class="v" id="rMaj" style="color:var(--maj)">0</div><div class="l">Major Gaps</div></div>
+    <div class="sg"><div class="v" id="rMin" style="color:var(--min)">0</div><div class="l">Observations</div></div>
+  </div>
+  <div class="verdict" id="verdict"></div>
+  <div class="pt" style="margin-top:16px">Gap Report — Prioritized by EASA Finding Risk</div>
+  <div style="overflow-x:auto">
+    <table><thead><tr><th>§</th><th>Section</th><th>Status</th><th>Priority</th><th>Recommended Action</th></tr></thead>
+    <tbody id="gapTable"></tbody></table>
+  </div>
+  <div class="pt" style="margin-top:16px">Management Review Narrative</div>
+  <div class="nb" id="mrNarrative"></div>
+  <div style="margin-top:12px" class="flex">
+    <button class="btn bo bsm" onclick="expJ()">Download JSON</button>
+    <button class="btn bo bsm" onclick="copyNar()">Copy Narrative</button>
+  </div>
+</div>
+
+<div class="disc">
+  EASA Form 8 Self-Prep Assessment Tool v1.0 · Conform-Edge Quality Consulting LLC<br>
+  This tool is a self-preparation aid only. It does not constitute an audit, regulatory finding, or compliance determination. EASA Form 8 oversight visits are conducted by FAA Technical Agents on behalf of EASA under the US-EU BASA. Regulatory requirements are governed by the applicable Maintenance Annex Guidance (MAG) revision. This tool reflects MAG Change 10 (effective 2025-10-10). Verify current MAG revision before use.
+</div>
+</div>
+
+<script>
+var QS=[
+  {id:'1',title:'Accountable Manager',crit:true,easa:false,
+   text:'The Accountable Manager is named in the EASA Supplement, is aware of EASA obligations, has authority to ensure all EASA Part-145 requirements are met, and has signed the Supplement.',
+   basis:'MAG CHG 10 §4.1; EASA Part-145.A.30(a)',
+   action:'Name the Accountable Manager in the EASA Supplement. Confirm they have read, understood, and signed the Supplement. Conduct AM awareness briefing covering EASA-specific obligations that differ from FAA Part 145. Retain briefing record.'},
+  {id:'2',title:'EASA Supplement — Structure and Currency',crit:true,easa:true,
+   text:'The EASA Supplement follows the 22-section MAG CHG 10 structure, is current with the effective date (October 10, 2025), and has been reviewed and approved by the Accountable Manager.',
+   basis:'MAG CHG 10 Section B, Appendix 1; effective 2025-10-10',
+   action:'Conduct a MAG CHG 10 gap analysis on the existing EASA Supplement. Update to 22-section structure. Ensure all new sections (SMS §20, updated contractor audit requirements, revised Form 3-145) are addressed. Obtain AM signature on revised Supplement.'},
+  {id:'3',title:'Quality System — Independence and EASA Oversight',crit:true,easa:true,
+   text:'The Quality Manager function is independent of production/maintenance, audits the EASA-specific requirements separately or within a combined program, and reports directly to the Accountable Manager.',
+   basis:'EASA Part-145.A.65; MAG CHG 10 §B audit requirements',
+   action:'Document the Quality Manager reporting line to the Accountable Manager. Confirm QM independence from production. Establish or update the EASA audit program to include bilateral-specific requirements. Retain audit records addressing EASA scope.'},
+  {id:'4',title:'Certifying Staff — EASA Authorization and Currency',crit:true,easa:true,
+   text:'All certifying staff signing for EASA-work are authorized under EASA Part-145 categories (Cat-A, B1, B2 as applicable), their authorizations are current, they are qualified for the approved scope, and authorization records are maintained.',
+   basis:'EASA Part-145.A.35; MAG CHG 10 §certifying staff',
+   action:'Audit all certifying staff authorizations against the EASA approval scope. Confirm category alignment (Cat-A/B1/B2). Check recency-of-experience requirements. Update authorizations where scope or category has lapsed. Retain training and authorization records.'},
+  {id:'5',title:'Approved Maintenance Data — EASA-Accepted Revisions',crit:true,easa:true,
+   text:'Maintenance data used for EASA-scope work (AMM, CMM, SRM, IPC, SB) is EASA-accepted at the current revision. FAA-accepted data only is not sufficient for EASA return-to-service.',
+   basis:'EASA Part-145.A.45; AMC 145.A.45',
+   action:'Audit maintenance data library for all EASA-scope article types. Verify each document is at the EASA-accepted revision. Identify any data where only FAA-accepted revision is held. Obtain EASA-accepted revisions before performing EASA-scope work.'},
+  {id:'6',title:'Facilities and Equipment',crit:false,easa:false,
+   text:'Facilities and equipment support the approved EASA maintenance scope. Equipment is calibrated and controlled. No unapproved equipment is used for EASA-scope tasks.',
+   basis:'EASA Part-145.A.25; Part-145.A.40',
+   action:'Map facilities and equipment to the EASA-approved scope. Confirm calibration records are current. Verify equipment used for EASA work is on the approved equipment list.'},
+  {id:'7',title:'Contracted Maintenance — Annual Audit Requirement',crit:true,easa:true,
+   text:'All contractors used for EASA-scope work are assessed annually, regardless of whether they hold EASA approval. Annual audit records are retained.',
+   basis:'MAG CHG 10 §B contractor requirements; EASA Part-145.A.75(b)',
+   action:'Identify all contractors currently used for EASA-scope maintenance or component work. Confirm annual audit or assessment has been conducted within the past 12 months for each. Schedule any overdue audits. Retain audit records and contractor qualification files.'},
+  {id:'8',title:'Component Acceptance — EASA Form 1 / Dual Release',crit:true,easa:true,
+   text:'Components removed from EASA-registered aircraft are released on EASA Form 1 (not FAA 8130-3 alone). Dual-release procedures are documented in the EASA Supplement and followed in practice.',
+   basis:'EASA Part-145.A.50; EASA Part-145.A.55; MAG CHG 10 dual-release procedures',
+   action:'Confirm dual-release procedure is documented in EASA Supplement. Verify that all components leaving the repair station for installation on EASA-registered aircraft are accompanied by EASA Form 1. Audit a sample of recent releases for compliance.'},
+  {id:'9',title:'Airworthiness Directives — EASA AD Tracking',crit:false,easa:true,
+   text:'EASA Airworthiness Directives applicable to the approved scope are tracked and incorporated. FAA AD tracking alone is not sufficient for EASA-scope work.',
+   basis:'EASA Part-145.A.45(d); AMC 145.A.45',
+   action:'Establish EASA AD tracking for all article types in the approved scope. Subscribe to EASA AD alerts. Ensure maintenance data revision tracking includes EASA AD-mandated changes. Document AD compliance records for EASA-scope work orders.'},
+  {id:'10',title:'Duplicate Inspections / Independent Checks',crit:false,easa:false,
+   text:'Where EASA-accepted maintenance data requires duplicate inspection or independent check, the requirement is recognized, performed, and recorded.',
+   basis:'EASA Part-145.A.65(b)(3); AMC 145.A.65',
+   action:'Identify all task types in the approved scope that require duplicate inspection per the maintenance data. Confirm these tasks are flagged in work orders. Verify that a second signature is obtained and retained in records.'},
+  {id:'11',title:'Shift Handover',crit:false,easa:false,
+   text:'Where work is performed across shifts or by multiple technicians, a documented shift handover process is in place and records are retained.',
+   basis:'MAG CHG 10 §shift handover; EASA Part-145.A.47',
+   action:'Establish a shift handover form or process for EASA-scope tasks. Document what information must be communicated at handover: task status, open items, safety concerns, tools and parts status. Retain handover records with work order documentation.'},
+  {id:'12',title:'Technical Records — EASA Format and Retention',crit:false,easa:true,
+   text:'Technical records for EASA-scope work meet EASA format requirements and are retained for a minimum of 24 months post-release (or applicable retention period per the scope).',
+   basis:'EASA Part-145.A.55; AMC 145.A.55',
+   action:'Audit technical record format and content for EASA-scope work orders. Verify 24-month minimum retention. Confirm records are accessible and legible. Review for completeness: task description, parts used, maintenance data reference, certifying staff signature and authorization number.'},
+  {id:'13',title:'Release to Service — CRS and EASA Form 1 Procedures',crit:true,easa:true,
+   text:'Certificate of Release to Service (CRS) and EASA Form 1 issuance procedures are documented in the EASA Supplement, understood by all certifying staff, and correctly applied in practice.',
+   basis:'EASA Part-145.A.50; EASA Part-145.A.55; MAG CHG 10 dual-release',
+   action:'Review CRS and EASA Form 1 procedures in the EASA Supplement. Conduct certifying staff training on EASA RTS requirements vs. FAA return-to-service. Audit recent EASA-scope releases for correct CRS content and Form 1 accuracy.'},
+  {id:'14',title:'Defect Reporting — EASA Occurrence Reporting',crit:false,easa:true,
+   text:'Significant defects and safety occurrences identified during EASA-scope work are reported to EASA (via the appropriate occurrence reporting pathway) in addition to FAA reporting obligations.',
+   basis:'EASA Part-145.A.60; EASA EU 376/2014 (occurrence reporting)',
+   action:'Establish or verify an EASA occurrence reporting process. Identify the EASA reporting pathway for the station jurisdiction. Brief all certifying staff on reporting obligations. Document any occurrences reported in the past 24 months.'},
+  {id:'15',title:'Personnel Training and Competency — EASA Scope',crit:false,easa:false,
+   text:'All personnel performing EASA-scope maintenance have training records current for the approved scope. EASA-specific training requirements (type training, category maintenance) are met.',
+   basis:'EASA Part-145.A.30; Part-145.A.35; AMC 145.A.35',
+   action:'Audit training records for all staff performing EASA-scope work. Confirm type training currency for relevant aircraft/component types. Verify basic training meets EASA Part-66 or accepted equivalent. Update any lapsed qualifications.'},
+  {id:'16',title:'Safety Management System (SMS)',crit:true,easa:true,
+   text:'A Safety Management System (SMS) or Safety Management System Verification Plan (SMSVP) is in place as required by MAG CHG 10 Section 20. The SMS/SMSVP addresses aviation safety risks and is accepted by the Accountable Manager.',
+   basis:'MAG CHG 10 §20 (NEW requirement effective 2025-10-10)',
+   action:'CRITICAL — NEW MAG CHG 10 REQUIREMENT: Implement or document SMS/SMSVP addressing hazard identification, risk assessment, safety performance monitoring, and safety promotion. Brief Accountable Manager. Obtain AM acceptance signature. Include SMS status in management review. This is a new requirement effective 2025-10-10 and will be verified on all Form 8 visits.'},
+  {id:'17',title:'Internal Audit Program — EASA Scope Coverage',crit:false,easa:false,
+   text:'The internal audit program specifically covers EASA bilateral requirements, not only FAA Part 145 requirements. EASA-scope audits are documented and findings are tracked to closure.',
+   basis:'EASA Part-145.A.65(c); MAG CHG 10 quality system requirements',
+   action:'Review internal audit program scope and checklist. Confirm EASA-specific requirements are covered (bilateral, MAG-unique, certifying staff, Form 1, AD tracking). Document completed EASA-scope audits. Confirm findings are closed or have active corrective action plans.'},
+  {id:'18',title:'EASA Authority Interface and Notification Obligations',crit:false,easa:true,
+   text:'The organization knows which authority to contact for EASA matters (via the FAA Technical Agent pathway), understands notification obligations (scope changes, key personnel changes, significant findings), and has current contact information documented.',
+   basis:'MAG CHG 10 §authority interface; EASA Part-145.A.85',
+   action:'Document the EASA authority interface pathway: FAA Technical Agent (FSDO or ACO) → FAA Headquarters → EASA. Identify current FAA Technical Agent contact. Document all notification triggers: scope changes, AM changes, Quality Manager changes, significant findings. Confirm last notification log.'},
+  {id:'19',title:'Scope of Approval — Alignment with EASA Approval Document',crit:false,easa:true,
+   text:'The EASA approval document (issued by FAA on behalf of EASA) accurately reflects the current approved capabilities. No work is performed outside the listed scope.',
+   basis:'EASA Part-145.A.20; MAG CHG 10 scope management',
+   action:'Compare current EASA approval document scope against actual capabilities and customer requirements. Identify any scope expansions or contractions needed. Submit scope change requests through FAA Technical Agent before performing any out-of-scope work.'},
+  {id:'20',title:'Management Review — EASA Inputs Included',crit:false,easa:false,
+   text:'Management review agenda and minutes include EASA compliance status, bilateral audit results, EASA-scope corrective actions, and Form 8 preparation status.',
+   basis:'MAG CHG 10 management oversight requirements',
+   action:'Update management review agenda to include EASA compliance inputs: bilateral audit results, Form 1 error rates, EASA occurrence reports, contractor audit status, certifying staff authorization currency, SMS status. Retain minutes showing EASA inputs were reviewed.'},
+  {id:'21',title:'Instructions for Continued Airworthiness',crit:false,easa:false,
+   text:'Instructions for continued airworthiness (ICA) applicable to EASA-scope work are identified, obtained, and followed where required.',
+   basis:'EASA Part-145.A.45(d); applicable aircraft/component maintenance planning documents',
+   action:'Identify ICA requirements for aircraft types and component types in the EASA-approved scope. Confirm ICA documents are current and accessible. Include ICA requirements in the maintenance data library review cycle.'},
+  {id:'22',title:'Oversight Visit Readiness',crit:false,easa:false,
+   text:'The organization is prepared for a Form 8 visit: all required records and documentation are accessible, qualified personnel are available, facilities are in operational condition, and the Accountable Manager is available or has designated a qualified deputy.',
+   basis:'MAG CHG 10 Form 8 visit requirements; EASA Part-145.A.140',
+   action:'Establish an oversight visit readiness checklist covering: EASA Supplement availability, certifying staff authorization files, training records, maintenance data library, recent work orders, contractor files, audit records, management review minutes, SMS documentation, and AM availability protocol.'}
+];
+
+var CRIT_IDS=['1','2','3','4','5','7','8','13','16'];
+var answers={};
+
+function renderQuestions(){
+  var html='<div class="panel"><div class="pt">Assessment Sections</div>';
+  QS.forEach(function(q){
+    var isCrit=CRIT_IDS.indexOf(q.id)>=0;
+    html+='<div class="qblock'+(isCrit?' crit-q':'')+(q.easa?' easa-q':'')+'">';
+    html+='<div class="sec-num">Section '+q.id+(isCrit?'<span class="tag tag-c">CRITICAL</span>':'')+(q.easa?'<span class="tag tag-e">EASA DELTA</span>':'')+'</div>';
+    html+='<div class="qlabel">'+q.title+' — '+q.text+'</div>';
+    html+='<div class="qbasis">Basis: '+q.basis+'</div>';
+    html+='<div class="opts">';
+    [{v:0,l:'0 — Non-Compliant'},{v:1,l:'1 — Partial'},{v:2,l:'2 — Compliant'}].forEach(function(o){
+      html+='<label class="opt" id="opt-'+q.id+'-'+o.v+'" onclick="setAns(\''+q.id+'\','+o.v+')"><input type="radio" name="'+q.id+'" value="'+o.v+'">'+o.l+'</label>';
+    });
+    html+='</div></div>';
+  });
+  html+='</div>';
+  document.getElementById('questions').innerHTML=html;
+}
+
+function setAns(qid,val){
+  answers[qid]=val;
+  for(var v=0;v<=2;v++){var el=document.getElementById('opt-'+qid+'-'+v);if(el){el.classList.remove('sel-0','sel-1','sel-2');}}
+  var sel=document.getElementById('opt-'+qid+'-'+val);if(sel)sel.classList.add('sel-'+val);
+  updateMeter();
+}
+
+function updateMeter(){
+  var answered=Object.keys(answers).length;
+  var score=0,maxScore=QS.length*2;
+  QS.forEach(function(q){if(answers[q.id]!==undefined)score+=answers[q.id];});
+  var pct=maxScore>0?Math.round(score/maxScore*100):0;
+  document.getElementById('meterFill').style.width=pct+'%';
+  document.getElementById('meterPct').textContent=pct+'%';
+  document.getElementById('progress').textContent=answered+' of '+QS.length+' sections assessed';
+}
+
+function showResults(){
+  var score=0,maxScore=QS.length*2;
+  QS.forEach(function(q){if(answers[q.id]!==undefined)score+=answers[q.id];});
+  var pct=maxScore>0?Math.round(score/maxScore*100):0;
+  var gaps=[];
+  QS.forEach(function(q){
+    var val=answers[q.id]!==undefined?answers[q.id]:0;
+    if(val<2){
+      var isCrit=CRIT_IDS.indexOf(q.id)>=0;
+      var pri=val===0&&isCrit?'Critical':val===0?'Major':'Minor';
+      gaps.push({id:q.id,title:q.title,val:val,pri:pri,action:q.action,easa:q.easa});
+    }
+  });
+  gaps.sort(function(a,b){var o={Critical:0,Major:1,Minor:2};return o[a.pri]-o[b.pri];});
+  var crits=gaps.filter(function(g){return g.pri==='Critical';}).length;
+  var majs=gaps.filter(function(g){return g.pri==='Major';}).length;
+  var mins=gaps.filter(function(g){return g.pri==='Minor';}).length;
+  document.getElementById('rScore').textContent=pct+'%';
+  document.getElementById('rCrit').textContent=crits;
+  document.getElementById('rMaj').textContent=majs;
+  document.getElementById('rMin').textContent=mins;
+  var verd='',vcls='';
+  if(crits>0){verd='NOT READY — '+crits+' Critical gap'+(crits>1?'s':'')+' present. Do not schedule EASA Form 8 oversight visit until resolved.';vcls='v-not-ready';}
+  else if(pct>=85&&majs<=1){verd='READY — No critical gaps; '+majs+' major gap'+(majs!==1?'s':'')+'. Form 8 oversight visit may be scheduled.';vcls='v-ready';}
+  else if(pct>=70&&majs<=3){verd='CONDITIONAL — No critical gaps. Address '+majs+' major gap'+(majs!==1?'s':'')+' before scheduling Form 8 visit.';vcls='v-partial';}
+  else{verd='IN PROGRESS — Score '+pct+'%. Significant preparation required before Form 8 oversight visit.';vcls='v-partial';}
+  var vEl=document.getElementById('verdict');vEl.textContent=verd;vEl.className='verdict '+vcls;
+  var rows='';
+  gaps.forEach(function(g){
+    var pcls=g.pri==='Critical'?'p-c':g.pri==='Major'?'p-m':'p-n';
+    var status=g.val===0?'Non-Compliant':'Partial';
+    var easaTag=g.easa?'<span class="tag tag-e" style="font-size:9px">EASA</span>':'';
+    rows+='<tr><td>§'+g.id+'</td><td style="max-width:180px">'+g.title+easaTag+'</td><td>'+status+'</td><td class="'+pcls+'">'+g.pri+'</td><td style="max-width:280px;font-size:11px">'+g.action+'</td></tr>';
+  });
+  document.getElementById('gapTable').innerHTML=rows||'<tr><td colspan="5" style="text-align:center;color:var(--ok)">No gaps identified.</td></tr>';
+  var critStr=crits>0?crits+' critical finding'+(crits>1?'s':'')+' identified — EASA approval suspension risk. ':'No critical findings. ';
+  var smsStat=answers['16']!==undefined?(answers['16']===2?'SMS/SMSVP: COMPLIANT. ':(answers['16']===1?'SMS/SMSVP: PARTIAL — requires completion before Form 8 visit. ':'SMS/SMSVP: NOT ESTABLISHED — new MAG CHG 10 §20 requirement; critical gap. ')):'SMS/SMSVP: not assessed. ';
+  var nar='EASA Form 8 Oversight Readiness — Self-Assessment Summary\nMAG Change 10 (effective 2025-10-10)\n\nOverall readiness score: '+pct+'% ('+score+' / '+maxScore+' points)\nSections assessed: '+Object.keys(answers).length+' / '+QS.length+'\n\n'+critStr+smsStat+'\n\nAssessment verdict: '+verd+'\n\nTop priority gaps:\n'+gaps.slice(0,5).map(function(g,i){return (i+1)+'. ['+g.pri+'] §'+g.id+' '+g.title+(g.easa?' [EASA DELTA]':'');}).join('\n')+'\n\nRecommended actions before Form 8 visit:\n1. Resolve all Critical gaps (EASA approval suspension risk)\n2. Complete SMS/SMSVP per MAG CHG 10 §20 if not done\n3. Verify EASA Supplement is updated to MAG CHG 10 22-section structure\n4. Audit all contractor files for annual audit currency\n5. Confirm EASA Form 1 dual-release procedures are followed in practice\n6. Conduct pre-visit internal audit of EASA-specific requirements\n\nPrepared: '+new Date().toLocaleDateString()+' | Conform-Edge Quality Consulting';
+  document.getElementById('mrNarrative').textContent=nar;
+  document.getElementById('resultsPanel').style.display='block';
+  document.getElementById('resultsPanel').scrollIntoView({behavior:'smooth'});
+  window.FORM8_MAI_INTERFACE.lastResults={score:pct,crits:crits,majs:majs,mins:mins,gaps:gaps,verdict:verd};
+}
+
+function copyNar(){var t=document.getElementById('mrNarrative').textContent;if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){alert('Copied.');});}else{alert('Please copy the narrative text manually.');}}
+
+function expJ(){
+  var score=0,maxScore=QS.length*2;
+  var secScores={};
+  QS.forEach(function(q){var v=answers[q.id]!==undefined?answers[q.id]:0;score+=v;secScores['sec'+q.id]=v;});
+  var pct=maxScore>0?Math.round(score/maxScore*100):0;
+  var payload={tool:'EASA Form 8 Self-Prep Assessment',version:'1.0',mag_revision:'CHG 10',date:new Date().toISOString(),overall_score_pct:pct,raw_score:score,max_score:maxScore,section_scores:secScores,verdict:document.getElementById('verdict').textContent,generated_by:'Conform-Edge Quality Consulting'};
+  var b=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='easa-form8-assessment-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u);
+}
+
+window.FORM8_MAI_INTERFACE={version:'1.0',domain:'easa-form8-readiness',getAnswers:function(){return answers;},lastResults:null};
+renderQuestions();
+</script>
+</body>
+</html>

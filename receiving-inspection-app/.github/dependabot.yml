@@ -1,0 +1,45 @@
+version: 2
+
+# Version-update PRs are DISABLED (open-pull-requests-limit: 0).
+#
+# This repository is trunk-only: everything lands on main and no branch
+# survives. Dependabot's model is a branch and a pull request per update, which
+# is the opposite of that — within an hour of being enabled it opened eight PRs
+# on eight branches.
+#
+# What is kept instead:
+#   - Dependabot ALERTS remain enabled on the repository, so a new advisory is
+#     still visible in the security tab and by email.
+#   - The `audit` job in ci.yml blocks a push whose production dependencies
+#     carry a high-severity advisory.
+#   - Updates are applied directly on main, by hand, with the reasoning in the
+#     commit message. That is how the eslint 10 and vite 7 upgrades landed.
+#
+# The ecosystems stay declared so the schedule and grouping are ready if the
+# branching policy ever changes: raise the limit and Dependabot resumes.
+
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      dev-dependencies:
+        dependency-type: development
+        update-types: ['minor', 'patch']
+      production-patches:
+        dependency-type: production
+        update-types: ['patch']
+
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore
+      include: scope

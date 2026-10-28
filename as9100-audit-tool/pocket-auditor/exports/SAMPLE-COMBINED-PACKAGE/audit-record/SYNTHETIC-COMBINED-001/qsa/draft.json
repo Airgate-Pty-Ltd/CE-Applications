@@ -1,0 +1,10 @@
+{
+ "additions": [],
+ "selected": [
+  "REG:CUSTOMER SYNTHETIC-CUSTOMER-01:SYN-1",
+  "REG:FAA QSA 1.0:Manufacturing Processes:401",
+  "REG:FAA QSA 1.0:Organizational Management:101",
+  "STD:SAE AS9100D:8.5.1",
+  "STD:SAE AS9110C:8.5.1"
+ ]
+}

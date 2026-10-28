@@ -1,0 +1,54 @@
+{
+  "name": "compliance-gap-backend",
+  "version": "1.0.0",
+  "description": "ComplianceGap MVP Backend - Task-focused compliance analysis with chat",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "setup-db": "node setup-db.js",
+    "migrate": "node src/database/migrate.js",
+    "migrate:up": "node src/database/migrate.js",
+    "migrate:edcat": "node src/scripts/run-migration.js",
+    "seed:agent": "node src/scripts/seed-edcat-agent.js",
+    "learn:run": "node src/scripts/learnNightly.js",
+    "ingest:knowledge-pack": "node src/scripts/ingest-knowledge-pack.js",
+    "regs:refresh": "ENABLE_NET=true node scripts/refresh-regs.js",
+    "regs:verify": "node scripts/verify-regs.js",
+    "apis:discover": "node src/scripts/discover-apis.js",
+    "audits:smoke": "node src/scripts/audits-smoke-test.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "compliance",
+    "gap-analysis",
+    "chat"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.10.0",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1",
+    "js-yaml": "^4.1.0",
+    "uuid": "^9.0.0",
+    "node-cron": "^3.0.3",
+    "pdf-parse": "^1.1.1",
+    "mammoth": "^1.6.0",
+    "node-fetch": "^3.3.2",
+    "cheerio": "^1.0.0-rc.12",
+    "ajv": "^8.17.1",
+    "xlsx": "^0.18.5",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "exceljs": "^4.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
+

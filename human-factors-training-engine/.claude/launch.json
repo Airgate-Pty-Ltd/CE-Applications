@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hf-engine-dev",
+      "runtimeExecutable": "C:\\Windows\\System32\\cmd.exe",
+      "runtimeArgs": ["/c", "npm", "run", "dev"],
+      "cwd": "E:\\Conform-Edge\\ClaudeCowork\\04 Product Portfolio\\Conform-Edge Software\\HF-ENGINE",
+      "port": 3210,
+      "autoPort": true
+    }
+  ]
+}

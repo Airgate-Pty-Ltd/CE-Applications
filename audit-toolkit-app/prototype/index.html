@@ -1,0 +1,385 @@
+<!doctype html>
+<!--
+Conform-Edge Audit Toolkit — INTERACTIVE PRODUCT PROTOTYPE v0.2 (2026-10-10)
+
+WHAT IS REAL IN THIS PROTOTYPE
+ - Requirement applicability (framework resolver, vendored unmodified, sha256 recorded in the audit record).
+ - Evidence assessment, conclusion governance, citation verification against a clause index, NCR issuance gates,
+   seeded sampling, and the reproducible audit-record hash: all deterministic logic in ../src/audit-core.js,
+   exercised headlessly by tests/scenarios.test.js (same Session API this page uses).
+WHAT IS NOT
+ - "Suggested Follow-Up" is a deterministic ENGINEERING STUB. It is not intelligent audit reasoning.
+ - Organization, people, records and dates are SYNTHETIC. The clause index is UNVERIFIED-SAMPLE.
+ - Offline storage, camera capture, sync and PDF export are represented, not wired to device hardware.
+ - Content is a 5-obligation demonstration, not a validated comprehensive AS9100D pack.
+No internal system names appear in the customer experience.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Conform-Edge Audit Toolkit — Prototype</title>
+<style>
+:root{
+  --bg:#0A0F17;--panel:#111826;--panel2:#16202F;--line:#22314a;--line2:#1a2740;
+  --t1:#EEF3F9;--t2:#A3B2C7;--t3:#6B7C93;
+  --sig:#38BDF8;--sigbg:rgba(56,189,248,.12);--sigsolid:#0EA5E9;
+  --ok:#34D399;--okbg:rgba(52,211,153,.12);--bad:#F87171;--badbg:rgba(248,113,113,.12);
+  --warn:#FBBF24;--warnbg:rgba(251,191,36,.12);--guide:#A78BFA;--guidebg:rgba(167,139,250,.12);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+:root[data-theme="light"]{
+  --bg:#F3F6FA;--panel:#FFFFFF;--panel2:#EEF3F9;--line:#D3DDEA;--line2:#E4EAF2;
+  --t1:#0D1726;--t2:#44546B;--t3:#74839A;
+  --sig:#0369A1;--sigbg:rgba(14,165,233,.12);--sigsolid:#0284C7;
+  --ok:#047857;--okbg:rgba(16,185,129,.12);--bad:#B91C1C;--badbg:rgba(239,68,68,.10);
+  --warn:#B45309;--warnbg:rgba(245,158,11,.14);--guide:#6D28D9;--guidebg:rgba(139,92,246,.10);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--t2);font:15px/1.5 var(--sans)}
+button,input,select,textarea{font:inherit;color:inherit}
+.app{max-width:1180px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+.app.phone{max-width:430px}
+.bar{position:sticky;top:0;z-index:20;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:10px 16px;padding-top:calc(10px + env(safe-area-inset-top))}
+.bar .back{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:none;cursor:pointer;font-size:18px;line-height:1}
+.bar .ttl{flex:1;min-width:0}.bar .ttl b{display:block;color:var(--t1);font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bar .ttl small{color:var(--t3);font:11px var(--mono)}
+.chip-off{font:11px var(--mono);color:var(--ok);border:1px solid var(--line);border-radius:6px;padding:2px 7px;white-space:nowrap}
+.review{background:var(--panel2);border-bottom:1px solid var(--line);padding:6px 16px;font-size:11.5px;color:var(--t3);display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+.review button{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:3px 9px;cursor:pointer;font-size:11.5px;color:var(--t2)}
+.review button.on{border-color:var(--sig);color:var(--sig)}
+.layout{display:block;flex:1}
+.rail{display:none}
+.main{padding:16px;min-width:0}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--panel);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);max-width:inherit}
+.app.phone ~ .tabs{max-width:430px;margin:0 auto}
+.tabs button{flex:1;background:none;border:0;padding:9px 0 10px;color:var(--t3);cursor:pointer;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:56px}
+.tabs button .i{font-size:18px;line-height:1}.tabs button.on{color:var(--sig)}.tabs button:disabled{opacity:.35}
+/* tablet: persistent rail */
+.app.tablet .layout{display:grid;grid-template-columns:280px 1fr;gap:0}
+.app.tablet .rail{display:block;border-right:1px solid var(--line);padding:16px 12px;position:sticky;top:57px;height:calc(100vh - 57px);overflow:auto;background:var(--panel)}
+.app.tablet .main{padding:20px 28px}
+.app.tablet ~ .tabs{display:none}
+.rail h4{margin:14px 6px 6px;font:11px var(--mono);letter-spacing:.08em;color:var(--t3);text-transform:uppercase}
+.rail .ri{display:flex;gap:8px;align-items:center;padding:9px 10px;border-radius:8px;cursor:pointer;color:var(--t2);font-size:13.5px;min-height:44px}
+.rail .ri:hover,.rail .ri.on{background:var(--sigbg);color:var(--sig)}
+.rail .ri .m{font:11px var(--mono);color:var(--t3);margin-left:auto}
+h1,h2{color:var(--t1);margin:0 0 6px;font-weight:650}h2{font-size:19px}h3{margin:0 0 10px;font:600 12px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--t3)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px;margin:0 0 12px}
+.card.tap{cursor:pointer}.card.tap:hover{border-color:var(--sig)}
+.row{display:flex;gap:10px;align-items:center}.sp{display:flex;gap:10px;align-items:center;justify-content:space-between}.wrap{flex-wrap:wrap}
+.muted{color:var(--t3)}.sm{font-size:13px}.xs{font-size:12px}.mono{font-family:var(--mono)}.b{color:var(--t1);font-weight:600}
+.pill{font:11px var(--mono);padding:2px 8px;border-radius:6px;background:var(--sigbg);color:var(--sig);white-space:nowrap}
+.tag{display:inline-flex;gap:6px;align-items:center;font:11.5px var(--mono);padding:2px 8px;border-radius:6px;white-space:normal;max-width:100%;overflow-wrap:anywhere}
+.tag:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.t-ok{background:var(--okbg);color:var(--ok)}.t-bad{background:var(--badbg);color:var(--bad)}.t-warn{background:var(--warnbg);color:var(--warn)}.t-neu{background:var(--panel2);color:var(--t3)}.t-sig{background:var(--sigbg);color:var(--sig)}
+.kv{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line2)}.kv:last-child{border:0}.kv .k{flex:0 0 96px;font:11px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--t3);padding-top:2px}.kv .v{flex:1;min-width:0}
+.step{display:flex;gap:10px;padding:6px 0;font-size:14px}.step i{font:normal 11px var(--mono);color:var(--sig);width:18px;flex:0 0 18px;padding-top:3px}
+.btn{background:var(--sigsolid);color:#04121c;border:0;border-radius:10px;padding:12px 16px;font-weight:650;cursor:pointer;width:100%;min-height:46px}
+:root[data-theme="light"] .btn{color:#fff}
+.btn:disabled{background:var(--panel2);color:var(--t3);cursor:not-allowed}
+.ghost{background:none;border:1px solid var(--line);border-radius:9px;padding:9px 13px;cursor:pointer;min-height:42px;color:var(--t2)}
+.ghost:hover{border-color:var(--sig);color:var(--sig)}.ghost.sm2{padding:6px 10px;min-height:34px;font-size:13px}
+.chipb{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:8px 14px;margin:0 6px 8px 0;cursor:pointer;user-select:none;min-height:40px}
+.chipb.on{border-color:var(--sig);background:var(--sigbg);color:var(--sig)}
+input[type=text],input[type=number],select,textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:10px;margin-top:4px;color:var(--t1)}
+textarea{min-height:84px;resize:vertical}label.fl{display:block;margin-top:12px;font:11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--t3)}
+.guide{border:1px solid var(--guide);border-left:3px solid var(--guide);background:var(--guidebg);border-radius:10px;padding:12px 14px;margin:12px 0}
+.guide .h{color:var(--guide);font:600 12px var(--mono);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.guide .it{padding:8px 0;border-top:1px solid var(--line2)}.guide .it:first-of-type{border:0}
+.guide .acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.block{border:1px solid var(--bad);background:var(--badbg);color:var(--bad);border-radius:10px;padding:11px 13px;margin:10px 0;font-size:13.5px}
+.okbox{border:1px solid var(--ok);background:var(--okbg);color:var(--ok);border-radius:10px;padding:11px 13px;margin:10px 0;font-size:13.5px}
+.gate{display:flex;gap:9px;padding:9px 12px;border-radius:9px;margin:6px 0;font-size:13.5px}.gate.p{background:var(--okbg);color:var(--ok)}.gate.f{background:var(--badbg);color:var(--bad)}.gate b{font:600 11px var(--mono);flex:0 0 22px;padding-top:2px}
+.sec{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}.sec.sb{border-left:3px solid var(--sig)}.sec.af{border-left:3px solid var(--warn)}
+.ev{padding:10px 0;border-bottom:1px solid var(--line2)}.ev:last-child{border:0}
+.sample{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line2);min-height:44px}.sample input[type=checkbox]{width:28px;height:28px;margin-top:0;flex:0 0 28px}
+.progress{height:6px;background:var(--panel2);border-radius:3px;overflow:hidden}.progress span{display:block;height:100%;background:var(--sigsolid)}
+details.aid{border:1px dashed var(--line);border-radius:10px;padding:8px 12px;margin:12px 0;background:var(--panel2)}details.aid summary{cursor:pointer;color:var(--t3);font:12px var(--mono)}
+.legal{text-align:center;color:var(--t3);font-size:11px;border-top:1px solid var(--line);padding:16px 8px;margin-top:20px}.legal a{color:var(--sig);margin:0 8px;cursor:pointer}
+.empty{text-align:center;color:var(--t3);padding:28px 8px}
+.kv .v,.card,.sec,.guide,.block,.okbox,.gate,.ev,.sample{overflow-wrap:anywhere;word-break:break-word}.mono{overflow-wrap:anywhere}
+@media print{.bar,.tabs,.review,.rail,.noprint{display:none!important}.app{max-width:none}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="bar">
+    <button class="back" id="back" onclick="goBack()" aria-label="Back" style="visibility:hidden">‹</button>
+    <div class="ttl"><b id="ttl">Audit Toolkit</b><small id="sub"></small></div>
+    <span class="chip-off">● Works offline</span>
+  </div>
+  <div class="review noprint">
+    <span><b>REFERENCE COMPONENT</b> (audit-record / field-execution reference, not the Toolkit’s primary workflow) · synthetic data · review aids:</span>
+    <button id="bPhone" onclick="setLayout('phone')">Phone</button><button id="bTab" onclick="setLayout('tablet')">Tablet</button><button id="bAuto" onclick="setLayout(null)">Auto</button>
+    <button onclick="toggleTheme()">◐ Theme</button><button onclick="go('scenarios')">Acceptance scenarios A–F</button><button onclick="go('walk')">Guided audit thread</button><button onclick="resetAll()">Reset all</button>
+  </div>
+  <div class="layout"><aside class="rail" id="rail"></aside><main class="main" id="main"></main></div>
+</div>
+<nav class="tabs" id="tabs"></nav>
+
+<script src="../vendor/resolver.js"></script>
+<script src="../src/verification.js"></script>
+<script src="../src/audit-core.js"></script>
+<script src="../vendor/ril/library.js"></script>
+<script src="../vendor/ril/as9100d-demo@0.3.0.contentpack.js"></script>
+<script src="../src/synthetic-data.js"></script>
+<script src="../src/session.js"></script>
+<script src="../src/walkthrough.js"></script>
+<script>
+/* =============== state =============== */
+const Core = AuditCore, Data = SyntheticData;
+/* Persistence: browser localStorage, NOT encrypted, prototype only. Falls back to a fresh audit if storage is unavailable or corrupt. */
+const KEY='ce-audit-toolkit-proto-v1';
+let store={v:1,audits:[],cur:0,ui:{}}, storageNote='';
+function loadStore(){ try{ const raw=localStorage.getItem(KEY); if(!raw) return false; const o=JSON.parse(raw); if(!o||o.v!==1||!Array.isArray(o.audits)||!o.audits.length) throw new Error('unrecognised'); store=o; return true; }catch(e){ storageNote='Saved audit data could not be read ('+e.message+'); started fresh. The unreadable copy was kept under a backup key.'; try{ localStorage.setItem(KEY+'-corrupt-backup', localStorage.getItem(KEY)||''); localStorage.removeItem(KEY);}catch(_){} return false; } }
+function saveStore(){ try{ store.audits[store.cur]=S.audit; store.ui={screen:ui.screen,ob:ui.ob,ncr:ui.ncr}; localStorage.setItem(KEY,JSON.stringify(store)); }catch(e){ storageNote='Changes are not being saved on this device ('+e.message+').'; } }
+let S, ui = { screen:'home', stack:[], ob:null, ncr:null, msg:{}, layout:null };
+if(loadStore()){ S=AuditSession.restore(store.audits[store.cur]); const u=store.ui||{}; if(u.screen) ui.screen=u.screen; ui.ob=u.ob||null; ui.ncr=u.ncr||null; if(ui.screen==='ncr'&&!S.audit.ncrs.find(n=>n.id===ui.ncr)) ui.screen='findings'; }
+else { S=AuditSession.create(); store.audits=[S.audit]; store.cur=0; }
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $ = id => document.getElementById(id);
+const LABEL = {demonstrated:'Requirement demonstrated',insufficient:'Insufficient objective evidence',pending:'Potential nonconformity — held',nc:'Nonconformity',na:'Not applicable (justified)',none:'Not yet evaluated'};
+const TAG = {demonstrated:'t-ok',insufficient:'t-warn',pending:'t-warn',nc:'t-bad',na:'t-neu',none:'t-neu'};
+const REC = {demonstrated:'Evidence supports the requirement','nc-supported':'Nonconformity supported by evidence',potential:'Additional investigation recommended',insufficient:'More evidence needed'};
+const concl = id => (S.audit.conclusions[id]||{}).status || 'none';
+
+/* =============== navigation / layout =============== */
+function go(screen,param){ if(ui.screen!==screen||param){ ui.stack.push({screen:ui.screen,ob:ui.ob,ncr:ui.ncr}); } ui.screen=screen; if(param!==undefined){ if(screen==='card')ui.ob=param; if(screen==='ncr')ui.ncr=param; } render(); window.scrollTo(0,0); }
+function tab(screen){ ui.stack=[]; ui.screen=screen; render(); window.scrollTo(0,0); }
+function goBack(){ const p=ui.stack.pop(); if(p){ui.screen=p.screen;ui.ob=p.ob;ui.ncr=p.ncr;render();} }
+function setLayout(l){ ui.layout=l; applyLayout(); }
+function applyLayout(){ const a=$('app'); const l=ui.layout|| (window.innerWidth>=820?'tablet':'phone'); a.classList.toggle('tablet',l==='tablet'); a.classList.toggle('phone',l==='phone'&&!!ui.layout);
+  ['bPhone','bTab','bAuto'].forEach(i=>$(i).classList.remove('on')); $(ui.layout==='phone'?'bPhone':ui.layout==='tablet'?'bTab':'bAuto').classList.add('on'); }
+window.addEventListener('resize',applyLayout);
+function toggleTheme(){ const r=document.documentElement; r.setAttribute('data-theme', r.getAttribute('data-theme')==='light'?'dark':'light'); }
+(function(){ const p=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches; document.documentElement.setAttribute('data-theme',p?'light':'dark'); })();
+function resetAll(){ if(!confirm('Reset ALL saved audits in this browser and start fresh?')) return; S=AuditSession.create(); store={v:1,audits:[S.audit],cur:0,ui:{}}; ui={screen:'home',stack:[],ob:null,ncr:null,msg:{},layout:ui.layout}; render(); }
+function newAudit(){ const id='AUD-2026-'+(114+store.audits.length); S=AuditSession.create({id}); store.audits.push(S.audit); store.cur=store.audits.length-1; ui={screen:'plan',stack:[],ob:null,ncr:null,msg:{},layout:ui.layout}; render(); }
+function openAudit(i){ saveStore(); store.cur=i; S=AuditSession.restore(store.audits[i]); ui={screen:'audit',stack:[],ob:null,ncr:null,msg:{},layout:ui.layout}; render(); }
+
+const NAV=[['home','⌂','Home'],['plan','◳','Plan'],['audit','◎','Audit'],['findings','❏','Findings'],['report','▤','Report']];
+function render(){
+  const T={home:['Audit Toolkit',''],plan:['Plan audit',S.audit.id],audit:['Audit',S.audit.id],process:['Process',''],card:['Requirement verification',''],findings:['Findings',S.audit.id],ncr:['Nonconformity report',''],report:['Audit report',S.audit.id],scenarios:['Acceptance scenarios','review aid'],walk:['Guided audit thread','review aid'],about:['About this prototype','']};
+  const [t,s]=T[ui.screen]||['Audit Toolkit',''];
+  $('ttl').textContent=t; $('sub').textContent=ui.screen==='card'&&ui.ob?S.ob(ui.ob).ref:s;
+  $('back').style.visibility=ui.stack.length?'visible':'hidden';
+  $('tabs').innerHTML=NAV.map(n=>`<button class="${ui.screen===n[0]||(n[0]==='audit'&&['process','card'].includes(ui.screen))||(n[0]==='findings'&&ui.screen==='ncr')?'on':''}" onclick="tab('${n[0]}')"><span class="i">${n[1]}</span>${n[2]}</button>`).join('');
+  $('rail').innerHTML=railHtml();
+  $('main').innerHTML=(V[ui.screen]||(()=>''))()+legal();
+  applyLayout();
+}
+function railHtml(){
+  const procs=groupByProcess();
+  return `<h4>Navigate</h4>${NAV.map(n=>`<div class="ri ${ui.screen===n[0]?'on':''}" onclick="tab('${n[0]}')">${n[1]} ${n[2]}</div>`).join('')}
+  <h4>Requirements</h4>${Object.keys(procs).map(p=>`<div class="muted xs" style="margin:8px 8px 2px">${esc(p)}</div>`+procs[p].map(ob=>`<div class="ri ${ui.ob===ob.id&&ui.screen==='card'?'on':''}" onclick="ui.stack=[];ui.screen='card';ui.ob='${ob.id}';render()"><span class="mono xs">${esc(ob.ref)}</span><span class="m">${statusDot(ob.id)}</span></div>`).join('')).join('')}`;
+}
+function statusDot(id){ const c=concl(id); return c==='none'?'○':c==='demonstrated'?'●':c==='nc'?'▲':'◐'; }
+function groupByProcess(){ const g={}; S.applicable().forEach(ob=>{(g[ob.process]=g[ob.process]||[]).push(ob);}); return g; }
+function legal(){ return `<div class="legal"><div class="b">Conform-Edge™ Audit Toolkit</div><div style="margin:6px 0"><a onclick="alert('Prototype: Terms of Service would open here.')">Terms</a><a onclick="alert('Prototype: Privacy Policy would open here.')">Privacy</a><a onclick="alert('Prototype: EULA would open here.')">EULA</a><a onclick="alert('Prototype: Licences and attributions would open here.')">Licences</a><a onclick="go('about')">About</a></div>© 2026 Conform-Edge Quality Consulting LLC. Standard designations are referenced for identification only; each remains the property of its publisher. Users must hold their own licensed copy of any referenced standard.<br>v0.2 prototype · synthetic data</div>`; }
+
+/* =============== views =============== */
+const V={};
+V.home=()=>{
+  const apps=S.applicable(), done=apps.filter(o=>concl(o.id)!=='none').length;
+  const list=store.audits.map((a,i)=>{ const A=AuditSession.restore(a); const ap=A.applicable(), d=ap.filter(o=>((a.conclusions[o.id]||{}).status||'none')!=='none').length; return `<div class="card tap" onclick="openAudit(${i})" style="${i===store.cur?'border-color:var(--sig)':''}"><div class="sp"><span class="b">${esc(a.id)} · ${esc(a.org.name)}</span><span class="tag ${i===store.cur?'t-sig':'t-neu'}">${i===store.cur?'open':'saved'}</span></div><div class="muted xs" style="margin-top:4px">${esc(a.standard)} ${esc(a.type)} · ${a.date} · ${d}/${ap.length} concluded · ${a.ncrs.length} NCR · ${a.evidence?Object.keys(a.evidence).length:0} evidence</div></div>`; }).join('');
+  return `${storageNote?`<div class="block">${esc(storageNote)}</div>`:''}<h2>Good morning, ${esc(S.audit.auditor.name)}</h2><p class="muted sm" style="margin:0 0 14px">${esc(S.audit.auditor.role)} · AS9100D authorization valid to ${S.audit.auditor.authorizations[0].validTo}</p>
+  <div class="card tap" onclick="go('audit')"><div class="sp"><span class="b">${esc(S.audit.id)} · ${esc(S.audit.org.name)}</span><span class="tag t-sig">In progress</span></div>
+   <div class="muted sm" style="margin:6px 0 8px">${esc(S.audit.standard)} ${esc(S.audit.type)} · ${S.audit.date}</div>
+   <div class="progress"><span style="width:${apps.length?Math.round(done/apps.length*100):0}%"></span></div>
+   <div class="muted xs" style="margin-top:6px">${done} of ${apps.length} requirements concluded · ${S.audit.ncrs.filter(n=>n.status==='Issued').length} NCR(s) issued · ${S.audit.ncrs.filter(n=>n.status!=='Issued').length} in progress</div></div>
+  <div class="card"><div class="sp"><h3 style="margin:0">Audit records on this device</h3><button class="ghost sm2" onclick="newAudit()">+ New audit</button></div><p class="muted xs">Saved in this browser (prototype storage — not encrypted). Switch between partially completed audits.</p><div style="margin-top:8px">${list}</div></div>
+  <div class="card"><h3>Your audit workflow</h3>${['Plan the audit and confirm scope','Open a requirement and read what must be verified','Select samples and capture evidence','Work the Suggested Follow-Up','Record a conclusion the evidence supports','Develop and issue a Should Be / As Found NCR','Review and produce the report'].map((x,i)=>`<div class="step"><i>${i+1}</i><span>${x}</span></div>`).join('')}
+   <div class="row" style="margin-top:12px"><button class="btn" onclick="go('plan')">Plan audit →</button></div></div>
+  <div class="card"><h3>Content & sync</h3>
+   <div class="kv"><span class="k">AS9100D</span><span class="v">Demonstration content · 5 requirements <span class="tag t-warn">not a full pack</span></span></div>
+   <div class="kv"><span class="k">Reference</span><span class="v">Clause index <span class="tag t-warn">pending technical review</span></span></div>
+   <div class="kv"><span class="k">Offline</span><span class="v">Core auditing works without a connection. Additional analysis is available when connected.</span></div></div>`;
+};
+V.plan=()=>{
+  const scope=S.scope();
+  return `<h2>${esc(S.audit.org.name)}</h2><p class="muted sm" style="margin:0 0 12px">${esc(S.audit.org.description)} <span class="tag t-neu">synthetic</span></p>
+  <div class="card"><h3>Audit definition</h3><div class="kv"><span class="k">Standard</span><span class="v">${esc(S.audit.standard)} ${esc(S.audit.edition)}</span></div><div class="kv"><span class="k">Type</span><span class="v">${esc(S.audit.type)}</span></div><div class="kv"><span class="k">Date</span><span class="v mono">${S.audit.date}</span></div><div class="kv"><span class="k">Site</span><span class="v">${esc(S.audit.org.site)}</span></div></div>
+  <div class="card"><h3>Scope of business</h3><p class="muted sm" style="margin:0 0 10px">Toggle activities; applicable requirements are recalculated and each decision is explained.</p>
+   ${['design','manufacture','distribute','maintain'].map(a=>`<span class="chipb ${S.audit.activities.includes(a)?'on':''}" onclick="toggleAct('${a}')">${a[0].toUpperCase()+a.slice(1)}</span>`).join('')}</div>
+  <div class="card"><div class="sp"><h3 style="margin:0">Resolved coverage</h3><span class="pill">${scope.filter(x=>x.applies).length} of ${scope.length} apply</span></div>
+   ${scope.map(x=>`<div class="kv"><span class="k">${esc(x.ob.ref)}</span><span class="v">${esc(x.ob.label)}<br>${x.applies?'<span class="tag t-ok">in scope</span>':'<span class="tag t-neu">excluded</span>'} <span class="muted xs">${esc(x.reason)}</span></span></div>`).join('')}</div>
+  <div class="guide"><div class="h">Prior finding to follow up</div><div class="sm">${esc(S.audit.org.priorFindings[0].ref)} (clause ${esc(S.audit.org.priorFindings[0].clause)}): ${esc(S.audit.org.priorFindings[0].note)}</div></div>
+  <button class="btn" onclick="tab('audit')">Begin audit →</button>`;
+};
+function toggleAct(a){ const c=S.audit.activities.slice(), i=c.indexOf(a); i>=0?c.splice(i,1):c.push(a); S.setActivities(c); render(); }
+V.audit=()=>{
+  const g=groupByProcess();
+  return `<h2>Processes</h2><p class="muted sm" style="margin:0 0 14px">Audit by process. Open a requirement to see exactly what must be verified.</p>
+  ${Object.keys(g).map(p=>{const d=g[p].filter(o=>concl(o.id)!=='none').length;return `<div class="card"><div class="sp"><span class="b">${esc(p)}</span><span class="tag ${d===g[p].length?'t-ok':'t-neu'}">${d}/${g[p].length}</span></div>
+   ${g[p].map(ob=>{const c=concl(ob.id);return `<div class="kv tap" style="cursor:pointer" onclick="go('card','${ob.id}')"><span class="k">${esc(ob.ref)}</span><span class="v">${esc(ob.label)}<br><span class="tag ${TAG[c]}">${LABEL[c]}</span> <span class="muted xs">${S.sampleIds(ob.id).length} sampled · ${evCount(ob.id)} evidence</span></span></div>`}).join('')}</div>`}).join('')}`;
+};
+const evCount = id => S.evList().filter(e=>e.links.some(l=>l.ob===id)).length;
+
+/* ---- the requirement card ---- */
+function effectTag(ev,obId){
+  const ls=ev.links.filter(l=>l.ob===obId); if(!ls.length) return '<span class="tag t-neu">context</span>';
+  return ls.map(l=>{
+    if(l.effect==='supports') return `<span class="tag t-ok">supports ${l.attr}</span>`;
+    if(l.effect==='contradicts') return l.open?`<span class="tag t-warn">possible gap ${l.attr} · unconfirmed</span>`:`<span class="tag t-bad">contradicts ${l.attr}</span>`;
+    return `<span class="tag t-neu">${l.attr} pending</span>`;}).join(' ');
+}
+V.card=()=>{
+  const ob=S.ob(ui.ob); if(!ob) return '<div class="empty">Select a requirement from the Audit tab.</div>';
+  const a=S.assessment(ob.id), st=concl(ob.id), samp=S.audit.samples[ob.id]||{ids:[]}, pop=S.population(ob.id);
+  const evs=S.evList().filter(e=>e.links.some(l=>l.ob===ob.id)||e.rebuttal&&e.rebuttal.ob===ob.id||e.obRef===ob.id);
+  const fups=S.followUps(ob.id), m=ui.msg[ob.id];
+  const stale=S.reevaluate(ob.id);
+  return `<div class="sp"><span class="pill">${esc(ob.ref)}</span><span class="muted xs mono">${esc(S.audit.standard)} ${esc(S.audit.edition)}</span></div>
+  <h2 style="margin:8px 0 10px">${esc(ob.label)}</h2>
+  ${stale?`<div class="block"><b>Conclusion needs review.</b> ${esc(stale)}</div>`:''}
+  <div class="card"><div class="kv"><span class="k">Intent</span><span class="v">${esc(ob.intent)}</span></div><div class="kv"><span class="k">Objective</span><span class="v">${esc(ob.objective)}</span></div><div class="kv"><span class="k">Method</span><span class="v">${esc(ob.method)}</span></div></div>
+  <div class="card"><h3>What the requirement needs to show</h3>${a.attrs.map(x=>`<div class="kv"><span class="k">${x.attr.id}</span><span class="v">${esc(x.attr.text)}<br>${attrTag(x)}</span></div>`).join('')}
+   <p class="muted xs" style="margin:8px 0 0">Aspects of the requirement, paraphrased by Conform-Edge. They describe intent; they are not additional obligations.</p></div>
+  <div class="card"><h3>Verification steps</h3>${ob.steps.map((s,i)=>`<div class="step"><i>${i+1}</i><span>${esc(s)}</span></div>`).join('')}<p class="muted xs" style="margin:8px 0 0">Audit activities, not additional obligations. A document’s presence is not proof the process is effective.</p></div>
+  <div class="card"><h3>Evidence expected</h3>${ob.evidenceExpected.map(e=>`<div class="xs" style="padding:2px 0">• ${esc(e)}</div>`).join('')}
+   <div class="muted xs" style="margin-top:8px"><b>Common weaknesses:</b> ${ob.weaknesses.map(esc).join('; ')}.</div></div>
+  ${pop.length?sampleCard(ob,pop,samp,a):''}
+  <div class="card"><h3>Other verification activities</h3>${S.available(ob.id).filter(x=>!x.popOf).map(x=>actRow(x)).join('')||'<span class="muted sm">None available.</span>'}</div>
+  <div class="card"><h3>Objective evidence recorded (${evs.length})</h3>${evs.length?evs.map(e=>`<div class="ev"><div class="sp wrap"><span class="mono xs b">${esc(e.id)}</span><span>${effectTag(e,ob.id)}${e.rebuttal&&e.rebuttal.ob===ob.id?' <span class="tag t-sig">alternative explanation checked</span>':''}</span></div><div class="xs muted">${esc(e.type)} · ${esc(e.date||'')} · ${esc(e.ref)}</div><div class="sm" style="margin-top:3px">${esc(e.text)}</div>${e.links.some(l=>l.ob!==ob.id)?`<div class="xs muted" style="margin-top:3px">Also linked to: ${[...new Set(e.links.filter(l=>l.ob!==ob.id).map(l=>S.ob(l.ob).ref))].join(', ')} (one record, not duplicated)</div>`:''}</div>`).join(''):'<p class="muted sm">No evidence recorded yet.</p>'}</div>
+  ${fupCard(ob,fups)}
+  <div class="card"><h3>Assessment</h3><div class="row wrap"><span class="tag ${a.recommended==='demonstrated'?'t-ok':a.recommended==='nc-supported'?'t-bad':'t-warn'}">${REC[a.recommended]}</span></div><p class="sm" style="margin:8px 0 0">${a.reasons.map(esc).join(' ')}</p>
+   ${a.altMethod?'<div class="okbox" style="margin-top:10px">The organization controls this intent by a different method. A different form or terminology is not a nonconformity.</div>':''}</div>
+  <div class="card"><h3>Auditor conclusion</h3>
+   <label class="fl">Conclusion</label><select id="cs">${['none','demonstrated','insufficient','pending','nc','na'].map(k=>`<option value="${k}" ${st===k?'selected':''}>${k==='none'?'— select —':LABEL[k]}</option>`).join('')}</select>
+   <label class="fl">Rationale</label><textarea id="cr" placeholder="Basis for the conclusion, citing evidence identifiers.">${esc((S.audit.conclusions[ob.id]||{}).rationale||'')}</textarea>
+   ${m?`<div class="${m.ok?'okbox':'block'}">${esc(m.text)}</div>`:''}
+   <div class="row" style="margin-top:10px"><button class="btn" onclick="recordConclusion('${ob.id}')">Record conclusion</button></div>
+   ${st==='nc'?`<div class="row" style="margin-top:10px"><button class="btn" onclick="openNCR('${ob.id}')">Develop NCR →</button></div>`:''}
+   <p class="muted xs" style="margin:10px 0 0">You hold decision authority. The app will not record a conclusion the objective evidence does not support.</p></div>
+  ${aidSimulate(ob)}`;
+};
+function attrTag(x){ const M={met:['t-ok','Evidence supports'],unmet:['t-bad','Not met — '+x.contradicts.join(', ')],unconfirmed:['t-warn','Possible gap — unconfirmed'],claimed:['t-warn','Statement only — corroborate'],untested:['t-neu','Not yet tested']}[x.status]; return `<span class="tag ${M[0]}">${M[1]}</span>`; }
+function actRow(x){ const done=S.audit.performed.includes(x.id); return `<div class="sample"><div style="flex:1"><div class="b sm">${esc(x.title)}</div><div class="xs muted">${esc(x.type)} · ${esc(x.ref)}</div></div>${done?'<span class="tag t-ok">recorded</span>':`<button class="ghost sm2" onclick="doAct('${x.id}')">Record</button>`}</div>`; }
+function sampleCard(ob,pop,samp,a){
+  return `<div class="card"><h3>Sampling</h3><p class="muted sm" style="margin:0 0 4px">Population: ${pop.length} · ${esc(ob.sampling.population)}</p><p class="muted xs" style="margin:0 0 10px">${esc(ob.sampling.guidance)}</p>
+  ${pop.map(r=>{const on=samp.ids.includes(r.id);const ev=S.audit.evidence['EV-'+r.id];return `<div class="sample"><input type="checkbox" ${on?'checked disabled':''} onchange="pick('${ob.id}','${r.id}')" aria-label="Select ${r.id}"><div style="flex:1"><div class="mono xs b">${esc(r.id)} <span class="muted">${esc(r.date||'')}</span></div><div class="sm">${esc(r.title)}</div>${on?`<div class="sm muted" style="margin-top:4px">${esc(r.text)}</div><div style="margin-top:4px">${effectTag(ev,ob.id)}</div>`:''}</div></div>`}).join('')}
+  <div class="row wrap" style="margin-top:10px"><span class="muted sm">${samp.ids.length} of ${pop.length} reviewed${ob.minSample?` · planned minimum ${ob.minSample}`:''}</span><span style="flex:1"></span>
+   <input type="number" id="k-${ob.id}" value="${ob.minSample||2}" min="1" max="${pop.length}" style="width:70px;margin:0" aria-label="Sample size"><button class="ghost sm2" onclick="drawS('${ob.id}')">Draw seeded sample</button></div>
+  ${samp.method==='seeded'?`<p class="muted xs mono" style="margin:8px 0 0">Seeded sample · seed “${esc(samp.seed)}” · population ${samp.populationSize} — reproducible from these values.</p>`:''}
+  <p class="muted xs" style="margin:6px 0 0">Conclusions apply to the items reviewed; sampling does not imply full-population conformity.</p></div>`;
+}
+function fupCard(ob,f){
+  if(!f.length) return '';
+  return `<div class="guide"><div class="h">Suggested follow-up</div>${f.map(x=>`<div class="it"><div class="b sm">${esc(x.title)}</div><div class="xs">${esc(x.why)}</div>${x.actionIds.length?`<div class="acts">${x.actionIds.map(id=>{const A=Data.world.actions.find(z=>z.id===id);return S.audit.performed.includes(id)?'':`<button class="ghost sm2" onclick="doAct('${id}')">${esc(A.title.length>56?A.title.slice(0,54)+'…':A.title)}</button>`}).join('')}</div>`:''}</div>`).join('')}</div>`;
+}
+function aidSimulate(ob){
+  const sims=S.simulated(ob.id); if(!sims.length) return '';
+  return `<details class="aid noprint"><summary>Prototype review aid — simulate real-world outcomes</summary><p class="xs muted">Stands in for the auditee producing the missing record later in the audit. Choose an outcome to see the system follow it.</p>${sims.map(x=>`<div class="sample"><div style="flex:1" class="sm">${esc(x.title)}</div>${S.audit.performed.includes(x.id)?'<span class="tag t-ok">applied</span>':`<button class="ghost sm2" onclick="doAct('${x.id}')">Apply</button>`}</div>`).join('')}</details>`;
+}
+function doAct(id){ S.perform(id); render(); }
+function pick(obId,rec){ S.addToSample(obId,rec); render(); }
+function drawS(obId){ const k=parseInt($('k-'+obId).value,10)||2; S.drawSample(obId,k,S.audit.id+'/'+obId+'/'+k); render(); }
+function recordConclusion(id){
+  const st=$('cs').value, r=$('cr').value;
+  if(st==='none'){ ui.msg[id]={ok:false,text:'Select a conclusion.'}; return render(); }
+  const res=S.conclude(id,st,r);
+  ui.msg[id]=res.ok?{ok:true,text:'Recorded: '+LABEL[st]+'.'}:{ok:false,text:res.reasons[0]};
+  if(!res.ok){ ui.keepSel=st; }
+  render(); if(!res.ok){ $('cs').value=st; $('cr').value=r; }
+}
+
+/* ---- Findings & NCR ---- */
+V.findings=()=>{
+  const held=S.applicable().filter(o=>concl(o.id)==='pending'), ncs=S.applicable().filter(o=>concl(o.id)==='nc'&&!S.audit.ncrs.find(n=>n.obId===o.id));
+  return `<h2>Findings</h2><p class="muted sm" style="margin:0 0 14px">${S.audit.ncrs.filter(n=>n.status==='Issued').length} issued · ${S.audit.ncrs.filter(n=>n.status!=='Issued').length} in progress · ${held.length} held for investigation</p>
+  ${S.audit.ncrs.map(n=>`<div class="card tap" onclick="go('ncr','${n.id}')"><div class="sp"><span class="b">${n.id}</span><span class="tag ${n.status==='Issued'?'t-bad':'t-warn'}">${n.status}</span></div><div class="mono xs muted" style="margin-top:4px">${esc(n.citation||S.ob(n.obId).ref)} · ${esc(S.ob(n.obId).label)}</div></div>`).join('')}
+  ${ncs.map(o=>`<div class="card tap" onclick="openNCR('${o.id}')"><div class="sp"><span class="b">${esc(o.label)}</span><span class="tag t-bad">nonconformity recorded</span></div><div class="muted xs">${esc(o.ref)} — develop NCR →</div></div>`).join('')}
+  ${held.map(o=>`<div class="card tap" onclick="go('card','${o.id}')"><div class="sp"><span class="b">${esc(o.label)}</span><span class="tag t-warn">held — potential</span></div><div class="muted xs">${esc(o.ref)} — investigation open. Not a finding until the facts are established.</div></div>`).join('')}
+  ${!S.audit.ncrs.length&&!ncs.length&&!held.length?'<div class="empty">No findings yet. Record a conclusion on a requirement to begin.</div>':''}
+  ${S.audit.discarded.length?`<div class="card"><h3>Discarded drafts (retained)</h3>${S.audit.discarded.map(d=>`<div class="kv"><span class="k">${esc(d.ncr.id)}</span><span class="v">${esc(S.ob(d.ncr.obId).ref)} — ${esc(d.reason)}</span></div>`).join('')}</div>`:''}`;
+};
+function openNCR(obId){ const n=S.startNCR(obId); go('ncr',n.id); }
+function curNCR(){ return S.audit.ncrs.find(n=>n.id===ui.ncr); }
+function ncrFamily(ob){ const c=Core.parseCitation(ob.ref).clause, out=[]; Object.keys(Data.CLAUSE_INDEX.clauses).forEach(k=>{ if(k===c||c.startsWith(k+'.')){ out.push(k); (Data.CLAUSE_INDEX.clauses[k].paragraphs||[]).forEach(p=>out.push(k+'('+p+')')); } }); return out.sort(); }
+V.ncr=()=>{
+  const n=curNCR(); if(!n) return '<div class="empty">No NCR selected.</div>'; const ob=S.ob(n.obId), locked=n.status!=='Draft';
+  return `<div class="sp"><h2 style="margin:0">${n.id}</h2><span class="tag ${n.status==='Issued'?'t-bad':'t-warn'}">${n.status}</span></div>
+  <p class="muted sm" style="margin:4px 0 12px">${esc(S.audit.org.name)} · ${S.audit.id} · ${esc(ob.process)}</p>
+  <div class="block" style="background:var(--warnbg);border-color:var(--warn);color:var(--warn)"><b>DEMONSTRATION CONTENT.</b> The requirement and clause reference are not verified against the controlled source. In production mode this NCR could not be issued.</div>
+  <div class="sec"><h3>Governing source</h3><div class="kv"><span class="k">Source</span><span class="v">${esc(Data.CLAUSE_INDEX.source)} ${esc(Data.CLAUSE_INDEX.edition)}</span></div>
+   <label class="fl">Exact clause reference (include paragraph / subdivision)</label>
+   <input type="text" id="cite" value="${esc(n.citation)}" ${locked?'disabled':''} oninput="onCite(this.value)" placeholder="e.g. 7.1.5.2(a)" autocapitalize="off">
+   <div class="row wrap" style="margin-top:8px"><select id="pickc" style="width:auto;margin:0" ${locked?'disabled':''} onchange="onCite(this.value);$('cite').value=this.value"><option value="">Choose from reference index…</option>${ncrFamily(ob).map(c=>`<option>${esc(c)}</option>`).join('')}</select></div>
+   <div id="citeres"></div></div>
+  <div class="sec sb"><h3>Should Be — required condition</h3><textarea id="sb" ${locked?'disabled':''} oninput="curNCR().shouldBe=this.value;gatesRefresh()">${esc(n.shouldBe)}</textarea>
+   <label class="row" style="margin-top:8px;font-size:13px"><input type="checkbox" id="att" style="width:28px;height:28px;flex:0 0 28px" ${n.shouldBeAttested?'checked':''} ${locked?'disabled':''} onchange="curNCR().shouldBeAttested=this.checked;gatesRefresh()"> I have checked this Should Be against my licensed copy of ${esc(Data.CLAUSE_INDEX.source)} ${esc(Data.CLAUSE_INDEX.edition)}.</label>
+   <p class="muted xs" style="margin:6px 0 0">Conform-Edge paraphrase of the verified obligation. Licensed standard text is not reproduced.</p></div>
+  <div class="sec af"><h3>As Found — objectively verified condition</h3><textarea id="af" ${locked?'disabled':''} placeholder="What was observed, where, when, with record and sample identifiers." oninput="curNCR().asFound=this.value;gatesRefresh()">${esc(n.asFound)}</textarea>
+   ${locked?'':`<div class="row" style="margin-top:8px"><button class="ghost sm2" onclick="draftAF()">Draft from linked evidence</button></div>`}
+   <label class="fl">Statement of nonconformity — the difference between the requirement and the verified condition</label><textarea id="df" ${locked?'disabled':''} oninput="curNCR().statement=this.value;gatesRefresh()">${esc(n.statement)}</textarea>
+   <label class="fl">Objective evidence linked</label><div>${n.evidenceIds.map(id=>`<span class="tag t-sig" style="margin:0 6px 6px 0">${esc(id)}</span>`).join('')||'<span class="muted sm">none</span>'}</div></div>
+  <div class="sec"><h3>Classification (audit scheme)</h3>
+   <div>${['Major','Minor'].map(c=>`<span class="chipb ${n.class===c?'on':''}" onclick="${locked?'':`setClass('${c}')`}">${c}</span>`).join('')}</div>
+   <textarea id="cls" ${locked?'disabled':''} placeholder="Rationale for the classification." oninput="curNCR().classRationale=this.value;gatesRefresh()">${esc(n.classRationale)}</textarea>
+   <p class="muted xs" style="margin:6px 0 0">Aid only — the certification body’s scheme governs. Major: breakdown or absence of a required process, or a condition likely to affect delivered product conformity. Minor: isolated lapse where the system otherwise functions.</p></div>
+  <div class="card"><h3>Issuance checks</h3><div id="gates"></div></div>
+  <div id="ncract"></div>
+  ${n.status==='Issued'?'':`<details class="aid noprint"><summary>Discard this draft</summary><p class="xs muted">The draft and your reason are kept in the audit record. Nothing is silently deleted.</p><textarea id="dreason" placeholder="Reason for discarding"></textarea><button class="ghost" style="margin-top:8px" onclick="discardNCR()">Discard draft</button><div id="dmsg"></div></details>`}
+  ${locked?'':citeAid()}`;
+};
+function discardNCR(){ const r=S.discardNCR(curNCR(),$('dreason').value); if(!r.ok){ $('dmsg').innerHTML='<div class="block">'+esc(r.reason)+'</div>'; return; } ui.stack=[]; ui.screen='findings'; render(); }
+function citeAid(){ return `<details class="aid noprint"><summary>Prototype review aid — try incorrect citations (Scenario D)</summary><p class="xs muted">Each attempt is refused for a different reason.</p>${['7.1.5.2','7.1.5','7.1.5.2(b)','7.1.5.2(e)','7.9.9'].map(c=>`<button class="ghost sm2" style="margin:3px" onclick="$('cite').value='${c}';onCite('${c}')">${c}</button>`).join('')}</details>`; }
+function onCite(v){ const n=curNCR(); n.citation=v; citeRefresh(); gatesRefresh(); }
+function citeRefresh(){ const n=curNCR(); if(!n.citation){ $('citeres').innerHTML='<p class="muted xs">Enter or choose the exact governing reference.</p>'; return; } const r=S.citationCheck(n); $('citeres').innerHTML=`<div class="${r.ok?'okbox':'block'}" style="margin-top:8px"><b>${r.ok?'Verified':r.level==='incomplete'?'Incomplete reference':r.level==='mismatch'?'Reference does not govern this condition':'Invalid reference'}.</b> ${r.messages.map(esc).join(' ')}</div>`; }
+function gatesRefresh(){
+  const n=curNCR(); if(!n||!$('gates')) return; const g=S.gates(n);
+  $('gates').innerHTML=g.map(x=>`<div class="gate ${x.ok?'p':'f'}"><b>${x.n}</b><span>${x.ok?'✓':'✗'} ${esc(x.msg)}</span></div>`).join('');
+  let act='';
+  if(n.status==='Draft') act=`<button class="btn" ${Core.readyForReview(g)?'':'disabled'} onclick="submitNCR()">${Core.readyForReview(g)?'Submit for auditor review':'Resolve checks 1–9 to submit'}</button><p class="muted xs" style="text-align:center">A deficient NCR cannot be finalized.</p>`;
+  else if(n.status==='In auditor review') act=`<div class="card"><h3>Auditor review and approval</h3><div class="kv"><span class="k">Approver</span><span class="v">${esc(S.audit.auditor.name)} · ${esc(S.audit.auditor.role)}</span></div><div class="kv"><span class="k">Authorization</span><span class="v mono">${S.audit.auditor.authorizations[0].authId} · valid to ${S.audit.auditor.authorizations[0].validTo}</span></div><button class="btn" style="margin-top:10px" onclick="approveNCR()">Approve and issue NCR</button><button class="ghost" style="margin-top:8px;width:100%" onclick="withdrawNCR()">Return to draft</button></div>`;
+  else act=`<div class="okbox">Issued — approved by ${esc(n.approval.by)} (${esc(n.approval.authId)}). Included in the audit report.</div>`;
+  $('ncract').innerHTML=act;
+}
+function draftAF(){
+  const n=curNCR(), ev=n.evidenceIds.map(id=>S.audit.evidence[id]).filter(Boolean).filter(e=>e.links.some(l=>l.ob===n.obId&&l.effect==='contradicts'&&e.verified)&&e.type!=='interview');
+  const a=S.assessment(n.obId), un=a.attrs.filter(x=>x.status==='unmet');
+  n.asFound=ev.slice(0,3).map(e=>`${e.date}: ${e.ref} (${e.id}) — ${e.text}`).join(' ')+(un.length?` Aspect not met: ${un.map(x=>x.attr.text).join('; ')}.`:'');
+  if(!n.statement) n.statement=`The requirement is that ${un.length?un[0].attr.text.toLowerCase():'the obligation is met'}; the linked records show the opposite condition for the cited items, so the requirement was not met for them.`;
+  render();
+}
+function setClass(c){ curNCR().class=c; render(); }
+function submitNCR(){ S.submitNCR(curNCR()); render(); }
+function approveNCR(){ S.approveNCR(curNCR()); render(); }
+function withdrawNCR(){ curNCR().status='Draft'; render(); }
+const _render=render; render=function(){ saveStore(); _render(); if(ui.screen==='ncr'){ citeRefresh(); gatesRefresh(); } };
+
+/* ---- Report ---- */
+V.report=()=>{
+  const apps=S.applicable(), rec=S.record(), issued=S.audit.ncrs.filter(n=>n.status==='Issued');
+  const by = s => apps.filter(o=>concl(o.id)===s);
+  return `<h2>Audit report</h2><div class="block" style="background:var(--warnbg);border-color:var(--warn);color:var(--warn)"><b>DEMONSTRATION — synthetic organization; requirement content and clause references unverified.</b> Not a real audit record.</div><p class="muted sm" style="margin:0 0 12px">Draft — built from recorded audit activity.</p>
+  <div class="card"><h3>Summary</h3><div class="kv"><span class="k">Organization</span><span class="v">${esc(S.audit.org.name)} <span class="tag t-neu">synthetic</span></span></div><div class="kv"><span class="k">Audit</span><span class="v">${esc(S.audit.id)} · ${esc(S.audit.standard)} ${esc(S.audit.edition)} · ${esc(S.audit.type)} · ${S.audit.date}</span></div><div class="kv"><span class="k">Auditor</span><span class="v">${esc(S.audit.auditor.name)} · ${esc(S.audit.auditor.role)}</span></div>
+   <div class="kv"><span class="k">Coverage</span><span class="v">${apps.filter(o=>concl(o.id)!=='none').length} of ${apps.length} in-scope requirements concluded · demonstrated ${by('demonstrated').length} · NCR ${by('nc').length} · held ${by('pending').length} · insufficient evidence ${by('insufficient').length}</span></div></div>
+  <div class="card"><h3>Requirements and conclusions</h3>${apps.map(o=>{const c=concl(o.id),a=S.assessment(o.id),s=S.audit.samples[o.id];return `<div class="kv"><span class="k">${esc(o.ref)}</span><span class="v"><span class="b">${esc(o.label)}</span><br><span class="tag ${TAG[c]}">${LABEL[c]}</span> <span class="muted xs">${s?`sample ${s.ids.join(', ')} (${s.method}${s.seed?`, seed “${esc(s.seed)}”`:''}; population ${s.populationSize})`:'no sample'}</span>${a.altMethod&&c==='demonstrated'?'<br><span class="xs">Intent met by an alternative method used by the organization (no finding raised).</span>':''}${(S.audit.conclusions[o.id]||{}).rationale?`<br><span class="xs">${esc(S.audit.conclusions[o.id].rationale)}</span>`:''}</span></div>`}).join('')}</div>
+  <div class="card"><h3>Nonconformity reports</h3>${issued.length?issued.map(n=>`<div style="padding:10px 0;border-bottom:1px solid var(--line2)"><div class="sp"><span class="mono b">${n.id} · ${esc(n.citation)}</span><span class="tag t-bad">${n.class}</span></div><div class="xs muted">${esc(Data.CLAUSE_INDEX.source)} ${esc(Data.CLAUSE_INDEX.edition)} · approved ${esc(n.approval.by)} (${esc(n.approval.authId)})</div><div class="sm" style="margin-top:6px"><b>Should Be:</b> ${esc(n.shouldBe)}</div><div class="sm" style="margin-top:4px"><b>As Found:</b> ${esc(n.asFound)}</div><div class="sm" style="margin-top:4px"><b>Statement of nonconformity:</b> ${esc(n.statement)}</div><div class="xs muted" style="margin-top:4px">Evidence: ${n.evidenceIds.join(', ')}</div></div>`).join(''):'<p class="muted sm">No nonconformities issued.</p>'}</div>
+  <div class="card"><h3>Open items and limitations</h3>${[...by('pending').map(o=>`Held — ${o.ref}: investigation open; no finding has been raised.`),...by('insufficient').map(o=>`Insufficient objective evidence — ${o.ref}: no conclusion of conformity or nonconformity is made. ${esc(((S.audit.conclusions[o.id]||{}).rationale)||'')}`),...apps.filter(o=>concl(o.id)==='none').map(o=>`Not evaluated — ${o.ref}.`)].map(x=>`<div class="sm" style="padding:3px 0">• ${x}</div>`).join('')||'<p class="muted sm">None recorded.</p>'}
+   <p class="muted xs" style="margin:8px 0 0">Conclusions are based on the samples and evidence recorded; sampling does not imply full-population conformity.</p></div>
+  ${S.audit.discarded.length?`<div class="card"><h3>Discarded drafts</h3>${S.audit.discarded.map(d=>`<div class="sm" style="padding:3px 0">• ${esc(d.ncr.id)} (${esc(S.ob(d.ncr.obId).ref)}) discarded: ${esc(d.reason)}</div>`).join('')}</div>`:''}
+  <div class="card"><h3>Reproducibility</h3>${Object.entries(S.audit.stamps).map(([k,v])=>`<div class="kv"><span class="k">${esc(k)}</span><span class="v mono xs">${esc(v)}</span></div>`).join('')}<div class="kv"><span class="k">record hash</span><span class="v mono xs">sha256:${rec.hash}</span></div>
+   <p class="muted xs" style="margin:8px 0 0">The audit record pins the content, resolver, logic and reference-index status in force. Later updates never change a recorded audit.</p></div>
+  <div class="row wrap noprint"><button class="ghost" onclick="window.print()">Print / save as PDF</button><button class="ghost" onclick="exportJson()">Export audit record (JSON)</button></div>`;
+};
+function exportJson(){ const r=S.record(); const b=new Blob([JSON.stringify({hash:r.hash,record:r.record},null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=S.audit.id+'-record.json'; a.click(); }
+
+/* ---- Scenarios & about ---- */
+V.scenarios=()=>`<h2>Acceptance scenarios A–F</h2><p class="muted sm" style="margin:0 0 12px">Each is a working interaction driven by the evidence, not a scripted verdict. Open one and follow the path.</p>
+  ${Data.SCENARIOS.map(s=>`<div class="card tap" onclick="ui.stack=[];ui.screen='card';ui.ob='${s.ob}';render()"><div class="sp"><span class="b">${s.key} — ${esc(s.title)}</span><span class="pill">${esc(S.ob(s.ob).ref)}</span></div><div class="sm" style="margin-top:6px">${esc(s.path)}</div></div>`).join('')}`;
+V.walk=()=>{
+  const W=Walkthrough.steps, done=S.audit.walkthrough||0;
+  return `<h2>Guided audit thread</h2><p class="muted sm" style="margin:0 0 6px">A realistic process audit: traceability sampling leads into calibration control. Each step performs the same operations as the buttons on the requirement card; the system still refuses unsupported conclusions. Run it on a fresh audit (Home → New audit).</p>
+  <p class="muted xs" style="margin:0 0 12px">${done} of ${W.length} steps done. The thread ends with an NCR awaiting <b>your</b> approval.</p>
+  ${done<W.length?`<div class="row" style="margin-bottom:12px"><button class="btn" onclick="walkNext()">Run step ${done+1}: ${esc(W[done].title)}</button></div>`:'<div class="okbox">Thread complete. Open Findings to approve or discard the NCR, or Report to read the result.</div>'}
+  ${W.map((s,i)=>`<div class="card" style="${i<done?'':'opacity:.55'}"><div class="sp"><span class="b">${s.id}. ${esc(s.title)}</span><span class="tag ${i<done?'t-ok':'t-neu'}">${i<done?'done':'pending'}</span></div>${i<done?`<div class="sm" style="margin-top:6px">${esc(s.why)}</div><div class="row" style="margin-top:8px"><button class="ghost sm2" onclick="walkOpen(${i})">Open where this happened</button></div>`:''}</div>`).join('')}`;
+};
+function walkNext(){ const W=Walkthrough.steps, i=S.audit.walkthrough||0; if(i>=W.length) return; try{ W[i].run(S); }catch(e){ alert('Step could not run: '+e.message); return; } S.audit.walkthrough=i+1; walkOpen(i,true); }
+function walkOpen(i,fromRun){ const s=Walkthrough.steps[i]; if(s.screen==='card'){ ui.ob=s.ob; ui.screen='card'; } else if(s.screen==='ncr'){ const n=S.audit.ncrs.find(x=>x.obId===s.ob); if(n){ ui.ncr=n.id; ui.screen='ncr'; } } else ui.screen=s.screen; ui.stack=[{screen:'walk'}]; if(fromRun) ui.msg._walk=s; render(); if(fromRun){ const m=document.getElementById('main'); m.insertAdjacentHTML('afterbegin',`<div class="guide"><div class="h">Step ${s.id} — ${esc(s.title)}</div><div class="sm">${esc(s.why)}</div></div>`); window.scrollTo(0,0);} }
+V.about=()=>`<h2>About this prototype</h2><div class="card"><div class="kv"><span class="k">Data</span><span class="v">Synthetic organization, people and records. Not real audit evidence.</span></div><div class="kv"><span class="k">Content</span><span class="v">Five demonstration requirements, authored by Conform-Edge. Standard text is not reproduced. The clause index is a sample pending technical review against the licensed edition.</span></div><div class="kv"><span class="k">Follow-up</span><span class="v">Suggested Follow-Up in this prototype is produced by a deterministic engineering stub, not an intelligence service.</span></div><div class="kv"><span class="k">Not wired</span><span class="v">Device storage, camera capture, sync and PDF generation are represented only.</span></div></div>`;
+render();
+</script>
+</body>
+</html>

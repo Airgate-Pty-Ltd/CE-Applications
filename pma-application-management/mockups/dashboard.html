@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard · PMA Autopilot</title>
+  <link rel="stylesheet" href="assets/vera.css" />
+</head>
+<body data-page="dashboard">
+  <div class="layout">
+    <main class="content">
+      <h1>Dashboard</h1>
+      <p class="muted small" style="margin-top:-6px">Where every case stands, and the single most important thing to do next.</p>
+
+      <div class="banner-block">
+        <div class="label" style="color:var(--critical)">What matters most right now</div>
+        <div style="margin-top:4px">
+          Oldest open blocking condition — <a href="case.html">Hydraulic Bracket Assembly</a>: The applicant's legal name is not recorded (mandatory AC 21.303-4 §8 element).
+        </div>
+      </div>
+
+      <div class="grid-cards">
+        <a href="case.html" class="panel" style="display:block;color:inherit">
+          <div class="row spread"><strong>Hydraulic Bracket Assembly</strong><span class="stag signal">Gap review</span></div>
+          <div class="small muted" style="margin:8px 0">Basis: STC identicality</div>
+          <div class="row"><span class="stag blocking">1 blocking</span><span class="stag warning">3 warning</span></div>
+          <div class="small" style="margin-top:10px;color:var(--signal)">→ Resolve 1 blocking condition</div>
+        </a>
+
+        <a href="case.html" class="panel" style="display:block;color:inherit">
+          <div class="row spread"><strong>Bleed Air Valve</strong><span class="stag signal">Drafting</span></div>
+          <div class="small muted" style="margin:8px 0">Basis: Test &amp; computation</div>
+          <div class="row"><span class="stag info">no open gaps</span></div>
+          <div class="small" style="margin-top:10px;color:var(--signal)">→ Generate documents</div>
+        </a>
+
+        <a href="case.html" class="panel" style="display:block;color:inherit">
+          <div class="row spread"><strong>Cabin Vent Duct</strong><span class="stag signal">Intake</span></div>
+          <div class="small muted" style="margin:8px 0">Basis: not confirmed</div>
+          <div class="row"><span class="stag warning">2 warning</span></div>
+          <div class="small" style="margin-top:10px;color:var(--signal)">→ Confirm the approval basis</div>
+        </a>
+
+        <a href="documents.html" class="panel" style="display:block;color:inherit">
+          <div class="row spread"><strong>Fuel Return Line</strong><span class="stag info">Exported</span></div>
+          <div class="small muted" style="margin:8px 0">Basis: TC licensed</div>
+          <div class="row"><span class="stag info">complete</span></div>
+          <div class="small" style="margin-top:10px;color:var(--signal)">→ Archive when signed</div>
+        </a>
+      </div>
+    </main>
+  </div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

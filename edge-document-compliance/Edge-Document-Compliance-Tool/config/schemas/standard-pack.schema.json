@@ -1,0 +1,38 @@
+{
+  "$id": "standardPack",
+  "type": "object",
+  "required": ["meta", "clauses"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "publisher": { "type": "string" },
+        "scope": { "type": "string" },
+        "jurisdiction": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "clauses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "level", "text"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "level": { "type": "integer", "minimum": 1 },
+          "text": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "char_start": { "type": "integer" },
+          "char_end": { "type": "integer" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
+

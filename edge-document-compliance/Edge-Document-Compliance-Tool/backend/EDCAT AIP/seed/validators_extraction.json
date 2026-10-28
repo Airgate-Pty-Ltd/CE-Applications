@@ -1,0 +1,17 @@
+{
+  "validators": [
+    {
+      "name": "requirement.has_obligation",
+      "type": "field_presence",
+      "field": "obligation",
+      "fail_action": "drop"
+    },
+    {
+      "name": "requirement.has_citation",
+      "type": "field_regex",
+      "field": "citation",
+      "pattern": "\\\\[Source: [^\\\\]]+ p\\\\d+ L\\\\d+\u2013L\\\\d+\\\\]",
+      "fail_action": "drop"
+    }
+  ]
+}

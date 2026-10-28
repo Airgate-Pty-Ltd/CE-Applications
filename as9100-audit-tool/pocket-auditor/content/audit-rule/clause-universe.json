@@ -1,0 +1,2736 @@
+{
+ "rows": [
+  {
+   "standard": "AS9100D",
+   "clause_ref": "4",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "4.1",
+   "heading_in_standard": "Understanding the Organization and Its Context",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization identifies internal and external issues relevant to QMS purpose and strategic direction.",
+   "seed_expected_evidence": [
+    "Context analysis documented (SWOT, PESTLE, or equivalent)",
+    "issues list or register",
+    "QMS scope references context"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "4.2",
+   "heading_in_standard": "Understanding the Needs and Expectations of Interested Parties",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Organization identifies interested parties (customers, regulators, employees, suppliers, certification bodies) and their relevant requirements.",
+   "seed_expected_evidence": [
+    "Interested party register",
+    "requirements matrix",
+    "linkage to QMS processes"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "4.3",
+   "heading_in_standard": "Determining the Scope of the Quality Management System",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Scope is defined, documented, and maintained. Exclusions are justified. Scope references applicable regulatory requirements.",
+   "seed_expected_evidence": [
+    "Written scope statement",
+    "location(s) covered",
+    "products/services included",
+    "regulatory requirements referenced",
+    "any exclusions with documented justification"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "4.4",
+   "heading_in_standard": "Quality Management System and Its Processes",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Organization determines, documents, and manages the processes needed for the QMS, including their sequence, interactions, criteria, resources, responsibilities, risks, and opportunities.",
+   "seed_expected_evidence": [
+    "Process map or turtle diagram",
+    "sequence and interaction defined",
+    "inputs/outputs per process",
+    "KPIs per process",
+    "process owners identified"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "4.4.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "4.4.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "5",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "5.1",
+   "heading_in_standard": "Leadership and Commitment",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Top management demonstrates commitment through active involvement, not just signing a policy. Includes customer focus responsibilities.",
+   "seed_expected_evidence": [
+    "Management review records",
+    "quality objectives signed by top management",
+    "documented accountabilities",
+    "evidence of top management participation in QMS activities"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "5.1.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "5.1.2",
+   "heading_in_standard": "Customer Focus",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "5.2",
+   "heading_in_standard": "Policy",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Quality policy is appropriate to the organization, includes commitment to requirements and continual improvement, provides framework for objectives.",
+   "seed_expected_evidence": [
+    "Signed, dated quality policy",
+    "communicated to organization",
+    "available to interested parties",
+    "reviewed for continuing suitability"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "5.2.1",
+   "heading_in_standard": "Establishing the Quality Policy",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "5.2.2",
+   "heading_in_standard": "Communicating the Quality Policy",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "5.3",
+   "heading_in_standard": "Organizational Roles, Responsibilities, and Authorities",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Roles and authorities are assigned, communicated, and understood. Includes responsibility for product conformity, customer focus, and QMS integrity.",
+   "seed_expected_evidence": [
+    "Organization chart",
+    "responsibility matrix (RACI or equivalent)",
+    "job descriptions linked to QMS roles",
+    "authority limits documented"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "6",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "6.1",
+   "heading_in_standard": "Actions to Address Risks and Opportunities",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization identifies risks and opportunities; plans actions; evaluates effectiveness. Must be systematic, not reactive.",
+   "seed_expected_evidence": [
+    "Risk register or risk log",
+    "risk methodology documented",
+    "linkage to QMS processes",
+    "action tracking",
+    "effectiveness review"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "6.1.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "6.1.2",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization applies a formal risk management process (not just risk thinking). Process must be consistent, proportionate to risk, and applied to all relevant areas including product/process safety, counterfeit parts, and configuration.",
+   "seed_expected_evidence": [
+    "Documented risk management process",
+    "risk methodology (FMEA, fault tree, risk matrix)",
+    "application records",
+    "linkage to 8.1 (operational planning)",
+    "review triggers defined"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "6.2",
+   "heading_in_standard": "Quality Objectives and Planning to Achieve Them",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Quality objectives are measurable, monitored, communicated, and updated. Plans to achieve them include who, what, when, and how measured.",
+   "seed_expected_evidence": [
+    "Documented objectives with targets",
+    "measurement method",
+    "monitoring frequency",
+    "responsible owner",
+    "action plans with timelines",
+    "management review linkage"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "6.2.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "6.2.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "6.3",
+   "heading_in_standard": "Planning of Changes",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Changes to the QMS are planned, considering purpose, integrity, resource availability, and responsibility allocation.",
+   "seed_expected_evidence": [
+    "Change management process documented",
+    "change log or register",
+    "approvals documented",
+    "impact assessments",
+    "rollback/contingency considered"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.1",
+   "heading_in_standard": "Resources",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.1.1",
+   "heading_in_standard": "General",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Organization determines and provides resources for QMS implementation, maintenance, and improvement.",
+   "seed_expected_evidence": [
+    "Resource planning in management review",
+    "budget provisions for QMS activities",
+    "documented resource allocation"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.1.2",
+   "heading_in_standard": "People",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Adequate, competent personnel are provided for QMS operation and control.",
+   "seed_expected_evidence": [
+    "Staffing plans",
+    "competency matrices",
+    "personnel records linked to QMS roles"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.1.3",
+   "heading_in_standard": "Infrastructure",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Infrastructure (buildings, equipment, utilities, transport, IT) is determined, provided, and maintained to support product conformity.",
+   "seed_expected_evidence": [
+    "Equipment list",
+    "maintenance program",
+    "calibration linkage",
+    "preventive maintenance records"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.1.4",
+   "heading_in_standard": "Environment for the Operation of Processes",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Work environment is managed to the extent it affects product conformity (cleanliness, temperature, humidity, ESD, FOD control, lighting).",
+   "seed_expected_evidence": [
+    "Environmental controls documented",
+    "monitoring records (where required)",
+    "FOD prevention program if applicable",
+    "ESD controls if applicable"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.1.5",
+   "heading_in_standard": "Monitoring and Measuring Resources",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Measurement equipment is identified, calibrated, maintained, and traceable to national/international standards.",
+   "seed_expected_evidence": [
+    "Calibration program procedure",
+    "calibration recall system",
+    "calibration records",
+    "traceability statements",
+    "out-of-tolerance response process"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.1.5.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Calibration traceability is established and maintained to national or international measurement standards. Where no such standards exist, basis of calibration is documented.",
+   "seed_expected_evidence": [
+    "Calibration certificates showing traceability chain",
+    "NIST traceability (or equivalent)",
+    "reference standard calibration records"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.1.5.2",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Calibration records capture: equipment ID, calibration date, results, out-of-tolerance findings, and adjustment information.",
+   "seed_expected_evidence": [
+    "Complete calibration records with all required fields",
+    "out-of-tolerance records",
+    "customer notification when out-of-tolerance discovered retrospectively",
+    "product recall assessment records"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.1.6",
+   "heading_in_standard": "Organizational Knowledge",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization determines, maintains, and makes available the knowledge needed for process operation and product conformity. Considers lessons learned and new knowledge acquisition.",
+   "seed_expected_evidence": [
+    "Knowledge management process",
+    "lessons learned database or register",
+    "technical library or knowledge repository",
+    "retention strategy for departing personnel knowledge"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.2",
+   "heading_in_standard": "Competence",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Personnel affecting quality conformity are competent. Competency based on education, training, or experience. Effectiveness of training evaluated.",
+   "seed_expected_evidence": [
+    "Competency matrix",
+    "training records",
+    "training effectiveness evaluations",
+    "qualification records for special process operators"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.3",
+   "heading_in_standard": "Awareness",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Personnel are aware of quality policy, objectives, their contribution to QMS effectiveness, and implications of noncompliance.",
+   "seed_expected_evidence": [
+    "Communication records",
+    "awareness training",
+    "briefings",
+    "posted policy",
+    "personnel acknowledgment"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.4",
+   "heading_in_standard": "Communication",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Internal and external communication relevant to the QMS is determined and executed (what, when, with whom, how).",
+   "seed_expected_evidence": [
+    "Communication plan or matrix",
+    "examples of internal communications (QMS changes, policy updates)",
+    "external communication records (customer, regulator, CB)"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.5",
+   "heading_in_standard": "Documented Information",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Required documented information is created, controlled, and maintained. Includes all documents and records required by the standard and the organization.",
+   "seed_expected_evidence": [
+    "Document control procedure",
+    "master document list",
+    "revision control",
+    "distribution control",
+    "retention schedule",
+    "obsolete document removal process"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.5.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.5.2",
+   "heading_in_standard": "Creating and Updating",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.5.3",
+   "heading_in_standard": "Control of Documented Information",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.5.3.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "7.5.3.2",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "External-origin documented information (customer drawings, specifications, regulatory documents, industry standards) is identified, controlled, and current.",
+   "seed_expected_evidence": [
+    "External document register",
+    "subscription to applicable standards",
+    "process for receiving and distributing customer-revised drawings",
+    "verification of document currency"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.1",
+   "heading_in_standard": "Operational Planning and Control",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization plans, implements, and controls processes for product/service delivery. Plans include criteria, resources, controls, monitoring, and documented information requirements.",
+   "seed_expected_evidence": [
+    "Quality plans",
+    "work orders with process controls",
+    "acceptance criteria defined",
+    "monitoring points identified",
+    "records of plan execution"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.1.1",
+   "heading_in_standard": "Operational Risk Management",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Planning addresses customer-specific requirements, special requirements, critical items, and applicable statutory/regulatory requirements. Plans are reviewed with changes and communicated to affected functions.",
+   "seed_expected_evidence": [
+    "Quality plan or equivalent addressing all customer-specific requirements",
+    "critical items identified",
+    "flow-down of regulatory requirements documented"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.1.2",
+   "heading_in_standard": "Configuration Management",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Formal configuration management process controls the identification, documentation, control, status accounting, and audit of product configuration throughout the lifecycle.",
+   "seed_expected_evidence": [
+    "Configuration management procedure",
+    "configuration identification scheme",
+    "configuration change process",
+    "configuration status accounting records",
+    "configuration audits"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.1.3",
+   "heading_in_standard": "Product Safety",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Organization addresses product safety requirements relevant to its products and processes. Includes identification of safety-critical items, applicable regulatory requirements, and implementation of controls.",
+   "seed_expected_evidence": [
+    "Product safety procedure or policy",
+    "identification of safety-critical items (SCIs) or critical safety items (CSIs)",
+    "safety-specific controls documented",
+    "linkage to regulatory requirements (e.g., FAA airworthiness data)",
+    "personnel awareness"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.1.4",
+   "heading_in_standard": "Prevention of Counterfeit Parts",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization has documented process to prevent counterfeit or suspect unapproved parts from entering the supply chain and products. Includes procurement controls, verification, and reporting.",
+   "seed_expected_evidence": [
+    "Counterfeit parts prevention procedure",
+    "approved supplier controls",
+    "procurement channel restrictions",
+    "verification methods",
+    "reporting process (GIDEP, ERAI)",
+    "training records",
+    "disposition of suspect parts"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.2",
+   "heading_in_standard": "Requirements for Products and Services",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.2.1",
+   "heading_in_standard": "Customer Communication",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Processes for communicating with customers include product/service information, inquiries, contracts, changes, customer property, and customer feedback including complaints.",
+   "seed_expected_evidence": [
+    "Customer communication procedure",
+    "contact matrix",
+    "records of communications",
+    "complaint handling process",
+    "feedback mechanisms"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.2.2",
+   "heading_in_standard": "Determining the Requirements for Products and Services",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Organization determines statutory, regulatory, and customer requirements for products/services, including those not explicitly stated but necessary for intended use.",
+   "seed_expected_evidence": [
+    "Contract review process",
+    "requirements capture method",
+    "statutory/regulatory requirement identification",
+    "implied requirements considered"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.2.3",
+   "heading_in_standard": "Review of the Requirements for Products and Services",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Organization reviews requirements before committing to supply. Resolves differences. Retains documented information on results of review and new requirements.",
+   "seed_expected_evidence": [
+    "Contract review records",
+    "RFQ/order review sign-offs",
+    "change review records",
+    "resolution of conflicts documented"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.2.3.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Contract review ensures applicable statutory/regulatory requirements are identified, conflicts resolved, and organization has capability to meet requirements before acceptance.",
+   "seed_expected_evidence": [
+    "Capability review in contract review process",
+    "regulatory requirement check",
+    "records showing regulatory requirements identified per contract"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.2.3.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.2.4",
+   "heading_in_standard": "Changes to Requirements for Products and Services",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.3",
+   "heading_in_standard": "Design and Development of Products and Services",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Design and development process is planned and controlled. Inputs, outputs, reviews, verification, validation, and changes are all controlled. (Full clause — 8.3.1 through 8.3.6.)",
+   "seed_expected_evidence": [
+    "Design control procedure",
+    "design review records",
+    "verification records",
+    "validation records",
+    "design change records",
+    "design output documents controlled"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.3.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.3.2",
+   "heading_in_standard": "Design and Development Planning",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.3.3",
+   "heading_in_standard": "Design and Development Inputs",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.3.4",
+   "heading_in_standard": "Design and Development Controls",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.3.4.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Design controls include design reviews at appropriate stages, use of alternative calculation methods, and testing when design cannot be verified by analysis.",
+   "seed_expected_evidence": [
+    "Stage-gated design review records",
+    "independent design verification records",
+    "test reports where analysis insufficient"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.3.5",
+   "heading_in_standard": "Design and Development Outputs",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.3.6",
+   "heading_in_standard": "Design and Development Changes",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.4",
+   "heading_in_standard": "Control of Externally Provided Processes, Products, and Services",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "External providers are selected, evaluated, and controlled. Requirements flowed down. Performance monitored.",
+   "seed_expected_evidence": [
+    "Approved supplier list (ASL)",
+    "supplier evaluation/qualification records",
+    "supplier performance monitoring data",
+    "flow-down requirements documented",
+    "re-evaluation records"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.4.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.4.1.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization controls externally provided processes to ensure they meet requirements. Applies to sub-tier suppliers including distributors and special process providers. Controls proportionate to risk.",
+   "seed_expected_evidence": [
+    "Risk-based supplier classification",
+    "different control levels per risk tier",
+    "special process supplier qualification records",
+    "counterfeit parts controls for distributors"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.4.2",
+   "heading_in_standard": "Type and Extent of Control",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.4.3",
+   "heading_in_standard": "Information for External Providers",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization communicates requirements to external providers including product/process/equipment requirements, qualification requirements, QMS requirements, and customer flow-down requirements.",
+   "seed_expected_evidence": [
+    "Purchase orders with complete requirements",
+    "supplier quality requirements documents",
+    "flow-down of applicable customer and regulatory requirements",
+    "approval requirements"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.5",
+   "heading_in_standard": "Production and Service Provision",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.5.1",
+   "heading_in_standard": "Control of Production and Service Provision",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Production and service provision is controlled under defined conditions including documented information, monitoring, measurement, infrastructure, and competent personnel.",
+   "seed_expected_evidence": [
+    "Work orders/travelers",
+    "work instructions referenced",
+    "acceptance criteria available at point of use",
+    "monitoring and measurement at defined points",
+    "qualified operators"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.5.1.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Production controls include: documentation of product/process characteristics, first article inspection (FAI) when required, key characteristic controls, approval of production processes and equipment, control of work performed outside normal facilities.",
+   "seed_expected_evidence": [
+    "FAI procedure and records (per AS9102 or equivalent)",
+    "KC control plan",
+    "in-process monitoring records for KCs",
+    "approved process list",
+    "tooling qualification records",
+    "off-site production controls"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.5.1.2",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Special processes (those where output cannot be fully verified by subsequent inspection) are controlled by: qualified processes, qualified equipment, qualified personnel, and monitoring of process parameters.",
+   "seed_expected_evidence": [
+    "List of special processes in scope",
+    "qualification status of each (e.g., Nadcap, customer approval)",
+    "qualified personnel records",
+    "process parameter monitoring records",
+    "approved process specifications referenced in work instructions"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.5.1.3",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Production equipment, tooling, and numerically controlled (NC) software used in production are identified, controlled, and maintained. Includes tool qualification and software verification.",
+   "seed_expected_evidence": [
+    "Tool identification system",
+    "tool control procedure",
+    "NC program verification process",
+    "tool calibration/maintenance records",
+    "tool custody tracking"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.5.2",
+   "heading_in_standard": "Identification and Traceability",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Product is identified throughout production and delivery. Traceability maintained to the extent required. Inspection and test status maintained throughout.",
+   "seed_expected_evidence": [
+    "Part marking/labeling process",
+    "lot/serial control system",
+    "traceability records",
+    "inspection status indicators",
+    "nonconforming product segregation and marking"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.5.3",
+   "heading_in_standard": "Property Belonging to Customers or External Providers",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Customer and external provider property is identified, verified, protected, and safeguarded. Lost, damaged, or unsuitable property is reported to the owner.",
+   "seed_expected_evidence": [
+    "Customer property identification system",
+    "verification records",
+    "custody records",
+    "damage/loss reporting records"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.5.4",
+   "heading_in_standard": "Preservation",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Product is preserved during production and delivery to maintain conformity. Includes identification, handling, packaging, storage, transmission/transport, and protection.",
+   "seed_expected_evidence": [
+    "Preservation procedure",
+    "packaging specifications",
+    "shelf-life controls",
+    "storage environment controls",
+    "handling instructions",
+    "ESD protection (where applicable)"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.5.5",
+   "heading_in_standard": "Post-Delivery Activities",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization determines extent of post-delivery activities required by customer, statutory/regulatory requirements, or organization itself. Includes warranty, maintenance, recycling.",
+   "seed_expected_evidence": [
+    "Post-delivery activities defined in procedure",
+    "field service records",
+    "warranty process",
+    "in-service feedback mechanism",
+    "customer complaint post-delivery tracking"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.5.6",
+   "heading_in_standard": "Control of Changes",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Changes to production/service provision are reviewed and controlled to ensure continuing conformity. Persons authorizing changes are identified.",
+   "seed_expected_evidence": [
+    "Change control procedure",
+    "production change records",
+    "authorization documented",
+    "assessment of impact on conformity",
+    "re-verification/validation when required"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.6",
+   "heading_in_standard": "Release of Products and Services",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Product is not released until all planned arrangements are satisfactorily completed. Authorized personnel documented. Records of release retained.",
+   "seed_expected_evidence": [
+    "Final inspection/acceptance records",
+    "authorized signatory list",
+    "conformance statement",
+    "records showing all requirements met before release"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.7",
+   "heading_in_standard": "Control of Nonconforming Outputs",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Nonconforming products/processes are identified, controlled, and dispositioned. Prevent unintended use or delivery.",
+   "seed_expected_evidence": [
+    "Nonconformance control procedure",
+    "NCR system",
+    "segregation process",
+    "disposition records (use as is, rework, scrap, return)",
+    "authorized disposition authorities",
+    "customer/regulatory notification when required"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.7.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "NCR process includes: documentation of nonconformance, containment, root cause analysis triggers, disposition authorization (with approvals), customer notification for escapes, regulatory notification when required, and concession/waiver request process.",
+   "seed_expected_evidence": [
+    "NCR form with all required fields",
+    "containment records",
+    "customer notification records for escapes",
+    "concession/waiver requests and approvals",
+    "segregation records",
+    "scrap/part mutation records"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "8.7.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.1",
+   "heading_in_standard": "Monitoring, Measurement, Analysis, and Evaluation",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization determines what to monitor, how, when, and when results are analyzed and evaluated. Includes customer satisfaction, process performance, and product conformity.",
+   "seed_expected_evidence": [
+    "Performance monitoring plan",
+    "KPI dashboard or register",
+    "customer satisfaction measurement method",
+    "analysis records",
+    "trends reported to management review"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.1.1",
+   "heading_in_standard": "General",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Monitoring program includes: on-time delivery, quality escapes, supplier performance, internal audit results, and corrective action cycle time. Data is used to drive continual improvement.",
+   "seed_expected_evidence": [
+    "KPI set addressing all required areas",
+    "trend data",
+    "performance vs. target analysis",
+    "management review input records with trend data"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.1.2",
+   "heading_in_standard": "Customer Satisfaction",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.1.3",
+   "heading_in_standard": "Analysis and Evaluation",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.2",
+   "heading_in_standard": "Internal Audit",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Internal audit program covers the full QMS, is planned based on risk, uses competent auditors independent of audited area, reports results to management, and drives corrective action.",
+   "seed_expected_evidence": [
+    "Audit program/schedule",
+    "audit plan",
+    "audit reports",
+    "corrective actions from audit findings",
+    "auditor qualifications",
+    "independence records",
+    "management review of audit results"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.2.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.2.2",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Audit program considers: process complexity, risk, previous audit results, customer feedback, and applicable regulatory requirements. Auditor qualification level commensurate with audit complexity.",
+   "seed_expected_evidence": [
+    "Risk-based audit scheduling criteria",
+    "previous audit results used in scheduling",
+    "auditor qualification records",
+    "regulatory requirements included in audit scope"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.3",
+   "heading_in_standard": "Management Review",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Top management reviews QMS at planned intervals to ensure continuing suitability, adequacy, effectiveness, and alignment with strategic direction. Includes all required inputs and produces documented outputs.",
+   "seed_expected_evidence": [
+    "Management review procedure",
+    "review records with all required inputs addressed",
+    "action items with owners and timelines",
+    "evidence of top management attendance",
+    "follow-up on previous actions"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.3.1",
+   "heading_in_standard": "General",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Management review inputs include: status of quality objectives, feedback from external parties including regulatory bodies, and results of risk management.",
+   "seed_expected_evidence": [
+    "Management review agenda addressing all inputs including regulatory feedback",
+    "risk management results as agenda input",
+    "quality objective status report"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.3.2",
+   "heading_in_standard": "Management Review Inputs",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "9.3.3",
+   "heading_in_standard": "Management Review Outputs",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "10",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "10.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "10.2",
+   "heading_in_standard": "Nonconformity and Corrective Action",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Nonconformities are reacted to, root causes determined, corrective actions implemented, and effectiveness verified. Systematic process applied.",
+   "seed_expected_evidence": [
+    "Corrective action procedure",
+    "CAR records with all elements",
+    "root cause analysis records",
+    "action implementation records",
+    "effectiveness verification records",
+    "management review linkage"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "10.2.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Corrective action process includes: timely response, containment, root cause analysis (using appropriate tools), action implementation, effectiveness verification, flow to similar processes and products, and management review of systemic findings.",
+   "seed_expected_evidence": [
+    "CAR records showing: containment, root cause (using systematic method — 5-Why, 8D, Fishbone, etc.), corrective actions, implementation evidence, effectiveness verification, applicability to similar processes, management review of trends"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "10.2.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9100D",
+   "clause_ref": "10.3",
+   "heading_in_standard": "Continual Improvement",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization continually improves QMS suitability, adequacy, and effectiveness. Uses analysis of data, audit results, lessons learned, and management review to drive improvement.",
+   "seed_expected_evidence": [
+    "Improvement plan",
+    "improvement initiatives",
+    "results of improvement actions",
+    "continual improvement linkage to management review",
+    "lessons learned integration"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "4",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "4.1",
+   "heading_in_standard": "Understanding the Organization and Its Context",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "4.2",
+   "heading_in_standard": "Understanding the Needs and Expectations of Interested Parties",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "4.3",
+   "heading_in_standard": "Determining the Scope of the Quality Management System",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "4.4",
+   "heading_in_standard": "Quality Management System and Its Processes",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "4.4.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "4.4.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.1",
+   "heading_in_standard": "Leadership and Commitment",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.1.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.1.2",
+   "heading_in_standard": "Customer Focus",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.2",
+   "heading_in_standard": "Policy",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.2.1",
+   "heading_in_standard": "Establishing the Quality Policy",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.2.2",
+   "heading_in_standard": "Communicating the Quality Policy",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.2.3",
+   "heading_in_standard": "Establishing and Communicating the Safety Policy",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.3",
+   "heading_in_standard": "Organizational Roles, Responsibilities, and Authorities",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.3.1",
+   "heading_in_standard": "Accountable Manager",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.3.2",
+   "heading_in_standard": "Quality Manager",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "5.3.3",
+   "heading_in_standard": "Other Appointed Manager(s)",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "6",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "6.1",
+   "heading_in_standard": "Actions to Address Risks and Opportunities",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "6.1.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "6.1.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "6.2",
+   "heading_in_standard": "Quality Objectives and Planning to Achieve Them",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "6.2.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "6.2.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "6.3",
+   "heading_in_standard": "Planning of Changes",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.1",
+   "heading_in_standard": "Resources",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.1.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.1.2",
+   "heading_in_standard": "People",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.1.3",
+   "heading_in_standard": "Infrastructure",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.1.4",
+   "heading_in_standard": "Environment for the Operation of Processes",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.1.5",
+   "heading_in_standard": "Monitoring and Measuring Resources",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.1.5.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Calibration of measurement and test equipment used in maintenance is traceable to national or international standards. Out-of-tolerance response includes assessment of maintenance tasks performed with the equipment.",
+   "seed_expected_evidence": [
+    "Calibration certificates with traceability chain",
+    "calibration recall system",
+    "out-of-tolerance process including task review",
+    "customer notification process when OOT equipment affected previously released work"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.1.5.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.1.6",
+   "heading_in_standard": "Organizational Knowledge",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.2",
+   "heading_in_standard": "Competence",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.3",
+   "heading_in_standard": "Awareness",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.4",
+   "heading_in_standard": "Communication",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.5",
+   "heading_in_standard": "Documented Information",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.5.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.5.2",
+   "heading_in_standard": "Creating and Updating",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.5.3",
+   "heading_in_standard": "Control of Documented Information",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.5.3.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "7.5.3.2",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Manufacturer technical data (AMM, CMM, SRM, IPC, AWM, service bulletins, ADs, etc.) is identified, controlled for currency, and available at point of use. Superseded data is removed. Currency is verified before task commencement.",
+   "seed_expected_evidence": [
+    "External document register for all airworthiness data",
+    "subscription management for current revisions",
+    "distribution and availability controls",
+    "superseded revision removal process",
+    "point-of-use currency verification requirement",
+    "AD/SB tracking for applicability"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.1",
+   "heading_in_standard": "Operational Planning and Control",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.1.1",
+   "heading_in_standard": "Operational Risk Management",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Maintenance activities are planned before commencement. Planning identifies applicable technical data, required resources, special tooling, competent personnel, and environmental conditions. Pre-task briefings and preparation are controlled.",
+   "seed_expected_evidence": [
+    "Work order or task card system",
+    "pre-task planning records",
+    "applicable technical data identified before task commencement",
+    "resource availability confirmed",
+    "special task controls identified in planning phase"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.1.2",
+   "heading_in_standard": "Configuration Management",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Components inducted for maintenance are uniquely identified and tracked throughout the maintenance process from induction to return to service or disposition. Traceability to maintenance records is maintained.",
+   "seed_expected_evidence": [
+    "Component induction log or system",
+    "unique identification per component",
+    "tracking through each maintenance operation",
+    "records linking component to work performed",
+    "serviceable/unserviceable tag system",
+    "traceability from released component to maintenance record"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.1.3",
+   "heading_in_standard": "Product Safety",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Life-limited parts (LLPs) are identified, tracked, and controlled throughout maintenance. Life status is verified at induction, updated per maintenance performed, and documented on release. Parts at or beyond their life limit are not returned to service.",
+   "seed_expected_evidence": [
+    "LLP identification process at induction",
+    "life status documentation (cycles, hours, calendar time)",
+    "LLP records retained for full service life",
+    "life status updated after maintenance affecting life",
+    "prohibition on return to service of life-expired parts",
+    "customer notification when LLP status discrepancy found"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.1.4",
+   "heading_in_standard": "Prevention of Counterfeit Parts",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Organization prevents installation of counterfeit, bogus, or unapproved parts during maintenance. Controls include procurement channel management, receiving verification of airworthiness documentation, independent verification methods, and reporting.",
+   "seed_expected_evidence": [
+    "Approved parts procurement procedure",
+    "approved source list",
+    "receiving inspection requiring airworthiness documentation (FAA 8130-3, EASA Form 1, or CoC from authorized source)",
+    "independent verification method for high-risk parts",
+    "suspect part quarantine and reporting process (GIDEP, EASI)",
+    "personnel training records"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.1.5",
+   "heading_in_standard": "Prevention of Suspected Unapproved Parts",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Safety-critical maintenance tasks and safety-critical items are identified. Controls are implemented proportionate to safety risk. Personnel performing safety-critical tasks understand the safety implications.",
+   "seed_expected_evidence": [
+    "Safety-critical task identification process",
+    "safety-critical items (SCIs) list",
+    "enhanced controls for safety-critical tasks (witness inspection, dual inspection, etc.)",
+    "personnel awareness of safety implications",
+    "regulatory requirements for safety-critical tasks addressed"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.1.6",
+   "heading_in_standard": "Installation of Approved Parts",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.2",
+   "heading_in_standard": "Requirements for Products and Services",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.2.1",
+   "heading_in_standard": "Customer Communication",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.2.2",
+   "heading_in_standard": "Determining the Requirements for Products and Services",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.2.3",
+   "heading_in_standard": "Review of the Requirements for Products and Services",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.2.3.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.2.3.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.2.4",
+   "heading_in_standard": "Changes to Requirements for Products and Services",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.3",
+   "heading_in_standard": "Design and Development of Products and Services",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.3.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.3.2",
+   "heading_in_standard": "Design and Development Planning",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.3.3",
+   "heading_in_standard": "Design and Development Inputs",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.3.4",
+   "heading_in_standard": "Design and Development Controls",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.3.5",
+   "heading_in_standard": "Design and Development Outputs",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.3.6",
+   "heading_in_standard": "Design and Development Changes",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.4",
+   "heading_in_standard": "Control of Externally Provided Processes, Products, and Services",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.4.1",
+   "heading_in_standard": "General",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "When maintenance tasks are subcontracted (subletting), the prime organization controls the subcontractor and remains responsible for airworthiness of the work. Subcontracted work is released back to the prime for final release to service.",
+   "seed_expected_evidence": [
+    "Approved subcontractor list",
+    "subcontractor qualification criteria (including regulatory authorization verification)",
+    "flow-down of applicable requirements",
+    "right of access clause",
+    "performance monitoring",
+    "return of completed work with appropriate documentation",
+    "prime organization's release to service covers subcontracted work"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.4.1.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.4.2",
+   "heading_in_standard": "Type and Extent of Control",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.4.3",
+   "heading_in_standard": "Information for External Providers",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5",
+   "heading_in_standard": "Production and Service Provision",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5.1",
+   "heading_in_standard": "Control of Production and Service Provision",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Maintenance tasks are performed under controlled conditions using: applicable technical data, approved tooling, qualified and authorized personnel, acceptance criteria, monitoring at defined points, and prevention of human error.",
+   "seed_expected_evidence": [
+    "Task cards or work orders referencing specific technical data revision",
+    "tooling requirements identified",
+    "acceptance criteria at each task step",
+    "in-process inspection points",
+    "signatory authority defined",
+    "work performed only by qualified personnel",
+    "error-proofing applied to complex or error-prone steps"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5.1.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Maintenance task execution controls address human factors specifically. Maintenance error critical tasks (MECTs) are identified and receive enhanced controls. Shift handover controls prevent continuation errors. Fatigue and fitness-for-duty are addressed.",
+   "seed_expected_evidence": [
+    "MECT identification in task planning",
+    "enhanced controls for MECTs (witness inspection, independent re-inspection, etc.)",
+    "written shift handover records",
+    "incomplete task identification in handover documentation",
+    "continuation authorization before resuming handed-over tasks",
+    "fatigue risk management process",
+    "fitness-for-duty controls"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5.1.2",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Special processes used in maintenance (NDT, welding, composite repair, painting, plating, heat treatment) are performed by qualified processes with qualified equipment and qualified personnel. Process parameter monitoring is maintained.",
+   "seed_expected_evidence": [
+    "Special process list",
+    "qualification status per process (Nadcap, customer approval, or regulatory acceptance)",
+    "qualified personnel records per applicable specification (NAS410 for NDT, etc.)",
+    "process parameter monitoring records",
+    "approved process specifications referenced in work instructions",
+    "sub-tier special process approvals where outsourced"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5.1.3",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5.1.4",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5.2",
+   "heading_in_standard": "Identification and Traceability",
+   "basis": "SEED MATCHES STANDARD HEADING",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Components and assemblies are uniquely identified throughout maintenance. Inspection and test status is maintained at each stage. Traceability is maintained from induction through return to service. Life-limited parts are traceable through their complete maintenance history.",
+   "seed_expected_evidence": [
+    "Unique identification at all stages",
+    "serviceable/unserviceable tagging",
+    "inspection status at each operation",
+    "complete maintenance record traceable to released component",
+    "LLP history traceable through all maintenance events"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5.3",
+   "heading_in_standard": "Property Belonging to Customers or External Providers",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Customer aircraft, engines, and components received for maintenance are verified at induction, identified, protected, and safeguarded throughout maintenance. Pre-existing damage is documented before work begins. Loss or damage during maintenance is reported.",
+   "seed_expected_evidence": [
+    "Induction inspection records",
+    "pre-existing damage documentation",
+    "customer property identification system",
+    "storage and protection process",
+    "damage/loss reporting procedure",
+    "customer notification records",
+    "LLP and life status documentation verified at induction"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5.4",
+   "heading_in_standard": "Preservation",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Components are preserved during maintenance to prevent damage, contamination, or degradation. Shelf-life of materials is controlled. ESD protection applied where required. Components stored appropriately between maintenance operations.",
+   "seed_expected_evidence": [
+    "Preservation procedure",
+    "packaging and protection specifications",
+    "shelf-life tracking for consumables and materials",
+    "expired material removal process",
+    "ESD protection for avionic components",
+    "bonding and blanketing during maintenance",
+    "FOD prevention controls"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5.5",
+   "heading_in_standard": "Post-Delivery Activities",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.5.6",
+   "heading_in_standard": "Control of Changes",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.6",
+   "heading_in_standard": "Release of Products and Services",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Maintenance release (return to service) is issued only by authorized certifying staff within their authorization scope. Release document contains all required data elements. Regulatory form requirements are met. Records support the release.",
+   "seed_expected_evidence": [
+    "Return to service procedure",
+    "authorized certifying staff list with current scope",
+    "release document template with all regulatory-required fields",
+    "pre-release verification checklist",
+    "records package linked to each release",
+    "regulatory form (8130-3, EASA Form 1, or equivalent) completed correctly"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.7",
+   "heading_in_standard": "Control of Nonconforming Outputs",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.7.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Nonconforming maintenance work (unsatisfactory conditions, out-of-tolerance findings, unairworthy conditions) is identified, controlled, and dispositioned before return to service. Customer and regulatory notification when escapes occur.",
+   "seed_expected_evidence": [
+    "NCR system adapted for maintenance context",
+    "unairworthy condition reporting process",
+    "quarantine and segregation of unserviceable components",
+    "disposition authority (repair, replace, return to customer unserviceable, scrap)",
+    "customer notification for escapes",
+    "regulatory reporting where required (service difficulty reports, mandatory occurrence reports)"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "8.7.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.1",
+   "heading_in_standard": "Monitoring, Measurement, Analysis, and Evaluation",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.1.1",
+   "heading_in_standard": "General",
+   "basis": "SEED TITLE DIFFERS FROM STANDARD HEADING",
+   "intent_state": "AUTHOR (title corrected)",
+   "seed_intent": "Performance monitoring program includes MRO-specific metrics: on-time release, maintenance error rates, repeat maintenance, customer complaints, rework rates, and regulatory finding trends. Metrics fed to management review.",
+   "seed_expected_evidence": [
+    "KPI set addressing MRO-specific areas",
+    "trend data",
+    "maintenance error tracking",
+    "repeat maintenance tracking",
+    "regulatory finding integration in performance monitoring"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.1.2",
+   "heading_in_standard": "Customer Satisfaction",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.1.3",
+   "heading_in_standard": "Analysis and Evaluation",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.2",
+   "heading_in_standard": "Internal Audit",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.2.1",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.2.2",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Internal audit program covers both QMS and regulatory requirements. Audit scope includes hangar floor, workshop, and all authorized maintenance activities — not only administrative processes. Audit findings from regulatory authorities are integrated into the internal audit program.",
+   "seed_expected_evidence": [
+    "Audit program covering all maintenance activities and all applicable regulations",
+    "hangar/workshop audit records",
+    "regulatory finding tracking integrated with internal audit",
+    "risk-based scheduling weighted toward airworthiness-critical processes"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.3",
+   "heading_in_standard": "Management Review",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.3.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.3.2",
+   "heading_in_standard": "Management Review Inputs",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "9.3.3",
+   "heading_in_standard": "Management Review Outputs",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "10",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "10.1",
+   "heading_in_standard": "General",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "10.2",
+   "heading_in_standard": "Nonconformity and Corrective Action",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "10.2.1",
+   "heading_in_standard": null,
+   "basis": "NUMBERED REQUIREMENT, NO HEADING; SEED ROW PRESENT",
+   "intent_state": "SEED TEXT - VERIFY",
+   "seed_intent": "Corrective action process addresses maintenance-specific failure modes. Root cause analysis accounts for human factors, systemic process weaknesses, and technical data issues — not only product or component deficiencies. Lessons learned feed back to task cards, training, and technical data.",
+   "seed_expected_evidence": [
+    "CAR records addressing maintenance-specific root causes",
+    "human factors root cause consideration",
+    "systemic process improvement actions",
+    "lessons learned linkage to task card updates, training updates, and technical data requests",
+    "management review of maintenance error trends"
+   ],
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "10.2.2",
+   "heading_in_standard": null,
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  },
+  {
+   "standard": "AS9110C",
+   "clause_ref": "10.3",
+   "heading_in_standard": "Continual Improvement",
+   "basis": "NO SEED ROW",
+   "intent_state": "AUTHOR",
+   "seed_intent": null,
+   "seed_expected_evidence": null,
+   "audit_required": true,
+   "na_allowed": "ONLY IF listed as an exception in the organization's quality manual"
+  }
+ ],
+ "counts": {
+  "AS9100D": {
+   "clauses_4_to_10": 100,
+   "seed_text_to_verify": 48,
+   "author_required": 52
+  },
+  "AS9110C": {
+   "clauses_4_to_10": 106,
+   "seed_text_to_verify": 9,
+   "author_required": 97
+  }
+ }
+}

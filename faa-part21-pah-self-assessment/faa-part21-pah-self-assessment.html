@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAA Part 21 PAH Compliance Self-Assessment | Conform-Edge</title>
+<style>
+  :root {
+    --ce-navy: #1a2744;
+    --ce-steel: #3a5a8c;
+    --ce-accent: #4e8bbf;
+    --ce-gold: #c8922a;
+    --ce-bg: #f4f6fb;
+    --ce-card: #ffffff;
+    --ce-border: #d0d8e8;
+    --ce-text: #1e2a3a;
+    --ce-muted: #6b7a90;
+    --pass: #166534;
+    --pass-bg: #dcfce7;
+    --warn: #854d0e;
+    --warn-bg: #fef9c3;
+    --fail: #991b1b;
+    --fail-bg: #fee2e2;
+    --crit-badge: #dc2626;
+    --faa-blue: #003087;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--ce-bg); color: var(--ce-text); min-height: 100vh; }
+  header { background: var(--faa-blue); color: white; padding: 18px 32px; }
+  header .brand { font-size: 12px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  header h1 { font-size: 20px; font-weight: 700; }
+  header .subtitle { font-size: 12px; opacity: 0.65; margin-top: 4px; }
+  header .auth-strip { display: flex; gap: 20px; margin-top: 10px; }
+  header .auth-badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 3px; font-size: 11px; }
+  .container { max-width: 980px; margin: 0 auto; padding: 28px 16px; }
+  .card { background: var(--ce-card); border: 1px solid var(--ce-border); border-radius: 8px; padding: 24px; margin-bottom: 20px; }
+  .card h2 { font-size: 16px; font-weight: 700; color: var(--faa-blue); margin-bottom: 16px; border-bottom: 2px solid var(--ce-accent); padding-bottom: 8px; }
+  .intro { background: linear-gradient(135deg, var(--faa-blue) 0%, var(--ce-steel) 100%); color: white; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; }
+  .intro h2 { color: white; border-color: rgba(255,255,255,0.3); }
+  .intro p { font-size: 13px; line-height: 1.7; opacity: 0.9; margin-top: 8px; }
+  .pah-selector { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .pah-btn { padding: 9px 18px; border: 2px solid var(--ce-border); background: var(--ce-card); border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ce-muted); transition: all 0.2s; }
+  .pah-btn:hover { border-color: var(--faa-blue); color: var(--faa-blue); }
+  .pah-btn.active { background: var(--faa-blue); border-color: var(--faa-blue); color: white; }
+  .section-header { background: var(--faa-blue); color: white; padding: 9px 14px; border-radius: 5px; font-size: 13px; font-weight: 700; margin: 18px 0 10px; }
+  .question-row { border: 1px solid var(--ce-border); border-radius: 6px; padding: 14px; margin-bottom: 10px; background: white; }
+  .question-row.critical { border-left: 4px solid var(--crit-badge); }
+  .question-header { display: flex; align-items: flex-start; gap: 10px; }
+  .q-num { font-size: 11px; font-weight: 700; color: var(--ce-muted); min-width: 36px; padding-top: 2px; }
+  .q-text { font-size: 13px; line-height: 1.5; flex: 1; }
+  .crit-badge { background: var(--crit-badge); color: white; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; white-space: nowrap; }
+  .q-ref { font-size: 11px; color: var(--ce-muted); margin-top: 4px; font-style: italic; }
+  .response-row { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+  .response-row label { font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 4px 12px; border: 1px solid var(--ce-border); border-radius: 4px; }
+  .response-row input[type="radio"] { accent-color: var(--faa-blue); }
+  .response-row label.sel-yes { background: var(--pass-bg); border-color: var(--pass); color: var(--pass); }
+  .response-row label.sel-partial { background: var(--warn-bg); border-color: var(--warn); color: var(--warn); }
+  .response-row label.sel-no { background: var(--fail-bg); border-color: var(--fail); color: var(--fail); }
+  .verdict-bar { border-radius: 8px; padding: 20px 24px; margin: 20px 0; text-align: center; }
+  .verdict-bar.compliant { background: var(--pass-bg); border: 2px solid var(--pass); color: var(--pass); }
+  .verdict-bar.conditional { background: var(--warn-bg); border: 2px solid var(--warn); color: var(--warn); }
+  .verdict-bar.not-compliant { background: var(--fail-bg); border: 2px solid var(--fail); color: var(--fail); }
+  .verdict-bar h3 { font-size: 22px; font-weight: 800; }
+  .verdict-bar p { font-size: 14px; margin-top: 6px; }
+  .score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; margin: 16px 0; }
+  .score-box { background: var(--ce-bg); border: 1px solid var(--ce-border); border-radius: 6px; padding: 14px; text-align: center; }
+  .score-box .val { font-size: 26px; font-weight: 800; color: var(--faa-blue); }
+  .score-box .lbl { font-size: 11px; color: var(--ce-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .gap-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .gap-table th { background: var(--faa-blue); color: white; padding: 8px 10px; text-align: left; }
+  .gap-table td { padding: 8px 10px; border-bottom: 1px solid var(--ce-border); vertical-align: top; }
+  .gap-table tr:nth-child(even) td { background: var(--ce-bg); }
+  .gap-table .crit-row td { background: #fff5f5; }
+  .btn { padding: 10px 22px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; }
+  .btn-primary { background: var(--faa-blue); color: white; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-secondary { background: var(--ce-accent); color: white; }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .mai-badge { background: var(--ce-bg); border: 1px solid var(--ce-border); border-radius: 6px; padding: 10px 14px; font-size: 11px; color: var(--ce-muted); display: flex; align-items: center; gap: 8px; }
+  .mai-badge span { font-weight: 700; color: var(--ce-steel); }
+  .hidden { display: none; }
+  .pah-desc { font-size: 12px; color: var(--ce-muted); background: var(--ce-bg); border-radius: 5px; padding: 10px 14px; margin-bottom: 14px; border-left: 3px solid var(--faa-blue); }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; font-size: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .cfr-tag { font-size: 10px; background: var(--faa-blue); color: white; padding: 1px 6px; border-radius: 3px; }
+  .pah-mode-bar { background: var(--ce-bg); border: 1px solid var(--ce-border); border-radius: 6px; padding: 14px; margin-bottom: 18px; }
+  .pah-mode-bar h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; color: var(--faa-blue); }
+  footer { text-align: center; font-size: 11px; color: var(--ce-muted); padding: 24px; border-top: 1px solid var(--ce-border); margin-top: 24px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Conform-Edge Quality Consulting</div>
+  <h1>FAA Part 21 Production Approval Holder (PAH) Compliance Self-Assessment</h1>
+  <div class="subtitle">14 CFR Part 21 Subparts F / G / O — PMA · TSO · PC Holder Pre-Inspection Preparation</div>
+  <div class="auth-strip">
+    <div class="auth-badge">14 CFR Part 21</div>
+    <div class="auth-badge">AC 21-43</div>
+    <div class="auth-badge">AC 21.303-4</div>
+    <div class="auth-badge">FAA ASI Inspection Readiness</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="intro card">
+    <h2>About This Tool</h2>
+    <p>Production Approval Holders (PAHs) — including Parts Manufacturer Approval (PMA), Technical Standard Order Authorization (TSOA), and Production Certificate (PC) holders — are subject to FAA ASI (Aviation Safety Inspector) surveillance under 14 CFR Part 21. This self-assessment covers the core compliance requirements across all three PAH types, including design data control, conformity inspection, quality system, supplier oversight, record retention, and airworthiness release.</p>
+    <p style="margin-top:8px;">Each question maps to a specific 14 CFR Part 21 requirement. Critical items (<span style="background:#dc2626;color:white;padding:1px 5px;border-radius:3px;font-size:11px;font-weight:700;">CRITICAL</span>) represent findings FAA ASIs most commonly cite as unsafe conditions or enforcement actions. A single CRITICAL NO forces a NOT COMPLIANT verdict regardless of overall score.</p>
+  </div>
+
+  <div class="card">
+    <h2>PAH Type Selection</h2>
+    <div class="pah-mode-bar">
+      <h3>Select your Production Approval type to customize applicable requirements:</h3>
+      <div class="pah-selector">
+        <button class="pah-btn active" id="btn-all" onclick="setPAH('all')">All PAH Types (Common Requirements)</button>
+        <button class="pah-btn" id="btn-pma" onclick="setPAH('pma')">PMA Holder (Subpart K / 21.303)</button>
+        <button class="pah-btn" id="btn-tso" onclick="setPAH('tso')">TSO Holder (Subpart O / 21.607+)</button>
+        <button class="pah-btn" id="btn-pc" onclick="setPAH('pc')">PC Holder (Subpart G / 21.143+)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 1: Quality System -->
+  <div class="card">
+    <h2>Section 1 — Quality System Requirements</h2>
+    <div class="pah-desc">Applies to all PAH types. The PAH must maintain a quality system that ensures each article conforms to its type design (or approved data for TSOs). The quality system must be documented and demonstrate effective control. Reference: 14 CFR 21.303(c)(1), 21.143, 21.607; AC 21-43.</div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#dc2626;"></div><span>Critical — single NO = NOT COMPLIANT</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--ce-accent);"></div><span>Standard</span></div>
+    </div>
+
+    <div id="qs-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">QS-1</span><span class="q-text">Is the PAH's quality system documented in a Quality Manual or equivalent document that covers: organization, responsibilities, conformity inspection process, supplier control, record retention, and corrective action?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1) (PMA) / 21.143 (PC) / 21.607 (TSO) / AC 21-43 §4 / FAA Order 8120.22</div>
+      <div class="response-row" data-q="qs-q1"></div>
+    </div>
+    <div id="qs-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">QS-2</span><span class="q-text">Is there a designated Quality Assurance function (person or department) with clear authority to reject nonconforming articles, independent of production pressures?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(ii) / 21.143(b) / AC 21-43 §5.1 / FAA enforcement action basis for QA authority gaps</div>
+      <div class="response-row" data-q="qs-q2"></div>
+    </div>
+    <div id="qs-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">QS-3</span><span class="q-text">Is the quality system subject to periodic internal audits (self-audit program), with findings tracked, corrective actions raised, and audit records retained?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(vi) / AC 21-43 §5.3 / AS9100D Cl. 9.2 (if AS9100D-aligned)</div>
+      <div class="response-row" data-q="qs-q3"></div>
+    </div>
+    <div id="qs-q4" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">QS-4</span><span class="q-text">Does the quality system include a corrective action process that addresses root cause, containment, corrective action verification, and recurrence prevention?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(vi) / AC 21-43 §5.5 / FAA Compliance Program applicability</div>
+      <div class="response-row" data-q="qs-q4"></div>
+    </div>
+  </div>
+
+  <!-- Section 2: Design Data Control -->
+  <div class="card">
+    <h2>Section 2 — Design Data &amp; Conformity</h2>
+    <div class="pah-desc">A PAH must manufacture to approved design data. For PMA: identicality, test and computation, or STC-basis approved data (21.303(a)). For TSO: TSOA minimum performance standard (MPS) data. For PC: approved type design data. Design data control is the most common ASI finding category.</div>
+
+    <div id="dd-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">DD-1</span><span class="q-text">Is the current approved design data (PMA supplement, TSOA letter/MPS, or TC/STC data package) identified, controlled, and accessible to production and inspection? Is the current revision status known and retrievable?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(b)(1) (PMA) / 21.607(a) (TSO) / 21.143(c)(1) (PC) / AC 21.303-4 §7 design data requirements</div>
+      <div class="response-row" data-q="dd-q1"></div>
+    </div>
+    <div id="dd-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">DD-2</span><span class="q-text">Is there a documented process to ensure that only current, approved design data (drawings, specifications, engineering orders) is used in production — with superseded data removed or clearly identified as obsolete?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(i) / AC 21-43 §5.2 document control / AS9100D Cl. 7.5 (if aligned)</div>
+      <div class="response-row" data-q="dd-q2"></div>
+    </div>
+    <div id="dd-q3" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">DD-3</span><span class="q-text">Does each article produced have a completed conformity record (traveler, inspection record, or equivalent) showing it was inspected to, and conforms with, the approved design data?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(iii) / 21.147(a) (PC) / AC 21-43 §5.4 conformity inspection records</div>
+      <div class="response-row" data-q="dd-q3"></div>
+    </div>
+    <div id="dd-q4" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">DD-4</span><span class="q-text">Is there a process for managing engineering changes — including determining whether a change requires revised approved data (FAA approval) vs. can be made under the PAH's own authority — with change records maintained?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(f) design change PMA / 21.113 major vs. minor change / AC 21.303-4 §9 change management</div>
+      <div class="response-row" data-q="dd-q4"></div>
+    </div>
+    <div id="dd-q5" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">DD-5</span><span class="q-text">Are drawings and specifications used in production marked with current revision level, and is the revision level traceable to the approved design data basis?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(i) / AC 21-43 §5.2</div>
+      <div class="response-row" data-q="dd-q5"></div>
+    </div>
+  </div>
+
+  <!-- Section 3: Supplier Control -->
+  <div class="card">
+    <h2>Section 3 — Supplier &amp; Subcontractor Control</h2>
+    <div class="pah-desc">The PAH is responsible for the airworthiness of all articles it produces, including those manufactured by suppliers. 14 CFR Part 21 flow-down to suppliers is a high-priority ASI finding area, particularly for PMA holders with offshore or low-tier suppliers.</div>
+
+    <div id="sc-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">SC-1</span><span class="q-text">Is there a documented supplier control program that identifies approved suppliers, defines flow-down requirements (design data, inspection requirements, airworthiness certifications), and includes a mechanism for supplier approval and re-evaluation?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(iv) / AC 21-43 §5.6 supplier control / FAA enforcement: inadequate supplier oversight</div>
+      <div class="response-row" data-q="sc-q1"></div>
+    </div>
+    <div id="sc-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">SC-2</span><span class="q-text">Are purchase orders or supplier contracts documented with flow-down of: applicable design data revision, inspection requirements, Certificate of Conformance (C of C) requirements, FAA approval basis, and right of access for PAH and FAA inspection?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(iv) / AC 21.303-4 §8 supplier flow-down / FAA Order 8120.22 supplier oversight expectations</div>
+      <div class="response-row" data-q="sc-q2"></div>
+    </div>
+    <div id="sc-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">SC-3</span><span class="q-text">Is receiving inspection performed on supplier-provided articles, with inspection criteria defined and records showing the inspection was completed before articles entered production?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(iii) / AC 21-43 §5.4 receiving inspection</div>
+      <div class="response-row" data-q="sc-q3"></div>
+    </div>
+    <div id="sc-q4" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">SC-4</span><span class="q-text">Are supplier C of Cs (Certificates of Conformance) retained for each incoming lot, confirming conformance to specification and approved design data?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(iii)(iv) / AC 21-43 §5.4</div>
+      <div class="response-row" data-q="sc-q4"></div>
+    </div>
+    <div id="sc-q5" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">SC-5</span><span class="q-text">Is there a process for qualifying, monitoring, and removing suppliers from the approved supplier list based on quality performance (incoming rejection rate, corrective action compliance)?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(iv) / AC 21-43 §5.6 supplier evaluation</div>
+      <div class="response-row" data-q="sc-q5"></div>
+    </div>
+  </div>
+
+  <!-- Section 4: Airworthiness Release & Certificates -->
+  <div class="card">
+    <h2>Section 4 — Airworthiness Release &amp; Certificates</h2>
+    <div class="pah-desc">PAHs must issue appropriate airworthiness approval tags or C of Cs for articles they produce. For PMA and TSO articles: FAA Form 8130-3 or C of C per 21.303(a)(2). For PC articles: aircraft/engine log book entries or 8130-3. Improper or missing airworthiness release is a Category 1 FAA finding.</div>
+
+    <div id="ar-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">AR-1</span><span class="q-text">Is there a documented, controlled process for issuing airworthiness releases (FAA Form 8130-3 or authorized C of C) for PAH-produced articles, with authorized signatories identified and their authorization documented?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(a)(2) (PMA) / 21.611 (TSO) / 21.147(b) (PC) / AC 21-43 §5.7 / FAA Form 8130-3 completion requirements</div>
+      <div class="response-row" data-q="ar-q1"></div>
+    </div>
+    <div id="ar-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">AR-2</span><span class="q-text">Does the airworthiness release / C of C correctly identify: article part number, revision level, serial number (if applicable), production approval number (PMA letter / TSOA number / PC number), conformance to approved data, and release date?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(a)(2) / AC 21.303-4 Appendix 4 (C of C content) / FAA Form 8130-3 instructions</div>
+      <div class="response-row" data-q="ar-q2"></div>
+    </div>
+    <div id="ar-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">AR-3</span><span class="q-text">Are copies of issued 8130-3 forms or C of Cs retained in the PAH's records and linked to the conformity records for each shipped lot?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(v) / AC 21-43 §5.8 record retention</div>
+      <div class="response-row" data-q="ar-q3"></div>
+    </div>
+    <div id="ar-q4" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">AR-4</span><span class="q-text">Is there a process to prevent unauthorized personnel from issuing airworthiness approvals, with a current list of authorized signatories reviewed at least annually?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(ii) / AC 21-43 §5.7 signatory control</div>
+      <div class="response-row" data-q="ar-q4"></div>
+    </div>
+  </div>
+
+  <!-- Section 5: Record Retention -->
+  <div class="card">
+    <h2>Section 5 — Record Retention &amp; Traceability</h2>
+    <div class="pah-desc">14 CFR Part 21 specifies minimum record retention periods. The FAA may request records during an ASI surveillance visit at any time. Missing or incomplete records result in an inability to demonstrate compliance and typically result in an enforcement finding.</div>
+
+    <div id="rr-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">RR-1</span><span class="q-text">Are production conformity records retained for a minimum of 2 years (PMA) or per the applicable requirement, with records showing: date of production, article identification, conformity check results, inspector identity, and disposition?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(v) (PMA) / 21.147(c)(2) (PC) / AC 21-43 §5.8 minimum retention periods</div>
+      <div class="response-row" data-q="rr-q1"></div>
+    </div>
+    <div id="rr-q2" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">RR-2</span><span class="q-text">Is traceability maintained from finished article to raw material and inspection records, so that a suspect lot can be identified and isolated if a production problem is discovered after shipment?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(c)(1)(iii) / AC 21-43 §5.4 traceability / FAA Corrective Action applicability</div>
+      <div class="response-row" data-q="rr-q2"></div>
+    </div>
+    <div id="rr-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">RR-3</span><span class="q-text">Are customer-complaint and airworthiness-concern records retained and do they include follow-up action taken, including notification to FAA when a safety-of-flight issue is identified?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.3 reporting requirements / AC 21-43 §5.5 / FAA voluntary disclosure programs</div>
+      <div class="response-row" data-q="rr-q3"></div>
+    </div>
+  </div>
+
+  <!-- Section 6: PMA-Specific (conditional) -->
+  <div id="section-pma-specific" class="card">
+    <h2>Section 6 — PMA-Specific Requirements (Subpart K / 21.303)</h2>
+    <div class="pah-desc">Additional requirements specific to Parts Manufacturer Approval holders. Covers PMA supplement content, design approval basis, and continued airworthiness responsibilities unique to 14 CFR 21.303.</div>
+
+    <div id="pma-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">PMA-1</span><span class="q-text">Is the PAH's PMA supplement (the formal FAA-issued approval document) current — covering all part numbers and configurations being produced — and is the supplement accessible to inspectors at the point of production?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(a) / AC 21.303-4 §6 PMA supplement format and content / FAA FSIMS 8120.22</div>
+      <div class="response-row" data-q="pma-q1"></div>
+    </div>
+    <div id="pma-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">PMA-2</span><span class="q-text">For each PMA part number, is the design approval basis documented (identicality / test and computation / STC-based) and is the supporting data (identicality findings, test reports, or STC reference) on file and readily retrievable?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(b) design approval basis / AC 21.303-4 §7 identicality / §8 test and computation data requirements</div>
+      <div class="response-row" data-q="pma-q2"></div>
+    </div>
+    <div id="pma-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">PMA-3</span><span class="q-text">If the PMA basis includes identicality, is there documented evidence (dimensional reports, material certifications, test reports) that the PMA part is identical in design to the TC holder part for all safety-of-flight characteristics?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.303(b)(3) identicality / AC 21.303-4 Appendix 2 identicality data package</div>
+      <div class="response-row" data-q="pma-q3"></div>
+    </div>
+    <div id="pma-q4" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">PMA-4</span><span class="q-text">Is there a process for identifying and notifying the FAA if an unsafe condition is discovered in a PMA article (reporting under 14 CFR 21.3), with records of notifications made?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.3 reporting of failures / AC 21.303-4 §11 continued airworthiness responsibilities</div>
+      <div class="response-row" data-q="pma-q4"></div>
+    </div>
+  </div>
+
+  <!-- Section 7: TSO-Specific (conditional) -->
+  <div id="section-tso-specific" class="card">
+    <h2>Section 7 — TSOA-Specific Requirements (Subpart O / 21.607+)</h2>
+    <div class="pah-desc">Additional requirements specific to Technical Standard Order Authorization holders. Each article must meet the Minimum Performance Standards (MPS) defined in the applicable TSO (TSO-C105, TSO-C119, etc.) and pass the qualification testing documented in the TSO design approval.</div>
+
+    <div id="tso-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">TSO-1</span><span class="q-text">Is the current TSOA letter and all associated data (qualification test reports, approved design data, TSOA deviation requests) on file and controlled, with copies accessible to production and QA?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.607 / 21.611(a) TSOA content / FAA TSOA issuance letter content requirements</div>
+      <div class="response-row" data-q="tso-q1"></div>
+    </div>
+    <div id="tso-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">TSO-2</span><span class="q-text">Does each TSO article produced pass all production acceptance tests required by the TSO and applicable MPS, with test records generated and retained per article/lot?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.611(c) / TSO MPS acceptance test requirements / AC 21-43 §5.4</div>
+      <div class="response-row" data-q="tso-q2"></div>
+    </div>
+    <div id="tso-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">TSO-3</span><span class="q-text">Is there a process to ensure that any design change to a TSOA article is evaluated for impact on the TSOA — distinguishing between changes requiring FAA approval vs. changes that can be made under the TSOA holder's authority?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.619 TSOA design changes / AC 21-43 change control guidance</div>
+      <div class="response-row" data-q="tso-q3"></div>
+    </div>
+  </div>
+
+  <!-- Section 8: PC-Specific (conditional) -->
+  <div id="section-pc-specific" class="card">
+    <h2>Section 8 — PC Holder Requirements (Subpart G / 21.143+)</h2>
+    <div class="pah-desc">Production Certificate holders produce aircraft, engines, or propellers under an approved quality system inspected by the FAA. PC holders must demonstrate their quality system covers all production activities and that the Compliance Program is effective.</div>
+
+    <div id="pc-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">PC-1</span><span class="q-text">Is the PC holder's quality system description (QSD) or equivalent document current, FAA-accepted, and covering all production activities and manufacturing locations authorized under the PC?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.143 / AC 21-43 §5 PC quality system / FAA Order 8120.22 PC holder requirements</div>
+      <div class="response-row" data-q="pc-q1"></div>
+    </div>
+    <div id="pc-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">PC-2</span><span class="q-text">For each aircraft/engine/propeller produced, is there a completed conformity file showing compliance with the approved type design for all critical inspection stages, signed off by authorized QA inspectors?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.147 / AC 21-43 §5.4 PC conformity file requirements</div>
+      <div class="response-row" data-q="pc-q2"></div>
+    </div>
+    <div id="pc-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">PC-3</span><span class="q-text">Is the FAA notified of production rate changes, new manufacturing locations, or significant quality system changes as required by the PC?</span></div>
+      <div class="q-ref">Ref: 14 CFR 21.143(d) notification requirements / AC 21-43 §6 FAA notification</div>
+      <div class="response-row" data-q="pc-q3"></div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results-panel" class="hidden">
+    <div class="card">
+      <h2>Compliance Assessment Results</h2>
+      <div id="verdict-display"></div>
+      <div class="score-grid">
+        <div class="score-box"><div class="val" id="score-pct">—</div><div class="lbl">Overall Score</div></div>
+        <div class="score-box"><div class="val" id="score-yes">—</div><div class="lbl">Yes (Conforming)</div></div>
+        <div class="score-box"><div class="val" id="score-partial">—</div><div class="lbl">Partial</div></div>
+        <div class="score-box"><div class="val" id="score-no">—</div><div class="lbl">No (Gap)</div></div>
+        <div class="score-box"><div class="val" id="score-crit">—</div><div class="lbl">Critical Gaps</div></div>
+        <div class="score-box"><div class="val" id="score-q">—</div><div class="lbl">Questions Answered</div></div>
+      </div>
+      <div id="mai-obs-r" style="margin:12px 0;"></div>
+      <div id="gap-section" class="hidden">
+        <h3 style="margin:14px 0 10px;font-size:14px;color:var(--faa-blue);">Priority Gap Register — Findings Requiring Action Before FAA ASI Visit</h3>
+        <table class="gap-table">
+          <thead><tr><th>#</th><th>Question</th><th>Section</th><th>Response</th><th>Priority</th></tr></thead>
+          <tbody id="gap-tbody"></tbody>
+        </table>
+      </div>
+      <div id="mr-narrative-r" style="margin:14px 0;"></div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="exportJSON()">Export JSON</button>
+        <button class="btn btn-secondary" onclick="window.print()">Print Report</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mai-badge">
+      <span>M-AI</span> Domain: faa-part21-pah-compliance | Architecture: DEFINED | DIMs: 5 (design-data-control, production-conformity, supplier-oversight, airworthiness-release, record-retention)
+    </div>
+    <div class="btn-group" style="margin-top:14px;">
+      <button class="btn btn-primary" onclick="computeResults()">Generate Compliance Assessment</button>
+      <button class="btn btn-secondary" onclick="resetAll()">Reset All</button>
+    </div>
+  </div>
+
+  <footer>
+    Conform-Edge Quality Consulting | FAA Part 21 PAH Compliance Self-Assessment<br>
+    For pre-inspection preparation only. This tool does not constitute FAA legal advice or a compliance determination.
+    Reference: 14 CFR Part 21 Subparts F, G, K, O; AC 21-43; AC 21.303-4; FAA Order 8120.22.
+  </footer>
+</div>
+
+<script>
+const ALL_QUESTIONS = [
+  // Section 1 — Quality System
+  {id:'qs-q1',text:'Quality system documented covering organization, conformity, suppliers, records, CA',crit:true,section:'Quality System'},
+  {id:'qs-q2',text:'QA function with authority to reject nonconforming articles, independent of production',crit:true,section:'Quality System'},
+  {id:'qs-q3',text:'Internal audit program with findings tracked and corrective actions',crit:false,section:'Quality System'},
+  {id:'qs-q4',text:'Corrective action process (RCA, containment, verification, recurrence prevention)',crit:false,section:'Quality System'},
+  // Section 2 — Design Data
+  {id:'dd-q1',text:'Current approved design data (PMA supp/TSOA/TC data) identified, controlled, accessible',crit:true,section:'Design Data & Conformity'},
+  {id:'dd-q2',text:'Process ensures only current approved data used; obsolete data removed/identified',crit:true,section:'Design Data & Conformity'},
+  {id:'dd-q3',text:'Conformity record per article showing inspection to approved design data',crit:true,section:'Design Data & Conformity'},
+  {id:'dd-q4',text:'Engineering change process — major vs. minor determination, change records retained',crit:false,section:'Design Data & Conformity'},
+  {id:'dd-q5',text:'Drawings/specs marked with current revision, traceable to approved data basis',crit:false,section:'Design Data & Conformity'},
+  // Section 3 — Supplier Control
+  {id:'sc-q1',text:'Documented supplier control program — approval, flow-down, re-evaluation',crit:true,section:'Supplier & Subcontractor Control'},
+  {id:'sc-q2',text:'POs/contracts flow down design data, inspection requirements, CoC, FAA access rights',crit:true,section:'Supplier & Subcontractor Control'},
+  {id:'sc-q3',text:'Receiving inspection performed with defined criteria and records',crit:false,section:'Supplier & Subcontractor Control'},
+  {id:'sc-q4',text:'Supplier C of Cs retained per incoming lot',crit:false,section:'Supplier & Subcontractor Control'},
+  {id:'sc-q5',text:'Process to qualify, monitor, and remove suppliers based on quality performance',crit:false,section:'Supplier & Subcontractor Control'},
+  // Section 4 — Airworthiness Release
+  {id:'ar-q1',text:'Documented process for issuing 8130-3/CoC with authorized signatories documented',crit:true,section:'Airworthiness Release & Certificates'},
+  {id:'ar-q2',text:'8130-3/CoC correctly identifies: P/N, rev, S/N, PAH number, conformance, date',crit:true,section:'Airworthiness Release & Certificates'},
+  {id:'ar-q3',text:'Copies of issued 8130-3/CoC retained and linked to conformity records',crit:false,section:'Airworthiness Release & Certificates'},
+  {id:'ar-q4',text:'Unauthorized signatory prevention; authorized list reviewed annually',crit:false,section:'Airworthiness Release & Certificates'},
+  // Section 5 — Record Retention
+  {id:'rr-q1',text:'Conformity records retained ≥2 years showing date, article ID, inspection results, inspector',crit:true,section:'Record Retention & Traceability'},
+  {id:'rr-q2',text:'Traceability: finished article to raw material and inspection records',crit:false,section:'Record Retention & Traceability'},
+  {id:'rr-q3',text:'Customer complaint and airworthiness-concern records retained; FAA notification process',crit:false,section:'Record Retention & Traceability'},
+  // PMA-specific
+  {id:'pma-q1',text:'PMA supplement current, covers all P/Ns produced, accessible to inspectors',crit:true,section:'PMA-Specific (Subpart K)',pahType:'pma'},
+  {id:'pma-q2',text:'Design approval basis documented per P/N (identicality/T&C/STC); supporting data on file',crit:true,section:'PMA-Specific (Subpart K)',pahType:'pma'},
+  {id:'pma-q3',text:'Identicality evidence (dimensional/material/test) on file where identicality is the basis',crit:false,section:'PMA-Specific (Subpart K)',pahType:'pma'},
+  {id:'pma-q4',text:'Process for 14 CFR 21.3 unsafe condition reporting to FAA with records of notifications',crit:false,section:'PMA-Specific (Subpart K)',pahType:'pma'},
+  // TSO-specific
+  {id:'tso-q1',text:'TSOA letter and associated data on file; accessible to production and QA',crit:true,section:'TSO-Specific (Subpart O)',pahType:'tso'},
+  {id:'tso-q2',text:'TSO acceptance tests completed per article/lot; test records retained',crit:true,section:'TSO-Specific (Subpart O)',pahType:'tso'},
+  {id:'tso-q3',text:'Design change evaluation process — TSOA approval required vs. holder authority',crit:false,section:'TSO-Specific (Subpart O)',pahType:'tso'},
+  // PC-specific
+  {id:'pc-q1',text:'QSD current, FAA-accepted, covering all authorized production locations',crit:true,section:'PC Holder Requirements (Subpart G)',pahType:'pc'},
+  {id:'pc-q2',text:'Conformity file per aircraft/engine/propeller with all critical stages signed off',crit:true,section:'PC Holder Requirements (Subpart G)',pahType:'pc'},
+  {id:'pc-q3',text:'FAA notification for production rate/location changes per PC requirements',crit:false,section:'PC Holder Requirements (Subpart G)',pahType:'pc'},
+];
+
+let currentPAH = 'all';
+
+function setPAH(type) {
+  currentPAH = type;
+  ['all','pma','tso','pc'].forEach(t => {
+    const btn = document.getElementById('btn-'+t);
+    if(btn) btn.classList.toggle('active', t===type);
+  });
+  // Show/hide type-specific sections
+  document.getElementById('section-pma-specific').style.display = (type==='all'||type==='pma') ? '' : 'none';
+  document.getElementById('section-tso-specific').style.display = (type==='all'||type==='tso') ? '' : 'none';
+  document.getElementById('section-pc-specific').style.display = (type==='all'||type==='pc') ? '' : 'none';
+  document.getElementById('results-panel').classList.add('hidden');
+  buildAllResponseRows();
+}
+
+function getActiveQuestions() {
+  return ALL_QUESTIONS.filter(q => {
+    if (!q.pahType) return true; // common to all
+    if (currentPAH === 'all') return true;
+    return q.pahType === currentPAH;
+  });
+}
+
+function buildAllResponseRows() {
+  ALL_QUESTIONS.forEach(q => {
+    const row = document.querySelector('.response-row[data-q="'+q.id+'"]');
+    if (!row || row.childNodes.length > 0) return;
+    ['yes','partial','no'].forEach(v => {
+      const lbl = document.createElement('label');
+      const inp = document.createElement('input');
+      inp.type = 'radio'; inp.name = q.id; inp.value = v;
+      inp.addEventListener('change', () => styleLabel(q.id));
+      lbl.appendChild(inp);
+      lbl.appendChild(document.createTextNode(v==='yes'?'✓ Yes':v==='partial'?'~ Partial':'✗ No'));
+      row.appendChild(lbl);
+    });
+  });
+}
+
+function styleLabel(qid) {
+  const row = document.querySelector('.response-row[data-q="'+qid+'"]');
+  if(!row) return;
+  row.querySelectorAll('label').forEach(l => {
+    l.className='';
+    const v = l.querySelector('input').value;
+    if(l.querySelector('input').checked) l.className = v==='yes'?'sel-yes':v==='partial'?'sel-partial':'sel-no';
+  });
+}
+
+function computeResults() {
+  const qs = getActiveQuestions();
+  let yes=0,partial=0,no=0,critNo=0,unanswered=0;
+  const gaps = [];
+  qs.forEach(q => {
+    const sel = document.querySelector('input[name="'+q.id+'"]:checked');
+    const val = sel ? sel.value : null;
+    if (!val) { unanswered++; return; }
+    if(val==='yes') yes++;
+    else if(val==='partial') { partial++; gaps.push({q,val:'Partial'}); }
+    else { no++; if(q.crit) critNo++; gaps.push({q,val:'No'}); }
+  });
+  const answered = yes+partial+no;
+  const score = answered > 0 ? Math.round((yes+partial*0.5)/answered*100) : 0;
+  let vClass,vTitle,vMsg;
+  if(critNo>0) {vClass='not-compliant';vTitle='⛔ NOT COMPLIANT';vMsg='One or more CRITICAL compliance gaps. FAA ASI would likely cite these as findings requiring immediate corrective action. Address all critical items before any FAA surveillance visit.';}
+  else if(score>=85){vClass='compliant';vTitle='✓ INSPECTION READY';vMsg='No critical gaps. Score ≥85%. Complete evidence verification and document retrieval practice before your FAA ASI visit.';}
+  else if(score>=65){vClass='conditional';vTitle='⚠ CONDITIONAL';vMsg='No critical gaps but score <85%. Address identified gaps before surveillance to reduce finding risk.';}
+  else {vClass='not-compliant';vTitle='⛔ NOT COMPLIANT';vMsg='Multiple compliance gaps. Significant corrective work required before FAA ASI surveillance.';}
+
+  document.getElementById('verdict-display').innerHTML=`<div class="verdict-bar ${vClass}"><h3>${vTitle}</h3><p>${vMsg}</p></div>`;
+  document.getElementById('score-pct').textContent=score+'%';
+  document.getElementById('score-yes').textContent=yes;
+  document.getElementById('score-partial').textContent=partial;
+  document.getElementById('score-no').textContent=no;
+  document.getElementById('score-crit').textContent=critNo;
+  document.getElementById('score-q').textContent=answered+'/'+qs.length;
+
+  const pahLabel = currentPAH==='all'?'All PAH Types':currentPAH==='pma'?'PMA Holder (14 CFR 21.303)':currentPAH==='tso'?'TSO Authorization (21.607)':'Production Certificate (21.143)';
+  document.getElementById('mai-obs-r').innerHTML=`<div class="mai-badge"><span>M-AI Observation</span> PAH Type: ${pahLabel} | Score: ${score}% | Critical gaps: ${critNo} | Questions answered: ${answered}/${qs.length} | Verdict: ${vTitle.replace(/[✓⛔⚠]\s*/,'')} | DIMs: design-data-control, production-conformity, supplier-oversight, airworthiness-release, record-retention</div>`;
+
+  const tbody=document.getElementById('gap-tbody');
+  tbody.innerHTML='';
+  if(gaps.length){
+    document.getElementById('gap-section').classList.remove('hidden');
+    gaps.forEach((g,i)=>{
+      const tr=document.createElement('tr');
+      if(g.q.crit&&g.val==='No') tr.className='crit-row';
+      tr.innerHTML=`<td>${i+1}</td><td>${g.q.text}${g.q.crit?'<br><span style="color:#dc2626;font-size:11px;font-weight:700;">⚡ CRITICAL — FAA enforcement risk</span>':''}</td><td>${g.q.section}</td><td>${g.val}</td><td>${g.q.crit&&g.val==='No'?'<strong style="color:#dc2626">CRITICAL — RESOLVE IMMEDIATELY</strong>':g.val==='No'?'High':'Medium'}</td>`;
+      tbody.appendChild(tr);
+    });
+  } else document.getElementById('gap-section').classList.add('hidden');
+
+  document.getElementById('mr-narrative-r').innerHTML=`<div style="background:#f4f6fb;border:1px solid #d0d8e8;border-radius:6px;padding:14px;font-size:12px;color:#003087;margin-top:10px;"><strong>Management Review Narrative (Quality Oversight):</strong><br>FAA 14 CFR Part 21 PAH compliance self-assessment completed ${new Date().toISOString().split('T')[0]} — PAH type: ${pahLabel}. ${answered} of ${qs.length} questions answered. Score: ${score}%. Critical gaps: ${critNo}. Verdict: ${vTitle.replace(/[✓⛔⚠]\s*/,'')}. ${gaps.length} gap(s) identified for corrective action.</div>`;
+
+  document.getElementById('results-panel').classList.remove('hidden');
+  document.getElementById('results-panel').scrollIntoView({behavior:'smooth'});
+}
+
+function exportJSON(){
+  const qs=getActiveQuestions();
+  const data={
+    tool:'FAA Part 21 PAH Compliance Self-Assessment',
+    vendor:'Conform-Edge Quality Consulting',
+    pahType:currentPAH,
+    reference:'14 CFR Part 21 Subparts F/G/K/O; AC 21-43; AC 21.303-4',
+    date:new Date().toISOString().split('T')[0],
+    responses:{},
+    mai:{domain:'faa-part21-pah-compliance',architecture:'DEFINED',dims:['design-data-control','production-conformity','supplier-oversight','airworthiness-release','record-retention']}
+  };
+  qs.forEach(q=>{
+    const sel=document.querySelector('input[name="'+q.id+'"]:checked');
+    data.responses[q.id]={text:q.text,critical:q.crit,section:q.section,response:sel?sel.value:'unanswered'};
+  });
+  const a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));
+  a.download='faa-part21-pah-assessment-'+currentPAH+'-'+data.date+'.json';
+  a.click();
+}
+
+function resetAll(){
+  document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.response-row label').forEach(l=>l.className='');
+  document.getElementById('results-panel').classList.add('hidden');
+}
+
+// Initialize
+buildAllResponseRows();
+setPAH('all');
+</script>
+</body>
+</html>

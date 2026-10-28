@@ -1,0 +1,1360 @@
+// Human Factors Training Platform — Phase 1 Data Model
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("learner") // "learner" | "trainer" | "admin"
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  enrollments                  CourseEnrollment[]
+  assessmentAttempts           AssessmentAttempt[]
+  completions                  LessonCompletion[]
+  certificates                 Certificate[]
+  auditLogs                    AuditLog[]                    @relation("ActorLogs")
+  trainingAssignments          TrainingAssignment[]
+  authSessions                 AuthSession[]
+  organizationMemberships      OrganizationMember[]
+  assignmentAssessmentAttempts AssignmentAssessmentAttempt[]
+  trainingCertificates         TrainingCertificate[]
+}
+
+model Organization {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  name           String
+  deploymentMode String   @default("onprem")
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  memberships      OrganizationMember[]
+  authSessions     AuthSession[]
+  ingestionSources IngestionSource[]
+  ingestionFiles   IngestionFile[]
+  connectorDevices ConnectorDevice[]
+  auditLogs        AuditLog[]
+}
+
+model ConnectorDevice {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  name           String
+  tokenHash      String       @unique
+  isActive       Boolean      @default(true)
+  createdBy      String
+  createdAt      DateTime     @default(now())
+  lastSeenAt     DateTime?
+  revokedAt      DateTime?
+
+  @@unique([organizationId, name])
+  @@index([organizationId, isActive])
+}
+
+model OrganizationMember {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role           String
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([organizationId, userId])
+  @@index([userId, isActive])
+}
+
+model AuthSession {
+  id             String       @id @default(cuid())
+  tokenHash      String       @unique
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+  expiresAt      DateTime
+  lastSeenAt     DateTime     @default(now())
+  revokedAt      DateTime?
+  userAgentHash  String?
+
+  @@index([userId, revokedAt, expiresAt])
+  @@index([organizationId, revokedAt, expiresAt])
+  @@index([expiresAt])
+}
+
+model LoginThrottle {
+  id              String    @id @default(cuid())
+  keyHash         String    @unique
+  scope           String
+  attempts        Int       @default(0)
+  windowStartedAt DateTime  @default(now())
+  blockedUntil    DateTime?
+  updatedAt       DateTime  @updatedAt
+
+  @@index([blockedUntil])
+}
+
+model InstallationState {
+  id                 String   @id
+  setupCompleted     Boolean  @default(false)
+  initialAdminUserId String?
+  updatedAt          DateTime @updatedAt
+}
+
+model IngestionSource {
+  id             String          @id @default(cuid())
+  organizationId String
+  organization   Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  name           String
+  mode           String
+  folderPath     String?
+  isEnabled      Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  files          IngestionFile[]
+
+  @@unique([organizationId, name])
+  @@index([organizationId, isEnabled])
+}
+
+model IngestionFile {
+  id                   String          @id @default(cuid())
+  organizationId       String
+  organization         Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  sourceId             String
+  source               IngestionSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  relativePath         String
+  originalName         String
+  mediaType            String?
+  sizeBytes            Int
+  contentHash          String
+  content              Bytes?
+  extractedText        String?
+  recordType           String          @default("organizational_data")
+  classification       String          @default("INTERNAL")
+  status               String          @default("NEW")
+  malwareScanStatus    String          @default("PENDING")
+  malwareScanner       String?
+  failureReason        String?
+  evidenceId           String?
+  sourceFileModifiedAt DateTime?
+  createdBy            String
+  createdAt            DateTime        @default(now())
+  processedAt          DateTime?
+
+  @@unique([organizationId, contentHash])
+  @@index([organizationId, status])
+  @@index([sourceId, relativePath])
+}
+
+model Course {
+  id                String   @id @default(cuid())
+  organizationId    String
+  title             String
+  description       String?
+  version           String   @default("1.0")
+  isPublished       Boolean  @default(false)
+  isBaselineContent Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  lessons      Lesson[]
+  enrollments  CourseEnrollment[]
+  certificates Certificate[]
+
+  @@index([organizationId])
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title       String
+  content     String // Markdown
+  order       Int
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  assessments Assessment[]
+  completions LessonCompletion[]
+
+  @@index([courseId])
+}
+
+model Assessment {
+  id             String   @id @default(cuid())
+  lessonId       String
+  lesson         Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  title          String
+  assessmentType String   @default("quiz") // "quiz" | "practical" | "scenario"
+  passingScore   Int      @default(80)
+  timeLimit      Int? // minutes
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  questions AssessmentQuestion[]
+  attempts  AssessmentAttempt[]
+
+  @@index([lessonId])
+}
+
+model AssessmentQuestion {
+  id           String     @id @default(cuid())
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  questionText String
+  questionType String     @default("multiChoice") // "multiChoice" | "scenario" | "shortAnswer"
+  options      String // stored as JSON string
+  explanation  String?
+  points       Int        @default(5)
+  order        Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([assessmentId])
+}
+
+model AssessmentAttempt {
+  id            String     @id @default(cuid())
+  learnerId     String
+  learner       User       @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  assessmentId  String
+  assessment    Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  startedAt     DateTime   @default(now())
+  submittedAt   DateTime?
+  score         Int?
+  passed        Boolean?
+  responses     String? // stored as JSON string
+  attemptNumber Int        @default(1)
+  createdAt     DateTime   @default(now())
+
+  // Relations
+  certificate Certificate?
+
+  @@index([learnerId])
+  @@index([assessmentId])
+}
+
+model CourseEnrollment {
+  id                 String    @id @default(cuid())
+  learnerId          String
+  learner            User      @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  courseId           String
+  course             Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  enrolledAt         DateTime  @default(now())
+  completedAt        DateTime?
+  status             String    @default("in-progress") // "in-progress" | "completed"
+  dueDate            DateTime?
+  currentLessonIndex Int       @default(0)
+  progressPercent    Int       @default(0)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  // Relations
+  completions LessonCompletion[]
+
+  @@unique([learnerId, courseId])
+  @@index([learnerId])
+  @@index([courseId])
+}
+
+model LessonCompletion {
+  id           String           @id @default(cuid())
+  learnerId    String
+  learner      User             @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  lessonId     String
+  lesson       Lesson           @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  courseId     String
+  enrollmentId String
+  enrollment   CourseEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  completedAt  DateTime         @default(now())
+  timeTaken    Int? // seconds
+  createdAt    DateTime         @default(now())
+
+  @@unique([learnerId, lessonId, courseId])
+  @@index([learnerId])
+  @@index([lessonId])
+  @@index([enrollmentId])
+}
+
+model Certificate {
+  id                  String            @id @default(cuid())
+  learnerId           String
+  learner             User              @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  courseId            String
+  course              Course            @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  assessmentAttemptId String            @unique
+  attempt             AssessmentAttempt @relation(fields: [assessmentAttemptId], references: [id], onDelete: Cascade)
+  certificateCode     String            @unique // SHA-256 hash
+  issuedAt            DateTime          @default(now())
+  expiresAt           DateTime?
+  pdfUrl              String?
+  publicUrl           String?
+  downloadedAt        DateTime?
+  createdAt           DateTime          @default(now())
+
+  @@index([learnerId])
+  @@index([courseId])
+}
+
+model AuditLog {
+  id             String        @id @default(cuid())
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  actor          String? // User ID or "SYSTEM"
+  action         String // "login" | "enrollment" | "completion" | etc.
+  object         String // "User" | "Course" | "Assessment" | etc.
+  objectId       String
+  details        String? // stored as JSON string
+  timestamp      DateTime      @default(now())
+  createdAt      DateTime      @default(now())
+
+  // Relations
+  user User? @relation("ActorLogs", fields: [actor], references: [id], onDelete: SetNull)
+
+  @@index([actor])
+  @@index([organizationId, timestamp])
+  @@index([action])
+  @@index([timestamp])
+  @@index([objectId])
+}
+
+// ============================================================================
+// EVIDENCE PLANE: Facts about HF-relevant occurrences, findings, changes
+// ============================================================================
+
+model HfEvidence {
+  id               String   @id @default(cuid())
+  tenantId         String
+  classification   String   @default("INTERNAL")
+  source           String
+  sourceType       String   @default("ncr")
+  title            String
+  description      String?
+  occurredAt       DateTime
+  reportedAt       DateTime @default(now())
+  themes           String   @default("[]") // stored as JSON array string
+  severity         String   @default("medium")
+  evidenceQuality  String? // stored as JSON string
+  documentHash     String?
+  documentUrl      String?
+  quarantineStatus String?
+  createdBy        String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relationships
+  events          HfEvent[]
+  relationships   EvidenceRelationship[]   @relation("fromEvidence")
+  classifications EvidenceClassification[]
+
+  @@index([tenantId])
+  @@index([classification])
+  @@index([occurredAt])
+  @@map("hf_evidence")
+}
+
+model EvidenceClassification {
+  id             String     @id @default(cuid())
+  tenantId       String
+  evidenceId     String
+  evidence       HfEvidence @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  classification String     @default("INTERNAL")
+  rationale      String?
+  classifiedBy   String
+  classifiedAt   DateTime   @default(now())
+
+  @@unique([tenantId, evidenceId])
+  @@index([classification])
+  @@map("evidence_classification")
+}
+
+model HfEvent {
+  id                 String            @id @default(cuid())
+  tenantId           String
+  evidenceId         String
+  evidence           HfEvidence        @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  title              String
+  description        String?
+  occurredAt         DateTime
+  themes             String            @default("[]") // stored as JSON array string
+  rolesExposed       String            @default("[]") // stored as JSON array string
+  sitesExposed       String            @default("[]") // stored as JSON array string
+  estimatedFrequency String?
+  linkedCAPAId       String? // D-067: superseded by correctiveActionId below - this
+  // was an untyped, never-written-to string column with no
+  // known historical meaning to anything that reads it.
+  // Retained read-only for any pre-existing dev-seed rows;
+  // new code writes correctiveActionId instead.
+  linkedAuditId      String?
+  correctiveActionId String?
+  correctiveAction   CorrectiveAction? @relation(fields: [correctiveActionId], references: [id], onDelete: SetNull)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  // Relationships
+  relationships EvidenceRelationship[] @relation("fromEvent")
+  interventions LearningIntervention[]
+  causalStatus  MaiCausalStatus?
+  maiEvents     MaiEvent[]
+
+  @@index([tenantId])
+  @@index([correctiveActionId])
+  @@map("hf_event")
+}
+
+model EvidenceRelationship {
+  id               String      @id @default(cuid())
+  tenantId         String
+  fromEntityType   String
+  fromEntityId     String
+  toEntityType     String
+  toEntityId       String
+  relationshipType String
+  rationale        String?
+  strength         Float?
+  createdBy        String
+  createdAt        DateTime    @default(now())
+  supersededAt     DateTime?
+  evidenceFromId   String?
+  evidenceFrom     HfEvidence? @relation("fromEvidence", fields: [evidenceFromId], references: [id], onDelete: SetNull)
+  eventFromId      String?
+  eventFrom        HfEvent?    @relation("fromEvent", fields: [eventFromId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([fromEntityType, fromEntityId])
+  @@index([toEntityType, toEntityId])
+  @@index([relationshipType])
+  @@index([createdAt])
+  @@map("evidence_relationship")
+}
+
+// ============================================================================
+// GOVERNANCE PLANE: Deterministic kernel rules, system conditions, approvals
+// ============================================================================
+
+model MaiRuleManifest {
+  id               String               @id @default(cuid())
+  tenantId         String
+  version          Int                  @default(1)
+  status           String               @default("DRAFT")
+  effectiveDate    DateTime             @default(now())
+  expiryDate       DateTime?
+  rules            String // stored as JSON string
+  createdBy        String
+  createdAt        DateTime             @default(now())
+  publishedBy      String?
+  publishedAt      DateTime?
+  systemConditions MaiSystemCondition[]
+  events           MaiEvent[]
+
+  @@unique([tenantId, version])
+  @@index([status])
+  @@index([effectiveDate])
+  @@map("mai_rule_manifest")
+}
+
+model MaiEvent {
+  id               String               @id @default(cuid())
+  tenantId         String
+  ruleManifestId   String
+  ruleManifest     MaiRuleManifest      @relation(fields: [ruleManifestId], references: [id])
+  snapshotJson     String // stored as JSON string
+  snapshotHash     String
+  processedAt      DateTime             @default(now())
+  systemConditions MaiSystemCondition[]
+  errorLog         MaiErrorLog[]
+  hfEventId        String?
+  hfEvent          HfEvent?             @relation(fields: [hfEventId], references: [id], onDelete: SetNull)
+
+  @@unique([tenantId, ruleManifestId, snapshotHash])
+  @@index([processedAt])
+  @@map("mai_event")
+}
+
+model MaiErrorLog {
+  id           String   @id @default(cuid())
+  tenantId     String
+  eventId      String
+  event        MaiEvent @relation(fields: [eventId], references: [id])
+  ruleId       String?
+  errorType    String
+  errorMessage String
+  loggedAt     DateTime @default(now())
+
+  @@index([tenantId])
+  @@index([ruleId])
+  @@map("mai_error_log")
+}
+
+model MaiSystemCondition {
+  id                   String                @id @default(cuid())
+  tenantId             String
+  ruleManifestId       String
+  ruleManifest         MaiRuleManifest       @relation(fields: [ruleManifestId], references: [id])
+  eventId              String
+  event                MaiEvent              @relation(fields: [eventId], references: [id], onDelete: Restrict)
+  snapshotJson         String // stored as JSON string
+  snapshotHash         String
+  ruleId               String
+  ruleName             String
+  severity             String                @default("INFO")
+  rationale            String
+  suggestedAction      String?
+  status               String                @default("NEW")
+  response             String?
+  respondedBy          String?
+  respondedAt          DateTime?
+  responseNotes        String?
+  supersededById       String?
+  supersedingCondition MaiSystemCondition?   @relation("Supersession", fields: [supersededById], references: [id], onDelete: SetNull)
+  supersededConditions MaiSystemCondition[]  @relation("Supersession")
+  linkedInterventionId String?               @unique
+  linkedIntervention   LearningIntervention? @relation(fields: [linkedInterventionId], references: [id], onDelete: SetNull)
+  detectedAt           DateTime              @default(now())
+  createdAt            DateTime              @default(now())
+
+  @@unique([tenantId, ruleManifestId, snapshotHash, ruleId])
+  @@index([status])
+  @@index([severity])
+  @@index([detectedAt])
+  @@map("mai_system_condition")
+}
+
+model MaiCausalStatus {
+  id                    String    @id @default(cuid())
+  tenantId              String
+  eventId               String    @unique
+  event                 HfEvent   @relation(fields: [eventId], references: [id], onDelete: Restrict)
+  status                String    @default("REPORTED")
+  suspectedCauses       String    @default("[]") // stored as JSON array string
+  verifiedRootCause     String?
+  latentCondition       String?
+  supportedAssertion    Boolean?
+  assertionNotes        String?
+  investigationNotes    String?
+  investigationDeadline DateTime?
+  promotedBy            String?
+  promotedAt            DateTime?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@unique([tenantId, eventId])
+  @@index([status])
+  @@map("mai_causal_status")
+}
+
+model MaiApproval {
+  id                String    @id @default(cuid())
+  tenantId          String
+  approvalType      String
+  subjectId         String
+  subjectType       String
+  rationale         String?
+  conditionsImposed String?
+  decision          String    @default("PENDING")
+  decidedBy         String?
+  decidedAt         DateTime?
+  createdAt         DateTime  @default(now())
+  expiryDate        DateTime?
+
+  @@index([tenantId])
+  @@index([approvalType])
+  @@index([decision])
+  @@map("mai_approval")
+}
+
+// ============================================================================
+// LEARNING DESIGN PLANE: Atoms, interventions, curriculum, policy packs
+// ============================================================================
+
+model LearningAtom {
+  id                    String    @id @default(cuid())
+  tenantId              String
+  title                 String
+  revision              Int       @default(1)
+  objective             String
+  format                String
+  duration              Int?
+  content               String?
+  sourceEvidenceIds     String    @default("[]") // stored as JSON array string
+  sourceSpans           String? // stored as JSON string
+  applicabilityTags     String    @default("[]") // stored as JSON array string
+  prerequisiteAtomIds   String    @default("[]") // stored as JSON array string
+  roleAudience          String    @default("[]") // stored as JSON array string
+  classification        String    @default("INTERNAL")
+  assessmentQuestionIds String    @default("[]") // stored as JSON array string
+  recurrenceRule        String?
+  effectivenessMethod   String?
+  evaluationCriteria    String?
+  status                String    @default("DRAFT")
+  approvedBy            String?
+  approvedAt            DateTime?
+  replacementAtomId     String?
+  replacedAtomId        String?
+  replacementReason     String?
+  licenseClass          String?
+  owner                 String?
+  linkedEventIds        String    @default("[]") // stored as JSON array string
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  reviewDate            DateTime?
+  retiredDate           DateTime?
+  emergencyExpiresAt    DateTime? // set at creation for EMERGENCY_INTERIM atoms (WP-2 §4);
+  // mandatory (never null) for that format, extendable only
+  // via an approved renewal — see EmergencyContentManager.ts
+
+  // Regulatory baseline training (D-058, folded into the PolicyPack/spine model by D-060):
+  // "event" (default, preserves every existing row's real meaning) | "regulatory-baseline".
+  // sourceClause is the human-readable citation (e.g. "GM1 145.A.30(e) item 4.1"). The real
+  // relational join now runs through AtomTopicMap -> RequirementSpineTopic (see D-060) rather
+  // than a direct FK to a clause table - an atom maps to a spine topic once, and every adopted
+  // PolicyPack whose clause maps to that topic gets automatic coverage.
+  // contentSource records the exact source file path an imported atom's content came from -
+  // set only for imported baseline atoms, never for authored-from-scratch content.
+  origin              String                   @default("event")
+  sourceClause        String?
+  contentSource       String?
+  assessmentQuestions AtomAssessmentQuestion[]
+
+  @@index([status])
+  @@index([format])
+  @@index([classification])
+  @@index([approvedAt])
+  @@index([origin])
+  @@index([tenantId])
+  @@map("learning_atom")
+}
+
+model AtomAssessmentQuestion {
+  id             String       @id @default(cuid())
+  tenantId       String
+  atomId         String
+  atom           LearningAtom @relation(fields: [atomId], references: [id], onDelete: Cascade)
+  questionText   String
+  questionType   String       @default("multiChoice")
+  options        String
+  correctAnswers String
+  explanation    String?
+  points         Int          @default(1)
+  status         String       @default("DRAFT")
+  approvedBy     String?
+  approvedAt     DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([tenantId, atomId, status])
+  @@map("atom_assessment_question")
+}
+
+// Requirement Spine (D-060, implementing docs/02-controlled/HF-ENGINE-REQUIREMENT-SPINE-SPEC.md,
+// owner-approved 2026-08-06): regulator-neutral HF requirement topics. Training content maps to
+// a spine topic once (AtomTopicMap); every PolicyPack clause that maps to that topic (via
+// ClauseTopicMap) then shows automatic coverage - adding a new regulator's pack never requires
+// re-mapping the curriculum. @@unique on (code, spineRevision), not code alone: a later spine
+// revision adds new rows rather than mutating old ones, so an already-approved ClauseTopicMap
+// row keeps pointing at the exact topic definition it was approved against.
+model RequirementSpineTopic {
+  id              String           @id @default(cuid())
+  code            String // "SP-01".."SP-14"
+  title           String
+  intent          String // regulator-neutral, intent-level only - never clause text
+  spineRevision   Int              @default(1)
+  status          String           @default("ACTIVE")
+  createdAt       DateTime         @default(now())
+  clauseTopicMaps ClauseTopicMap[]
+  atomTopicMaps   AtomTopicMap[]
+
+  @@unique([code, spineRevision])
+  @@index([spineRevision])
+  @@index([status])
+  @@map("requirement_spine_topic")
+}
+
+// D-060: clause -> spine-topic coverage judgment. Coverage FULL|PARTIAL keeps topicId set and
+// (optionally) documents a regulator-specific residual in deltaNote (the pattern actually used
+// by the CAAC pack's own approved mapping table). Coverage DELTA + topicId null is the rarer
+// "reviewed, deliberately has no spine equivalent" marker - distinguishable from an unmapped
+// gap. No default on coverage: every row is an explicit, named judgment, never a silent default.
+model ClauseTopicMap {
+  id            String                 @id @default(cuid())
+  clauseId      String
+  clause        PolicyPackClause       @relation(fields: [clauseId], references: [id], onDelete: Cascade)
+  topicId       String?
+  topic         RequirementSpineTopic? @relation(fields: [topicId], references: [id], onDelete: Restrict)
+  coverage      String // FULL | PARTIAL | DELTA
+  deltaNote     String?
+  mappedBy      String?
+  approvedBy    String?
+  effectiveDate DateTime?
+  createdAt     DateTime               @default(now())
+
+  @@unique([clauseId, topicId])
+  @@index([clauseId])
+  @@index([topicId])
+  @@map("clause_topic_map")
+}
+
+// D-060: atom -> spine-topic mapping, set at atom approval (POST /api/atoms/:id/approve accepts
+// optional topicIds). atomId is a bare indexed string, not a formal relation - matches the
+// existing AtomCompletion/DripDelivery precedent for "many rows soft-reference one atom."
+model AtomTopicMap {
+  id         String                @id @default(cuid())
+  atomId     String
+  topicId    String
+  topic      RequirementSpineTopic @relation(fields: [topicId], references: [id], onDelete: Restrict)
+  mappedBy   String
+  approvedAt DateTime              @default(now())
+
+  @@unique([atomId, topicId])
+  @@index([atomId])
+  @@index([topicId])
+  @@map("atom_topic_map")
+}
+
+// D-060: which tenant has adopted which PolicyPack revision - drives which compliance views
+// render. packRevision is a frozen snapshot of PolicyPack.version at adoption time, not a live
+// pointer (same freeze pattern as TrainingPackageManifest's curriculumRevision/outputHash).
+// Re-adoption of a newer revision supersedes rather than mutates the prior row (status/
+// supersededAt), matching this schema's append-only audit convention elsewhere
+// (MaiSystemCondition.supersededById, EvidenceRelationship.supersededAt).
+model PackAdoption {
+  id           String     @id @default(cuid())
+  tenantId     String
+  packId       String
+  pack         PolicyPack @relation(fields: [packId], references: [id], onDelete: Cascade)
+  packRevision Int
+  adoptedAt    DateTime   @default(now())
+  approvedBy   String?
+  status       String     @default("ACTIVE")
+  supersededAt DateTime?
+
+  @@unique([tenantId, packId, packRevision])
+  @@index([tenantId])
+  @@index([packId])
+  @@map("pack_adoption")
+}
+
+model LearningIntervention {
+  id                       String                                     @id @default(cuid())
+  tenantId                 String
+  // Nullable per D-058: a regulatory-baseline intervention (origin below) has no triggering
+  // HfEvent - it exists because a regulation requires the training, not because our own data
+  // flagged something. The compile -> assign pipeline never reads eventId (confirmed by
+  // inspection before this change), so this is safe for that path; DefenseDossier.ts's two
+  // eventId-dependent lookups were audited and null-guarded in the same change.
+  eventId                  String?
+  event                    HfEvent?                                   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  // "event" (default, preserves every existing row's real meaning) | "regulatory-baseline"
+  origin                   String                                     @default("event")
+  title                    String
+  description              String?
+  atomIds                  String                                     @default("[]") // stored as JSON array string
+  caseStudyAtomId          String?
+  assessmentIds            String                                     @default("[]") // stored as JSON array string
+  effectivenessTargetLevel String                                     @default("COMPLETION")
+  appropriatenessReviewId  String?                                    @unique
+  appropriatenessReview    LearningInterventionAppropriatenessReview?
+  status                   String                                     @default("DRAFT")
+  designedBy               String
+  designedAt               DateTime                                   @default(now())
+  approvedBy               String?
+  approvedAt               DateTime?
+  publishedBy              String?
+  publishedAt              DateTime?
+  startDate                DateTime?
+  targetCompletionDate     DateTime?
+  closureStatus            String                                     @default("OPEN")
+  closedAt                 DateTime?
+  recalledAt               DateTime?
+  recallReason             String?
+  createdAt                DateTime                                   @default(now())
+  updatedAt                DateTime                                   @updatedAt
+  systemCondition          MaiSystemCondition?
+  assignments              TrainingAssignment[]
+  observations             SupervisorObservation[]
+  effectiveness            EffectivenessEvidence[]
+
+  @@index([status])
+  @@index([effectivenessTargetLevel])
+  @@index([closureStatus])
+  @@index([origin])
+  @@index([tenantId])
+  @@map("learning_intervention")
+}
+
+model LearningInterventionAppropriatenessReview {
+  id                        String               @id @default(cuid())
+  interventionId            String               @unique
+  intervention              LearningIntervention @relation(fields: [interventionId], references: [id], onDelete: Cascade)
+  competenceGapIdentified   Boolean?
+  trainingReducesRisk       Boolean?
+  engineeringAlternative    String?
+  engineeringRanking        Int?
+  processingAlternative     String?
+  processingRanking         Int?
+  toolingAlternative        String?
+  toolingRanking            Int?
+  primaryOrSupporting       String               @default("PRIMARY")
+  expectedBehaviorChange    String?
+  ineffectivenessEscalation String?
+  reviewedBy                String
+  reviewedAt                DateTime             @default(now())
+
+  @@index([competenceGapIdentified])
+  @@index([trainingReducesRisk])
+  @@map("learning_intervention_appropriateness_review")
+}
+
+model PolicyPack {
+  id                       String             @id @default(cuid())
+  ownerTenantId            String?
+  name                     String
+  version                  Int                @default(1)
+  regulatoryFramework      String
+  regulatoryReference      String?
+  effectiveDate            DateTime           @default(now())
+  expiryDate               DateTime?
+  mandatoryTopics          String             @default("[]") // stored as JSON array string
+  mandatoryAudiences       String             @default("[]") // stored as JSON array string
+  mandatoryAssessments     String             @default("[]") // stored as JSON array string
+  recurrenceMonths         Int?
+  evidenceSufficiencyRules String?
+  licenseClass             String?
+  spineRevision            Int? // D-060: which RequirementSpineTopic revision this pack's clauses are mapped against
+  clauses                  PolicyPackClause[]
+  adoptions                PackAdoption[]
+  createdAt                DateTime           @default(now())
+  updatedAt                DateTime           @updatedAt
+  approvedBy               String?
+  approvedAt               DateTime?
+
+  @@index([regulatoryFramework])
+  @@index([effectiveDate])
+  @@index([ownerTenantId])
+  @@map("policy_pack")
+}
+
+model PolicyPackClause {
+  id                String           @id @default(cuid())
+  packId            String
+  pack              PolicyPack       @relation(fields: [packId], references: [id], onDelete: Cascade)
+  clauseNumber      String
+  clauseTitle       String?
+  clauseText        String?
+  section           String? // D-060: generic section grouping (e.g. "4") for multi-section packs
+  sectionLabel      String? // D-060: e.g. "Human Performance & Limitations"
+  mappedAtomIds     String           @default("[]") // stored as JSON array string - direct manual override, unioned with topic-derived atoms
+  traceabilityNotes String?
+  topicMaps         ClauseTopicMap[]
+
+  @@index([packId])
+  @@map("policy_pack_clause")
+}
+
+// ============================================================================
+// DELIVERY & EFFECTIVENESS PLANE: Assignments, observations, outcomes
+// ============================================================================
+
+model TrainingAssignment {
+  id                       String                  @id @default(cuid())
+  tenantId                 String
+  learnerId                String
+  learner                  User                    @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  interventionId           String
+  intervention             LearningIntervention    @relation(fields: [interventionId], references: [id], onDelete: Cascade)
+  manifestId               String
+  manifest                 TrainingPackageManifest @relation(fields: [manifestId], references: [id])
+  role                     String?
+  site                     String?
+  assignedAt               DateTime                @default(now())
+  dueDate                  DateTime?
+  targetCompletionDate     DateTime?
+  completedAt              DateTime?
+  passedAt                 DateTime?
+  failedAt                 DateTime?
+  assessmentAttemptIds     String                  @default("[]") // stored as JSON array string
+  status                   String                  @default("ASSIGNED")
+  // Regulatory baseline training (D-058): months until this assignment's training must recur
+  // (e.g. 24, per GM/industry continuation-training practice - NOT the same concept as
+  // LearningAtom.recurrenceRule, which is DripRecurrencyService's days-scale shift-brief
+  // re-delivery cadence, Phase 3 WP-4.4). Populated at assignment-creation time for
+  // regulatory-baseline-origin assignments; null otherwise. No scheduler reads this yet -
+  // the data exists ahead of the auto-scheduling logic, by design (D-058).
+  recurrenceIntervalMonths Int?
+  createdAt                DateTime                @default(now())
+  observations             SupervisorObservation[]
+  effectiveness            EffectivenessEvidence[]
+  atomCompletions          AtomCompletion[]
+  dripDeliveries           DripDelivery[]
+  assessment               AssignmentAssessment?
+  certificate              TrainingCertificate?
+
+  @@index([learnerId])
+  @@index([interventionId])
+  @@index([status])
+  @@index([dueDate])
+  @@index([tenantId])
+  @@map("training_assignment")
+}
+
+model AssignmentAssessment {
+  id               String                        @id @default(cuid())
+  tenantId         String
+  assignmentId     String                        @unique
+  assignment       TrainingAssignment            @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  passingScore     Int                           @default(80)
+  maxAttempts      Int                           @default(3)
+  questionSnapshot String
+  snapshotHash     String
+  createdAt        DateTime                      @default(now())
+  attempts         AssignmentAssessmentAttempt[]
+
+  @@index([tenantId])
+  @@map("assignment_assessment")
+}
+
+model AssignmentAssessmentAttempt {
+  id            String               @id @default(cuid())
+  assessmentId  String
+  assessment    AssignmentAssessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  learnerId     String
+  learner       User                 @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  attemptNumber Int
+  startedAt     DateTime             @default(now())
+  submittedAt   DateTime             @default(now())
+  responses     String
+  score         Int
+  passed        Boolean
+  integrityHash String
+  createdAt     DateTime             @default(now())
+  certificate   TrainingCertificate?
+
+  @@unique([assessmentId, attemptNumber])
+  @@index([learnerId])
+  @@map("assignment_assessment_attempt")
+}
+
+model TrainingCertificate {
+  id                     String                      @id @default(cuid())
+  tenantId               String
+  assignmentId           String                      @unique
+  assignment             TrainingAssignment          @relation(fields: [assignmentId], references: [id], onDelete: Restrict)
+  attemptId              String                      @unique
+  attempt                AssignmentAssessmentAttempt @relation(fields: [attemptId], references: [id], onDelete: Restrict)
+  learnerId              String
+  learner                User                        @relation(fields: [learnerId], references: [id], onDelete: Restrict)
+  certificateCode        String                      @unique
+  assessmentSnapshotHash String
+  issuedAt               DateTime                    @default(now())
+  expiresAt              DateTime?
+  revokedAt              DateTime?
+  revocationReason       String?
+
+  @@index([tenantId, learnerId])
+  @@map("training_certificate")
+}
+
+// Per-atom completion tracking within an assignment (C-009, PHASE-3-RUN-DIRECTIVE.md WP-2 §2).
+// Distinct from TrainingAssignment.status (which is assignment-level: ASSIGNED/PASSED/etc) —
+// this tracks which INDIVIDUAL atoms within the manifest the learner has completed, matching
+// PHASE-1-SPECIFICATION.md §2 step 6's "learner completes atoms in order... 'Ready for
+// Assessment' button appears after the last one" behavior, which had no backing table before.
+model AtomCompletion {
+  id           String             @id @default(cuid())
+  assignmentId String
+  assignment   TrainingAssignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  atomId       String
+  completedAt  DateTime           @default(now())
+
+  @@unique([assignmentId, atomId])
+  @@index([assignmentId])
+  @@map("atom_completion")
+}
+
+// WP-4.4: Drip Recurrency. Unlike AtomCompletion (one row per atom per assignment,
+// enforced once-only via @@unique), a drip atom is delivered repeatedly on a cadence
+// (e.g. a shift-brief refresher) — so each delivery is its own row, not upserted.
+model DripDelivery {
+  id           String             @id @default(cuid())
+  assignmentId String
+  assignment   TrainingAssignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  atomId       String
+  deliveredAt  DateTime           @default(now())
+
+  @@index([assignmentId, atomId])
+  @@map("drip_delivery")
+}
+
+model TrainingPackageManifest {
+  id                   String               @id @default(cuid())
+  tenantId             String
+  packageId            String               @default(cuid())
+  version              Int                  @default(1)
+  curriculumRevision   String
+  compilerVersion      String
+  rulesetRevision      String
+  policyPackRevisions  String? // stored as JSON string
+  learnerId            String?
+  learnerRole          String?
+  learnerSite          String?
+  learnerAttributes    String? // stored as JSON string
+  baselineContent      String
+  recurrentContent     String? // stored as JSON string
+  replacementDecisions String? // stored as JSON string
+  questionSelectionLog String? // stored as JSON string
+  sourceTraceability   String? // stored as JSON string
+  inputHash            String?
+  outputHash           String
+  approvedBy           String?
+  approvedAt           DateTime?
+  frozenAt             DateTime             @default(now())
+  allLockedAfter       DateTime             @default(now())
+  status               String               @default("ACTIVE")
+  createdAt            DateTime             @default(now())
+  assignments          TrainingAssignment[]
+
+  @@unique([packageId, version])
+  @@index([outputHash])
+  @@index([frozenAt])
+  @@index([tenantId])
+  @@map("training_package_manifest")
+}
+
+model SupervisorObservation {
+  id                        String               @id @default(cuid())
+  assignmentId              String
+  assignment                TrainingAssignment   @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  interventionId            String
+  intervention              LearningIntervention @relation(fields: [interventionId], references: [id])
+  supervisorId              String
+  supervisorRole            String?
+  title                     String?
+  description               String
+  dateObserved              DateTime             @default(now())
+  effectivenessLevel        String               @default("COMPLETION")
+  knowledgeSkillEvidence    String?
+  transferEvidence          String?
+  operationalImpactEvidence String?
+  outcome                   String?
+  recommendations           String?
+  recordedAt                DateTime             @default(now())
+  recordedBy                String
+
+  @@index([assignmentId])
+  @@index([interventionId])
+  @@index([effectivenessLevel])
+  @@index([dateObserved])
+  @@map("supervisor_observation")
+}
+
+model EffectivenessEvidence {
+  id                      String               @id @default(cuid())
+  interventionId          String
+  intervention            LearningIntervention @relation(fields: [interventionId], references: [id], onDelete: Cascade)
+  assignmentId            String?
+  assignment              TrainingAssignment?  @relation(fields: [assignmentId], references: [id], onDelete: SetNull)
+  level                   String               @default("COMPLETION")
+  evidenceType            String
+  data                    String? // stored as JSON string
+  supportingDocumentation String?
+  collectedBy             String
+  collectedAt             DateTime             @default(now())
+  supportsClosureAtLevel  Boolean              @default(false)
+  closureEvidenceAt       DateTime?
+  createdAt               DateTime             @default(now())
+
+  @@index([interventionId])
+  @@index([level])
+  @@index([evidenceType])
+  @@map("effectiveness_evidence")
+}
+
+// ============================================================================
+// ORGANIZATIONAL LEARNING PLANE (D-066/D-067): Lessons Learned, CAR/CAPA, and
+// the Kernel's bounded-autonomous-authority bridge (Authority Profiles + the
+// GovernedDecisions they authorize). This is the ingestion side the correction
+// doc identified as the actual product differentiator - the delivery/governance
+// plane above (LearningIntervention -> LearningAtom -> compile -> assign) is
+// unchanged and is what this plane feeds into, never replaces.
+// ============================================================================
+
+// D-066/D-067: a first-class organizational-learning record, not a note field or an NCR tag.
+// lessonType captures positive lessons too (successful recovery, effective escalation, strong
+// stop-work decisions) - not failure-only, per the correction doc's §6. Links to evidence and
+// to any resulting LearningAtom go through the existing EvidenceRelationship table (already
+// what CurriculumCompiler walks for traceability) - no separate linking column here.
+model LessonLearned {
+  id                   String    @id @default(cuid())
+  tenantId             String
+  title                String
+  summary              String
+  narrative            String?
+  lessonType           String    @default("NEGATIVE") // NEGATIVE | POSITIVE
+  status               String    @default("DRAFT")
+  // DRAFT | SUBMITTED | UNDER_REVIEW | EVIDENCE_NEEDED | APPROVED |
+  // APPROVED_NO_TRAINING_REQUIRED | APPROVED_LEARNING_INTERVENTION_REQUIRED |
+  // PUBLISHED | SUPERSEDED | ARCHIVED | REJECTED
+  //
+  // sourceClassification is HF-ENGINE's own fine-grained provenance taxonomy - reconciled down
+  // to the Kernel's coarser AuthorityProfile.trustedSourceClasses enum
+  // (TRUSTED_CONFIRMED|VALIDATED_INTERNAL|EMERGING|UNVALIDATED) by
+  // LessonAutoImplementationService's mapping function; the Kernel only ever sees the coarse
+  // class, this table keeps and surfaces the fine one.
+  sourceClassification String    @default("INTERNAL_UNVALIDATED")
+  // CONFIRMED_INDUSTRY_FINDING | APPROVED_HUMAN_FACTORS_LESSON | VALIDATED_INTERNAL_LESSON |
+  // INTERNAL_UNVALIDATED
+  ingestionMethod      String    @default("MANUAL") // MANUAL | CSV | JSON_API | LOCAL_FOLDER
+  externalSourceRef    String? // citation/URL/file id for industry-sourced lessons
+  themes               String    @default("[]") // stored as JSON array string
+  rolesExposed         String    @default("[]") // stored as JSON array string
+  sitesExposed         String    @default("[]") // stored as JSON array string
+  submittedBy          String?
+  submittedAt          DateTime?
+  reviewedBy           String?
+  reviewedAt           DateTime?
+  approvedBy           String?
+  approvedAt           DateTime?
+  rejectionReason      String?
+  supersedesLessonId   String?
+  supersededByLessonId String?
+  publishedAt          DateTime?
+  archivedAt           DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  carLinks          CarLessonLink[]
+  governedDecisions MaiGovernedDecision[]
+  revisionProposals MaiContentRevisionProposal[]
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([sourceClassification])
+  @@map("lesson_learned")
+}
+
+// D-066: CAR/CAPA. trainingClassification and its rationale/decidedBy/decidedAt triple are
+// always human-set (see LessonAutoImplementationService - it never writes these fields; that
+// is the whole point of keeping them separate from the autonomous Lesson->Atom pipeline).
+// Auxiliary supporting NCRs/audits beyond the primary sourceEventId go through the existing
+// EvidenceRelationship table, same as LessonLearned.
+model CorrectiveAction {
+  id                              String    @id @default(cuid())
+  tenantId                        String
+  carNumber                       String // human reference, e.g. "CAR-2026-0042"
+  title                           String
+  issueStatement                  String
+  containment                     String?
+  correction                      String?
+  causalAnalysis                  String?
+  correctiveActionText            String?
+  effectivenessReview             String?
+  status                          String    @default("DRAFT")
+  // DRAFT | OPEN | CONTAINMENT | INVESTIGATION | CORRECTIVE_ACTION_DEFINED |
+  // EFFECTIVENESS_REVIEW | CLOSED | REJECTED
+  trainingClassification          String    @default("NO_TRAINING_REQUIRED")
+  // TRAINING_IS_CORRECTIVE_ACTION | TRAINING_IS_PART_OF_IT | TRAINING_INAPPROPRIATE |
+  // NO_TRAINING_REQUIRED - always human-decided, never set by LessonAutoImplementationService
+  trainingClassificationRationale String?
+  trainingClassificationDecidedBy String?
+  trainingClassificationDecidedAt DateTime?
+  linkedLearnerPopulation         String? // JSON: role/site targeting, populated only when
+  // trainingClassification involves training
+  openedBy                        String?
+  openedAt                        DateTime?
+  closedBy                        String?
+  closedAt                        DateTime?
+  createdAt                       DateTime  @default(now())
+  updatedAt                       DateTime  @updatedAt
+
+  hfEvents HfEvent[]
+  carLinks CarLessonLink[]
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([trainingClassification])
+  @@map("corrective_action")
+}
+
+// D-066 §5: explicit many-to-many, a first-class product relationship (not another generic
+// EvidenceRelationship row) - one CAR may produce zero, one, or several lessons; one lesson may
+// be supported by multiple CARs. suggestedBySystem marks a Kernel-proposed link (PREPARE-level,
+// per D-067 Part 4 - the Kernel may suggest via shared evidence/theme, a human confirms; it
+// never autonomously creates a link with suggestedBySystem left true and no human confirmation).
+model CarLessonLink {
+  id                String           @id @default(cuid())
+  tenantId          String
+  carId             String
+  car               CorrectiveAction @relation(fields: [carId], references: [id], onDelete: Cascade)
+  lessonLearnedId   String
+  lessonLearned     LessonLearned    @relation(fields: [lessonLearnedId], references: [id], onDelete: Cascade)
+  linkType          String           @default("RELATED") // PRODUCED | SUPPORTED_BY | RELATED
+  suggestedBySystem Boolean          @default(false)
+  confirmedBy       String?
+  confirmedAt       DateTime?
+  rationale         String?
+  createdBy         String
+  createdAt         DateTime         @default(now())
+
+  @@unique([carId, lessonLearnedId])
+  @@index([carId])
+  @@index([lessonLearnedId])
+  @@map("car_lesson_link")
+}
+
+// D-067: HF-ENGINE's persisted copy of a Kernel AuthorityProfile (kernel/src/decision.ts,
+// @mai/kernel/decision), plus the lifecycle wrapper the kernel type itself doesn't have
+// (status/supersession). humanApprovalPerInstance defaults true - fail-closed: a profile is
+// only autonomous once someone explicitly flips it, never by omission.
+//
+// The Kernel does zero interpretation of constraints/escalateWhen - validateAuthorityProfile()
+// only checks they're arrays. Every entry here must be one of the stable codes
+// LessonAutoImplementationService has a real 1:1 check function for:
+//   constraints:   SOURCE_PROVENANCE_VALID | TARGET_CONCEPT_MATCH |
+//                  NO_HIGHER_AUTHORITY_CONTRADICTION | TENANT_SCOPE_VALID
+//   escalateWhen:  SOURCE_CONFIDENCE_INSUFFICIENT | CONFLICTING_LESSONS |
+//                  TARGET_OUTSIDE_SCOPE | CURRICULUM_CHANGE_EXCEEDS_AUTHORITY
+// REGULATORY_CONTRADICTION may be declared but is not yet enforced (no detector exists) - do
+// not fake a check for it.
+model MaiAuthorityProfile {
+  id                       String    @id @default(cuid())
+  authorityProfileId       String // business key, e.g. "HF-LESSON-AUTO-IMPLEMENT"
+  version                  Int
+  effectiveDate            DateTime
+  approvedBy               String
+  trustedSourceClasses     String // JSON array of AuthorityProfile.trustedSourceClasses values
+  permittedBehaviors       String // JSON array of DecisionState values
+  humanApprovalPerInstance Boolean   @default(true)
+  constraints              String    @default("[]") // JSON array of stable codes, see above
+  escalateWhen             String    @default("[]") // JSON array of stable codes, see above
+  status                   String    @default("DRAFT") // DRAFT | ACTIVE | SUPERSEDED | REVOKED
+  profileHash              String // SHA-256 over the canonical kernel-shaped fields, immutable
+  supersededAt             DateTime?
+  createdAt                DateTime  @default(now())
+
+  governedDecisions MaiGovernedDecision[]
+
+  @@unique([authorityProfileId, version])
+  @@index([status])
+  @@map("mai_authority_profile")
+}
+
+// D-067: every GovernedDecision LessonAutoImplementationService produces, persisted regardless
+// of outcome (PROCEED_AND_NOTIFY success or ESCALATE) - mirrors kernel/src/decision.ts's
+// GovernedDecision fields plus HF-ENGINE's own lineage (subjectType/subjectId/resultingAtomId).
+model MaiGovernedDecision {
+  id                  String  @id @default(cuid())
+  decisionId          String  @unique // the kernel's own decisionId
+  tenantId            String
+  domain              String
+  authorityScope      String
+  ruleId              String
+  ruleRevision        Int
+  evidenceState       String // VERIFIED | PARTIAL | MISSING | CONFLICTING
+  confidence          Float
+  rationale           String
+  decisionState       String // OBSERVE|ADVISE|PREPARE|PROCEED|PROCEED_AND_NOTIFY|HOLD|BLOCK|ESCALATE
+  permittedHostAction String
+  humanReviewRequired Boolean
+  overrideAuthority   String  @default("[]") // stored as JSON array string
+
+  authorityProfileRowId        String?
+  authorityProfile             MaiAuthorityProfile? @relation(fields: [authorityProfileRowId], references: [id])
+  authorityProfileId           String?
+  authorityProfileRevision     Int?
+  authorityProfileHash         String?
+  authorityEffectiveFrom       DateTime?
+  authorityEffectiveTo         DateTime?
+  autonomousExecutionPermitted Boolean?
+
+  subjectType         String         @default("LessonLearned")
+  subjectId           String
+  lessonLearnedId     String?
+  lessonLearned       LessonLearned? @relation(fields: [lessonLearnedId], references: [id])
+  resultingAtomId     String? // set only when this decision directly materializes a live LearningAtom
+  // D-068: set when this decision's outcome is a staged MaiContentRevisionProposal (decisionState
+  // PREPARE) rather than a live atom - resultingAtomId stays reserved for actual materialization,
+  // which now only happens later, at human release (see MaiContentRevisionProposal.resultingAtomId).
+  resultingProposalId String?
+
+  immutableAuditReference String
+  timestamp               DateTime
+
+  createdAt DateTime @default(now())
+
+  @@index([tenantId])
+  @@index([decisionState])
+  @@index([subjectId])
+  @@index([lessonLearnedId])
+  @@map("mai_governed_decision")
+}
+
+// D-068: a staged, machine-proposed content revision, awaiting human release before it can ever
+// become a live LearningAtom. This table exists specifically so LearningAtom.status ('APPROVED'
+// is checked by CurriculumCompiler.compile(), DriftWatchService, RegulatoryTraceabilityService,
+// and the compile-and-assign path) never has to represent "prepared but not yet released" - a
+// proposal only becomes a real LearningAtom, with the existing untouched 'APPROVED' string, at
+// the moment a human (or a future, not-yet-built higher-autonomy profile) releases it.
+model MaiContentRevisionProposal {
+  id                  String         @id @default(cuid())
+  tenantId            String
+  triggerType         String // LESSON_PREPARATION | ROLLBACK
+  lessonLearnedId     String?
+  lessonLearned       LessonLearned? @relation(fields: [lessonLearnedId], references: [id])
+  interventionId      String // the LearningIntervention this proposal's atom will attach to on release
+  baselineAtomId      String? // the LearningAtom this proposal would revise; null = net-new content
+  preparingDecisionId String? // the MaiGovernedDecision (decisionState PREPARE) that authorized preparation
+  priorProposalId     String? // self-referencing: set when this is a rework resubmission
+  status              String         @default("AWAITING_HUMAN_RELEASE")
+  // AWAITING_HUMAN_RELEASE | APPROVED_EFFECTIVE | RETURNED_FOR_REWORK | REJECTED | SUPERSEDED
+
+  // Machine-proposed content - mirrors LearningAtom field-for-field, never mutated once created.
+  title                 String
+  objective             String
+  content               String?
+  format                String
+  duration              Int?
+  classification        String  @default("INTERNAL")
+  applicabilityTags     String  @default("[]") // stored as JSON array string
+  recurrenceRule        String?
+  roleAudience          String  @default("[]") // stored as JSON array string
+  effectivenessMethod   String?
+  evaluationCriteria    String?
+  assessmentQuestionIds String  @default("[]") // stored as JSON array string
+
+  // Human-edit overlay for APPROVE_WITH_EDITS - kept separate from the machine proposal above,
+  // which is never overwritten. JSON: { field: newValue }, only the fields actually changed.
+  humanEditedContent String?
+  editSummary        String?
+
+  releaseApprovalId String? // FK to the MaiApproval row recording the human release decision
+  resultingAtomId   String? // set only after APPROVE/APPROVE_WITH_EDITS materializes a real atom
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([lessonLearnedId])
+  @@index([baselineAtomId])
+  @@map("mai_content_revision_proposal")
+}

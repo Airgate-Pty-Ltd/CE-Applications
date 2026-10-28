@@ -1,0 +1,48 @@
+{
+  "ruleId": "PA-102",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "major",
+  "category": "traceability",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit"
+  ],
+  "events": [
+    "audit.report.issue_requested"
+  ],
+  "description": "One or more findings have no objective evidence.",
+  "requiredFields": [
+    "findings_without_evidence_ids"
+  ],
+  "findingText": "One or more findings have no objective evidence.",
+  "resolutionHint": "Attach evidence to every finding.",
+  "clauseRefs": [],
+  "condition": {
+    "field": "findings_without_evidence_ids",
+    "op": "length_gte",
+    "value": 1
+  },
+  "decision": {
+    "decisionState": "HOLD",
+    "permittedHostAction": "hold:report-issuance",
+    "humanReviewRequired": true,
+    "overrideAuthority": [
+      "lead_auditor"
+    ],
+    "authorityScope": "AP-PA-REPORT-HOLD"
+  },
+  "testCases": [
+    "PA-102-POS-001",
+    "PA-102-NEG-001",
+    "PA-102-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

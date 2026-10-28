@@ -1,0 +1,35 @@
+{
+  "$id": "evidenceInventory",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "title", "type"],
+    "properties": {
+      "id": { "type": "string" },
+      "title": { "type": "string" },
+      "type": {
+        "enum": [
+          "Procedure",
+          "WorkInstruction",
+          "Form",
+          "Record",
+          "Manual",
+          "Attachment",
+          "Other"
+        ]
+      },
+      "contentSummary": { "type": "string" },
+      "clausesReferenced": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "keywords": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "filePath": { "type": "string" }
+    },
+    "additionalProperties": false
+  }
+}
+

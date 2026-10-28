@@ -1,0 +1,84 @@
+{
+  "templateId": "submission-checklist",
+  "title": "FAA-PMA Submission Checklist",
+  "scope": "GOLDEN",
+  "note": "Organization-agnostic form. The tool produces this completed and attaches it to the submission. Tenant supplies only the form number/revision shown in the footer and the people who sign it.",
+
+  "header": {
+    "formLabel": "{{tenant.forms.submissionChecklist.id}} Rev {{tenant.forms.submissionChecklist.revision}}",
+    "title": "FAA-PMA Submission Checklist",
+    "supplementSource": {
+      "prompt": "Please check the PMA Supplement Source",
+      "options": ["TC Holder", "STC", "Other"],
+      "selected": "{{case.supplementSource}}",
+      "otherText": "{{case.supplementSourceOther}}"
+    },
+    "manufacturerApplicability": "{{case.manufacturerApplicability}}"
+  },
+
+  "signoffColumns": ["Creator", "Reviewer", "Signatory"],
+  "signoffNote": "Write your employee id or name once revised.",
+  "dateField": "{{case.checklistDate}}",
+
+  "items": [
+    {
+      "n": "1",
+      "text": "Use the application letter template according to the PMA supplement source.",
+      "subitems": [
+        {
+          "n": "A",
+          "text": "Identify the source: Single / Multiple",
+          "detail": "Single source: TC Holder or STC variant. Multiple source: TC Holder or STC variant.",
+          "field": "{{case.sourceCount}}"
+        },
+        {
+          "n": "B",
+          "text": "Fill out the variable fields of the letter chosen.",
+          "detail": "Use the assist letter for TC Holder, or the front page of the approved STC."
+        }
+      ]
+    },
+    {
+      "n": "2",
+      "text": "Use the PMA Supplement template, populated from the TC Holder or STC information.",
+      "detail": "Follow the organization's current supplement development procedure.",
+      "subitems": [
+        { "n": "A", "text": "Complete the supplement per the development procedure." },
+        { "n": "B", "text": "How many items were included on the PMA supplement:", "field": "{{case.supplementItemCount}}" },
+        {
+          "n": "C",
+          "text": "How many pages were used on the PMA supplement:",
+          "field": "{{case.supplementPageCount}}",
+          "detail": "Observe the page-count guidance; if exceeded, notify the FAA office of the total."
+        }
+      ]
+    },
+    {
+      "n": "3",
+      "text": "Review of the source approval (assist letter or STC) against the application letter and PMA supplement.",
+      "subitems": [
+        {
+          "n": "A",
+          "text": "Verify the following information matches between the three documents: 1. Assist Letter or STC, 2. Application Letter, 3. PMA Supplement.",
+          "checks": [
+            { "n": "I", "item": "System Name", "where": "source approval / application letter (paragraph 1 or table) / supplement", "ruleId": "PMA-XDOC-001" },
+            { "n": "II", "item": "Approval Number (STC/TC)", "where": "source approval / application letter (paragraph 2 or table) / supplement", "ruleId": "PMA-XDOC-002" },
+            { "n": "III", "item": "TC Holder", "where": "source approval / application letter (paragraph 1 or table) / supplement", "ruleId": "PMA-XDOC-003" },
+            {
+              "n": "IV",
+              "item": "Model Eligibility",
+              "where": "source approval / application letter / supplement",
+              "note": "Apply the organization's model-prefix convention; use 'Series' or 'Models' as the source approval does; add special notes or exceptions as applicable.",
+              "ruleId": "PMA-XDOC-004"
+            },
+            { "n": "V", "item": "Enclosures", "where": "application letter last paragraph vs. paragraphs 1 and 2 (or table) of the same letter", "ruleId": "PMA-XDOC-005" },
+            { "n": "VI", "item": "Index List / Drawing List / component drawing", "where": "attachment vs. the one shown on the source approval", "ruleId": "PMA-XDOC-006" }
+          ]
+        }
+      ]
+    },
+    { "n": "4", "text": "Attach this checklist to the submission." }
+  ],
+
+  "footer": ["{{tenant.manufacturingAddress}}", "Ph: {{tenant.phone}}, FAX: {{tenant.fax}}"]
+}

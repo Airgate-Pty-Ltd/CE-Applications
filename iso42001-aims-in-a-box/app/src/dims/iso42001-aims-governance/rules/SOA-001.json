@@ -1,0 +1,29 @@
+{
+  "ruleId": "SOA-001",
+  "dimId": "iso42001-aims-governance",
+  "revision": 1,
+  "effectiveDate": "2026-07-10",
+  "approvedBy": "Brian R. Olea",
+  "approvalRef": "MAI-CCB-2026-014",
+  "severity": "major",
+  "category": "linkage",
+  "riskClass": "B",
+  "basisType": "deterministic-record-completeness",
+  "description": "A Statement of Applicability entry marked applicable must have at least one documented risk treatment linked to it via soa_control_ref.",
+  "requiredFields": ["applicability", "linked_treatment_id"],
+  "events": ["soa.created", "soa.updated"],
+  "findingText": "Control marked applicable with no documented treatment",
+  "resolutionHint": "Add a risk treatment record linked to this control before claiming applicability",
+  "clauseRefs": ["6.1.3"],
+  "condition": {
+    "all": [
+      { "field": "applicability", "eq": "applicable" },
+      { "field": "linked_treatment_id", "linked_record_missing": "risk_treatments" }
+    ]
+  },
+  "testCases": ["SOA-001-POS-001", "SOA-001-NEG-001", "SOA-001-MISSING-001"],
+  "limitations": [
+    "Confirms only that a linked risk_treatments row exists for this control_ref — cannot verify the treatment is technically adequate or actually implemented.",
+    "Relies on soa_control_ref matching exactly; a treatment linked under a differently-formatted control reference will not be detected as linked."
+  ]
+}

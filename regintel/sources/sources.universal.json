@@ -1,0 +1,515 @@
+{
+  "registry_version": "1.0.0",
+  "domain": "universal",
+  "identity_markers_needs_review": true,
+  "last_full_validation": null,
+  "sources": [
+    {
+      "id": "UNI-001",
+      "authority": "U.S. Federal Register",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Proposed rules, final rules, notices, corrections",
+      "url": "https://www.federalregister.gov/",
+      "identity_markers": [
+        "Federal",
+        "Proposed"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "UNI-002",
+      "authority": "Federal Register API",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Structured U.S. regulatory retrieval",
+      "url": "https://www.federalregister.gov/developers/documentation/api/v1",
+      "identity_markers": [
+        "Federal",
+        "Structured"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "UNI-003",
+      "authority": "Regulations.gov",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Dockets, supporting documents, comments",
+      "url": "https://www.regulations.gov/",
+      "identity_markers": [
+        "Regulations",
+        "Dockets"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-004",
+      "authority": "Regulations.gov API",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Structured docket retrieval (API key required)",
+      "url": "https://open.gsa.gov/api/regulationsgov/",
+      "identity_markers": [
+        "Regulations",
+        "Structured"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-005",
+      "authority": "eCFR",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Current consolidated U.S. regulations",
+      "url": "https://www.ecfr.gov/",
+      "identity_markers": [
+        "eCFR",
+        "Current"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "UNI-006",
+      "authority": "eCFR API",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Structured CFR retrieval and version comparison",
+      "url": "https://www.ecfr.gov/developers/documentation/api/v1",
+      "identity_markers": [
+        "eCFR",
+        "Structured"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "UNI-007",
+      "authority": "U.S. Government Publishing Office",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Official CFR, Federal Register, legislation",
+      "url": "https://www.govinfo.gov/",
+      "identity_markers": [
+        "Government",
+        "Official"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "UNI-008",
+      "authority": "GovInfo API",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Structured official-publication retrieval (API key required)",
+      "url": "https://api.govinfo.gov/docs/",
+      "identity_markers": [
+        "GovInfo",
+        "Structured"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-009",
+      "authority": "U.S. Unified Regulatory Agenda",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Planned/pending U.S. regulatory actions",
+      "url": "https://www.reginfo.gov/public/do/eAgendaMain",
+      "identity_markers": [
+        "Unified",
+        "Planned"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-010",
+      "authority": "EU EUR-Lex",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "EU law, Official Journal, consolidated legislation",
+      "url": "https://eur-lex.europa.eu/",
+      "identity_markers": [
+        "EUR",
+        "Official"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "UNI-011",
+      "authority": "EUR-Lex Official Journal",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Legally authenticated EU publications",
+      "url": "https://eur-lex.europa.eu/oj/direct-access.html",
+      "identity_markers": [
+        "EUR",
+        "Legally"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "UNI-012",
+      "authority": "EUR-Lex web services",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Structured EU legal retrieval",
+      "url": "https://eur-lex.europa.eu/content/help/data-reuse/webservice.html",
+      "identity_markers": [
+        "EUR",
+        "Structured"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "UNI-013",
+      "authority": "EU Have Your Say",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Planned laws, consultations, feedback periods",
+      "url": "https://ec.europa.eu/info/law/better-regulation/have-your-say_en",
+      "identity_markers": [
+        "Have",
+        "Planned"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-014",
+      "authority": "EU Data Portal",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Structured European Commission datasets",
+      "url": "https://data.europa.eu/",
+      "identity_markers": [
+        "Data",
+        "Structured"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-015",
+      "authority": "UK Legislation",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "UK Acts, statutory instruments, revised law",
+      "url": "https://www.legislation.gov.uk/",
+      "identity_markers": [
+        "Legislation",
+        "Acts"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-016",
+      "authority": "UK Legislation API",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Structured UK legislation retrieval (Atom/XML)",
+      "url": "https://www.legislation.gov.uk/developer",
+      "identity_markers": [
+        "Legislation",
+        "Structured"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-017",
+      "authority": "UK Consultations",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "UK proposed policy and regulatory changes",
+      "url": "https://www.gov.uk/search/policy-papers-and-consultations",
+      "identity_markers": [
+        "Consultations",
+        "Proposed"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-018",
+      "authority": "Australian Federal Register of Legislation",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Australian Acts, regulations, instruments",
+      "url": "https://www.legislation.gov.au/",
+      "identity_markers": [
+        "Australian",
+        "Acts"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "UNI-019",
+      "authority": "Australian Government Consultations",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Federal consultation notices",
+      "url": "https://consultations.ag.gov.au/",
+      "identity_markers": [
+        "Australian",
+        "Federal"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-020",
+      "authority": "Canada Gazette",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Proposed and final Canadian regulations",
+      "url": "https://gazette.gc.ca/",
+      "identity_markers": [
+        "Canada",
+        "Proposed"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-021",
+      "authority": "Justice Laws Canada",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Consolidated Canadian statutes and regulations",
+      "url": "https://laws-lois.justice.gc.ca/",
+      "identity_markers": [
+        "Justice",
+        "Consolidated"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-022",
+      "authority": "Mexico Diario Oficial de la Federación",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Legally published Mexican laws, NOMs, regulations",
+      "url": "https://www.dof.gob.mx/",
+      "identity_markers": [
+        "Mexico",
+        "Legally"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-023",
+      "authority": "Mexico Cámara de Diputados laws",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Consolidated federal laws",
+      "url": "https://www.diputados.gob.mx/LeyesBiblio/index.htm",
+      "identity_markers": [
+        "Mexico",
+        "Consolidated"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-024",
+      "authority": "Mexico CONAMER",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Regulatory proposals and impact assessments",
+      "url": "https://www.gob.mx/conamer",
+      "identity_markers": [
+        "Mexico",
+        "Regulatory"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-025",
+      "authority": "Brazil Diário Oficial da União",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Official Brazilian federal publication",
+      "url": "https://www.in.gov.br/",
+      "identity_markers": [
+        "Brazil",
+        "Official"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-026",
+      "authority": "Brazil legislation portal",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Consolidated federal legislation",
+      "url": "https://www4.planalto.gov.br/legislacao",
+      "identity_markers": [
+        "Brazil",
+        "Consolidated"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-027",
+      "authority": "China national laws database",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "National laws and regulations",
+      "url": "https://flk.npc.gov.cn/",
+      "identity_markers": [
+        "China",
+        "National"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-028",
+      "authority": "China State Council policies",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "State Council policy and regulatory publications",
+      "url": "https://english.www.gov.cn/policies/",
+      "identity_markers": [
+        "China",
+        "State"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-029",
+      "authority": "Germany federal law portal",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Consolidated German federal laws",
+      "url": "https://www.gesetze-im-internet.de/",
+      "identity_markers": [
+        "Germany",
+        "Consolidated"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-030",
+      "authority": "Germany Federal Law Gazette",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Official German legal publication",
+      "url": "https://www.recht.bund.de/",
+      "identity_markers": [
+        "Germany",
+        "Official"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-031",
+      "authority": "France Légifrance",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "French law and Official Journal",
+      "url": "https://www.legifrance.gouv.fr/",
+      "identity_markers": [
+        "France",
+        "French"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-032",
+      "authority": "Japan e-Gov law search",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Japanese laws and regulations",
+      "url": "https://elaws.e-gov.go.jp/",
+      "identity_markers": [
+        "Japan",
+        "Japanese"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-033",
+      "authority": "South Korea law database",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "English Korean laws and regulations",
+      "url": "https://elaw.klri.re.kr/eng_service/main.do",
+      "identity_markers": [
+        "South",
+        "English"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-034",
+      "authority": "India eGazette",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Gazette of India",
+      "url": "https://egazette.gov.in/",
+      "identity_markers": [
+        "India",
+        "Gazette"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-035",
+      "authority": "India Code",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Consolidated Indian law",
+      "url": "https://www.indiacode.nic.in/",
+      "identity_markers": [
+        "India",
+        "Consolidated"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-036",
+      "authority": "Singapore statutes",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Singapore legislation",
+      "url": "https://sso.agc.gov.sg/",
+      "identity_markers": [
+        "Singapore",
+        "Legislation"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-037",
+      "authority": "Switzerland Fedlex",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Swiss federal law and official publications",
+      "url": "https://www.fedlex.admin.ch/",
+      "identity_markers": [
+        "Switzerland",
+        "Swiss"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-038",
+      "authority": "New Zealand legislation",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "New Zealand laws and regulations",
+      "url": "https://www.legislation.govt.nz/",
+      "identity_markers": [
+        "Zealand",
+        "Laws"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "UNI-039",
+      "authority": "South Africa government notices",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Government Gazette notices and regulations",
+      "url": "https://www.gov.za/documents/notices",
+      "identity_markers": [
+        "South",
+        "Government"
+      ],
+      "criticality": "common"
+    }
+  ]
+}

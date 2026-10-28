@@ -1,0 +1,23 @@
+{
+  "routing": {
+    "default": {
+      "selector": "if secure_mode or tenant_policy == 'onprem' then 'student-local' else 'gpt-lite'",
+      "engines": {
+        "gpt-lite": {
+          "provider": "cloud",
+          "model": "gpt-light-4k",
+          "temperature": 0.2,
+          "seed": 42,
+          "max_tokens": 1200
+        },
+        "student-local": {
+          "provider": "onprem",
+          "model": "edcat-core-13b-q4",
+          "temperature": 0.2,
+          "seed": 42,
+          "max_tokens": 1200
+        }
+      }
+    }
+  }
+}

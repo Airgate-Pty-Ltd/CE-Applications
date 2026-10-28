@@ -1,0 +1,12 @@
+# Normalise to LF in the repository. CI runs on Linux, development happens on
+# Windows, and the scrub gate reads files line by line — inconsistent endings
+# would make hit line numbers differ between machines.
+* text=auto eol=lf
+
+# The generated .docx output is a zip container. Never touch it.
+*.docx binary
+*.xlsx binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.ico binary

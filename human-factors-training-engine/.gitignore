@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production
+.next/
+out/
+dist/
+build/
+
+# Misc
+.DS_Store
+*.pem
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+deploy/docker-optional/docker/.env.docker
+
+# WP-5 backup/restore artifacts (local operational data, not source)
+deploy/docker-optional/docker/backups/
+
+# Standalone Packaging Directive: the bundled Node runtime (downloaded binary, ~85MB,
+# fetched reproducibly by fetch-node-runtime.ps1 - never committed) and the assembled app/
+# output (regenerated from the repo's own build by build-package.ps1, like .next/ itself).
+# data/ (the packaged app's runtime SQLite database) is also excluded via *.db above.
+deploy/installer-windows/runtime/
+deploy/installer-windows/app/
+deploy/installer-windows/data/
+deploy/installer-windows/tools/
+deploy/installer-windows/backups/
+# tray.ps1's rotating log (D-057) - *.log above already covers hfengine.log itself, but not the
+# rotated hfengine.log.old, so the whole directory is excluded explicitly.
+deploy/installer-windows/logs/
+
+# The real customer-facing distributable (built by build-dist.ps1) lands in deploy/dist/ - the
+# zip itself is a large regenerable binary artifact (like runtime/ above), excluded here by
+# the blanket `dist/` rule near the top of this file. The README documenting what belongs
+# there and how to rebuild it IS committed - both the directory and the file need their own
+# negation (gitignore cannot re-include a file whose parent directory is itself excluded).
+!deploy/dist/
+!deploy/dist/README.md
+deploy/dist/*.zip
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Database
+*.db
+*.sqlite
+prisma/dev.db
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Build artifacts
+*.tsbuildinfo

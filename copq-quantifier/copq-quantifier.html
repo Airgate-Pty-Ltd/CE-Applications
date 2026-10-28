@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cost of Poor Quality (COPQ) Quantifier — Conform-Edge</title>
+<style>
+:root{--navy:#0b1f33;--panel:#12293f;--steel:#5b7488;--ink:#e8eef4;--good:#2e9e6b;--warn:#d8a12a;--bad:#c1493f;--line:#22405a;--prev:#3a7bbf;--appr:#7b5ea7}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif;background:var(--navy);color:var(--ink)}
+header{padding:20px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+h1{font-size:19px;margin:0}.brand{color:var(--steel);font-size:12px;text-transform:uppercase;letter-spacing:2px}
+main{max-width:960px;margin:0 auto;padding:22px}
+.tabs{display:flex;gap:0;margin:18px 0 0;border-bottom:1px solid var(--line)}
+.tab{background:none;border:none;color:var(--steel);padding:10px 18px;cursor:pointer;font-size:14px;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab.on{color:var(--ink);border-bottom-color:var(--steel)}
+.tab-content{display:none;margin-top:1px}.tab-content.on{display:block}
+.section{background:var(--panel);border:1px solid var(--line);border-radius:0 10px 10px 10px;padding:18px 20px;margin-bottom:14px}
+.section.prev{border-color:var(--prev)}.section.appr{border-color:var(--appr)}.section.intl{border-color:var(--bad)}.section.extl{border-color:var(--warn)}
+.section h2{font-size:14px;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.section.prev h2{color:#90c4f0}.section.appr h2{color:#c4aef0}.section.intl h2{color:#f0a49c}.section.extl h2{color:#f0cf7f}
+.row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin:8px 0}
+.row label{font-size:13px;color:#a9bccb}
+.row input{width:150px;background:#0d2035;border:1px solid var(--line);border-radius:7px;color:var(--ink);padding:7px 10px;font-size:14px;text-align:right}
+.units{font-size:11px;color:var(--steel);text-align:right;margin-top:-6px;margin-bottom:4px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
+.btn{background:var(--steel);color:#04121f;border:0;border-radius:8px;padding:10px 18px;font-weight:600;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.t-good{background:rgba(46,158,107,.18);color:#7fe0b3}.t-warn{background:rgba(216,161,42,.18);color:#f0cf7f}.t-bad{background:rgba(193,73,63,.2);color:#f0a49c}
+.muted{color:var(--steel);font-size:12px}
+#out{margin-top:18px}
+.summary{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:10px 0}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:14px 0}
+.kpi{background:#0d2035;border-radius:8px;padding:12px 14px}
+.kpi .val{font-size:26px;font-weight:700;margin:4px 0}
+.kpi .lbl{font-size:12px;color:var(--steel)}
+.cat-bar{margin:10px 0}
+.cat-bar .cat-lbl{font-size:13px;margin-bottom:3px;display:flex;justify-content:space-between}
+.cat-bar .bar-track{height:14px;background:#0d2035;border-radius:7px;overflow:hidden}
+.cat-bar .bar-fill{height:100%;border-radius:7px}
+.mr-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+.mr-table th{background:#0d2035;padding:8px 10px;text-align:left;color:var(--steel);font-weight:600}
+.mr-table td{padding:7px 10px;border-bottom:1px solid var(--line)}
+.mr-table tr:last-child td{border-bottom:none}
+.insight{border-left:3px solid var(--steel);padding:8px 12px;margin:6px 0;background:rgba(91,116,136,.08);border-radius:0 8px 8px 0;font-size:13px}
+.insight.warn{border-left-color:var(--warn);background:rgba(216,161,42,.07)}
+.insight.bad{border-left-color:var(--bad);background:rgba(193,73,63,.07)}
+</style></head><body>
+<header>
+  <div>
+    <h1>Cost of Poor Quality (COPQ) Quantifier</h1>
+    <div class="brand">Conform-Edge &middot; PAF Model &mdash; Management Review Ready</div>
+  </div>
+  <div class="muted">Self-contained. No data leaves this page.</div>
+</header>
+<main>
+<p>Quantify the <b>full cost of poor quality</b> using the Prevention–Appraisal–Failure (PAF) model. Enter costs by category and receive a total COPQ with category breakdown, industry benchmark comparison, prioritized reduction opportunities, and a management-review-ready summary. Connects to <b>AS9100D 9.1.3 / ISO 9001 9.1.3</b> analysis of QMS performance and cost of poor quality reporting.</p>
+
+<p class="muted">Enter costs in your local currency. The tool is currency-agnostic — all outputs are in the same unit you enter. Blank fields are treated as zero. Annualize all values (use the same time period throughout).</p>
+
+<div class="tabs">
+  <button class="tab on" onclick="showTab('prev',this)">Prevention</button>
+  <button class="tab" onclick="showTab('appr',this)">Appraisal</button>
+  <button class="tab" onclick="showTab('intl',this)">Internal Failure</button>
+  <button class="tab" onclick="showTab('extl',this)">External Failure</button>
+  <button class="tab" onclick="showTab('ref',this)">Reference Info</button>
+</div>
+
+<div id="prev" class="tab-content on">
+<div class="section prev">
+  <h2>Prevention Costs — Investment to prevent defects from occurring</h2>
+  <div class="row"><label>Quality planning and QMS administration</label><input type="number" id="p1" min="0" placeholder="0"></div>
+  <div class="row"><label>Process design / design reviews for quality</label><input type="number" id="p2" min="0" placeholder="0"></div>
+  <div class="row"><label>Supplier quality programs / supplier development</label><input type="number" id="p3" min="0" placeholder="0"></div>
+  <div class="row"><label>Training — quality, process, and competency</label><input type="number" id="p4" min="0" placeholder="0"></div>
+  <div class="row"><label>Process improvement projects (Lean, DMAIC, Kaizen)</label><input type="number" id="p5" min="0" placeholder="0"></div>
+  <div class="row"><label>Preventive maintenance (quality-related)</label><input type="number" id="p6" min="0" placeholder="0"></div>
+  <div class="row"><label>Error-proofing / poka-yoke implementation</label><input type="number" id="p7" min="0" placeholder="0"></div>
+  <div class="row"><label>Other prevention costs</label><input type="number" id="p8" min="0" placeholder="0"></div>
+</div></div>
+
+<div id="appr" class="tab-content">
+<div class="section appr">
+  <h2>Appraisal Costs — Cost of measuring and monitoring quality</h2>
+  <div class="row"><label>Incoming / receiving inspection</label><input type="number" id="a1" min="0" placeholder="0"></div>
+  <div class="row"><label>In-process inspection and testing</label><input type="number" id="a2" min="0" placeholder="0"></div>
+  <div class="row"><label>Final inspection and acceptance testing</label><input type="number" id="a3" min="0" placeholder="0"></div>
+  <div class="row"><label>Calibration and metrology (equipment + labor)</label><input type="number" id="a4" min="0" placeholder="0"></div>
+  <div class="row"><label>First article inspection (FAI) cost</label><input type="number" id="a5" min="0" placeholder="0"></div>
+  <div class="row"><label>Audit labor (internal audit program)</label><input type="number" id="a6" min="0" placeholder="0"></div>
+  <div class="row"><label>External certification / registration costs</label><input type="number" id="a7" min="0" placeholder="0"></div>
+  <div class="row"><label>Other appraisal costs</label><input type="number" id="a8" min="0" placeholder="0"></div>
+</div></div>
+
+<div id="intl" class="tab-content">
+<div class="section intl">
+  <h2>Internal Failure Costs — Defects found before delivery to customer</h2>
+  <div class="row"><label>Scrap (material + labor + overhead, no salvage)</label><input type="number" id="i1" min="0" placeholder="0"></div>
+  <div class="row"><label>Rework and repair labor</label><input type="number" id="i2" min="0" placeholder="0"></div>
+  <div class="row"><label>Re-inspection after rework</label><input type="number" id="i3" min="0" placeholder="0"></div>
+  <div class="row"><label>NCR processing labor (MRB, disposition, documentation)</label><input type="number" id="i4" min="0" placeholder="0"></div>
+  <div class="row"><label>Downtime / production delays due to quality holds</label><input type="number" id="i5" min="0" placeholder="0"></div>
+  <div class="row"><label>Engineering investigation time (root cause analysis)</label><input type="number" id="i6" min="0" placeholder="0"></div>
+  <div class="row"><label>Concession / deviation processing cost</label><input type="number" id="i7" min="0" placeholder="0"></div>
+  <div class="row"><label>Excess inventory due to quality concerns</label><input type="number" id="i8" min="0" placeholder="0"></div>
+  <div class="row"><label>Other internal failure costs</label><input type="number" id="i9" min="0" placeholder="0"></div>
+</div></div>
+
+<div id="extl" class="tab-content">
+<div class="section extl">
+  <h2>External Failure Costs — Defects found after delivery to customer</h2>
+  <div class="row"><label>Warranty claims (repair / replacement / labor)</label><input type="number" id="e1" min="0" placeholder="0"></div>
+  <div class="row"><label>Field returns / customer returns processing</label><input type="number" id="e2" min="0" placeholder="0"></div>
+  <div class="row"><label>Customer corrective action request (SCAR/CAR) labor</label><input type="number" id="e3" min="0" placeholder="0"></div>
+  <div class="row"><label>Product recall / containment costs</label><input type="number" id="e4" min="0" placeholder="0"></div>
+  <div class="row"><label>Liability / penalty / fine costs</label><input type="number" id="e5" min="0" placeholder="0"></div>
+  <div class="row"><label>Expedited shipping due to customer quality escapes</label><input type="number" id="e6" min="0" placeholder="0"></div>
+  <div class="row"><label>Customer-satisfaction investigations / audits</label><input type="number" id="e7" min="0" placeholder="0"></div>
+  <div class="row"><label>Lost business / reduced contract value (estimated)</label><input type="number" id="e8" min="0" placeholder="0"></div>
+  <div class="row"><label>Other external failure costs</label><input type="number" id="e9" min="0" placeholder="0"></div>
+</div></div>
+
+<div id="ref" class="tab-content">
+<div class="section">
+  <h2 style="color:#8fb0c8">Reference: PAF Model &amp; Industry Benchmarks</h2>
+  <p style="font-size:13px"><b>Prevention + Appraisal = "Cost of Conformance"</b> — money spent to ensure quality.</p>
+  <p style="font-size:13px"><b>Internal + External Failure = "Cost of Non-Conformance (CONC)"</b> — money lost to poor quality.</p>
+  <p style="font-size:13px;margin-top:10px"><b>Typical COPQ benchmarks (as % of Revenue):</b></p>
+  <ul style="font-size:13px;color:#a9bccb">
+    <li><b>World-class organizations:</b> 1–3% of revenue</li>
+    <li><b>Average manufacturers:</b> 5–15% of revenue</li>
+    <li><b>Poor performers:</b> 20–40% of revenue</li>
+    <li><b>Aerospace/defense (typical):</b> 3–8% of revenue</li>
+    <li><b>Medical devices (typical):</b> 4–10% of revenue</li>
+    <li><b>Automotive Tier 1 (typical):</b> 2–6% of revenue</li>
+  </ul>
+  <p style="font-size:13px;margin-top:10px"><b>Healthy Prevention:Appraisal:Failure ratio target:</b> 30–40% : 30–40% : 20–30%</p>
+  <p style="font-size:13px"><b>Failure-heavy organizations</b> (Failure &gt; 50% of COPQ) should shift investment to Prevention — every $1 invested in Prevention typically eliminates $4–$10 in Failure costs.</p>
+  <p style="font-size:13px;margin-top:10px"><b>AS9100D / ISO 9001 connection:</b> COPQ analysis supports clause 9.1.3 (analysis and evaluation) and clause 9.3 (management review — input: quality performance and trend data). It also directly feeds corrective action prioritization (clause 10.2) and continual improvement (clause 10.3).</p>
+  <div class="field" style="margin-top:14px">
+    <label style="font-size:13px;color:#a9bccb;display:block;margin-bottom:4px">Annual revenue (for % calculation — optional)</label>
+    <input type="number" id="revenue" min="0" placeholder="Enter annual revenue (same currency)" style="width:220px;background:#0d2035;border:1px solid var(--line);border-radius:7px;color:var(--ink);padding:7px 10px;font-size:14px;text-align:right">
+  </div>
+</div></div>
+
+<div class="bar">
+  <button class="btn" onclick="calculate()">Calculate COPQ</button>
+  <button class="btn ghost" onclick="window.print()">Print / PDF</button>
+  <button class="btn ghost" onclick="exportCOPQ()">Export (JSON)</button>
+  <button class="btn ghost" onclick="clearAll()">Clear</button>
+</div>
+<div id="out"></div>
+<p class="muted" style="margin-top:24px">Reference: Prevention-Appraisal-Failure (PAF) cost of quality model (Feigenbaum, Juran). Clause references: AS9100D / ISO 9001:2015 clauses 9.1.3 and 9.3 by intent only. Benchmark ranges are industry approximations — actual performance varies by sector, product complexity, and maturity.</p>
+</main>
+<script>
+function showTab(id,btn){
+ document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('on'));
+ document.querySelectorAll('.tab').forEach(e=>e.classList.remove('on'));
+ document.getElementById(id).classList.add('on');btn.classList.add('on');}
+function n(id){return parseFloat(document.getElementById(id).value)||0;}
+function fmt(v){return v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(1)+'K':v.toFixed(0);}
+function fmtFull(v){return v.toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0});}
+
+function calculate(){
+ const prev=n('p1')+n('p2')+n('p3')+n('p4')+n('p5')+n('p6')+n('p7')+n('p8');
+ const appr=n('a1')+n('a2')+n('a3')+n('a4')+n('a5')+n('a6')+n('a7')+n('a8');
+ const intl=n('i1')+n('i2')+n('i3')+n('i4')+n('i5')+n('i6')+n('i7')+n('i8')+n('i9');
+ const extl=n('e1')+n('e2')+n('e3')+n('e4')+n('e5')+n('e6')+n('e7')+n('e8')+n('e9');
+ const total=prev+appr+intl+extl;
+ const conc=intl+extl; // cost of non-conformance
+ const cofc=prev+appr; // cost of conformance
+ const revenue=n('revenue');
+
+ if(total===0){document.getElementById('out').innerHTML='<p class="tag t-warn">Enter at least one cost value.</p>';return;}
+
+ const pct=v=>total?Math.round(100*v/total):0;
+ const pprev=pct(prev),pappr=pct(appr),pintl=pct(intl),pextl=pct(extl);
+ const pfail=pct(conc);
+
+ // Insights
+ let insights=[];
+ if(pfail>60) insights.push({cls:'bad',text:'<b>Failure costs are '+pfail+'% of total COPQ</b> — this indicates a reactive quality posture. Shift investment to Prevention to break the failure cycle. Every $1 in Prevention typically eliminates $4–$10 in Failure cost.'});
+ else if(pfail>40) insights.push({cls:'warn',text:'Failure costs are '+pfail+'% of COPQ — above the 30–40% healthy target. Identify the top 3 internal failure cost drivers and target them with prevention investment.'});
+ else insights.push({cls:'',text:'Failure costs are '+pfail+'% of COPQ — within or near the healthy range. Maintain prevention investment to sustain performance.'});
+ if(extl>intl) insights.push({cls:'bad',text:'<b>External failure exceeds internal failure</b> — defects are escaping to customers. Strengthen in-process detection and final inspection. Customer relationships and contract retention are at risk.'});
+ if(prev<appr*0.5) insights.push({cls:'warn',text:'Prevention spend is less than half of Appraisal spend. You are paying to find defects rather than prevent them. Rebalance: increase FMEA, process design, and training investment.'});
+ if(revenue>0){
+  const copqPct=(total/revenue*100).toFixed(1);
+  const bench=copqPct<=3?{cls:'good',label:'World-class'}:copqPct<=8?{cls:'warn',label:'Average / typical'}:{cls:'bad',label:'Above average — improvement priority'};
+  insights.push({cls:bench.cls,text:'COPQ is <b>'+copqPct+'% of revenue</b> — '+bench.label+'. Industry reference: world-class ≤3%, average 5–15%.'});}
+
+ // Management Review Summary (MR-ready text)
+ const today=new Date().toISOString().slice(0,10);
+ const mrText=
+`COST OF POOR QUALITY (COPQ) SUMMARY — ${today}
+PAF Model | Currency: as entered | Period: Annualized
+
+CATEGORY BREAKDOWN
+  Prevention (conformance):   ${fmtFull(prev).padStart(14)}  ${pprev}%
+  Appraisal (conformance):    ${fmtFull(appr).padStart(14)}  ${pappr}%
+  Internal Failure:           ${fmtFull(intl).padStart(14)}  ${pintl}%
+  External Failure:           ${fmtFull(extl).padStart(14)}  ${pextl}%
+  ─────────────────────────────────────────────
+  TOTAL COPQ:                 ${fmtFull(total).padStart(14)}
+
+SUMMARY METRICS
+  Cost of Conformance (P+A):  ${fmtFull(cofc)}
+  Cost of Non-Conformance:    ${fmtFull(conc)}  (${pfail}% of COPQ)
+  ${revenue>0?'COPQ as % of revenue:     '+(total/revenue*100).toFixed(1)+'%':'Revenue not entered — % not calculated'}
+
+BENCHMARK: Failure costs >${pfail>60?60:pfail>=40?40:0}% of COPQ is ${pfail>60?'high — reactive posture':pfail>=40?'elevated — improvement needed':'within acceptable range'}
+
+INSIGHTS:
+${insights.map(i=>i.text.replace(/<[^>]+>/g,'')).map(t=>'  • '+t).join('\n')}
+
+MANAGEMENT REVIEW INPUT (AS9100D 9.3.2 / ISO 9001 9.3.2):
+  • Use this data as input to management review performance analysis
+  • Link failure cost drivers to the active corrective action register
+  • Set reduction targets for Internal Failure as a quality objective (clause 6.2)
+  • Trend COPQ quarterly to evidence continual improvement (clause 10.3)`;
+
+ document.getElementById('out').innerHTML=
+  '<div class="summary">'+
+  '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:16px">'+
+  '<b style="font-size:16px">COPQ Results</b>'+
+  '<span class="tag '+(pfail>60?'t-bad':pfail>40?'t-warn':'t-good')+'">Failure: '+pfail+'% of COPQ</span></div>'+
+  '<div class="kpi-grid">'+
+  '<div class="kpi"><div class="lbl" style="color:#90c4f0">Prevention</div><div class="val" style="color:#90c4f0">'+fmt(prev)+'</div><div class="lbl">'+pprev+'% of COPQ</div></div>'+
+  '<div class="kpi"><div class="lbl" style="color:#c4aef0">Appraisal</div><div class="val" style="color:#c4aef0">'+fmt(appr)+'</div><div class="lbl">'+pappr+'% of COPQ</div></div>'+
+  '<div class="kpi"><div class="lbl" style="color:#f0a49c">Internal Failure</div><div class="val" style="color:#f0a49c">'+fmt(intl)+'</div><div class="lbl">'+pintl+'% of COPQ</div></div>'+
+  '<div class="kpi"><div class="lbl" style="color:#f0cf7f">External Failure</div><div class="val" style="color:#f0cf7f">'+fmt(extl)+'</div><div class="lbl">'+pextl+'% of COPQ</div></div>'+
+  '<div class="kpi"><div class="lbl">Total COPQ</div><div class="val">'+fmt(total)+'</div><div class="lbl">All categories</div></div>'+
+  (revenue>0?'<div class="kpi"><div class="lbl">% of Revenue</div><div class="val">'+(total/revenue*100).toFixed(1)+'%</div><div class="lbl">Benchmark target &le;3%</div></div>':'')+
+  '</div>'+
+  // Category bar chart
+  [['Prevention',prev,pprev,'#3a7bbf'],['Appraisal',appr,pappr,'#7b5ea7'],['Internal Failure',intl,pintl,'#c1493f'],['External Failure',extl,pextl,'#d8a12a']].map(([lbl,val,pct,col])=>
+   '<div class="cat-bar"><div class="cat-lbl"><span>'+lbl+'</span><span>'+fmt(val)+' ('+pct+'%)</span></div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+col+'"></div></div></div>').join('')+
+  // Insights
+  '<div style="margin-top:14px">'+insights.map(i=>'<div class="insight'+(i.cls?' '+i.cls:'')+'">'+i.text+'</div>').join('')+'</div>'+
+  // MR table
+  '<h2 style="font-size:14px;color:#8fb0c8;margin-top:18px;margin-bottom:8px">Management Review Summary Table</h2>'+
+  '<table class="mr-table"><thead><tr><th>Category</th><th>Amount</th><th>% of COPQ</th><th>Benchmark target</th></tr></thead><tbody>'+
+  '<tr><td>Prevention</td><td>'+fmtFull(prev)+'</td><td>'+pprev+'%</td><td>30–40% (invest)</td></tr>'+
+  '<tr><td>Appraisal</td><td>'+fmtFull(appr)+'</td><td>'+pappr+'%</td><td>30–40% (sustain)</td></tr>'+
+  '<tr><td>Internal Failure</td><td>'+fmtFull(intl)+'</td><td>'+pintl+'%</td><td>&lt;15% (reduce)</td></tr>'+
+  '<tr><td>External Failure</td><td>'+fmtFull(extl)+'</td><td>'+pextl+'%</td><td>&lt;10% (target zero)</td></tr>'+
+  '<tr style="font-weight:700"><td>TOTAL COPQ</td><td>'+fmtFull(total)+'</td><td>100%</td><td>—</td></tr>'+
+  (revenue>0?'<tr><td>COPQ as % Revenue</td><td colspan="2">'+(total/revenue*100).toFixed(1)+'%</td><td>&le;3% world-class</td></tr>':'')+
+  '</tbody></table>'+
+  // Text export
+  '<h2 style="font-size:14px;color:#8fb0c8;margin-top:18px;margin-bottom:8px">Management Review Text Block</h2>'+
+  '<div style="background:#0d2035;border:1px solid var(--line);border-radius:8px;padding:14px;font-size:12px;white-space:pre-wrap;font-family:monospace;line-height:1.6">'+mrText+'</div>'+
+  '<div class="bar" style="margin-top:10px">'+
+  '<button class="btn ghost" onclick="copyMR()">Copy MR text to clipboard</button>'+
+  '<button class="btn ghost" onclick="window.print()">Print / PDF</button></div>'+
+  '</div>';
+ window._mrText=mrText;window._data={prev,appr,intl,extl,total,conc,cofc,revenue};
+ document.getElementById('out').scrollIntoView({behavior:'smooth'});}
+
+function copyMR(){if(window._mrText){navigator.clipboard.writeText(window._mrText).then(()=>alert('Text copied.')).catch(()=>alert('Copy failed — select and copy manually.'));}}
+function exportCOPQ(){if(!window._data)calculate();const blob=new Blob([JSON.stringify(window._data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='copq-data.json';a.click();}
+function clearAll(){document.querySelectorAll('input[type=number]').forEach(e=>e.value='');document.getElementById('out').innerHTML='';}
+</script></body></html>

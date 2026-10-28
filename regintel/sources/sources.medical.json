@@ -1,0 +1,955 @@
+{
+  "registry_version": "1.0.0",
+  "domain": "medical device",
+  "identity_markers_needs_review": true,
+  "last_full_validation": null,
+  "sources": [
+    {
+      "id": "MED-166",
+      "authority": "IMDRF home",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.imdrf.org/",
+      "identity_markers": [
+        "IMDRF"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-167",
+      "authority": "IMDRF documents",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.imdrf.org/documents",
+      "identity_markers": [
+        "IMDRF"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-168",
+      "authority": "IMDRF consultations",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.imdrf.org/consultations",
+      "identity_markers": [
+        "IMDRF"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-169",
+      "authority": "IMDRF working groups",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.imdrf.org/working-groups",
+      "identity_markers": [
+        "IMDRF"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-170",
+      "authority": "MDSAP working group",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.imdrf.org/working-groups/medical-device-single-audit-program-mdsap",
+      "identity_markers": [
+        "MDSAP"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-171",
+      "authority": "FDA MDSAP resources",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.fda.gov/medical-devices/cdrh-international-programs/medical-device-single-audit-program-mdsap",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-172",
+      "authority": "Health Canada MDSAP",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/quality-systems-13485/medical-device-single-audit-program.html",
+      "identity_markers": [
+        "Health"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-173",
+      "authority": "TGA MDSAP",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.tga.gov.au/products/medical-devices/manufacturing/medical-device-single-audit-program-mdsap",
+      "identity_markers": [
+        "TGA",
+        "Therapeutic Goods"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-174",
+      "authority": "FDA medical devices",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.fda.gov/medical-devices",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-175",
+      "authority": "FDA device guidance database",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-176",
+      "authority": "CDRH guidance",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.fda.gov/medical-devices/device-advice-comprehensive-regulatory-assistance/guidance-documents-medical-devices-and-radiation-emitting-products",
+      "identity_markers": [
+        "CDRH"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-177",
+      "authority": "Proposed-guidance agenda",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.fda.gov/medical-devices/guidance-documents-medical-devices-and-radiation-emitting-products/annual-comprehensive-list-cdrh-guidance-documents",
+      "identity_markers": [
+        "Proposed"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-178",
+      "authority": "FDA recognized standards",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfstandards/search.cfm",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-179",
+      "authority": "FDA standards Federal Register notices",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.fda.gov/medical-devices/division-standards-and-conformity-assessment/federal-register-documents",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "MED-180",
+      "authority": "FDA medical-device databases",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.fda.gov/medical-devices/device-advice-comprehensive-regulatory-assistance/medical-device-databases",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-181",
+      "authority": "FDA recalls",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "MED-182",
+      "authority": "FDA enforcement reports",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.accessdata.fda.gov/scripts/ires/",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-183",
+      "authority": "FDA warning letters",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-184",
+      "authority": "FDA safety communications",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.fda.gov/medical-devices/safety-communications",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "MED-185",
+      "authority": "MAUDE",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfmaude/search.cfm",
+      "identity_markers": [
+        "MAUDE"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-186",
+      "authority": "GUDID / AccessGUDID",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://accessgudid.nlm.nih.gov/",
+      "identity_markers": [
+        "GUDID"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-187",
+      "authority": "510(k) database",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm",
+      "identity_markers": [
+        "510"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-188",
+      "authority": "De Novo database",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/denovo.cfm",
+      "identity_markers": [
+        "Novo"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-189",
+      "authority": "PMA database",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpma/pma.cfm",
+      "identity_markers": [
+        "PMA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-190",
+      "authority": "FDA import alerts",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.accessdata.fda.gov/cms_ia/ialist.html",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-191",
+      "authority": "FDA Federal Register",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.federalregister.gov/agencies/food-and-drug-administration",
+      "identity_markers": [
+        "FDA",
+        "Food and Drug"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "MED-192",
+      "authority": "21 CFR",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.ecfr.gov/current/title-21",
+      "identity_markers": [
+        "CFR"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-193",
+      "authority": "openFDA APIs",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://open.fda.gov/apis/",
+      "identity_markers": [
+        "openFDA"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "MED-194",
+      "authority": "EU medical-device sector",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://health.ec.europa.eu/medical-devices-sector_en",
+      "identity_markers": [
+        "medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-195",
+      "authority": "MDCG guidance",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en",
+      "identity_markers": [
+        "MDCG"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-196",
+      "authority": "Medical-device harmonized standards",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://health.ec.europa.eu/medical-devices-topics-interest/harmonised-standards_en",
+      "identity_markers": [
+        "Medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-197",
+      "authority": "MDCG working groups",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://health.ec.europa.eu/medical-devices-dialogue-between-interested-parties/medical-device-coordination-group-working-groups_en",
+      "identity_markers": [
+        "MDCG"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-198",
+      "authority": "EUDAMED information",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://health.ec.europa.eu/medical-devices-eudamed_en",
+      "identity_markers": [
+        "EUDAMED"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-199",
+      "authority": "EUDAMED public site",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://ec.europa.eu/tools/eudamed/",
+      "identity_markers": [
+        "EUDAMED"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-200",
+      "authority": "MDR official text",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://eur-lex.europa.eu/eli/reg/2017/745/oj",
+      "identity_markers": [
+        "MDR"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-201",
+      "authority": "MDR consolidated text",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02017R0745-20250110",
+      "identity_markers": [
+        "MDR"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-202",
+      "authority": "IVDR official text",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://eur-lex.europa.eu/eli/reg/2017/746/oj",
+      "identity_markers": [
+        "IVDR"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-203",
+      "authority": "IVDR consolidated search",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://eur-lex.europa.eu/search.html?scope=EURLEX&text=2017%2F746",
+      "identity_markers": [
+        "IVDR"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-204",
+      "authority": "NANDO notified bodies",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://webgate.ec.europa.eu/single-market-compliance-space/notified-bodies",
+      "identity_markers": [
+        "NANDO"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-205",
+      "authority": "EU Safety Gate alerts",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "",
+      "url": "https://ec.europa.eu/safety-gate-alerts/screen/webReport",
+      "identity_markers": [
+        "Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-206",
+      "authority": "MHRA medical-device guidance",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "",
+      "url": "https://www.gov.uk/government/collections/medical-devices-guidance-for-manufacturers",
+      "identity_markers": [
+        "MHRA",
+        "Medicines and Healthcare"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-207",
+      "authority": "MHRA safety guidance",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "",
+      "url": "https://www.gov.uk/government/collections/medical-devices-safety-guidance",
+      "identity_markers": [
+        "MHRA",
+        "Medicines and Healthcare"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-208",
+      "authority": "MHRA alerts and recalls",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "",
+      "url": "https://www.gov.uk/drug-device-alerts",
+      "identity_markers": [
+        "MHRA",
+        "Medicines and Healthcare"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "MED-209",
+      "authority": "MHRA consultations",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "",
+      "url": "https://www.gov.uk/search/policy-papers-and-consultations?organisations%5B%5D=medicines-and-healthcare-products-regulatory-agency",
+      "identity_markers": [
+        "MHRA",
+        "Medicines and Healthcare"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-210",
+      "authority": "UK medical-device regulations",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "",
+      "url": "https://www.legislation.gov.uk/uksi/2002/618/contents",
+      "identity_markers": [
+        "medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-211",
+      "authority": "MHRA medical-device registration",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "",
+      "url": "https://www.gov.uk/guidance/register-medical-devices-to-place-on-the-market",
+      "identity_markers": [
+        "MHRA",
+        "Medicines and Healthcare"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-212",
+      "authority": "UK approved bodies",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "",
+      "url": "https://www.gov.uk/government/publications/medical-devices-uk-approved-bodies",
+      "identity_markers": [
+        "approved"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-213",
+      "authority": "TGA medical devices",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.tga.gov.au/products/medical-devices",
+      "identity_markers": [
+        "TGA",
+        "Therapeutic Goods"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-214",
+      "authority": "TGA consultations",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://consultations.tga.gov.au/",
+      "identity_markers": [
+        "TGA",
+        "Therapeutic Goods"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-215",
+      "authority": "TGA recalls and market actions",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.tga.gov.au/safety/recalls-and-other-market-actions",
+      "identity_markers": [
+        "TGA",
+        "Therapeutic Goods"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "MED-216",
+      "authority": "TGA safety alerts",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.tga.gov.au/safety/safety-alerts",
+      "identity_markers": [
+        "TGA",
+        "Therapeutic Goods"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "MED-217",
+      "authority": "TGA regulatory changes",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.tga.gov.au/products/medical-devices/medical-device-reforms",
+      "identity_markers": [
+        "TGA",
+        "Therapeutic Goods"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-218",
+      "authority": "ARTG public search",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.tga.gov.au/resources/artg",
+      "identity_markers": [
+        "ARTG"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-219",
+      "authority": "Australian therapeutic-goods legislation",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.legislation.gov.au/Search?query=therapeutic%20goods",
+      "identity_markers": [
+        "Australian"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-220",
+      "authority": "Health Canada medical devices",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "",
+      "url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices.html",
+      "identity_markers": [
+        "Health"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-221",
+      "authority": "Medical-device guidance",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "",
+      "url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents.html",
+      "identity_markers": [
+        "Medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-222",
+      "authority": "Medical-device notices",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "",
+      "url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/activities/announcements.html",
+      "identity_markers": [
+        "Medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-223",
+      "authority": "Recalls and safety alerts",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "",
+      "url": "https://recalls-rappels.canada.ca/en",
+      "identity_markers": [
+        "Recalls"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "MED-224",
+      "authority": "Medical-device licence database (MDALL)",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "",
+      "url": "https://health-products.canada.ca/mdall-limh/index-eng.jsp",
+      "identity_markers": [
+        "Medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-225",
+      "authority": "Establishment licence database",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "",
+      "url": "https://health-products.canada.ca/mdel-leim/index-eng.jsp",
+      "identity_markers": [
+        "Establishment"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-226",
+      "authority": "Medical Devices Regulations",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "",
+      "url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-98-282/",
+      "identity_markers": [
+        "Medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-227",
+      "authority": "ANVISA medical devices",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anvisa/pt-br/assuntos/produtosparasaude",
+      "identity_markers": [
+        "ANVISA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-228",
+      "authority": "ANVISA legislation",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://antigo.anvisa.gov.br/legislacao",
+      "identity_markers": [
+        "ANVISA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-229",
+      "authority": "ANVISA consultations",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anvisa/pt-br/assuntos/regulamentacao/participacao-social/consultas-publicas",
+      "identity_markers": [
+        "ANVISA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-230",
+      "authority": "ANVISA regulatory agenda",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anvisa/pt-br/assuntos/regulamentacao/agenda-regulatoria",
+      "identity_markers": [
+        "ANVISA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-231",
+      "authority": "ANVISA alerts",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anvisa/pt-br/assuntos/fiscalizacao-e-monitoramento/alertas",
+      "identity_markers": [
+        "ANVISA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-232",
+      "authority": "ANVISA product consultation",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://consultas.anvisa.gov.br/",
+      "identity_markers": [
+        "ANVISA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-233",
+      "authority": "NMPA official portal",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://www.nmpa.gov.cn/",
+      "identity_markers": [
+        "NMPA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-234",
+      "authority": "NMPA English portal",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://english.nmpa.gov.cn/",
+      "identity_markers": [
+        "NMPA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-235",
+      "authority": "Medical-device regulations",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://www.nmpa.gov.cn/ylqx/ylqxfgwj/index.html",
+      "identity_markers": [
+        "Medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-236",
+      "authority": "Medical-device announcements",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://www.nmpa.gov.cn/ylqx/ylqxggtg/index.html",
+      "identity_markers": [
+        "Medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-237",
+      "authority": "Medical-device standards",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://www.nmpa.gov.cn/ylqx/ylqxbzh/index.html",
+      "identity_markers": [
+        "Medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-238",
+      "authority": "CMDE",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://www.cmde.org.cn/",
+      "identity_markers": [
+        "CMDE"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-239",
+      "authority": "COFEPRIS portal",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/cofepris",
+      "identity_markers": [
+        "COFEPRIS"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-240",
+      "authority": "COFEPRIS documents",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/cofepris/documentos",
+      "identity_markers": [
+        "COFEPRIS"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-241",
+      "authority": "Medical-device information",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/cofepris/acciones-y-programas/dispositivos-medicos",
+      "identity_markers": [
+        "Medical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MED-242",
+      "authority": "COFEPRIS health alerts",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/cofepris/acciones-y-programas/alertas-sanitarias",
+      "identity_markers": [
+        "COFEPRIS"
+      ],
+      "criticality": "common"
+    }
+  ]
+}

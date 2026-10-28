@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "packId": "as9100d",
+  "source": {
+    "designation": "AS9100D",
+    "revision": "2016",
+    "publisher": "SAE / IAQG",
+    "sourceType": "standard",
+    "publicDomain": false
+  },
+  "mapVersion": "0.1.0",
+  "effectiveDate": "2026-10-10",
+  "changelog": [
+    "0.1.0 — Initial sample pack (8 items) authored as Clause Map template and validator proof. Not a complete AS9100D decomposition."
+  ],
+  "license": {
+    "owner": "Conform-Edge Quality Consulting LLC",
+    "statement": "Intent-based audit content authored by Conform-Edge. This pack contains no reproduction of AS9100D requirement text, notes, definitions, or annexes.",
+    "externalDocumentNotice": "AS9100D is published by SAE/IAQG. Each user must hold their own current licensed copy of the standard. This tool references clause numbers only and does not supply the standard's text."
+  },
+  "appliesWhen": {
+    "certificationsAny": ["AS9100D"]
+  },
+  "groups": [
+    { "groupId": "operate", "label": "Running the Operation", "order": 1 },
+    { "groupId": "supply", "label": "Supply Chain Control", "order": 2 },
+    { "groupId": "escape", "label": "When Things Go Wrong", "order": 3 },
+    { "groupId": "assure", "label": "Proving the System Works", "order": 4 }
+  ],
+  "items": [
+    {
+      "itemId": "AS9100D-8.1.3-01",
+      "clauseRef": "8.1.3",
+      "groupId": "operate",
+      "label": "Product Safety Controls",
+      "intent": "The organization deliberately plans and manages the things that make its product safe, rather than treating safety as a byproduct of ordinary quality control.",
+      "question": "Where in your planning do you identify safety-critical items and the specific controls that keep them safe through production and delivery?",
+      "evidence": ["Documented safety-critical item list", "Controls tied to those items in travelers or work instructions", "Records showing the controls were applied"],
+      "ncPattern": "The organization has general quality controls but cannot show it has separately identified product-safety risks or assigned controls specifically to them.",
+      "findingStem": "Objective evidence shows product safety is not managed as a planned activity: {evidence}. The intent of clause 8.1.3 (deliberate management of product safety) is not met.",
+      "severityGuidance": "Treat as Major where a safety-critical characteristic has no assigned control. Minor where controls exist but planning is undocumented.",
+      "appliesWhen": { "activitiesAny": ["design", "manufacture"] }
+    },
+    {
+      "itemId": "AS9100D-8.1.4-01",
+      "clauseRef": "8.1.4",
+      "groupId": "operate",
+      "label": "Counterfeit Part Prevention",
+      "intent": "The organization actively prevents suspect or counterfeit parts from entering the product, instead of assuming its suppliers have handled it.",
+      "question": "What does your process do to prevent, detect, and respond to suspect or counterfeit parts, and how do you prove it ran?",
+      "evidence": ["Counterfeit prevention procedure", "Approved-source and traceability records", "Evidence of detection or quarantine actions when triggered"],
+      "ncPattern": "A procedure exists on paper but purchasing and receiving records show no actual source verification or traceability enforcement.",
+      "findingStem": "The process for preventing suspect or counterfeit parts is not implemented in practice: {evidence}. The intent of clause 8.1.4 is not met.",
+      "quotedFragment": "\"suspected unapproved parts\"",
+      "appliesWhen": { "activitiesAny": ["manufacture", "distribute"] }
+    },
+    {
+      "itemId": "AS9100D-8.4.1-01",
+      "clauseRef": "8.4.1",
+      "groupId": "supply",
+      "label": "External Provider Control",
+      "intent": "The organization controls its suppliers based on the risk they pose to the product, not with a single blanket approach applied to everyone.",
+      "question": "How does the level of control you apply to each external provider change with the risk of what they supply?",
+      "evidence": ["Approved supplier list with assigned control level or risk rating", "Criteria used to set control level", "Evidence the assigned control was actually applied"],
+      "ncPattern": "Every supplier receives the same treatment regardless of whether they supply hardware, calibration, or office supplies.",
+      "findingStem": "External provider controls are not risk-based: {evidence}. The intent of clause 8.4.1 is not met.",
+      "appliesWhen": { "activitiesAny": ["design", "manufacture", "distribute", "maintain"] }
+    },
+    {
+      "itemId": "AS9100D-8.4.3-01",
+      "clauseRef": "8.4.3",
+      "groupId": "supply",
+      "label": "Flowdown to Suppliers",
+      "intent": "Every requirement the organization is obligated to meet reaches the supplier who actually performs the work, including customer and regulatory requirements.",
+      "question": "How do you confirm that each applicable customer, statutory, and key-characteristic requirement reaches the supplier doing the work?",
+      "evidence": ["Purchase orders carrying the specific flowed-down requirements", "Mapping of customer requirements to supplier requirements", "Supplier acknowledgment where required"],
+      "ncPattern": "Purchase orders reference a part number but omit the special processes, key characteristics, or customer clauses that apply to it.",
+      "findingStem": "Required flowdown to external providers is incomplete: {evidence}. The intent of clause 8.4.3 is not met.",
+      "appliesWhen": { "activitiesAny": ["design", "manufacture", "distribute", "maintain"] }
+    },
+    {
+      "itemId": "AS9100D-8.5.1-01",
+      "clauseRef": "8.5.1",
+      "groupId": "operate",
+      "label": "Controlled Production",
+      "intent": "Production happens under conditions that are defined and verified in advance, so the result is predictable rather than dependent on who is on shift.",
+      "question": "What defines acceptable production for this product, and how do you verify those conditions were in place before and during the run?",
+      "evidence": ["Work instructions or travelers with acceptance criteria", "Verification records at defined points", "Evidence that equipment and environment conditions were confirmed"],
+      "ncPattern": "Operators rely on experience; the acceptance criteria and required verifications are not written down or not recorded.",
+      "findingStem": "Production is not performed under controlled conditions: {evidence}. The intent of clause 8.5.1 is not met.",
+      "appliesWhen": { "activitiesAny": ["manufacture"] }
+    },
+    {
+      "itemId": "AS9100D-8.7-01",
+      "clauseRef": "8.7",
+      "groupId": "escape",
+      "label": "Nonconforming Output Control",
+      "intent": "Product that does not meet requirements is positively identified and prevented from being used or shipped until a proper disposition decision is made by someone with authority.",
+      "question": "From the moment a nonconformity is found, how is that product kept from moving forward until an authorized disposition is recorded?",
+      "evidence": ["Identification and segregation method (physical or system)", "Disposition records with authority", "Evidence that use-as-is or repair followed required approvals"],
+      "ncPattern": "Nonconforming product is tagged but remains in the normal flow, or disposition is made by someone without the authority the organization defined.",
+      "findingStem": "Control of nonconforming output does not prevent unintended use: {evidence}. The intent of clause 8.7 is not met.",
+      "severityGuidance": "Major where nonconforming product could reach the customer. Minor where control gaps exist but containment held."
+    },
+    {
+      "itemId": "AS9100D-9.2-01",
+      "clauseRef": "9.2",
+      "groupId": "assure",
+      "label": "Internal Audit Effectiveness",
+      "intent": "The internal audit program tells the organization whether its system actually works, not merely whether documents exist, and it reaches the areas that matter on a risk-based schedule.",
+      "question": "How does your audit program decide what to audit and how often, based on the importance and performance of each area?",
+      "evidence": ["Risk-based audit schedule", "Audit records testing effectiveness, not just presence of documents", "Linkage from audit findings to corrective action"],
+      "ncPattern": "Every process is audited on the same annual cycle regardless of risk, and audit reports confirm documents exist without testing whether the process works.",
+      "findingStem": "The internal audit program does not evaluate effectiveness on a risk basis: {evidence}. The intent of clause 9.2 is not met.",
+      "relatedItems": ["AS9100D-10.2-01"]
+    },
+    {
+      "itemId": "AS9100D-10.2-01",
+      "clauseRef": "10.2",
+      "groupId": "escape",
+      "label": "Corrective Action Depth",
+      "intent": "Corrective action removes the cause so the problem does not return, and the organization confirms the action actually worked rather than assuming it did.",
+      "question": "For a recent corrective action, where is the cause established, and where is the evidence that the action was effective?",
+      "evidence": ["Documented cause analysis (method shown)", "Action addressing the cause, not just the symptom", "Effectiveness verification with a defined check and date"],
+      "ncPattern": "Corrective actions describe what was fixed but not why it happened, and closure occurs without any effectiveness check.",
+      "findingStem": "Corrective action does not establish and eliminate cause with verified effectiveness: {evidence}. The intent of clause 10.2 is not met.",
+      "relatedItems": ["AS9100D-9.2-01"]
+    }
+  ]
+}

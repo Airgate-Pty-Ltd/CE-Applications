@@ -1,0 +1,471 @@
+{
+ "assessments": [
+  {
+   "applicability": "APPLICABLE",
+   "assessed_at": "2026-10-08T14:00:00",
+   "assessment": "NONCONFORMING",
+   "assessor": "SYNTHETIC Auditor B",
+   "evidence_ids": [
+    "EVD-0002"
+   ],
+   "id": "QAS-0005",
+   "publication_sha256": "a73a2091a38704d2f1849b487acc821221d393959bfe2ba66e53431eafcf7ad2",
+   "publication_version": 1,
+   "record_sha256": "15cf9e717b6c6216d53245e915a6ba2f583113f13a083ba79771f7d549263813",
+   "requirement_id": "REG:FAA QSA 1.0:Organizational Management:101"
+  },
+  {
+   "applicability": "APPLICABLE",
+   "assessed_at": "2026-10-08T14:00:00",
+   "assessment": "CONFORMING",
+   "assessor": "SYNTHETIC Auditor B",
+   "evidence_ids": [
+    "EVD-0003"
+   ],
+   "id": "QAS-0007",
+   "publication_sha256": "a73a2091a38704d2f1849b487acc821221d393959bfe2ba66e53431eafcf7ad2",
+   "publication_version": 1,
+   "record_sha256": "fd3393cadfefdf4b5345f3e77e1d50bde06cffe5fbedb21cf67f4d4c747b816e",
+   "requirement_id": "STD:SAE AS9100D:8.5.1"
+  },
+  {
+   "applicability": "APPLICABLE",
+   "assessed_at": "2026-10-08T14:00:00",
+   "assessment": "NONCONFORMING",
+   "assessor": "SYNTHETIC Auditor B",
+   "evidence_ids": [
+    "EVD-0003"
+   ],
+   "id": "QAS-0006",
+   "publication_sha256": "a73a2091a38704d2f1849b487acc821221d393959bfe2ba66e53431eafcf7ad2",
+   "publication_version": 1,
+   "record_sha256": "317adad159255cf528fde6177eedda228d4d9d7434759d50f3baaeb8ecb7f48a",
+   "requirement_id": "STD:SAE AS9110C:8.5.1"
+  }
+ ],
+ "audit": {
+  "type": "Pocket Auditor draft"
+ },
+ "audit_id": "SYNTHETIC-COMBINED-001",
+ "checklist_items": [
+  {
+   "locator": null,
+   "ref": "8.5.1",
+   "requirement_id": "STD:SAE AS9110C:8.5.1",
+   "title": "Control of Production and Service Provision"
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (a)",
+   "ref": "8.5.1(a)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(a)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (b)",
+   "ref": "8.5.1(b)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(b)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (c)",
+   "ref": "8.5.1(c)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(c)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (d)",
+   "ref": "8.5.1(d)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(d)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (e)",
+   "ref": "8.5.1(e)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(e)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (f)",
+   "ref": "8.5.1(f)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(f)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (g)",
+   "ref": "8.5.1(g)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(g)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (h)",
+   "ref": "8.5.1(h)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(h)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (i)",
+   "ref": "8.5.1(i)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(i)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (j)",
+   "ref": "8.5.1(j)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(j)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (k)",
+   "ref": "8.5.1(k)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(k)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (l)",
+   "ref": "8.5.1(l)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(l)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (m)",
+   "ref": "8.5.1(m)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(m)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (n)",
+   "ref": "8.5.1(n)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(n)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (o)",
+   "ref": "8.5.1(o)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(o)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (p)",
+   "ref": "8.5.1(p)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(p)",
+   "title": null
+  },
+  {
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (q)",
+   "ref": "8.5.1(q)",
+   "requirement_id": "STD:SAE AS9110C:8.5.1(q)",
+   "title": null
+  },
+  {
+   "origin": "FAA_SOURCE",
+   "ref": "101",
+   "requirement_id": "REG:FAA QSA 1.0:Organizational Management:101",
+   "title": "Organizational Management"
+  },
+  {
+   "origin": "FAA_SOURCE",
+   "ref": "401",
+   "requirement_id": "REG:FAA QSA 1.0:Manufacturing Processes:401",
+   "title": "Manufacturing Processes"
+  },
+  {
+   "origin": "STANDARD_CHECKLIST",
+   "ref": "8.5.1",
+   "requirement_id": "STD:SAE AS9100D:8.5.1",
+   "title": "AS9100D"
+  },
+  {
+   "origin": "STANDARD_CHECKLIST",
+   "ref": "8.5.1",
+   "requirement_id": "STD:SAE AS9110C:8.5.1",
+   "title": "AS9110C"
+  }
+ ],
+ "evidence": [
+  {
+   "auditor": "SYNTHETIC Auditor B",
+   "entry_sha256": "8a37e0a8eac154082ebb29005833966fc376b2fd2c3c1151a9b043fb0babad05",
+   "evidence_type": "record",
+   "id": "EVD-0002",
+   "record_sha256": "937185df5859af1926a3b182e0977e5ecdd72b74056c29c0a31d2f591b8ce0db",
+   "source_ref": "SYN-CERT-001",
+   "timestamp": "2026-10-08T09:30"
+  },
+  {
+   "auditor": "SYNTHETIC Auditor B",
+   "entry_sha256": "a2c391fb72b4a2f9d664cfbd29c3fb0f729c7eac391468cab04058a0a48ebfeb",
+   "evidence_type": "controlled_document",
+   "id": "EVD-0003",
+   "record_sha256": "31f7c8020f3b0dfa24a8ca997970153b7e8f003bb95ca8fbf71219070daec77a",
+   "source_ref": "SYN-PROC-1",
+   "timestamp": "2026-10-08T09:40"
+  }
+ ],
+ "export_id": "SAMPLE-COMBINED-OWNER-001",
+ "findings": [
+  {
+   "audit_id": "SYNTHETIC-COMBINED-001",
+   "car_id": "CAR-0004",
+   "checklist_item_ref": "STD:SAE AS9110C:8.5.1",
+   "evidence_ids": [
+    "EVD-0002",
+    "EVD-0003"
+   ],
+   "id": "QFN-0009",
+   "lead_classification": "MINOR_NC",
+   "lead_classified_at": "2026-10-08T14:00:00",
+   "lead_classified_by": "SYNTHETIC Lead L",
+   "lead_role": "LEAD_AUDITOR",
+   "proposed_by": "SYNTHETIC Auditor B",
+   "proposed_classification": "MINOR_NC",
+   "requirement_ids": [
+    "STD:SAE AS9110C:8.5.1"
+   ],
+   "statement": "SYNTHETIC: tooling tag not applied at bench 2.",
+   "status": "CLASSIFIED"
+  }
+ ],
+ "generated_at": "2026-10-08T14:30:00",
+ "interviews": [],
+ "manual": {
+  "reviewed_by": null,
+  "reviewed_on": null,
+  "sha256": null,
+  "source_class": null,
+  "status": null,
+  "uploaded_on": null
+ },
+ "not_assessed": [
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(a)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(b)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(c)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(d)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(e)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(f)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(g)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(h)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(i)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(j)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(k)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(l)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(m)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(n)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(o)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(p)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "8.5.1(q)"
+  },
+  {
+   "reason": "no assessment recorded",
+   "ref": "401",
+   "requirement_id": "REG:FAA QSA 1.0:Manufacturing Processes:401"
+  }
+ ],
+ "organization": "Burrana Inc.",
+ "package_version": "1.0",
+ "prior_car_reviews": [
+  {
+   "auditor_result": null,
+   "car_id": "CAR-SYN-201",
+   "entry_sha256": "48f37d2bafca3c308383e767aca804655b82db547664b4f5307224a4cd3af630",
+   "id": "CAR-0004",
+   "linked_requirement": "STD:SAE AS9110C:8.5.1",
+   "record_sha256": "708768ae9f6f848207b171ccaa6a749761cb84065fd77349a0d2df2d80d90916",
+   "state": "ACTIVE",
+   "status": "open"
+  }
+ ],
+ "sampling": [],
+ "snapshot": {
+  "capture_ledger_head": "26557b25b32be2f8903a4ca462ef837e26a2f1f12b5c4f25ae95986d025215f8",
+  "capture_ledger_length": 10,
+  "licensed_source_sha256": "0af526813f6636639a37382a731e41e703ce23488882082d146d529fcbdd2c71",
+  "qsa_publication": {
+   "sha256": "a73a2091a38704d2f1849b487acc821221d393959bfe2ba66e53431eafcf7ad2",
+   "version": 1
+  },
+  "reconciliation_status": "RECONCILED",
+  "sha256": "95d6ae2ce4e46873e656e2c5bf06349dfc1673d38e74edca355cd73db7ea1f86",
+  "snapshot_version": 1,
+  "standard": "AS9110C"
+ },
+ "sources": [
+  {
+   "edition": "AS9100D",
+   "licence_scope_owner": "Burrana Inc.",
+   "licence_use": "ORG_PRIVATE_LICENSED",
+   "next_review_due": null,
+   "publication_url": null,
+   "retrieved_on": null,
+   "sha256": "e4f399daaa6d2f907bb8cb0e8e491ef75e06f6e01dafd5a4f03d2d1fe7a81413",
+   "source_id": "AS9100D",
+   "standard": "SAE AS9100D",
+   "status": "proposed"
+  },
+  {
+   "edition": "AS9110C",
+   "licence_scope_owner": "Burrana Inc.",
+   "licence_use": "ORG_PRIVATE_LICENSED",
+   "next_review_due": null,
+   "publication_url": null,
+   "retrieved_on": null,
+   "sha256": "0af526813f6636639a37382a731e41e703ce23488882082d146d529fcbdd2c71",
+   "source_id": "AS9110C",
+   "standard": "SAE AS9110C",
+   "status": "proposed"
+  },
+  {
+   "edition": "eCFR snapshot 2026-09-01",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-09-01/title-14.xml?part=145",
+   "retrieved_on": "2026-10-08",
+   "sha256": "7f5e362ee7db965ce62cb402372bae331d39141f4890f9b2834dbfbf6a2f40d8",
+   "source_id": "FAA-14CFR-145",
+   "standard": "14 CFR Part 145",
+   "status": "unverified"
+  },
+  {
+   "edition": "eCFR snapshot 2026-09-01",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-09-01/title-14.xml?part=21",
+   "retrieved_on": "2026-10-08",
+   "sha256": "435031ef59dcfd99674ba96f7fca011b7e219e28bbf6211d54f124148525ea6e",
+   "source_id": "FAA-14CFR-21",
+   "standard": "14 CFR Part 21",
+   "status": "unverified"
+  },
+  {
+   "edition": "EUR-Lex",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R1321",
+   "retrieved_on": "2026-10-08",
+   "sha256": "38288e43cecde3e0736fd448567ba6f985829bfd296ece2a8c5f13ba6c873007",
+   "source_id": "EASA-PART145",
+   "standard": "Reg. (EU) 1321/2014 Annex II",
+   "status": "unverified"
+  },
+  {
+   "edition": "EUR-Lex",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32012R0748",
+   "retrieved_on": "2026-10-08",
+   "sha256": "1df842a116209fd3a9a7edf740086efe97827906d40fd147413989d76d383a53",
+   "source_id": "EASA-PART21",
+   "standard": "Reg. (EU) 748/2012 Annex I",
+   "status": "unverified"
+  },
+  {
+   "edition": "legislation.gov.uk",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://www.legislation.gov.uk/eur/2014/1321/annex/II/data.htm?view=plain",
+   "retrieved_on": "2026-10-08",
+   "sha256": "ca14aa6fa317197c5dd77314d6bebbb933ad13cb16049aa163fb9aafe665c171",
+   "source_id": "UK-PART145",
+   "standard": "UK retained Reg. (EU) 1321/2014 Annex II",
+   "status": "unverified"
+  },
+  {
+   "edition": "eff. 2022-07-01",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://xxgk.mot.gov.cn/gz/202202/W020220228592655663336.doc",
+   "retrieved_on": "2026-10-08",
+   "sha256": "d40c3ad9f8751c5cf9ed070ff08c0ae5f2493a9c62fa011b8c12af951cb90c8f",
+   "source_id": "CAAC-CCAR145-R4",
+   "standard": "CAAC CCAR-145-R4 (MOT Order 8/2022)",
+   "status": "unverified"
+  },
+  {
+   "edition": null,
+   "licence_scope_owner": null,
+   "licence_use": "UNVERIFIED_OR_UNAVAILABLE",
+   "next_review_due": null,
+   "publication_url": null,
+   "retrieved_on": null,
+   "sha256": null,
+   "source_id": "MX-AFAC-RAC145",
+   "standard": "MX AFAC RAC 145",
+   "status": "unavailable"
+  },
+  {
+   "edition": "1.0",
+   "licence_scope_owner": "Burrana Inc.",
+   "licence_use": "ORG_PRIVATE_LICENSED",
+   "next_review_due": null,
+   "publication_url": null,
+   "retrieved_on": null,
+   "sha256": "a659ebdf754692463303a39d0dc07c17d61db125f403d2be1d95fc526ac2e86a",
+   "source_id": "FAA-QSA-1.0",
+   "standard": "FAA QSA Audit Checklist 1.0",
+   "status": "DRAFT_SOURCE_IMPORTED"
+  }
+ ],
+ "sources_withheld_for_licence": [
+  "CUST-SYNTHETIC-CUSTOMER-01"
+ ],
+ "unresolved_items": []
+}

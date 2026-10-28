@@ -1,0 +1,265 @@
+[
+  {
+    "packVersion": "0.2.0",
+    "sourceEdition": "AS9100D Rev D (2016)",
+    "clauseRef": "8.5.2",
+    "obligationId": "OB-8.5.2",
+    "source": {
+      "identity": "SAE AS9100D (AS9100D)",
+      "edition": "Rev D (2016)",
+      "controlledCopyId": null
+    },
+    "authoredBy": "AI-assisted draft (Claude) — not self-approvable",
+    "clauseHierarchy": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "interpretation": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "intendedOutcome": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "applicability": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": "",
+      "conditions": {
+        "activitiesAny": [
+          "manufacture",
+          "distribute"
+        ]
+      }
+    },
+    "finalApproval": {
+      "status": "PENDING",
+      "approver": null,
+      "date": null,
+      "evidenceRef": null
+    },
+    "note": ""
+  },
+  {
+    "packVersion": "0.2.0",
+    "sourceEdition": "AS9100D Rev D (2016)",
+    "clauseRef": "7.1.5.2(a)",
+    "obligationId": "OB-7.1.5.2-a",
+    "source": {
+      "identity": "SAE AS9100D (AS9100D)",
+      "edition": "Rev D (2016)",
+      "controlledCopyId": null
+    },
+    "authoredBy": "AI-assisted draft (Claude) — not self-approvable",
+    "clauseHierarchy": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "interpretation": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "intendedOutcome": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "applicability": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": "",
+      "conditions": {
+        "activitiesAny": [
+          "manufacture",
+          "distribute"
+        ]
+      }
+    },
+    "finalApproval": {
+      "status": "PENDING",
+      "approver": null,
+      "date": null,
+      "evidenceRef": null
+    },
+    "note": ""
+  },
+  {
+    "packVersion": "0.2.0",
+    "sourceEdition": "AS9100D Rev D (2016)",
+    "clauseRef": "8.4.2(d)",
+    "obligationId": "OB-8.4.2-d",
+    "source": {
+      "identity": "SAE AS9100D (AS9100D)",
+      "edition": "Rev D (2016)",
+      "controlledCopyId": null
+    },
+    "authoredBy": "AI-assisted draft (Claude) — not self-approvable",
+    "clauseHierarchy": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "interpretation": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "intendedOutcome": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "applicability": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": "",
+      "conditions": {
+        "activitiesAny": [
+          "manufacture",
+          "distribute"
+        ]
+      }
+    },
+    "finalApproval": {
+      "status": "PENDING",
+      "approver": null,
+      "date": null,
+      "evidenceRef": null
+    },
+    "note": ""
+  },
+  {
+    "packVersion": "0.2.0",
+    "sourceEdition": "AS9100D Rev D (2016)",
+    "clauseRef": "7.2(c)",
+    "obligationId": "OB-7.2-c",
+    "source": {
+      "identity": "SAE AS9100D (AS9100D)",
+      "edition": "Rev D (2016)",
+      "controlledCopyId": null
+    },
+    "authoredBy": "AI-assisted draft (Claude) — not self-approvable",
+    "clauseHierarchy": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "interpretation": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "intendedOutcome": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "applicability": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": "",
+      "conditions": {
+        "activitiesAny": [
+          "manufacture"
+        ]
+      }
+    },
+    "finalApproval": {
+      "status": "PENDING",
+      "approver": null,
+      "date": null,
+      "evidenceRef": null
+    },
+    "note": ""
+  },
+  {
+    "packVersion": "0.2.0",
+    "sourceEdition": "AS9100D Rev D (2016)",
+    "clauseRef": "8.5.1.2",
+    "obligationId": "OB-8.5.1.2",
+    "source": {
+      "identity": "SAE AS9100D (AS9100D)",
+      "edition": "Rev D (2016)",
+      "controlledCopyId": null
+    },
+    "authoredBy": "AI-assisted draft (Claude) — not self-approvable",
+    "clauseHierarchy": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "interpretation": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "intendedOutcome": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": ""
+    },
+    "applicability": {
+      "result": "PENDING",
+      "reviewer": null,
+      "reviewDate": null,
+      "evidenceRef": null,
+      "notes": "",
+      "conditions": {
+        "activitiesAny": [
+          "manufacture"
+        ]
+      }
+    },
+    "finalApproval": {
+      "status": "PENDING",
+      "approver": null,
+      "date": null,
+      "evidenceRef": null
+    },
+    "note": "Title of 8.5.1.2 checked by owner 2026-10-11 (directive); obligation interpretation and any paragraph structure not yet reviewed."
+  }
+]

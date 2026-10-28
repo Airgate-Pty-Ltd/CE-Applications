@@ -1,0 +1,18 @@
+{
+  "validator": "validate-content",
+  "validatorVersion": "0.3.0",
+  "mode": "dev",
+  "pack": "as9100d-demo.pack.json",
+  "packSha256": "9a6a3f25121fbff4975bbef405e85e84d5448bc19ffd011dff0de68dd2725596",
+  "indexSha256": "ca58d220e0203a00dd81d6bebbf9da6a27cf2cce679c01783a1a6bc47cb0aa4e",
+  "verificationRecordSha256": null,
+  "frameworkValidatorSha256": "78a50c7bc4a139a3446f6fd838b4eaa5a7aa4543291dd84d27441b308eabc561",
+  "result": "PASS",
+  "exitCode": 0,
+  "failures": [],
+  "warnings": [
+    "source version is not verified (source.verification.status !== \"VERIFIED\")",
+    "clause index status is UNVERIFIED-SAMPLE"
+  ],
+  "at": "2026-10-11T16:00:44.306Z"
+}

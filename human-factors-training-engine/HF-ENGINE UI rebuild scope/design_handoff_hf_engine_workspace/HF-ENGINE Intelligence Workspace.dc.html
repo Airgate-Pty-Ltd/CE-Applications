@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --hf-bg: #07111f;
+      --hf-bg-deep: #04101b;
+      --hf-surface: #0b1726;
+      --hf-surface-2: #0e1d30;
+      --hf-surface-3: #12243a;
+      --hf-border: rgba(150, 180, 220, 0.16);
+      --hf-border-strong: rgba(150, 190, 235, 0.28);
+      --hf-text: #eef5ff;
+      --hf-text-soft: #c7d6e8;
+      --hf-text-muted: #8298b2;
+      --hf-evidence: #19c7c0;
+      --hf-learning: #8bd66c;
+      --hf-change: #f3a62d;
+      --hf-training: #489cf6;
+      --hf-effectiveness: #75d96d;
+      --hf-critical: #ff5e55;
+      --hf-warning: #f3a62d;
+      --hf-ready: #65d17c;
+      --hf-info: #4da4ff;
+      --hf-radius-sm: 7px;
+      --hf-radius-md: 11px;
+      --hf-radius-lg: 17px;
+      --hf-shadow-panel: 0 12px 32px rgba(0, 0, 0, 0.18);
+      --hf-glow-evidence: 0 0 18px rgba(25, 199, 192, 0.24);
+      --hf-glow-learning: 0 0 18px rgba(139, 214, 108, 0.22);
+      --hf-glow-change: 0 0 18px rgba(243, 166, 45, 0.22);
+      --hf-glow-training: 0 0 18px rgba(72, 156, 246, 0.22);
+      --hf-glow-effectiveness: 0 0 18px rgba(117, 217, 109, 0.22);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--hf-bg);
+      color: var(--hf-text);
+      overflow: hidden;
+    }
+
+    .hf-workspace {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(250px, 0.82fr) minmax(620px, 2.4fr) minmax(360px, 1.18fr);
+      grid-template-rows: 58px minmax(0, 1fr) 118px;
+      grid-template-areas: "command command command" "context canvas workbench" "lineage lineage workbench";
+      background: radial-gradient(circle at 42% 46%, rgba(26, 91, 145, 0.08), transparent 38%), var(--hf-bg);
+    }
+
+    .hf-workspace__command {
+      grid-area: command;
+      border-bottom: 1px solid var(--hf-border);
+      background: rgba(4, 15, 28, 0.92);
+      backdrop-filter: blur(14px);
+      z-index: 20;
+    }
+
+    .hf-workspace__context {
+      grid-area: context;
+      overflow: auto;
+      padding: 18px 14px 18px 18px;
+    }
+
+    .hf-workspace__canvas {
+      grid-area: canvas;
+      min-width: 0;
+      overflow: hidden;
+      padding: 18px 10px;
+    }
+
+    .hf-workspace__workbench {
+      grid-area: workbench;
+      overflow: auto;
+      padding: 18px 18px 18px 10px;
+      border-left: 1px solid var(--hf-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hf-workspace__lineage {
+      grid-area: lineage;
+      padding: 0 10px 18px 18px;
+    }
+
+    .hf-commandbar {
+      height: 58px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 0 20px;
+    }
+
+    .hf-commandbar__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hf-commandbar__brand strong,
+    .hf-commandbar__brand span {
+      display: block;
+    }
+
+    .hf-commandbar__brand strong {
+      font-size: 1.05rem;
+      letter-spacing: 0.035em;
+    }
+
+    .hf-commandbar__brand span {
+      font-size: 0.69rem;
+      color: var(--hf-text-muted);
+    }
+
+    .hf-commandbar__mark {
+      width: 31px;
+      height: 31px;
+      border: 1px solid rgba(71, 180, 255, 0.55);
+      border-radius: 8px;
+      transform: rotate(45deg);
+      box-shadow: 0 0 18px rgba(71, 180, 255, 0.12);
+    }
+
+    .hf-commandbar__modes {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      min-width: 0;
+    }
+
+    .hf-commandbar__modes a {
+      position: relative;
+      padding: 19px 2px 17px;
+      color: var(--hf-text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      font-size: 0.93rem;
+    }
+
+    .hf-commandbar__modes a.is-active {
+      color: var(--hf-text);
+    }
+
+    .hf-commandbar__modes a.is-active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--hf-training);
+      box-shadow: 0 0 10px rgba(72, 156, 246, 0.5);
+    }
+
+    .hf-commandbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hf-commandbar__actions button {
+      color: var(--hf-text-soft);
+      border: 1px solid var(--hf-border);
+      background: rgba(255, 255, 255, 0.025);
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .hf-commandbar__actions button:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--hf-border-strong);
+    }
+
+    .hf-user-chip {
+      border-radius: 999px !important;
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, #489cf6, #4da4ff) !important;
+      border: none !important;
+      color: white;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+
+    .hf-context-intro {
+      margin-bottom: 28px;
+    }
+
+    .hf-live-label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--hf-training);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .hf-context-intro h1 {
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .hf-context-intro p {
+      font-size: 0.85rem;
+      color: var(--hf-text-muted);
+      line-height: 1.5;
+    }
+
+    .hf-context-section {
+      margin-bottom: 20px;
+      padding: 12px;
+      border: 1px solid var(--hf-border);
+      border-radius: var(--hf-radius-md);
+      background: rgba(14, 29, 48, 0.6);
+    }
+
+    .hf-context-section header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--hf-border);
+    }
+
+    .hf-context-section h2 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 600;
+    }
+
+    .hf-context-section--critical h2 {
+      color: var(--hf-critical);
+    }
+
+    .hf-context-section--pattern h2 {
+      color: #c77dff;
+    }
+
+    .hf-context-section--review h2 {
+      color: var(--hf-info);
+    }
+
+    .hf-context-section header span {
+      font-size: 0.75rem;
+      color: var(--hf-text-muted);
+      background: rgba(150, 180, 220, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .hf-attention-row,
+    .hf-pattern-row,
+    .hf-review-row {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 8px;
+      margin-bottom: 6px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.8rem;
+    }
+
+    .hf-attention-row:hover,
+    .hf-pattern-row:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 4px;
+    }
+
+    .hf-attention-row strong,
+    .hf-pattern-row strong {
+      display: block;
+      color: var(--hf-text);
+      margin-bottom: 2px;
+    }
+
+    .hf-attention-row span,
+    .hf-pattern-row span {
+      display: block;
+      color: var(--hf-text-muted);
+      font-size: 0.75rem;
+      margin-bottom: 4px;
+    }
+
+    .hf-attention-row em,
+    .hf-pattern-row em {
+      display: block;
+      color: var(--hf-training);
+      font-style: normal;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .hf-empty {
+      color: var(--hf-text-muted);
+      font-size: 0.8rem;
+      padding: 8px;
+    }
+
+    .hf-intelligence-canvas {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      gap: 12px;
+    }
+
+    .hf-intelligence-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      padding: 12px;
+      background: rgba(14, 29, 48, 0.6);
+      border: 1px solid var(--hf-border);
+      border-radius: var(--hf-radius-md);
+    }
+
+    .hf-intelligence-strip__item {
+      padding: 10px;
+      border: 1px solid var(--hf-border);
+      border-radius: var(--hf-radius-sm);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .hf-intelligence-strip__item--evidence {
+      border-color: var(--hf-evidence);
+    }
+
+    .hf-intelligence-strip__item--lessons {
+      border-color: var(--hf-learning);
+    }
+
+    .hf-intelligence-strip__item--change {
+      border-color: var(--hf-change);
+    }
+
+    .hf-intelligence-strip__item--training {
+      border-color: var(--hf-training);
+    }
+
+    .hf-intelligence-strip__item--effectiveness {
+      border-color: var(--hf-effectiveness);
+    }
+
+    .hf-intelligence-strip__item strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+
+    .hf-intelligence-strip__item span {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--hf-text-muted);
+    }
+
+    .hf-learning-map {
+      flex: 1;
+      border: 1px solid var(--hf-border);
+      border-radius: var(--hf-radius-lg);
+      background: radial-gradient(circle at 50% 52%, rgba(37, 98, 153, 0.12), transparent 38%),
+                  linear-gradient(180deg, rgba(8, 24, 40, 0.98), rgba(5, 18, 31, 0.98));
+      box-shadow: var(--hf-shadow-panel);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hf-learning-map__header {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 18px 0;
+      align-items: start;
+    }
+
+    .hf-kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      color: var(--hf-text-soft);
+    }
+
+    .hf-learning-map__header p {
+      margin: 3px 0 0;
+      color: var(--hf-text-muted);
+      font-size: 0.78rem;
+    }
+
+    .hf-map-mode {
+      display: flex;
+      gap: 4px;
+    }
+
+    .hf-map-mode button {
+      padding: 6px 10px;
+      border: 1px solid var(--hf-border);
+      background: transparent;
+      color: var(--hf-text-muted);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .hf-map-mode button.is-active {
+      background: rgba(72, 156, 246, 0.15);
+      border-color: var(--hf-training);
+      color: var(--hf-training);
+    }
+
+    .hf-learning-map__svg {
+      flex: 1;
+      width: 100%;
+      min-height: 450px;
+    }
+
+    .hf-stage-node {
+      cursor: pointer;
+      outline: none;
+    }
+
+    .hf-stage-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.055em;
+    }
+
+    .hf-stage-subtitle {
+      fill: var(--hf-text-muted);
+      font-size: 10px;
+    }
+
+    .hf-stage-value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .hf-pattern-signal {
+      cursor: pointer;
+    }
+
+    .hf-pattern-signal__title {
+      fill: #ff7a72;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .hf-pattern-signal__body {
+      fill: var(--hf-text);
+      font-size: 10px;
+    }
+
+    .hf-workbench-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .hf-workbench-panel__header {
+      padding: 12px;
+      border: 1px solid var(--hf-border);
+      border-radius: var(--hf-radius-md);
+      background: rgba(14, 29, 48, 0.6);
+    }
+
+    .hf-workbench-panel__header span {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--hf-text-muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .hf-workbench-panel__header h2 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .hf-workbench-panel__header p {
+      font-size: 0.8rem;
+      color: var(--hf-text-soft);
+    }
+
+    .hf-status-chip {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 8px;
+    }
+
+    .hf-status-chip--waiting {
+      background: rgba(243, 166, 45, 0.15);
+      color: var(--hf-change);
+      border: 1px solid rgba(243, 166, 45, 0.3);
+    }
+
+    .hf-workbench-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--hf-border);
+      padding: 0 12px;
+    }
+
+    .hf-workbench-tabs button {
+      padding: 10px 12px;
+      border: none;
+      background: transparent;
+      color: var(--hf-text-muted);
+      cursor: pointer;
+      font-size: 0.8rem;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .hf-workbench-tabs button.is-active {
+      color: var(--hf-text);
+      border-bottom-color: var(--hf-training);
+    }
+
+    .hf-workbench-panel__body {
+      flex: 1;
+      overflow: auto;
+      padding: 12px;
+    }
+
+    .hf-diff-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .hf-diff-grid article {
+      border: 1px solid var(--hf-border);
+      border-radius: var(--hf-radius-md);
+      background: rgba(255, 255, 255, 0.018);
+      min-height: 145px;
+    }
+
+    .hf-diff-grid header {
+      padding: 8px 10px;
+      font-size: 0.74rem;
+      color: var(--hf-text-muted);
+      border-bottom: 1px solid var(--hf-border);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hf-diff-grid p {
+      padding: 12px;
+      margin: 0;
+      line-height: 1.55;
+      font-size: 0.8rem;
+      color: var(--hf-text-soft);
+    }
+
+    .hf-diff-section {
+      margin-bottom: 16px;
+    }
+
+    .hf-diff-section h3 {
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+      color: var(--hf-text);
+    }
+
+    .hf-readiness,
+    .hf-impact-summary {
+      padding: 12px;
+      border: 1px solid var(--hf-border);
+      border-radius: var(--hf-radius-md);
+      background: rgba(14, 29, 48, 0.6);
+    }
+
+    .hf-readiness header,
+    .hf-impact-summary header {
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--hf-border);
+    }
+
+    .hf-readiness h3,
+    .hf-impact-summary h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--hf-text-soft);
+    }
+
+    .hf-readiness__checks {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .hf-readiness__checks > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+    }
+
+    .hf-readiness-state {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .hf-readiness-state--ready {
+      color: var(--hf-ready);
+    }
+
+    .hf-readiness-state--waiting {
+      color: var(--hf-change);
+    }
+
+    .hf-readiness-state--pending {
+      color: var(--hf-warning);
+    }
+
+    .hf-readiness__overall {
+      padding-top: 8px;
+      border-top: 1px solid var(--hf-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hf-readiness__overall small {
+      font-size: 0.7rem;
+      color: var(--hf-text-muted);
+      text-transform: uppercase;
+    }
+
+    .hf-readiness__overall strong {
+      color: var(--hf-ready);
+      font-size: 0.8rem;
+    }
+
+    .hf-impact-summary dl {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .hf-impact-summary dl > div {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+
+    .hf-impact-summary dt {
+      color: var(--hf-text-muted);
+    }
+
+    .hf-impact-summary dd {
+      color: var(--hf-text);
+      font-weight: 500;
+    }
+
+    .hf-workbench-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 12px;
+      border-top: 1px solid var(--hf-border);
+    }
+
+    .hf-btn {
+      padding: 10px 16px;
+      border: 1px solid var(--hf-border);
+      border-radius: var(--hf-radius-sm);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hf-btn--secondary {
+      background: transparent;
+      color: var(--hf-text-soft);
+    }
+
+    .hf-btn--secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--hf-border-strong);
+    }
+
+    .hf-btn--release {
+      background: linear-gradient(135deg, #f3a62d, #f5b84d);
+      border: none;
+      color: #000;
+      font-weight: 600;
+    }
+
+    .hf-btn--release:hover {
+      opacity: 0.9;
+    }
+
+    .hf-lineage {
+      border: 1px solid var(--hf-border);
+      border-radius: var(--hf-radius-lg);
+      background: var(--hf-surface);
+      padding: 12px 16px;
+    }
+
+    .hf-lineage header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .hf-lineage header span {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--hf-text-muted);
+    }
+
+    .hf-lineage header button {
+      background: none;
+      border: none;
+      color: var(--hf-training);
+      font-size: 0.7rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .hf-lineage ol {
+      list-style: none;
+      margin: 0;
+      padding: 8px 0 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      overflow-x: auto;
+    }
+
+    .hf-lineage__step {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .hf-lineage__step button {
+      width: 90px;
+      border: none;
+      background: transparent;
+      color: var(--hf-text-soft);
+      padding: 0;
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.7rem;
+    }
+
+    .hf-lineage__node {
+      width: 26px;
+      height: 26px;
+      margin: 0 auto 5px;
+      display: block;
+      border-radius: 50%;
+      border: 2px solid var(--hf-border-strong);
+      background: var(--hf-surface-2);
+    }
+
+    .hf-lineage__step--complete .hf-lineage__node {
+      border-color: var(--hf-ready);
+      box-shadow: 0 0 10px rgba(101, 209, 124, 0.22);
+    }
+
+    .hf-lineage__step--active .hf-lineage__node {
+      border-color: var(--hf-change);
+      box-shadow: 0 0 10px rgba(243, 166, 45, 0.28);
+    }
+
+    .hf-lineage__connector {
+      height: 1px;
+      width: 20px;
+      background: linear-gradient(90deg, rgba(101, 209, 124, 0.6), rgba(72, 156, 246, 0.45));
+    }
+
+    .hf-lineage__step small {
+      display: block;
+      color: var(--hf-text-muted);
+      font-size: 0.65rem;
+    }
+  </style>
+</helmet>
+
+<div class="hf-workspace">
+  <div class="hf-workspace__command">
+    <div class="hf-commandbar">
+      <div class="hf-commandbar__brand">
+        <div class="hf-commandbar__mark" aria-hidden></div>
+        <div>
+          <strong>HF-ENGINE</strong>
+          <span>Organizational Learning. Governed.</span>
+        </div>
+      </div>
+
+      <nav class="hf-commandbar__modes" aria-label="Primary">
+        <a href="#" class="is-active">Intelligence</a>
+        <a href="#">Review</a>
+        <a href="#">Recurrent Training</a>
+        <a href="#">Effectiveness</a>
+        <a href="#">Knowledge</a>
+      </nav>
+
+      <div class="hf-commandbar__actions">
+        <span style="color: var(--hf-text-soft); font-size: 0.9rem;">The Organization</span>
+        <button type="button" aria-label="Search">🔍</button>
+        <button type="button" aria-label="Notifications">🔔</button>
+        <button type="button" class="hf-user-chip">QM</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="hf-workspace__context">
+    <div class="hf-context-intro">
+      <span class="hf-live-label">◆ LIVE SYSTEM</span>
+      <h1>Good morning,<br>Quality Manager</h1>
+      <p>Turning operational evidence into verified organizational learning and performance.</p>
+    </div>
+
+    <section class="hf-context-section hf-context-section--critical">
+      <header>
+        <h2>Requires Attention</h2>
+        <span>3</span>
+      </header>
+      <button class="hf-attention-row">
+        <strong>Calibration Verification</strong>
+        <span>Repeat issue detected • Affects all sites</span>
+        <em>Review</em>
+      </button>
+      <button class="hf-attention-row">
+        <strong>HF-012 Rev B</strong>
+        <span>Change proposal awaiting release • 128 learners will be affected</span>
+        <em>Review</em>
+      </button>
+      <button class="hf-attention-row">
+        <strong>Effectiveness Check-In</strong>
+        <span>Intervention review due • Effectiveness verification pending</span>
+        <em>View</em>
+      </button>
+    </section>
+
+    <section class="hf-context-section hf-context-section--pattern">
+      <header>
+        <h2>Emerging Patterns</h2>
+        <span>2</span>
+      </header>
+      <button class="hf-pattern-row">
+        <strong>Verification errors under production pressure</strong>
+        <span>6 related events • 2 sites • Evidence developing</span>
+      </button>
+      <button class="hf-pattern-row">
+        <strong>Procedure steps bypassed</strong>
+        <span>4 related events • 3 sites • Evidence developing</span>
+      </button>
+    </section>
+
+    <section class="hf-context-section hf-context-section--review">
+      <header>
+        <h2>Automated Review</h2>
+        <span>12</span>
+      </header>
+      <div class="hf-review-row" style="border-bottom: 1px solid var(--hf-border); padding-bottom: 4px; margin-bottom: 6px;">
+        <span>✓ Source evidence checked</span>
+        <strong style="color: var(--hf-ready);">Ready</strong>
+      </div>
+      <div class="hf-review-row" style="border-bottom: 1px solid var(--hf-border); padding-bottom: 4px; margin-bottom: 6px;">
+        <span>✓ Applicability checked</span>
+        <strong style="color: var(--hf-ready);">Ready</strong>
+      </div>
+      <div class="hf-review-row" style="border-bottom: 1px solid var(--hf-border); padding-bottom: 4px; margin-bottom: 6px;">
+        <span>✓ Training impact checked</span>
+        <strong style="color: var(--hf-ready);">Ready</strong>
+      </div>
+      <div class="hf-review-row">
+        <span>✓ Release controls satisfied</span>
+        <strong style="color: var(--hf-ready);">Ready</strong>
+      </div>
+    </section>
+  </aside>
+
+  <main class="hf-workspace__canvas">
+    <div class="hf-intelligence-canvas">
+      <div class="hf-intelligence-strip">
+        <button class="hf-intelligence-strip__item hf-intelligence-strip__item--evidence">
+          <strong>3</strong>
+          <span>Lessons Identified</span>
+        </button>
+        <button class="hf-intelligence-strip__item hf-intelligence-strip__item--lessons">
+          <strong>1</strong>
+          <span>Revision Awaiting</span>
+        </button>
+        <button class="hf-intelligence-strip__item hf-intelligence-strip__item--change">
+          <strong>2</strong>
+          <span>Emerging Patterns</span>
+        </button>
+        <button class="hf-intelligence-strip__item hf-intelligence-strip__item--training">
+          <strong style="font-size: 1.1rem;">2027</strong>
+          <span>Cycle Will Use Rev B</span>
+        </button>
+        <button class="hf-intelligence-strip__item" style="border-color: var(--hf-text-muted);">
+          <span style="color: var(--hf-text-muted);">▶</span>
+        </button>
+      </div>
+
+      <div class="hf-learning-map">
+        <div class="hf-learning-map__header">
+          <div>
+            <span class="hf-kicker">Organizational Intelligence Map</span>
+            <p>Operational evidence flows to learning. Learning drives performance.</p>
+          </div>
+          <div class="hf-map-mode">
+            <button class="is-active">⊞ Map view</button>
+            <button>≡ List view</button>
+          </div>
+        </div>
+
+        <svg viewBox="0 0 920 520" role="img" aria-label="Organizational learning map" class="hf-learning-map__svg">
+          <defs>
+            <filter id="softGlow">
+              <feGaussianBlur stdDeviation="4" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#19c7c0" />
+              <stop offset="28%" stopColor="#8bd66c" />
+              <stop offset="52%" stopColor="#f3a62d" />
+              <stop offset="75%" stopColor="#489cf6" />
+              <stop offset="100%" stopColor="#75d96d" />
+            </linearGradient>
+          </defs>
+
+          <path d="M110 255 C 200 205, 220 305, 285 255 S 395 205, 460 255 S 570 305, 635 255 S 745 205, 810 255" fill="none" stroke="url(#flowGradient)" strokeWidth="6" strokeOpacity="0.42" filter="url(#softGlow)" />
+          <path d="M110 255 C 200 205, 220 305, 285 255 S 395 205, 460 255 S 570 305, 635 255 S 745 205, 810 255" fill="none" stroke="url(#flowGradient)" strokeWidth="1.4" strokeOpacity="0.95" />
+
+          <!-- Evidence -->
+          <g class="hf-stage-node">
+            <circle cx="110" cy="255" r="34" fill="#0a1b2c" stroke="#19c7c0" strokeWidth="2" filter="url(#softGlow)" />
+            <circle cx="110" cy="255" r="19" fill="transparent" stroke="#19c7c0" strokeWidth="1" strokeOpacity="0.7" />
+            <text x="110" y="167" textAnchor="middle" class="hf-stage-title" fill="#19c7c0">EVIDENCE</text>
+            <text x="110" y="185" textAnchor="middle" class="hf-stage-subtitle">Operational Signals</text>
+            <text x="110" y="327" textAnchor="middle" class="hf-stage-value" fill="#19c7c0">18</text>
+          </g>
+
+          <!-- Lessons -->
+          <g class="hf-stage-node">
+            <circle cx="285" cy="255" r="34" fill="#0a1b2c" stroke="#8bd66c" strokeWidth="2" filter="url(#softGlow)" />
+            <circle cx="285" cy="255" r="19" fill="transparent" stroke="#8bd66c" strokeWidth="1" strokeOpacity="0.7" />
+            <text x="285" y="167" textAnchor="middle" class="hf-stage-title" fill="#8bd66c">LESSONS</text>
+            <text x="285" y="185" textAnchor="middle" class="hf-stage-subtitle">Validated Insights</text>
+            <text x="285" y="327" textAnchor="middle" class="hf-stage-value" fill="#8bd66c">3</text>
+          </g>
+
+          <!-- Change -->
+          <g class="hf-stage-node">
+            <circle cx="460" cy="255" r="34" fill="#0a1b2c" stroke="#f3a62d" strokeWidth="2" filter="url(#softGlow)" />
+            <circle cx="460" cy="255" r="19" fill="transparent" stroke="#f3a62d" strokeWidth="1" strokeOpacity="0.7" />
+            <text x="460" y="167" textAnchor="middle" class="hf-stage-title" fill="#f3a62d">CHANGE PROPOSALS</text>
+            <text x="460" y="185" textAnchor="middle" class="hf-stage-subtitle">Controlled Updates</text>
+            <text x="460" y="327" textAnchor="middle" class="hf-stage-value" fill="#f3a62d">1</text>
+          </g>
+
+          <!-- Training -->
+          <g class="hf-stage-node">
+            <circle cx="635" cy="255" r="34" fill="#0a1b2c" stroke="#489cf6" strokeWidth="2" filter="url(#softGlow)" />
+            <circle cx="635" cy="255" r="19" fill="transparent" stroke="#489cf6" strokeWidth="1" strokeOpacity="0.7" />
+            <text x="635" y="167" textAnchor="middle" class="hf-stage-title" fill="#489cf6">TRAINING</text>
+            <text x="635" y="185" textAnchor="middle" class="hf-stage-subtitle">Recurrent Delivery</text>
+            <text x="635" y="327" textAnchor="middle" class="hf-stage-value" fill="#489cf6">128</text>
+          </g>
+
+          <!-- Effectiveness -->
+          <g class="hf-stage-node">
+            <circle cx="810" cy="255" r="34" fill="#0a1b2c" stroke="#75d96d" strokeWidth="2" filter="url(#softGlow)" />
+            <circle cx="810" cy="255" r="19" fill="transparent" stroke="#75d96d" strokeWidth="1" strokeOpacity="0.7" />
+            <text x="810" y="167" textAnchor="middle" class="hf-stage-title" fill="#75d96d">EFFECTIVENESS</text>
+            <text x="810" y="185" textAnchor="middle" class="hf-stage-subtitle">Measured Impact</text>
+            <text x="810" y="327" textAnchor="middle" class="hf-stage-value" fill="#75d96d">2</text>
+          </g>
+
+          <!-- Emerging Pattern Signal -->
+          <g class="hf-pattern-signal">
+            <path d="M 495 75 C 475 95, 440 165, 460 221" fill="none" stroke="#ff685d" strokeDasharray="5 5" strokeOpacity="0.75" />
+            <rect x="360" y="35" width="150" height="58" rx="10" fill="#2b1619" stroke="#ff685d" strokeOpacity="0.8" />
+            <text x="372" y="56" class="hf-pattern-signal__title">EMERGING PATTERN</text>
+            <text x="372" y="75" class="hf-pattern-signal__body">Verification errors under</text>
+          </g>
+
+          <!-- Info Box 1 - Lessons -->
+          <g>
+            <rect x="270" y="425" width="145" height="65" rx="10" fill="rgba(17, 120, 102, 0.15)" stroke="#8bd66c" strokeOpacity="0.7" />
+            <text x="285" y="443" style="fill: #8bd66c; font-size: 10px; font-weight: 700;">✓ 3 LESSONS IDENTIFIED</text>
+            <text x="285" y="457" style="fill: var(--hf-text-soft); font-size: 9px;">Ready for proposal consideration</text>
+            <text x="285" y="480" style="fill: var(--hf-training); font-size: 8px; text-decoration: underline; cursor: pointer;">View lessons</text>
+          </g>
+
+          <!-- Info Box 2 - Revision -->
+          <g>
+            <rect x="420" y="425" width="145" height="65" rx="10" fill="rgba(139, 89, 0, 0.15)" stroke="#f3a62d" strokeOpacity="0.7" />
+            <text x="435" y="443" style="fill: #f3a62d; font-size: 10px; font-weight: 700;">◆ 1 REVISION AWAITING RELEASE</text>
+            <text x="435" y="457" style="fill: var(--hf-text-soft); font-size: 9px;">HF-012 Rev B</text>
+            <text x="435" y="477" style="fill: var(--hf-text-muted); font-size: 8px;">128 learners affected</text>
+            <text x="435" y="480" style="fill: var(--hf-training); font-size: 8px; text-decoration: underline; cursor: pointer;">Review proposal</text>
+          </g>
+
+          <!-- Info Box 3 - Effectiveness -->
+          <g>
+            <rect x="570" y="425" width="145" height="65" rx="10" fill="rgba(33, 102, 102, 0.15)" stroke="#75d96d" strokeOpacity="0.7" />
+            <text x="585" y="443" style="fill: #75d96d; font-size: 10px; font-weight: 700;">✓ INTERVENTION EFFECTIVENESS</text>
+            <text x="585" y="457" style="fill: var(--hf-text-soft); font-size: 9px;">Training only: 48%</text>
+            <text x="585" y="477" style="fill: var(--hf-text-soft); font-size: 9px;">Training + observation: 79%</text>
+            <text x="585" y="480" style="fill: var(--hf-training); font-size: 8px; text-decoration: underline; cursor: pointer;">View details</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </main>
+
+  <aside class="hf-workspace__workbench">
+    <div class="hf-workbench-panel">
+      <div class="hf-workbench-panel__header">
+        <span>Change Proposal Review</span>
+        <h2>HF-012 Work Instruction: Connector Installation</h2>
+        <p>Rev A → Rev B</p>
+        <span style="color: #f5b84d; margin-top: 8px;">Major Revision</span>
+        <span class="hf-status-chip hf-status-chip--waiting">Awaiting Human Release</span>
+      </div>
+
+      <div class="hf-workbench-tabs" role="tablist">
+        <button type="button">Summary</button>
+        <button type="button" class="is-active">Track Changes</button>
+        <button type="button">Impact</button>
+        <button type="button">Reviews</button>
+        <button type="button">History</button>
+      </div>
+
+      <div class="hf-workbench-panel__body">
+        <div class="hf-diff-section">
+          <h3>5.2 Installation Steps</h3>
+          <div class="hf-diff-grid">
+            <article>
+              <header>Current (Rev A)</header>
+              <p>5.2.1 Verify connector alignment using alignment tool</p>
+            </article>
+            <article>
+              <header>Proposed (Rev B)</header>
+              <p><span style="color: #8ee49c; background: rgba(101, 209, 124, 0.1);">5.2.1 Verify connector alignment visually and with alignment tool</span></p>
+            </article>
+          </div>
+        </div>
+
+        <div class="hf-diff-section">
+          <h3>5.2.2 Hand-tighten connector</h3>
+          <div class="hf-diff-grid">
+            <article>
+              <header>Current</header>
+              <p>5.2.2 Hand-tighten connector until snug.</p>
+            </article>
+            <article>
+              <header>Proposed</header>
+              <p>5.2.2 Hand-tighten connector until snug.</p>
+            </article>
+          </div>
+        </div>
+
+        <div style="background: rgba(72, 156, 246, 0.1); border: 1px solid rgba(72, 156, 246, 0.3); border-radius: var(--hf-radius-md); padding: 12px; margin-top: 12px;">
+          <p style="color: var(--hf-text-soft); font-size: 0.8rem; margin-bottom: 6px;">ℹ Training may not be appropriate as the sole corrective action. Why am I receiving this?</p>
+          <a href="#" style="color: var(--hf-training); font-size: 0.8rem; text-decoration: underline;">Why am I receiving this?</a>
+        </div>
+      </div>
+
+      <div class="hf-readiness">
+        <header>
+          <h3>Release Readiness</h3>
+        </header>
+        <div class="hf-readiness__checks">
+          <div>
+            <span>✓ Evidence linked</span>
+            <strong class="hf-readiness-state hf-readiness-state--ready">Ready</strong>
+          </div>
+          <div>
+            <span>✓ Applicability</span>
+            <strong class="hf-readiness-state hf-readiness-state--ready">Ready</strong>
+          </div>
+          <div>
+            <span>✓ Training impact</span>
+            <strong class="hf-readiness-state hf-readiness-state--ready">Ready</strong>
+          </div>
+          <div>
+            <span>✓ Change control</span>
+            <strong class="hf-readiness-state hf-readiness-state--ready">Ready</strong>
+          </div>
+          <div>
+            <span>◆ Required approvals</span>
+            <strong class="hf-readiness-state hf-readiness-state--pending">Pending</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="hf-impact-summary">
+        <header>
+          <h3>Impact Summary</h3>
+        </header>
+        <dl>
+          <div>
+            <dt>Learners affected</dt>
+            <dd style="color: var(--hf-text);">128</dd>
+          </div>
+          <div>
+            <dt>Sites affected</dt>
+            <dd style="color: var(--hf-text);">3</dd>
+          </div>
+          <div>
+            <dt>Next cycle</dt>
+            <dd style="color: var(--hf-text);">2027 · Will use Rev B</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="hf-workbench-actions">
+        <button class="hf-btn hf-btn--secondary">Send Back for Edits</button>
+        <button class="hf-btn hf-btn--release">Approve for Release</button>
+      </div>
+    </div>
+  </aside>
+
+  <footer class="hf-workspace__lineage">
+    <div class="hf-lineage">
+      <header>
+        <span>Learning Lineage</span>
+        <button type="button">View full lineage</button>
+      </header>
+      <ol>
+        <li class="hf-lineage__step hf-lineage__step--complete">
+          <button type="button">
+            <span class="hf-lineage__node"></span>
+            <strong>Event Detected</strong>
+            <small>18 New</small>
+          </button>
+          <span class="hf-lineage__connector"></span>
+        </li>
+        <li class="hf-lineage__step hf-lineage__step--complete">
+          <button type="button">
+            <span class="hf-lineage__node"></span>
+            <strong>Corrective Action</strong>
+            <small>14 Open</small>
+          </button>
+          <span class="hf-lineage__connector"></span>
+        </li>
+        <li class="hf-lineage__step hf-lineage__step--complete">
+          <button type="button">
+            <span class="hf-lineage__node"></span>
+            <strong>Lesson Learned</strong>
+            <small>3 New</small>
+          </button>
+          <span class="hf-lineage__connector"></span>
+        </li>
+        <li class="hf-lineage__step hf-lineage__step--active">
+          <button type="button">
+            <span class="hf-lineage__node"></span>
+            <strong>Revision Proposed</strong>
+            <small>1 Awaiting</small>
+          </button>
+          <span class="hf-lineage__connector"></span>
+        </li>
+        <li class="hf-lineage__step hf-lineage__step--complete">
+          <button type="button">
+            <span class="hf-lineage__node"></span>
+            <strong>Training Planned</strong>
+            <small>128 Impacted</small>
+          </button>
+          <span class="hf-lineage__connector"></span>
+        </li>
+        <li class="hf-lineage__step hf-lineage__step--complete">
+          <button type="button">
+            <span class="hf-lineage__node"></span>
+            <strong>Training Delivered</strong>
+            <small>64 Complete</small>
+          </button>
+          <span class="hf-lineage__connector"></span>
+        </li>
+        <li class="hf-lineage__step">
+          <button type="button">
+            <span class="hf-lineage__node"></span>
+            <strong>Effectiveness Measured</strong>
+            <small>2 Due</small>
+          </button>
+        </li>
+      </ol>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    activeTab: "track-changes",
+  };
+
+  renderVals() {
+    return {
+      activeTab: this.state.activeTab,
+      setActiveTab: (tab) => this.setState({ activeTab: tab }),
+    };
+  }
+}
+</script>
+</body>
+</html>

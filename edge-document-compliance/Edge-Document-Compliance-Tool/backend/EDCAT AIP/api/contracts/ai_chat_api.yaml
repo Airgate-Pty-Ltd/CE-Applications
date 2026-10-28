@@ -1,0 +1,66 @@
+
+openapi: 3.0.3
+info:
+  title: EDCAT AI Chat API
+  version: "1.0.0"
+paths:
+  /api/ai/chat:
+    post:
+      summary: Chat with EDCAT AI (retrieval-first with validators and routing)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tenant_id, session_id, persona_code, message]
+              properties:
+                tenant_id:
+                  type: string
+                  format: uuid
+                session_id:
+                  type: string
+                  format: uuid
+                persona_code:
+                  type: string
+                  example: "vera"
+                message:
+                  type: string
+                tools_hint:
+                  type: array
+                  items: { type: string }
+                secure_mode:
+                  type: boolean
+                context_overrides:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      doc_id: { type: string }
+                      page: { type: integer }
+                      lines: { type: array, items: { type: integer } }
+      responses:
+        '200':
+          description: AI response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text: { type: string }
+                  citations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        doc_id: { type: string }
+                        page: { type: integer }
+                        line_start: { type: integer }
+                        line_end: { type: integer }
+                  model_used: { type: string }
+                  router_trace: { type: object }
+                  validators: { type: array, items: { type: object } }
+        '400':
+          description: Bad request
+        '500':
+          description: Server error

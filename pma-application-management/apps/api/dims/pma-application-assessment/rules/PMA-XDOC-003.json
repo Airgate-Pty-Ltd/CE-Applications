@@ -1,0 +1,33 @@
+{
+  "ruleId": "PMA-XDOC-003",
+  "dimId": "pma-application-assessment",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "PENDING-REVIEW",
+  "approvalRef": "Submission Checklist item 3.A.III (TC Holder)",
+  "severity": "major",
+  "gapClass": "BLOCKING",
+  "category": "linkage",
+  "riskClass": "A",
+  "basisType": "deterministic-record-completeness",
+  "description": "TC Holder must match across the assist letter/STC, the application letter, and the PMA supplement.",
+  "requiredFields": [
+    "tc_holder_matches_across_documents"
+  ],
+  "logicResult": "tc_holder_mismatch",
+  "findingText": "The TC Holder does not match across all three documents (assist letter or STC, application letter paragraph 1 or table, and PMA supplement).",
+  "resolutionHint": "Reconcile the TC Holder name so all three documents agree.",
+  "clauseRefs": [
+    "Submission Checklist item 3.A.III (TC Holder)"
+  ],
+  "condition": {
+    "field": "tc_holder_matches_across_documents",
+    "op": "eq",
+    "value": false
+  },
+  "limitations": [
+    "Exact text comparison; it cannot judge whether two spellings denote the same legal entity."
+  ],
+  "citationScope": "generic",
+  "citationNote": "Cites the form/procedure by role; the tenant profile supplies its own controlled document number and revision when the finding is rendered."
+}

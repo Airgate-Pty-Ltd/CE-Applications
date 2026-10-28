@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Overview · PMA Autopilot</title>
+  <link rel="stylesheet" href="assets/vera.css" />
+</head>
+<body data-page="cases">
+  <div class="layout">
+    <main class="content">
+      <div class="row spread"><h1>Hydraulic Bracket Assembly</h1><span class="stag signal">Gap review</span></div>
+      <div class="mai-badge" style="margin-bottom:14px">● M-AI active — advisory only. Human authority controls all decisions. <a href="conditions.html" style="margin-left:8px;text-decoration:underline">What can this assistant do?</a></div>
+
+      <div class="tabs">
+        <span class="tab active">Overview</span>
+        <a class="tab" href="upload.html">Intake</a>
+        <a class="tab" href="conditions.html">Conditions (4)</a>
+        <a class="tab" href="documents.html">Documents</a>
+        <a class="tab" href="library.html">Precedents</a>
+      </div>
+
+      <div class="panel">
+        <div class="label">Approval basis (human decision)</div>
+        <div class="row" style="margin:8px 0 16px">
+          <select class="minp" style="max-width:300px;margin-bottom:0">
+            <option>— confirm basis —</option>
+            <option selected>STC identicality</option>
+            <option>TC licensed</option>
+            <option>Identicality (no license)</option>
+            <option>Test &amp; computation</option>
+            <option>Ambiguous</option>
+          </select>
+          <span class="stag info">STC identicality</span>
+        </div>
+        <div class="label">Advance status (gate-enforced)</div>
+        <div class="row" style="margin-top:8px">
+          <button class="btn btn-cancel">Intake</button>
+          <button class="btn btn-ghost">Gap review</button>
+          <button class="btn btn-ghost" title="Blocked — resolve blocking conditions first" style="opacity:.5">Drafting</button>
+          <button class="btn btn-ghost" style="opacity:.5">Under review</button>
+          <button class="btn btn-ghost" style="opacity:.5">Ready for signature</button>
+          <button class="btn btn-ghost" style="opacity:.5">Exported</button>
+          <button class="btn btn-cancel">Archived</button>
+        </div>
+        <p class="small muted" style="margin-top:14px">A case cannot leave Gap Review with an open blocking condition; moving out of Drafting requires a Reviewer.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="label">Recorded case data</div>
+          <table class="grid" style="margin-top:8px">
+            <tbody>
+              <tr><td class="muted">Article</td><td>Hydraulic Bracket Assembly</td></tr>
+              <tr><td class="muted">STC number</td><td>ST01234AT</td></tr>
+              <tr><td class="muted">TC holder</td><td>OEM Airframes Inc</td></tr>
+              <tr><td class="muted">Applicant</td><td style="color:var(--critical)">[CONFIRM: applicant legal name]</td></tr>
+              <tr><td class="muted">QMS manual</td><td>QM-100 Rev C · 2026-01-15</td></tr>
+              <tr><td class="muted">PMA part no.</td><td>P-100-PMA</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <div class="label">Case ledger</div>
+          <div class="small" style="margin-top:10px;line-height:1.9">
+            <div>· case created — 2026-07-24 09:00</div>
+            <div>· evidence uploaded (STC) — 09:04</div>
+            <div>· fields extracted (3) — 09:04</div>
+            <div>· basis confirmed: STC identicality — 09:08</div>
+            <div>· status → Gap review — 09:12</div>
+          </div>
+          <div class="micro muted" style="margin-top:12px">Every action is written to an append-only audit ledger with a content hash.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

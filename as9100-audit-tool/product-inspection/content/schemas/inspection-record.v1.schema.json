@@ -1,0 +1,195 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://conformedge.com/schemas/product-inspection/inspection-record.v1.schema.json",
+  "title": "CE Product Inspection Record",
+  "description": "Conform-Edge Product Inspection record export schema. Version 1 field names are locked — do not rename without bumping schema_version.",
+  "version": "1",
+  "type": "object",
+  "required": ["schema_version", "id", "created_at", "job", "forms"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1",
+      "description": "Schema version. Increment when field names or structure change."
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Inspection record UUID"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "locked_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO8601 timestamp when the record was locked for release. Null if not yet locked."
+    },
+    "locked_by": {
+      "type": ["string", "null"],
+      "description": "Inspector name who locked the record"
+    },
+    "hash": {
+      "type": ["string", "null"],
+      "description": "SHA-256 of the canonical JSON bytes of this record. Set on lock; null before lock."
+    },
+    "job": {
+      "type": "object",
+      "required": ["inspection_type", "part_number", "part_revision", "drawing_number", "drawing_revision", "quantity"],
+      "additionalProperties": false,
+      "properties": {
+        "inspection_type": {
+          "type": "string",
+          "enum": ["fai", "incoming", "production", "conformity"]
+        },
+        "part_number": { "type": "string" },
+        "part_revision": { "type": "string" },
+        "serial_number": { "type": ["string", "null"] },
+        "lot_number": { "type": ["string", "null"] },
+        "quantity": { "type": "integer", "minimum": 1 },
+        "customer": { "type": ["string", "null"] },
+        "supplier": { "type": ["string", "null"] },
+        "drawing_number": { "type": "string" },
+        "drawing_revision": { "type": "string" },
+        "work_order": { "type": ["string", "null"] }
+      }
+    },
+    "forms": {
+      "type": "object",
+      "required": ["form3"],
+      "properties": {
+        "form1": {
+          "type": ["object", "null"],
+          "description": "Part Number Accountability (AS9102C clause 4.2)"
+        },
+        "form2": {
+          "type": ["object", "null"],
+          "description": "Product Accountability (AS9102C clause 4.3)"
+        },
+        "form3": {
+          "type": "object",
+          "description": "Characteristic Accountability (AS9102C clause 4.4)",
+          "required": ["characteristics"],
+          "properties": {
+            "characteristics": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Characteristic" }
+            }
+          }
+        }
+      }
+    },
+    "sampling_plan": {
+      "description": "Populated for incoming inspection only. Null for FAI / production / conformity.",
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/definitions/SamplingPlan" }
+      ]
+    },
+    "release": {
+      "description": "FAA / EASA / CoC release authorization metadata. Null for production-run type.",
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/definitions/ReleaseAuth" }
+      ]
+    },
+    "ncrs": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/NCR" }
+    }
+  },
+  "definitions": {
+    "Characteristic": {
+      "type": "object",
+      "required": ["id", "description", "nominal", "upper_tolerance", "lower_tolerance", "unit", "type", "result"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "integer", "description": "Balloon number" },
+        "description": { "type": "string" },
+        "nominal": { "type": "number" },
+        "upper_tolerance": { "type": "number" },
+        "lower_tolerance": { "type": "number" },
+        "unit": { "type": "string", "enum": ["mm", "in", "µm", "°", "%", "other"] },
+        "type": { "type": "string", "enum": ["dimensional", "visual", "functional", "material", "other"] },
+        "result": { "type": ["string", "null"], "enum": ["C", "NC", "OFI", "N/A", null] },
+        "cpk": { "type": ["number", "null"], "description": "Process capability index. Null if n < 2." },
+        "pp": { "type": ["number", "null"], "description": "Process performance index. Null if n < 2." },
+        "notes": { "type": "string" },
+        "measurements": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Measurement" }
+        }
+      }
+    },
+    "Measurement": {
+      "type": "object",
+      "required": ["id", "taken_at", "inspector", "instrument_id", "value", "unit", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "taken_at": { "type": "string", "format": "date-time" },
+        "inspector": { "type": "string" },
+        "instrument_id": { "type": "string" },
+        "instrument_cal_due": { "type": ["string", "null"], "format": "date" },
+        "value": { "type": "number" },
+        "unit": { "type": "string" },
+        "source": { "type": "string", "enum": ["manual", "bluetooth", "imported"] },
+        "photo_ids": { "type": "array", "items": { "type": "string", "format": "uuid" } }
+      }
+    },
+    "SamplingPlan": {
+      "type": "object",
+      "required": ["lot_size", "aql", "inspection_level", "code_letter", "n", "plan_type"],
+      "additionalProperties": false,
+      "properties": {
+        "lot_size": { "type": "integer", "minimum": 1 },
+        "aql": { "type": "string", "enum": ["c0", "0.65", "1.0", "1.5", "2.5", "4.0"] },
+        "inspection_level": { "type": "string", "enum": ["I", "II", "III", "S1", "S2"] },
+        "code_letter": { "type": "string", "pattern": "^[A-R]$" },
+        "n": { "type": "integer", "minimum": 1 },
+        "ac": { "type": ["integer", "null"], "description": "Accept number. Null for C=0 plan." },
+        "re": { "type": ["integer", "null"], "description": "Reject number. Null for C=0 plan." },
+        "plan_type": { "type": "string", "enum": ["z1.4", "c0"] }
+      }
+    },
+    "ReleaseAuth": {
+      "type": "object",
+      "required": ["release_type"],
+      "additionalProperties": false,
+      "properties": {
+        "faa": {
+          "type": "object",
+          "properties": {
+            "type": { "type": ["string", "null"], "enum": ["pc", "pma", "tsoa", "145", "oda", null] },
+            "number": { "type": "string" }
+          }
+        },
+        "easa": {
+          "type": "object",
+          "properties": {
+            "type": { "type": ["string", "null"], "enum": ["21g", "145", null] },
+            "number": { "type": "string" }
+          }
+        },
+        "dual_release": { "type": "boolean" },
+        "release_type": { "type": "string", "enum": ["coc", "8130-3", "easa-form1", "dual"] }
+      }
+    },
+    "NCR": {
+      "type": "object",
+      "required": ["id", "char_id", "description", "raised_at", "raised_by"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "char_id": { "type": "integer" },
+        "description": { "type": "string" },
+        "raised_at": { "type": "string", "format": "date-time" },
+        "raised_by": { "type": "string" },
+        "disposition": { "type": ["string", "null"] },
+        "car_reference": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

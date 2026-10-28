@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMMC 2.0 Readiness Self-Assessment — Conform-Edge</title>
+<style>
+  :root{--navy:#1a2b4a;--steel:#4a6fa5;--ink:#1c2333;--silver:#e8edf4;--mist:#f4f6fa;--go:#1a7a4a;--go-bg:#e8f5ee;--cond:#a06000;--cond-bg:#fff8e6;--stop:#b01e28;--stop-bg:#fde8ea;--cmmc-blue:#003087;--cmmc-red:#b01e28;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--mist);color:var(--ink);font-size:14px;}
+  header{background:var(--cmmc-blue);color:white;padding:18px 28px;display:flex;align-items:center;gap:18px;}
+  .hbadge{background:rgba(255,255,255,0.15);border-radius:6px;padding:8px 14px;text-align:center;}
+  .hbadge .hb1{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#aac4e8;}
+  .hbadge .hb2{font-size:22px;font-weight:800;line-height:1.1;}
+  header h1{font-size:18px;font-weight:700;}
+  header .sub{font-size:11px;color:#aac4e8;margin-top:2px;}
+  .container{max-width:980px;margin:0 auto;padding:22px 18px;}
+  .card{background:white;border-radius:8px;padding:18px 22px;margin-bottom:16px;border:1px solid #dde3ef;}
+  .card h2{font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+  .setup-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;}
+  .fld{display:flex;flex-direction:column;gap:4px;flex:1;min-width:140px;}
+  .fld label{font-size:10px;font-weight:700;color:#5a6480;text-transform:uppercase;letter-spacing:0.5px;}
+  .fld select,.fld input{padding:7px 9px;border:1px solid #c8d0e0;border-radius:5px;font-size:13px;}
+  .lvl-tabs{display:flex;gap:0;margin-bottom:0;border-radius:6px;overflow:hidden;border:1px solid #c8d0e0;width:fit-content;}
+  .lvl-tab{padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;background:var(--silver);color:#4a5470;border:none;}
+  .lvl-tab.active{background:var(--cmmc-blue);color:white;}
+  .level-note{background:#e8f0fb;border:1px solid #a0bce0;border-radius:5px;padding:10px 14px;font-size:11px;color:#1a3060;margin-top:10px;}
+  .domain-hdr{background:var(--cmmc-blue);color:white;padding:9px 16px;border-radius:6px 6px 0 0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;}
+  .practice-id{font-size:10px;color:#aac4e8;font-family:'Courier New',monospace;}
+  .sec-body{background:white;border:1px solid #dde3ef;border-top:none;border-radius:0 0 6px 6px;}
+  .qrow{display:grid;grid-template-columns:100px 1fr 180px;border-bottom:1px solid #edf0f7;}
+  .qrow:last-child{border-bottom:none;}
+  .qrow.crit{border-left:3px solid var(--stop);}
+  .pid{display:flex;align-items:center;justify-content:center;padding:11px 8px;font-size:10px;font-family:'Courier New',monospace;color:var(--cmmc-blue);font-weight:700;text-align:center;border-right:1px solid #edf0f7;}
+  .qtxt{padding:11px 12px;}
+  .qlbl{font-size:13px;color:var(--ink);line-height:1.4;}
+  .qref{font-size:10px;color:#8899bb;margin-top:3px;}
+  .ctag{display:inline-block;background:var(--stop-bg);color:var(--stop);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;text-transform:uppercase;margin-left:5px;}
+  .qans{display:flex;flex-direction:column;justify-content:center;padding:11px 10px;gap:5px;}
+  .rrow{display:flex;gap:5px;flex-wrap:wrap;}
+  .rlbl{display:flex;align-items:center;gap:3px;cursor:pointer;padding:4px 8px;border-radius:4px;border:1px solid #d0d8e8;font-size:11px;font-weight:700;color:#4a5470;white-space:nowrap;}
+  .rlbl:has(input:checked){background:var(--navy);color:white;border-color:var(--navy);}
+  .rlbl.yes:has(input:checked){background:var(--go);border-color:var(--go);}
+  .rlbl.no:has(input:checked){background:var(--stop);border-color:var(--stop);}
+  .rlbl.partial:has(input:checked){background:var(--cond);border-color:var(--cond);}
+  .rlbl input{display:none;}
+  .ntxt{padding:4px 6px;border:1px solid #d0d8e8;border-radius:4px;font-size:10px;resize:none;width:100%;}
+  .vp{background:white;border-radius:8px;padding:22px;margin-top:16px;border:1px solid #dde3ef;}
+  .vlbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#5a6480;margin-bottom:8px;}
+  .vbox{border-radius:8px;padding:16px 20px;margin-bottom:12px;}
+  .vbox.go{background:var(--go-bg);border:2px solid var(--go);}
+  .vbox.cond{background:var(--cond-bg);border:2px solid var(--cond);}
+  .vbox.stop{background:var(--stop-bg);border:2px solid var(--stop);}
+  .vtitle{font-size:18px;font-weight:800;}
+  .vbox.go .vtitle{color:var(--go);}
+  .vbox.cond .vtitle{color:var(--cond);}
+  .vbox.stop .vtitle{color:var(--stop);}
+  .vsub{font-size:12px;margin-top:5px;color:#4a5470;}
+  .srow{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+  .sbadge{background:var(--silver);border-radius:6px;padding:7px 12px;text-align:center;min-width:80px;}
+  .sbadge .n{font-size:20px;font-weight:800;color:var(--navy);}
+  .sbadge .t{font-size:9px;color:#5a6480;text-transform:uppercase;}
+  .pwrap{background:#dde3ef;border-radius:4px;height:5px;margin:10px 0;}
+  .pfill{height:5px;border-radius:4px;background:var(--cmmc-blue);transition:width 0.4s;}
+  .gtbl{width:100%;border-collapse:collapse;margin-top:12px;font-size:11px;}
+  .gtbl th{background:var(--cmmc-blue);color:white;padding:6px 9px;text-align:left;}
+  .gtbl td{padding:6px 9px;border-bottom:1px solid #edf0f7;vertical-align:top;}
+  .gtbl tr:last-child td{border-bottom:none;}
+  .gtbl tr:nth-child(even) td{background:var(--mist);}
+  .tc{background:var(--stop-bg);color:var(--stop);font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px;}
+  .tp{background:var(--cond-bg);color:var(--cond);font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px;}
+  .domain-score{font-size:11px;font-weight:700;color:#aac4e8;}
+  .mai{display:inline-flex;align-items:center;gap:5px;background:#e8f0fb;border:1px solid #b0c4e4;color:var(--navy);font-size:9px;font-weight:700;padding:4px 9px;border-radius:4px;margin-bottom:12px;}
+  .mai::before{content:"M-AI";background:var(--navy);color:white;padding:1px 4px;border-radius:3px;font-size:8px;}
+  .nbx{background:var(--silver);border-radius:5px;padding:12px 14px;font-size:11px;line-height:1.7;white-space:pre-wrap;font-family:'Courier New',monospace;margin-top:12px;}
+  .brow{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;}
+  .btn{padding:9px 18px;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;border:none;}
+  .btn-p{background:var(--cmmc-blue);color:white;}
+  .btn-p:hover{background:var(--navy);}
+  .btn-o{background:white;color:var(--navy);border:1.5px solid var(--navy);}
+  .btn-e{background:#2a5c3a;color:white;}
+  footer{text-align:center;padding:18px;font-size:10px;color:#8899bb;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hbadge"><div class="hb1">CMMC</div><div class="hb2">2.0</div></div>
+  <div>
+    <h1>CMMC 2.0 Readiness Self-Assessment</h1>
+    <div class="sub">NIST SP 800-171 Rev 2 · Level 1 (17 Practices) · Defense Industrial Base (DIB) Suppliers · Conform-Edge</div>
+  </div>
+</header>
+
+<div class="container">
+
+<div class="card">
+  <h2>Assessment Setup</h2>
+  <div class="setup-row">
+    <div class="fld">
+      <label>CMMC Level Target</label>
+      <div class="lvl-tabs">
+        <button class="lvl-tab active" id="tab1" onclick="setLevel(1)">Level 1</button>
+        <button class="lvl-tab" id="tab2" onclick="setLevel(2)">Level 2 (Preview)</button>
+      </div>
+    </div>
+    <div class="fld"><label>Organization</label><input type="text" id="org" placeholder="Company name"></div>
+    <div class="fld"><label>Assessor</label><input type="text" id="assessor" placeholder="Your name"></div>
+    <div class="fld">
+      <label>Information Handled</label>
+      <select id="infoType">
+        <option value="">— Select —</option>
+        <option value="fci">FCI (Federal Contract Information)</option>
+        <option value="cui">CUI (Controlled Unclassified Information)</option>
+        <option value="both">Both FCI and CUI</option>
+      </select>
+    </div>
+  </div>
+  <div class="level-note" id="levelNote">
+    <strong>Level 1 Assessment:</strong> Covers all 17 CMMC Level 1 practices aligned to the 6 Level 1 domains from NIST SP 800-171 Rev 2 / FAR 52.204-21. Required for all DoD contractors handling Federal Contract Information (FCI). Self-assessment per 48 CFR 252.204-7019.
+  </div>
+</div>
+
+<!-- Domain 1: Access Control -->
+<div class="domain-hdr">
+  <span>Domain 1 — Access Control (AC)</span>
+  <span class="domain-score">AC.L1 — 2 Practices</span>
+</div>
+<div class="sec-body">
+
+  <div class="qrow crit" data-key="q_ac1" data-crit="true" data-domain="AC" data-pid="AC.L1-3.1.1">
+    <div class="pid">AC.L1-3.1.1</div>
+    <div class="qtxt">
+      <div class="qlbl">Limit information system access to authorized users, processes acting on behalf of authorized users, and devices (including other information systems). Access control lists or equivalent mechanisms restrict system access to only those with a defined need. <span class="ctag">⚑ Critical</span></div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.1.1; FAR 52.204-21(b)(1)(i); CMMC L1-AC.1.001</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_ac1" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_ac1" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_ac1" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_ac1" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q_ac2" data-crit="false" data-domain="AC" data-pid="AC.L1-3.1.2">
+    <div class="pid">AC.L1-3.1.2</div>
+    <div class="qtxt">
+      <div class="qlbl">Limit information system access to the types of transactions and functions that authorized users are permitted to execute. Role-based access control or least-privilege principles prevent users from accessing systems or data beyond their authorized function.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.1.2; FAR 52.204-21(b)(1)(ii); CMMC L1-AC.1.002</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_ac2" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_ac2" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_ac2" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_ac2" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- Domain 2: Identification & Authentication -->
+<div class="domain-hdr">
+  <span>Domain 2 — Identification &amp; Authentication (IA)</span>
+  <span class="domain-score">IA.L1 — 2 Practices</span>
+</div>
+<div class="sec-body">
+
+  <div class="qrow" data-key="q_ia1" data-crit="false" data-domain="IA" data-pid="IA.L1-3.5.1">
+    <div class="pid">IA.L1-3.5.1</div>
+    <div class="qtxt">
+      <div class="qlbl">Identify information system users, processes acting on behalf of users, and devices. Each user, service account, and device has a unique identifier that is traceable to an individual, process, or device.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.5.1; FAR 52.204-21(b)(1)(iii)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_ia1" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_ia1" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_ia1" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_ia1" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow crit" data-key="q_ia2" data-crit="true" data-domain="IA" data-pid="IA.L1-3.5.2">
+    <div class="pid">IA.L1-3.5.2</div>
+    <div class="qtxt">
+      <div class="qlbl">Authenticate (or verify) the identities of users, processes, or devices as a prerequisite to allowing access to organizational information systems. Passwords, PINs, tokens, or certificates are used to authenticate before granting access to systems handling FCI/CUI. <span class="ctag">⚑ Critical</span></div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.5.2; FAR 52.204-21(b)(1)(iv)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_ia2" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_ia2" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_ia2" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_ia2" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- Domain 3: Media Protection -->
+<div class="domain-hdr">
+  <span>Domain 3 — Media Protection (MP)</span>
+  <span class="domain-score">MP.L1 — 1 Practice</span>
+</div>
+<div class="sec-body">
+
+  <div class="qrow" data-key="q_mp1" data-crit="false" data-domain="MP" data-pid="MP.L1-3.8.3">
+    <div class="pid">MP.L1-3.8.3</div>
+    <div class="qtxt">
+      <div class="qlbl">Sanitize or destroy information system media before disposal or reuse. Hard drives, USB drives, CDs, and paper containing FCI/CUI are sanitized (wiped/degaussed) or destroyed before disposal. A documented procedure and log of media sanitization exists.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.8.3; FAR 52.204-21(b)(1)(v); NIST SP 800-88 (media sanitization)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_mp1" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_mp1" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_mp1" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_mp1" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- Domain 4: Physical Protection -->
+<div class="domain-hdr">
+  <span>Domain 4 — Physical Protection (PE)</span>
+  <span class="domain-score">PE.L1 — 4 Practices</span>
+</div>
+<div class="sec-body">
+
+  <div class="qrow" data-key="q_pe1" data-crit="false" data-domain="PE" data-pid="PE.L1-3.10.1">
+    <div class="pid">PE.L1-3.10.1</div>
+    <div class="qtxt">
+      <div class="qlbl">Limit physical access to organizational information systems to authorized individuals. Server rooms, IT closets, and areas storing FCI/CUI are physically secured with locks, badge access, or equivalent controls restricting entry to authorized personnel only.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.10.1; FAR 52.204-21(b)(1)(vi)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_pe1" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_pe1" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_pe1" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_pe1" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q_pe2" data-crit="false" data-domain="PE" data-pid="PE.L1-3.10.3">
+    <div class="pid">PE.L1-3.10.3</div>
+    <div class="qtxt">
+      <div class="qlbl">Escort visitors and monitor visitor activity in areas containing FCI/CUI systems. Visitors are signed in, badged, escorted, and their activities monitored. Access areas with controlled information are not left unmonitored with visitors present.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.10.3; FAR 52.204-21(b)(1)(vii)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_pe2" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_pe2" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_pe2" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q_pe2" value="na"> N/A</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_pe2" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q_pe3" data-crit="false" data-domain="PE" data-pid="PE.L1-3.10.4">
+    <div class="pid">PE.L1-3.10.4</div>
+    <div class="qtxt">
+      <div class="qlbl">Maintain audit logs of physical access to facilities where FCI/CUI systems reside. Access logs (badge systems, sign-in sheets, camera logs) are retained and reviewed periodically.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.10.4; FAR 52.204-21(b)(1)(viii)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_pe3" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_pe3" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_pe3" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_pe3" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q_pe4" data-crit="false" data-domain="PE" data-pid="PE.L1-3.10.5">
+    <div class="pid">PE.L1-3.10.5</div>
+    <div class="qtxt">
+      <div class="qlbl">Control and manage physical access devices (e.g., keys, combinations, access cards, PINs). A current inventory of physical access devices is maintained; devices are retrieved from departing employees; combinations/codes are changed when compromised or upon personnel departure.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.10.5; FAR 52.204-21(b)(1)(ix)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_pe4" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_pe4" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_pe4" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_pe4" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- Domain 5: System & Communications Protection -->
+<div class="domain-hdr">
+  <span>Domain 5 — System &amp; Communications Protection (SC)</span>
+  <span class="domain-score">SC.L1 — 2 Practices</span>
+</div>
+<div class="sec-body">
+
+  <div class="qrow" data-key="q_sc1" data-crit="false" data-domain="SC" data-pid="SC.L1-3.13.1">
+    <div class="pid">SC.L1-3.13.1</div>
+    <div class="qtxt">
+      <div class="qlbl">Monitor, control, and protect organizational communications (i.e., information transmitted or received by organizational information systems) at the external boundaries and key internal boundaries of the information systems. A firewall or equivalent controls communications at the network perimeter.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.13.1; FAR 52.204-21(b)(1)(x)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_sc1" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_sc1" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_sc1" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_sc1" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q_sc2" data-crit="false" data-domain="SC" data-pid="SC.L1-3.13.5">
+    <div class="pid">SC.L1-3.13.5</div>
+    <div class="qtxt">
+      <div class="qlbl">Implement subnetworks for publicly accessible system components that are physically or logically separated from internal networks. Publicly accessible servers (web, email) are in a DMZ or logically separated from systems that store or process FCI/CUI.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.13.5; FAR 52.204-21(b)(1)(xi)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_sc2" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_sc2" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_sc2" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q_sc2" value="na"> N/A</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_sc2" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- Domain 6: System & Information Integrity -->
+<div class="domain-hdr">
+  <span>Domain 6 — System &amp; Information Integrity (SI)</span>
+  <span class="domain-score">SI.L1 — 6 Practices</span>
+</div>
+<div class="sec-body">
+
+  <div class="qrow" data-key="q_si1" data-crit="false" data-domain="SI" data-pid="SI.L1-3.14.1">
+    <div class="pid">SI.L1-3.14.1</div>
+    <div class="qtxt">
+      <div class="qlbl">Identify, report, and correct information and information system flaws in a timely manner. A patch management process is in place; vulnerabilities are tracked and remediated according to a defined schedule. Security patches are applied within a defined timeframe.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.14.1; FAR 52.204-21(b)(1)(xii)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_si1" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_si1" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_si1" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_si1" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow crit" data-key="q_si2" data-crit="true" data-domain="SI" data-pid="SI.L1-3.14.2">
+    <div class="pid">SI.L1-3.14.2</div>
+    <div class="qtxt">
+      <div class="qlbl">Provide protection from malicious code at appropriate locations within organizational information systems. Antivirus / endpoint protection software is installed and active on all systems processing FCI/CUI. <span class="ctag">⚑ Critical</span></div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.14.2; FAR 52.204-21(b)(1)(xiii)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_si2" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_si2" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_si2" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_si2" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q_si3" data-crit="false" data-domain="SI" data-pid="SI.L1-3.14.4">
+    <div class="pid">SI.L1-3.14.4</div>
+    <div class="qtxt">
+      <div class="qlbl">Update malicious code protection mechanisms when new releases are available. Antivirus / endpoint signatures are updated automatically or on a defined schedule (at minimum daily). Update logs are maintained.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.14.4; FAR 52.204-21(b)(1)(xiv)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_si3" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_si3" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_si3" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q_si3" value="na"> N/A — Cloud-managed auto-update</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_si3" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q_si4" data-crit="false" data-domain="SI" data-pid="SI.L1-3.14.5">
+    <div class="pid">SI.L1-3.14.5</div>
+    <div class="qtxt">
+      <div class="qlbl">Perform periodic scans of the information system and real-time scans of files from external sources as files are downloaded, opened, or executed. Scheduled system scans occur at minimum weekly; email attachment scanning is active.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.14.5; FAR 52.204-21(b)(1)(xv)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_si4" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_si4" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_si4" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_si4" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q_si5" data-crit="false" data-domain="SI" data-pid="SI.L1-3.14.6">
+    <div class="pid">SI.L1-3.14.6</div>
+    <div class="qtxt">
+      <div class="qlbl">Monitor organizational information systems to detect attacks and indicators of potential attacks. Network and system monitoring (IDS/IPS, SIEM, or equivalent log review process) is in place to identify anomalous or potentially malicious activity.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.14.6; FAR 52.204-21(b)(1)(xvi)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_si5" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_si5" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_si5" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_si5" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q_si6" data-crit="false" data-domain="SI" data-pid="SI.L1-3.14.7">
+    <div class="pid">SI.L1-3.14.7</div>
+    <div class="qtxt">
+      <div class="qlbl">Identify unauthorized use of organizational information systems. Baseline of authorized activity / authorized users is documented; deviations from baseline are investigated. Unauthorized system use events are captured in logs.</div>
+      <div class="qref">NIST SP 800-171 Rev 2 §3.14.7; FAR 52.204-21(b)(1)(xvii)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q_si6" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q_si6" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q_si6" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q_si6" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- SPRS note -->
+<div class="card" style="margin-top:16px;background:#fff8e6;border-color:#e8c840;">
+  <h2 style="color:#604000;">SPRS Self-Assessment Score</h2>
+  <p style="font-size:12px;color:#604000;">DFARS 252.204-7019 requires DoD contractors handling CUI to conduct an annual self-assessment of NIST SP 800-171 Rev 2 and upload their score to the Supplier Performance Risk System (SPRS). The SPRS score is calculated using the 110-practice Level 2 assessment, starting at 110 and deducting points for each unimplemented practice. This tool assesses Level 1 readiness only (17 practices). A SPRS score filing is Brian's action — consult your CAGE code, SPRS portal access, and a qualified assessor for Level 2 / CUI environments.</p>
+</div>
+
+<div class="brow">
+  <button class="btn btn-p" onclick="evaluate()">Evaluate CMMC Readiness</button>
+  <button class="btn btn-o" onclick="clearAll()">Clear All</button>
+</div>
+
+<!-- Verdict -->
+<div class="vp" id="vp" style="display:none;">
+  <div class="mai">ARCHITECTURE DEFINED — domain: cmmc-level1-readiness | Reserved Kernel Interface</div>
+  <div class="vlbl">CMMC Level 1 Readiness Verdict</div>
+  <div id="vbox" class="vbox"><div id="vtitle" class="vtitle">—</div><div id="vsub" class="vsub"></div></div>
+  <div class="srow" id="srow"></div>
+  <div class="pwrap"><div class="pfill" id="pfill"></div></div>
+  <div id="gsec" style="display:none;">
+    <table class="gtbl"><thead><tr><th>Practice ID</th><th>Requirement</th><th>Domain</th><th>Response</th><th>Priority</th></tr></thead><tbody id="gbody"></tbody></table>
+  </div>
+  <div class="vlbl" style="margin-top:14px;">CMMC Readiness Record</div>
+  <div class="nbx" id="nbx"></div>
+  <div class="brow">
+    <button class="btn btn-e" onclick="exportJSON()">Export JSON</button>
+    <button class="btn btn-o" onclick="copyNarrative()">Copy Record</button>
+  </div>
+</div>
+
+</div>
+
+<footer>Conform-Edge Quality Consulting LLC · CMMC 2.0 Level 1 Readiness Self-Assessment v1.0 · NIST SP 800-171 Rev 2 · For internal readiness identification only — not an official CMMC assessment. CMMC Level 2 and 3 require a Certified Third-Party Assessment Organization (C3PAO).</footer>
+
+<script>
+const Qs=[
+  {key:'q_ac1',pid:'AC.L1-3.1.1',lbl:'Limit system access to authorized users, processes, and devices',crit:true,domain:'AC'},
+  {key:'q_ac2',pid:'AC.L1-3.1.2',lbl:'Limit system access to authorized transactions and functions',crit:false,domain:'AC'},
+  {key:'q_ia1',pid:'IA.L1-3.5.1',lbl:'Identify system users, processes acting on behalf of users, and devices',crit:false,domain:'IA'},
+  {key:'q_ia2',pid:'IA.L1-3.5.2',lbl:'Authenticate users, processes, or devices before allowing access',crit:true,domain:'IA'},
+  {key:'q_mp1',pid:'MP.L1-3.8.3',lbl:'Sanitize or destroy media containing FCI/CUI before disposal or reuse',crit:false,domain:'MP'},
+  {key:'q_pe1',pid:'PE.L1-3.10.1',lbl:'Limit physical access to systems to authorized individuals',crit:false,domain:'PE'},
+  {key:'q_pe2',pid:'PE.L1-3.10.3',lbl:'Escort visitors and monitor visitor activity',crit:false,domain:'PE'},
+  {key:'q_pe3',pid:'PE.L1-3.10.4',lbl:'Maintain audit logs of physical access',crit:false,domain:'PE'},
+  {key:'q_pe4',pid:'PE.L1-3.10.5',lbl:'Control and manage physical access devices (keys, badges, codes)',crit:false,domain:'PE'},
+  {key:'q_sc1',pid:'SC.L1-3.13.1',lbl:'Monitor, control, and protect communications at external boundaries (firewall)',crit:false,domain:'SC'},
+  {key:'q_sc2',pid:'SC.L1-3.13.5',lbl:'Implement subnetworks for publicly accessible components (DMZ)',crit:false,domain:'SC'},
+  {key:'q_si1',pid:'SI.L1-3.14.1',lbl:'Identify, report, and correct information system flaws (patch management)',crit:false,domain:'SI'},
+  {key:'q_si2',pid:'SI.L1-3.14.2',lbl:'Provide protection from malicious code (antivirus/endpoint protection)',crit:true,domain:'SI'},
+  {key:'q_si3',pid:'SI.L1-3.14.4',lbl:'Update malicious code protection mechanisms when new releases available',crit:false,domain:'SI'},
+  {key:'q_si4',pid:'SI.L1-3.14.5',lbl:'Perform periodic and real-time scans of system and external files',crit:false,domain:'SI'},
+  {key:'q_si5',pid:'SI.L1-3.14.6',lbl:'Monitor systems to detect attacks and indicators of potential attacks',crit:false,domain:'SI'},
+  {key:'q_si6',pid:'SI.L1-3.14.7',lbl:'Identify unauthorized use of organizational information systems',crit:false,domain:'SI'},
+];
+
+let currentLevel=1;
+function setLevel(l){currentLevel=l;document.getElementById('tab1').className='lvl-tab'+(l===1?' active':'');document.getElementById('tab2').className='lvl-tab'+(l===2?' active':'');const n=document.getElementById('levelNote');n.innerHTML=l===1?'<strong>Level 1 Assessment:</strong> Covers all 17 CMMC Level 1 practices from NIST SP 800-171 Rev 2 §3 aligned to FAR 52.204-21. Required for all DoD contractors handling Federal Contract Information (FCI). Self-assessment per 48 CFR 252.204-7019.':'<strong>Level 2 Preview:</strong> CMMC Level 2 covers all 110 practices from NIST SP 800-171 Rev 2 and requires annual self-assessment (or triennial C3PAO assessment for critical programs). This tool assesses the 17 Level 1 foundation practices — a Level 2 instrument is a future build. <em>Vendors with SPRS score obligations: this tool covers only the Level 1 subset.</em>';}
+
+function getV(k){const r=document.querySelectorAll(`input[name="${k}"]`);for(const i of r)if(i.checked)return i.value;return null;}
+
+function evaluate(){
+  let answered=0,yes=0,critFail=false;const gaps=[];
+  for(const q of Qs){
+    const v=getV(q.key);
+    if(v===null){answered++;if(q.crit)critFail=true;gaps.push({q,v:'unanswered'});continue;}
+    if(v==='na')continue;
+    answered++;
+    if(v==='yes'){yes++;}
+    else{if(q.crit&&v==='no')critFail=true;gaps.push({q,v});}
+  }
+  const pct=answered>0?Math.round(yes/answered*100):0;
+  const notImpl=answered-yes;
+  let verdict,cls;
+  if(critFail){verdict='✖ CMMC LEVEL 1 NOT READY';cls='stop';}
+  else if(pct===100){verdict='✔ CMMC LEVEL 1 READY';cls='go';}
+  else if(pct>=82){verdict='◎ NEAR READY — CLOSE GAPS';cls='cond';}
+  else{verdict='✖ CMMC LEVEL 1 NOT READY';cls='stop';}
+  const sub=critFail?'A critical control is absent or unimplemented. CMMC Level 1 compliance cannot be claimed. Address critical gaps before any DoD contract performance involving FCI.':
+    (cls==='go'?'All 17 CMMC Level 1 practices are implemented. You may conduct and document your annual self-assessment per DFARS 252.204-7019. Upload your SPRS score and retain assessment evidence.':
+    (cls==='cond'?'Most practices are implemented. Close remaining gaps and re-assess before submitting your SPRS score. Keep evidence of all implemented controls.':
+    `${notImpl} of 17 practices are not implemented or partially implemented. CMMC Level 1 cannot be claimed with current controls. Prioritize the gaps below and re-assess.`));
+  const vb=document.getElementById('vbox');
+  vb.className=`vbox ${cls}`;
+  document.getElementById('vtitle').textContent=verdict;
+  document.getElementById('vsub').textContent=sub;
+  document.getElementById('srow').innerHTML=`<div class="sbadge"><div class="n">${yes}/17</div><div class="t">Practices Met</div></div><div class="sbadge"><div class="n">${pct}%</div><div class="t">Score</div></div><div class="sbadge"><div class="n">${gaps.length}</div><div class="t">Gaps</div></div><div class="sbadge"><div class="n">${critFail?'FAIL':'PASS'}</div><div class="t">Critical Items</div></div>`;
+  document.getElementById('pfill').style.width=pct+'%';
+  if(gaps.length>0){
+    document.getElementById('gsec').style.display='block';
+    const tb=document.getElementById('gbody');tb.innerHTML='';
+    for(const{q,v}of gaps){const pri=q.crit?'<span class="tc">Critical</span>':(v==='partial'?'<span class="tp">Partial</span>':'');const notes=document.getElementById(`n_${q.key}`)?.value||'';tb.innerHTML+=`<tr><td style="font-family:'Courier New',monospace;font-size:10px;">${q.pid}</td><td>${q.lbl}${notes?`<br><em style="font-size:10px;color:#666">${notes}</em>`:''}</td><td>${q.domain}</td><td>${v==='unanswered'?'—':v}</td><td>${pri}</td></tr>`;}
+  } else {document.getElementById('gsec').style.display='none';}
+  const org=document.getElementById('org').value||'[Organization]';
+  const asr=document.getElementById('assessor').value||'[Assessor]';
+  const info=document.getElementById('infoType').value||'Not specified';
+  const now=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  let narr=`CMMC 2.0 LEVEL 1 READINESS RECORD\n${'='.repeat(50)}\nDate: ${now}\nAssessor: ${asr}\nOrganization: ${org}\nInformation Type: ${info}\nAssessment Scope: CMMC Level 1 — 17 Practices (NIST SP 800-171 Rev 2)\n\nVERDICT: ${verdict}\n${sub}\n\nSCORE: ${yes}/17 practices implemented (${pct}%)\nCritical Practice Failure: ${critFail?'YES':'NO'}\n`;
+  const byDomain={};
+  for(const q of Qs){const v=getV(q.key);if(!byDomain[q.domain])byDomain[q.domain]={yes:0,total:0};if(v!=='na'){byDomain[q.domain].total++;if(v==='yes')byDomain[q.domain].yes++;}}
+  narr+=`\nDOMAIN SUMMARY\n${'─'.repeat(30)}\n`;
+  for(const[d,s]of Object.entries(byDomain)){narr+=`  ${d}: ${s.yes}/${s.total} implemented\n`;}
+  if(gaps.length>0){narr+=`\nGAPS (${gaps.length} practices)\n${'─'.repeat(30)}\n`;for(const{q,v}of gaps){const c=q.crit?'[CRITICAL] ':'';const n=document.getElementById(`n_${q.key}`)?.value||'';narr+=`• ${c}${q.pid}: ${q.lbl}\n  Domain: ${q.domain} | Status: ${v==='unanswered'?'Not assessed':v}${n?`\n  Notes: ${n}`:''}\n`;}
+  }
+  narr+=`\nM-AI SIGNAL: ARCHITECTURE DEFINED — domain cmmc-level1-readiness; governed decisions reserved for Kernel integration.\n\nThis self-assessment is for internal readiness purposes. CMMC Level 2+ requires a C3PAO assessment. SPRS filing is the organization's responsibility. Conform-Edge CMMC 2.0 Level 1 Readiness Self-Assessment v1.0.`;
+  document.getElementById('nbx').textContent=narr;
+  document.getElementById('vp').style.display='block';
+  document.getElementById('vp').scrollIntoView({behavior:'smooth'});
+}
+function exportJSON(){
+  const a={};for(const q of Qs)a[q.key]={pid:q.pid,label:q.lbl,critical:q.crit,domain:q.domain,value:getV(q.key),notes:document.getElementById(`n_${q.key}`)?.value||''};
+  const p={tool:'Conform-Edge CMMC 2.0 Level 1 Readiness Self-Assessment v1.0',standard:'NIST SP 800-171 Rev 2',cmmcLevel:'Level 1',org:document.getElementById('org').value,assessor:document.getElementById('assessor').value,infoType:document.getElementById('infoType').value,date:new Date().toISOString(),answers:a,verdict:document.getElementById('vtitle').textContent,mAiSignal:'ARCHITECTURE_DEFINED',domain:'cmmc-level1-readiness',kernelDependency:'RESERVED_INTERFACE'};
+  const b=new Blob([JSON.stringify(p,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const el=document.createElement('a');el.href=u;el.download=`CMMC-L1-Assessment-${(document.getElementById('org').value||'org').replace(/\s+/g,'-')}-${new Date().toISOString().slice(0,10)}.json`;el.click();URL.revokeObjectURL(u);
+}
+function copyNarrative(){const t=document.getElementById('nbx').textContent;navigator.clipboard.writeText(t).then(()=>alert('CMMC readiness record copied to clipboard.'));}
+function clearAll(){document.querySelectorAll('input[type=radio]').forEach(i=>i.checked=false);document.querySelectorAll('.ntxt').forEach(i=>i.value='');document.getElementById('vp').style.display='none';['org','assessor','infoType'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "ruleId": "GOOD-001",
+  "dimId": "faulty-op-test",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "Brian R. Olea",
+  "severity": "major",
+  "gapClass": "WARNING",
+  "category": "completeness",
+  "riskClass": "B",
+  "basisType": "deterministic-record-completeness",
+  "description": "Valid rule that must still fire even when a sibling rule errors.",
+  "requiredFields": ["applicant_legal_name"],
+  "findingText": "Applicant legal name is missing (valid rule fired).",
+  "resolutionHint": "Record the applicant legal name.",
+  "clauseRefs": ["AC 21.303-4 §8"],
+  "condition": { "field": "applicant_legal_name", "op": "is_null" }
+}

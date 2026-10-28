@@ -1,0 +1,142 @@
+{
+  "schema_version": "1",
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "created_at": "2026-10-21T08:30:00Z",
+  "locked_at": "2026-10-21T10:15:00Z",
+  "locked_by": "J. Smith",
+  "hash": null,
+  "_note": "SAMPLE DATA ONLY — not a real inspection record. hash field would be set by app on lock.",
+  "job": {
+    "inspection_type": "fai",
+    "part_number": "PN-20034",
+    "part_revision": "A",
+    "serial_number": "SN-001",
+    "lot_number": null,
+    "quantity": 1,
+    "customer": "Acme Aerospace",
+    "supplier": "Conform-Edge Manufacturing",
+    "drawing_number": "DWG-20034",
+    "drawing_revision": "A",
+    "work_order": "WO-2026-0421"
+  },
+  "forms": {
+    "form1": {
+      "fai_reason": "New part number",
+      "prior_fai_ref": null
+    },
+    "form2": {
+      "material_certs": [
+        {
+          "description": "6061-T6 Aluminium",
+          "cert_number": "CERT-2026-0101",
+          "issue_date": "2026-09-15",
+          "result": "C"
+        }
+      ],
+      "special_process_certs": [],
+      "functional_tests": [],
+      "software_version": null,
+      "sub_certs": []
+    },
+    "form3": {
+      "characteristics": [
+        {
+          "id": 1,
+          "description": "Overall Length",
+          "nominal": 100.0,
+          "upper_tolerance": 0.1,
+          "lower_tolerance": -0.1,
+          "unit": "mm",
+          "type": "dimensional",
+          "result": "C",
+          "cpk": null,
+          "pp": null,
+          "notes": "",
+          "measurements": [
+            {
+              "id": "m1000000-0000-0000-0000-000000000001",
+              "taken_at": "2026-10-21T09:00:00Z",
+              "inspector": "J. Smith",
+              "instrument_id": "CMM-01",
+              "instrument_cal_due": "2027-01-15",
+              "value": 100.04,
+              "unit": "mm",
+              "source": "manual",
+              "photo_ids": []
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "description": "Bore Diameter",
+          "nominal": 25.0,
+          "upper_tolerance": 0.05,
+          "lower_tolerance": -0.05,
+          "unit": "mm",
+          "type": "dimensional",
+          "result": "NC",
+          "cpk": null,
+          "pp": null,
+          "notes": "Value outside lower tolerance — NCR raised",
+          "measurements": [
+            {
+              "id": "m2000000-0000-0000-0000-000000000001",
+              "taken_at": "2026-10-21T09:05:00Z",
+              "inspector": "J. Smith",
+              "instrument_id": "CMM-01",
+              "instrument_cal_due": "2027-01-15",
+              "value": 24.93,
+              "unit": "mm",
+              "source": "manual",
+              "photo_ids": ["p1000000-0000-0000-0000-000000000001"]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "description": "Surface Roughness Ra",
+          "nominal": 1.6,
+          "upper_tolerance": 0.4,
+          "lower_tolerance": 0.0,
+          "unit": "µm",
+          "type": "functional",
+          "result": "C",
+          "cpk": null,
+          "pp": null,
+          "notes": "",
+          "measurements": [
+            {
+              "id": "m3000000-0000-0000-0000-000000000001",
+              "taken_at": "2026-10-21T09:12:00Z",
+              "inspector": "J. Smith",
+              "instrument_id": "Profilometer-02",
+              "instrument_cal_due": "2027-03-01",
+              "value": 1.483,
+              "unit": "µm",
+              "source": "bluetooth",
+              "photo_ids": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "sampling_plan": null,
+  "release": {
+    "faa": { "type": "pc", "number": "PC-99-00001" },
+    "easa": { "type": null, "number": "" },
+    "dual_release": false,
+    "release_type": "8130-3"
+  },
+  "ncrs": [
+    {
+      "id": "ncr00001-0000-0000-0000-000000000001",
+      "char_id": 2,
+      "description": "Bore diameter 24.93 mm — outside lower tolerance of 24.95 mm (nominal 25.00 −0.05)",
+      "raised_at": "2026-10-21T09:06:00Z",
+      "raised_by": "J. Smith",
+      "disposition": null,
+      "car_reference": null
+    }
+  ]
+}

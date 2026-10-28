@@ -1,0 +1,28 @@
+{
+  "ruleId": "AUDIT-001",
+  "dimId": "iso42001-aims-governance",
+  "revision": 1,
+  "effectiveDate": "2026-07-10",
+  "approvedBy": "Brian R. Olea",
+  "approvalRef": "MAI-CCB-2026-014",
+  "severity": "major",
+  "category": "linkage",
+  "riskClass": "B",
+  "basisType": "deterministic-record-completeness",
+  "description": "A major audit finding must be escalated to a linked NCR / corrective action.",
+  "requiredFields": ["severity", "linked_ncr_id"],
+  "events": ["audit_finding.created", "audit_finding.updated"],
+  "findingText": "Major finding never escalated to corrective action",
+  "resolutionHint": "Open an NCR linked to this finding",
+  "clauseRefs": ["9.2", "10.2"],
+  "condition": {
+    "all": [
+      { "field": "severity", "eq": "major" },
+      { "field": "linked_ncr_id", "linked_record_missing": "ncr_entries" }
+    ]
+  },
+  "testCases": ["AUDIT-001-POS-001", "AUDIT-001-NEG-001", "AUDIT-001-MISSING-001"],
+  "limitations": [
+    "Confirms only that a linked ncr_entries row exists — cannot verify the corrective action taken actually addresses the finding's root cause."
+  ]
+}

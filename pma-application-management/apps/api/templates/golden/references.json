@@ -1,0 +1,58 @@
+{
+  "templateId": "references",
+  "scope": "GOLDEN",
+  "note": "Reference material only. These documents are for people to consult — the tool cites them so a preparer can go read the source, but it does not model them as controlled dependencies and does not attempt to interpret them. The FORMS (application letter, PMA supplement, submission checklist) are what the tool actually produces.",
+
+  "faa": [
+    {
+      "id": "14 CFR 21.303",
+      "title": "Parts Manufacturer Approvals",
+      "role": "The controlling regulation. §21.303(a) lists what an application must contain; §21.303(a)(5) is the certifying statement."
+    },
+    {
+      "id": "AC 21.303-4",
+      "title": "Application for Parts Manufacturer Approval Via Tests and Computations or Identicality",
+      "role": "Application guidance for test-and-computation and identicality-without-licence. Appendix C defines the supplement table; Appendix B is the FAA's own project checklist; Appendix A the compliance listing format."
+    },
+    {
+      "id": "AC 21-43A",
+      "title": "Production Under 14 CFR Part 21, Subparts F, G, K, and O",
+      "role": "Production and quality-system guidance. Also the route for identicality WITH a licensing agreement and for STC-based PMA."
+    },
+    {
+      "id": "FAA Order 8110.42D",
+      "title": "Parts Manufacturer Approval Procedures",
+      "role": "How the FAA processes a PMA application."
+    },
+    {
+      "id": "FAA Order 8130.2J",
+      "title": "Airworthiness Certification of Aircraft",
+      "role": "Airworthiness certification procedures."
+    },
+    {
+      "id": "FAA Order 8120.22",
+      "title": "Production Approval Procedures",
+      "role": "FAA production-approval evaluation."
+    },
+    {
+      "id": "FAA Order 8110.119",
+      "title": "Streamlined Process for Parts Manufacturer Approval",
+      "role": "Possible streamlined route for experienced applicants with a qualifying performance record."
+    }
+  ],
+
+  "revisionCheck": {
+    "url": "https://drs.faa.gov/search",
+    "howTo": "Use the advanced search: put the document number in 'all of these words' and set 'search in' to document number. Confirm the current revision before relying on any of the above."
+  },
+
+  "organizationDocuments": {
+    "note": "Each organization has its own internal procedure governing how the supplement is developed and reviewed. The tool records which procedure and revision a case was prepared under, so the record shows it — but the procedure's content is reference material for the preparer, not logic the tool executes.",
+    "recordedPerTenant": ["id", "revision", "title"]
+  },
+
+  "citationPolicy": {
+    "rule": "A finding may cite a reference document so the preparer can go read it. A finding must never assert a requirement that is not traceable to one of these documents or to the organization's own form.",
+    "onRevision": "When a referenced document is revised, dependent rules are re-reviewed and re-issued at a new rule revision — never edited in place — so historical findings stay traceable to the revision that produced them."
+  }
+}

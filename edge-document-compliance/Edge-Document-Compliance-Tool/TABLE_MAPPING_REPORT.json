@@ -1,0 +1,1460 @@
+{
+  "postgres": [
+    {
+      "name": "analysis_clarifications",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "database.js",
+        "scripts\\apply-schema.js",
+        "src\\database\\schema.js",
+        "src\\routes\\customers.js",
+        "src\\scripts\\create-all-tables.js",
+        "src\\scripts\\verify-tables.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "audit_logs_results",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "audit_trail",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\scripts\\comprehensive-system-audit.js",
+        "src\\scripts\\fix-all-schema-errors.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "clause_correlation_matrix",
+      "createdIn": [
+        "001_phase1_tables.sql",
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [
+        "001_phase1_tables.sql"
+      ],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\routes\\predictions.js",
+        "src\\services\\advancedAI\\anomalyDetectionEngine.js",
+        "src\\services\\auditPrepExporter.js",
+        "src\\services\\clauseCorrelationEngine.js",
+        "src\\services\\reportGenerator.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "conversation_context",
+      "createdIn": [
+        "001_phase1_tables.sql"
+      ],
+      "droppedIn": [
+        "001_phase1_tables.sql"
+      ],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "customer_documents",
+      "createdIn": [
+        "000_init_schema.sql",
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [
+        "000_init_schema.sql"
+      ],
+      "schema": "edcat",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "database.js",
+        "scripts\\apply-schema.js",
+        "src\\database\\schema.js",
+        "src\\edcat\\orchestrator.js",
+        "src\\scripts\\verify-database-connections.js",
+        "src\\services\\clauseCorrelationEngine.js",
+        "src\\services\\trainingManagement.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "customer_procedures",
+      "createdIn": [
+        "000_init_schema.sql",
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [
+        "000_init_schema.sql"
+      ],
+      "schema": "edcat",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "database.js",
+        "scripts\\apply-schema.js",
+        "src\\database\\schema.js",
+        "src\\edcat\\orchestrator.js",
+        "src\\scripts\\comprehensive-system-audit.js",
+        "src\\scripts\\fix-all-schema-errors.js",
+        "src\\services\\clauseCorrelationEngine.js",
+        "src\\services\\trainingManagement.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "document_content_for_learning",
+      "createdIn": [
+        "001_postgres_customer_data.sql",
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\scripts\\cleanup-examples-folder-errors.js",
+        "src\\scripts\\cleanup-standards-without-files.js",
+        "src\\scripts\\migrate-document-content-to-postgres.js",
+        "src\\scripts\\process-requirements-folder.js",
+        "src\\scripts\\pull-vera-learning-standards.js",
+        "src\\scripts\\verify-database-connections.js",
+        "src\\services\\veraConversationalEngine.js",
+        "src\\services\\veraDocumentLearningService.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "edcat_learning_events",
+      "createdIn": [
+        "001_phase1_tables.sql",
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [
+        "001_phase1_tables.sql"
+      ],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\services\\parseService.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "gap_analyses",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "database.js",
+        "scripts\\apply-schema.js",
+        "src\\database\\schema.js",
+        "src\\edcat\\orchestrator.js",
+        "src\\routes\\customers.js",
+        "src\\routes\\gap.js",
+        "src\\scripts\\comprehensive-system-audit.js",
+        "src\\scripts\\create-all-tables.js",
+        "src\\scripts\\fix-all-schema-errors.js",
+        "src\\scripts\\verify-database-connections.js",
+        "src\\scripts\\verify-tables.js",
+        "src\\services\\edcatQMSIntegration.js",
+        "src\\services\\kpiMetrics.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "generated_reports",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "integration_logs",
+      "createdIn": [
+        "001_postgres_customer_data.sql",
+        "004_phase5_enterprise.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\services\\integrations\\integrationMarketplace.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "parsed_clauses",
+      "createdIn": [
+        "000_init_schema.sql",
+        "001_phase1_tables.sql"
+      ],
+      "droppedIn": [
+        "000_init_schema.sql",
+        "001_phase1_tables.sql"
+      ],
+      "schema": "edcat",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\routes\\audit.js",
+        "src\\routes\\chat.js",
+        "src\\routes\\predictions.js",
+        "src\\services\\auditPrepExporter.js",
+        "src\\services\\clauseCorrelationEngine.js",
+        "src\\services\\clauseMappingExporter.js",
+        "src\\services\\documentDraftingEngine.js",
+        "src\\services\\parseService.js",
+        "src\\services\\reportGenerator.js",
+        "src\\services\\trainingManagement.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "parsed_requirements",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [
+        "002_edcat_ai_intelligence.sql",
+        "002_edcat_ai_intelligence.sql",
+        "003_cleanup_duplicate_tables.sql"
+      ],
+      "schema": "unknown",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\edcat\\parser\\clauseParser.js",
+        "src\\routes\\chat.js",
+        "src\\routes\\diagnostics.js",
+        "src\\routes\\parse.js",
+        "src\\routes\\requirements.js",
+        "src\\scripts\\audit-all-tables.js",
+        "src\\scripts\\cleanup-duplicate-tables.js",
+        "src\\scripts\\cleanup-standards-without-files.js",
+        "src\\scripts\\comprehensive-system-audit.js",
+        "src\\scripts\\consolidate-standards-tables.js",
+        "src\\scripts\\diagnose-complete-connection.js",
+        "src\\scripts\\map-all-tables-static.js",
+        "src\\scripts\\remove-duplicate-tables.js",
+        "src\\scripts\\test-all-database-connections.js",
+        "src\\scripts\\verify-database-connections-complete.js",
+        "src\\scripts\\verify-database-connections.js",
+        "src\\services\\learningEngine.js",
+        "src\\services\\metricsService.js",
+        "src\\services\\veraConversationalEngine.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "standard_files",
+      "createdIn": [
+        "001_postgres_customer_data.sql",
+        "003_fix_standard_files_schema.sql"
+      ],
+      "droppedIn": [
+        "002_edcat_ai_intelligence.sql",
+        "003_cleanup_duplicate_tables.sql"
+      ],
+      "schema": "unknown",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\database\\schema.js",
+        "src\\routes\\diagnostics.js",
+        "src\\routes\\parse.js",
+        "src\\routes\\requirements.js",
+        "src\\routes\\upload.js",
+        "src\\scripts\\audit-all-tables.js",
+        "src\\scripts\\audit-postgres-tables.js",
+        "src\\scripts\\check-all-standards.js",
+        "src\\scripts\\check-postgres-duplicate-tables.js",
+        "src\\scripts\\check-standards-with-files.js",
+        "src\\scripts\\cleanup-backup-tables.js",
+        "src\\scripts\\cleanup-duplicate-tables.js",
+        "src\\scripts\\cleanup-examples-folder-errors.js",
+        "src\\scripts\\cleanup-standards-without-files.js",
+        "src\\scripts\\comprehensive-system-audit.js",
+        "src\\scripts\\create-all-tables.js",
+        "src\\scripts\\create-standard-files-table.js",
+        "src\\scripts\\debug-standards-filtering.js",
+        "src\\scripts\\diagnose-complete-connection.js",
+        "src\\scripts\\diagnose-postgres-errors.js",
+        "src\\scripts\\diagnose-standards-display.js",
+        "src\\scripts\\diagnose-standards-not-loading.js",
+        "src\\scripts\\diagnose-standards-visibility.js",
+        "src\\scripts\\diagnose-zero-standards.js",
+        "src\\scripts\\fix-all-schema-errors.js",
+        "src\\scripts\\fix-postgres-errors.js",
+        "src\\scripts\\map-all-tables-static.js",
+        "src\\scripts\\process-requirements-folder.js",
+        "src\\scripts\\remove-duplicate-tables.js",
+        "src\\scripts\\remove-edcat-ai-duplicates.js",
+        "src\\scripts\\restore-standard-files.js",
+        "src\\scripts\\restore-standards-from-backup.js",
+        "src\\scripts\\test-all-database-connections.js",
+        "src\\scripts\\test-upload-flow.js",
+        "src\\scripts\\verify-database-connections-complete.js",
+        "src\\scripts\\verify-database-connections.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "standards",
+      "createdIn": [
+        "000_init_schema.sql",
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [
+        "000_init_schema.sql",
+        "002_edcat_ai_intelligence.sql",
+        "002_edcat_ai_intelligence.sql",
+        "003_cleanup_duplicate_tables.sql"
+      ],
+      "schema": "edcat",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\app.js",
+        "src\\database\\schema.js",
+        "src\\edcat\\parser\\clauseParser.js",
+        "src\\routes\\chat.js",
+        "src\\routes\\db-status.js",
+        "src\\routes\\diagnostics.js",
+        "src\\routes\\parse.js",
+        "src\\routes\\requirements.js",
+        "src\\routes\\upload.js",
+        "src\\scripts\\audit-all-tables.js",
+        "src\\scripts\\audit-postgres-tables.js",
+        "src\\scripts\\check-all-schemas.js",
+        "src\\scripts\\check-all-standards.js",
+        "src\\scripts\\check-category-filtering.js",
+        "src\\scripts\\check-postgres-duplicate-tables.js",
+        "src\\scripts\\check-standards-with-files.js",
+        "src\\scripts\\cleanup-backup-tables.js",
+        "src\\scripts\\cleanup-duplicate-tables.js",
+        "src\\scripts\\cleanup-examples-folder-errors.js",
+        "src\\scripts\\cleanup-standards-without-files.js",
+        "src\\scripts\\comprehensive-system-audit.js",
+        "src\\scripts\\consolidate-standards-tables.js",
+        "src\\scripts\\create-all-tables.js",
+        "src\\scripts\\debug-standards-filtering.js",
+        "src\\scripts\\diagnose-complete-connection.js",
+        "src\\scripts\\diagnose-postgres-errors.js",
+        "src\\scripts\\diagnose-standards-display.js",
+        "src\\scripts\\diagnose-standards-not-loading.js",
+        "src\\scripts\\diagnose-standards-visibility.js",
+        "src\\scripts\\diagnose-zero-standards.js",
+        "src\\scripts\\fix-all-schema-errors.js",
+        "src\\scripts\\fix-postgres-errors.js",
+        "src\\scripts\\identify-all-standards-tables.js",
+        "src\\scripts\\map-all-tables-static.js",
+        "src\\scripts\\migrate-document-content-to-postgres.js",
+        "src\\scripts\\process-requirements-folder.js",
+        "src\\scripts\\pull-vera-learning-standards.js",
+        "src\\scripts\\remove-duplicate-tables.js",
+        "src\\scripts\\remove-edcat-ai-duplicates.js",
+        "src\\scripts\\restore-standards-from-backup.js",
+        "src\\scripts\\seed-edcat-personality.js",
+        "src\\scripts\\test-all-database-connections.js",
+        "src\\scripts\\test-upload-flow.js",
+        "src\\scripts\\verify-database-connections-complete.js",
+        "src\\scripts\\verify-database-connections.js",
+        "src\\scripts\\verify-tables.js",
+        "src\\services\\auditPrepExporter.js",
+        "src\\services\\clauseMappingExporter.js",
+        "src\\services\\complianceGapAnalyzer.js",
+        "src\\services\\industryModules\\hipaaModule.js",
+        "src\\services\\industryModules\\industryFactory.js",
+        "src\\services\\industryModules\\iso27001Module.js",
+        "src\\services\\knowledgePackLoader.js",
+        "src\\services\\learningEngine.js",
+        "src\\services\\parseService.js",
+        "src\\services\\reportGenerator.js",
+        "src\\services\\veraConversationalEngine.js",
+        "js\\edcat-library.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "tenants",
+      "createdIn": [
+        "000_init_schema.sql",
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [
+        "000_init_schema.sql"
+      ],
+      "schema": "edcat",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\middleware\\enterpriseMiddleware.js",
+        "src\\routes\\predictions.js",
+        "src\\scripts\\comprehensive-system-audit.js",
+        "src\\scripts\\fix-all-schema-errors.js",
+        "src\\scripts\\verify-database-connections.js",
+        "src\\services\\regulatoryIntelligenceHub.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "upload_files",
+      "createdIn": [
+        "000_init_schema.sql",
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [
+        "000_init_schema.sql"
+      ],
+      "schema": "edcat",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "user_feedback",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "users",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [
+        "src\\scripts\\verify-database-connections.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    }
+  ],
+  "edcatAi": [
+    {
+      "name": "ai_agents",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\scripts\\seed-edcat-agent.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_chat_log",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_clause_blueprint",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "EDCAT AIP\\server\\seed_loader.ts",
+        "src\\routes\\chat.js",
+        "src\\scripts\\create-blueprint-tables.js",
+        "src\\scripts\\load-vera-blueprints.js",
+        "src\\scripts\\run-edcat-migration-only.js",
+        "src\\scripts\\seed-edcat-personality.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_conversation_history",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\scripts\\verify-vera-tables.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_conversation_state",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "EDCAT AIP\\server\\vera_chat_handler_example.ts",
+        "EDCAT AIP\\server\\vera_conversation_middleware.ts",
+        "src\\middleware\\veraConversationMiddleware.js",
+        "src\\scripts\\diagnose-vera.js",
+        "src\\scripts\\verify-vera-tables.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_crosswalk_blueprint",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "EDCAT AIP\\server\\seed_loader.ts",
+        "src\\scripts\\create-blueprint-tables.js",
+        "src\\scripts\\load-vera-blueprints.js",
+        "src\\scripts\\run-edcat-migration-only.js",
+        "src\\scripts\\seed-edcat-personality.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_doc_ref",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_memories",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_messages",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_persona",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\scripts\\seed-edcat-personality.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_persona_profile",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "EDCAT AIP\\server\\vera_conversation_middleware.ts",
+        "src\\middleware\\veraConversationMiddleware.js",
+        "src\\scripts\\diagnose-vera.js",
+        "src\\scripts\\seed-edcat-personality.js",
+        "src\\scripts\\verify-vera-tables.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_policy",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "EDCAT AIP\\server\\chat_middleware.ts",
+        "EDCAT AIP\\server\\seed_loader.ts",
+        "src\\middleware\\veraMiddleware.js",
+        "src\\routes\\chat.js",
+        "src\\scripts\\diagnose-vera.js",
+        "src\\scripts\\load-vera-blueprints.js",
+        "src\\scripts\\seed-edcat-personality.js",
+        "src\\services\\veraConversationalEngine.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_prompt",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "EDCAT AIP\\server\\chat_middleware.ts",
+        "EDCAT AIP\\server\\seed_loader.ts",
+        "EDCAT AIP\\server\\vera_chat_handler_example.ts",
+        "src\\middleware\\veraMiddleware.js",
+        "src\\routes\\chat.js",
+        "src\\scripts\\diagnose-vera.js",
+        "src\\scripts\\load-vera-blueprints.js",
+        "src\\scripts\\seed-edcat-personality.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_router",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\routes\\chat.js",
+        "src\\scripts\\seed-edcat-personality.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_sessions",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_standard",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "EDCAT AIP\\server\\chat_middleware.ts",
+        "EDCAT AIP\\server\\seed_loader.ts",
+        "src\\middleware\\veraMiddleware.js",
+        "src\\routes\\chat.js",
+        "src\\scripts\\create-blueprint-tables.js",
+        "src\\scripts\\load-vera-blueprints.js",
+        "src\\scripts\\remove-edcat-ai-duplicates.js",
+        "src\\scripts\\run-edcat-migration-only.js",
+        "src\\scripts\\seed-edcat-personality.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_template",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\scripts\\seed-edcat-personality.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_tenant",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\scripts\\create-blueprint-tables.js",
+        "src\\scripts\\diagnose-vera.js",
+        "src\\scripts\\seed-edcat-personality.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_validator",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\scripts\\seed-edcat-personality.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "audit_questions",
+      "createdIn": [
+        "002_phase3_tables.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\routes\\audit.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "audit_trail_decisions",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\edcat\\auditTrail.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "baseline_metrics",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "example_documents",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\scripts\\cleanup-examples-folder-errors.js",
+        "src\\scripts\\cleanup-standards-without-files.js",
+        "src\\scripts\\process-requirements-folder.js",
+        "src\\scripts\\pull-vera-learning-standards.js",
+        "src\\services\\veraConversationalEngine.js",
+        "src\\services\\veraDocumentLearningService.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "extraction_history",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "database.js",
+        "scripts\\apply-schema.js",
+        "src\\database\\schema.js",
+        "src\\routes\\db-status.js",
+        "src\\scripts\\create-all-tables.js",
+        "src\\scripts\\verify-tables.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "learned_patterns",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\routes\\parser-training.js",
+        "src\\services\\requirementParser.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "mock_audit_reports",
+      "createdIn": [
+        "002_phase3_tables.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\routes\\audit.js",
+        "src\\services\\advancedAI\\anomalyDetectionEngine.js",
+        "src\\services\\kpiMetrics.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "mock_audit_responses",
+      "createdIn": [
+        "002_phase3_tables.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\routes\\audit.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "mock_audit_sessions",
+      "createdIn": [
+        "002_phase3_tables.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\routes\\audit.js",
+        "src\\services\\kpiMetrics.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "model_versions",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "database.js",
+        "learningEngine.js",
+        "scripts\\apply-schema.js",
+        "src\\database\\schema.js",
+        "src\\edcat\\orchestrator.js",
+        "src\\routes\\db-status.js",
+        "src\\scripts\\create-all-tables.js",
+        "src\\scripts\\verify-tables.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "personality_learning_events",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "qa_pairs",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "regulatory_updates",
+      "createdIn": [
+        "002_phase3_tables.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "src\\services\\regulatoryIntelligenceHub.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "regulatory_websites",
+      "createdIn": [
+        "000_init_schema.sql",
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [
+        "000_init_schema.sql"
+      ],
+      "schema": "edcat",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [
+        "scripts\\apply-schema.js",
+        "src\\database\\schema.js",
+        "src\\routes\\chat.js",
+        "src\\routes\\regulatory.js",
+        "src\\scripts\\create-all-tables.js",
+        "src\\scripts\\verify-tables.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "sync_log",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    }
+  ],
+  "unknown": [
+    {
+      "name": "capa_records",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\advancedAI\\anomalyDetectionEngine.js",
+        "src\\services\\capaSystem.js",
+        "src\\services\\edcatQMSIntegration.js",
+        "src\\services\\kpiMetrics.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "capa_actions",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\capaSystem.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "capa_effectiveness_checks",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\capaSystem.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "employees",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\documentManagement.js",
+        "src\\services\\kpiMetrics.js",
+        "src\\services\\trainingManagement.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "training_records",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\advancedAI\\anomalyDetectionEngine.js",
+        "src\\services\\edcatQMSIntegration.js",
+        "src\\services\\trainingManagement.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "training_completions",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\advancedAI\\anomalyDetectionEngine.js",
+        "src\\services\\trainingManagement.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "employee_competencies",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\kpiMetrics.js",
+        "src\\services\\trainingManagement.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "qms_documents",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\documentManagement.js",
+        "src\\services\\edcatQMSIntegration.js",
+        "src\\services\\kpiMetrics.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "document_versions",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\documentManagement.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "document_approvals",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\documentManagement.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "document_distribution",
+      "createdIn": [
+        "003_phase4_qms.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\documentManagement.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "industry_modules",
+      "createdIn": [
+        "004_phase5_enterprise.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\industryModules\\industryFactory.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "tenant_industry_modules",
+      "createdIn": [
+        "004_phase5_enterprise.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\industryModules\\industryFactory.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "i18n_translations",
+      "createdIn": [
+        "004_phase5_enterprise.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\internationalization\\i18nManager.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "regional_compliance_mappings",
+      "createdIn": [
+        "004_phase5_enterprise.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\internationalization\\i18nManager.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "integrations",
+      "createdIn": [
+        "004_phase5_enterprise.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\services\\integrations\\integrationMarketplace.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "api_keys",
+      "createdIn": [
+        "004_phase5_enterprise.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\middleware\\enterpriseMiddleware.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    },
+    {
+      "name": "audit_logs",
+      "createdIn": [
+        "004_phase5_enterprise.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "Unknown",
+      "codeConnections": [
+        "src\\middleware\\enterpriseMiddleware.js"
+      ],
+      "isUsed": true,
+      "isDuplicate": false
+    }
+  ],
+  "duplicates": [],
+  "deadEnds": [
+    {
+      "name": "audit_logs_results",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "conversation_context",
+      "createdIn": [
+        "001_phase1_tables.sql"
+      ],
+      "droppedIn": [
+        "001_phase1_tables.sql"
+      ],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "generated_reports",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "upload_files",
+      "createdIn": [
+        "000_init_schema.sql",
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [
+        "000_init_schema.sql"
+      ],
+      "schema": "edcat",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "user_feedback",
+      "createdIn": [
+        "001_postgres_customer_data.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "PostgreSQL (DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_chat_log",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_doc_ref",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_memories",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_messages",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "ai_sessions",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "baseline_metrics",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "personality_learning_events",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "qa_pairs",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "unknown",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    },
+    {
+      "name": "sync_log",
+      "createdIn": [
+        "002_edcat_ai_intelligence.sql"
+      ],
+      "droppedIn": [],
+      "schema": "public",
+      "database": "EDCAT AI (EDCAT_AI_DATABASE_URL)",
+      "codeConnections": [],
+      "isUsed": false,
+      "isDuplicate": false
+    }
+  ],
+  "summary": {
+    "totalPostgres": 20,
+    "totalEdcat": 34,
+    "usedPostgres": 15,
+    "usedEdcat": 25,
+    "duplicates": 0,
+    "deadEnds": 14
+  }
+}

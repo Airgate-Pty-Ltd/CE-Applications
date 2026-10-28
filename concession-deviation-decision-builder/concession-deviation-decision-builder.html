@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Concession & Deviation Decision Builder — Conform-Edge</title>
+<style>
+:root{--navy:#0b1f33;--panel:#12293f;--steel:#5b7488;--ink:#e8eef4;--good:#2e9e6b;--warn:#d8a12a;--bad:#c1493f;--line:#22405a;--accent:#3a7bbf}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif;background:var(--navy);color:var(--ink)}
+header{padding:20px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+h1{font-size:19px;margin:0}.brand{color:var(--steel);font-size:12px;text-transform:uppercase;letter-spacing:2px}
+main{max-width:860px;margin:0 auto;padding:22px}
+.section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:14px 0}
+.section h2{font-size:15px;margin:0 0 14px;color:#8fb0c8;border-bottom:1px solid var(--line);padding-bottom:8px}
+.field{margin:10px 0}.field label{display:block;margin-bottom:4px;font-size:13px;color:#a9bccb}
+.field input[type=text],.field select,.field textarea{width:100%;background:#0d2035;border:1px solid var(--line);border-radius:7px;color:var(--ink);padding:8px 10px;font-size:14px;font-family:inherit}
+.field textarea{resize:vertical;min-height:60px}
+.radio-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.radio-group label{border:1px solid var(--line);border-radius:7px;padding:7px 12px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:6px}
+.radio-group input{margin:0}
+.gate{border-radius:10px;padding:14px 18px;margin:10px 0;border:1px solid var(--line)}
+.gate.go{border-color:var(--good);background:rgba(46,158,107,.09)}
+.gate.stop{border-color:var(--bad);background:rgba(193,73,63,.09)}
+.gate.review{border-color:var(--warn);background:rgba(216,161,42,.09)}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.t-good{background:rgba(46,158,107,.18);color:#7fe0b3}.t-warn{background:rgba(216,161,42,.18);color:#f0cf7f}.t-bad{background:rgba(193,73,63,.2);color:#f0a49c}.t-blue{background:rgba(58,123,191,.2);color:#90c4f0}
+.muted{color:var(--steel);font-size:12px}
+.req-list{padding:0;margin:8px 0 0;list-style:none}
+.req-list li{padding:4px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04)}
+.req-list li:last-child{border-bottom:none}
+.req-list li::before{content:"▸ ";color:var(--steel)}
+.record-box{background:#0d2035;border:1px solid var(--line);border-radius:8px;padding:14px 16px;font-size:13px;white-space:pre-wrap;font-family:monospace;margin-top:10px;line-height:1.6}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{background:var(--steel);color:#04121f;border:0;border-radius:8px;padding:10px 18px;font-weight:600;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.danger{background:var(--bad);color:#fff}
+#gateResult{margin-top:18px}
+.step{counter-increment:steps}.steps{counter-reset:steps}
+</style></head><body>
+<header>
+  <div>
+    <h1>Concession &amp; Deviation Decision Builder</h1>
+    <div class="brand">Conform-Edge &middot; AS9100 8.7 Deterministic Gate</div>
+  </div>
+  <div class="muted">Self-contained. No data leaves this page.</div>
+</header>
+<main>
+<p>Determine whether a nonconforming product or planned departure requires a <b>concession</b> (accept nonconforming product after the fact) or <b>deviation / production permit</b> (pre-approved departure before production). The engine evaluates eligibility, required approval authority, and mandatory customer notification under <b>AS9100D clause 8.7 / ISO 9001 clause 8.7</b> and equivalent IATF 16949 and ISO 13485 requirements. Generates a request record ready for review.</p>
+
+<div class="section">
+  <h2>1 — Product &amp; Departure Identification</h2>
+  <div class="field"><label>Part number / item description</label><input type="text" id="partNum" placeholder="e.g., PN 12345-001 Rev C — Main Bearing Housing"></div>
+  <div class="field"><label>Quantity affected (units / lots)</label><input type="text" id="qty" placeholder="e.g., 25 units, Lot 2026-08-A"></div>
+  <div class="field"><label>Nonconformance / planned departure — describe specifically</label>
+  <textarea id="ncDesc" placeholder="e.g., Surface roughness Ra measured at 3.2 µm; drawing requires Ra ≤ 2.5 µm. All other characteristics in tolerance."></textarea></div>
+  <div class="field"><label>Drawing / specification requirement being departed from</label><input type="text" id="specRef" placeholder="e.g., DWG 12345-001 Rev C, Note 5 — Surface Finish"></div>
+</div>
+
+<div class="section">
+  <h2>2 — Departure Type Gate</h2>
+  <div class="field"><label>Is this departure identified <b>before</b> production (planned) or <b>after</b> production (discovered nonconformance)?</label>
+  <div class="radio-group" id="timing">
+    <label><input type="radio" name="timing" value="before">Before production — Deviation / Production Permit</label>
+    <label><input type="radio" name="timing" value="after">After production — Concession (waiver)</label>
+  </div></div>
+</div>
+
+<div class="section">
+  <h2>3 — Safety, Regulatory &amp; Customer Impact</h2>
+  <div class="field"><label>Does this affect a <b>Key Characteristic (KC)</b>, safety feature, or airworthiness / functional requirement?</label>
+  <div class="radio-group" id="safety">
+    <label><input type="radio" name="safety" value="yes">Yes — KC / safety / airworthiness</label>
+    <label><input type="radio" name="safety" value="no">No — dimensional, cosmetic, or non-critical feature</label>
+    <label><input type="radio" name="safety" value="unknown">Unknown — requires engineering review</label>
+  </div></div>
+  <div class="field"><label>Is this product <b>aerospace / aviation-certified</b> or subject to <b>FAA, EASA, CAAC, or equivalent authority</b> oversight?</label>
+  <div class="radio-group" id="aero">
+    <label><input type="radio" name="aero" value="yes">Yes — regulated aviation product</label>
+    <label><input type="radio" name="aero" value="no">No — commercial / industrial product</label>
+  </div></div>
+  <div class="field"><label>Is this product <b>medical device</b> subject to FDA QMSR / ISO 13485?</label>
+  <div class="radio-group" id="med">
+    <label><input type="radio" name="med" value="yes">Yes — medical device</label>
+    <label><input type="radio" name="med" value="no">No</label>
+  </div></div>
+  <div class="field"><label>Is there a customer-specific flow-down requirement that <b>prohibits concessions / deviations</b> on this part or characteristic?</label>
+  <div class="radio-group" id="custProhib">
+    <label><input type="radio" name="custProhib" value="yes">Yes — customer prohibits</label>
+    <label><input type="radio" name="custProhib" value="no">No prohibition identified</label>
+    <label><input type="radio" name="custProhib" value="unknown">Unknown — must check</label>
+  </div></div>
+</div>
+
+<div class="section">
+  <h2>4 — Engineering Assessment</h2>
+  <div class="field"><label>Has engineering reviewed the departure and confirmed it does not impair <b>form, fit, or function</b>?</label>
+  <div class="radio-group" id="fff">
+    <label><input type="radio" name="fff" value="yes">Yes — FFF confirmed by engineering</label>
+    <label><input type="radio" name="fff" value="no">No — FFF not confirmed</label>
+    <label><input type="radio" name="fff" value="pending">Pending engineering review</label>
+  </div></div>
+  <div class="field"><label>Engineering rationale / basis for acceptability</label>
+  <textarea id="engRationale" placeholder="e.g., Surface finish is a cosmetic requirement only. No contact with mating surfaces. Functional testing at Ra 3.2 µm shows equivalent performance to Ra 2.5 µm (see Test Report TR-2026-105)."></textarea></div>
+  <div class="field"><label>Proposed use / disposition</label>
+  <div class="radio-group" id="disp">
+    <label><input type="radio" name="disp" value="uai">Use-As-Is (no physical change)</label>
+    <label><input type="radio" name="disp" value="repair">Repair (restore to drawing)</label>
+    <label><input type="radio" name="disp" value="rework">Rework (bring into full conformance)</label>
+    <label><input type="radio" name="disp" value="scrap">Scrap</label>
+  </div></div>
+</div>
+
+<div class="section">
+  <h2>5 — Requestor &amp; Context</h2>
+  <div class="field"><label>Requested by (name / role)</label><input type="text" id="reqBy" placeholder="e.g., J. Smith, Quality Engineer"></div>
+  <div class="field"><label>Date of request</label><input type="text" id="reqDate" placeholder="e.g., 2026-08-15"></div>
+  <div class="field"><label>Customer / contract reference (if applicable)</label><input type="text" id="custRef" placeholder="e.g., Customer PO 78450, Contract SQ-2024-0012"></div>
+  <div class="field"><label>Work order / lot / job number</label><input type="text" id="woNum" placeholder="e.g., WO-2026-08-0045"></div>
+</div>
+
+<div class="bar">
+  <button class="btn" onclick="evaluate()">Evaluate &amp; generate decision</button>
+  <button class="btn ghost" onclick="window.print()">Print / PDF</button>
+  <button class="btn ghost" onclick="clearAll()">Clear form</button>
+</div>
+<div id="gateResult"></div>
+<p class="muted" style="margin-top:24px">Reference: AS9100D clause 8.7 and ISO 9001:2015 clause 8.7 by clause intent only. Regulatory requirements (FAA, EASA, FDA) cited by intent — verify current regulations before submission. This tool generates a draft decision and request record; final approval authority rests with the responsible engineering and quality management personnel.</p>
+</main>
+<script>
+function radio(name){const e=document.querySelector('input[name="'+name+'"]:checked');return e?e.value:'';}
+function val(id){return document.getElementById(id).value.trim();}
+
+function evaluate(){
+ const out=document.getElementById('gateResult');out.innerHTML='';
+ const timing=radio('timing'),safety=radio('safety'),aero=radio('aero'),med=radio('med');
+ const custProhib=radio('custProhib'),fff=radio('fff'),disp=radio('disp');
+ const partNum=val('partNum'),qty=val('qty'),ncDesc=val('ncDesc'),specRef=val('specRef');
+ const engRationale=val('engRationale'),reqBy=val('reqBy'),reqDate=val('reqDate')||new Date().toISOString().slice(0,10);
+
+ // ── Gate 1: Hard stops ──────────────────────────────────────────────
+ let hardStops=[];
+ if(custProhib==='yes') hardStops.push('Customer contract <b>prohibits concessions/deviations</b> on this characteristic. Cannot proceed — return product or request customer waiver directly.');
+ if(safety==='yes' && aero==='yes' && timing==='after') hardStops.push('Nonconforming product affecting a KC/safety characteristic on an aviation-certified part requires <b>mandatory engineering disposition through MRB with FAA/EASA regulatory review</b> before any release. Verify notification requirements under 14 CFR / EASA applicable part.');
+ if(safety==='unknown' && fff!=='yes') hardStops.push('Safety/KC status is <b>unknown and FFF has not been confirmed</b>. Engineering must classify this characteristic before any disposition.');
+
+ if(hardStops.length){
+  out.innerHTML='<div class="gate stop"><b>STOP — Cannot proceed to concession/deviation</b><br>'+
+   hardStops.map(s=>'<p style="margin:8px 0">⛔ '+s+'</p>').join('')+'</div>';return;}
+
+ // ── Gate 2: Disposition type ────────────────────────────────────────
+ let dispType=timing==='before'?'DEVIATION / PRODUCTION PERMIT':'CONCESSION (WAIVER)';
+ let dispTag=timing==='before'?'t-blue':'t-warn';
+
+ // ── Gate 3: Required approvals ──────────────────────────────────────
+ let approvals=[],notifications=[],conditions=[],severity;
+ // Always required
+ approvals.push('Quality Engineering / MRB review and sign-off');
+ approvals.push('Responsible Design/Product Engineer confirmation of FFF');
+ if(disp==='uai'||disp==='repair') approvals.push('Quality Manager or designee authorization (Use-As-Is / Repair dispositions)');
+ // Safety/KC
+ if(safety==='yes'){
+  approvals.push('<b>Design Authority sign-off required</b> — KC or safety-relevant characteristic');
+  severity='HIGH';}
+ else severity=fff==='yes'?'LOW':'MEDIUM';
+ // Aviation
+ if(aero==='yes'){
+  notifications.push('Verify whether customer PO requires notification for this departure type (many aerospace customers require notification for any deviation from drawing)');
+  if(safety==='yes') notifications.push('<b>Regulatory authority notification may be required</b> — verify under applicable FAA/EASA Part 21/145 provisions');
+  conditions.push('Concession/deviation record must be attached to the traveler and retained with the part serialization / lot record');
+  conditions.push('If product has shipped, containment and customer notification are required before further shipment of affected lot');}
+ // Medical
+ if(med==='yes'){
+  notifications.push('FDA QMSR and ISO 13485 require concession to be linked to the device history record (DHR) and subject to design change evaluation if departure is recurring');
+  approvals.push('Regulatory Affairs review for medical device product');}
+ // Unknown customer prohibition
+ if(custProhib==='unknown') notifications.push('<b>Customer prohibition status unknown</b> — review contract and customer quality requirements before releasing product');
+ // Rework path
+ if(disp==='rework') conditions.push('Rework plan must be documented and approved; product re-inspected after rework against full drawing requirements; re-inspection results retained');
+ // Repair path
+ if(disp==='repair'){
+  conditions.push('Repair procedure must be documented, approved, and traceable to this concession record');
+  if(aero==='yes') conditions.push('Aviation repair: verify that repair method is covered by approved data (engineering order, repair station manual, OEM approved data) before performing');}
+
+ // ── Record generation ───────────────────────────────────────────────
+ let record=dispType+' REQUEST RECORD\n';
+ record+='Generated: '+reqDate+'\n';
+ record+='═══════════════════════════════════════════\n';
+ record+='Part / Item:         '+(partNum||'[not entered]')+'\n';
+ record+='Work Order / Lot:    '+(val('woNum')||'[not entered]')+'\n';
+ record+='Quantity:            '+(qty||'[not entered]')+'\n';
+ record+='Customer Ref:        '+(val('custRef')||'N/A')+'\n';
+ record+='Spec Requirement:    '+(specRef||'[not entered]')+'\n';
+ record+='═══════════════════════════════════════════\n';
+ record+='DEPARTURE DESCRIPTION:\n'+(ncDesc||'[not entered]')+'\n';
+ record+='───────────────────────────────────────────\n';
+ record+='Departure Type:      '+dispType+'\n';
+ record+='Proposed Disposition: '+({uai:'Use-As-Is',repair:'Repair',rework:'Rework',scrap:'Scrap'}[disp]||'[not selected]')+'\n';
+ record+='Safety / KC:         '+(safety==='yes'?'YES — KC/Safety/Airworthiness':safety==='no'?'No':'Unknown — review required')+'\n';
+ record+='Regulated Aviation:  '+(aero==='yes'?'Yes':'No')+'\n';
+ record+='Medical Device:      '+(med==='yes'?'Yes':'No')+'\n';
+ record+='FFF Confirmed:       '+(fff==='yes'?'Yes — by engineering':fff==='no'?'No — NOT confirmed':'Pending')+'\n';
+ record+='───────────────────────────────────────────\n';
+ record+='ENGINEERING RATIONALE:\n'+(engRationale||'[not entered]')+'\n';
+ record+='═══════════════════════════════════════════\n';
+ record+='REQUIRED APPROVALS:\n'+approvals.map((a,i)=>'  '+(i+1)+'. '+a.replace(/<[^>]+>/g,'')).join('\n')+'\n';
+ if(notifications.length) record+='───────────────────────────────────────────\nNOTIFICATIONS / CONDITIONS:\n'+notifications.map(n=>'  • '+n.replace(/<[^>]+>/g,'')).join('\n')+'\n';
+ if(conditions.length) record+='\nADDITIONAL CONDITIONS:\n'+conditions.map(c=>'  • '+c.replace(/<[^>]+>/g,'')).join('\n')+'\n';
+ record+='═══════════════════════════════════════════\n';
+ record+='Requested by:        '+(reqBy||'[not entered]')+'\n';
+ record+='Request date:        '+reqDate+'\n';
+ record+='Quality approval:    _______________________  Date: __________\n';
+ record+='Engineering approval: ______________________  Date: __________\n';
+ if(safety==='yes') record+='Design authority:    _______________________  Date: __________\n';
+ if(med==='yes') record+='Regulatory Affairs:  _______________________  Date: __________\n';
+ record+='Customer approval:   _______________________  Date: __________  N/A: __\n';
+
+ // ── Output ──────────────────────────────────────────────────────────
+ const cls=severity==='HIGH'?'stop':severity==='MEDIUM'?'review':'go';
+ const sevTag=severity==='HIGH'?'t-bad':severity==='MEDIUM'?'t-warn':'t-good';
+ out.innerHTML='<div class="gate '+cls+'">'+
+  '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'+
+  '<div><b style="font-size:15px">Disposition: <span class="tag '+dispTag+'">'+dispType+'</span></b><br>'+
+  '<span class="tag '+sevTag+'" style="margin-top:6px;display:inline-block">Risk level: '+severity+'</span></div></div>'+
+  '<ul class="req-list" style="margin-top:12px"><b style="font-size:13px">Required approvals:</b>'+
+  approvals.map(a=>'<li>'+a+'</li>').join('')+'</ul>'+
+  (notifications.length?'<ul class="req-list" style="margin-top:10px"><b style="font-size:13px">Notifications / obligations:</b>'+notifications.map(n=>'<li>'+n+'</li>').join('')+'</ul>':'')+
+  (conditions.length?'<ul class="req-list" style="margin-top:10px"><b style="font-size:13px">Additional conditions:</b>'+conditions.map(c=>'<li>'+c+'</li>').join('')+'</ul>':'')+
+  '</div>'+
+  '<div class="section" style="margin-top:14px"><h2>Generated Request Record (copy or print)</h2>'+
+  '<div class="record-box">'+record+'</div>'+
+  '<div class="bar" style="margin-top:10px">'+
+  '<button class="btn ghost" onclick="copyRecord()">Copy record to clipboard</button>'+
+  '<button class="btn ghost" onclick="window.print()">Print / PDF</button></div></div>';
+ window._record=record;out.scrollIntoView({behavior:'smooth'});}
+
+function copyRecord(){if(window._record){navigator.clipboard.writeText(window._record).then(()=>alert('Record copied to clipboard.')).catch(()=>alert('Copy failed — select and copy the text manually.'));}}
+function clearAll(){document.querySelectorAll('input[type=text],textarea').forEach(e=>e.value='');document.querySelectorAll('input[type=radio]').forEach(e=>e.checked=false);document.getElementById('gateResult').innerHTML='';}
+</script></body></html>

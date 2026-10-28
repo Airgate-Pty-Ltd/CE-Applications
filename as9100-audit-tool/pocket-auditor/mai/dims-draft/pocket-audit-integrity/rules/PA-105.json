@@ -1,0 +1,48 @@
+{
+  "ruleId": "PA-105",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "major",
+  "category": "completeness",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit"
+  ],
+  "events": [
+    "audit.report.issue_requested"
+  ],
+  "description": "One or more findings were raised on items with no evidence-based assessment.",
+  "requiredFields": [
+    "findings_on_unknown_items_ids"
+  ],
+  "findingText": "One or more findings were raised on items with no evidence-based assessment.",
+  "resolutionHint": "Assess the items or withdraw the findings.",
+  "clauseRefs": [],
+  "condition": {
+    "field": "findings_on_unknown_items_ids",
+    "op": "length_gte",
+    "value": 1
+  },
+  "decision": {
+    "decisionState": "HOLD",
+    "permittedHostAction": "hold:report-issuance",
+    "humanReviewRequired": true,
+    "overrideAuthority": [
+      "lead_auditor"
+    ],
+    "authorityScope": "AP-PA-REPORT-HOLD"
+  },
+  "testCases": [
+    "PA-105-POS-001",
+    "PA-105-NEG-001",
+    "PA-105-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

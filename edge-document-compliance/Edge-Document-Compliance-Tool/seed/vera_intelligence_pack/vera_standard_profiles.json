@@ -1,0 +1,148 @@
+{
+  "profiles": [
+    {
+      "profile_id": "prof_001",
+      "standard_id": null,
+      "standard_code": "AS9100D",
+      "standard_full_name": "AS9100D:2016 - Quality Management Systems - Requirements for Aviation, Space and Defense Organizations",
+      "vera_knowledge_summary": "AS9100D is the aerospace quality standard based on ISO 9001:2015 with additional aerospace-specific requirements. Key additions include configuration management, counterfeit parts prevention, FOD prevention, key characteristics, special requirements, and enhanced risk management focused on product safety and operational safety.",
+      "section_count": 10,
+      "clause_count": 0,
+      "critical_clauses": [],
+      "strategic_intent": "Ensure quality management systems in aerospace supply chains consistently produce safe and reliable products. Provides framework for risk-based thinking, configuration control, and supply chain management critical to aviation safety.",
+      "core_concepts": [],
+      "core_concept_importance": {
+        "configuration_management": 0.98,
+        "risk_based_thinking": 0.95,
+        "product_safety": 0.96,
+        "traceability": 0.94,
+        "supplier_control": 0.92,
+        "special_processes": 0.91,
+        "counterfeit_parts_prevention": 0.93,
+        "fod_prevention": 0.90
+      },
+      "typical_implementations": {
+        "small_organizations": "Focus on core QMS processes, manual configuration control, basic supplier evaluation",
+        "medium_organizations": "Electronic document control, formal configuration management, supplier performance monitoring",
+        "large_organizations": "Integrated QMS systems, enterprise configuration management, comprehensive supplier development programs"
+      },
+      "typical_gaps": [
+        "Configuration management not applied consistently across all products",
+        "Risk-based thinking not used to drive decisions",
+        "Supplier control weakens after initial approval",
+        "Special process validation not maintained",
+        "FOD prevention not systematic",
+        "Key characteristics not identified or controlled"
+      ],
+      "related_standards": {
+        "based_on": "ISO9001:2015",
+        "works_with": ["AS9102", "AS9110", "AS9120", "AS9101F"],
+        "similar_to": ["EN9100", "JISQ9100"]
+      },
+      "industry_variations": {
+        "aircraft_manufacturing": "Strong focus on design control, configuration management, production approval",
+        "component_manufacturing": "Emphasis on special processes, first article inspection, supplier control",
+        "repair_stations": "Focus on maintenance processes, technical data control, personnel qualifications"
+      },
+      "vera_expertise_level": 0.85,
+      "expertise_last_updated": null
+    },
+    {
+      "profile_id": "prof_002",
+      "standard_id": null,
+      "standard_code": "ISO9001",
+      "standard_full_name": "ISO 9001:2015 - Quality management systems - Requirements",
+      "vera_knowledge_summary": "ISO 9001:2015 is the foundational international standard for quality management systems. It provides a framework for organizations to demonstrate their ability to consistently provide products and services that meet customer and regulatory requirements. Key focus areas include risk-based thinking, process approach, and continual improvement.",
+      "section_count": 10,
+      "clause_count": 0,
+      "critical_clauses": [],
+      "strategic_intent": "Provide a framework for quality management that enables organizations to enhance customer satisfaction through effective application of the system, including processes for continual improvement and assurance of conformity to customer and applicable statutory and regulatory requirements.",
+      "core_concepts": [],
+      "core_concept_importance": {
+        "risk_based_thinking": 0.95,
+        "leadership_commitment": 0.94,
+        "process_approach": 0.92,
+        "continuous_improvement": 0.93,
+        "customer_focus": 0.96,
+        "evidence_based_decision_making": 0.88,
+        "relationship_management": 0.85
+      },
+      "typical_implementations": {
+        "small_organizations": "Manual processes, simple document control, basic procedures",
+        "medium_organizations": "Electronic systems, formal processes, structured improvement",
+        "large_organizations": "Integrated management systems, enterprise-wide processes, sophisticated improvement programs"
+      },
+      "typical_gaps": [
+        "Risk-based thinking not implemented, just documented",
+        "Document control not maintained over time",
+        "Management review doesn't drive decisions",
+        "Corrective actions don't address root causes",
+        "Objectives not measurable or not monitored"
+      ],
+      "related_standards": {
+        "basis_for": ["AS9100D", "ISO13485", "IATF16949"],
+        "works_with": ["ISO14001", "ISO45001", "ISO27001"],
+        "part_of": ["ISO9000 family"]
+      },
+      "industry_variations": {
+        "manufacturing": "Strong process controls, product verification, supplier management",
+        "services": "Service delivery processes, customer interaction management",
+        "software": "Development lifecycle controls, version management, testing"
+      },
+      "vera_expertise_level": 0.90,
+      "expertise_last_updated": null
+    },
+    {
+      "profile_id": "prof_003",
+      "standard_id": null,
+      "standard_code": "ISO13485",
+      "standard_full_name": "ISO 13485:2016 - Medical devices - Quality management systems - Requirements for regulatory purposes",
+      "vera_knowledge_summary": "ISO 13485 is the quality management standard for medical devices. Based on ISO 9001 but tailored for medical device regulatory requirements. Key differences include enhanced design controls, risk management integration (per ISO14971), sterile barrier systems, installation and servicing requirements, and regulatory notification requirements.",
+      "section_count": 8,
+      "clause_count": 0,
+      "critical_clauses": [],
+      "strategic_intent": "Ensure medical device organizations have quality management systems that enable them to consistently meet customer and regulatory requirements. Focus on patient safety, risk management, and regulatory compliance.",
+      "core_concepts": [],
+      "core_concept_importance": {
+        "design_control": 0.98,
+        "risk_management": 0.97,
+        "traceability": 0.95,
+        "corrective_preventive_action": 0.94,
+        "sterilization_control": 0.92,
+        "regulatory_compliance": 0.96,
+        "clinical_evaluation": 0.90
+      },
+      "typical_implementations": {
+        "device_manufacturers": "Comprehensive design controls, risk management files, UDI implementation",
+        "contract_manufacturers": "Production controls, supplier management, sterilization validation",
+        "distributors": "Distribution controls, traceability, complaint handling"
+      },
+      "typical_gaps": [
+        "Design controls not comprehensive or not followed",
+        "Risk management not integrated throughout lifecycle",
+        "Regulatory requirements not identified or tracked",
+        "Complaint handling not systematic",
+        "Post-market surveillance weak"
+      ],
+      "related_standards": {
+        "based_on": "ISO9001:2015",
+        "integrates": ["ISO14971", "ISO14644", "ISO11135", "ISO11137"],
+        "works_with": ["FDA21CFR820", "EU MDR", "MDSAP"]
+      },
+      "industry_variations": {
+        "class_i_devices": "Basic QMS requirements, less design control emphasis",
+        "class_ii_devices": "Full design controls, clinical evaluation required",
+        "class_iii_devices": "Enhanced requirements, comprehensive clinical data, post-market surveillance"
+      },
+      "vera_expertise_level": 0.83,
+      "expertise_last_updated": null
+    }
+  ]
+}
+
+
+
+
+
+
+

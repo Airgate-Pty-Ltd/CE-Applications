@@ -1,0 +1,327 @@
+{
+  "concepts": [
+    {
+      "name": "Internal Audit",
+      "category": "audit_type",
+      "description": "An audit conducted by an organization on itself to verify compliance with its own QMS requirements",
+      "aliases": ["first-party audit", "self-audit"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Supplier Audit",
+      "category": "audit_type",
+      "description": "An audit conducted by an organization on its suppliers to verify their capability and compliance",
+      "aliases": ["second-party audit", "vendor audit"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Certification Audit",
+      "category": "audit_type",
+      "description": "An audit conducted by a certification body to determine if an organization meets requirements for certification",
+      "aliases": ["third-party audit", "registration audit"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "FMEA",
+      "category": "tool",
+      "description": "Failure Mode and Effects Analysis - A systematic method for identifying potential failure modes and their effects",
+      "aliases": ["Failure Mode and Effects Analysis", "DFMEA", "PFMEA"],
+      "domain_tags": ["automotive", "aerospace", "medical_device"],
+      "standard_codes": ["IATF16949", "AS9100D", "ISO13485"]
+    },
+    {
+      "name": "APQP",
+      "category": "tool",
+      "description": "Advanced Product Quality Planning - A structured approach to product development and launch",
+      "aliases": ["Advanced Product Quality Planning"],
+      "domain_tags": ["automotive"],
+      "standard_codes": ["IATF16949"]
+    },
+    {
+      "name": "PPAP",
+      "category": "tool",
+      "description": "Production Part Approval Process - A standardized process for approving production parts",
+      "aliases": ["Production Part Approval Process"],
+      "domain_tags": ["automotive"],
+      "standard_codes": ["IATF16949"]
+    },
+    {
+      "name": "SPC",
+      "category": "tool",
+      "description": "Statistical Process Control - Use of statistical methods to monitor and control processes",
+      "aliases": ["Statistical Process Control"],
+      "domain_tags": ["automotive", "aerospace", "medical_device", "general"],
+      "standard_codes": ["IATF16949", "AS9100D", "ISO13485", "ISO9001"]
+    },
+    {
+      "name": "MSA",
+      "category": "tool",
+      "description": "Measurement System Analysis - Evaluation of measurement systems to ensure accuracy and precision",
+      "aliases": ["Measurement System Analysis"],
+      "domain_tags": ["automotive", "aerospace", "medical_device"],
+      "standard_codes": ["IATF16949", "AS9100D", "ISO13485"]
+    },
+    {
+      "name": "Control Plan",
+      "category": "tool",
+      "description": "A document that describes the methods for controlling production processes",
+      "aliases": ["Process Control Plan"],
+      "domain_tags": ["automotive", "aerospace", "medical_device"],
+      "standard_codes": ["IATF16949", "AS9100D", "ISO13485"]
+    },
+    {
+      "name": "8D",
+      "category": "tool",
+      "description": "Eight Disciplines problem-solving methodology for root cause analysis and corrective action",
+      "aliases": ["8 Disciplines", "8D Problem Solving"],
+      "domain_tags": ["automotive", "aerospace", "general"],
+      "standard_codes": ["IATF16949", "AS9100D", "ISO9001"]
+    },
+    {
+      "name": "Ishikawa Diagram",
+      "category": "tool",
+      "description": "Fishbone diagram used for root cause analysis, showing potential causes of a problem",
+      "aliases": ["Fishbone Diagram", "Cause and Effect Diagram"],
+      "domain_tags": ["automotive", "aerospace", "medical_device", "general"],
+      "standard_codes": ["IATF16949", "AS9100D", "ISO13485", "ISO9001"]
+    },
+    {
+      "name": "5 Whys",
+      "category": "tool",
+      "description": "A simple root cause analysis technique that asks 'why' five times to get to the root cause",
+      "aliases": ["Five Whys"],
+      "domain_tags": ["automotive", "aerospace", "medical_device", "general"],
+      "standard_codes": ["IATF16949", "AS9100D", "ISO13485", "ISO9001"]
+    },
+    {
+      "name": "DOE",
+      "category": "tool",
+      "description": "Design of Experiments - A systematic method for determining relationships between factors and outcomes",
+      "aliases": ["Design of Experiments"],
+      "domain_tags": ["automotive", "aerospace", "medical_device"],
+      "standard_codes": ["IATF16949", "AS9100D", "ISO13485"]
+    },
+    {
+      "name": "Procedure",
+      "category": "document",
+      "description": "A document that describes how to perform a process or activity",
+      "aliases": ["Process Procedure", "Standard Operating Procedure", "SOP"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Work Instruction",
+      "category": "document",
+      "description": "A detailed document that describes how to perform a specific task",
+      "aliases": ["WI", "Work Procedure"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Form",
+      "category": "document",
+      "description": "A structured document used to collect and record information",
+      "aliases": ["Record Form"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Record",
+      "category": "document",
+      "description": "Evidence of activities performed or results achieved",
+      "aliases": ["Quality Record"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Quality Manual",
+      "category": "document",
+      "description": "A document that describes the organization's quality management system",
+      "aliases": ["QMS Manual"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "QMS Matrix",
+      "category": "document",
+      "description": "A matrix showing how the organization's processes map to standard requirements",
+      "aliases": ["Process Matrix", "Compliance Matrix"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Lead Auditor",
+      "category": "role",
+      "description": "The auditor responsible for planning, conducting, and reporting on an audit",
+      "aliases": ["Audit Team Leader"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Internal Auditor",
+      "category": "role",
+      "description": "An auditor who conducts internal audits within their own organization",
+      "aliases": ["First-Party Auditor"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Quality Manager",
+      "category": "role",
+      "description": "The person responsible for managing the quality management system",
+      "aliases": ["QMS Manager"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Process Owner",
+      "category": "role",
+      "description": "The person responsible for a specific process within the QMS",
+      "aliases": ["Process Manager"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Inspector",
+      "category": "role",
+      "description": "A person who performs inspection activities to verify product or process conformity",
+      "aliases": ["Quality Inspector"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "NCR",
+      "category": "process",
+      "description": "Nonconformity Report - A document that records a nonconformity found during an audit or inspection",
+      "aliases": ["Nonconformity", "Non-Conformance", "NC"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "CAR",
+      "category": "process",
+      "description": "Corrective Action Request - A formal request to address a nonconformity and prevent recurrence",
+      "aliases": ["Corrective Action", "CA"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "SCAR",
+      "category": "process",
+      "description": "Supplier Corrective Action Request - A CAR issued to a supplier",
+      "aliases": ["Supplier CAR"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Risk Assessment",
+      "category": "process",
+      "description": "The process of identifying, analyzing, and evaluating risks",
+      "aliases": ["Risk Analysis"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Management Review",
+      "category": "process",
+      "description": "A periodic review by top management of the QMS to ensure its continuing suitability and effectiveness",
+      "aliases": ["QMS Review"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Calibration",
+      "category": "process",
+      "description": "The process of verifying and adjusting measuring equipment to ensure accuracy",
+      "aliases": ["Equipment Calibration"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Training",
+      "category": "process",
+      "description": "The process of providing education and training to personnel to ensure competence",
+      "aliases": ["Competence Development"],
+      "domain_tags": ["aerospace", "medical_device", "automotive", "general"],
+      "standard_codes": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "name": "Design Control",
+      "category": "process",
+      "description": "The process of controlling design and development activities to ensure requirements are met",
+      "aliases": ["Design and Development"],
+      "domain_tags": ["aerospace", "medical_device", "automotive"],
+      "standard_codes": ["AS9100D", "ISO13485", "IATF16949"]
+    }
+  ],
+  "relations": [
+    {
+      "source": "APQP",
+      "target": "PPAP",
+      "relation_type": "feeds_into",
+      "metadata": {
+        "description": "APQP is the planning phase that leads to PPAP approval"
+      }
+    },
+    {
+      "source": "FMEA",
+      "target": "Control Plan",
+      "relation_type": "feeds_into",
+      "metadata": {
+        "description": "FMEA identifies risks that flow into Control Plans"
+      }
+    },
+    {
+      "source": "NCR",
+      "target": "CAR",
+      "relation_type": "triggers",
+      "metadata": {
+        "description": "A nonconformity typically triggers a corrective action request"
+      }
+    },
+    {
+      "source": "Lead Auditor",
+      "target": "Internal Audit",
+      "relation_type": "performs",
+      "metadata": {
+        "description": "Lead auditors conduct internal audits"
+      }
+    },
+    {
+      "source": "Procedure",
+      "target": "Work Instruction",
+      "relation_type": "is_parent_of",
+      "metadata": {
+        "description": "Procedures are implemented through work instructions"
+      }
+    },
+    {
+      "source": "SPC",
+      "target": "MSA",
+      "relation_type": "requires",
+      "metadata": {
+        "description": "SPC requires valid measurement systems (MSA)"
+      }
+    },
+    {
+      "source": "8D",
+      "target": "Ishikawa Diagram",
+      "relation_type": "uses",
+      "metadata": {
+        "description": "8D methodology may use Ishikawa diagrams for root cause analysis"
+      }
+    },
+    {
+      "source": "5 Whys",
+      "target": "Ishikawa Diagram",
+      "relation_type": "complements",
+      "metadata": {
+        "description": "5 Whys and Ishikawa diagrams are complementary root cause analysis tools"
+      }
+    }
+  ]
+}
+

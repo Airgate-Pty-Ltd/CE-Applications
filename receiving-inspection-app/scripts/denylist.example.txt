@@ -1,0 +1,51 @@
+# -----------------------------------------------------------------------------
+# Clean-room denylist — EXAMPLE
+#
+# Copy to scripts/denylist.local.txt and fill in. That filename is permanently
+# git-ignored: the real list holds the exact identifiers this repository must
+# never carry, so committing it would defeat the control it enforces.
+#
+#   cp scripts/denylist.example.txt scripts/denylist.local.txt
+#
+# One term per line. Matched as a FIXED STRING, CASE-INSENSITIVELY, and as a
+# WHOLE WORD against tracked content — so "Acme" catches "ACME", "acme", and
+# "acme-corp", but not "acmex" or "myAcmeThing".
+#
+# Whole-word matching exists because substring matching does not survive
+# contact with real source: a four-letter surname fires on the word "boolean",
+# and a gate that cries wolf is a gate people learn to bypass.
+#
+# The trade-off: a term glued inside a longer token — camelCase, a hostname
+# with no separators — will not match. Where that matters, add the variants
+# explicitly, or express the term as a structural pattern in scrub-check.sh.
+#
+# Keep terms specific for the same reason.
+#
+# CI reads the same list from the SCRUB_TERMS repository secret, passed in as
+# SCRUB_EXTRA_TERMS. Structural patterns (document numbers, certificate
+# numbers, third-party system names) are built into scripts/scrub-check.sh and
+# need no entry here.
+# -----------------------------------------------------------------------------
+
+# --- Employer, sites, and legal entities -------------------------------------
+# The organisation whose procedures the logic derives from, every trading name,
+# every site or plant name, and any site abbreviation used in document numbers.
+# EXAMPLE-EMPLOYER-NAME
+# EXAMPLE-SITE-NAME
+
+# --- People ------------------------------------------------------------------
+# Every person who could appear as an author, approver, inspector, or default.
+# Surnames alone are enough, and are what usually leak through fixture data.
+# EXAMPLE-SURNAME
+
+# --- Product lines and brands ------------------------------------------------
+# Article families, marketing names, and any brand the source procedures named.
+# EXAMPLE-PRODUCT-LINE
+
+# --- Customers and suppliers -------------------------------------------------
+# Named accounts from the source process. Fixtures must use fictional parties.
+# EXAMPLE-CUSTOMER-NAME
+
+# --- Anything else that identifies the source --------------------------------
+# Internal system hostnames, tenant names, network share paths, ticket prefixes.
+# EXAMPLE-INTERNAL-HOSTNAME

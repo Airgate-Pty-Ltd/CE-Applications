@@ -1,0 +1,456 @@
+{
+ "standard": "AS9100D",
+ "batch": "03",
+ "covers": "clauses 8.1(g) to 8.3.6(b) (extract lines 145-219)",
+ "authored_from": "licensed-private/lettered-AS9100D.md (private licensed text)",
+ "rows": [
+  {
+   "ref": "8.1(g)",
+   "question": "Which functions are involved in operational planning and control for a product, and how were they engaged?",
+   "evidence": [
+    "Planning record showing function representatives"
+   ]
+  },
+  {
+   "ref": "8.1(h)",
+   "question": "What processes and resources support the use and maintenance of your products and services?",
+   "evidence": [
+    "Support process and resource record"
+   ]
+  },
+  {
+   "ref": "8.1(i)",
+   "question": "Which products and services do you obtain from external providers, and how are they identified?",
+   "evidence": [
+    "List of externally obtained products and services"
+   ]
+  },
+  {
+   "ref": "8.1(j)",
+   "question": "What controls prevent nonconforming products or services being delivered to the customer? Show one example.",
+   "evidence": [
+    "Delivery control record",
+    "Evidence the control operated"
+   ]
+  },
+  {
+   "ref": "8.1.1(a)",
+   "question": "Who is responsible for operational risk management?",
+   "evidence": [
+    "Responsibility assignment for operational risk"
+   ]
+  },
+  {
+   "ref": "8.1.1(b)",
+   "question": "What risk assessment criteria are defined (likelihood, consequences, acceptance)?",
+   "evidence": [
+    "Risk assessment criteria document"
+   ]
+  },
+  {
+   "ref": "8.1.1(c)",
+   "question": "How are operational risks identified, assessed and communicated throughout operations? Show one example.",
+   "evidence": [
+    "Operational risk register",
+    "Communication record"
+   ]
+  },
+  {
+   "ref": "8.1.1(d)",
+   "question": "When a risk exceeds the acceptance criteria, what action is identified and managed?",
+   "evidence": [
+    "Mitigation action for a risk above criteria"
+   ]
+  },
+  {
+   "ref": "8.1.1(e)",
+   "question": "How are risks that remain after mitigation accepted, and by whom?",
+   "evidence": [
+    "Formal risk acceptance record"
+   ]
+  },
+  {
+   "ref": "8.1.2(a)",
+   "question": "How is product identity and traceability to requirements controlled, including identified changes? Show one product.",
+   "evidence": [
+    "Identity and traceability record for a product"
+   ]
+  },
+  {
+   "ref": "8.1.2(b)",
+   "question": "Is the documented information (requirements, design, verification, acceptance) consistent with the actual product attributes? Compare one product to its records.",
+   "evidence": [
+    "Product records compared with the physical product"
+   ]
+  },
+  {
+   "ref": "8.2.1(a)",
+   "question": "What information about products and services is given to customers, and how?",
+   "evidence": [
+    "Customer information records"
+   ]
+  },
+  {
+   "ref": "8.2.1(b)",
+   "question": "How are customer enquiries, contracts and orders handled, including changes?",
+   "evidence": [
+    "Enquiry, order and change records"
+   ]
+  },
+  {
+   "ref": "8.2.1(c)",
+   "question": "How is customer feedback obtained, including complaints? Show one complaint and its handling.",
+   "evidence": [
+    "Feedback and complaint record"
+   ]
+  },
+  {
+   "ref": "8.2.1(d)",
+   "question": "How is customer property handled and controlled? Show one example.",
+   "evidence": [
+    "Customer property record"
+   ]
+  },
+  {
+   "ref": "8.2.1(e)",
+   "question": "Where relevant, what contingency actions are specified for customers?",
+   "evidence": [
+    "Contingency requirement record"
+   ]
+  },
+  {
+   "ref": "8.2.2(a)",
+   "question": "Are the product and service requirements defined, including statutory and regulatory requirements and those the organization considers necessary?",
+   "evidence": [
+    "Defined requirements with regulatory requirements listed"
+   ]
+  },
+  {
+   "ref": "8.2.2(b)",
+   "question": "How do you know you can meet the claims you make for your products and services?",
+   "evidence": [
+    "Capability evidence for a claim"
+   ]
+  },
+  {
+   "ref": "8.2.2(c)",
+   "question": "What special requirements of a product or service have been determined?",
+   "evidence": [
+    "Special requirements record"
+   ]
+  },
+  {
+   "ref": "8.2.2(d)",
+   "question": "What operational risks (new technology, capacity, short delivery time) have been identified for a product or service?",
+   "evidence": [
+    "Operational risk identification record"
+   ]
+  },
+  {
+   "ref": "8.2.3.1(a)",
+   "question": "In a pre-commitment review, how are customer-specified requirements, including delivery and post-delivery, reviewed?",
+   "evidence": [
+    "Order review record covering customer requirements"
+   ]
+  },
+  {
+   "ref": "8.2.3.1(b)",
+   "question": "How are requirements not stated by the customer but needed for intended use identified and reviewed?",
+   "evidence": [
+    "Order review record covering implied requirements"
+   ]
+  },
+  {
+   "ref": "8.2.3.1(c)",
+   "question": "How are requirements specified by the organization reviewed before commitment?",
+   "evidence": [
+    "Order review record covering organization requirements"
+   ]
+  },
+  {
+   "ref": "8.2.3.1(d)",
+   "question": "How are applicable statutory and regulatory requirements reviewed before commitment?",
+   "evidence": [
+    "Order review record covering regulatory requirements"
+   ]
+  },
+  {
+   "ref": "8.2.3.1(e)",
+   "question": "When a contract or order differs from earlier requirements, or a customer requirement cannot be met, how is it negotiated and resolved?",
+   "evidence": [
+    "Negotiation record",
+    "Customer confirmation of requirements"
+   ]
+  },
+  {
+   "ref": "8.2.3.2(a)",
+   "question": "Where are the results of your reviews retained?",
+   "evidence": [
+    "Retained review results"
+   ]
+  },
+  {
+   "ref": "8.2.3.2(b)",
+   "question": "Where are new requirements for products and services retained?",
+   "evidence": [
+    "Retained record of new requirements"
+   ]
+  },
+  {
+   "ref": "8.3.2(a)",
+   "question": "For a design project, how was the nature, duration and complexity of the activity considered in planning?",
+   "evidence": [
+    "Design plan with complexity assessment"
+   ]
+  },
+  {
+   "ref": "8.3.2(b)",
+   "question": "What design stages and reviews are defined in the plan?",
+   "evidence": [
+    "Design stage plan"
+   ]
+  },
+  {
+   "ref": "8.3.2(c)",
+   "question": "What design verification and validation activities are planned?",
+   "evidence": [
+    "Verification and validation plan"
+   ]
+  },
+  {
+   "ref": "8.3.2(d)",
+   "question": "Who is responsible and who has authority for each design activity?",
+   "evidence": [
+    "Design responsibility assignment"
+   ]
+  },
+  {
+   "ref": "8.3.2(e)",
+   "question": "What internal and external resources does the design need?",
+   "evidence": [
+    "Design resource plan"
+   ]
+  },
+  {
+   "ref": "8.3.2(f)",
+   "question": "How are interfaces between people in the design process controlled?",
+   "evidence": [
+    "Interface control record"
+   ]
+  },
+  {
+   "ref": "8.3.2(g)",
+   "question": "How are customers and users involved in the design process?",
+   "evidence": [
+    "Customer or user involvement record"
+   ]
+  },
+  {
+   "ref": "8.3.2(h)",
+   "question": "What requirements for the later provision of the product or service are set in the design plan?",
+   "evidence": [
+    "Design plan with provision requirements"
+   ]
+  },
+  {
+   "ref": "8.3.2(i)",
+   "question": "What level of control do customers or other interested parties expect over the design process, and how is it met?",
+   "evidence": [
+    "Customer control expectation record"
+   ]
+  },
+  {
+   "ref": "8.3.2(j)",
+   "question": "What documented information will show design requirements have been met? Show the activity breakdown and its tasks, resources, responsibilities and inputs and outputs.",
+   "evidence": [
+    "Design activity breakdown",
+    "Documented information plan"
+   ]
+  },
+  {
+   "ref": "8.3.3(a)",
+   "question": "Are functional and performance requirements defined as inputs for a design?",
+   "evidence": [
+    "Design input record"
+   ]
+  },
+  {
+   "ref": "8.3.3(b)",
+   "question": "Is information from previous similar designs used as input? Show an example.",
+   "evidence": [
+    "Input traced to a previous design"
+   ]
+  },
+  {
+   "ref": "8.3.3(c)",
+   "question": "Are statutory and regulatory requirements included in the design inputs?",
+   "evidence": [
+    "Design input with regulatory requirements"
+   ]
+  },
+  {
+   "ref": "8.3.3(d)",
+   "question": "Are standards or codes of practice the organization committed to included in the design inputs?",
+   "evidence": [
+    "Design input with committed standards"
+   ]
+  },
+  {
+   "ref": "8.3.3(e)",
+   "question": "Have the potential consequences of failure been considered in the design inputs?",
+   "evidence": [
+    "Failure consequence assessment"
+   ]
+  },
+  {
+   "ref": "8.3.3(f)",
+   "question": "Where applicable, have the consequences of obsolescence been considered, and are conflicting inputs resolved?",
+   "evidence": [
+    "Obsolescence assessment",
+    "Conflict resolution record"
+   ]
+  },
+  {
+   "ref": "8.3.4(a)",
+   "question": "Are the results to be achieved by each design stage defined?",
+   "evidence": [
+    "Defined results per stage"
+   ]
+  },
+  {
+   "ref": "8.3.4(b)",
+   "question": "Show a design review and its evaluation of whether the results meet requirements.",
+   "evidence": [
+    "Design review record"
+   ]
+  },
+  {
+   "ref": "8.3.4(c)",
+   "question": "Show the verification that design outputs meet the input requirements.",
+   "evidence": [
+    "Verification record"
+   ]
+  },
+  {
+   "ref": "8.3.4(d)",
+   "question": "Show the validation that the product meets requirements for its intended use.",
+   "evidence": [
+    "Validation record"
+   ]
+  },
+  {
+   "ref": "8.3.4(e)",
+   "question": "When a problem was found in a design review, verification or validation, what action was taken?",
+   "evidence": [
+    "Action record for a design problem"
+   ]
+  },
+  {
+   "ref": "8.3.4(f)",
+   "question": "Where is documented information of design activities retained?",
+   "evidence": [
+    "Retained design records"
+   ]
+  },
+  {
+   "ref": "8.3.4(g)",
+   "question": "Who authorized progression to the next design stage, and do the reviews include the concerned functions?",
+   "evidence": [
+    "Stage authorization record",
+    "Review attendance record"
+   ]
+  },
+  {
+   "ref": "8.3.4.1(a)",
+   "question": "For a design test, does the test plan identify the test item, resources, objectives, conditions, parameters and acceptance criteria?",
+   "evidence": [
+    "Test plan"
+   ]
+  },
+  {
+   "ref": "8.3.4.1(b)",
+   "question": "Do the test procedures set out the methods, the steps to carry out the test, and what to record?",
+   "evidence": [
+    "Test procedure"
+   ]
+  },
+  {
+   "ref": "8.3.4.1(c)",
+   "question": "How do you confirm the correct configuration of the test item was submitted for test?",
+   "evidence": [
+    "Configuration record at test submission"
+   ]
+  },
+  {
+   "ref": "8.3.4.1(d)",
+   "question": "Show that the test plan and procedure requirements were observed during the test.",
+   "evidence": [
+    "Test record showing compliance"
+   ]
+  },
+  {
+   "ref": "8.3.4.1(e)",
+   "question": "Show that the acceptance criteria were met, and that test devices were controlled per 7.1.5.",
+   "evidence": [
+    "Test result against acceptance criteria",
+    "Calibration of test devices"
+   ]
+  },
+  {
+   "ref": "8.3.5(a)",
+   "question": "Do design outputs meet the input requirements? Show the comparison.",
+   "evidence": [
+    "Output-to-input comparison"
+   ]
+  },
+  {
+   "ref": "8.3.5(b)",
+   "question": "Are design outputs adequate for the later processes that provide the product?",
+   "evidence": [
+    "Output review for later processes"
+   ]
+  },
+  {
+   "ref": "8.3.5(c)",
+   "question": "Do design outputs include or reference monitoring and measuring requirements and acceptance criteria?",
+   "evidence": [
+    "Output with acceptance criteria"
+   ]
+  },
+  {
+   "ref": "8.3.5(d)",
+   "question": "Do design outputs specify the product characteristics essential for intended purpose and safe provision?",
+   "evidence": [
+    "Essential characteristics list"
+   ]
+  },
+  {
+   "ref": "8.3.5(e)",
+   "question": "Do design outputs identify critical items and key characteristics, with the actions to be taken?",
+   "evidence": [
+    "Critical item and key characteristic record"
+   ]
+  },
+  {
+   "ref": "8.3.5(f)",
+   "question": "Were the design outputs approved by authorized persons before release? Show the approval.",
+   "evidence": [
+    "Approval record before release"
+   ]
+  },
+  {
+   "ref": "8.3.6(a)",
+   "question": "How are design and development changes identified and controlled?",
+   "evidence": [
+    "Design change record"
+   ]
+  },
+  {
+   "ref": "8.3.6(b)",
+   "question": "Where are the results of design change reviews retained?",
+   "evidence": [
+    "Retained change review results"
+   ]
+  }
+ ]
+}

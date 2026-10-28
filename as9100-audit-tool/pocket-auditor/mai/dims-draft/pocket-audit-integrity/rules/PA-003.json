@@ -1,0 +1,52 @@
+{
+  "ruleId": "PA-003",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "major",
+  "category": "completeness",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit_finding"
+  ],
+  "events": [
+    "audit.finding.created",
+    "audit.finding.updated"
+  ],
+  "description": "Statement of nonconformity is missing or under 20 characters.",
+  "requiredFields": [
+    "statement_of_nonconformity"
+  ],
+  "findingText": "Statement of nonconformity is missing or under 20 characters. The requirement, evidence and statement set is incomplete.",
+  "resolutionHint": "Write what was found versus what the requirement intends.",
+  "clauseRefs": [],
+  "condition": {
+    "any": [
+      {
+        "field": "statement_of_nonconformity",
+        "op": "is_empty"
+      },
+      {
+        "field": "statement_of_nonconformity",
+        "op": "length_lt",
+        "value": 20
+      }
+    ]
+  },
+  "decision": {
+    "decisionState": "ADVISE",
+    "permittedHostAction": "none"
+  },
+  "testCases": [
+    "PA-003-POS-001",
+    "PA-003-NEG-001",
+    "PA-003-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

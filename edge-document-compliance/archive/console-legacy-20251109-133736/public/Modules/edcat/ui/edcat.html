@@ -1,0 +1,4048 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>Next Generation Document Assessment Tool</title>
+    <link rel="stylesheet" href="../styles/edcat.css" />
+    <style>
+      :root {
+        --brand-teal: #14b8a6;
+        --brand-teal-dark: #0d9488;
+        --brand-navy: #0f172a;
+        --brand-navy-light: #1e293b;
+
+        --primary: var(--brand-teal);
+        --primary-dark: var(--brand-teal-dark);
+        --primary-light: #5eead4;
+        --secondary: var(--brand-navy-light);
+        --accent: #38bdf8;
+        --accent-light: #a855f7;
+        --accent-secondary: #f97316;
+        --bg: var(--brand-navy);
+        --bg-card: rgba(15, 23, 42, 0.92);
+        --bg-card-light: rgba(30, 41, 59, 0.72);
+        --bg-page: #f7fbfc;
+        --text-primary: #0f172a;
+        --text-secondary: #334155;
+        --text-muted: #64748b;
+        --border: rgba(15, 23, 42, 0.12);
+        --shadow: rgba(15, 23, 42, 0.35);
+        --success: #22c55e;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --info: #38bdf8;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", "Inter", sans-serif;
+        background: var(--bg-page);
+        color: var(--text-primary);
+        min-height: 100vh;
+      }
+
+      .gradient-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background: radial-gradient(
+            circle at 18% 18%,
+            rgba(20, 184, 166, 0.32),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 82% 8%,
+            rgba(56, 189, 248, 0.22),
+            transparent 48%
+          ),
+          radial-gradient(
+            circle at 50% 100%,
+            rgba(13, 148, 136, 0.25),
+            transparent 45%
+          );
+      }
+
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.85);
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      }
+
+      .header-inner {
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 26px;
+        gap: 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .brand img {
+        height: 48px;
+        width: auto;
+      }
+
+      .brand h1 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .brand span {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .header-actions button {
+        border: none;
+        border-radius: 10px;
+        padding: 10px 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid rgba(15, 118, 110, 0.2);
+      }
+
+      .btn-outline:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(15, 118, 110, 0.2);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-light));
+        color: #fff;
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 18px 40px rgba(99, 102, 241, 0.4);
+      }
+
+      .layout {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 30px 26px 80px;
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 32px;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 110px;
+        align-self: start;
+        background: rgba(15, 23, 42, 0.85);
+        border-radius: 22px;
+        padding: 26px 22px;
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .sidebar h2 {
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 18px;
+        opacity: 0.7;
+      }
+
+      .nav-section {
+        margin-bottom: 24px;
+      }
+
+      .nav-section span {
+        display: block;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        color: rgba(255, 255, 255, 0.88);
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+        text-decoration: none;
+      }
+
+      .nav-link.active,
+      .nav-link:hover {
+        background: rgba(99, 102, 241, 0.18);
+        color: #fff;
+        box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.35);
+      }
+
+      .main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, rgba(15, 118, 110, 0.9), rgba(99, 102, 241, 0.9));
+        border-radius: 26px;
+        color: #fff;
+        padding: 34px 38px;
+        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.45);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: -60px;
+        right: -80px;
+        width: 320px;
+        height: 320px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.25), transparent 70%);
+        filter: blur(0px);
+        opacity: 0.6;
+      }
+
+      .hero h2 {
+        font-size: 2rem;
+        margin-bottom: 12px;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+        max-width: 700px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .hero-cta {
+        margin-top: 24px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .hero-cta button {
+        border: none;
+        border-radius: 12px;
+        padding: 12px 18px;
+        font-weight: 600;
+        cursor: pointer;
+        background: rgba(15, 23, 42, 0.4);
+        color: #fff;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+        transition: 0.2s ease;
+      }
+
+      .hero-cta button.primary {
+        background: #fff;
+        color: var(--primary);
+        box-shadow: 0 14px 40px rgba(15, 23, 42, 0.35);
+      }
+
+      .hero-cta button:hover {
+        transform: translateY(-2px);
+      }
+
+      .cards-grid {
+        display: grid;
+        gap: 22px;
+      }
+
+      .cards-grid.large {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
+
+      .cards-grid.medium {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .cards-grid.two-column {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 22px;
+        padding: 24px 26px;
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(15, 23, 42, 0.04);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .card h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .card h3 span {
+        display: inline-flex;
+        width: 36px;
+        height: 36px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: rgba(14, 165, 233, 0.12);
+        color: var(--accent);
+        font-size: 1.15rem;
+      }
+
+      .card p {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 22px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 14px;
+      }
+
+      .stat-card {
+        background: rgba(15, 118, 110, 0.08);
+        border: 1px solid rgba(15, 118, 110, 0.16);
+        border-radius: 16px;
+        padding: 18px;
+      }
+
+      .stat-card h4 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(15, 23, 42, 0.55);
+        margin-bottom: 8px;
+      }
+
+      .stat-card strong {
+        font-size: 1.8rem;
+        color: var(--primary);
+      }
+
+      .stat-card small {
+        display: block;
+        margin-top: 6px;
+        color: rgba(15, 23, 42, 0.55);
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        border-radius: 999px;
+        background: rgba(99, 102, 241, 0.1);
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .icon-ring {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(15, 118, 110, 0.1);
+        color: var(--primary);
+        font-size: 1.4rem;
+      }
+
+      .vertical-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .vertical-list .item {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+
+      .vertical-list .item strong {
+        font-size: 0.95rem;
+      }
+
+      .vertical-list .item span {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      .standard-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .standard-meta {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .standard-meta .timestamp {
+        white-space: nowrap;
+      }
+
+      .btn-link {
+        border: none;
+        background: none;
+        color: var(--primary);
+        font-weight: 600;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .btn-link:hover {
+        text-decoration: underline;
+      }
+
+      .status-chip.info {
+        background: rgba(59, 130, 246, 0.15);
+        color: var(--info);
+      }
+
+      .requirements-preview {
+        max-height: 320px;
+        overflow-y: auto;
+        display: grid;
+        gap: 12px;
+        text-align: left;
+      }
+
+      .requirements-preview .requirement-item {
+        padding: 12px;
+        border-radius: 8px;
+        background: rgba(15, 23, 42, 0.04);
+        border: 1px solid rgba(15, 23, 42, 0.05);
+      }
+
+      .list-divider {
+        height: 1px;
+        background: rgba(15, 23, 42, 0.06);
+        margin: 6px 0 10px;
+      }
+
+      .pill-switcher {
+        background: rgba(148, 163, 184, 0.15);
+        padding: 4px;
+        border-radius: 999px;
+        display: inline-flex;
+        gap: 6px;
+      }
+
+      .pill-switcher button {
+        border: none;
+        background: transparent;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-weight: 600;
+        color: rgba(15, 23, 42, 0.6);
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .pill-switcher button.active {
+        background: #fff;
+        color: var(--primary);
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15);
+      }
+
+      .regulator-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+
+      .regulator-card {
+        background: rgba(14, 165, 233, 0.08);
+        border: 1px solid rgba(14, 165, 233, 0.12);
+        border-radius: 16px;
+        padding: 16px;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .regulator-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 45px rgba(14, 165, 233, 0.25);
+      }
+
+      .regulator-card h4 {
+        color: #0ea5e9;
+        margin-bottom: 6px;
+      }
+
+      .regulator-card p {
+        font-size: 0.85rem;
+        color: rgba(15, 23, 42, 0.65);
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        bottom: 6px;
+        left: 8px;
+        width: 2px;
+        background: rgba(99, 102, 241, 0.25);
+      }
+
+      .timeline-entry {
+        position: relative;
+        padding: 14px 18px;
+        border-radius: 16px;
+        background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.15);
+      }
+
+      .timeline-entry::before {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        border: 4px solid var(--accent);
+        left: -24px;
+        top: 18px;
+      }
+
+      .timeline-entry h4 {
+        color: var(--accent);
+        margin-bottom: 6px;
+      }
+
+      .timeline-entry span {
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(99, 102, 241, 0.65);
+        margin-bottom: 6px;
+      }
+
+      .progress-ring {
+        position: relative;
+        width: 180px;
+        height: 180px;
+      }
+
+      .progress-ring svg {
+        transform: rotate(-90deg);
+      }
+
+      .progress-ring .value {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .score-details {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+        gap: 14px;
+      }
+
+      .score-details .detail {
+        background: rgba(14, 165, 233, 0.08);
+        border-radius: 12px;
+        padding: 12px;
+      }
+
+      .score-details small {
+        display: block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(14, 165, 233, 0.65);
+        margin-bottom: 6px;
+      }
+
+      .score-details strong {
+        font-size: 1.4rem;
+        color: #0ea5e9;
+      }
+
+      .matrix-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+      .matrix-table thead {
+        background: rgba(15, 118, 110, 0.12);
+      }
+
+      .matrix-table th,
+      .matrix-table td {
+        text-align: left;
+        padding: 14px 16px;
+      }
+
+      .matrix-table tbody tr {
+        background: rgba(255, 255, 255, 0.92);
+        border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+      }
+
+      .matrix-table tbody tr:hover {
+        background: rgba(14, 165, 233, 0.08);
+      }
+
+      .status-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .status-chip.success {
+        background: rgba(34, 197, 94, 0.15);
+        color: #15803d;
+      }
+
+      .status-chip.warning {
+        background: rgba(245, 158, 11, 0.15);
+        color: #b45309;
+      }
+
+      .status-chip.danger {
+        background: rgba(239, 68, 68, 0.15);
+        color: #b91c1c;
+      }
+
+      .coverage-bar {
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(148, 163, 184, 0.2);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .coverage-bar span {
+        display: block;
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+      }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 18px;
+      }
+
+      .module {
+        border-radius: 18px;
+        padding: 18px;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        background: rgba(255, 255, 255, 0.85);
+      }
+
+      .module h4 {
+        font-size: 1rem;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+
+      .module p {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .upload-zone {
+        border: 2px dashed rgba(99, 102, 241, 0.4);
+        border-radius: 16px;
+        padding: 28px;
+        text-align: center;
+        color: rgba(99, 102, 241, 0.85);
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .upload-zone:hover {
+        background: rgba(99, 102, 241, 0.08);
+      }
+
+      .list-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .list-chips span {
+        padding: 6px 10px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        background: rgba(100, 116, 139, 0.12);
+        color: rgba(15, 23, 42, 0.75);
+      }
+
+      .light-card {
+        background: rgba(248, 250, 252, 0.9);
+        border-radius: 18px;
+        padding: 20px;
+        border: 1px solid rgba(148, 163, 184, 0.18);
+      }
+
+      .deferred-hidden {
+        display: none !important;
+      }
+
+      .edcat-placeholder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 60vh;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+
+      .edcat-placeholder-card {
+        background: rgba(15, 23, 42, 0.08);
+        border: 1px dashed rgba(148, 163, 184, 0.4);
+        border-radius: 16px;
+        padding: 24px 32px;
+        max-width: 520px;
+        text-align: center;
+        line-height: 1.6;
+      }
+
+      #edcat-profile-list,
+      #edcat-packs-list {
+        font-size: 0.9rem;
+      }
+
+      #edcat-profile-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 14px 0;
+        display: grid;
+        gap: 6px;
+        color: var(--text-secondary);
+      }
+
+      #edcat-profile-list li {
+        padding: 6px 8px;
+        border-radius: 10px;
+        background: rgba(14, 116, 144, 0.12);
+        border: 1px solid rgba(14, 116, 144, 0.2);
+      }
+
+      #edcat-profile-list li strong {
+        display: block;
+        color: var(--primary);
+      }
+
+      .edcat-profile-primary {
+        border-color: rgba(99, 102, 241, 0.32) !important;
+        background: rgba(99, 102, 241, 0.12) !important;
+      }
+
+      #edcat-packs-list li {
+        padding: 6px 8px;
+        border-radius: 10px;
+        background: rgba(148, 163, 184, 0.12);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+      }
+
+      #edcat-packs-list li strong {
+        display: block;
+        color: var(--primary);
+      }
+
+      #edcat-packs-status {
+        margin-top: 14px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .edcat-pack-status-row {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        background: rgba(226, 232, 240, 0.4);
+        font-size: 0.85rem;
+      }
+
+      .edcat-pack-status-row.pending {
+        align-items: flex-start;
+        color: var(--text-muted);
+      }
+
+      .edcat-pack-status-row.error {
+        border-color: rgba(239, 68, 68, 0.35);
+        background: rgba(239, 68, 68, 0.12);
+        color: #b91c1c;
+      }
+
+      .edcat-pack-status-label {
+        font-weight: 600;
+        color: var(--primary);
+      }
+
+      .edcat-pack-status-state {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        width: fit-content;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(99, 102, 241, 0.12);
+        color: var(--accent);
+        font-size: 0.8rem;
+      }
+
+      .edcat-pack-status-ok {
+        background: rgba(34, 197, 94, 0.12);
+        color: var(--success);
+      }
+
+      .edcat-pack-status-updated {
+        background: rgba(249, 115, 22, 0.12);
+        color: var(--warning);
+      }
+
+      .edcat-pack-status-meta {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+      }
+
+      .edcat-pack-status-summary {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+      }
+
+      .auditor-kit {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+      }
+
+      .auditor-kit .kit-card {
+        background: rgba(14, 165, 233, 0.08);
+        border: 1px solid rgba(14, 165, 233, 0.18);
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .audit-board {
+        display: grid;
+        gap: 14px;
+      }
+
+      .audit-task {
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        border-radius: 14px;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .audit-task .actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .audit-task button {
+        border: none;
+        background: rgba(99, 102, 241, 0.12);
+        color: var(--accent);
+        padding: 8px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .footer {
+        max-width: 1440px;
+        margin: 48px auto 36px;
+        padding: 0 26px;
+        display: flex;
+        justify-content: space-between;
+        color: rgba(15, 23, 42, 0.45);
+        font-size: 0.85rem;
+      }
+
+      @media (max-width: 1200px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+          background: rgba(15, 23, 42, 0.92);
+          border-radius: 18px;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .cards-grid.two-column {
+          grid-template-columns: 1fr;
+        }
+
+        .split {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        }
+
+        .header-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 16px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .header-inner {
+          padding: 14px 18px;
+        }
+
+        .layout {
+          padding: 20px 18px 60px;
+        }
+
+        .hero {
+          padding: 28px 26px;
+        }
+
+        .cards-grid.large,
+        .cards-grid.medium {
+          grid-template-columns: 1fr;
+        }
+
+        .progress-ring {
+          width: 160px;
+          height: 160px;
+        }
+      }
+
+      /* Modal Styles */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(4px);
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        animation: fadeIn 0.2s ease;
+      }
+
+      .modal-overlay.active {
+        display: flex;
+      }
+
+      .modal {
+        background: white;
+        border-radius: 20px;
+        max-width: 600px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.5);
+        animation: slideUp 0.3s ease;
+      }
+
+      .modal-header {
+        padding: 24px 28px;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .modal-header h3 {
+        font-size: 1.3rem;
+        color: var(--primary);
+        margin: 0;
+      }
+
+      .modal-close {
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: rgba(15, 23, 42, 0.08);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.2s ease;
+      }
+
+      .modal-close:hover {
+        background: rgba(239, 68, 68, 0.15);
+        color: var(--danger);
+      }
+
+      .modal-body {
+        padding: 28px;
+      }
+
+      .modal-footer {
+        padding: 20px 28px;
+        border-top: 1px solid rgba(15, 23, 42, 0.08);
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+      }
+
+      .modal-footer button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .modal-footer .btn-cancel {
+        background: rgba(15, 23, 42, 0.08);
+        color: var(--text-primary);
+      }
+
+      .modal-footer .btn-confirm {
+        background: linear-gradient(135deg, var(--accent), var(--accent-light));
+        color: white;
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+      }
+
+      .modal-footer .btn-confirm:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* Toast Notifications */
+      .toast-container {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .toast {
+        background: white;
+        padding: 16px 20px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
+        min-width: 300px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: slideInRight 0.3s ease;
+      }
+
+      .toast.success {
+        border-left: 4px solid var(--success);
+      }
+
+      .toast.error {
+        border-left: 4px solid var(--danger);
+      }
+
+      .toast.info {
+        border-left: 4px solid var(--info);
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid rgba(15, 23, 42, 0.15);
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 0.95rem;
+        transition: 0.2s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      }
+
+      .file-upload-area {
+        border: 2px dashed rgba(99, 102, 241, 0.4);
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .file-upload-area:hover {
+        background: rgba(99, 102, 241, 0.05);
+        border-color: var(--accent);
+      }
+
+      .file-upload-area.dragover {
+        background: rgba(99, 102, 241, 0.1);
+        border-color: var(--accent);
+      }
+
+      .uploaded-files {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .uploaded-file {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        background: rgba(15, 118, 110, 0.08);
+        border-radius: 8px;
+      }
+
+      .uploaded-file .remove-file {
+        background: rgba(239, 68, 68, 0.15);
+        color: var(--danger);
+        border: none;
+        border-radius: 6px;
+        padding: 4px 10px;
+        cursor: pointer;
+        font-size: 0.85rem;
+      }
+
+      .loading-spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .highlight {
+        animation: highlightPulse 1.2s ease;
+      }
+
+      @keyframes highlightPulse {
+        0%, 100% {
+          background: transparent;
+        }
+        50% {
+          background: rgba(99, 102, 241, 0.15);
+        }
+      }
+
+      .matrix-table tbody tr {
+        cursor: pointer;
+      }
+
+      .selection-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: 220px;
+        overflow-y: auto;
+        padding: 6px 0;
+      }
+
+      .checkbox-option {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        background: rgba(15, 23, 42, 0.03);
+        align-items: center;
+      }
+
+      .checkbox-option input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+      }
+
+      .checkbox-option strong {
+        display: block;
+        font-size: 0.95rem;
+      }
+
+      .checkbox-option span {
+        display: block;
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        margin-top: 4px;
+      }
+
+      .empty-state {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        padding: 12px 0;
+      }
+
+      .admin-console {
+        background: var(--bg);
+        padding: 26px;
+        max-width: 1440px;
+        margin: 0 auto 80px;
+      }
+
+      .admin-console.hidden {
+        display: none;
+      }
+
+      .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 24px;
+      }
+
+      .admin-header .brand-logo {
+        height: 48px;
+      }
+
+      .admin-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 24px;
+      }
+
+      .admin-sidebar {
+        background: rgba(15, 23, 42, 0.85);
+        border-radius: 18px;
+        padding: 20px;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .tenant-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .tenant-item {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        padding: 10px 14px;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        text-align: left;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .tenant-item.active,
+      .tenant-item:hover {
+        background: rgba(20, 184, 166, 0.2);
+        transform: translateY(-1px);
+      }
+
+      .tenant-item .tenant-name {
+        flex: 1;
+        font-weight: 600;
+      }
+
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        display: inline-block;
+      }
+
+      .status-good {
+        background: #22c55e;
+      }
+
+      .status-warning {
+        background: #f59e0b;
+      }
+
+      .status-error {
+        background: #ef4444;
+      }
+
+      .admin-content .panel {
+        margin-bottom: 24px;
+      }
+
+      .profile-selector,
+      .multi-select-grid,
+      .choice-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .profile-card {
+        border: 1px solid rgba(15, 118, 110, 0.18);
+        border-radius: 12px;
+        padding: 12px;
+        display: grid;
+        grid-template-columns: 24px 24px 1fr;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .profile-card input[type="checkbox"],
+      .profile-card input[type="radio"] {
+        cursor: pointer;
+      }
+
+      .profile-card-body strong {
+        display: block;
+        font-size: 0.95rem;
+      }
+
+      .profile-card-body small {
+        color: var(--text-muted);
+      }
+
+      .multi-select-item {
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        gap: 8px;
+        align-items: flex-start;
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 12px;
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      .choice-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border: 1px solid rgba(15, 118, 110, 0.2);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.85);
+      }
+
+      .verification-log {
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 12px;
+        padding: 12px;
+        min-height: 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .verification-entry {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+      }
+
+      .profile-entry {
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 12px;
+        padding: 12px;
+      }
+
+      .profile-entry summary {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .profile-entry-body {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .reg-feed-entry {
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+
+      .reg-feed-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+
+      .reg-feed-tag {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(20, 184, 166, 0.15);
+        color: var(--primary);
+      }
+
+      .reg-feed-tag.error {
+        background: rgba(239, 68, 68, 0.15);
+        color: #ef4444;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gradient-bg" aria-hidden="true"></div>
+
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <img
+            src="/assets/logos/conform-edge-logo.png"
+            alt="Conform Edge"
+          />
+          <div>
+            <h1>Edge-Document Compliance Assessment Tool</h1>
+            <span>(EDCAT) • Multi-tenant Compliance Intelligence</span>
+            <small style="display: block; color: var(--text-secondary); margin-top: 4px;">
+              Tenant: <strong id="edcat-tenant-label">--</strong> • Profile: <strong id="edcat-profile-label">--</strong>
+            </small>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-outline" data-action="toggle-admin" id="toggleAdminViewBtn">
+            🛠️ Provisioning Console
+          </button>
+          <a class="btn-outline" href="/test-console.html" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+            🧪 Internal Test Console
+          </a>
+          <button class="btn-outline" data-action="open-command-center">
+            Command Center
+          </button>
+          <button class="btn-outline" data-action="launch-audit">
+            Launch Audit Session
+          </button>
+          <button class="btn-primary" data-action="sync-regulators">
+            Sync Regulatory Feeds
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout" id="runtimeView">
+      <aside class="sidebar">
+        <h2>Navigation</h2>
+
+        <div class="nav-section">
+          <span>Modules</span>
+          <a class="nav-link active" data-section="overview">
+            <span>🏠</span> Executive Overview
+          </a>
+          <a class="nav-link" data-section="intake">
+            <span>📥</span> Requirement Intake
+          </a>
+          <a class="nav-link" data-section="intelligence">
+            <span>🧠</span> AI Regulatory Intelligence
+          </a>
+          <a class="nav-link" data-section="library">
+            <span>📚</span> Document Library & RTM
+          </a>
+          <a class="nav-link" data-section="audit">
+            <span>🛡️</span> Audit Workbench
+          </a>
+          <a class="nav-link" data-section="agents">
+            <span>🤖</span> Edge Agents (Beta)
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <span>Regulatory Lenses</span>
+          <a class="nav-link" data-section="faa">
+            <span>✈️</span> FAA / CASA / EASA
+          </a>
+          <a class="nav-link" data-section="medical">
+            <span>🩺</span> FDA / MDSAP / EU MDR
+          </a>
+          <a class="nav-link" data-section="quality">
+            <span>🏭</span> ISO / AS9100 / IATF
+          </a>
+          <a class="nav-link" data-section="custom">
+            <span>🧩</span> Customer Requirements
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <span>Shortcuts</span>
+          <a class="nav-link" data-section="insights">
+            <span>📈</span> Emerging Gaps
+          </a>
+          <a class="nav-link" data-section="workspace">
+            <span>🗂️</span> Collaborative Workspace
+          </a>
+          <a class="nav-link" data-section="reports">
+            <span>🗒️</span> Generate Reports
+          </a>
+        </div>
+      </aside>
+
+      <div class="edcat-placeholder" id="edcat-runtime-placeholder">
+        <div class="edcat-placeholder-card">
+          <h3 style="margin-bottom: 8px;">Tenant context not loaded</h3>
+          <p style="margin: 0;">
+            Launch this runtime using a provisioned tenant link. Once the tenant context is supplied,
+            the compliance dashboard will appear here.
+          </p>
+        </div>
+      </div>
+
+      <section class="main-content deferred-hidden" id="edcat-runtime-main">
+        <div id="edcat-error" style="display:none; margin-bottom: 20px; padding: 14px 18px; border-radius: 12px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); color: #b91c1c;">
+          Unable to load tenant configuration. Verify tenant URL and reload.
+        </div>
+        <section class="hero deferred-hidden" id="edcat-hero-card">
+          <h2>
+            Tenant-aware compliance intelligence for regulators, cert bodies, and enterprises
+          </h2>
+          <p>
+            EDCAT unifies standards, regulatory packs, and customer requirements in a single
+            deployable runtime. Provision tenant-specific environments, orchestrate AI-assisted
+            gap remediation, and maintain continuous audit readiness across the global
+            Conform-Edge network.
+          </p>
+          <div class="hero-cta">
+            <button class="primary" data-action="start-assessment">
+              🚀 Start New Assessment
+            </button>
+            <button data-action="import-standard">
+              📥 Import Standard / Regulation
+            </button>
+          </div>
+          <div class="light-card" style="margin-top: 18px; max-width: 520px;">
+            <h4 style="margin-bottom: 8px;">Active Compliance Profiles</h4>
+            <ul id="edcat-profile-list"></ul>
+            <div class="list-divider"></div>
+            <h4 style="margin: 8px 0;">Requirement Packs In Scope</h4>
+            <ul id="edcat-packs-list" style="list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; color: var(--text-secondary);"></ul>
+            <div id="edcat-packs-status"></div>
+          </div>
+        </section>
+
+        <section class="cards-grid two-column" id="overview">
+          <div class="card">
+            <div class="card-header">
+              <h3><span>📊</span>Compliance Command Center</h3>
+              <div class="pill-switcher">
+                <button class="active" data-scope="global">Global</button>
+                <button data-scope="division">Aerospace</button>
+                <button data-scope="division">MedTech</button>
+              </div>
+            </div>
+            <p>
+              Live compliance posture aggregated from Standards, Regulations,
+              and Customer Requirements. Drill-down anywhere to launch a dynamic
+              gap review, trigger AI briefings, or open the audit workbench.
+            </p>
+            <div class="split">
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <h4>Overall posture</h4>
+                  <strong id="overallScore">--</strong>
+                  <small>Data pending</small>
+                </div>
+                <div class="stat-card">
+                  <h4>Critical gaps</h4>
+                  <strong id="criticalGaps">--</strong>
+                  <small>Data pending</small>
+                </div>
+                <div class="stat-card">
+                  <h4>Active remediation</h4>
+                  <strong id="remediations">--</strong>
+                  <small>Data pending</small>
+                </div>
+                <div class="stat-card">
+                  <h4>Ready for audit</h4>
+                  <strong id="auditReady">--</strong>
+                  <small>Data pending</small>
+                </div>
+              </div>
+              <div class="light-card">
+                <div class="icon-ring">⚡</div>
+                <h4 style="margin-top: 12px">Edge Signals</h4>
+                <div class="list-divider"></div>
+                <div class="empty-state">No signals available yet. Connect regulatory feeds to populate insights.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3><span>🔎</span>Multi-Layer Requirement Lenses</h3>
+              <button class="btn-outline" data-action="configure-lenses">
+                Configure Lenses
+              </button>
+            </div>
+            <p>
+              Toggle between Standard, Regulatory, and Customer requirement
+              views to benchmark every document's coverage. Stream AI-generated
+              clause briefings, highlight deltas, and pivot to remediation play.
+            </p>
+            <div class="module-grid">
+              <div class="module">
+                <h4>Standards Universe</h4>
+                <p>
+                  ISO 9001:2015 • AS9100:2016 • ISO 13485:2016 • IATF 16949
+                </p>
+                <div class="list-divider"></div>
+                <div class="list-chips">
+                  <span>Clause 7.5 Documentation</span>
+                  <span>AS9100 8.1.4</span>
+                  <span>IATF 8.7 NC Control</span>
+                </div>
+              </div>
+              <div class="module">
+                <h4>Regulatory Corridor</h4>
+                <p>Regulatory frameworks will populate here as you ingest official sources.</p>
+                <div class="list-divider"></div>
+                <div class="empty-state">No regulatory correlations calculated yet.</div>
+              </div>
+              <div class="module">
+                <h4>Customer Intelligence</h4>
+                <p>Customer-specific requirements will appear as sets are uploaded.</p>
+                <div class="list-divider"></div>
+                <div class="empty-state">No customer intelligence connected.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3><span>📈</span>Accuracy Dashboard</h3>
+            </div>
+            <p>Track verification accuracy across standards and profiles to ensure requirement mapping fidelity.</p>
+            <div id="accuracySummary" class="stats-grid">
+              <div class="stat-card">
+                <h4>Overall Accuracy</h4>
+                <strong id="accuracyOverall">--</strong>
+                <small>Human-verified coverage</small>
+              </div>
+              <div class="stat-card">
+                <h4>Auto Accepted</h4>
+                <strong id="accuracyAuto">--</strong>
+                <small>Auto-verified requirements</small>
+              </div>
+              <div class="stat-card">
+                <h4>Manual Verified</h4>
+                <strong id="accuracyManual">--</strong>
+                <small>Verified by reviewers</small>
+              </div>
+              <div class="stat-card">
+                <h4>Pending Review</h4>
+                <strong id="accuracyPending">--</strong>
+                <small>Awaiting confirmation</small>
+              </div>
+            </div>
+            <div class="light-card" style="margin-top: 16px;">
+              <h4 style="margin-bottom: 10px;">Accuracy by Standard</h4>
+              <table class="matrix-table" style="margin:0;">
+                <thead>
+                  <tr>
+                    <th>Standard</th>
+                    <th>Accuracy</th>
+                    <th>Total</th>
+                    <th>Auto</th>
+                    <th>Manual</th>
+                    <th>Pending</th>
+                  </tr>
+                </thead>
+                <tbody id="accuracyByStandard"></tbody>
+              </table>
+            </div>
+            <div class="light-card" style="margin-top: 16px;">
+              <h4 style="margin-bottom: 10px;">Accuracy by Profile</h4>
+              <table class="matrix-table" style="margin:0;">
+                <thead>
+                  <tr>
+                    <th>Profile</th>
+                    <th>Accuracy</th>
+                    <th>Total</th>
+                    <th>Auto</th>
+                    <th>Manual</th>
+                    <th>Pending</th>
+                  </tr>
+                </thead>
+                <tbody id="accuracyByProfile"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="cards-grid two-column" id="intake">
+          <div class="card">
+            <div class="card-header">
+              <h3><span>📥</span>Requirement Intake Hub</h3>
+              <button class="btn-outline" data-action="view-history">
+                History
+              </button>
+            </div>
+            <p>
+              Drag-and-drop regulatory PDFs, customer specs, or API feeds. AI
+              extractions auto-tag every SHALL / MUST / WILL clause with
+              authority lineage, cross-references, and suggested owners.
+            </p>
+            <div class="upload-zone" data-action="upload-requirements">
+              <strong>Drop requirements here</strong>
+              <p style="margin-top: 6px; color: rgba(15, 23, 42, 0.45)">
+                PDF • DOCX • XLSX • JSON feeds • REST endpoints
+              </p>
+            </div>
+            <div class="light-card" style="margin-top: 18px">
+               <h4>Live connectors</h4>
+               <div class="empty-state">No connectors configured. Enable data sources to activate live intake.</div>
+             </div>
+            <div class="light-card" id="standardsInventory" style="margin-top: 18px">
+              <h4>Available standards &amp; regulations</h4>
+              <div id="standardsList" class="vertical-list"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3><span>🔗</span>Authority Knowledge Graph</h3>
+              <button class="btn-outline" data-action="open-graph">
+                Explore Graph
+              </button>
+            </div>
+            <p>
+              Map each clause across FAA, CASA, and EASA equivalencies. Overlay
+              ISO, AS, and customer references to evaluate derivative impact of
+              updates in seconds.
+            </p>
+            <div class="regulator-grid">
+              <div class="regulator-card" style="text-align: center;">
+                <h4>Regulatory mappings will appear here</h4>
+                <p style="color: var(--text-secondary);">
+                  Ingest regulations and customer requirement sets to visualise equivalencies and dependencies.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cards-grid two-column" id="intelligence">
+          <div class="card">
+            <div class="card-header">
+              <h3><span>🤖</span>Edge-AdminIntel Streams</h3>
+              <button class="btn-outline" data-action="manage-agents">
+                Manage Agents
+              </button>
+            </div>
+            <p>
+              Dedicated AI agents for ingestion, clause harmonization, document
+              redlines, and auditor briefings. Each agent reports progress,
+              outstanding blockers, and recommended playbooks.
+            </p>
+            <div class="timeline">
+              <div class="timeline-entry" style="text-align: center; color: var(--text-muted);">
+                <p>No AI streams configured yet. Connect automated agents to view activity.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="scorecard">
+            <div class="card-header">
+              <h3><span>🎯</span>Compliance Scoreboard</h3>
+              <button class="btn-outline" data-action="export-score">
+                Export
+              </button>
+            </div>
+            <p>
+              Holistic compliance indicator combining Standards coverage,
+              Regulatory conformance, and Customer requirement alignment. Click
+              any slice to launch a deep dive.
+            </p>
+            <div class="split">
+              <div class="progress-ring">
+                <svg viewBox="0 0 200 200">
+                  <defs>
+                    <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#22c55e" />
+                      <stop offset="50%" stop-color="#14b8a6" />
+                      <stop offset="100%" stop-color="#6366f1" />
+                    </linearGradient>
+                  </defs>
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    stroke="rgba(148,163,184,0.3)"
+                    stroke-width="18"
+                    fill="none"
+                  ></circle>
+                  <circle
+                    id="scoreTrack"
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    stroke="url(#scoreGradient)"
+                    stroke-width="18"
+                    stroke-linecap="round"
+                    fill="none"
+                    stroke-dasharray="534"
+                    stroke-dashoffset="102"
+                  ></circle>
+                </svg>
+                <div class="value" id="scoreValue">81%</div>
+              </div>
+              <div class="score-details">
+                <div class="detail">
+                  <small>Standards</small>
+                  <strong id="scoreStandards">--</strong>
+                  <span style="display: block; color: rgba(15, 23, 42, 0.55); margin-top: 6px"
+                    >Awaiting analysis</span
+                  >
+                </div>
+                <div class="detail">
+                  <small>Regulations</small>
+                  <strong id="scoreRegulations">--</strong>
+                  <span style="display: block; color: rgba(15, 23, 42, 0.55); margin-top: 6px"
+                    >Awaiting analysis</span
+                  >
+                </div>
+                <div class="detail">
+                  <small>Customers</small>
+                  <strong id="scoreCustomers">--</strong>
+                  <span style="display: block; color: rgba(15, 23, 42, 0.55); margin-top: 6px"
+                    >Awaiting analysis</span
+                  >
+                </div>
+                <div class="detail">
+                  <small>AI Confidence</small>
+                  <strong id="scoreConfidence">--</strong>
+                  <span style="display: block; color: rgba(15, 23, 42, 0.55); margin-top: 6px"
+                    >Awaiting analysis</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" id="library">
+          <div class="card-header">
+            <h3><span>📚</span>Document Library & Traceability Grid</h3>
+            <div class="pill-switcher">
+              <button class="active" data-matrix="standards">Standards</button>
+              <button data-matrix="regulations">Regulations</button>
+              <button data-matrix="customers">Customers</button>
+            </div>
+          </div>
+          <p>
+            Unified traceability matrix bridging requirements to controlled
+            documents, evidence, and audit trails. Expand any record to preview
+            AI redlines, clause coverage, and owner insights.
+          </p>
+          <div id="matrixFilterControls" style="margin: 16px 0 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <h4 style="margin: 0; font-size: 0.95rem; color: var(--text-secondary);">
+                Requirement sets in view
+              </h4>
+              <button id="clearMatrixSelection" type="button" class="btn-link hidden" style="font-size: 0.85rem;">
+                Clear selection
+              </button>
+            </div>
+            <div id="matrixFilterList" class="selection-list" style="margin-top: 12px; max-height: 220px;"></div>
+          </div>
+          <div style="overflow-x: auto">
+            <table class="matrix-table">
+              <thead>
+                <tr>
+                  <th>Requirement</th>
+                  <th>Authority</th>
+                  <th>Aligned Documents</th>
+                  <th>Coverage</th>
+                  <th>Status</th>
+                  <th>AI Insights</th>
+                </tr>
+              </thead>
+              <tbody id="matrixBody">
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="cards-grid two-column" id="audit">
+          <div class="card">
+            <div class="card-header">
+              <h3><span>🛡️</span>Audit Workbench - Active Assessments</h3>
+              <button class="btn-outline" data-action="start-assessment">
+                + New Assessment
+              </button>
+            </div>
+            <p>
+              Track and manage your compliance assessments. Each assessment evaluates
+              your organization against specific standards, regulations, or customer requirements.
+            </p>
+            <div class="audit-board" id="assessmentsList">
+              <div style="text-align: center; padding: 30px; color: var(--text-muted);">
+                <div style="font-size: 3rem; margin-bottom: 12px;">📋</div>
+                <p>No assessments yet. Click "+ New Assessment" to create your first assessment!</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3><span>📊</span>Auditee Scorecard</h3>
+              <div class="pill-switcher">
+                <button class="active" data-customer="all">All Auditees</button>
+                <button data-customer="specific">By Auditee</button>
+              </div>
+            </div>
+            <p>
+              Scorecard showing assessment results and conformity metrics for each auditee.
+              Compare performance across customers and identify improvement areas.
+            </p>
+            <div id="conformityAnalysis">
+              <div class="stats-grid" style="margin-bottom: 20px;">
+                <div class="stat-card">
+                  <h4>Overall Conformity</h4>
+                  <strong id="conformityScore">0%</strong>
+                  <small>Across all assessments</small>
+                </div>
+                <div class="stat-card">
+                  <h4>Total Gaps</h4>
+                  <strong id="totalGaps">0</strong>
+                  <small>Identified issues</small>
+                </div>
+                <div class="stat-card">
+                  <h4>Fulfilled Reqs</h4>
+                  <strong id="fulfilledReqs">0</strong>
+                  <small>Fully compliant</small>
+                </div>
+                <div class="stat-card">
+                  <h4>Partial Coverage</h4>
+                  <strong id="partialReqs">0</strong>
+                  <small>Needs improvement</small>
+                </div>
+              </div>
+              <div style="background: rgba(248, 250, 252, 0.9); border-radius: 12px; padding: 16px; border: 1px solid rgba(148, 163, 184, 0.18);">
+                <h4 style="margin-bottom: 12px; font-size: 0.95rem;">Scorecard by Auditee</h4>
+                <div id="customerBreakdown">
+                  <div style="text-align: center; padding: 20px; color: var(--text-muted);">
+                    <p>Create an assessment to see auditee scorecards</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" id="agents">
+          <div class="card-header">
+            <h3><span>🧠</span>Edge Agents • Beta Flight Deck</h3>
+            <button class="btn-outline" data-action="agent-console">
+              Agent Console
+            </button>
+          </div>
+          <p>
+            Purpose-built AI agents orchestrate intake, cross-mapping, smart
+            auditing, and customer updates. Assign owners, set guardrails, and
+            let Edge Agents carry the heavy lift under human supervision.
+          </p>
+          <div class="module-grid">
+            <div class="module" style="text-align: center;">
+              <h4>Edge Agents</h4>
+              <p>Automated agents will appear here once configured.</p>
+              <div class="list-divider"></div>
+              <div class="empty-state">No agents active.</div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <section id="adminConsole" class="admin-console hidden" aria-hidden="true">
+      <header class="admin-header">
+        <div class="header-brand">
+          <img src="/assets/logos/conform-edge-logo.png" alt="Conform-Edge" class="brand-logo" />
+          <div>
+            <h2>EDCAT Provisioning Console</h2>
+            <span class="brand-subtitle">Internal provisioning and compliance configuration</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="btn-ghost" id="adminThemeToggle">Toggle Theme</button>
+          <button type="button" class="btn-link" id="adminCreateTenant">Create Customer</button>
+          <button type="button" class="btn-link" id="adminRunVerification">Run Verification</button>
+        </div>
+      </header>
+      <div class="admin-layout">
+        <aside class="sidebar admin-sidebar" id="adminTenantSidebar">
+          <h3>Customer Roster</h3>
+          <div class="tenant-stack" id="adminTenantStack"></div>
+        </aside>
+        <section class="admin-content">
+          <section class="panel hidden" id="adminTenantPanel">
+            <div class="panel-header">
+              <h2 id="adminTenantTitle">Customer Details</h2>
+              <button type="button" class="btn-ghost" id="adminTenantClose">✕ Close</button>
+            </div>
+            <form id="adminTenantForm">
+              <input type="hidden" id="adminTenantHiddenId" />
+              <div class="form-grid two-col">
+                <div class="form-group">
+                  <label for="adminTenantName">Customer Display Name *</label>
+                  <input type="text" id="adminTenantName" required />
+                </div>
+                <div class="form-group">
+                  <label for="adminTenantId">Customer Identifier</label>
+                  <input type="text" id="adminTenantId" placeholder="auto-generated if blank" />
+                </div>
+              </div>
+              <div class="form-grid two-col">
+                <div class="form-group">
+                  <label for="adminTenantType">Tenant Type *</label>
+                  <select id="adminTenantType" required>
+                    <option value="">Select type…</option>
+                    <option value="regulator">Regulator</option>
+                    <option value="cert_body">Certification Body</option>
+                    <option value="enterprise">Enterprise</option>
+                    <option value="oem">OEM</option>
+                    <option value="mro">MRO</option>
+                    <option value="oem_mro">OEM + MRO</option>
+                    <option value="consultant">Consultant</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="adminTenantCountry">Jurisdiction *</label>
+                  <select id="adminTenantCountry" required></select>
+                  <small class="field-hint">Auto-assigns regulatory packs for OEM/MRO customers.</small>
+                </div>
+              </div>
+              <div class="form-grid two-col">
+                <div class="form-group">
+                  <label for="adminBrandDisplay">Branding Display Name</label>
+                  <input type="text" id="adminBrandDisplay" />
+                </div>
+                <div class="form-group">
+                  <label for="adminBrandLogo">Branding Logo URL</label>
+                  <input type="url" id="adminBrandLogo" />
+                </div>
+              </div>
+              <div class="form-grid two-col">
+                <div class="form-group">
+                  <label for="adminBasePath">Console Base Path</label>
+                  <input type="text" id="adminBasePath" placeholder="/tenants/example" />
+                </div>
+                <div class="form-group">
+                  <label for="adminDbInstance">DB Instance Name</label>
+                  <input type="text" id="adminDbInstance" />
+                </div>
+              </div>
+              <fieldset class="fieldset">
+                <legend>Compliance Profiles</legend>
+                <div id="adminProfileSelector" class="profile-selector"></div>
+              </fieldset>
+              <div class="form-grid two-col">
+                <div class="form-group">
+                  <label>Enabled Standards</label>
+                  <div id="adminStandardsOptions" class="multi-select-grid"></div>
+                  <input type="hidden" id="adminStandardsHidden" />
+                </div>
+                <div class="form-group">
+                  <label>Enabled Regulatory Packs</label>
+                  <div id="adminRegPacksOptions" class="multi-select-grid"></div>
+                  <input type="hidden" id="adminRegPacksHidden" />
+                </div>
+              </div>
+              <fieldset class="fieldset">
+                <legend>Contacts & Subscription</legend>
+                <div class="form-grid two-col">
+                  <div class="form-group">
+                    <label for="adminPrimaryAdminEmail">Primary Admin Email</label>
+                    <input type="email" id="adminPrimaryAdminEmail" />
+                  </div>
+                  <div class="form-group">
+                    <label for="adminTechnicalEmail">Technical Contact Email</label>
+                    <input type="email" id="adminTechnicalEmail" />
+                  </div>
+                  <div class="form-group">
+                    <label for="adminSubscriptionPlan">Subscription Plan</label>
+                    <select id="adminSubscriptionPlan">
+                      <option value="trial">Trial</option>
+                      <option value="standard">Standard</option>
+                      <option value="enterprise">Enterprise</option>
+                      <option value="regulator">Regulator</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="adminSubscriptionStatus">Subscription Status</label>
+                    <select id="adminSubscriptionStatus">
+                      <option value="active">Active</option>
+                      <option value="trial">Trial</option>
+                      <option value="suspended">Suspended</option>
+                      <option value="cancelled">Cancelled</option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+              <div class="form-grid two-col">
+                <div class="form-group">
+                  <label for="adminHealthStatus">Health Status</label>
+                  <select id="adminHealthStatus">
+                    <option value="good">Good</option>
+                    <option value="warning">Warning</option>
+                    <option value="error">Error</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="adminLastHealthCheck">Last Health Check</label>
+                  <input type="datetime-local" id="adminLastHealthCheck" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="adminInternalNotes">Internal Notes</label>
+                <textarea id="adminInternalNotes" rows="3"></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn-link" id="adminSaveTenant">Save Customer</button>
+                <button type="button" class="btn-ghost" id="adminDeleteTenant">Delete Customer</button>
+                <button type="button" class="btn-ghost" id="adminProvisionTenant">Provision Tables</button>
+              </div>
+            </form>
+            <section class="panel verification-panel">
+              <div class="panel-header">
+                <h3>Verification Results</h3>
+              </div>
+              <div id="adminVerificationLog" class="verification-log empty-state">
+                Run verification to view results.
+              </div>
+            </section>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Compliance Profiles Catalog</h2>
+            </div>
+            <div class="panel-body">
+              <div class="catalog" id="adminProfileCatalog"></div>
+              <form id="adminProfileForm" class="profile-form">
+                <input type="hidden" id="adminProfileHiddenId" />
+                <div class="form-grid two-col">
+                  <div class="form-group">
+                    <label for="adminProfileId">Profile ID *</label>
+                    <input type="text" id="adminProfileId" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="adminProfileLabel">Label *</label>
+                    <input type="text" id="adminProfileLabel" required />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="adminProfileDescription">Description</label>
+                  <textarea id="adminProfileDescription" rows="2"></textarea>
+                </div>
+                <fieldset class="fieldset">
+                  <legend>Allowed Tenant Types</legend>
+                  <div id="adminProfileTenantTypes" class="choice-grid"></div>
+                </fieldset>
+                <div class="form-grid two-col">
+                  <div class="form-group">
+                    <label>Standards</label>
+                    <div id="adminProfileStandardsOptions" class="multi-select-grid"></div>
+                  </div>
+                  <div class="form-group">
+                    <label>Regulatory Packs</label>
+                    <div id="adminProfileRegPacksOptions" class="multi-select-grid"></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="adminProfileRegulatorLinks">Regulator Links</label>
+                  <textarea id="adminProfileRegulatorLinks" rows="3"></textarea>
+                  <small class="field-hint">One link per line.</small>
+                </div>
+                <label class="checkbox">
+                  <input type="checkbox" id="adminProfileAllowCustomer" />
+                  <span>Allow customer requirement uploads</span>
+                </label>
+                <div class="form-actions">
+                  <button type="submit" class="btn-link">Save Profile</button>
+                  <button type="button" class="btn-ghost" id="adminProfileDelete">Delete Profile</button>
+                  <button type="button" class="btn-ghost" id="adminProfileReset">Reset</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Regulatory Feed Status</h2>
+              <button type="button" class="btn-ghost" id="adminRefreshFeeds">Refresh</button>
+            </div>
+            <div class="panel-body" id="adminRegulatoryFeeds"></div>
+          </section>
+        </section>
+      </div>
+      <footer class="admin-footer">
+        <nav>
+          <a href="#">Legal</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Data Residency</a>
+          <a href="#">System Status</a>
+        </nav>
+        <p>© Conform-Edge. Internal provisioning console for Edge-Document Compliance Assessment Tool.</p>
+      </footer>
+    </section>
+    <footer class="footer">
+      <div>
+        © 2025 Conform-Edge QMS. Edge-Document Compliance Assessment Tool (EDCAT).
+      </div>
+      <div>
+        FAA • CASA • EASA • FDA • MDSAP • ISO • AS • IATF • Customer-specific
+        frameworks.
+      </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal" id="modalContent">
+        <div class="modal-header">
+          <h3 id="modalTitle">Modal Title</h3>
+          <button class="modal-close" id="modalClose">×</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          Modal content goes here
+        </div>
+        <div class="modal-footer" id="modalFooter">
+          <button class="btn-cancel" id="modalCancelBtn">Cancel</button>
+          <button class="btn-confirm" id="modalConfirmBtn">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../config/tenant-config.js"></script>
+    <script src="../config/profiles-config.js"></script>
+    <script src="../requirements/requirements-config.js"></script>
+    <script src="../runtime/tenant-service.js"></script>
+    <script src="../runtime/tenant-context.js"></script>
+    <script src="../runtime/document-store.js"></script>
+    <script src="../runtime/requirement-map-store.js"></script>
+    <script src="../runtime/requirements-sync.js"></script>
+    <script src="../runtime/admin-console.js"></script>
+    <script src="../runtime/edcat-init.js"></script>
+
+    <script type="module">
+      const state = {
+        standards: [],
+        profiles: [],
+        requirementSets: [],
+        requirementSetsByType: {
+          standard: [],
+          regulation: [],
+          customer: []
+        },
+        librarySelections: {
+          activeType: 'standard',
+          selected: {
+            standard: new Set(),
+            regulation: new Set(),
+            customer: new Set()
+          }
+        }
+      };
+
+      if (!window.__edcatContext && window.EdcatTenantContext && typeof window.EdcatTenantContext.loadTenantContext === 'function') {
+        try {
+          window.__edcatContext = await window.EdcatTenantContext.loadTenantContext();
+        } catch (error) {
+          console.error('EDCAT: failed to load tenant context', error);
+        }
+      }
+
+      const edcatContext = window.__edcatContext || null;
+      const allowedRegulationPacks = new Set(edcatContext?.profile?.enabled_reg_packs || []);
+
+      if (!edcatContext) {
+        console.warn('EDCAT runtime loaded without tenant context. UI will remain in read-only state.');
+      }
+
+      function escapeHtml(value) {
+        if (value === null || value === undefined) return '';
+        return String(value).replace(/[&<>"']/g, (ch) => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[ch]));
+      }
+
+      // ========== Utility Functions ==========
+
+      // Toast Notification System
+      function showToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+
+        const icon = type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ';
+        toast.innerHTML = `<strong>${icon}</strong><span>${message}</span>`;
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.animation = 'slideInRight 0.3s ease reverse';
+          setTimeout(() => toast.remove(), 300);
+        }, 4000);
+      }
+
+      // Modal Dialog System
+      class Modal {
+        constructor() {
+          this.overlay = document.getElementById('modalOverlay');
+          this.titleEl = document.getElementById('modalTitle');
+          this.bodyEl = document.getElementById('modalBody');
+          this.footerEl = document.getElementById('modalFooter');
+          this.closeBtn = document.getElementById('modalClose');
+          this.cancelBtn = document.getElementById('modalCancelBtn');
+          this.confirmBtn = document.getElementById('modalConfirmBtn');
+
+          this.closeBtn.addEventListener('click', () => this.close());
+          this.cancelBtn.addEventListener('click', () => this.close());
+          this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) this.close();
+          });
+        }
+
+        open(title, bodyHTML, options = {}) {
+          this.titleEl.textContent = title;
+          this.bodyEl.innerHTML = bodyHTML;
+
+          if (options.hideFooter) {
+            this.footerEl.style.display = 'none';
+          } else {
+            this.footerEl.style.display = 'flex';
+            this.cancelBtn.textContent = options.cancelText || 'Cancel';
+            this.confirmBtn.textContent = options.confirmText || 'Confirm';
+
+            if (options.onConfirm) {
+              const newConfirmBtn = this.confirmBtn.cloneNode(true);
+              this.confirmBtn.parentNode.replaceChild(newConfirmBtn, this.confirmBtn);
+              this.confirmBtn = newConfirmBtn;
+              this.confirmBtn.addEventListener('click', () => {
+                options.onConfirm();
+                if (!options.keepOpen) this.close();
+              });
+            }
+          }
+
+          this.overlay.classList.add('active');
+        }
+
+        close() {
+          this.overlay.classList.remove('active');
+        }
+      }
+
+      const modal = new Modal();
+
+      // Local Storage Helper
+      const storageNamespace = edcatContext ? `edcat:${edcatContext.tenant_id}:` : 'edcat:global:';
+
+      const storage = {
+        save: (key, data) => {
+          try {
+            localStorage.setItem(`${storageNamespace}${key}`, JSON.stringify(data));
+          } catch (e) {
+            console.warn('Failed to save to localStorage:', e);
+          }
+        },
+        load: (key, defaultValue = null) => {
+          try {
+            const item = localStorage.getItem(`${storageNamespace}${key}`);
+            return item ? JSON.parse(item) : defaultValue;
+          } catch (e) {
+            console.warn('Failed to load from localStorage:', e);
+            return defaultValue;
+          }
+        },
+        remove: (key) => {
+          try {
+            localStorage.removeItem(`${storageNamespace}${key}`);
+          } catch (e) {
+            console.warn('Failed to remove from localStorage:', e);
+          }
+        }
+      };
+
+      // API Request with Retry Logic
+      const apiBase = "";
+
+      async function apiRequest(path, options = {}, retries = 3) {
+        const config = { ...options };
+        config.headers = config.headers ? { ...config.headers } : {};
+
+        if (config.body && typeof config.body === "object" && !(config.body instanceof FormData)) {
+          config.headers["Content-Type"] = "application/json";
+          config.body = JSON.stringify(config.body);
+        }
+
+        if (edcatContext?.tenant_id) {
+          config.headers['x-tenant-id'] = edcatContext.tenant_id;
+        }
+
+        for (let attempt = 0; attempt <= retries; attempt++) {
+          try {
+            const response = await fetch(`${apiBase}${path}`, config);
+
+            if (!response.ok) {
+              const text = await response.text();
+              throw new Error(text || `Request failed with status ${response.status}`);
+            }
+
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+              return await response.json();
+            }
+            return await response.text();
+          } catch (error) {
+            if (attempt === retries) {
+              throw error;
+            }
+            // Exponential backoff: 500ms, 1s, 2s
+            await new Promise(resolve => setTimeout(resolve, 500 * Math.pow(2, attempt)));
+          }
+        }
+      }
+
+      function mapMatrixKeyToSourceType(key) {
+        switch (key) {
+          case 'standards':
+            return 'standard';
+          case 'regulations':
+            return 'regulation';
+          case 'customers':
+            return 'customer';
+          default:
+            return null;
+        }
+      }
+
+      function mapSourceTypeToMatrixKey(type) {
+        switch (type) {
+          case 'standard':
+            return 'standards';
+          case 'regulation':
+            return 'regulations';
+          case 'customer':
+            return 'customers';
+          default:
+            return 'standards';
+        }
+      }
+
+      function getMatrixTypeLabel(type) {
+        switch (type) {
+          case 'standard':
+            return 'standard';
+          case 'regulation':
+            return 'regulatory';
+          case 'customer':
+            return 'customer';
+          default:
+            return 'requirement';
+        }
+      }
+
+      function renderMatrixEmpty(message) {
+        const matrixBody = document.getElementById('matrixBody');
+        if (!matrixBody) return;
+
+        matrixBody.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 24px; color: var(--text-muted);">
+              ${escapeHtml(message)}
+            </td>
+          </tr>
+        `;
+      }
+
+      function updateClearMatrixSelectionButton(hasSelection) {
+        const clearButton = document.getElementById('clearMatrixSelection');
+        if (!clearButton) return;
+
+        clearButton.disabled = !hasSelection;
+        clearButton.classList.toggle('hidden', !hasSelection);
+      }
+
+      function renderMatrixFilterOptions({ triggerLoad = true } = {}) {
+        const listContainer = document.getElementById('matrixFilterList');
+        if (!listContainer) return;
+
+        const activeType = state.librarySelections.activeType || 'standard';
+        const availableSets = state.requirementSetsByType[activeType] || [];
+        if (!state.librarySelections.selected[activeType]) {
+          state.librarySelections.selected[activeType] = new Set();
+        }
+        const selectionSet = state.librarySelections.selected[activeType];
+
+        if (!availableSets.length) {
+          const typeLabel = getMatrixTypeLabel(activeType);
+          listContainer.innerHTML = `<div class="empty-state">No ${escapeHtml(typeLabel)} requirement sets available.</div>`;
+          updateClearMatrixSelectionButton(false);
+          if (triggerLoad) {
+            renderMatrixEmpty(`No ${typeLabel} requirement sets available.`);
+          }
+          return;
+        }
+
+        listContainer.innerHTML = availableSets
+          .map((set) => {
+            const isChecked = selectionSet.has(set.id);
+            const metadata = set.metadata || {};
+            const metaParts = [];
+            if (metadata.version) metaParts.push(`v${metadata.version}`);
+            if (metadata.issuing_body) metaParts.push(metadata.issuing_body);
+            if (typeof set.requirement_count !== 'undefined') {
+              const count = Number(set.requirement_count) || 0;
+              metaParts.push(`${count} requirement${count === 1 ? '' : 's'}`);
+            }
+
+            const subtitle = metaParts.filter(Boolean).join(' • ') || 'Awaiting metadata';
+
+            return `
+              <label class="checkbox-option">
+                <input type="checkbox" data-matrix-set-id="${set.id}" ${isChecked ? 'checked' : ''} />
+                <div>
+                  <strong>${escapeHtml(set.label)}</strong>
+                  <span>${escapeHtml(subtitle)}</span>
+                </div>
+              </label>
+            `;
+          })
+          .join('');
+
+        listContainer.querySelectorAll('input[type="checkbox"]').forEach((input) => {
+          input.addEventListener('change', (event) => {
+            const { matrixSetId } = event.target.dataset;
+            handleMatrixSelectionChange(matrixSetId, event.target.checked);
+          });
+        });
+
+        updateClearMatrixSelectionButton(selectionSet.size > 0);
+
+        if (triggerLoad) {
+          if (selectionSet.size) {
+            loadLibraryMatrix({
+              sourceType: activeType,
+              setIds: Array.from(selectionSet)
+            });
+          } else {
+            renderMatrixEmpty('Select requirement sets to view traceability data.');
+          }
+        }
+      }
+
+      function setMatrixSourceType(sourceType, { persist = true, triggerLoad = true } = {}) {
+        if (!['standard', 'regulation', 'customer'].includes(sourceType)) {
+          return;
+        }
+
+        state.librarySelections.activeType = sourceType;
+
+        if (persist) {
+          storage.save('libraryMatrixType', sourceType);
+        }
+
+        const matrixKey = mapSourceTypeToMatrixKey(sourceType);
+        document.querySelectorAll('[data-matrix]').forEach((button) => {
+          if (button.dataset.matrix === matrixKey) {
+            button.classList.add('active');
+          } else {
+            button.classList.remove('active');
+          }
+        });
+
+        renderMatrixFilterOptions({ triggerLoad });
+      }
+
+      function handleMatrixSelectionChange(setId, isChecked) {
+        const activeType = state.librarySelections.activeType || 'standard';
+        if (!state.librarySelections.selected[activeType]) {
+          state.librarySelections.selected[activeType] = new Set();
+        }
+
+        const selectionSet = state.librarySelections.selected[activeType];
+
+        if (isChecked) {
+          selectionSet.add(setId);
+        } else {
+          selectionSet.delete(setId);
+        }
+
+        updateClearMatrixSelectionButton(selectionSet.size > 0);
+
+        if (selectionSet.size) {
+          loadLibraryMatrix({
+            sourceType: activeType,
+            setIds: Array.from(selectionSet)
+          });
+        } else {
+          renderMatrixEmpty('Select requirement sets to view traceability data.');
+        }
+      }
+
+      async function loadRequirementSets({ preserveSelections = true, triggerLoad = true } = {}) {
+        try {
+          const response = await apiRequest('/api/library/sets');
+          if (!response.success) {
+            throw new Error(response.error || 'Unable to load requirement sets');
+          }
+
+          const sets = Array.isArray(response.sets) ? response.sets : [];
+          state.requirementSets = sets;
+          state.requirementSetsByType = { standard: [], regulation: [], customer: [] };
+
+          const availableTypeIds = {};
+
+          sets.forEach((set) => {
+            const type = set.source_type || 'standard';
+            if (!state.requirementSetsByType[type]) {
+              state.requirementSetsByType[type] = [];
+            }
+            state.requirementSetsByType[type].push(set);
+
+            if (!availableTypeIds[type]) {
+              availableTypeIds[type] = new Set();
+            }
+            availableTypeIds[type].add(set.id);
+
+            if (!state.librarySelections.selected[type]) {
+              state.librarySelections.selected[type] = new Set();
+            }
+          });
+
+          if (!preserveSelections) {
+            Object.keys(state.librarySelections.selected).forEach((type) => {
+              state.librarySelections.selected[type] = new Set();
+            });
+          } else {
+            Object.entries(state.librarySelections.selected).forEach(([type, selectionSet]) => {
+              const allowed = availableTypeIds[type] || new Set();
+              Array.from(selectionSet).forEach((id) => {
+                if (!allowed.has(id)) {
+                  selectionSet.delete(id);
+                }
+              });
+            });
+          }
+
+          renderMatrixFilterOptions({ triggerLoad });
+        } catch (error) {
+          console.error('Failed to load requirement sets:', error);
+          showToast(`Failed to load requirement sets: ${error.message}`, 'error');
+          renderMatrixEmpty('Unable to load requirement sets.');
+        }
+      }
+
+      // ========== DOM Elements ==========
+      const sections = document.querySelectorAll(".nav-link[data-section]");
+      const overallScoreStat = document.getElementById("overallScore");
+      const criticalGapsStat = document.getElementById("criticalGaps");
+      const remediationsStat = document.getElementById("remediations");
+      const auditReadyStat = document.getElementById("auditReady");
+      const scoreValueEl = document.getElementById("scoreValue");
+      const scoreTrackEl = document.getElementById("scoreTrack");
+
+      // ========== Navigation ==========
+      sections.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          sections.forEach((item) => item.classList.remove("active"));
+          link.classList.add("active");
+
+          const target = document.getElementById(link.dataset.section);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            target.classList.add("highlight");
+            setTimeout(() => target.classList.remove("highlight"), 1200);
+          }
+        });
+      });
+
+      // ========== Score Update Function ==========
+      function updateScore(score) {
+        if (overallScoreStat) {
+          overallScoreStat.textContent = `${score}%`;
+        }
+
+        if (scoreTrackEl && scoreValueEl) {
+          const circumference = 534;
+          const offset = circumference - (score / 100) * circumference;
+          scoreTrackEl.style.strokeDashoffset = offset.toFixed(2);
+          scoreValueEl.textContent = `${score}%`;
+        }
+      }
+
+      // ========== Button Action Handlers ==========
+
+      async function handleCommandCenter(element) {
+        const originalText = element.textContent;
+        element.disabled = true;
+        element.innerHTML = '<span class="loading-spinner"></span> Loading…';
+
+        try {
+          const data = await apiRequest("/api/command-center/summary");
+          const { summary, regulatorySync } = data;
+
+          if (summary) {
+            updateScore(summary.overallScore || 0);
+            if (overallScoreStat) overallScoreStat.textContent = `${summary.overallScore || 0}%`;
+            if (criticalGapsStat) criticalGapsStat.textContent = summary.criticalGaps?.toString() || '0';
+            if (remediationsStat) remediationsStat.textContent = summary.activeRemediations?.toString() || '0';
+            if (auditReadyStat) auditReadyStat.textContent = `${summary.auditReadiness || 0}%`;
+
+            storage.save('lastCommandCenterUpdate', { summary, timestamp: Date.now() });
+
+            const hasSignals = Array.isArray(summary.signals) && summary.signals.length > 0;
+            const signalsHTML = hasSignals
+              ? summary.signals
+                .map(signal => `
+                    <div style="padding: 12px; background: rgba(99, 102, 241, 0.08); border-radius: 8px; margin-bottom: 10px;">
+                      <strong>[${signal.type?.toUpperCase() || 'INFO'}] ${signal.title || 'Update'}</strong>
+                      <p style="margin: 6px 0 0 0; color: var(--text-secondary);">${signal.summary || 'No description available.'}</p>
+                    </div>
+                  `)
+                .join('')
+              : `<p style="color: var(--text-muted);">No signals available yet.</p>`;
+
+            const syncTimestamp = regulatorySync?.updatedAt
+              ? `<p style="margin-top: 16px; font-size: 0.9rem; color: var(--text-muted);">Last sync: ${new Date(regulatorySync.updatedAt).toLocaleString()}</p>`
+              : `<p style="margin-top: 16px; font-size: 0.9rem; color: var(--text-muted);">Regulatory synchronization not yet configured.</p>`;
+
+            modal.open('Command Center Updated', `
+              <h4 style="margin-bottom: 16px;">Latest Signals:</h4>
+              ${signalsHTML}
+              ${syncTimestamp}
+            `, { hideFooter: true });
+
+            showToast('Command Center updated successfully', 'success');
+          }
+        } catch (error) {
+          console.error('Command Center error:', error);
+          showToast(`Failed to load Command Center: ${error.message}`, 'error');
+        } finally {
+          element.disabled = false;
+          element.textContent = originalText;
+        }
+      }
+
+      async function handleRegulatorySync(element) {
+        const originalText = element.textContent;
+        element.disabled = true;
+        element.innerHTML = '<span class="loading-spinner"></span> Syncing…';
+
+        try {
+          const data = await apiRequest("/api/regulatory/sync", { method: "POST" });
+          if (!data.success) {
+            throw new Error(data.error || 'Unable to synchronize regulatory feeds');
+          }
+
+          const { sync, message } = data;
+
+          const sourcesHTML = Array.isArray(sync?.sources) && sync.sources.length > 0
+            ? sync.sources.map(source => `
+                <div style="display: flex; justify-content: space-between; padding: 10px; background: rgba(15, 118, 110, 0.08); border-radius: 8px; margin-bottom: 8px;">
+                  <strong>${escapeHtml(source.label || source.id)}</strong>
+                  <span style="color: var(--success);">${escapeHtml(source.catalog_id || '')}</span>
+                </div>
+              `).join('')
+            : '<p style="color: var(--text-muted);">Regulatory ingestion has not been configured yet.</p>';
+
+          modal.open('Regulatory Sync', `
+            <div style="margin-bottom: 16px;">
+              <p style="color: var(--text-secondary);">${message || 'No updates processed.'}</p>
+            </div>
+            <h4 style="margin-bottom: 12px;">Sources:</h4>
+            ${sourcesHTML}
+          `, { hideFooter: true });
+
+          showToast('Regulatory sync completed', 'success');
+          storage.save('lastRegulatorySync', { sync, timestamp: Date.now() });
+          await loadRequirementSets({ preserveSelections: true });
+        } catch (error) {
+          console.error('Regulatory sync error:', error);
+          showToast(`Sync failed: ${error.message}`, 'error');
+        } finally {
+          element.disabled = false;
+          element.textContent = originalText;
+        }
+      }
+
+      async function handleStartAssessment(element) {
+        const originalText = element.textContent;
+        element.disabled = true;
+        element.textContent = 'Loading…';
+
+        try {
+          const [standardsResponse, regulatoryResponse] = await Promise.all([
+            apiRequest('/api/standards'),
+            apiRequest('/api/regulatory/options')
+          ]);
+
+          const allStandards = Array.isArray(standardsResponse.standards) ? standardsResponse.standards : [];
+          const regulatoryOptions = Array.isArray(regulatoryResponse.options) ? regulatoryResponse.options : [];
+
+          const filteredRegulatoryOptions = regulatoryOptions.filter((option) => {
+            if (!allowedRegulationPacks.size) return true;
+            return allowedRegulationPacks.has(option.id);
+          });
+
+          const standardSets = allStandards.filter((item) => (item.source_type || item.requirement_set_type) === 'standard' && item.status === 'parsed');
+          const customerSets = allStandards.filter((item) => (item.source_type || item.requirement_set_type) === 'customer' && item.status === 'parsed');
+
+          const standardOptionsMarkup = standardSets.length
+            ? standardSets.map((standard) => `
+                <label class="checkbox-option">
+                  <input type="checkbox" name="assessment-standards" value="${standard.requirement_set_id}" />
+                  <div>
+                    <strong>${escapeHtml(standard.name)}</strong>
+                    <span>${escapeHtml(standard.title || '')}</span>
+                  </div>
+                </label>
+              `).join('')
+            : '<p class="empty-state">No standards uploaded yet. Import a standard to enable selection.</p>';
+
+          const customerOptionsMarkup = customerSets.length
+            ? customerSets.map((standard) => `
+                <label class="checkbox-option">
+                  <input type="checkbox" name="assessment-customers" value="${standard.requirement_set_id}" />
+                  <div>
+                    <strong>${escapeHtml(standard.name)}</strong>
+                    <span>${escapeHtml(standard.title || '')}</span>
+                  </div>
+                </label>
+              `).join('')
+            : '<p class="empty-state">No customer requirement sets uploaded yet.</p>';
+
+          const regulatoryOptionsMarkup = filteredRegulatoryOptions.length
+            ? filteredRegulatoryOptions.map((option) => `
+                <label class="checkbox-option">
+                  <input type="checkbox" name="assessment-regulations" value="${option.id}" />
+                  <div>
+                    <strong>${escapeHtml(option.name)}</strong>
+                    <span>${escapeHtml([option.group, option.jurisdiction].filter(Boolean).join(' • '))}</span>
+                  </div>
+                </label>
+              `).join('')
+            : '<p class="empty-state">No regulatory catalog available.</p>';
+
+          element.disabled = false;
+          element.textContent = originalText;
+
+          modal.open('Create New Assessment', `
+            <div class="form-group">
+              <label for="assessmentName">Assessment Name *</label>
+              <input type="text" id="assessmentName" placeholder="e.g., CASA Part 145 Gap Review" />
+            </div>
+            <div class="form-group">
+              <label for="assessmentOwner">Assessment Owner *</label>
+              <input type="text" id="assessmentOwner" placeholder="Your name" />
+            </div>
+            <div class="form-group">
+              <label for="assessmentCustomer">Customer / Organization</label>
+              <input type="text" id="assessmentCustomer" placeholder="Enter customer name" />
+            </div>
+            <div class="form-group">
+              <label for="assessmentNotes">Notes</label>
+              <textarea id="assessmentNotes" rows="3" placeholder="Context for this assessment"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Standards</label>
+              <div class="selection-list">${standardOptionsMarkup}</div>
+            </div>
+            <div class="form-group">
+              <label>Regulations</label>
+              <div class="selection-list">${regulatoryOptionsMarkup}</div>
+            </div>
+            <div class="form-group">
+              <label>Customer Requirement Sets</label>
+              <div class="selection-list">${customerOptionsMarkup}</div>
+            </div>
+          `, {
+            confirmText: 'Create Assessment',
+            onConfirm: async () => {
+              const nameInput = document.getElementById('assessmentName');
+              const ownerInput = document.getElementById('assessmentOwner');
+              const customerInput = document.getElementById('assessmentCustomer');
+              const notesInput = document.getElementById('assessmentNotes');
+
+              if (!nameInput.value.trim() || !ownerInput.value.trim()) {
+                showToast('Assessment name and owner are required.', 'error');
+                return;
+              }
+
+              const standardIds = Array.from(document.querySelectorAll("input[name='assessment-standards']:checked")).map((input) => input.value);
+              const regulationIds = Array.from(document.querySelectorAll("input[name='assessment-regulations']:checked")).map((input) => input.value);
+              const customerSetIds = Array.from(document.querySelectorAll("input[name='assessment-customers']:checked")).map((input) => input.value);
+
+              try {
+                modal.confirmBtn.disabled = true;
+                modal.confirmBtn.innerHTML = '<span class="loading-spinner"></span> Saving…';
+
+                await apiRequest('/api/assessments', {
+                  method: 'POST',
+                  body: {
+                    name: nameInput.value.trim(),
+                    owner: ownerInput.value.trim(),
+                    customer: customerInput.value.trim(),
+                    notes: notesInput.value.trim(),
+                    standard_ids: standardIds,
+                    regulation_ids: regulationIds,
+                    customer_set_ids: customerSetIds
+                  }
+                });
+
+                showToast('Assessment created successfully', 'success');
+                modal.close();
+                await loadAssessments();
+              } catch (error) {
+                console.error('Failed to create assessment:', error);
+                showToast(`Failed to create assessment: ${error.message}`, 'error');
+                if (modal.confirmBtn) {
+                  modal.confirmBtn.disabled = false;
+                  modal.confirmBtn.textContent = 'Create Assessment';
+                }
+              }
+            }
+          });
+        } catch (error) {
+          console.error('Failed to prepare assessment modal:', error);
+          showToast(`Unable to load assessment options: ${error.message}`, 'error');
+          element.disabled = false;
+          element.textContent = originalText;
+        }
+      }
+
+      async function loadAssessments() {
+        try {
+          const result = await apiRequest("/api/assessments");
+          const assessments = result.assessments || [];
+
+          const assessmentsList = document.getElementById('assessmentsList');
+          if (!assessmentsList) return;
+
+          if (assessments.length === 0) {
+            assessmentsList.innerHTML = `
+              <div style="text-align: center; padding: 30px; color: var(--text-muted);">
+                <div style="font-size: 3rem; margin-bottom: 12px;">📋</div>
+                <p>No assessments yet. Create your first assessment to get started!</p>
+              </div>
+            `;
+            updateConformityAnalysis([]);
+            return;
+          }
+
+          assessmentsList.innerHTML = assessments.map(assessment => {
+            const requirementSets = assessment.requirement_sets || {};
+            const standardLabels = (requirementSets.standards || []).map(set => escapeHtml(set.label));
+            const regulationLabels = (requirementSets.regulations || []).map(set => escapeHtml(set.label));
+            const customerLabels = (requirementSets.customers || []).map(set => escapeHtml(set.label));
+
+            const scopeLabel = [
+              standardLabels.length ? `Standards: ${standardLabels.join(', ')}` : null,
+              regulationLabels.length ? `Regulations: ${regulationLabels.join(', ')}` : null,
+              customerLabels.length ? `Customer: ${customerLabels.join(', ')}` : null
+            ].filter(Boolean).join(' • ') || 'No requirement sets linked yet';
+
+            const startedAt = assessment.started_at ? new Date(assessment.started_at).toLocaleString() : 'Not started';
+            const status = assessment.status || 'IN_PROGRESS';
+
+            return `
+              <div class="audit-task" style="cursor: pointer;" onclick="viewAssessment('${assessment.id}')">
+                <div>
+                  <strong>${escapeHtml(assessment.name)}</strong>
+                  <div style="color: rgba(15, 23, 42, 0.55); margin-top: 6px;">
+                    ${scopeLabel}
+                  </div>
+                  <div style="color: rgba(15, 23, 42, 0.45); margin-top: 4px;">
+                    Owner: ${escapeHtml(assessment.owner || 'Unassigned')} • Customer: ${escapeHtml(assessment.customer || 'Not specified')} • Started: ${startedAt}
+                  </div>
+                </div>
+                <div class="actions">
+                  <span class="status-chip ${status === 'IN_PROGRESS' ? 'warning' : 'success'}">${status}</span>
+                  <button onclick="event.stopPropagation(); viewAssessment('${assessment.id}')">View</button>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          updateConformityAnalysis(assessments);
+        } catch (error) {
+          console.error('Failed to load assessments:', error);
+          showToast(`Unable to load assessments: ${error.message}`, 'error');
+        }
+      }
+
+      async function loadStandards() {
+        try {
+          const response = await apiRequest('/api/standards');
+          if (response.success) {
+            state.standards = Array.isArray(response.standards) ? response.standards : [];
+            renderStandardsList();
+          }
+        } catch (error) {
+          console.error('Failed to load standards:', error);
+          showToast(`Failed to load standards: ${error.message}`, 'error');
+        }
+      }
+
+      function renderStandardsList() {
+        const container = document.getElementById('standardsList');
+        if (!container) return;
+
+        if (!state.standards.length) {
+          container.innerHTML = `
+            <div style="text-align: center; color: var(--text-muted);">
+              <p>No standards or regulations uploaded yet.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = state.standards
+          .map((standard) => {
+            const metadataObj = typeof standard.metadata === 'string'
+              ? (() => {
+                  try { return JSON.parse(standard.metadata); } catch { return {}; }
+                })()
+              : standard.metadata || {};
+            const associatedProfiles = Array.isArray(metadataObj.associated_profiles) ? metadataObj.associated_profiles : [];
+            const status = standard.status || 'uploaded';
+            let statusClass = 'info';
+            let statusLabel = 'Uploaded';
+
+            if (status === 'parsed') {
+              statusClass = 'success';
+              statusLabel = 'Parsed';
+            } else if (status === 'parsing') {
+              statusClass = 'warning';
+              statusLabel = 'Parsing…';
+            } else if (status === 'error') {
+              statusClass = 'danger';
+              statusLabel = 'Error';
+            }
+
+            const metadata = [
+              standard.issuing_body ? escapeHtml(standard.issuing_body) : null,
+              standard.version ? `Version ${escapeHtml(standard.version)}` : null,
+              standard.category ? escapeHtml(standard.category) : null,
+              associatedProfiles.length ? `Profiles: ${associatedProfiles.map((p) => escapeHtml(p)).join(', ')}` : null
+            ].filter(Boolean).join(' • ');
+
+            const timestamp = standard.parsed_at
+              ? `Parsed ${new Date(standard.parsed_at).toLocaleString()}`
+              : standard.upload_date
+              ? `Uploaded ${new Date(standard.upload_date).toLocaleString()}`
+              : '';
+
+            return `
+              <div class="item standard-item">
+                <div>
+                  <strong>${escapeHtml(standard.name)}</strong>
+                  ${metadata ? `<span>${metadata}</span>` : ''}
+                </div>
+                <div class="standard-meta">
+                  <span class="status-chip ${statusClass}">${statusLabel}</span>
+                  ${timestamp ? `<span class="timestamp">${timestamp}</span>` : ''}
+                  <button class="btn-link" onclick="window.viewStandardRequirements('${standard.id}')">View</button>
+                </div>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      async function loadLibraryMatrix({ sourceType, setIds } = {}) {
+        const matrixBody = document.getElementById('matrixBody');
+        if (!matrixBody) return;
+
+        if (!Array.isArray(setIds) || !setIds.length) {
+          renderMatrixEmpty('Select requirement sets to view traceability data.');
+          return;
+        }
+
+        renderMatrixEmpty('Loading requirements...');
+
+        try {
+          const params = new URLSearchParams();
+          if (sourceType) params.set('sourceType', sourceType);
+          params.set('setIds', setIds.join(','));
+
+          const response = await apiRequest(`/api/library/matrix?${params.toString()}`);
+          const items = Array.isArray(response.items) ? response.items : [];
+
+          if (!items.length) {
+            renderMatrixEmpty('No requirements found for the selected sets.');
+            return;
+          }
+
+          if (edcatContext?.tenant_id && window.RequirementMapStore) {
+            const derivedMappings = [];
+            items.forEach((item) => {
+              const requirementId = item.requirement_id || item.id;
+              const documents = Array.isArray(item.aligned_documents) ? item.aligned_documents : [];
+
+              if (window.DocumentStore) {
+                documents.forEach((docId) => {
+                  window.DocumentStore.saveMetadata(edcatContext.tenant_id, {
+                    document_id: docId,
+                    doc_type: 'evidence',
+                    linked_requirement: requirementId,
+                    last_synced_at: new Date().toISOString()
+                  });
+                });
+              }
+
+              derivedMappings.push({
+                requirement_id: requirementId,
+                status: item.status || 'UNASSESSED',
+                coverage: item.coverage || 0,
+                aligned_documents: documents
+              });
+            });
+
+            window.RequirementMapStore.saveMappings(edcatContext.tenant_id, derivedMappings);
+          }
+
+          matrixBody.innerHTML = items
+            .map((item) => {
+              const documents = Array.isArray(item.aligned_documents) && item.aligned_documents.length
+                ? item.aligned_documents.map((doc) => `<span>${escapeHtml(doc)}</span>`).join(', ')
+                : '—';
+
+              const coverageValue = typeof item.coverage === 'number' ? Math.min(100, Math.max(0, item.coverage)) : 0;
+              const coverageLabel = typeof item.coverage === 'number' ? `${Math.round(coverageValue)}%` : '—';
+              const status = (item.status || 'UNASSESSED').toUpperCase();
+              let statusClass = 'info';
+              if (status === 'MET') statusClass = 'success';
+              else if (status === 'PARTIAL') statusClass = 'warning';
+              else if (status === 'NOT_MET') statusClass = 'danger';
+
+              return `
+                <tr>
+                  <td>
+                    <strong>${escapeHtml(item.requirement_id || 'Requirement')}</strong>
+                    <div style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px;">
+                      ${escapeHtml(item.requirement_text || '')}
+                    </div>
+                  </td>
+                  <td>${escapeHtml(item.authority || 'Unknown')}</td>
+                  <td>${documents}</td>
+                  <td>
+                    <div class="coverage-bar">
+                      <span style="width: ${coverageValue}%;"></span>
+                    </div>
+                    <small style="color: var(--text-muted);">${coverageLabel}</small>
+                  </td>
+                  <td><span class="status-chip ${statusClass}">${escapeHtml(status)}</span></td>
+                  <td style="color: var(--text-secondary);">${escapeHtml(item.ai_insights || 'No insights')}</td>
+                </tr>
+              `;
+            })
+            .join('');
+        } catch (error) {
+          console.error('Failed to load library matrix:', error);
+          renderMatrixEmpty('Unable to load traceability data.');
+          showToast(`Unable to load traceability matrix: ${error.message}`, 'error');
+        }
+      }
+
+      window.viewStandardRequirements = async function (standardId) {
+        modal.open('Standard Details', `
+          <div style="text-align: center; color: var(--text-muted); padding: 16px;">
+            <p>Loading requirements...</p>
+          </div>
+        `, { hideFooter: true });
+
+        try {
+          const response = await apiRequest(`/api/standards/${standardId}`);
+          if (!response.success) {
+            throw new Error(response.error || 'Unable to load standard details');
+          }
+
+          const { standard, requirements } = response;
+          const requirementCount = requirements.length;
+          const previewLimit = 20;
+          const previewItems = requirements
+            .slice(0, previewLimit)
+            .map((req, index) => `
+              <div class="requirement-item">
+                <strong>${escapeHtml(req.clause || req.requirement_id || `Requirement ${index + 1}`)}</strong>
+                <p style="margin-top: 6px; color: var(--text-secondary);">${escapeHtml(req.requirement_text || '')}</p>
+              </div>
+            `).
+            join('');
+
+          const remainderNotice = requirementCount > previewLimit
+            ? `<p style="color: var(--text-muted);">Showing first ${previewLimit} of ${requirementCount} requirements.</p>`
+            : '';
+
+          modal.bodyEl.innerHTML = `
+            <div style="text-align: left;" class="requirements-preview">
+              <div class="requirement-item" style="background: rgba(14, 165, 233, 0.08);">
+                <strong>${escapeHtml(standard.name)}</strong>
+                <p style="margin-top: 6px; color: var(--text-secondary);">
+                  ${escapeHtml(standard.title || '')}
+                </p>
+                <p style="margin-top: 6px; color: var(--text-muted);">
+                  ${standard.version ? `Version ${escapeHtml(standard.version)} • ` : ''}
+                  ${standard.issuing_body ? escapeHtml(standard.issuing_body) : ''}
+                </p>
+                <p style="margin-top: 6px; color: var(--text-muted);">
+                  ${requirementCount} requirement${requirementCount === 1 ? '' : 's'} detected.
+                </p>
+              </div>
+              ${previewItems || '<p style="color: var(--text-muted);">No requirements parsed yet.</p>'}
+            </div>
+            ${remainderNotice}
+          `;
+        } catch (error) {
+          modal.bodyEl.innerHTML = `
+            <div style="color: var(--danger); text-align: center; padding: 16px;">
+              <p>${escapeHtml(error.message)}</p>
+            </div>
+          `;
+        }
+      };
+
+      function updateConformityAnalysis(assessments) {
+        const conformityScoreEl = document.getElementById('conformityScore');
+        const totalGapsEl = document.getElementById('totalGaps');
+        const fulfilledReqsEl = document.getElementById('fulfilledRequirements');
+        const partialReqsEl = document.getElementById('partialRequirements');
+        const breakdown = document.getElementById('auditBreakdown');
+
+        if (!assessments || !assessments.length) {
+          if (conformityScoreEl) conformityScoreEl.textContent = '--';
+          if (totalGapsEl) totalGapsEl.textContent = '0';
+          if (fulfilledReqsEl) fulfilledReqsEl.textContent = '0';
+          if (partialReqsEl) partialReqsEl.textContent = '0';
+          if (breakdown) {
+            breakdown.innerHTML = `
+              <div style="text-align: center; padding: 20px; color: var(--text-muted);">
+                <p>No assessments available yet.</p>
+              </div>
+            `;
+          }
+          return;
+        }
+
+        const totals = assessments.reduce((acc, item) => {
+          acc.progress += Number(item.progress || 0);
+          acc.gaps += Number(item.gap_count || 0);
+          acc.fulfilled += Number(item.fulfilled_requirements || 0);
+          acc.partial += Number(item.partial_requirements || 0);
+          return acc;
+        }, { progress: 0, gaps: 0, fulfilled: 0, partial: 0 });
+
+        const averageProgress = Math.round(totals.progress / assessments.length) || 0;
+
+        if (conformityScoreEl) conformityScoreEl.textContent = `${averageProgress}%`;
+        if (totalGapsEl) totalGapsEl.textContent = totals.gaps.toString();
+        if (fulfilledReqsEl) fulfilledReqsEl.textContent = totals.fulfilled.toString();
+        if (partialReqsEl) partialReqsEl.textContent = totals.partial.toString();
+
+        if (breakdown) {
+          breakdown.innerHTML = assessments.map((assessment) => {
+            const conformityColor = assessment.progress >= 80 ? 'var(--success)' : assessment.progress >= 60 ? 'var(--warning)' : 'var(--danger)';
+
+            return `
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 10px; margin-bottom: 10px; border: 1px solid rgba(15, 23, 42, 0.08);">
+                <div style="flex: 1;">
+                  <strong style="font-size: 0.95rem;">${escapeHtml(assessment.name)}</strong>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
+                    ${escapeHtml(assessment.customer || 'No customer specified')}
+                  </div>
+                </div>
+                <div style="display: flex; gap: 16px; align-items: center;">
+                  <div style="text-align: center;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: ${conformityColor};">
+                      ${Number(assessment.progress || 0)}%
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Conformity</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--danger);">
+                      ${Number(assessment.gap_count || 0)}
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Gaps</div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      window.filterByCustomer = function(customerName) {
+        modal.open(`${customerName} - Assessment Details`, `
+          <div style="padding: 10px; text-align: center; color: var(--text-muted);">
+            <p>Detailed breakdown will appear once assessments have been analyzed.</p>
+          </div>
+        `, {
+          confirmText: 'Go to Document Library',
+          onConfirm: () => {
+            const libraryLink = document.querySelector('[data-section="library"]');
+            if (libraryLink) libraryLink.click();
+          }
+        });
+      }
+
+      window.viewAssessment = async function(assessmentId) {
+        try {
+          const result = await apiRequest(`/api/assessments/${assessmentId}`);
+          const assessment = result.assessment;
+
+          modal.open(`Assessment: ${assessment.id}`, `
+            <div>
+              <div style="margin-bottom: 20px; padding: 16px; background: rgba(99, 102, 241, 0.08); border-radius: 12px;">
+                <h4 style="margin-bottom: 10px;">Assessment Details</h4>
+                <div style="display: grid; gap: 8px;">
+                  <div><strong>Standard:</strong> ${assessment.standard}</div>
+                  <div><strong>Customer:</strong> ${assessment.customer}</div>
+                  <div><strong>Owner:</strong> ${assessment.owner}</div>
+                  <div><strong>Started:</strong> ${new Date(assessment.startedAt).toLocaleString()}</div>
+                  <div><strong>Status:</strong> <span class="status-chip ${assessment.status === 'IN_PROGRESS' ? 'warning' : 'success'}">${assessment.status}</span></div>
+                  ${assessment.notes ? `<div><strong>Notes:</strong> ${assessment.notes}</div>` : ''}
+                </div>
+              </div>
+              <div style="padding: 14px; background: rgba(14, 165, 233, 0.08); border-radius: 10px;">
+                <strong>Available Actions:</strong>
+                <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary);">
+                  • Navigate to Document Library to map requirements<br>
+                  • Use the Audit Workbench to track progress<br>
+                  • Run gap analysis from the RTM section
+                </p>
+              </div>
+            </div>
+          `, {
+            confirmText: 'Go to Document Library',
+            onConfirm: () => {
+              const libraryLink = document.querySelector('[data-section="library"]');
+              if (libraryLink) libraryLink.click();
+            }
+          });
+        } catch (error) {
+          showToast(`Failed to load assessment: ${error.message}`, 'error');
+        }
+      }
+
+      async function handleImportStandard(triggerElement) {
+        const element = triggerElement || null;
+        const originalText = element ? element.textContent : null;
+        if (element) {
+          element.disabled = true;
+          element.textContent = 'Loading…';
+        }
+
+        try {
+          if (!state.profiles.length) {
+            await loadProfilesForTenant();
+          }
+
+          const profileOptionsMarkup = state.profiles.length
+            ? state.profiles
+                .map((profile) => {
+                  const selected = edcatContext?.profile?.profile_id === profile.profile_id ? 'selected' : '';
+                  return `<option value="${profile.profile_id}" ${selected}>${escapeHtml(profile.label)}</option>`;
+                })
+                .join('')
+            : '<option value="" disabled>No profiles available</option>';
+
+          modal.open('Upload Standard or Regulation', `
+            <div class="form-group">
+              <label for="standardName">Standard / Regulation Name *</label>
+              <input type="text" id="standardName" placeholder="e.g., CASA Part 21" />
+            </div>
+            <div class="form-group">
+              <label for="standardTitle">Title</label>
+              <input type="text" id="standardTitle" placeholder="Optional descriptive title" />
+            </div>
+            <div class="form-group">
+              <label for="standardVersion">Version</label>
+              <input type="text" id="standardVersion" placeholder="e.g., Revision B" />
+            </div>
+            <div class="form-group">
+              <label for="standardBody">Issuing Body</label>
+              <input type="text" id="standardBody" placeholder="e.g., Civil Aviation Safety Authority" />
+            </div>
+            <div class="form-group">
+              <label for="standardCategory">Category</label>
+              <select id="standardCategory">
+                <option value="">Select category</option>
+                <option value="Standard">Standard</option>
+                <option value="Regulation">Regulation</option>
+                <option value="Customer Requirement">Customer Requirement</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="standardProfileSelect">Associate Profile</label>
+              <select id="standardProfileSelect">
+                <option value="">No profile (manual association)</option>
+                ${profileOptionsMarkup}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="standardFileInput">Upload File *</label>
+              <input type="file" id="standardFileInput" accept=".pdf,.doc,.docx" />
+              <small style="display: block; margin-top: 6px; color: var(--text-muted);">
+                Accepted formats: PDF, DOC, DOCX • Maximum size: 50MB
+              </small>
+            </div>
+          `, {
+            confirmText: 'Upload',
+            onConfirm: async () => {
+              const name = document.getElementById('standardName').value.trim();
+              const title = document.getElementById('standardTitle').value.trim();
+              const version = document.getElementById('standardVersion').value.trim();
+              const issuingBody = document.getElementById('standardBody').value.trim();
+              const category = document.getElementById('standardCategory').value;
+              const fileInput = document.getElementById('standardFileInput');
+              const profileSelect = document.getElementById('standardProfileSelect');
+              const selectedProfileId = profileSelect ? profileSelect.value : '';
+
+              if (!name) {
+                showToast('Standard or regulation name is required', 'error');
+                return;
+              }
+
+              if (!fileInput || !fileInput.files || !fileInput.files.length) {
+                showToast('Select a file to upload', 'error');
+                return;
+              }
+
+              const formData = new FormData();
+              formData.append('name', name);
+              if (title) formData.append('title', title);
+              if (version) formData.append('version', version);
+              if (issuingBody) formData.append('issuing_body', issuingBody);
+              if (category) formData.append('category', category);
+              if (selectedProfileId) formData.append('profile_id', selectedProfileId);
+              formData.append('standard', fileInput.files[0]);
+
+              const confirmButton = modal.confirmBtn;
+              if (confirmButton) {
+                confirmButton.disabled = true;
+                confirmButton.innerHTML = '<span class="loading-spinner"></span> Uploading…';
+              }
+
+              try {
+                const result = await apiRequest('/api/standards/upload', {
+                  method: 'POST',
+                  body: formData
+                });
+
+                if (!result.success) {
+                  throw new Error(result.error || 'Upload failed');
+                }
+
+                showToast('Standard uploaded. Parsing requirements...', 'success');
+                await loadStandards();
+                await loadRequirementSets({ preserveSelections: true });
+                if (result.standard) {
+                  await openRequirementReview(result.standard);
+                }
+                modal.close();
+              } catch (error) {
+                console.error('Upload error:', error);
+                showToast(`Failed to upload standard: ${error.message}`, 'error');
+              } finally {
+                if (modal.confirmBtn) {
+                  modal.confirmBtn.disabled = false;
+                  modal.confirmBtn.textContent = 'Upload';
+                }
+              }
+            }
+          });
+        } catch (error) {
+          console.error('Failed to prepare import standard modal:', error);
+          showToast(`Unable to load import standard options: ${error.message}`, 'error');
+          element.disabled = false;
+          element.textContent = originalText;
+        }
+      }
+
+      function handleLaunchAudit() {
+        modal.open('Launch Assessment', `
+           <div class="form-group">
+            <label for="auditType">Requirement Set</label>
+            <select id="auditType">
+              <option value="" disabled selected>Select a standard or regulation</option>
+            </select>
+            <small style="display: block; margin-top: 6px; color: var(--text-muted);">
+              Requirement sets will appear here after they are added to the library.
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="auditDate">Scheduled Date</label>
+            <input type="date" id="auditDate" />
+          </div>
+          <div class="form-group">
+            <label for="auditScope">Scope</label>
+            <textarea id="auditScope" rows="3" placeholder="Define audit scope and focus areas..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="auditTeam">Audit Team</label>
+            <input type="text" id="auditTeam" placeholder="Lead auditor, team members..." />
+          </div>
+        `, {
+          confirmText: 'Launch Assessment',
+          onConfirm: () => {
+            const auditTypeSelect = document.getElementById('auditType');
+            const auditType = auditTypeSelect ? auditTypeSelect.value : '';
+            const auditDate = document.getElementById('auditDate').value;
+            const selectedStandard = state.standards.find((standard) => standard.id === auditType);
+
+            if (!selectedStandard) {
+              showToast('Select a requirement set before launching', 'error');
+              return;
+            }
+            showToast(`Assessment created for ${selectedStandard.name}`, 'success');
+            storage.save('lastAudit', { type: selectedStandard.id, date: auditDate, timestamp: Date.now() });
+          }
+        });
+
+        const auditTypeSelect = document.getElementById('auditType');
+        if (auditTypeSelect) {
+          if (state.standards.length === 0) {
+            const option = document.createElement('option');
+            option.value = '';
+            option.textContent = 'No requirement sets available';
+            option.disabled = true;
+            auditTypeSelect.appendChild(option);
+          } else {
+            state.standards.forEach((standard) => {
+              const option = document.createElement('option');
+              option.value = standard.id;
+              option.textContent = `${standard.name}${standard.version ? ` (v${standard.version})` : ''}`;
+              auditTypeSelect.appendChild(option);
+            });
+          }
+        }
+      }
+
+      function handleOpenGraph() {
+        modal.open('Authority Knowledge Graph', `
+          <div style="text-align: center; padding: 40px 20px;">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🕸️</div>
+            <h4 style="margin-bottom: 12px;">Knowledge Graph Visualizer</h4>
+            <p style="color: var(--text-secondary);">
+              Interactive visualization of regulatory equivalencies, clause mappings, and compliance relationships.
+            </p>
+            <p style="color: var(--text-muted); margin-top: 16px;">
+              Metrics will populate once regulatory data has been ingested.
+            </p>
+          </div>
+        `, { hideFooter: true });
+      }
+
+      // ========== Action Handler Mapping ==========
+      const actionHandlers = {
+        'open-command-center': handleCommandCenter,
+        'sync-regulators': handleRegulatorySync,
+        'start-assessment': handleStartAssessment,
+        'import-standard': handleImportStandard,
+        'launch-audit': handleLaunchAudit,
+        'upload-requirements': handleImportStandard,
+        'open-graph': handleOpenGraph,
+        'configure-lenses': () => showToast('Lens configuration panel opening soon', 'info'),
+        'view-history': () => {
+          const history = storage.load('lastCommandCenterUpdate');
+          if (history) {
+            showToast(`Last update: ${new Date(history.timestamp).toLocaleString()}`, 'info');
+          } else {
+            showToast('No history available yet', 'info');
+          }
+        },
+        'manage-agents': () => showToast('Agent management console coming soon', 'info'),
+        'export-score': () => {
+          showToast('Exporting compliance scorecard...', 'success');
+          setTimeout(() => showToast('Export complete! Check your downloads.', 'success'), 1500);
+        },
+        'open-workbench': () => showToast('Opening audit workbench...', 'info'),
+        'open-checklist': () => showToast('Loading audit checklist...', 'info'),
+        'open-evidence': () => showToast('Opening evidence vault...', 'info'),
+        'assign-team': () => showToast('Team assignment panel opening...', 'info'),
+        'view-gap-plan': () => showToast('Loading gap remediation plan...', 'info'),
+        'contact-agent': () => showToast('Connecting to AI agent...', 'info'),
+        'agent-console': () => showToast('Agent control console loading...', 'info')
+      };
+
+      // ========== Event Listeners ==========
+
+      // Button actions
+      document.querySelectorAll("[data-action]").forEach((element) => {
+        element.addEventListener("click", async (event) => {
+          event.preventDefault();
+          const action = element.dataset.action;
+          if (!action) return;
+
+          try {
+            const handler = actionHandlers[action];
+            if (handler) {
+              await handler(element);
+            } else {
+              showToast(`Action '${action}' not yet implemented`, 'info');
+            }
+          } catch (error) {
+            console.error(`Failed to process action '${action}':`, error);
+            showToast(`Action failed: ${error.message}`, 'error');
+          }
+        });
+      });
+
+      // Pill switchers
+      document.querySelectorAll(".pill-switcher button").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (button.dataset.matrix) {
+            const sourceType = mapMatrixKeyToSourceType(button.dataset.matrix);
+            if (sourceType) {
+              setMatrixSourceType(sourceType, { persist: true, triggerLoad: true });
+              showToast(`Switched to ${button.textContent.trim()} view`, 'info');
+            }
+            return;
+          }
+
+          const parent = button.parentElement;
+          if (parent) {
+            parent.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+          }
+          button.classList.add("active");
+
+          const scope = button.dataset.scope || button.dataset.customer;
+          if (scope) {
+            showToast(`Switched to ${scope} view`, 'info');
+            storage.save('lastViewScope', scope);
+          }
+        });
+      });
+
+      const clearMatrixSelectionBtn = document.getElementById('clearMatrixSelection');
+      if (clearMatrixSelectionBtn) {
+        clearMatrixSelectionBtn.addEventListener('click', () => {
+          const activeType = state.librarySelections.activeType || 'standard';
+          if (!state.librarySelections.selected[activeType]) {
+            state.librarySelections.selected[activeType] = new Set();
+          }
+          state.librarySelections.selected[activeType].clear();
+          renderMatrixFilterOptions({ triggerLoad: true });
+          showToast('Matrix selection cleared', 'info');
+        });
+      }
+
+      // ========== Initialize ==========
+      if (edcatContext) {
+        updateScore(0);
+
+        loadProfilesForTenant();
+        loadAssessments();
+        loadStandards();
+
+        const savedMatrixType = storage.load('libraryMatrixType');
+        if (savedMatrixType && ['standard', 'regulation', 'customer'].includes(savedMatrixType)) {
+          state.librarySelections.activeType = savedMatrixType;
+          const savedMatrixKey = mapSourceTypeToMatrixKey(savedMatrixType);
+          document.querySelectorAll('[data-matrix]').forEach((button) => {
+            button.classList.toggle('active', button.dataset.matrix === savedMatrixKey);
+          });
+        }
+
+        loadRequirementSets({ triggerLoad: true });
+
+        const lastScope = storage.load('lastViewScope');
+        if (lastScope) {
+          const scopeButton = document.querySelector(`[data-scope="${lastScope}"], [data-customer="${lastScope}"]`);
+          if (scopeButton) scopeButton.click();
+        }
+
+        // Show welcome toast on first load
+        if (!storage.load('hasVisited')) {
+          setTimeout(() => {
+            showToast('Welcome to the Edge-Document Compliance Assessment Tool', 'success');
+            storage.save('hasVisited', true);
+          }, 1000);
+        }
+
+        console.log('✅ EDCAT runtime initialized for tenant', edcatContext.tenant_id);
+      } else {
+        const errorEl = document.getElementById('edcat-error');
+        if (errorEl) {
+          errorEl.style.display = 'block';
+        }
+      }
+
+      async function loadProfilesForTenant() {
+        if (!edcatContext) return;
+        try {
+          const response = await apiRequest('/api/tenants/profiles');
+          const profiles = Array.isArray(response.profiles) ? response.profiles : [];
+          const tenantTypes = Array.isArray(edcatContext.tenant?.tenant_types) && edcatContext.tenant.tenant_types.length
+            ? edcatContext.tenant.tenant_types
+            : edcatContext.tenant?.tenant_type
+            ? [edcatContext.tenant.tenant_type]
+            : [];
+          state.profiles = profiles.filter((profile) => {
+            if (!Array.isArray(profile.tenant_types_allowed) || !profile.tenant_types_allowed.length) {
+              return true;
+            }
+            if (!tenantTypes.length) return true;
+            return profile.tenant_types_allowed.some((type) => tenantTypes.includes(type));
+          });
+        } catch (error) {
+          console.error('Failed to load profiles for tenant:', error);
+          state.profiles = [];
+        }
+      }
+
+      async function openRequirementReview(standard) {
+        try {
+          const response = await apiRequest(`/api/standards/${standard.id}`);
+          if (!response.success) {
+            throw new Error(response.error || 'Unable to load standard details');
+          }
+
+          const requirements = Array.isArray(response.requirements) ? response.requirements : [];
+          if (!requirements.length) {
+            showToast('No requirements detected for this standard.', 'info');
+            return;
+          }
+
+          const reviewItems = requirements
+            .map((req, index) => {
+              const verified = req.human_verified ? 'checked' : '';
+              const notes = req.review_notes || '';
+              return `
+                <div class="requirement-item" data-review-id="${req.id}" style="border:1px solid rgba(148,163,184,0.25); border-radius: 10px; padding: 12px; display: grid; gap: 8px;">
+                  <div style="font-weight:600;">${escapeHtml(req.clause || req.requirement_id || `Requirement ${index + 1}`)}</div>
+                  <div style="color: var(--text-secondary); font-size: 0.9rem;">${escapeHtml(req.requirement_text || '')}</div>
+                  <label style="display:flex; gap:10px; align-items:center;">
+                    <input type="checkbox" ${verified} />
+                    <span>Mark as verified</span>
+                  </label>
+                  <textarea data-review-note placeholder="Notes" style="width:100%; min-height:60px; border-radius:8px; border:1px solid rgba(148,163,184,0.25); background: rgba(15,23,42,0.05); color: inherit; padding:8px;">${escapeHtml(notes)}</textarea>
+                </div>
+              `;
+            })
+            .join('');
+
+          modal.open(`Review Requirements – ${escapeHtml(standard.name)}`, `
+            <div style="display: grid; gap: 12px; max-height: 60vh; overflow-y: auto;">
+              ${reviewItems}
+            </div>
+          `, {
+            confirmText: 'Save Review',
+            onConfirm: async () => {
+              const rows = Array.from(document.querySelectorAll('[data-review-id]'));
+              if (!rows.length) {
+                modal.close();
+                return;
+              }
+
+              const updates = rows.map((row) => {
+                const requirementId = row.getAttribute('data-review-id');
+                const verifiedInput = row.querySelector('input[type="checkbox"]');
+                const notesInput = row.querySelector('[data-review-note]');
+                return {
+                  requirement_id: requirementId,
+                  human_verified: verifiedInput ? verifiedInput.checked : false,
+                  review_notes: notesInput ? notesInput.value.trim() : null
+                };
+              });
+
+              try {
+                await apiRequest(`/api/standards/${standard.id}/requirements/review`, {
+                  method: 'POST',
+                  body: { updates }
+                });
+                showToast('Requirement review saved.', 'success');
+                modal.close();
+                await loadStandards();
+              } catch (error) {
+                console.error('Failed to save review:', error);
+                showToast(`Failed to save review: ${error.message}`, 'error');
+              }
+            }
+          });
+        } catch (error) {
+          console.error('Failed to open requirement review:', error);
+          showToast(`Failed to open requirement review: ${error.message}`, 'error');
+        }
+      }
+
+      const accuracyOverallEl = document.getElementById('accuracyOverall');
+      const accuracyAutoEl = document.getElementById('accuracyAuto');
+      const accuracyManualEl = document.getElementById('accuracyManual');
+      const accuracyPendingEl = document.getElementById('accuracyPending');
+      const accuracyByStandardBody = document.getElementById('accuracyByStandard');
+      const accuracyByProfileBody = document.getElementById('accuracyByProfile');
+
+      async function loadAccuracyDashboard() {
+        if (!edcatContext) return;
+        try {
+          const response = await apiRequest('/api/analytics/accuracy');
+          if (!response.success) {
+            throw new Error(response.error || 'Unable to load accuracy metrics');
+          }
+
+          const overall = response.overall || {};
+          const byStandard = Array.isArray(response.byStandard) ? response.byStandard : [];
+          const byProfile = Array.isArray(response.byProfile) ? response.byProfile : [];
+
+          if (accuracyOverallEl) {
+            accuracyOverallEl.textContent = `${overall.accuracy !== undefined ? overall.accuracy.toFixed(2) : '--'}%`;
+          }
+
+          if (accuracyAutoEl) {
+            const value = overall.auto_verified || 0;
+            const total = overall.total || 0;
+            const pct = total ? ((value / total) * 100).toFixed(2) : '--';
+            accuracyAutoEl.textContent = `${pct}%`;
+          }
+
+          if (accuracyManualEl) {
+            const value = overall.manual_verified || 0;
+            const total = overall.total || 0;
+            const pct = total ? ((value / total) * 100).toFixed(2) : '--';
+            accuracyManualEl.textContent = `${pct}%`;
+          }
+
+          if (accuracyPendingEl) {
+            const value = overall.pending_review || 0;
+            accuracyPendingEl.textContent = value.toString();
+          }
+
+          if (accuracyByStandardBody) {
+            accuracyByStandardBody.innerHTML = byStandard.length
+              ? byStandard
+                  .map((row) => {
+                    return `
+                      <tr>
+                        <td>${escapeHtml(row.standard_name || row.standard_id || 'Standard')}</td>
+                        <td>${row.accuracy !== undefined ? `${row.accuracy.toFixed(2)}%` : '--'}</td>
+                        <td>${row.total}</td>
+                        <td>${row.auto_verified}</td>
+                        <td>${row.manual_verified}</td>
+                        <td>${row.pending_review}</td>
+                      </tr>
+                    `;
+                  })
+                  .join('')
+              : '<tr><td colspan="6" style="text-align:center; color: var(--text-muted); padding: 12px;">No standards ingested yet.</td></tr>';
+          }
+
+          if (accuracyByProfileBody) {
+            accuracyByProfileBody.innerHTML = byProfile.length
+              ? byProfile
+                  .map((row) => {
+                    return `
+                      <tr>
+                        <td>${escapeHtml(row.profile_id || 'Unassigned')}</td>
+                        <td>${row.accuracy !== undefined ? `${row.accuracy.toFixed(2)}%` : '--'}</td>
+                        <td>${row.total}</td>
+                        <td>${row.auto_verified}</td>
+                        <td>${row.manual_verified}</td>
+                        <td>${row.pending_review}</td>
+                      </tr>
+                    `;
+                  })
+                  .join('')
+              : '<tr><td colspan="6" style="text-align:center; color: var(--text-muted); padding: 12px;">No profiles associated yet.</td></tr>';
+          }
+        } catch (error) {
+          console.error('Failed to load accuracy dashboard:', error);
+          if (accuracyByStandardBody) {
+            accuracyByStandardBody.innerHTML = '<tr><td colspan="6" style="text-align:center; color: var(--text-muted); padding: 12px;">Unable to load accuracy metrics.</td></tr>';
+          }
+          if (accuracyByProfileBody) {
+            accuracyByProfileBody.innerHTML = '<tr><td colspan="6" style="text-align:center; color: var(--text-muted); padding: 12px;">Unable to load accuracy metrics.</td></tr>';
+          }
+        }
+      }
+
+      loadProfilesForTenant();
+      loadAssessments();
+      loadStandards();
+      loadAccuracyDashboard();
+
+      loadRequirementSets({ triggerLoad: true });
+      loadAccuracyDashboard();
+    </script>
+
+<div id="edcat-ip-note">
+  <small>EDCAT is proprietary to Conform-Edge; regulatory references are sourced from official publications and each tenant remains responsible for compliance obligations.</small>
+</div>
+<footer id="edcat-footer">
+  <div class="edcat-footer-left">
+    <span>© 2025 Conform-Edge Quality Consulting LLC. All rights reserved.</span>
+  </div>
+  <div class="edcat-footer-right">
+    <a href="/legal" target="_blank" rel="noopener noreferrer">Legal</a>
+    <span class="sep">•</span>
+    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+    <span class="sep">•</span>
+    <a href="/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+    <span class="sep">•</span>
+    <a href="/data-residency" target="_blank" rel="noopener noreferrer">Data Residency</a>
+    <span class="sep">•</span>
+    <a href="/status" target="_blank" rel="noopener noreferrer">System Status</a>
+  </div>
+</footer>
+  </body>
+</html>
+

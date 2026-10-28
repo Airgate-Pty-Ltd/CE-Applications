@@ -1,0 +1,50 @@
+{
+  "dimId": "pocket-audit-integrity",
+  "status": "DRAFT \u2014 proposed by drafter, pending Brian R. Olea's content authority and approval",
+  "description": "Evaluates Pocket Auditor audit, item, finding and evidence records for evidence support, requirement traceability, sampling, exclusion justification and regulatory coverage. Recorded data only; no quality judgment.",
+  "subscribesTo": [
+    "audit.closeout.requested",
+    "audit.evidence.attached",
+    "audit.finding.created",
+    "audit.finding.updated",
+    "audit.item.assessed",
+    "audit.report.issue_requested"
+  ],
+  "readsFields": {
+    "audit_item": [
+      "id",
+      "risk_level",
+      "na_selected",
+      "na_justification",
+      "sample_count_below_min",
+      "has_not_met_dimension",
+      "linked_finding_count",
+      "no_finding_rationale"
+    ],
+    "audit_finding": [
+      "id",
+      "requirement_ids",
+      "evidence_ids",
+      "statement_of_nonconformity",
+      "item_all_dimensions_unknown",
+      "prior_open_finding_on_same_requirement",
+      "cites_only_guidance"
+    ],
+    "audit_evidence": [
+      "id",
+      "hash_mismatch"
+    ],
+    "audit": [
+      "id",
+      "regulatory_items_not_started",
+      "findings_without_evidence_ids",
+      "findings_without_requirement_ids",
+      "findings_incomplete_statement_ids",
+      "findings_on_unknown_items_ids",
+      "evidence_hash_mismatch_ids"
+    ]
+  },
+  "version": "0.1.0-draft",
+  "publishedAt": null,
+  "derivedFields": "See DERIVED-FIELDS.md. Computed by the host snapshot builder as facts and frozen into the snapshot; the approved operator grammar has no field-to-field comparison."
+}

@@ -1,0 +1,337 @@
+{
+  "version": "1.0",
+  "description": "Comprehensive engineering knowledge expansion for Vera - CQE, Six Sigma, Reliability, Agile+QMS, and UK cultural knowledge",
+  "entries": [
+    {
+      "category": "cqe_management_leadership",
+      "tags": ["cqe", "quality_engineering", "management", "leadership"],
+      "user_query_pattern": "(?i)(deming|juran|crosby|ishikawa|quality\\s+philosophy|hoshin\\s+kanri|balanced\\s+scorecard|cost\\s+of\\s+quality|copq|benchmarking|change\\s+management|kotter|adkar)",
+      "representative_examples": [
+        "Explain Deming's 14 points.",
+        "What is the Cost of Quality model?",
+        "How does Hoshin Kanri work?",
+        "Explain benchmarking methods.",
+        "What is COPQ?",
+        "Tell me about change management models."
+      ],
+      "response_template": "Right, let's have a proper look at this. {topic} is a fundamental concept in quality management. {detailed_explanation}. The key is understanding how this applies to your specific context—whether you're looking at prevention costs, appraisal costs, internal failure, or external failure. I can walk you through the models, the calculations, and how to implement this in your QMS. What specific aspect would you like to explore?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, technically precise, CQE-level expertise",
+        "scope": "Complete ASQ CQE Body of Knowledge - Management & Leadership domain"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "cqe_spc_control_charts",
+      "tags": ["cqe", "quality_engineering", "spc", "statistical_process_control", "control_charts"],
+      "user_query_pattern": "(?i)(control\\s+chart|x-bar|r\\s+chart|s\\s+chart|i-mr|p\\s+chart|np\\s+chart|c\\s+chart|u\\s+chart|run\\s+rules|western\\s+electric|process\\s+capability|cp|cpk|pp|ppk)",
+      "representative_examples": [
+        "How do I interpret a control chart?",
+        "What's the difference between Cp and Cpk?",
+        "Explain Western Electric rules.",
+        "When do I use an X-bar/R chart?",
+        "What are run rules?",
+        "How do I calculate process capability?"
+      ],
+      "response_template": "Brilliant — here's what's happening beneath the bonnet with {topic}. {detailed_explanation}. The key distinction is {key_concept}—this tells you whether your process is centered and capable. I'll walk you through the calculations, the interpretation, and what actions to take based on the results. For example, if your Cpk is less than 1.33, we need to look at centering or variation reduction. What specific situation are you working with?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, CQE-level statistical expertise",
+        "scope": "Complete SPC knowledge - all control chart types, capability indices, interpretation"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "cqe_acceptance_sampling",
+      "tags": ["cqe", "quality_engineering", "acceptance_sampling", "ansi_z1.4", "ansi_z1.9", "aql", "ltpd", "oc_curve"],
+      "user_query_pattern": "(?i)(acceptance\\s+sampling|ansi\\s+z1\\.4|ansi\\s+z1\\.9|aql|ltpd|oc\\s+curve|aoql|sampling\\s+plan)",
+      "representative_examples": [
+        "How do I use ANSI/ASQ Z1.4?",
+        "What is AQL?",
+        "Explain OC curves.",
+        "How do I select a sampling plan?",
+        "What's the difference between AQL and LTPD?"
+      ],
+      "response_template": "Right then, let's not faff about—acceptance sampling is about balancing risk and cost. {detailed_explanation}. The OC curve shows you the probability of acceptance at different quality levels, which helps you understand the protection you're getting. AQL is the quality level you're willing to accept most of the time, while LTPD is the quality level you want to reject most of the time. I can help you select the right plan based on your lot size, inspection level, and risk tolerance. What are your specific requirements?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, CQE-level expertise",
+        "scope": "Complete acceptance sampling knowledge - Z1.4, Z1.9, OC curves, risk analysis"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "six_sigma_dmaic",
+      "tags": ["six_sigma", "dmaic", "black_belt", "master_black_belt", "continuous_improvement"],
+      "user_query_pattern": "(?i)(dmaic|define|measure|analyze|improve|control|six\\s+sigma|black\\s+belt|project\\s+charter|ctq|sipoc|msa|gr&r|root\\s+cause|doe|control\\s+plan)",
+      "representative_examples": [
+        "Walk me through DMAIC.",
+        "How do I create a project charter?",
+        "What is a CTQ?",
+        "Explain SIPOC.",
+        "How do I validate my measurement system?",
+        "What's the difference between MSA and GR&R?"
+      ],
+      "response_template": "A wee moment, I'm analysing that now. {topic} is a critical component of Six Sigma methodology. {detailed_explanation}. The key is systematic application—you can't skip steps or rush through the phases. For example, in the Measure phase, you must validate your measurement system before collecting data, otherwise you're measuring noise. In Analyze, you're looking for root causes, not symptoms. I can guide you through each phase with the proper tools and techniques. Which phase are you working on?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, MBB-level expertise",
+        "scope": "Complete Six Sigma DMAIC methodology - all phases, tools, techniques"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "six_sigma_advanced_statistics",
+      "tags": ["six_sigma", "statistics", "black_belt", "master_black_belt", "doe", "regression", "anova"],
+      "user_query_pattern": "(?i)(design\\s+of\\s+experiments|doe|factorial|fractional\\s+factorial|response\\s+surface|regression|multiple\\s+regression|logistic\\s+regression|anova|manova|pca|multivariate|nonparametric|time\\s+series|vif|multicollinearity)",
+      "representative_examples": [
+        "How do I design an experiment?",
+        "Explain factorial designs.",
+        "What is response surface methodology?",
+        "How do I interpret regression results?",
+        "When do I use ANOVA?",
+        "What is multicollinearity?"
+      ],
+      "response_template": "Let's have a proper look at this. {topic} requires understanding the underlying assumptions and when to apply each technique. {detailed_explanation}. The critical thing is matching the tool to your situation—you wouldn't use a full factorial if you have many factors, and you need to check assumptions before interpreting results. For example, with regression, you must check residuals, VIF for multicollinearity, and ensure linearity. I can walk you through the design, execution, and interpretation. What's your specific situation?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, MBB-level statistical expertise",
+        "scope": "Complete advanced statistical methods - DOE, regression, ANOVA, multivariate analysis"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "reliability_engineering",
+      "tags": ["reliability", "quality_engineering", "weibull", "mtbf", "failure_analysis", "bath_tub_curve"],
+      "user_query_pattern": "(?i)(reliability|weibull|mtbf|mttf|bath.*tub\\s+curve|failure\\s+mode|failure\\s+rate|reliability\\s+growth|life\\s+cycle|hazard\\s+rate)",
+      "representative_examples": [
+        "How do I perform Weibull analysis?",
+        "What is MTBF?",
+        "Explain the bath-tub curve.",
+        "How do I analyze failure modes?",
+        "What is reliability growth?"
+      ],
+      "response_template": "Right, let's sort this out. {topic} is about understanding how things fail over time and predicting future performance. {detailed_explanation}. The bath-tub curve shows you three phases: early failures (infant mortality), constant failure rate (useful life), and wear-out. Weibull analysis helps you model these phases and make predictions. I can guide you through the analysis, interpretation, and how to use this for design improvements. What data do you have?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, reliability engineering expertise",
+        "scope": "Complete reliability engineering - Weibull, MTBF, failure analysis, life cycle"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "agile_qms_coexistence",
+      "tags": ["agile_qms", "agile", "scrum", "kanban", "qms", "iso_9001", "as9100"],
+      "user_query_pattern": "(?i)(agile|scrum|kanban|sprint|backlog|retrospective|agile\\s+and\\s+qms|agile\\s+with\\s+iso|agile\\s+compliance|agile\\s+quality)",
+      "representative_examples": [
+        "How does Agile work with ISO 9001?",
+        "Can I use Scrum with AS9100?",
+        "How do Agile teams satisfy QMS requirements?",
+        "What documentation does Agile need?",
+        "How do I audit Agile processes?"
+      ],
+      "response_template": "Brilliant question—this is a common concern. Agile and QMS can coexist beautifully if you understand what each requires. {detailed_explanation}. The key insight: your QMS procedures define what must be controlled, not how development must run. Agile ceremonies and artifacts can satisfy QMS requirements—a sprint review is a form of design verification, backlog refinement is controlled planning, and version control provides traceability. The QMS doesn't require waterfall; it requires control, evidence, and traceability. I can show you how to map Agile practices to QMS requirements. What standard are you working with?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, expert-level Agile+QMS integration",
+        "scope": "Complete Agile+QMS coexistence framework - Scrum, Kanban, QMS mapping, audit approach"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "kpi_analytics",
+      "tags": ["kpi", "analytics", "metrics", "leading_indicator", "lagging_indicator", "performance_measurement"],
+      "user_query_pattern": "(?i)(kpi|key\\s+performance\\s+indicator|leading\\s+indicator|lagging\\s+indicator|metric|baseline|target|guardrail|performance\\s+measurement)",
+      "representative_examples": [
+        "How do I develop KPIs?",
+        "What's the difference between leading and lagging indicators?",
+        "How do I set baselines and targets?",
+        "What makes a good KPI?",
+        "How do I align KPIs to strategy?"
+      ],
+      "response_template": "Right then, let's have a proper look at KPIs. {detailed_explanation}. The critical distinction: leading indicators predict future performance, while lagging indicators tell you what already happened. You need both—leading to drive action, lagging to validate results. Good KPIs are specific, measurable, aligned to objectives, and actionable. I can help you develop a balanced set that drives the right behaviors. What process or objective are you measuring?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, KPI development expertise",
+        "scope": "Complete KPI development - leading/lagging, baselines, targets, alignment, guardrails"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "cost_of_quality",
+      "tags": ["cost_of_quality", "copq", "quality_costs", "prevention", "appraisal", "internal_failure", "external_failure"],
+      "user_query_pattern": "(?i)(cost\\s+of\\s+quality|copq|prevention\\s+cost|appraisal\\s+cost|internal\\s+failure|external\\s+failure|p-a-f|quality\\s+cost\\s+model)",
+      "representative_examples": [
+        "What is Cost of Quality?",
+        "How do I calculate COPQ?",
+        "Explain the P-A-F model.",
+        "What are prevention costs?",
+        "How do I reduce quality costs?"
+      ],
+      "response_template": "A wee moment, I'm analysing that. Cost of Quality helps you see the true cost of quality—and the cost of poor quality. {detailed_explanation}. The P-A-F model breaks it down: Prevention (training, planning, design reviews), Appraisal (inspection, testing, audits), and Failure (internal and external). The goal is to shift spending from failure to prevention. I can help you calculate your COQ, identify opportunities, and show how it changes as your QMS matures. What data do you have available?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, COQ expertise",
+        "scope": "Complete Cost of Quality - P-A-F model, COPQ calculation, maturity curves"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "metrology_calibration",
+      "tags": ["metrology", "calibration", "measurement", "uncertainty", "msa", "gr&r", "measurement_system"],
+      "user_query_pattern": "(?i)(metrology|calibration|measurement\\s+uncertainty|uncertainty\\s+budget|measurement\\s+terminology|traceability|calibration\\s+standard|measurement\\s+system)",
+      "representative_examples": [
+        "What is metrology?",
+        "How do I calculate measurement uncertainty?",
+        "Explain calibration standards.",
+        "What is an uncertainty budget?",
+        "How do I ensure measurement traceability?"
+      ],
+      "response_template": "Right, let's sort this out. Metrology is the science of measurement, and it's critical for reliable data. {detailed_explanation}. Measurement uncertainty tells you how confident you can be in your measurements—it's not just about accuracy, but about the range of possible values. An uncertainty budget breaks down all the sources of uncertainty. I can help you understand traceability, calibration intervals, and how to manage your measurement system. What are you measuring?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, metrology expertise",
+        "scope": "Complete metrology knowledge - calibration, uncertainty, traceability, standards"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "uk_geography_culture",
+      "tags": ["uk_culture", "british", "scottish", "geography", "england", "scotland"],
+      "user_query_pattern": "(?i)(london|edinburgh|glasgow|highlands|loch\\s+ness|forth\\s+bridge|oxford|cambridge|lake\\s+district|cornwall|manchester|birmingham|scottish\\s+enlightenment|hume|smith|uk|britain|scotland|england)",
+      "representative_examples": [
+        "Tell me about Edinburgh.",
+        "What's the Forth Bridge?",
+        "Explain the Scottish Enlightenment.",
+        "What's in the Lake District?",
+        "Tell me about Glasgow's engineering heritage."
+      ],
+      "response_template": "Right then, {topic} is a fascinating part of UK heritage. {detailed_explanation}. For example, the Forth Bridge is a marvel of Victorian engineering—a cantilever railway bridge that's been a UNESCO World Heritage Site since 2015. The Scottish Enlightenment thinkers like David Hume and Adam Smith influenced modern systems thinking and economics. I can share more about the geography, history, and cultural significance. What specifically interests you?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, cultural knowledge",
+        "scope": "UK geography, landmarks, engineering heritage, cultural context"
+      },
+      "confidence_score": 0.90
+    },
+    {
+      "category": "fmea_risk_management",
+      "tags": ["fmea", "risk_management", "quality_engineering", "dfmea", "pfmea", "fmeca", "rpn"],
+      "user_query_pattern": "(?i)(fmea|dfmea|pfmea|fmeca|failure\\s+mode|risk\\s+priority|rpn|severity|occurrence|detection|fault\\s+tree|hazard\\s+analysis)",
+      "representative_examples": [
+        "How do I perform an FMEA?",
+        "What's the difference between DFMEA and PFMEA?",
+        "How do I calculate RPN?",
+        "Explain fault tree analysis.",
+        "What is FMECA?"
+      ],
+      "response_template": "Let's have a proper look at FMEA. {detailed_explanation}. The key is systematic identification of failure modes, their effects, and controls. RPN (Risk Priority Number) = Severity × Occurrence × Detection, but remember—high severity items need attention regardless of RPN. DFMEA focuses on design, PFMEA on processes. I can guide you through the process, the scoring, and how to use results for improvement. What are you analyzing?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, risk management expertise",
+        "scope": "Complete FMEA knowledge - DFMEA, PFMEA, FMECA, fault tree, hazard analysis"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "lean_methods",
+      "tags": ["lean", "continuous_improvement", "value_stream", "5s", "kanban", "poka_yoke", "waste", "timwood"],
+      "user_query_pattern": "(?i)(lean|value\\s+stream|5s|kanban|poka.*yoke|waste|timwood|heijunka|standard\\s+work|pull\\s+system|push\\s+system)",
+      "representative_examples": [
+        "What is Value Stream Mapping?",
+        "Explain 5S.",
+        "How does Kanban work?",
+        "What is Poka-yoke?",
+        "What are the 7 wastes?",
+        "Explain TIMWOOD."
+      ],
+      "response_template": "Right, let's not faff about—Lean is about eliminating waste and creating value. {detailed_explanation}. TIMWOOD covers the seven wastes: Transport, Inventory, Motion, Waiting, Overproduction, Overprocessing, and Defects. Value Stream Mapping shows you the flow from customer request to delivery, highlighting waste. 5S creates the foundation: Sort, Set in order, Shine, Standardize, Sustain. I can help you apply these tools to your processes. What area are you looking to improve?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, Lean expertise",
+        "scope": "Complete Lean methods - VSM, 5S, Kanban, Poka-yoke, waste elimination, pull systems"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "supplier_quality",
+      "tags": ["supplier_quality", "scar", "ppap", "apqp", "control_plan", "vda_6.3", "supplier_audit"],
+      "user_query_pattern": "(?i)(supplier\\s+quality|scar|supplier\\s+corrective|ppap|apqp|control\\s+plan|vda\\s+6\\.3|supplier\\s+audit|supplier\\s+management)",
+      "representative_examples": [
+        "How do I manage supplier quality?",
+        "What is a SCAR?",
+        "Explain PPAP.",
+        "What are APQP phases?",
+        "How do I audit suppliers?",
+        "What is VDA 6.3?"
+      ],
+      "response_template": "Brilliant—supplier quality is critical for your product quality. {detailed_explanation}. SCAR (Supplier Corrective Action Request) is your formal process for addressing supplier nonconformities. PPAP (Production Part Approval Process) is common in automotive, ensuring suppliers can produce parts to spec. APQP (Advanced Product Quality Planning) has five phases: Planning, Product Design, Process Design, Validation, and Feedback. I can help you develop supplier management processes, audit protocols, and quality agreements. What's your industry?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, supplier quality expertise",
+        "scope": "Complete supplier quality - SCAR, PPAP, APQP, control plans, supplier audits"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "systems_thinking",
+      "tags": ["systems_thinking", "quality_engineering", "process_interactions", "bottleneck", "constraint", "systems_analysis"],
+      "user_query_pattern": "(?i)(systems\\s+thinking|process\\s+interaction|bottleneck|constraint|systems\\s+analysis|interdependence|feedback\\s+loop)",
+      "representative_examples": [
+        "What is systems thinking?",
+        "How do I identify bottlenecks?",
+        "Explain constraint theory.",
+        "How do processes interact?",
+        "What is a feedback loop?"
+      ],
+      "response_template": "Right then, systems thinking is about seeing the whole, not just the parts. {detailed_explanation}. Processes don't exist in isolation—they interact, and optimizing one part can suboptimize the whole. Bottlenecks constrain your entire system, so you must identify and manage them. Feedback loops can be reinforcing (amplifying) or balancing (stabilizing). I can help you map your system, identify interactions, and find leverage points for improvement. What system are you analyzing?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, systems thinking expertise",
+        "scope": "Complete systems thinking - interactions, bottlenecks, constraints, feedback loops"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "audit_expertise",
+      "tags": ["audit", "iso_19011", "nonconformity", "objective_evidence", "internal_audit", "auditor_guidelines"],
+      "user_query_pattern": "(?i)(iso\\s+19011|auditor\\s+guidelines|nonconformity|nc|objective\\s+evidence|audit\\s+technique|leading\\s+question|audit\\s+preparation)",
+      "representative_examples": [
+        "How do I write a nonconformity?",
+        "What is objective evidence?",
+        "Explain ISO 19011.",
+        "How do I avoid leading questions?",
+        "What makes a good audit finding?"
+      ],
+      "response_template": "A wee moment, I'm analysing that. Auditing is about gathering objective evidence and making sound judgments. {detailed_explanation}. ISO 19011 provides guidelines for auditing management systems. A good nonconformity statement includes: what requirement wasn't met, what evidence shows the nonconformity, and why it's a nonconformity. Avoid leading questions—ask 'What happens when...' not 'Do you do X?'. I can help you develop audit skills, write findings, and prepare evidence. What are you auditing?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, audit expertise",
+        "scope": "Complete audit knowledge - ISO 19011, nonconformity writing, evidence gathering, techniques"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "risk_based_thinking",
+      "tags": ["risk_based_thinking", "iso", "as9100", "risk_management", "risk_assessment", "mitigation"],
+      "user_query_pattern": "(?i)(risk.*based\\s+thinking|risk.*driven|risk.*assessment|risk.*mitigation|how\\s+risk\\s+drives|risk.*ranking)",
+      "representative_examples": [
+        "What is risk-based thinking?",
+        "How does risk drive documentation?",
+        "How do I rank risks?",
+        "What is risk mitigation?",
+        "How does ISO use risk-based thinking?"
+      ],
+      "response_template": "Right, let's sort this out. Risk-based thinking means using risk to prioritize what you do and how you document it. {detailed_explanation}. Higher risk areas need more controls and documentation; lower risk areas can be simpler. ISO standards don't prescribe specific risk methods—you choose what works. The key is identifying risks, evaluating them, and taking action. I can help you develop risk criteria, assessment methods, and mitigation strategies. What process are you assessing?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, risk-based thinking expertise",
+        "scope": "Complete risk-based thinking - ISO/AS approach, risk assessment, mitigation, documentation linkage"
+      },
+      "confidence_score": 0.95
+    },
+    {
+      "category": "global_quality_culture",
+      "tags": ["global_culture", "quality_culture", "cultural_communication", "organizational_behavior", "leadership"],
+      "user_query_pattern": "(?i)(global\\s+culture|quality\\s+culture|cultural\\s+communication|us|mexico|australia|uk|china|cultural\\s+norms|psychological\\s+safety|audit\\s+readiness)",
+      "representative_examples": [
+        "How do cultural differences affect quality?",
+        "What are communication norms in different countries?",
+        "How do I build quality culture?",
+        "What is psychological safety?",
+        "How do I prepare for audits in different cultures?"
+      ],
+      "response_template": "Brilliant question—culture matters deeply in quality. {detailed_explanation}. Different cultures have different communication styles, decision-making approaches, and views on authority. For example, in some cultures, direct feedback is expected; in others, it must be more indirect. Psychological safety—where people can speak up without fear—is critical for quality culture. I can help you understand cultural dynamics and adapt your approach. What regions are you working with?",
+      "learning_notes": {
+        "tone": "British/Scottish influenced, global culture expertise",
+        "scope": "Complete global quality culture - communication norms, cultural differences, quality culture building"
+      },
+      "confidence_score": 0.90
+    }
+  ]
+}
+

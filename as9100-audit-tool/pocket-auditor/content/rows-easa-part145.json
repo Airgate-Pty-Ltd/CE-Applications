@@ -1,0 +1,3978 @@
+{
+  "source": "EASA Part-145 (Reg. (EU) 1321/2014 Annex II)",
+  "source_file": "easa-1321-2014.html",
+  "source_sha256": "38288e43cecde3e0736fd448567ba6f985829bfd296ece2a8c5f13ba6c873007",
+  "clause_count": 20,
+  "row_count": 567,
+  "rows": [
+    {
+      "clause_ref": "145.A.10",
+      "section": "145.A.10",
+      "section_heading": "Scope",
+      "text": "Scope",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.10",
+      "section": "145.A.10",
+      "section_heading": "Scope",
+      "text": "This Section establishes the requirements to be met by an organisation to qualify for the issue or continuation of an approval for the maintenance of aircraft and components.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.15",
+      "section": "145.A.15",
+      "section_heading": "Application",
+      "text": "Application",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.15",
+      "section": "145.A.15",
+      "section_heading": "Application",
+      "text": "An application for the issue or change of an approval shall be made to the competent authority in a form and manner established by such authority.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.20",
+      "section": "145.A.20",
+      "section_heading": "Terms of Approval",
+      "text": "Terms of Approval",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.20",
+      "section": "145.A.20",
+      "section_heading": "Terms of Approval",
+      "text": "The organisation shall specify the scope of work deemed to constitute approval in its exposition (Appendix IV to Annex I (Part-M) contains a table of all classes and ratings).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "Facility requirements",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.25",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "The organisation shall ensure that:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(a)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(a)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "Facilities are provided appropriate for all planned work, ensuring in particular, protection from the weather elements. Specialised workshops and bays are segregated as appropriate, to ensure that environmental and work area contamination is unlikely to occur.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(a)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(a)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "For base maintenance of aircraft, aircraft hangars are both available and large enough to accommodate aircraft on planned base maintenance;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(a)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(a)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "For component maintenance, component workshops are large enough to accommodate the components on planned maintenance.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(b)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(b)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "Office accommodation is provided for the management of the planned work referred to in point (a), and certifying staff so that they can carry out their designated tasks in a manner that contributes to good aircraft maintenance standards.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "The working environment including aircraft hangars, component workshops and office accommodation is appropriate for the task carried out and in particular special requirements observed. Unless otherwise dictated by the particular task environment, the working environment must be such that the effectiveness of personnel is not impaired:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "temperatures must be maintained such that personnel can carry out required tasks without undue discomfort.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "dust and any other airborne contamination are kept to a minimum and not be permitted to reach a level in the work task area where visible aircraft/component surface contamination is evident. Where dust/other airborne contamination results in visible surface contamination, all susceptible systems are sealed until acceptable conditions are re-established.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "lighting is such as to ensure each inspection and maintenance task can be carried out in an effective manner.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "noise shall not distract personnel from carrying out inspection tasks. Where it is impractical to control the noise source, such personnel are provided with the necessary personal equipment to stop excessive noise causing distraction during inspection tasks.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "5.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "where a particular maintenance task requires the application of specific environmental conditions different to the foregoing, then such conditions are observed. Specific conditions are identified in the maintenance data.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "6.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(c)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "the working environment for line maintenance is such that the particular maintenance or inspection task can be carried out without undue distraction. Therefore where the working environment deteriorates to an unacceptable level in respect of temperature, moisture, hail, ice, snow, wind, light, dust/other airborne contamination, the particular maintenance or inspection tasks must be suspended until satisfactory conditions are re-established.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(d)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "(d)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.25(d)",
+      "section": "145.A.25",
+      "section_heading": "Facility requirements",
+      "text": "Secure storage facilities are provided for components, equipment, tools and material. Storage conditions ensure segregation of serviceable components and material from unserviceable aircraft components, material, equipment and tools. The conditions of storage are in accordance with the manufacturer's instructions to prevent deterioration and damage of stored items. Access to storage facilities is restricted to authorised personnel.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "Personnel requirements",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.30(a)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(a)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The organisation shall appoint an accountable manager who has corporate authority for ensuring that all maintenance required by the customer can be financed and carried out to the standard required by this Part. The accountable manager shall:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(a)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(a)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "ensure that all necessary resources are available to accomplish maintenance in accordance with point 145.A.65(b) to support the organisation approval.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(a)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(a)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "establish and promote the safety and quality policy specified in point 145.A.65(a).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(a)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(a)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "demonstrate a basic understanding of this Annex (Part-145).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(b)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(b)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The organisation shall nominate a person or group of persons, whose responsibilities include ensuring that the organisation complies with this Part. Such person(s) shall ultimately be responsible to the accountable manager.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(b)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(b)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The person or persons nominated shall represent the maintenance management structure of the organisation and be responsible for all functions specified in this Part.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(b)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(b)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The person or persons nominated shall be identified and their credentials submitted in a form and manner established by the competent authority.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(b)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(b)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The person or persons nominated shall be able to demonstrate relevant knowledge, background and satisfactory experience related to aircraft or component maintenance and demonstrate a working knowledge of this Part.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(b)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(b)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "Procedures shall make clear who deputises for any particular person in the case of lengthy absence of the said person.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(c)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(c)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The accountable manager under point (a) shall appoint a person with responsibility for monitoring the quality system, including the associated feedback system as required by point 145.A.65(c). The appointed person shall have direct access to the accountable manager to ensure that the accountable manager is kept properly informed on quality and compliance matters.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(d)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(d)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(d)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The organisation shall have a maintenance man-hour plan showing that the organisation has sufficient staff to plan, perform, supervise, inspect and quality monitor the organisation in accordance with the approval. In addition the organisation shall have a procedure to reassess work intended to be carried out when actual staff availability is less than the planned staffing level for any particular work shift or period.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(e)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(e)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(e)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The organisation shall establish and control the competence of personnel involved in any maintenance, management and/or quality audits in accordance with a procedure and to a standard agreed by the competent authority. In addition to the necessary expertise related to the job function, competence must include an understanding of the application of human factors and human performance issues appropriate to that person's function in the organisation. ‘Human factors’ means principles which apply to aeronautical design, certification, training, operations and maintenance and which seek safe interface between the human and other system components by proper consideration of human performance. ‘Human performance’ means human capabilities and limitations which have an impact on the safety and efficiency of aeronautical operations.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(f)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(f)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(f)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The organisation shall ensure that personnel who carry out and/or control a continued airworthiness non-destructive test of aircraft structures and/or components are appropriately qualified for the particular non-destructive test in accordance with the European or equivalent Standard recognised by the Agency. Personnel who carry out any other specialised task shall be appropriately qualified in accordance with officially recognised Standards. By derogation to this point those personnel specified in points (g) and (h)(1) and (h)(2), qualified in category B1 or B3 in accordance with Annex III (Part-66) may carry out and/or control colour contrast dye penetrant tests.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(g)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(g)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(g)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "Any organisation maintaining aircraft, except where stated otherwise in point (j), shall in the case of aircraft line maintenance, have appropriate aircraft rated certifying staff qualified as category B1, B2, B3, as appropriate, in accordance with Annex III (Part-66) and point 145.A.35.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(g)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "In addition such organisations may also use appropriately task trained certifying staff holding the privileges described in points 66.A.20(a)(1) and 66.A.20(a)(3)(ii) and qualified in accordance with Annex III (Part-66) and point 145.A.35 to carry out minor scheduled line maintenance and simple defect rectification. The availability of such certifying staff shall not replace the need for category B1, B2, B3 certifying staff, as appropriate.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(h)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(h)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(h)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "Any organisation maintaining aircraft, except where stated otherwise in point (j) shall:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(h)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(h)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "in the case of base maintenance of large aircraft, have appropriate aircraft type rated certifying staff qualified as category C in accordance with Part-66 and point 145.A.35. In addition the organisation shall have sufficient aircraft type rated staff qualified as category B1, B2 as appropriate in accordance with Part-66 and point 145.A.35 to support the category C certifying staff.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(i)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "B1 and B2 support staff shall ensure that all relevant tasks or inspections have been carried out to the required standard before the category C certifying staff issues the certificate of release to service.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(ii)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The organisation shall maintain a register of any such B1 and B2 support staff.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(iii)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "The category C certifying staff shall ensure that compliance with point (i) has been met and that all work required by the customer has been accomplished during the particular base maintenance check or work package, and shall also assess the impact of any work not carried out with a view to either requiring its accomplishment or agreeing with the operator to defer such work to another specified check or time limit.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "in the case of base maintenance of aircraft other than large aircraft have either:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(i)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "appropriate aircraft rated certifying staff qualified as category B1, B2, B3, as appropriate, in accordance with Annex III (Part-66) and point 145.A.35; or",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(ii)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "appropriate aircraft rated certifying staff qualified in category C assisted by support staff as specified in point 145.A.35(a)(i).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(i)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "Component certifying staff shall comply with Annex III (Part-66).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(j)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "By derogation to points (g) and (h), in relation to the obligation to comply with Annex III (Part-66), the organisation may use certifying staff qualified in accordance with the following provisions:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "For organisation facilities located outside the Community territory certifying staff may be qualified in accordance with the national aviation regulations of the State in which the organisation facility is registered subject to the conditions specified in Appendix IV to this Part.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "For line maintenance carried out at a line station of an organisation which is located outside the Community territory, the certifying staff may be qualified in accordance with the national aviation regulations of the State in which the line station is based, subject to the conditions specified in Appendix IV to this Part.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "For a repetitive pre-flight airworthiness directive which specifically states that the flight crew may carry out such airworthiness directive, the organisation may issue a limited certification authorisation to the aircraft commander and/or the flight engineer on the basis of the flight crew licence held. However, the organisation shall ensure that sufficient practical training has been carried out to ensure that such aircraft commander or flight engineer can accomplish the airworthiness directive to the required standard.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "In the case of aircraft operating away from a supported location the organisation may issue a limited certification authorisation to the commander and/or the flight engineer on the basis of the flight crew licence held subject to being satisfied that sufficient practical training has been carried out to ensure that the commander or flight engineer can accomplish the specified task to the required standard. The provisions of this point shall be detailed in an exposition procedure.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "5.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(j)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "In the following unforeseen cases, where an aircraft is grounded at a location other than the main base where no appropriate certifying staff are available, the organisation contracted to provide maintenance support may issue a one-off certification authorisation:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(i)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "to one of its employees holding equivalent type authorisations on aircraft of similar technology, construction and systems; or",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "(ii)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "to any person with not less than five years maintenance experience and holding a valid ICAO aircraft maintenance licence rated for the aircraft type requiring certification provided there is no organisation appropriately approved under this Part at that location and the contracted organisation obtains and holds on file evidence of the experience and the licence of that person.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.30(i)",
+      "section": "145.A.30",
+      "section_heading": "Personnel requirements",
+      "text": "All such cases as specified in this point shall be reported to the competent authority within seven days of the issuance of such certification authorisation. The organisation issuing the one-off authorisation shall ensure that any such maintenance that could affect flight safety is re-checked by an appropriately approved organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "Certifying staff and support staff",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.35(a)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(a)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "In addition to the appropriate requirements of points 145.A.30(g) and (h), the organisation shall ensure that certifying staff and support staff have an adequate understanding of the relevant aircraft and/or components to be maintained together with the associated organisation procedures. In the case of certifying staff, this shall be accomplished before the issue or re-issue of the certification authorisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(i)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(i)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(i)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "‘Support staff’ means those staff holding an aircraft maintenance licence under Annex III (Part-66) in category B1, B2 and/or B3 with the appropriate aircraft ratings, working in a base maintenance environment while not necessarily holding certification privileges.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(i)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(ii)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(i)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "‘Relevant aircraft and/or components’, means those aircraft or components specified in the particular certification authorisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(i)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(iii)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(i)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "‘Certification authorisation’ means the authorisation issued to certifying staff by the organisation and which specifies the fact that they may sign certificates of release to service within the limitations stated in such authorisation on behalf of the approved organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(b)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(b)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "Excepting those cases listed in points 145.A.30(j) and 66.A.20(a)3(ii) the organisation may only issue a certification authorisation to certifying staff in relation to the basic categories or subcategories and any type rating listed on the aircraft maintenance licence as required by Annex III (Part-66), subject to the licence remaining valid throughout the validity period of the authorisation and the certifying staff remaining in compliance with Annex III (Part-66).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(c)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(c)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The organisation shall ensure that all certifying staff and support staff are involved in at least 6 months of actual relevant aircraft or component maintenance experience in any consecutive 2-year period.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(c)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "For the purpose of this point ‘involved in actual relevant aircraft or component maintenance’ means that the person has worked in an aircraft or component maintenance environment and has either exercised the privileges of the certification authorisation and/or has actually carried out maintenance on at least some of the aircraft type or aircraft group systems specified in the particular certification authorisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(d)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(d)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(d)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The organisation shall ensure that all certifying staff and support staff receive sufficient continuation training in each two year period to ensure that such staff have up-to-date knowledge of relevant technology, organisation procedures and human factor issues.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(e)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(e)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(e)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The organisation shall establish a programme for continuation training for certifying staff and support staff, including a procedure to ensure compliance with the relevant points of 145.A.35 as the basis for issuing certification authorisations under this Part to certifying staff, and a procedure to ensure compliance with Annex III (Part-66).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(f)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(f)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(f)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "Except where any of the unforeseen cases of point 145.A.30(j)(5) apply, the organisation shall assess all prospective certifying staff for their competence, qualification and capability to carry out their intended certifying duties in accordance with a procedure as specified in the exposition prior to the issue or re-issue of a certification authorisation under this Part.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(g)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(g)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(g)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "When the conditions of points (a), (b), (d), (f) and, where applicable, point (c) have been fulfilled by the certifying staff, the organisation shall issue a certification authorisation that clearly specifies the scope and limits of such authorisation. Continued validity of the certification authorisation is dependent upon continued compliance with points (a), (b), (d), and where applicable, (c).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(h)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(h)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(h)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The certification authorisation must be in a style that makes its scope clear to the certifying staff and any authorised person who may require to examine the authorisation. Where codes are used to define scope, the organisation shall make a code translation readily available. ‘Authorised person’ means the officials of the competent authorities, the Agency and the Member State who has responsibility for the oversight of the maintained aircraft or component.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(i)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(i)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(i)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The person responsible for the quality system shall also remain responsible on behalf of the organisation for issuing certification authorisations to certifying staff. Such person may nominate other persons to actually issue or revoke the certification authorisations in accordance with a procedure as specified in the exposition.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(j)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The organisation shall maintain a record of all certifying staff and support staff, which shall contain:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "the details of any aircraft maintenance licence held under Annex III (Part-66); and",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "all relevant training completed; and",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "the scope of the certification authorisations issued, where relevant; and",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "particulars of staff with limited or one-off certification authorisations.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The organisation shall retain the record for at least three years after the staff referred to in this point have ceased employment with the organisation or as soon as the authorisation has been withdrawn. In addition, upon request, the maintenance organisation shall furnish the staff referred to in this point with a copy of their personal record on leaving the organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(j)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The staff referred to in this point shall be given access on request to their personal records as detailed above.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(k)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(k)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(k)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The organisation shall provide certifying staff with a copy of their certification authorisation in either a documented or electronic format.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(l)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(l)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(l)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "Certifying staff shall produce their certification authorisation to any authorised person within 24 hours.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(m)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(m)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(m)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The minimum age for certifying staff and support staff is 21 years.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(n)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(n)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(n)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The holder of a category A aircraft maintenance licence may only exercise certification privileges on a specific aircraft type following the satisfactory completion of the relevant category A aircraft task training carried out by an organisation appropriately approved in accordance with Annex II (Part-145) or Annex IV (Part-147). This training shall include practical hands on training and theoretical training as appropriate for each task authorised. Satisfactory completion of training shall be demonstrated by an examination or by workplace assessment carried out by the organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(o)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "(o)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.35(o)",
+      "section": "145.A.35",
+      "section_heading": "Certifying staff and support staff",
+      "text": "The holder of a category B2 aircraft maintenance licence may only exercise the certification privileges described in point 66.A.20(a)(3)(ii) of Annex III (Part-66) following the satisfactory completion of (i) the relevant category A aircraft task training and (ii) 6 months of documented practical experience covering the scope of the authorisation that will be issued. The task training shall include practical hands on training and theoretical training as appropriate for each task authorised. Satisfactory completion of training shall be demonstrated by an examination or by workplace assessment. Task training and examination/assessment shall be carried out by the maintenance organisation issuing the certifying staff authorisation. The practical experience shall be also obtained within such maintenance organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.40",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "Equipment, tools and material",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.40(a)",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.40(a)",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "The organisation shall have available and use the necessary equipment, tools and material to perform the approved scope of work.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.40(a)",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.40(a)",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "Where the manufacturer specifies a particular tool or equipment, the organisation shall use that tool or equipment, unless the use of alternative tooling or equipment is agreed by the competent authority via procedures specified in the exposition.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.40(a)",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.40(a)",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "Equipment and tools must be permanently available, except in the case of any tool or equipment that is so infrequently used that its permanent availability is not necessary. Such cases shall be detailed in an exposition procedure.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.40(a)",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.40(a)",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "An organisation approved for base maintenance shall have sufficient aircraft access equipment and inspection platforms/docking such that the aircraft can be properly inspected.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.40(b)",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.40(b)",
+      "section": "145.A.40",
+      "section_heading": "Equipment, tools and material",
+      "text": "The organisation shall ensure that all tools, equipment and particularly test equipment, as appropriate, are controlled and calibrated according to an officially recognised standard at a frequency to ensure serviceability and accuracy. Records of such calibrations and traceability to the standard used shall be kept by the organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "Acceptance of components",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "All components shall be classified and appropriately segregated into the following categories:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "Components which are in a satisfactory condition, released on an EASA Form 1 or equivalent and marked in accordance with Subpart Q of Annex I (Part-21) to Regulation (EU) No 748/2012.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "Unserviceable components which shall be maintained in accordance with this section.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "Unsalvageable components which are classified in accordance with point 145.A.42(d).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "Standard parts used on an aircraft, engine, propeller or other aircraft component when specified in the manufacturer's illustrated parts catalogue and/or the maintenance data.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "5.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "Material both raw and consumable used in the course of maintenance when the organisation is satisfied that the material meets the required specification and has appropriate traceability. All material must be accompanied by documentation clearly relating to the particular material and containing a conformity to specification statement plus both the manufacturing and supplier source.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "6.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(a)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "Components referred to in point 21A.307(c) of Annex I (Part-21) to Regulation (EU) No 748/2012.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(b)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(b)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "Prior to installation of a component, the organisation shall ensure that the particular component is eligible to be fitted when different modification and/or airworthiness directive standards may be applicable.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(c)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(c)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "The organisation may fabricate a restricted range of parts to be used in the course of undergoing work within its own facilities provided procedures are identified in the exposition.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(d)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "(d)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(d)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "Components which have reached their certified life limit or contain a non-repairable defect shall be classified as unsalvageable and shall not be permitted to re-enter the component supply system unless certified life limits have been extended or a repair solution has been approved according to Annex I (Part-21) to Regulation (EU) No 748/2012.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(e)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "(e)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.42(e)",
+      "section": "145.A.42",
+      "section_heading": "Acceptance of components",
+      "text": "Components referred to in point 21A.307(c) of Annex I (Part-21) to Regulation (EU) No 748/2012 shall only be installed if considered eligible for installation by the aircraft owner in its own aircraft.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "Maintenance data",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.45(a)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(a)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "The organisation shall hold and use applicable current maintenance data in the performance of maintenance, including modifications and repairs. ‘Applicable’ means relevant to any aircraft, component or process specified in the organisation's approval class rating schedule and in any associated capability list.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(a)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "In the case of maintenance data provided by an operator or customer, the organisation shall hold such data when the work is in progress, with the exception of the need to comply with point 145.A.55(c).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "For the purposes of this Part, applicable maintenance data shall be any of the following:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "Any applicable requirement, procedure, operational directive or information issued by the authority responsible for the oversight of the aircraft or component;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "Any applicable airworthiness directive issued by the authority responsible for the oversight of the aircraft or component;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "Instructions for continuing airworthiness, issued by type certificate holders, supplementary type certificate holders, any other organisation required to publish such data by Annex I (Part-21) to Regulation (EU) No 748/2012 and in the case of aircraft or components from third countries the airworthiness data mandated by the authority responsible for the oversight of the aircraft or component;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "Any applicable standard, such as but not limited to, maintenance standard practices recognised by the Agency as a good standard for maintenance;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "5.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(b)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "Any applicable data issued in accordance with point (d).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(c)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(c)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "The organisation shall establish procedures to ensure that if found, any inaccurate, incomplete or ambiguous procedure, practice, information or maintenance instruction contained in the maintenance data used by maintenance personnel is recorded and notified to the author of the maintenance data.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(d)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "(d)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(d)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "The organisation may only modify maintenance instructions in accordance with a procedure specified in the maintenance organisation's exposition. With respect to those changes, the organisation shall demonstrate that they result in equivalent or improved maintenance standards and shall inform the type-certificate holder of such changes. Maintenance instructions for the purposes of this point means instructions on how to carry out the particular maintenance task: they exclude the engineering design of repairs and modifications.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(e)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "(e)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(e)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "The organisation shall provide a common work card or worksheet system to be used throughout relevant parts of the organisation. In addition, the organisation shall either transcribe accurately the maintenance data contained in points (b) and (d) onto such work cards or worksheets or make precise reference to the particular maintenance task or tasks contained in such maintenance data. Work cards and worksheets may be computer generated and held on an electronic database subject to both adequate safeguards against unauthorised alteration and a back-up electronic database which shall be updated within 24 hours of any entry made to the main electronic database. Complex maintenance tasks shall be transcribed onto the work cards or worksheets and subdivided into clear stages to ensure a record of the accomplishment of the complete maintenance task.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(e)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "Where the organisation provides a maintenance service to an aircraft operator who requires their work card or worksheet system to be used then such work card or worksheet system may be used. In this case, the organisation shall establish a procedure to ensure correct completion of the aircraft operators' work cards or worksheets.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(f)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "(f)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(f)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "The organisation shall ensure that all applicable maintenance data is readily available for use when required by maintenance personnel.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(g)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "(g)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.45(g)",
+      "section": "145.A.45",
+      "section_heading": "Maintenance data",
+      "text": "The organisation shall establish a procedure to ensure that maintenance data it controls is kept up to date. In the case of operator/customer controlled and provided maintenance data, the organisation shall be able to show that either it has written confirmation from the operator/customer that all such maintenance data is up to date or it has work orders specifying the amendment status of the maintenance data to be used or it can show that it is on the operator/customer maintenance data amendment list.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.47",
+      "section": "145.A.47",
+      "section_heading": "Production planning",
+      "text": "Production planning",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.47(a)",
+      "section": "145.A.47",
+      "section_heading": "Production planning",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.47(a)",
+      "section": "145.A.47",
+      "section_heading": "Production planning",
+      "text": "The organisation shall have a system appropriate to the amount and complexity of work to plan the availability of all necessary personnel, tools, equipment, material, maintenance data and facilities in order to ensure the safe completion of the maintenance work.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.47(b)",
+      "section": "145.A.47",
+      "section_heading": "Production planning",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.47(b)",
+      "section": "145.A.47",
+      "section_heading": "Production planning",
+      "text": "The planning of maintenance tasks, and the organising of shifts, shall take into account human performance limitations.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.47(c)",
+      "section": "145.A.47",
+      "section_heading": "Production planning",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.47(c)",
+      "section": "145.A.47",
+      "section_heading": "Production planning",
+      "text": "When it is required to hand over the continuation or completion of maintenance tasks for reasons of a shift or personnel changeover, relevant information shall be adequately communicated between outgoing and incoming personnel.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "Certification of maintenance",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.50(a)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(a)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "A certificate of release to service shall be issued by appropriately authorised certifying staff on behalf of the organisation when it has been verified that all maintenance ordered has been properly carried out by the organisation in accordance with the procedures specified in point 145.A.70, taking into account the availability and use of the maintenance data specified in point 145.A.45 and that there are no non-compliances which are known to endanger flight safety.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(b)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(b)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "A certificate of release to service shall be issued before flight at the completion of any maintenance.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(c)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(c)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "New defects or incomplete maintenance work orders identified during the above maintenance shall be brought to the attention of the aircraft operator for the specific purpose of obtaining agreement to rectify such defects or completing the missing elements of the maintenance work order. In the case where the aircraft operator declines to have such maintenance carried out under this point, point (e) is applicable.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(d)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "(d)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(d)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "A certificate of release to service shall be issued at the completion of any maintenance on a component whilst off the aircraft. The authorised release certificate ‘EASA Form 1’ referred to in Appendix II of Annex I (Part-M) constitutes the component certificate of release to service except if otherwise specified in point M.A.502(b) or M.A.502(e). When an organisation maintains a component for its own use, an EASA Form 1 may not be necessary depending upon the organisation's internal release procedures defined in the exposition.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(e)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "(e)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(e)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "By derogation to point (a), when the organisation is unable to complete all maintenance ordered, it may issue a certificate of release to service within the approved aircraft limitations. The organisation shall enter such fact in the aircraft certificate of release to service before the issue of such certificate.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(f)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "(f)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.50(f)",
+      "section": "145.A.50",
+      "section_heading": "Certification of maintenance",
+      "text": "By derogation to points (a) and 145.A.42, when an aircraft is grounded at a location other than the main line station or main maintenance base due to the non-availability of a component with the appropriate release certificate, it is permissible to temporarily fit a component without the appropriate release certificate for a maximum of 30 flight hours or until the aircraft first returns to the main line station or main maintenance base, whichever is the sooner, subject to the aircraft operator agreement and said component having a suitable release certificate but otherwise in compliance with all applicable maintenance and operational requirements. Such components shall be removed by the above prescribed time limit unless an appropriate release certificate has been obtained in the meantime under points (a) and 145.A.42.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "Maintenance records",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.55(a)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(a)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "The organisation shall record all details of maintenance work carried out. As a minimum, the organisation shall retain records necessary to prove that all requirements have been met for issuance of the certificate of release to service, including subcontractor's release documents.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(b)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(b)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "The organisation shall provide a copy of each certificate of release to service to the aircraft operator, together with a copy of any specific repair/modification data used for repairs/modifications carried out.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(c)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(c)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "The organisation shall retain a copy of all detailed maintenance records and any associated maintenance data for three years from the date the aircraft or component to which the work relates was released from the organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(c)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(c)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "The records under this point shall be stored in a manner that ensures protection from damage, alteration and theft.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(c)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(c)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "Computer backup discs, tapes etc. shall be stored in a different location from that containing the working discs, tapes etc., in an environment that ensures they remain in good condition.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(c)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.55(c)",
+      "section": "145.A.55",
+      "section_heading": "Maintenance records",
+      "text": "Where an organisation approved under this Annex (Part-145) terminates its operation, all retained maintenance records covering the last two years shall be distributed to the last owner or customer of the respective aircraft or component or shall be stored as specified by the competent authority.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.60",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "Occurrence reporting",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.60(a)",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.60(a)",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "The organisation shall report to the competent authority, the state of registry and the organisation responsible for the design of the aircraft or component any condition of the aircraft or component identified by the organisation that has resulted or may result in an unsafe condition that hazards seriously the flight safety.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.60(b)",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.60(b)",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "The organisation shall establish an internal occurrence reporting system as detailed in the exposition to enable the collection and evaluation of such reports, including the assessment and extraction of those occurrences to be reported under point (a). This procedure shall identify adverse trends, corrective actions taken or to be taken by the organisation to address deficiencies and include evaluation of all known relevant information relating to such occurrences and a method to circulate the information as necessary.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.60(c)",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.60(c)",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "The organisation shall make such reports in a form and manner established by the Agency and ensure that they contain all pertinent information about the condition and evaluation results known to the organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.60(d)",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "(d)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.60(d)",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "Where the organisation is contracted by a commercial operator to carry out maintenance, the organisation shall also report to the operator any such condition affecting the operator's aircraft or component.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.60(e)",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "(e)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.60(e)",
+      "section": "145.A.60",
+      "section_heading": "Occurrence reporting",
+      "text": "The organisation shall produce and submit such reports as soon as practicable but in any case within 72 hours of the organisation identifying the condition to which the report relates.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "Safety and quality policy, maintenance procedures and quality system",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.65(a)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(a)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "The organisation shall establish a safety and quality policy for the organisation to be included in the exposition under point 145.A.70.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(b)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(b)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "The organisation shall establish procedures agreed by the competent authority taking into account human factors and human performance to ensure good maintenance practices and compliance with this Part which shall include a clear work order or contract such that aircraft and components may be released to service in accordance with point 145.A.50.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(b)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(b)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "The maintenance procedures under this point apply to points 145.A.25 to 145.A.95.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(b)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(b)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "The maintenance procedures established or to be established by the organisation under this point shall cover all aspects of carrying out the maintenance activity, including the provision and control of specialised services and lay down the standards to which the organisation intends to work.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(b)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(b)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "With regard to aircraft line and base maintenance, the organisation shall establish procedures to minimise the risk of multiple errors and capture errors on critical systems, and to ensure that no person is required to carry out and inspect in relation to a maintenance task involving some element of disassembly/reassembly of several components of the same type fitted to more than one system on the same aircraft during a particular maintenance check. However, when only one person is available to carry out these tasks then the organisation's work card or worksheet shall include an additional stage for reinspection of the work by this person after completion of all the same tasks.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(b)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(b)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "Maintenance procedures shall be established to ensure that damage is assessed and modifications and repairs are carried out using data specified in point M.A.304.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(c)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(c)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "The organisation shall establish a quality system that includes the following:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(c)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(c)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "Independent audits in order to monitor compliance with required aircraft/aircraft component standards and adequacy of the procedures to ensure that such procedures invoke good maintenance practices and airworthy aircraft/aircraft components. In the smallest organisations the independent audit part of the quality system may be contracted to another organisation approved under this Part or a person with appropriate technical knowledge and proven satisfactory audit experience; and",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(c)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.65(c)",
+      "section": "145.A.65",
+      "section_heading": "Safety and quality policy, maintenance procedures and quality system",
+      "text": "A quality feedback reporting system to the person or group of persons specified in point 145.A.30(b) and ultimately to the accountable manager that ensures proper and timely corrective action is taken in response to reports resulting from the independent audits established to meet point (1).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "Maintenance organisation exposition",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "‘Maintenance organisation exposition’ means the document or documents that contain the material specifying the scope of work deemed to constitute approval and showing how the organisation intends to comply with this Annex (Part-145). The organisation shall provide the competent authority with a maintenance organisation exposition, containing the following information:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "A statement signed by the accountable manager confirming that the maintenance organisation exposition and any referenced associated manuals define the organisation's compliance with this Annex (Part-145) and will be complied with at all times. When the accountable manager is not the chief executive officer of the organisation then such chief executive officer shall countersign the statement;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "the organisation's safety and quality policy as specified by point 145.A.65;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "the title(s) and name(s) of the persons nominated under point 145.A.30(b);",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "the duties and responsibilities of the persons nominated under point 145.A.30(b), including matters on which they may deal directly with the competent authority on behalf of the organisation;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "5.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "an organisation chart showing associated chains of responsibility between the persons nominated under point 145.A.30(b);",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "6.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "a list of certifying staff and support staff;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "7.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "a general description of manpower resources;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "8.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "a general description of the facilities located at each address specified in the organisation's approval certificate;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "9.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "a specification of the organisation's scope of work relevant to the extent of approval;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "10.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "the notification procedure of point 145.A.85 for organisation changes;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "11.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "the maintenance organisation exposition amendment procedure;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "12.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "the procedures and quality system established by the organisation under points 145.A.25 to 145.A.90;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "13.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "a list of commercial operators, where applicable, to which the organisation provides an aircraft maintenance service;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "14.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "a list of subcontracted organisations, where applicable, as specified in point 145.A.75(b);",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "15.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "a list of line stations, where applicable, as specified in point 145.A.75(d);",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "16.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(a)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "a list of contracted organisations, where applicable.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(b)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(b)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "The exposition shall be amended as necessary to remain an up-to-date description of the organisation The exposition and any subsequent amendment shall be approved by the competent authority.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(c)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.70(c)",
+      "section": "145.A.70",
+      "section_heading": "Maintenance organisation exposition",
+      "text": "Notwithstanding point (b) minor amendments to the exposition may be approved through an exposition procedure (hereinafter called indirect approval).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "Privileges of the organisation",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.75",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "In accordance with the exposition, the organisation shall be entitled to carry out the following tasks:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75(a)",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75(a)",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "Maintain any aircraft and/or component for which it is approved at the locations identified in the approval certificate and in the exposition;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75(b)",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75(b)",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "Arrange for maintenance of any aircraft or component for which it is approved at another organisation that is working under the quality system of the organisation. This refers to work being carried out by an organisation not itself appropriately approved to carry out such maintenance under this Part and is limited to the work scope permitted under procedures laid down in point 145.A.65(b). This work scope shall not include a base maintenance check of an aircraft or a complete workshop maintenance check or overhaul of an engine or engine module;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75(c)",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75(c)",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "Maintain any aircraft or any component for which it is approved at any location subject to the need for such maintenance arising either from the unserviceability of the aircraft or from the necessity of supporting occasional line maintenance, subject to the conditions specified in the exposition;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75(d)",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "(d)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75(d)",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "Maintain any aircraft and/or component for which it is approved at a location identified as a line maintenance location capable of supporting minor maintenance and only if the organisation exposition both permits such activity and lists such locations;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75(e)",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "(e)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.75(e)",
+      "section": "145.A.75",
+      "section_heading": "Privileges of the organisation",
+      "text": "Issue certificates of release to service in respect of completion of maintenance in accordance with point 145.A.50.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.80",
+      "section": "145.A.80",
+      "section_heading": "Limitations on the organisation",
+      "text": "Limitations on the organisation",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.80",
+      "section": "145.A.80",
+      "section_heading": "Limitations on the organisation",
+      "text": "The organisation shall only maintain an aircraft or component for which it is approved when all the necessary facilities, equipment, tooling, material, maintenance data and certifying staff are available.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "Changes to the organisation",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "The organisation shall notify the competent authority of any proposal to carry out any of the following changes before such changes take place to enable the competent authority to determine continued compliance with this Part and to amend, if necessary, the approval certificate, except that in the case of proposed changes in personnel not known to the management beforehand, these changes must be notified at the earliest opportunity:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "the name of the organisation;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "the main location of the organisation;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "additional locations of the organisation;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "the accountable manager;",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "5.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "any of the persons nominated under point 145.A.30(b);",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "6.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.85",
+      "section": "145.A.85",
+      "section_heading": "Changes to the organisation",
+      "text": "the facilities, equipment, tools, material, procedures, work scope or certifying staff that could affect the approval.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.90",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "Continued validity",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.90(a)",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.90(a)",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "An approval shall be issued for an unlimited duration. It shall remain valid subject to:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.90(a)",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.90(a)",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "the organisation remaining in compliance with Annex II (Part-145), in accordance with the provisions related to the handling of findings as specified under point 145.B.50; and",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.90(a)",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.90(a)",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "the competent authority being granted access to the organisation to determine continued compliance with this Part; and",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.90(a)",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.90(a)",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "the certificate not being surrendered or revoked.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.90(b)",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.90(b)",
+      "section": "145.A.90",
+      "section_heading": "Continued validity",
+      "text": "Upon surrender or revocation, the approval shall be returned to the competent authority.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Findings",
+      "kind": "heading"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "A level 1 finding is any significant non-compliance with requirements laid down in this Annex (Part-145) which lowers the safety standard and hazards seriously the flight safety.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "A level 2 finding is any non-compliance with requirements laid down in this Annex (Part-145) which could lower the safety standard and possibly hazard the flight safety.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "After receipt of notification of findings according to point 145.B.50, the holder of the maintenance organisation approval shall define a corrective action plan and demonstrate corrective action to the satisfaction of the competent authority within a period agreed with this authority.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "SECTION B",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "PROCEDURE FOR COMPETENT AUTHORITIES",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.01 Scope",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "This section establishes the administrative procedures which the competent authority shall follow when exercising its tasks and responsibilities regarding issuance, continuation, change, suspension or revocation of approvals of maintenance organisations under this Annex (Part-145).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.10 Competent authority",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "1. General",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The Member State shall designate a competent authority with allocated responsibilities for the issuance, continuation, change, suspension or revocation of a maintenance approval. This competent authority shall establish documented procedures and an organisational structure.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "2. Resources",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The number of staff must be appropriate to carry out the requirements as detailed in this section.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "3. Qualification and training",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "All staff involved in approvals under this Annex (Part-145) must:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "be appropriately qualified and have all necessary knowledge, experience and training to perform their allocated tasks.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "have received training/continuation training on this Annex (Part-145) where relevant, including its intended meaning and standard.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "4. Procedures",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall establish procedures detailing how compliance with this Section B is accomplished.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The procedures must be reviewed and amended to ensure continued compliance.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.15 Organisations located in several Member States",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Where maintenance facilities are located in more than one Member State the investigation and continued oversight of the approval must be carried out in conjunction with the competent authorities from the Member States in whose territory the other maintenance facilities are located.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.20 Initial approval",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Provided the requirements of points 145.A.30(a) and (b) are complied with, the competent authority shall formally indicate its acceptance of the personnel, specified in points 145.A.30(a) and (b), to the applicant in writing.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall verify that the procedures specified in the maintenance organisation exposition comply with this Annex (Part-145) and verify that the accountable manager signs the commitment statement.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall verify that the organisation is in compliance with the requirements of this Annex (Part-145).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "A meeting with the accountable manager shall be convened at least once during the investigation for approval to ensure that he/she fully understands the significance of the approval and the reason for signing the exposition commitment of the organisation to compliance with the procedures specified in the exposition.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "5.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "All findings must be confirmed in writing to the organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "6.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall record all findings, closure actions (actions required to close a finding) and recommendations",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "7.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "For initial approval all findings must be corrected before the approval can be issued.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.25 Issue of approval",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall formally approve the exposition and issue to the applicant a Form 3 approval certificate, which includes the approval ratings. The competent authority shall only issue a certificate when the organisation is in compliance with this Annex (Part-145).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall indicate the conditions of the approval on the Form 3 approval certificate.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The reference number shall be included on the Form 3 approval certificate in a manner specified by the Agency.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.30 Continuation of an approval",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The continuation of an approval shall be monitored in accordance with the applicable ‘initial approval’ process under point 145.B.20. In addition:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall keep and update a program listing the approved maintenance organisations under its supervision, the dates when audit visits are due and when such visits were carried out.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Each organisation must be completely reviewed for compliance with this Annex (Part-145) at periods not exceeding 24 months.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "A meeting with the accountable manager shall be convened at least once every 24 months to ensure he/she remains informed of significant issues arising during audits.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.35 Changes",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall receive notification from the organisation of any proposed change as listed in point 145.A.85.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall comply with the applicable elements of the initial process points for any change to the organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority may prescribe the conditions under which organisation may operate during such changes unless it determines that the approval should be suspended.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.40 Changes to the Maintenance Organisation Exposition",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "For any change to the Maintenance Organisation Exposition (MOE):",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "In the case of direct approval of the changes in accordance with point 145.A.70(b), the competent authority shall verify that the procedures specified in the exposition are in compliance with Annex II (Part-145) before formally notifying the approved organisation of the approval.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "In the case an indirect approval procedure is used for the approval of the changes in accordance with point 145.A.70(c), the competent authority shall ensure (i) that the changes remain minor and (ii) that it has an adequate control over the approval of the changes to ensure they remain in compliance with the requirements of Annex II (Part-145).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.45 Revocation, suspension and limitation of approval",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "suspend an approval on reasonable grounds in the case of potential safety threat; or",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "suspend, revoke or limit an approval pursuant to point 145.B.50.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.50 Findings",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "When during audits or by other means evidence is found showing non-compliance with the requirements of this Annex (Part-145), the competent authority shall take the following actions:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "For level 1 findings, immediate action shall be taken by the competent authority to revoke, limit or suspend in whole or in part, depending upon the extent of the level 1 finding, the maintenance organisation approval, until successful corrective action has been taken by the organisation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "For level 2 findings, the corrective action period granted by the competent authority must be appropriate to the nature of the finding but in any case initially must not be more than three months. In certain circumstances and subject to the nature of the finding the competent authority may extend the three month period subject to a satisfactory corrective action plan agreed by the competent authority.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Action shall be taken by the competent authority to suspend in whole or part the approval in case of failure to comply within the timescale granted by the competent authority",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.55 Record-keeping",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority shall establish a system of record-keeping with minimum retention criteria that allows adequate traceability of the process to issue, continue, change, suspend or revoke each individual organisation approval.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "2.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The records shall include as a minimum:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "the application for an organisation approval, including the continuation thereof.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "the competent authority continued oversight program including all audit records.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "the organisation approval certificate including any change thereto.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(d)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(d)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(d)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "a copy of the audit program listing the dates when audits are due and when audits were carried out.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(e)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(e)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(e)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "copies of all formal correspondence including Form 4 or equivalent.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(f)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(f)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(f)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "details of any exemption and enforcement action(s).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(g)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(g)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(g)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "any other competent authority audit report forms.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(h)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "maintenance organisation expositions.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "3.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The minimum retention period for the above records shall be four years.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "4.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The competent authority may elect to use either a paper or computer system or any combination of both subject to appropriate controls.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "145.B.60 Exemptions",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "All exemptions granted in accordance with Article 10(3) of Regulation (EC) No 216/2008 shall be recorded and retained by the competent authority",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Appendix I",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Authorised Release Certificate — EASA Form 1",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The provisions of Appendix II to Annex I (Part-M) apply.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Appendix II",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Class and Ratings System used for the Approval of Maintenance Organisations referred to in Annex I (Part-M) Subpart F and Annex II (Part-145)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The provisions of Appendix IV to Annex I (Part-M) apply.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Appendix III",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Maintenance Organisation Approval referred to in Annex II (Part-145)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Text of image",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Page 1 of 2",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "[MEMBER STATE] (*)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "A Member of the European Union (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "MAINTENANCE ORGANISATION APPROVAL CERTIFICATE",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Reference: [MEMBER STATE CODE (*)].145.XXXX",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Pursuant to Regulation (EC) No 216/2008 of the European Parliament and of the Council and to Commission Regulation (EC) No 2042/2003 for the time being in force and subject to the condition specified below, the [COMPETENT AUTHORITY OF THE MEMBER STATE (*)] hereby certifies:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "[COMPANY NAME AND ADDRESS]",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "as a maintenance organisation in compliance with Section A of Annex II (Part-145) of Regulation (EC) No 2042/2003, approved to maintain products, parts and appliances listed in the attached approval schedule and issue related certificates of release to service using the above references.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "CONDITIONS:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "1. This approval is limited to that specified in the scope of work section of the approved maintenance organisation exposition as referred to in Section A of Annex II (Part-145), and",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "2. This approval requires compliance with the procedures specified in the approved maintenance organisation exposition, and",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "3. This approval is valid whilst the approved maintenance organisation remains in compliance with Annex II (Part-145) of Regulation (EC) No 2042/2003.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "4. Subject to compliance with the foregoing conditions, this approval shall remain valid for an unlimited duration unless the approval has previously been surrendered, superseded, suspended or revoked.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Date of original issue:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Date of this revision:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Revision No:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Signed:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "For the competent authority: [COMPETENT AUTHORITY OF THE MEMBER STATE (*)]",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "EASA Form 3-145 Issue 2",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(*) or EASA if EASA is the competent authority.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(**) Delete for non-EU Member States or EASA.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Text of image",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Page 2 of 2",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "MAINTENANCE ORGANISATION APPROVAL SCHEDULE",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Reference: [MEMBER STATE CODE (*)].145.[XXXX]",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Organisation: [COMPANY NAME AND ADDRESS]",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "This approval schedule is limited to those products, parts and appliances and to the activities specified in the scope of work section of the approved maintenance organisation exposition,",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Maintenance Organisation Exposition reference:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Date of original issue:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Date of last revision approved: Revision No:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Signed:",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "For the competent authority: [COMPETENT AUTHORITY OF THE MEMBER STATE (*)]",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "EASA Form 3-145 Issue 2",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "CLASS",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "RATING",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "LIMITATION",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "BASE",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "LINE",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "AIRCRAFT (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "[YES/NO] (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "[YES/NO] (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "[YES/NO] (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "[YES/NO] (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "ENGINES (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "[YES/NO] (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "[YES/NO] (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "[YES/NO] (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "[YES/NO] (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "COMPONENTS OTHER THAN COMPLETE ENGINES OR APUs (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "SPECIALISED SERVICES (**)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(*) or EASA if EASA is the competent authority.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(**) Delete as appropriate if the organisation is not approved.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(***) Complete with the appropriate rating and limitation.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Appendix IV",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Conditions for the use of staff not qualified in accordance with Annex III (Part-66) referred to in points 145.A.30(j)1 and 2",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(h)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "1. Certifying staff in compliance with all the following conditions are deemed to meet the intent of point 145.A.30(j)(1) and (2):",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The person shall hold a licence or a certifying staff authorisation issued under national regulations in full compliance with ICAO Annex 1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The scope of work of the person shall not exceed the scope of work defined by the national licence or the certifying staff authorisation, whatever is the most restrictive.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The person shall demonstrate he/she received the training on human factors and aviation legislation referred to in modules 9 and 10 of Appendix I to Annex III (Part-66).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(d)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(d)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(d)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The person shall demonstrate 5 years maintenance experience for line maintenance certifying staff and 8 years for base maintenance certifying staff. However, those persons whose authorised tasks do not exceed those of a Part-66 category A certifying staff, need to demonstrate 3 years maintenance experience only.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(e)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(e)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(e)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Line maintenance certifying staff and base maintenance support staff shall demonstrate he/she received type training and passed examination at the category B1, B2 or B3 level, as applicable, referred to in Appendix III to Annex III (Part-66) for each aircraft type in the scope of work referred to in point (b). Those persons whose scope of work does not exceed those of a category A certifying staff may however receive task training in lieu of a complete type training.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(f)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(f)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(f)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Base maintenance certifying staff shall demonstrate he/she received type training and passed examination at the category C level referred to in Appendix III to Annex III (Part-66) for each aircraft type in the scope of work referred to in point (b), except that for the first aircraft type, training and examination shall be at the category B1, B2 or B3 level of Appendix III.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(f)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "2. Protected rights",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(a)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(a)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "The personnel having privileges before the entry into force of the relevant requirements of Annex III (Part-66) may continue to exercise them without the need to comply with points 1(c) to 1(f).",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(b)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(b)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "However after that date any certifying staff willing to extend the scope of their authorisation to include additional privileges shall comply with point 1.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "(c)",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "Notwithstanding point 2(b) above, in the case of additional type training, compliance with points 1(c) and 1(d) is not required.",
+      "kind": "paragraph"
+    },
+    {
+      "clause_ref": "145.A.95(c)",
+      "section": "145.A.95",
+      "section_heading": "Findings",
+      "text": "ANNEX III",
+      "kind": "paragraph"
+    }
+  ]
+}

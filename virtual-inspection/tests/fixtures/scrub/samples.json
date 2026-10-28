@@ -1,0 +1,46 @@
+{
+  "_readme": [
+    "Synthetic strings shaped like the things the clean-room gate must catch.",
+    "Nothing here refers to a real organisation, person, office, or document.",
+    "This directory is the gate's only content exclusion - see CONTENT_EXCLUSIONS",
+    "in tools/scrub/collect.ts and the test that pins it there."
+  ],
+  "identifier": {
+    "doc-number-procedure": "see P-812-07 for the release steps",
+    "doc-number-sop": "recorded per SOP-899-01",
+    "doc-number-form": "captured on F-833-12",
+    "doc-number-qc-form": "signed on QC-F-844-02",
+    "doc-number-annex": "listed in A-851-99",
+    "doc-number-manual": "section 4 of PM-866-01",
+    "doc-number-process-flow": "mapped in PF-877-03",
+    "doc-number-quality-manual": "clause 8 of PQM-123-4",
+    "doc-number-corporate": "escalated under CORP-P-456-78",
+    "doc-number-supplier-request": "raised as SPR-ZZ99",
+    "doc-number-template": "drafted from T-750-11",
+    "cancelled-notice-citation": "issued under N 8900.689",
+    "repair-station-certificate": "certificate XY9R123Q",
+    "email-address": "contact inspector@fictional-domain.zz",
+    "telephone-number": "call (555) 010-4477",
+    "faa-field-office": "coordinated with the Fictional FSDO",
+    "postal-address": "delivered to 4200 Imaginary Parkway",
+    "personal-name-with-honorific": "witnessed by Dr. Nobody"
+  },
+  "opinion": {
+    "opinion-compliance-state": "your organisation is compliant",
+    "opinion-complies-with": "this record complies with the rule",
+    "opinion-in-compliance-with": "you are operating in compliance with the rule",
+    "opinion-authority-endorsement": "this configuration is approved by the FAA",
+    "opinion-satisfies": "this satisfies section 145.211",
+    "opinion-meets-the-requirement": "the session meets the requirement",
+    "opinion-acceptable-to-authority": "the package is acceptable to the authority",
+    "opinion-session-acceptable": "the session is acceptable",
+    "opinion-demonstrates-compliance": "the export demonstrates compliance",
+    "opinion-regulatory-pass": "this passes the audit"
+  },
+  "clean": [
+    "The session captured 6 of 8 applicable evidence elements.",
+    "The article was determined to conform against check KC-2.",
+    "Approval was withheld because conformity could not be verified.",
+    "Retention runs to 2036-07-24 under the configured floor."
+  ]
+}

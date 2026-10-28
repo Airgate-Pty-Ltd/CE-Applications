@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Check execution is designed for a tablet held in one hand, with gloves on.
+   Touch targets below this size fail on the receiving bench. */
+@layer base {
+  :root {
+    --touch-target-min: 44px;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+}

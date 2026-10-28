@@ -1,0 +1,1504 @@
+{
+ "note": "Clause references and standard headings only (R-2). Built from licensed-private copies by content/build_register.py. Status compares each clause with library-seed.json (PROPOSED).",
+ "sources": {
+  "AS9100D": {
+   "file": "licensed-private/AS9100D.pdf",
+   "sha256": "e4f399daaa6d2f907bb8cb0e8e491ef75e06f6e01dafd5a4f03d2d1fe7a81413",
+   "toc_headings": 78,
+   "clauses_in_standard_4_to_11": 121,
+   "seed_rows": 84,
+   "seed_clauses_not_in_standard": [
+    "4.3.1",
+    "6.3.2",
+    "7.2.2",
+    "7.5.1.1",
+    "8.2.1.1",
+    "8.2.2.1",
+    "8.3.2.1",
+    "8.3.3.1",
+    "8.3.5.1",
+    "8.3.6.1",
+    "8.4.1.2",
+    "8.4.2.1",
+    "8.4.2.2",
+    "8.4.3.1",
+    "8.5.2.1",
+    "8.5.6.1",
+    "8.6.1",
+    "8.6.2",
+    "8.6.3",
+    "8.6.4",
+    "8.6.5",
+    "8.6.6",
+    "9.1.3.1",
+    "9.3.2.1",
+    "10.2.1.1"
+   ],
+   "clauses": [
+    {
+     "clause_ref": "0.2",
+     "heading": "Quality Management Principles",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "0.3",
+     "heading": "Process Approach",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "0.3.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "0.3.2",
+     "heading": "Plan-Do-Check-Act Cycle",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "0.3.3",
+     "heading": "Risk-Based Thinking",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "0.4",
+     "heading": "Relationship with Other Management System Standards",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "4",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "4.1",
+     "heading": "Understanding the Organization and Its Context",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "4.2",
+     "heading": "Understanding the Needs and Expectations of Interested Parties",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Needs and Expectations of Interested Parties\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "4.3",
+     "heading": "Determining the Scope of the Quality Management System",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Determining Scope of the QMS\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "4.4",
+     "heading": "Quality Management System and Its Processes",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"QMS and Its Processes\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "4.4.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "4.4.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "5",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "5.1",
+     "heading": "Leadership and Commitment",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.1.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.1.2",
+     "heading": "Customer Focus",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.2",
+     "heading": "Policy",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Quality Policy\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.2.1",
+     "heading": "Establishing the Quality Policy",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.2.2",
+     "heading": "Communicating the Quality Policy",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.3",
+     "heading": "Organizational Roles, Responsibilities, and Authorities",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "6",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "6.1",
+     "heading": "Actions to Address Risks and Opportunities",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "6.1.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "6.1.2",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Risk Management (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "6.2",
+     "heading": "Quality Objectives and Planning to Achieve Them",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "6.2.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "6.2.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "6.3",
+     "heading": "Planning of Changes",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "7.1",
+     "heading": "Resources",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.1",
+     "heading": "General",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"General Resources\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.2",
+     "heading": "People",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.3",
+     "heading": "Infrastructure",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.4",
+     "heading": "Environment for the Operation of Processes",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.5",
+     "heading": "Monitoring and Measuring Resources",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.5.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Measurement Traceability (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "7.1.5.2",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Calibration/Verification Records (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "7.1.6",
+     "heading": "Organizational Knowledge",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.2",
+     "heading": "Competence",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.3",
+     "heading": "Awareness",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.4",
+     "heading": "Communication",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.5",
+     "heading": "Documented Information",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.5.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.5.2",
+     "heading": "Creating and Updating",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.5.3",
+     "heading": "Control of Documented Information",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.5.3.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "7.5.3.2",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Control of Documented Information — Aerospace Addition",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "8.1",
+     "heading": "Operational Planning and Control",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.1.1",
+     "heading": "Operational Risk Management",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Operational Planning (Aerospace Addition)\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.1.2",
+     "heading": "Configuration Management",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.1.3",
+     "heading": "Product Safety",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Product Safety (Aerospace Addition)\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.1.4",
+     "heading": "Prevention of Counterfeit Parts",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.2",
+     "heading": "Requirements for Products and Services",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.2.1",
+     "heading": "Customer Communication",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.2.2",
+     "heading": "Determining the Requirements for Products and Services",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Determining Requirements for Products and Services\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.2.3",
+     "heading": "Review of the Requirements for Products and Services",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Review of Requirements for Products and Services\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.2.3.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Review of Requirements (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.2.3.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.2.4",
+     "heading": "Changes to Requirements for Products and Services",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3",
+     "heading": "Design and Development of Products and Services",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.2",
+     "heading": "Design and Development Planning",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.3",
+     "heading": "Design and Development Inputs",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.4",
+     "heading": "Design and Development Controls",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.4.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Design Controls (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.3.5",
+     "heading": "Design and Development Outputs",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.6",
+     "heading": "Design and Development Changes",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.4",
+     "heading": "Control of Externally Provided Processes, Products, and Services",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.4.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.4.1.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Supplier Control (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.4.2",
+     "heading": "Type and Extent of Control",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.4.3",
+     "heading": "Information for External Providers",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5",
+     "heading": "Production and Service Provision",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.1",
+     "heading": "Control of Production and Service Provision",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.1.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Control of Production (Aerospace Addition — FAI, KC, Special Requirements)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.5.1.2",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Control of Special Processes (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.5.1.3",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Control of Production Equipment, Tools, and NC Software (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.5.2",
+     "heading": "Identification and Traceability",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.3",
+     "heading": "Property Belonging to Customers or External Providers",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.4",
+     "heading": "Preservation",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.5",
+     "heading": "Post-Delivery Activities",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.6",
+     "heading": "Control of Changes",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.6",
+     "heading": "Release of Products and Services",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.7",
+     "heading": "Control of Nonconforming Outputs",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.7.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Control of Nonconforming Outputs (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.7.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "9.1",
+     "heading": "Monitoring, Measurement, Analysis, and Evaluation",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.1.1",
+     "heading": "General",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Monitoring (Aerospace Addition)\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.1.2",
+     "heading": "Customer Satisfaction",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.1.3",
+     "heading": "Analysis and Evaluation",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.2",
+     "heading": "Internal Audit",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.2.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9.2.2",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Internal Audit (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9.3",
+     "heading": "Management Review",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.3.1",
+     "heading": "General",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Management Review (Aerospace Addition)\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.3.2",
+     "heading": "Management Review Inputs",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.3.3",
+     "heading": "Management Review Outputs",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "10",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "10.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "10.2",
+     "heading": "Nonconformity and Corrective Action",
+     "status": "IN SEED - title matches",
+     "found_in": "toc"
+    },
+    {
+     "clause_ref": "10.2.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Corrective Action (Aerospace Addition)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "10.2.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "10.3",
+     "heading": "Continual Improvement",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "11.1",
+     "heading": "Revision Indicator",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9001",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9101",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9102",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9103",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9107",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9114",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9115",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9116",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9131",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9132",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9133",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9134",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9162",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "10006",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    }
+   ]
+  },
+  "AS9110C": {
+   "file": "licensed-private/AS9110C.pdf",
+   "sha256": "0af526813f6636639a37382a731e41e703ce23488882082d146d529fcbdd2c71",
+   "toc_headings": 84,
+   "clauses_in_standard_4_to_11": 120,
+   "seed_rows": 25,
+   "seed_clauses_not_in_standard": [
+    "4.3.1",
+    "7.1.3.1",
+    "7.1.4.1",
+    "7.2.2",
+    "8.2.2.1",
+    "8.6.1"
+   ],
+   "clauses": [
+    {
+     "clause_ref": "0.2",
+     "heading": "Quality Management Principles",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "0.3",
+     "heading": "Process Approach",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "0.3.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "0.3.2",
+     "heading": "Plan-Do-Check-Act Cycle",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "0.3.3",
+     "heading": "Risk-Based Thinking",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "0.4",
+     "heading": "Relationship with Other Management System Standards",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "4",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "4.1",
+     "heading": "Understanding the Organization and Its Context",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "4.2",
+     "heading": "Understanding the Needs and Expectations of Interested Parties",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "4.3",
+     "heading": "Determining the Scope of the Quality Management System",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "4.4",
+     "heading": "Quality Management System and Its Processes",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "4.4.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "4.4.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "5",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "5.1",
+     "heading": "Leadership and Commitment",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.1.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.1.2",
+     "heading": "Customer Focus",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.2",
+     "heading": "Policy",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.2.1",
+     "heading": "Establishing the Quality Policy",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.2.2",
+     "heading": "Communicating the Quality Policy",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.2.3",
+     "heading": "Establishing and Communicating the Safety Policy",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.3",
+     "heading": "Organizational Roles, Responsibilities, and Authorities",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.3.1",
+     "heading": "Accountable Manager",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.3.2",
+     "heading": "Quality Manager",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "5.3.3",
+     "heading": "Other Appointed Manager(s)",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "6",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "6.1",
+     "heading": "Actions to Address Risks and Opportunities",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "6.1.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "6.1.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "6.2",
+     "heading": "Quality Objectives and Planning to Achieve Them",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "6.2.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "6.2.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "6.3",
+     "heading": "Planning of Changes",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "7.1",
+     "heading": "Resources",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.2",
+     "heading": "People",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.3",
+     "heading": "Infrastructure",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.4",
+     "heading": "Environment for the Operation of Processes",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.5",
+     "heading": "Monitoring and Measuring Resources",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.1.5.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Calibration Traceability in Maintenance Context",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "7.1.5.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "7.1.6",
+     "heading": "Organizational Knowledge",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.2",
+     "heading": "Competence",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.3",
+     "heading": "Awareness",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.4",
+     "heading": "Communication",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.5",
+     "heading": "Documented Information",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.5.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.5.2",
+     "heading": "Creating and Updating",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.5.3",
+     "heading": "Control of Documented Information",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "7.5.3.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "7.5.3.2",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Airworthiness Data Control (External Documents)",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "8.1",
+     "heading": "Operational Planning and Control",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.1.1",
+     "heading": "Operational Risk Management",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Maintenance Planning and Control\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.1.2",
+     "heading": "Configuration Management",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Component Tracking and Traceability\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.1.3",
+     "heading": "Product Safety",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Life-Limited Parts Control\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.1.4",
+     "heading": "Prevention of Counterfeit Parts",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.1.5",
+     "heading": "Prevention of Suspected Unapproved Parts",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Product Safety in Maintenance\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.1.6",
+     "heading": "Installation of Approved Parts",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.2",
+     "heading": "Requirements for Products and Services",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.2.1",
+     "heading": "Customer Communication",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.2.2",
+     "heading": "Determining the Requirements for Products and Services",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.2.3",
+     "heading": "Review of the Requirements for Products and Services",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.2.3.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.2.3.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.2.4",
+     "heading": "Changes to Requirements for Products and Services",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3",
+     "heading": "Design and Development of Products and Services",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.2",
+     "heading": "Design and Development Planning",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.3",
+     "heading": "Design and Development Inputs",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.4",
+     "heading": "Design and Development Controls",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.5",
+     "heading": "Design and Development Outputs",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.3.6",
+     "heading": "Design and Development Changes",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.4",
+     "heading": "Control of Externally Provided Processes, Products, and Services",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.4.1",
+     "heading": "General",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Subcontract Maintenance Control\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.4.1.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.4.2",
+     "heading": "Type and Extent of Control",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.4.3",
+     "heading": "Information for External Providers",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5",
+     "heading": "Production and Service Provision",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.1",
+     "heading": "Control of Production and Service Provision",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Control of Maintenance Execution\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.1.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Human Factors in Maintenance Execution",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.5.1.2",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Special Processes in MRO Context",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.5.1.3",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.5.1.4",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.5.2",
+     "heading": "Identification and Traceability",
+     "status": "IN SEED - title matches",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.3",
+     "heading": "Property Belonging to Customers or External Providers",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Customer Property in Maintenance\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.4",
+     "heading": "Preservation",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Preservation of Components During Maintenance\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.5",
+     "heading": "Post-Delivery Activities",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.5.6",
+     "heading": "Control of Changes",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.6",
+     "heading": "Release of Products and Services",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Return to Service and Authorized Release\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.7",
+     "heading": "Control of Nonconforming Outputs",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "8.7.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Nonconforming Maintenance Outputs",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "8.7.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "9.1",
+     "heading": "Monitoring, Measurement, Analysis, and Evaluation",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.1.1",
+     "heading": "General",
+     "status": "IN SEED - TITLE DIFFERS: seed=\"Maintenance Performance Monitoring\"",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.1.2",
+     "heading": "Customer Satisfaction",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.1.3",
+     "heading": "Analysis and Evaluation",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.2",
+     "heading": "Internal Audit",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.2.1",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9.2.2",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Internal Audit Scope in MRO Context",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9.3",
+     "heading": "Management Review",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.3.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.3.2",
+     "heading": "Management Review Inputs",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9.3.3",
+     "heading": "Management Review Outputs",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "10",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "structure line only (title not extracted; verify against licensed copy)"
+    },
+    {
+     "clause_ref": "10.1",
+     "heading": "General",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "10.2",
+     "heading": "Nonconformity and Corrective Action",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc"
+    },
+    {
+     "clause_ref": "10.2.1",
+     "heading": null,
+     "status": "IN SEED - no heading in standard (numbered requirement); seed title: Corrective Action — Maintenance Context",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "10.2.2",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "10.3",
+     "heading": "Continual Improvement",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "11.1",
+     "heading": "Revision Indicator",
+     "status": "NOT IN SEED - author intent",
+     "found_in": "toc+body"
+    },
+    {
+     "clause_ref": "9001",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9101",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9114",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9132",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9134",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "9162",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    },
+    {
+     "clause_ref": "10006",
+     "heading": null,
+     "status": "NOT IN SEED - author intent",
+     "found_in": "+body"
+    }
+   ]
+  }
+ }
+}

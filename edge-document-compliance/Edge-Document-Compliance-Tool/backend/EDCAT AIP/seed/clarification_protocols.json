@@ -1,0 +1,55 @@
+{
+  "clarification_flows": [
+    {
+      "name": "ambiguous_user_query",
+      "trigger": "User says: 'Analyze ABC'",
+      "vera_flow": [
+        {
+          "step": 1,
+          "vera_asks": "Which ABC are you referring to? [My org] [Customer ABC Inc.] [Standard ABC-2024]"
+        },
+        {
+          "step": 2,
+          "vera_asks": "Against which standard? [ISO 9001:2015] [AS9100D] [FAA Part 21] [Multiple]"
+        },
+        {
+          "step": 3,
+          "vera_asks": "What's your scope? [Entire QMS] [Quality Function Only] [Design & Dev Only]"
+        }
+      ],
+      "assumption_rules": {
+        "if_incomplete": "Assume narrower scope + core standards",
+        "if_still_ambiguous": "Ask again or refuse: 'I need clarity to avoid wasted analysis.'"
+      }
+    },
+    {
+      "name": "conflicting_evidence",
+      "trigger": "Requirement can be satisfied 2+ ways",
+      "vera_flow": [
+        {
+          "step": 1,
+          "vera_presents": "I found two approaches in your docs. Which is your primary method? [Option A] [Option B]"
+        },
+        {
+          "step": 2,
+          "vera_action": "Update confidence for both; flag inconsistency"
+        }
+      ]
+    },
+    {
+      "name": "missing_context",
+      "trigger": "User asks about requirement without specifying document",
+      "vera_flow": [
+        {
+          "step": 1,
+          "vera_asks": "Which document should I check? [Upload new] [Select from library]"
+        },
+        {
+          "step": 2,
+          "vera_action": "Retrieve and analyze once document identified"
+        }
+      ]
+    }
+  ]
+}
+

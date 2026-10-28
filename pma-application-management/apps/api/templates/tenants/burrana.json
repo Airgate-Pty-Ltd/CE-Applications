@@ -1,0 +1,78 @@
+{
+  "tenantProfile": "burrana",
+  "note": "TENANT DATA ONLY. The golden templates carry no organization data; this file supplies every {{tenant.*}} token. A second organization is onboarded by adding a sibling file — the templates are untouched.",
+  "sourcedFrom": [
+    "F-851-45 Rev C letter templates (office block, footer)",
+    "F-851-46 Rev A supplement header (PMA No.)",
+    "Submitted ST12351SE application letter, 02 Apr 2026"
+  ],
+
+  "legalName": "Burrana, Inc.",
+  "legalNameUpper": "BURRANA, Inc.",
+  "pmaNumber": "PQ05320NM",
+
+  "manufacturingAddress": "743 West 1200 North, Suite 100, Springville, UT 84663",
+  "addressLine1": "743 West 1200 North, Suite 100",
+  "addressLine2": "Springville, UT 84663",
+  "phone": "(801) 961-7223",
+  "fax": "(801) 961-7236",
+
+  "systemFamilyName": "Burrana System",
+
+  "faaOffice": {
+    "note": "Tenant-specific. NEVER defaulted to another organization.",
+    "lines": [
+      "FAA – Scottsdale Certificate Management Section (AIR-871)",
+      "17777 North Perimeter Dr., Suite 103",
+      "Scottsdale, AZ 85255-5433",
+      "Attention: Mr. John Rigg",
+      "           Manager, Scottsdale Certificate Management Section",
+      "           West Certificate Management Branch",
+      "           System Oversight Division",
+      "           Aircraft Certification Service"
+    ],
+    "signatureBlockLines": [
+      "John P. Rigg",
+      "Manager, Scottsdale Certificate Management Section",
+      "West Certificate Management Branch",
+      "System Oversight Division",
+      "Aircraft Certification Service"
+    ]
+  },
+
+  "roles": {
+    "note": "SOP-851-12 Rev C responsibilities. Supersedes the generic Preparer/Reviewer/Admin model.",
+    "orderAdminSales": "Identify potential sales or ordered parts requiring PMA (Power BI report); notify Quality if parts are not reflected.",
+    "qualityControl": "Request and collect the TC or STC information, complete the supplement per SOP-851-12, and have it reviewed by a third person.",
+    "vicePresidentQuality": "Review and sign the form and submit it to the FAA office."
+  },
+
+  "forms": {
+    "note": "The organization's own controlled numbers for the three forms the tool produces. The golden templates carry no form numbers; these render into the output and into finding citations.",
+    "submissionChecklist": { "id": "F-851-45", "revision": "C", "title": "FAA-PMA Submission Checklist" },
+    "pmaSupplement": { "id": "F-851-46", "revision": "A", "title": "Unnumbered PMA Supplement Burrana Form" },
+    "applicationLetter": { "id": null, "revision": null, "title": "Application letter templates (held within the submission checklist form)" }
+  },
+
+  "referenceDocuments": {
+    "note": "Reference material for the preparer — recorded so the case shows what it was prepared under. Not executed by the tool.",
+    "supplementProcedure": {
+      "id": "SOP-851-12",
+      "revision": "C",
+      "title": "Development of PMA Supplements for the FAA",
+      "status": "Revision pending — terminology predates the FAA AIR reorganisation."
+    }
+  },
+
+  "regulatorySources": [
+    { "title": "FAA Order 8110.42D — Parts Manufacturer Approval Procedures", "category": "FAA_ORDER" },
+    { "title": "FAA Order 8130.2J — Airworthiness Certification of Aircraft", "category": "FAA_ORDER" },
+    { "title": "AC 21.303-4 — Application for PMA Via Tests and Computations or Identicality", "category": "AC" },
+    { "title": "AC 21-43A — Production Under 14 CFR Part 21 Subparts F, G, K, O", "category": "AC" },
+    { "title": "14 CFR 21.303 — Parts Manufacturer Approvals", "category": "CFR_SECTION" }
+  ],
+  "revisionCheckUrl": {
+    "url": "https://drs.faa.gov/search",
+    "note": "SOP-851-12 Process: verify the latest revision using advanced search — document number in 'all of these words', 'search in' = document number."
+  }
+}

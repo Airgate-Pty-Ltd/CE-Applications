@@ -1,0 +1,28 @@
+{
+  "ruleId": "RISK-002",
+  "dimId": "iso42001-aims-governance",
+  "revision": 1,
+  "effectiveDate": "2026-07-10",
+  "approvedBy": "Brian R. Olea",
+  "approvalRef": "MAI-CCB-2026-014",
+  "severity": "major",
+  "category": "timeliness",
+  "riskClass": "B",
+  "basisType": "deterministic-record-completeness",
+  "description": "A risk treatment whose target date has passed must be closed, or the target date revised.",
+  "requiredFields": ["target_date", "status"],
+  "events": ["risk_treatment.created", "risk_treatment.updated"],
+  "findingText": "Overdue risk treatment",
+  "resolutionHint": "Close the treatment or set a new realistic target date with justification",
+  "clauseRefs": ["6.1.3"],
+  "condition": {
+    "all": [
+      { "field": "target_date", "date_before_today": true },
+      { "field": "status", "ne": "closed" }
+    ]
+  },
+  "testCases": ["RISK-002-POS-001", "RISK-002-NEG-001", "RISK-002-MISSING-001"],
+  "limitations": [
+    "Evaluates the recorded target_date and status fields only — cannot verify whether treatment work is actually in progress."
+  ]
+}

@@ -1,0 +1,466 @@
+{
+ "standard": "AS9110C",
+ "batch": "03",
+ "covers": "clauses 7.5.3.2(a) to 8.3.4(f) (extract lines 149-222)",
+ "authored_from": "licensed-private/lettered-AS9110C.md (private licensed text)",
+ "rows": [
+  {
+   "ref": "7.5.3.2(a)",
+   "question": "How is distribution, access, retrieval and use of documented information controlled?",
+   "evidence": [
+    "Distribution list",
+    "Access permissions"
+   ]
+  },
+  {
+   "ref": "7.5.3.2(b)",
+   "question": "How is documented information stored and preserved, including legibility?",
+   "evidence": [
+    "Storage and preservation arrangement"
+   ]
+  },
+  {
+   "ref": "7.5.3.2(c)",
+   "question": "How are changes to documented information controlled, including version control?",
+   "evidence": [
+    "Version control record"
+   ]
+  },
+  {
+   "ref": "7.5.3.2(d)",
+   "question": "What are the retention periods for documented information and how is disposition done?",
+   "evidence": [
+    "Retention schedule",
+    "Disposition record"
+   ]
+  },
+  {
+   "ref": "7.5.3.2(e)",
+   "question": "How is the use of obsolete maintenance data prevented? How do you notify the author of maintenance data about any inaccurate, incomplete or ambiguous information, and how is electronic data protected?",
+   "evidence": [
+    "Obsolete data removal or marking record",
+    "Record of notification to the author",
+    "Electronic data protection controls"
+   ]
+  },
+  {
+   "ref": "8.1(a)",
+   "question": "How do you determine the requirements for your products and services, including the considerations the standard lists (personal and product safety, parts, obsolescence, contamination, handling, work away from the fixed location, end of life)?",
+   "evidence": [
+    "Requirement determination for a product or service"
+   ]
+  },
+  {
+   "ref": "8.1(b)",
+   "question": "What criteria have you set for your processes and for the acceptance of products and services?",
+   "evidence": [
+    "Process and acceptance criteria"
+   ]
+  },
+  {
+   "ref": "8.1(c)",
+   "question": "How do you determine the resources needed to achieve conformity and on-time delivery?",
+   "evidence": [
+    "Resource plan for a job or service"
+   ]
+  },
+  {
+   "ref": "8.1(d)",
+   "question": "How do you run each maintenance process against the criteria you set? Show it for one maintenance process.",
+   "evidence": [
+    "Process control record"
+   ]
+  },
+  {
+   "ref": "8.1(e)",
+   "question": "What documented information do you keep to show processes were carried out as planned and that products conform?",
+   "evidence": [
+    "Process and conformity records"
+   ]
+  },
+  {
+   "ref": "8.1(f)",
+   "question": "Who from the affected functions is engaged in operational planning and control?",
+   "evidence": [
+    "Planning record showing function representatives"
+   ]
+  },
+  {
+   "ref": "8.1(g)",
+   "question": "What process and resources sustain the products and services you maintain?",
+   "evidence": [
+    "Support process and resource record"
+   ]
+  },
+  {
+   "ref": "8.1(h)",
+   "question": "Which products and services do you obtain from external providers, and how are they identified?",
+   "evidence": [
+    "List of externally obtained products and services"
+   ]
+  },
+  {
+   "ref": "8.1(i)",
+   "question": "What controls prevent nonconforming products or services being delivered to the customer? Show one example.",
+   "evidence": [
+    "Delivery control record",
+    "Evidence the control operated"
+   ]
+  },
+  {
+   "ref": "8.1(j)",
+   "question": "How do you manage the maintenance tasks that the customer or the type certificate holder has flagged as critical? Show one critical task and its planning and change control.",
+   "evidence": [
+    "Critical task list",
+    "Planning record for a critical task",
+    "Outsourced process control record"
+   ]
+  },
+  {
+   "ref": "8.1.1(a)",
+   "question": "Who is responsible for operational risk management?",
+   "evidence": [
+    "Responsibility assignment for operational risk"
+   ]
+  },
+  {
+   "ref": "8.1.1(b)",
+   "question": "What risk assessment criteria are defined (likelihood, consequences, acceptance)?",
+   "evidence": [
+    "Risk assessment criteria document"
+   ]
+  },
+  {
+   "ref": "8.1.1(c)",
+   "question": "How are operational risks identified, assessed and communicated throughout operations? Show one example.",
+   "evidence": [
+    "Operational risk register",
+    "Communication record"
+   ]
+  },
+  {
+   "ref": "8.1.1(d)",
+   "question": "When a risk exceeds the acceptance criteria, what mitigating action is identified and managed?",
+   "evidence": [
+    "Mitigation action for a risk above criteria"
+   ]
+  },
+  {
+   "ref": "8.1.1(e)",
+   "question": "How are risks remaining after mitigation accepted, and by whom?",
+   "evidence": [
+    "Formal risk acceptance record"
+   ]
+  },
+  {
+   "ref": "8.1.6(a)",
+   "question": "For one installed part, is it properly identified for the product or article it is fitted to?",
+   "evidence": [
+    "Part identification and certificate"
+   ]
+  },
+  {
+   "ref": "8.1.6(b)",
+   "question": "Is the part acceptable for installation under the competent authority's or the customer's requirements?",
+   "evidence": [
+    "Acceptability record for the part"
+   ]
+  },
+  {
+   "ref": "8.1.6(c)",
+   "question": "If the part was used, is it in satisfactory condition, and are the applicable airworthiness directives complied with?",
+   "evidence": [
+    "Condition record",
+    "Airworthiness directive compliance record"
+   ]
+  },
+  {
+   "ref": "8.1.6(d)",
+   "question": "If the part is life limited, does it remain within its limits, and is its documented information available?",
+   "evidence": [
+    "Life-limit record",
+    "Related documented information"
+   ]
+  },
+  {
+   "ref": "8.1.6(e)",
+   "question": "If a part came off an aircraft that was involved in an accident or incident, was it processed under a specific work order covering the inspections and repairs needed for airworthiness?",
+   "evidence": [
+    "Accident-removal work order",
+    "Technical data source that both the competent authority and the customer approve"
+   ]
+  },
+  {
+   "ref": "8.1.6(f)",
+   "question": "If a part was dismantled, was that done by an organization that holds the required approvals, complies with environmental requirements, and can manage the documented information?",
+   "evidence": [
+    "Approval of the dismantling organization",
+    "Environmental compliance record",
+    "Documented information management record"
+   ]
+  },
+  {
+   "ref": "8.2.1(a)",
+   "question": "What information about products and services is given to customers, and how?",
+   "evidence": [
+    "Customer information records"
+   ]
+  },
+  {
+   "ref": "8.2.1(b)",
+   "question": "How are customer enquiries, contracts and orders handled, including changes?",
+   "evidence": [
+    "Enquiry, order and change records"
+   ]
+  },
+  {
+   "ref": "8.2.1(c)",
+   "question": "How is customer feedback obtained, including complaints? Show one complaint and its handling.",
+   "evidence": [
+    "Feedback and complaint record"
+   ]
+  },
+  {
+   "ref": "8.2.1(d)",
+   "question": "How is customer property handled and controlled? Show one example, such as an article in for maintenance.",
+   "evidence": [
+    "Customer property record"
+   ]
+  },
+  {
+   "ref": "8.2.1(e)",
+   "question": "Where relevant, what contingency actions are specified for customers?",
+   "evidence": [
+    "Contingency requirement record"
+   ]
+  },
+  {
+   "ref": "8.2.2(a)",
+   "question": "Are the product and service requirements defined, including applicable statutory and regulatory requirements and those the organization considers necessary?",
+   "evidence": [
+    "Defined requirements with regulatory requirements listed"
+   ]
+  },
+  {
+   "ref": "8.2.2(b)",
+   "question": "How do you know you can meet the claims you make for your products and services?",
+   "evidence": [
+    "Capability evidence for a claim"
+   ]
+  },
+  {
+   "ref": "8.2.2(c)",
+   "question": "What special requirements of a product or service have been determined?",
+   "evidence": [
+    "Special requirements record"
+   ]
+  },
+  {
+   "ref": "8.2.2(d)",
+   "question": "What operational risks have you identified, for example pressure on delivery dates or resource shortfalls?",
+   "evidence": [
+    "Operational risk identification record"
+   ]
+  },
+  {
+   "ref": "8.2.3.1(a)",
+   "question": "In a pre-commitment review, how are customer-specified requirements, including delivery and post-delivery requirements, reviewed?",
+   "evidence": [
+    "Order review record covering customer requirements"
+   ]
+  },
+  {
+   "ref": "8.2.3.1(b)",
+   "question": "How are requirements not stated by the customer but needed for intended use identified and reviewed?",
+   "evidence": [
+    "Order review record covering implied requirements"
+   ]
+  },
+  {
+   "ref": "8.2.3.1(c)",
+   "question": "How are requirements specified by the organization reviewed before commitment?",
+   "evidence": [
+    "Order review record covering organization requirements"
+   ]
+  },
+  {
+   "ref": "8.2.3.1(d)",
+   "question": "How are applicable statutory and regulatory requirements reviewed before commitment?",
+   "evidence": [
+    "Order review record covering regulatory requirements"
+   ]
+  },
+  {
+   "ref": "8.2.3.1(e)",
+   "question": "When a contract differs from earlier requirements, or a customer requirement cannot be met, how is it negotiated? Is the technical data revision confirmed, and is there a provision for out-of-scope defects found during maintenance?",
+   "evidence": [
+    "Negotiation record",
+    "Technical data revision confirmation",
+    "Disposition record for an out-of-scope defect"
+   ]
+  },
+  {
+   "ref": "8.2.3.2(a)",
+   "question": "Where are the results of your reviews retained?",
+   "evidence": [
+    "Retained review results"
+   ]
+  },
+  {
+   "ref": "8.2.3.2(b)",
+   "question": "Where are new requirements for products and services retained?",
+   "evidence": [
+    "Retained record of new requirements"
+   ]
+  },
+  {
+   "ref": "8.3.2(a)",
+   "question": "For a design or development project, how was the nature, duration and complexity of the activity considered in planning?",
+   "evidence": [
+    "Plan with complexity assessment"
+   ]
+  },
+  {
+   "ref": "8.3.2(b)",
+   "question": "What design stages and reviews are defined in the plan?",
+   "evidence": [
+    "Design stage plan"
+   ]
+  },
+  {
+   "ref": "8.3.2(c)",
+   "question": "What design verification and validation activities are planned?",
+   "evidence": [
+    "Verification and validation plan"
+   ]
+  },
+  {
+   "ref": "8.3.2(d)",
+   "question": "Who is responsible and who has authority for each design activity?",
+   "evidence": [
+    "Responsibility assignment for design"
+   ]
+  },
+  {
+   "ref": "8.3.2(e)",
+   "question": "What internal and external resources does the design need?",
+   "evidence": [
+    "Design resource plan"
+   ]
+  },
+  {
+   "ref": "8.3.2(f)",
+   "question": "How are interfaces between people in the design process controlled?",
+   "evidence": [
+    "Interface control record"
+   ]
+  },
+  {
+   "ref": "8.3.2(g)",
+   "question": "How are customers and users involved in the design process?",
+   "evidence": [
+    "Customer or user involvement record"
+   ]
+  },
+  {
+   "ref": "8.3.2(h)",
+   "question": "What requirements for later provision of the product or service are set in the design plan?",
+   "evidence": [
+    "Design plan with provision requirements"
+   ]
+  },
+  {
+   "ref": "8.3.2(i)",
+   "question": "What level of control do customers or other interested parties expect over the design process, and how is it met?",
+   "evidence": [
+    "Customer control expectation record"
+   ]
+  },
+  {
+   "ref": "8.3.2(j)",
+   "question": "What documented information will show design and development requirements have been met?",
+   "evidence": [
+    "Documented information plan for design requirements"
+   ]
+  },
+  {
+   "ref": "8.3.3(a)",
+   "question": "Are functional and performance requirements defined as inputs for a design?",
+   "evidence": [
+    "Design input record"
+   ]
+  },
+  {
+   "ref": "8.3.3(b)",
+   "question": "Is information from previous similar design and development used as input? Show an example.",
+   "evidence": [
+    "Input traced to a previous design"
+   ]
+  },
+  {
+   "ref": "8.3.3(c)",
+   "question": "Are statutory and regulatory requirements included in the design inputs?",
+   "evidence": [
+    "Design input with regulatory requirements"
+   ]
+  },
+  {
+   "ref": "8.3.3(d)",
+   "question": "Are the standards or codes of practice the organization committed to included in the design inputs?",
+   "evidence": [
+    "Design input with committed standards"
+   ]
+  },
+  {
+   "ref": "8.3.3(e)",
+   "question": "Have the potential consequences of failure been considered? Are continuing airworthiness requirements evaluated, and are conflicting inputs resolved?",
+   "evidence": [
+    "Failure consequence assessment",
+    "Continuing airworthiness requirement evaluation",
+    "Conflict resolution record"
+   ]
+  },
+  {
+   "ref": "8.3.4(a)",
+   "question": "Are the results to be achieved by each design stage defined?",
+   "evidence": [
+    "Defined results per stage"
+   ]
+  },
+  {
+   "ref": "8.3.4(b)",
+   "question": "Show a design review and its evaluation of whether the results meet requirements.",
+   "evidence": [
+    "Design review record"
+   ]
+  },
+  {
+   "ref": "8.3.4(c)",
+   "question": "Show the verification that design outputs meet the input requirements.",
+   "evidence": [
+    "Verification record"
+   ]
+  },
+  {
+   "ref": "8.3.4(d)",
+   "question": "Show the validation that the product meets requirements for its intended application.",
+   "evidence": [
+    "Validation record"
+   ]
+  },
+  {
+   "ref": "8.3.4(e)",
+   "question": "When a problem was found in a review, verification or validation, what action was taken?",
+   "evidence": [
+    "Action record for a design problem"
+   ]
+  },
+  {
+   "ref": "8.3.4(f)",
+   "question": "Where is the documented information of these design activities retained?",
+   "evidence": [
+    "Retained design records"
+   ]
+  }
+ ]
+}

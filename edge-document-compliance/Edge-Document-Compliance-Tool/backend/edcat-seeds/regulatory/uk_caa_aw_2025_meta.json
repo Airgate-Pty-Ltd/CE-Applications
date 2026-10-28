@@ -1,0 +1,20 @@
+{
+  "standard_code": "UKCAA_AW_2025",
+  "title": "UK CAA Continuing Airworthiness Regulations 2025",
+  "authority": "UK_CAA",
+  "jurisdiction": "United_Kingdom",
+  "classification": "continuing_airworthiness",
+  "source_reference": {
+    "regulation": "UK CAA AW Regulations 2025",
+    "official_document_path_hint": "Requirements/Regulatory/UK CAA Regulations 2025.pdf"
+  },
+  "notes": "Post-Brexit UK framework largely aligned with EASA structure but maintained separately.",
+  "alignment_hints": [
+    {
+      "related_standard_code": "EASA_1321_2014",
+      "relationship_type": "derived_from",
+      "comment": "Many provisions mirror EASA continuing airworthiness standards."
+    }
+  ]
+}
+

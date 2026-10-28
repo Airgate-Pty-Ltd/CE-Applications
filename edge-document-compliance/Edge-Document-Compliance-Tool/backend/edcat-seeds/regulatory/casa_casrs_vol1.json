@@ -1,0 +1,29 @@
+{
+  "standard_code": "CASA_CASRS_VOL1",
+  "title": "Civil Aviation Safety Regulations - Volume 1",
+  "authority": "CASA",
+  "jurisdiction": "Australia",
+  "classification": "continuing_airworthiness_and_operations",
+  "source_reference": {
+    "regulation": "CASR Volume 1",
+    "official_document_path_hint": "Requirements/Regulatory/CASA CASRS VOL01 (1).pdf"
+  },
+  "structure_notes": "This file provides a high-level map of major Parts and Subparts. Detailed text comes from the ingested PDF.",
+  "parts": [
+    {
+      "part_code": "CASR_Part42",
+      "title": "Continuing airworthiness",
+      "focus": ["maintenance_standards", "airworthiness"],
+      "example_obligations_summary": "Defines continuing airworthiness and maintenance responsibilities for aircraft and aeronautical products.",
+      "priority_for_vera": "high"
+    },
+    {
+      "part_code": "CASR_Part145",
+      "title": "Approved maintenance organisations",
+      "focus": ["maintenance_organizations", "quality_systems", "certification_of_release_to_service"],
+      "example_obligations_summary": "Establishes requirements for Part 145 AMOs, including quality systems, facilities, personnel, and release to service.",
+      "priority_for_vera": "high"
+    }
+  ]
+}
+

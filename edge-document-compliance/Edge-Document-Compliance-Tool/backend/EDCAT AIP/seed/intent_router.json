@@ -1,0 +1,79 @@
+{
+  "intents": [
+    {
+      "name": "clause_qa",
+      "signals": [
+        "what does",
+        "explain",
+        "requirement",
+        "clause"
+      ]
+    },
+    {
+      "name": "gap_create",
+      "signals": [
+        "gap",
+        "readiness",
+        "audit check",
+        "coverage"
+      ]
+    },
+    {
+      "name": "doc_ingest",
+      "signals": [
+        "upload",
+        "ingest",
+        "add document",
+        "index"
+      ]
+    },
+    {
+      "name": "requirement_extract",
+      "signals": [
+        "extract requirements",
+        "shall",
+        "will",
+        "must",
+        "obligation"
+      ]
+    },
+    {
+      "name": "cross_map",
+      "signals": [
+        "map",
+        "cross map",
+        "align"
+      ]
+    },
+    {
+      "name": "draft_doc",
+      "signals": [
+        "create procedure",
+        "draft",
+        "write section"
+      ]
+    }
+  ],
+  "routing": [
+    {
+      "intent": "doc_ingest",
+      "tool": "ingest.document"
+    },
+    {
+      "intent": "requirement_extract",
+      "tool": "extract.requirements"
+    },
+    {
+      "intent": "clause_qa",
+      "tool": "retrieve.clause"
+    },
+    {
+      "intent": "gap_create",
+      "tool": "render.gap.table"
+    },
+    {
+      "intent": "draft_doc",
+      "tool": "draft.template"
+    }
+  ]
+}

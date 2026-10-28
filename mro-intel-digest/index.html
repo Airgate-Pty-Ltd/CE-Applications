@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  © 2026 Conform-Edge Quality Consulting LLC. All rights reserved.
+  MRO Regulatory Intelligence Digest is proprietary software/content of
+  Conform-Edge Quality Consulting LLC (Idaho LLC No. 6463380), Pocatello, Idaho, USA.
+  Proprietary. Unauthorized reproduction, distribution, modification, or resale is
+  prohibited. Brand alignment correction applied 2026-07-11 (C-E/AQ Master Task
+  governance run) per _Brand/Conform-Edge/BRAND-STANDARD.md v1.0 (2026-07-08) — this
+  file previously carried "Annex Quality" in its <title> and footer copyright even
+  though it lives under the Conform-Edge product tree. Domain/positioning decision
+  (Conform-Edge vs. Annex Quality vs. dual-brand) remains open for Brian per
+  NEEDS-FROM-BRIAN.md; this fix only corrects the legal ownership/copyright fields
+  to match the mandatory standard, which applies regardless of that decision.
+-->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Conform-Edge Quality Consulting LLC" />
+  <title>MRO Regulatory Intelligence Digest — Conform-Edge</title>
+  <style>
+    :root {
+      --navy: #0D2B4E;
+      --steel: #2E6EA6;
+      --light-steel: #5B9BD5;
+      --off-white: #F4F6F9;
+      --text: #1A1A2E;
+      --muted: #6B7A8D;
+      --accent: #E8F4FD;
+      --green: #1B7A4A;
+      --amber: #B45309;
+      --red: #C0392B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--off-white);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--navy);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .brand {
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    nav .brand span { color: var(--light-steel); }
+    nav a.nav-cta {
+      background: var(--light-steel);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--steel) 100%);
+      color: white;
+      padding: 80px 40px 60px;
+      text-align: center;
+    }
+    .hero .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light-steel);
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.2;
+      max-width: 720px;
+      margin: 0 auto 18px;
+    }
+    .hero h1 span { color: var(--light-steel); }
+    .hero p.sub {
+      font-size: 1.1rem;
+      color: #b0c8e0;
+      max-width: 580px;
+      margin: 0 auto 36px;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .badge {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--light-steel);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 2px solid rgba(255,255,255,0.4);
+      display: inline-block;
+    }
+
+    /* SOCIAL PROOF STRIP */
+    .proof-strip {
+      background: white;
+      border-bottom: 1px solid #dde4ed;
+      padding: 18px 40px;
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .proof-strip strong { color: var(--navy); font-size: 1.05rem; display: block; }
+
+    /* SECTION */
+    section { padding: 70px 40px; }
+    section.alt { background: white; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--steel);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .lead { font-size: 1.05rem; color: var(--muted); max-width: 680px; margin-bottom: 48px; }
+
+    /* AUTHORITY GRID */
+    .authority-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .authority-card {
+      background: var(--accent);
+      border: 1px solid #c5ddf0;
+      border-radius: 8px;
+      padding: 22px 18px;
+      text-align: center;
+    }
+    .authority-card .flag { font-size: 2rem; margin-bottom: 8px; }
+    .authority-card .auth-name { font-weight: 800; color: var(--navy); font-size: 1rem; }
+    .authority-card .auth-reg { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* WHAT YOU GET */
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .what-card {
+      background: var(--off-white);
+      border-radius: 10px;
+      padding: 28px 24px;
+      border-left: 4px solid var(--steel);
+    }
+    .what-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .what-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .price-card {
+      background: white;
+      border: 2px solid #dde4ed;
+      border-radius: 12px;
+      padding: 36px 28px;
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: var(--steel);
+      box-shadow: 0 8px 32px rgba(46,110,166,0.15);
+    }
+    .price-card .featured-tag {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--steel);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 16px;
+      border-radius: 20px;
+    }
+    .price-card .tier-name { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--steel); margin-bottom: 8px; }
+    .price-card .price { font-size: 2.4rem; font-weight: 900; color: var(--navy); line-height: 1; }
+    .price-card .price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .price-card .price-desc { font-size: 0.82rem; color: var(--muted); margin: 8px 0 20px; }
+    .price-card ul { list-style: none; margin-bottom: 28px; }
+    .price-card ul li { font-size: 0.88rem; color: var(--text); padding: 5px 0; padding-left: 22px; position: relative; }
+    .price-card ul li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+    .price-card ul li.dim::before { content: "—"; color: var(--muted); }
+    .price-card ul li.dim { color: var(--muted); }
+    .btn-plan {
+      display: block;
+      text-align: center;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      background: var(--steel);
+      color: white;
+    }
+    .btn-plan.outline {
+      background: transparent;
+      border: 2px solid var(--steel);
+      color: var(--steel);
+    }
+
+    /* ABOUT */
+    .about-block {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 60px;
+      align-items: start;
+    }
+    @media (max-width: 700px) { .about-block { grid-template-columns: 1fr; } }
+    .cred-list { margin-top: 18px; }
+    .cred-list li {
+      font-size: 0.85rem;
+      color: var(--text);
+      padding: 6px 0;
+      border-bottom: 1px solid #e0e7f0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .cred-list li::before { content: "✔"; color: var(--steel); flex-shrink: 0; margin-top: 1px; }
+
+    /* FAQ */
+    .faq-list { max-width: 700px; }
+    .faq-item { border-bottom: 1px solid #dde4ed; padding: 22px 0; }
+    .faq-item summary {
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 0.95rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+    }
+    .faq-item summary::after { content: "+"; font-size: 1.2rem; color: var(--steel); }
+    details[open] summary::after { content: "−"; }
+    .faq-item p { font-size: 0.88rem; color: var(--muted); margin-top: 12px; line-height: 1.65; }
+
+    /* CTA FOOTER */
+    .cta-footer {
+      background: var(--navy);
+      color: white;
+      text-align: center;
+      padding: 70px 40px;
+    }
+    .cta-footer h2 { color: white; margin-bottom: 14px; }
+    .cta-footer p { color: #b0c8e0; max-width: 520px; margin: 0 auto 36px; }
+
+    footer {
+      background: #06192E;
+      color: #6B7A8D;
+      text-align: center;
+      padding: 22px 40px;
+      font-size: 0.78rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="brand">Annex <span>Quality</span></div>
+    <a href="#pricing" class="nav-cta">Subscribe →</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">New · Quarterly · Multi-Authority</div>
+    <h1>The <span>MRO Regulatory</span><br>Intelligence Digest</h1>
+    <p class="sub">One subscription. Five aviation authorities. Every significant regulatory change that affects your Part 145 operation — distilled by a lead auditor certified across all of them.</p>
+    <div class="hero-badges">
+      <span class="badge">🇺🇸 FAA Part 145</span>
+      <span class="badge">🇪🇺 EASA Part-145</span>
+      <span class="badge">🇬🇧 UK CAA CAR-145</span>
+      <span class="badge">🇨🇳 CAAC CCAR-145</span>
+      <span class="badge">🇦🇺 CASA Part 145</span>
+    </div>
+    <div class="cta-group">
+      <a href="#pricing" class="btn-primary">Choose a Plan</a>
+      <a href="#sample" class="btn-secondary">Read a Sample Issue</a>
+    </div>
+  </div>
+
+  <!-- PROOF STRIP -->
+  <div class="proof-strip">
+    <div><strong>5</strong> Aviation Authorities</div>
+    <div><strong>Quarterly</strong> Issues + Alerts</div>
+    <div><strong>Lead Auditor</strong> Certified on All 5</div>
+    <div><strong>No fluff</strong> — Action / Monitor / Awareness</div>
+    <div><strong>PDF + Markdown</strong> Delivery</div>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <section>
+    <div class="container">
+      <div class="section-label">The Problem</div>
+      <h2>Regulatory changes don't announce themselves to your inbox.</h2>
+      <p class="lead">A MAG Change 10 lands. A CCAR-145 training requirement updates. UK CAA enforcement priorities shift. Your EASA certificate lapses because nobody told you the renewal cycle changed. Your quality manager is too busy auditing to monitor five regulatory authorities at once.</p>
+
+      <div class="what-grid">
+        <div class="what-card">
+          <h3>🔁 Rapid Change Velocity</h3>
+          <p>Between MAG changes, EASA rulemaking, FAA AC revisions, CAAC AMC updates, and CASA EOs, the regulatory landscape shifts constantly. Missing one update can mean a citation at your next surveillance audit.</p>
+        </div>
+        <div class="what-card">
+          <h3>🌐 Multi-Jurisdiction Complexity</h3>
+          <p>Dual-approved and multi-authority repair stations can't afford to track each authority separately. Most MRO quality managers have deep expertise in 1–2 authorities, not 5.</p>
+        </div>
+        <div class="what-card">
+          <h3>⏱️ No Time for Primary Research</h3>
+          <p>Reading raw regulatory text is a full-time job. Quality managers need an expert to pre-read, filter, and translate — so they can spend time on implementation, not surveillance of the rulemaking.</p>
+        </div>
+        <div class="what-card">
+          <h3>💸 Compliance Surprises Are Expensive</h3>
+          <p>An EASA Form 8 finding costs real money in corrective action, re-audit fees, and — worst case — temporary suspension of bilateral approval. Early warning is far cheaper.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section class="alt" id="sample">
+    <div class="container">
+      <div class="section-label">What's Covered</div>
+      <h2>Five authorities, one digest — triage-ready.</h2>
+      <p class="lead">Every issue uses a consistent structure so you can scan in minutes and act on what matters. Items are classified <strong>Action Required</strong>, <strong>Monitor</strong>, or <strong>Awareness</strong> so you always know what to do next.</p>
+
+      <div class="authority-grid">
+        <div class="authority-card">
+          <div class="flag">🇺🇸</div>
+          <div class="auth-name">FAA</div>
+          <div class="auth-reg">14 CFR Part 145, Part 65, AC releases, RSM policy, PMA/DER</div>
+        </div>
+        <div class="authority-card">
+          <div class="flag">🇪🇺</div>
+          <div class="auth-name">EASA</div>
+          <div class="auth-reg">Part-145, MAG changes, BASA bilateral, AMC/GM, EASA Form 8</div>
+        </div>
+        <div class="authority-card">
+          <div class="flag">🇬🇧</div>
+          <div class="auth-name">UK CAA</div>
+          <div class="auth-reg">UK CAR-145, CAP 1145, UK Form 1, TCA bilateral, post-Brexit divergence</div>
+        </div>
+        <div class="authority-card">
+          <div class="flag">🇨🇳</div>
+          <div class="auth-name">CAAC</div>
+          <div class="auth-reg">CCAR-145, AMO Handbook, AC-145 series, certifying staff requirements</div>
+        </div>
+        <div class="authority-card">
+          <div class="flag">🇦🇺</div>
+          <div class="auth-name">CASA</div>
+          <div class="auth-reg">CASR Part 145, DAMP, ADs, CASA bilateral, exposition requirements</div>
+        </div>
+      </div>
+
+      <div class="what-grid">
+        <div class="what-card">
+          <h3>📋 Compliance Calendar</h3>
+          <p>A summary table of upcoming deadlines, renewal windows, and enforcement dates across all five authorities — copy it straight into your QMS compliance tracker.</p>
+        </div>
+        <div class="what-card">
+          <h3>🔀 Cross-Authority Radar</h3>
+          <p>A matrix showing where authorities are aligned, diverging, or watching the same emerging issue — essential for multi-approval operations.</p>
+        </div>
+        <div class="what-card">
+          <h3>⚡ Mid-Quarter Alerts</h3>
+          <p>Significant changes between quarterly issues are delivered as brief flash alerts — so you're never 90 days behind on something that's genuinely urgent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="container" style="text-align:center; margin-bottom: 48px;">
+      <div class="section-label">Pricing</div>
+      <h2>Choose your coverage level</h2>
+      <p class="lead" style="margin: 0 auto 0;">Cancel anytime. Annual plans billed once; monthly plans billed each quarter at the monthly rate.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <div class="price-card">
+        <div class="tier-name">Starter</div>
+        <div class="price">$49 <span>/mo</span></div>
+        <div class="price-desc">Billed quarterly · FAA-only coverage</div>
+        <ul>
+          <li>FAA Part 145 regulatory updates</li>
+          <li>RSM / AC / policy changes</li>
+          <li>Compliance calendar (FAA)</li>
+          <li>PDF delivery</li>
+          <li class="dim">EASA / UK CAA / CAAC / CASA</li>
+          <li class="dim">Cross-authority radar</li>
+          <li class="dim">Mid-quarter alerts</li>
+        </ul>
+        <a href="#subscribe" class="btn-plan outline">[PLACEHOLDER: Subscribe link]</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="featured-tag">Most Popular</div>
+        <div class="tier-name">Professional</div>
+        <div class="price">$149 <span>/mo</span></div>
+        <div class="price-desc">Billed quarterly · All 5 authorities</div>
+        <ul>
+          <li>All 5 authority sections</li>
+          <li>FAA · EASA · UK CAA · CAAC · CASA</li>
+          <li>Cross-authority radar table</li>
+          <li>Compliance calendar (all authorities)</li>
+          <li>Mid-quarter flash alerts</li>
+          <li>PDF + Markdown delivery</li>
+          <li>Subscriber portal archive access</li>
+        </ul>
+        <a href="#subscribe" class="btn-plan">[PLACEHOLDER: Subscribe link]</a>
+      </div>
+
+      <div class="price-card">
+        <div class="tier-name">Team</div>
+        <div class="price">$349 <span>/mo</span></div>
+        <div class="price-desc">Billed quarterly · Up to 10 seats</div>
+        <ul>
+          <li>Everything in Professional</li>
+          <li>Up to 10 named team members</li>
+          <li>Shareable team portal</li>
+          <li>Annual regulatory briefing call (1hr)</li>
+          <li>Priority Q&A submission</li>
+          <li>Early access to new authority coverage</li>
+          <li>Custom compliance calendar template</li>
+        </ul>
+        <a href="#subscribe" class="btn-plan outline">[PLACEHOLDER: Subscribe link]</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="alt">
+    <div class="container">
+      <div class="about-block">
+        <div>
+          <div class="section-label">About the Author</div>
+          <h2>Written by someone actually certified across all five.</h2>
+          <p style="font-size:0.9rem; color: var(--muted); margin-top: 12px;">This digest is not aggregated by a content team. It's authored by Brian Olea — a lead auditor with active certifications in every authority this digest covers.</p>
+          <ul class="cred-list" style="margin-top: 20px;">
+            <li>Lead Auditor — AS9110C (MRO Quality Systems)</li>
+            <li>Lead Auditor — FAA Part 145</li>
+            <li>Lead Auditor — EASA Part-145</li>
+            <li>Lead Auditor — UK CAA Part 145</li>
+            <li>Lead Auditor — CAAC CCAR Part 145</li>
+            <li>Lead Auditor — CASA Part 21 & 145</li>
+            <li>Six Sigma Black Belt</li>
+            <li>20+ years aviation quality & compliance</li>
+            <li>Founder, Conform-Edge AI-QMS Platform</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label" style="margin-top: 0;">Why this digest exists</div>
+          <h2 style="font-size: 1.4rem;">The insight you'd get if you could call a lead auditor every quarter.</h2>
+          <p style="margin-top: 14px; font-size: 0.92rem; color: var(--muted); line-height: 1.75;">
+            Most regulatory intelligence products cover one jurisdiction. Most QMS software covers one standard. But aviation MRO quality managers — especially those with bilateral approvals — have to track five authorities with completely different update cadences, different compliance cultures, and increasingly divergent requirements since Brexit.
+          </p>
+          <p style="margin-top: 14px; font-size: 0.92rem; color: var(--muted); line-height: 1.75;">
+            I built this digest because I see the same pattern every time I audit: the finding that stings most isn't the one you knew about and deferred — it's the one that landed quietly in a regulatory update six months ago and nobody on the team caught it. This digest closes that gap.
+          </p>
+          <p style="margin-top: 14px; font-size: 0.92rem; color: var(--muted); line-height: 1.75;">
+            Each issue is my professional read on what changed, what it means for your operation, and what you should do about it. No marketing fluff. No keyword-stuffed summaries. Just what a lead auditor would tell you if you called.
+          </p>
+          <p style="margin-top: 14px; font-size: 0.92rem; font-weight: 600; color: var(--navy);">
+            — Brian Olea, Conform-Edge
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <div class="section-label">FAQ</div>
+      <h2>Common questions</h2>
+      <div class="faq-list" style="margin-top: 32px;">
+
+        <details class="faq-item">
+          <summary>How often is the digest published?</summary>
+          <p>Quarterly — January, April, July, October — covering the prior quarter's regulatory activity. Significant mid-quarter developments are delivered as brief flash alerts between issues.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What format is delivery?</summary>
+          <p>Professional and Team subscribers receive PDF and Markdown versions. Starter receives PDF only. All issues are archived in the subscriber portal.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>I only care about FAA and EASA — is Professional worth it?</summary>
+          <p>For most dual-approved repair stations (FAA Part 145 + EASA Part-145 bilateral), Professional is the right tier. The cross-authority radar and MAG change tracking alone typically justify the upgrade from Starter.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is this legal or regulatory advice?</summary>
+          <p>No. This digest is professional analysis from a lead auditor, not legal advice. Always verify regulatory citations against current authority publications and consult your legal and compliance team before acting on any finding.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I share this with my team?</summary>
+          <p>Individual subscriptions (Starter, Professional) are for one named subscriber. For team sharing, use the Team plan (up to 10 seats with shared portal access).</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I cancel anytime?</summary>
+          <p>Yes. Cancel before your next quarterly billing cycle and you won't be charged again. You retain archive access through the end of your paid period.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FOOTER -->
+  <div class="cta-footer">
+    <h2>Stop finding out about regulatory changes at your next audit.</h2>
+    <p>Subscribe to the MRO Regulatory Intelligence Digest and get quarterly coverage of what changed, what it means, and what to do about it.</p>
+    <div class="cta-group">
+      <a href="#pricing" class="btn-primary">See Pricing</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 Conform-Edge Quality Consulting LLC. All rights reserved. MRO Regulatory
+    Intelligence Digest is proprietary content of Conform-Edge Quality Consulting LLC
+    (Idaho LLC No. 6463380), Pocatello, Idaho, USA. Unauthorized reproduction,
+    distribution, modification, or resale is prohibited. "Conform-Edge" and the
+    Conform-Edge mark are trademarks of Conform-Edge Quality Consulting LLC. Authored
+    by Brian Olea. Not legal advice · Professional analysis only · Advisory content —
+    does not certify compliance and does not replace the judgment of the user's
+    organization or top management.
+    <br style="margin-bottom: 4px;" />
+    [PLACEHOLDER: Add real domain, contact, unsubscribe link, privacy policy URL before going live]
+  </footer>
+
+</body>
+</html>

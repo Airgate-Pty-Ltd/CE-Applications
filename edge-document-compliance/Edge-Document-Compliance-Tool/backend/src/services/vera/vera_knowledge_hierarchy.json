@@ -1,0 +1,1731 @@
+{
+  "knowledge_architecture": {
+    "version": "1.0.0",
+    "last_updated": "2025-01-15",
+    "description": "Complete hierarchical knowledge architecture for VERA - World's Foremost AI Quality Expert",
+    "structure": {
+      "domains": [
+        {
+          "id": "qms_core",
+          "name": "Core Quality Management Systems",
+          "description": "Fundamental QMS standards, requirements, and architectural principles",
+          "level": 1,
+          "subdomains": [
+            {
+              "id": "iso_9001",
+              "name": "ISO 9001:2015 Quality Management",
+              "description": "Universal quality management standard with risk-based thinking",
+              "competencies": [
+                {
+                  "id": "iso_9001_clauses",
+                  "name": "ISO 9001 Clause Mastery",
+                  "description": "Complete understanding of all 10 clauses, their requirements, and interrelationships",
+                  "micro_skills": [
+                    "Interpret clause 4 (Context of organization)",
+                    "Apply clause 5 (Leadership and commitment)",
+                    "Design clause 6 (Planning with risk-based thinking)",
+                    "Implement clause 7 (Support - resources, competence, awareness)",
+                    "Control clause 8 (Operation - planning, control, customer focus)",
+                    "Evaluate clause 9 (Performance evaluation - monitoring, measurement, audit, review)",
+                    "Improve clause 10 (Improvement - nonconformities, corrective actions, continual improvement)",
+                    "Map 'shall' statements to procedural architecture",
+                    "Design integrated QMS that satisfies all clauses",
+                    "Identify clause interdependencies and synergies"
+                  ],
+                  "dependencies": ["quality_principles", "process_approach", "risk_based_thinking"],
+                  "use_cases": [
+                    "QMS design and implementation",
+                    "Gap analysis against ISO 9001",
+                    "Audit planning and execution",
+                    "Management review preparation",
+                    "Regulatory compliance verification"
+                  ],
+                  "human_skill_pairings": [
+                    "Systems thinking",
+                    "Regulatory interpretation",
+                    "Process design",
+                    "Documentation clarity",
+                    "Stakeholder communication"
+                  ],
+                  "technical_foundations": [
+                    "Quality management principles",
+                    "Process approach methodology",
+                    "Risk management (ISO 31000)",
+                    "Auditing principles (ISO 19011)",
+                    "Documentation requirements"
+                  ]
+                },
+                {
+                  "id": "iso_9001_risk_based_thinking",
+                  "name": "Risk-Based Thinking Application",
+                  "description": "Applying risk-based thinking throughout QMS design and operation",
+                  "micro_skills": [
+                    "Identify risks and opportunities",
+                    "Assess risk significance",
+                    "Plan risk mitigation",
+                    "Integrate risk into decision-making",
+                    "Monitor risk effectiveness",
+                    "Balance risk with opportunity"
+                  ],
+                  "dependencies": ["iso_9001_clauses", "risk_management"],
+                  "use_cases": [
+                    "QMS planning",
+                    "Process design",
+                    "Audit planning",
+                    "Management review",
+                    "Change management"
+                  ],
+                  "human_skill_pairings": [
+                    "Critical thinking",
+                    "Judgment",
+                    "Decision-making under uncertainty",
+                    "Balancing competing priorities"
+                  ]
+                },
+                {
+                  "id": "iso_9001_process_approach",
+                  "name": "Process Approach Mastery",
+                  "description": "Designing and managing QMS as interconnected processes",
+                  "micro_skills": [
+                    "Map process interactions",
+                    "Identify process inputs/outputs",
+                    "Define process controls",
+                    "Measure process performance",
+                    "Optimize process efficiency",
+                    "Manage process interfaces"
+                  ],
+                  "dependencies": ["systems_thinking", "process_mapping"],
+                  "use_cases": [
+                    "QMS architecture design",
+                    "Process improvement",
+                    "Audit planning",
+                    "Organizational design"
+                  ]
+                }
+              ],
+              "standards_mapping": {
+                "equivalencies": [
+                  "AS9100 (aerospace extension)",
+                  "IATF 16949 (automotive extension)",
+                  "ISO 13485 (medical device adaptation)"
+                ],
+                "divergences": [
+                  "AS9100 adds configuration management, FOD prevention, special processes",
+                  "IATF 16949 adds APQP, PPAP, customer-specific requirements",
+                  "ISO 13485 adds design controls, risk management, post-market surveillance"
+                ],
+                "mandatory_shall_statements": {
+                  "count": 54,
+                  "categories": [
+                    "Management responsibility (8 shalls)",
+                    "Resource management (6 shalls)",
+                    "Product realization (18 shalls)",
+                    "Measurement and improvement (22 shalls)"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "as9100_series",
+              "name": "AS9100 Series Aerospace Quality",
+              "description": "Aerospace-specific QMS requirements building on ISO 9001",
+              "competencies": [
+                {
+                  "id": "as9100d_requirements",
+                  "name": "AS9100D Complete Requirements",
+                  "description": "All AS9100D requirements including aerospace-specific additions",
+                  "micro_skills": [
+                    "Configuration management (AS9100 8.1.1)",
+                    "Change control (AS9100 8.1.2)",
+                    "Counterfeit parts prevention (AS9100 8.1.4)",
+                    "Product safety (AS9100 8.1.3)",
+                    "FOD prevention (AS9100 6.4.2)",
+                    "Special processes (AS9100 8.5.1)",
+                    "Traceability (AS9100 8.5.2)",
+                    "Software development controls (AS9100 8.3.2)",
+                    "Nondestructive testing (AS9100 8.5.1)",
+                    "Key characteristics (AS9100 8.5.1)"
+                  ],
+                  "dependencies": ["iso_9001_clauses", "aerospace_regulatory"],
+                  "use_cases": [
+                    "Aerospace QMS design",
+                    "Supplier qualification",
+                    "Aerospace audit execution",
+                    "Regulatory compliance"
+                  ]
+                },
+                {
+                  "id": "as9110_mro",
+                  "name": "AS9110C Maintenance, Repair, Overhaul",
+                  "description": "MRO-specific quality requirements",
+                  "micro_skills": [
+                    "Maintenance planning",
+                    "Repair procedure development",
+                    "Overhaul specifications",
+                    "Serviceable parts management",
+                    "Airworthiness release",
+                    "Continuing airworthiness"
+                  ]
+                },
+                {
+                  "id": "as9120_distributor",
+                  "name": "AS9120D Aerospace Distributor",
+                  "description": "Distributor-specific quality requirements",
+                  "micro_skills": [
+                    "Distributor controls",
+                    "Counterfeit prevention in supply chain",
+                    "Traceability in distribution",
+                    "Sourcing controls"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "iso_13485",
+              "name": "ISO 13485:2016 Medical Devices",
+              "description": "Medical device quality management system",
+              "competencies": [
+                {
+                  "id": "iso_13485_design_controls",
+                  "name": "Design Controls Mastery",
+                  "description": "Complete design control process for medical devices",
+                  "micro_skills": [
+                    "Design planning (7.3.1)",
+                    "Design input (7.3.2)",
+                    "Design output (7.3.3)",
+                    "Design review (7.3.4)",
+                    "Design verification (7.3.5)",
+                    "Design validation (7.3.6)",
+                    "Design transfer (7.3.7)",
+                    "Design changes (7.3.8)",
+                    "Design and development files (7.3.9)"
+                  ]
+                },
+                {
+                  "id": "iso_13485_risk_management",
+                  "name": "ISO 14971 Risk Management Integration",
+                  "description": "Integrating ISO 14971 risk management into QMS",
+                  "micro_skills": [
+                    "Risk analysis",
+                    "Risk evaluation",
+                    "Risk control",
+                    "Residual risk evaluation",
+                    "Risk management review",
+                    "Production and post-production information"
+                  ]
+                },
+                {
+                  "id": "iso_13485_post_market",
+                  "name": "Post-Market Surveillance",
+                  "description": "Monitoring medical devices after market release",
+                  "micro_skills": [
+                    "Complaint handling",
+                    "Adverse event reporting",
+                    "Field data analysis",
+                    "Trend analysis",
+                    "Corrective action from field data"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "iso_14001",
+              "name": "ISO 14001:2015 Environmental Management",
+              "description": "Environmental management system requirements",
+              "competencies": [
+                {
+                  "id": "iso_14001_environmental_aspects",
+                  "name": "Environmental Aspects and Impacts",
+                  "description": "Identifying and managing environmental aspects",
+                  "micro_skills": [
+                    "Identify environmental aspects",
+                    "Assess environmental impacts",
+                    "Prioritize significant aspects",
+                    "Establish environmental objectives",
+                    "Operational control of aspects"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "iso_45001",
+              "name": "ISO 45001:2018 Occupational Health and Safety",
+              "description": "OH&S management system",
+              "competencies": [
+                {
+                  "id": "iso_45001_hazard_management",
+                  "name": "Hazard Identification and Risk Assessment",
+                  "description": "OH&S hazard and risk management",
+                  "micro_skills": [
+                    "Hazard identification",
+                    "OH&S risk assessment",
+                    "Hazard controls",
+                    "Worker participation",
+                    "Incident investigation"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "iso_19011",
+              "name": "ISO 19011:2018 Auditing Guidelines",
+              "description": "Guidelines for auditing management systems",
+              "competencies": [
+                {
+                  "id": "iso_19011_audit_principles",
+                  "name": "Audit Principles and Methodology",
+                  "description": "Fundamental auditing principles and methods",
+                  "micro_skills": [
+                    "Apply audit principles (integrity, fair presentation, due care, confidentiality, independence)",
+                    "Plan audits (scope, objectives, criteria, resources)",
+                    "Prepare audit (document review, checklists, sampling)",
+                    "Execute audit (opening meeting, evidence gathering, interviews, observations)",
+                    "Report audit findings (nonconformances, observations, opportunities)",
+                    "Follow-up (corrective action verification)",
+                    "Audit program management"
+                  ],
+                  "dependencies": ["audit_psychology", "evidence_standards"],
+                  "use_cases": [
+                    "Internal audit execution",
+                    "External audit preparation",
+                    "Audit program design",
+                    "Auditor training"
+                  ]
+                }
+              ]
+            }
+          ],
+          "meta_knowledge": {
+            "standards_integration": {
+              "convergence_points": [
+                "Risk-based thinking (ISO 9001, ISO 14001, ISO 45001)",
+                "Process approach (all standards)",
+                "Leadership commitment (all standards)",
+                "Continual improvement (all standards)"
+              ],
+              "divergence_points": [
+                "ISO 13485: Design controls, risk management, post-market surveillance",
+                "AS9100: Configuration management, FOD, counterfeit prevention",
+                "ISO 14001: Environmental aspects, legal compliance",
+                "ISO 45001: Hazard identification, worker participation"
+              ],
+              "integrated_manual_design": {
+                "approach": "Single integrated QMS manual covering all applicable standards",
+                "structure": "Clause-by-clause mapping showing how each standard requirement is satisfied",
+                "synergies": "Leverage common requirements, add standard-specific where needed"
+              }
+            }
+          }
+        },
+        {
+          "id": "aerospace_regulatory",
+          "name": "Aerospace Regulatory Systems",
+          "description": "Global aerospace regulatory frameworks and compliance",
+          "level": 1,
+          "subdomains": [
+            {
+              "id": "faa_regulations",
+              "name": "FAA Regulatory Framework",
+              "description": "Federal Aviation Administration regulations and compliance",
+              "competencies": [
+                {
+                  "id": "faa_part_21",
+                  "name": "FAA Part 21 Certification Procedures",
+                  "description": "Aircraft and engine certification processes",
+                  "micro_skills": [
+                    "Design Organization Approval (DOA)",
+                    "Production Organization Approval (POA)",
+                    "Type Certification process",
+                    "Supplemental Type Certificate (STC)",
+                    "Parts Manufacturer Approval (PMA)",
+                    "Technical Standard Order (TSO)",
+                    "Conformity inspection",
+                    "Designee systems (DER, DAR, DMIR)",
+                    "Special conditions",
+                    "Certification basis determination",
+                    "Compliance finding resolution"
+                  ],
+                  "dependencies": ["airworthiness_concepts", "certification_processes"],
+                  "use_cases": [
+                    "Aircraft certification",
+                    "Design approval",
+                    "Production approval",
+                    "Regulatory compliance"
+                  ]
+                },
+                {
+                  "id": "faa_part_145",
+                  "name": "FAA Part 145 Repair Stations",
+                  "description": "Repair station certification and operation",
+                  "micro_skills": [
+                    "Repair station certification",
+                    "Repair station classes (1, 2, 3, 4)",
+                    "Work authority",
+                    "Personnel qualifications",
+                    "Facilities requirements",
+                    "Equipment requirements",
+                    "Maintenance procedures",
+                    "Airworthiness release",
+                    "Quality system for repair stations"
+                  ]
+                },
+                {
+                  "id": "faa_part_23_25",
+                  "name": "FAA Parts 23 & 25 Airworthiness Standards",
+                  "description": "Small and large airplane airworthiness standards",
+                  "micro_skills": [
+                    "Type design requirements",
+                    "Certification specifications",
+                    "Special conditions",
+                    "Equivalent level of safety (ELOS)",
+                    "Means of compliance"
+                  ]
+                },
+                {
+                  "id": "faa_continued_airworthiness",
+                  "name": "Continued Airworthiness",
+                  "description": "Maintaining airworthiness after certification",
+                  "micro_skills": [
+                    "Airworthiness Directives (AD)",
+                    "Service Bulletins (SB)",
+                    "AD compliance tracking",
+                    "Mandatory vs. recommended actions",
+                    "Alternative methods of compliance (AMOC)"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "easa_regulations",
+              "name": "EASA Regulatory Framework",
+              "description": "European Union Aviation Safety Agency regulations",
+              "competencies": [
+                {
+                  "id": "easa_part_21",
+                  "name": "EASA Part-21 Design and Production",
+                  "description": "EASA design and production approval",
+                  "micro_skills": [
+                    "Part-21G (Design Organization Approval)",
+                    "Part-21J (Production Organization Approval)",
+                    "Type Certification",
+                    "Restricted Type Certificate",
+                    "Approval conditions",
+                    "Certification Specifications (CS-23, CS-25, CS-E)"
+                  ]
+                },
+                {
+                  "id": "easa_part_145",
+                  "name": "EASA Part-145 Maintenance",
+                  "description": "EASA maintenance organization approval",
+                  "micro_skills": [
+                    "Part-145 approval",
+                    "Maintenance Planning Document (MPD)",
+                    "Maintenance procedures",
+                    "Continuing airworthiness",
+                    "Airworthiness Directives compliance"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "global_authorities",
+              "name": "Global Aviation Authorities",
+              "description": "International aviation regulatory authorities",
+              "competencies": [
+                {
+                  "id": "caac_afac",
+                  "name": "CAAC/AFAC (China)",
+                  "description": "Civil Aviation Administration of China regulations"
+                },
+                {
+                  "id": "casa",
+                  "name": "CASA (Australia)",
+                  "description": "Civil Aviation Safety Authority regulations"
+                },
+                {
+                  "id": "tcca",
+                  "name": "TCCA (Canada)",
+                  "description": "Transport Canada Civil Aviation regulations"
+                },
+                {
+                  "id": "caa_uk",
+                  "name": "CAA UK (United Kingdom)",
+                  "description": "UK Civil Aviation Authority regulations"
+                },
+                {
+                  "id": "dgca",
+                  "name": "DGCA (India)",
+                  "description": "Directorate General of Civil Aviation regulations"
+                }
+              ]
+            },
+            {
+              "id": "bilateral_agreements",
+              "name": "Bilateral Agreements and Mutual Recognition",
+              "description": "International regulatory recognition and data flowdown",
+              "competencies": [
+                {
+                  "id": "bilateral_understanding",
+                  "name": "Bilateral Agreement Interpretation",
+                  "description": "Understanding how authorities recognize each other's approvals",
+                  "micro_skills": [
+                    "BASA (Bilateral Aviation Safety Agreement)",
+                    "TIPA (Technical Implementation Procedures)",
+                    "Mutual recognition of approvals",
+                    "Data flowdown requirements",
+                    "Export airworthiness approval",
+                    "Import airworthiness approval"
+                  ]
+                }
+              ]
+            }
+          ],
+          "meta_knowledge": {
+            "regulatory_interaction": {
+              "global_harmonization": "Understanding how FAA, EASA, and other authorities align and differ",
+              "compliance_strategy": "Designing QMS to satisfy multiple authorities simultaneously",
+              "authority_expectations": "How different authorities interpret and enforce requirements"
+            }
+          }
+        },
+        {
+          "id": "product_safety_reliability",
+          "name": "Product Safety, Reliability, and Risk Science",
+          "description": "Safety engineering, reliability analysis, and risk management",
+          "level": 1,
+          "subdomains": [
+            {
+              "id": "reliability_modeling",
+              "name": "Reliability Engineering and Modeling",
+              "description": "Reliability analysis, prediction, and testing",
+              "competencies": [
+                {
+                  "id": "reliability_fundamentals",
+                  "name": "Reliability Fundamentals",
+                  "description": "Core reliability concepts and metrics",
+                  "micro_skills": [
+                    "MTBF (Mean Time Between Failures)",
+                    "MTTF (Mean Time To Failure)",
+                    "MTTR (Mean Time To Repair)",
+                    "Failure rate calculation",
+                    "Reliability function",
+                    "Hazard function",
+                    "Weibull analysis",
+                    "Exponential distribution",
+                    "Normal distribution in reliability",
+                    "Lognormal distribution"
+                  ]
+                },
+                {
+                  "id": "reliability_testing",
+                  "name": "Reliability Testing",
+                  "description": "Designing and executing reliability tests",
+                  "micro_skills": [
+                    "Accelerated life testing",
+                    "Environmental stress testing",
+                    "HALT/HASS",
+                    "Reliability demonstration",
+                    "Sample size determination",
+                    "Test planning",
+                    "Failure analysis from test data"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "safety_engineering",
+              "name": "Safety Engineering (ARP4754/4761)",
+              "description": "Aerospace safety assessment processes",
+              "competencies": [
+                {
+                  "id": "arp4754",
+                  "name": "ARP4754A System Safety",
+                  "description": "Guidelines for development of civil aircraft systems",
+                  "micro_skills": [
+                    "System safety assessment",
+                    "Functional Hazard Assessment (FHA)",
+                    "Preliminary System Safety Assessment (PSSA)",
+                    "System Safety Assessment (SSA)",
+                    "Common Cause Analysis (CCA)",
+                    "Development Assurance Levels (DAL)",
+                    "Safety objectives",
+                    "Safety requirements"
+                  ]
+                },
+                {
+                  "id": "arp4761",
+                  "name": "ARP4761 Safety Assessment Methods",
+                  "description": "Guidelines and methods for conducting safety assessments",
+                  "micro_skills": [
+                    "Fault Tree Analysis (FTA)",
+                    "Event Tree Analysis (ETA)",
+                    "Markov Analysis",
+                    "Dependence Diagrams (DD)",
+                    "Common Cause Analysis",
+                    "Zonal Safety Analysis",
+                    "Particular Risk Analysis"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "fmea_pfmea",
+              "name": "FMEA/PFMEA (AS9145)",
+              "description": "Failure Mode and Effects Analysis aligned with AS9145",
+              "competencies": [
+                {
+                  "id": "as9145_fmea",
+                  "name": "AS9145 FMEA Process",
+                  "description": "Aerospace FMEA methodology",
+                  "micro_skills": [
+                    "Design FMEA (DFMEA)",
+                    "Process FMEA (PFMEA)",
+                    "System FMEA",
+                    "Failure mode identification",
+                    "Effects analysis",
+                    "Severity scoring (1-10)",
+                    "Occurrence scoring (1-10)",
+                    "Detection scoring (1-10)",
+                    "Risk Priority Number (RPN) calculation",
+                    "Action priority determination",
+                    "Mitigation strategy development",
+                    "Re-assessment after actions"
+                  ],
+                  "dependencies": ["risk_management", "product_knowledge"],
+                  "use_cases": [
+                    "Design risk assessment",
+                    "Process risk assessment",
+                    "Supplier risk evaluation",
+                    "Preventive action planning"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "fault_tree_analysis",
+              "name": "Fault Tree Analysis",
+              "description": "Deductive failure analysis methodology",
+              "competencies": [
+                {
+                  "id": "fta_methodology",
+                  "name": "FTA Methodology",
+                  "description": "Fault tree construction and analysis",
+                  "micro_skills": [
+                    "Top event definition",
+                    "AND gate logic",
+                    "OR gate logic",
+                    "Basic event identification",
+                    "Intermediate event definition",
+                    "Cut set analysis",
+                    "Minimal cut set determination",
+                    "Probability calculation",
+                    "Critical path identification",
+                    "Quantitative vs. qualitative FTA"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "sms",
+              "name": "Safety Management Systems (SMS)",
+              "description": "Systematic approach to managing safety",
+              "competencies": [
+                {
+                  "id": "sms_principles",
+                  "name": "SMS Principles and Implementation",
+                  "description": "Safety management system design and operation",
+                  "micro_skills": [
+                    "Safety policy",
+                    "Safety risk management",
+                    "Safety assurance",
+                    "Safety promotion",
+                    "Hazard identification",
+                    "Safety risk assessment",
+                    "Safety risk mitigation",
+                    "Safety performance monitoring"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "counterfeit_prevention",
+              "name": "Counterfeit Parts Prevention",
+              "description": "AS5553/AS6174 counterfeit parts prevention",
+              "competencies": [
+                {
+                  "id": "as5553",
+                  "name": "AS5553 Counterfeit Prevention",
+                  "description": "Counterfeit electronic parts prevention",
+                  "micro_skills": [
+                    "Counterfeit part identification",
+                    "Supplier authentication",
+                    "Traceability requirements",
+                    "Incoming inspection for counterfeits",
+                    "Test methods for detection",
+                    "Documentation requirements"
+                  ]
+                },
+                {
+                  "id": "as6174",
+                  "name": "AS6174 Counterfeit Materiel",
+                  "description": "Counterfeit materiel prevention across all part types",
+                  "micro_skills": [
+                    "Counterfeit materiel detection",
+                    "Authentication methods",
+                    "Supply chain controls",
+                    "Training and awareness"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "manufacturing_operations",
+          "name": "Manufacturing, Production, and Operational Excellence",
+          "description": "Lean, Six Sigma, SPC, and operational quality",
+          "level": 1,
+          "subdomains": [
+            {
+              "id": "lean_systems",
+              "name": "Lean Manufacturing Systems",
+              "description": "Lean principles and tools for waste elimination",
+              "competencies": [
+                {
+                  "id": "lean_principles",
+                  "name": "Lean Principles",
+                  "description": "Core lean thinking and principles",
+                  "micro_skills": [
+                    "Value identification",
+                    "Value stream mapping",
+                    "Flow creation",
+                    "Pull systems",
+                    "Perfection pursuit",
+                    "8 wastes identification (Muda)",
+                    "Mura (unevenness)",
+                    "Muri (overburden)"
+                  ]
+                },
+                {
+                  "id": "5s_methodology",
+                  "name": "5S/6S Methodology",
+                  "description": "Workplace organization and standardization",
+                  "micro_skills": [
+                    "Sort (Seiri)",
+                    "Straighten (Seiton)",
+                    "Shine (Seiso)",
+                    "Standardize (Seiketsu)",
+                    "Sustain (Shitsuke)",
+                    "Safety (6th S)",
+                    "5S implementation",
+                    "5S auditing",
+                    "5S sustainability"
+                  ]
+                },
+                {
+                  "id": "value_stream_mapping",
+                  "name": "Value Stream Mapping",
+                  "description": "Current and future state value stream analysis",
+                  "micro_skills": [
+                    "Current state mapping",
+                    "Future state design",
+                    "Lead time analysis",
+                    "Takt time calculation",
+                    "Pitch calculation",
+                    "Kaizen bursts",
+                    "Data collection for VSM"
+                  ]
+                },
+                {
+                  "id": "kaizen",
+                  "name": "Kaizen (Continuous Improvement)",
+                  "description": "Continuous improvement philosophy and events",
+                  "micro_skills": [
+                    "Kaizen philosophy",
+                    "Kaizen events",
+                    "Gemba walks",
+                    "Gemba Kaizen",
+                    "Suggestion systems",
+                    "Problem-solving at source"
+                  ]
+                },
+                {
+                  "id": "jit_kanban",
+                  "name": "Just-In-Time and Kanban",
+                  "description": "JIT production and Kanban systems",
+                  "micro_skills": [
+                    "Kanban design",
+                    "Pull production",
+                    "Single-piece flow",
+                    "SMED (Quick changeover)",
+                    "Buffer management"
+                  ]
+                },
+                {
+                  "id": "poka_yoke",
+                  "name": "Mistake-Proofing (Poka-Yoke)",
+                  "description": "Error prevention design",
+                  "micro_skills": [
+                    "Contact method",
+                    "Fixed value method",
+                    "Motion-step method",
+                    "Regulatory method",
+                    "Sensory method",
+                    "Design for error prevention"
+                  ]
+                },
+                {
+                  "id": "lean_metrics",
+                  "name": "Lean Metrics",
+                  "description": "Measuring lean performance",
+                  "micro_skills": [
+                    "OEE (Overall Equipment Effectiveness)",
+                    "Lead time measurement",
+                    "Throughput calculation",
+                    "Cycle time",
+                    "Takt time",
+                    "WIP (Work-in-Progress)",
+                    "Inventory turns"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "six_sigma",
+              "name": "Six Sigma Methodology",
+              "description": "DMAIC, DMADV, and statistical methods",
+              "competencies": [
+                {
+                  "id": "dmaic",
+                  "name": "DMAIC Process (Define, Measure, Analyze, Improve, Control)",
+                  "description": "Structured problem-solving methodology",
+                  "micro_skills": [
+                    "Define phase: Problem statement, project charter, stakeholder analysis, SIPOC",
+                    "Measure phase: Baseline metrics, data collection, measurement system analysis, process mapping",
+                    "Analyze phase: Root cause analysis, hypothesis testing, statistical analysis, data analysis",
+                    "Improve phase: Solution design, piloting, optimization, implementation planning",
+                    "Control phase: Sustain improvements, statistical process control, documentation, monitoring"
+                  ]
+                },
+                {
+                  "id": "dmadv",
+                  "name": "DMADV (Define, Measure, Analyze, Design, Verify)",
+                  "description": "Design for Six Sigma methodology",
+                  "micro_skills": [
+                    "Define: Customer requirements, project scope",
+                    "Measure: Customer needs, CTQ identification",
+                    "Analyze: Design concepts, alternatives",
+                    "Design: Detailed design, optimization",
+                    "Verify: Validation, pilot, full-scale implementation"
+                  ]
+                },
+                {
+                  "id": "statistical_methods",
+                  "name": "Statistical Methods",
+                  "description": "Statistical analysis for quality improvement",
+                  "micro_skills": [
+                    "Descriptive statistics (mean, median, mode, std dev, variance)",
+                    "Hypothesis testing (t-test, ANOVA, chi-square)",
+                    "Regression analysis (linear, multiple, logistic)",
+                    "Correlation and covariance",
+                    "Confidence intervals",
+                    "P-values and significance",
+                    "Power analysis",
+                    "Sample size calculations"
+                  ]
+                },
+                {
+                  "id": "process_capability",
+                  "name": "Process Capability Analysis",
+                  "description": "Cp, Cpk, Pp, Ppk and capability studies",
+                  "micro_skills": [
+                    "Cp calculation and interpretation",
+                    "Cpk calculation and interpretation",
+                    "Pp calculation and interpretation",
+                    "Ppk calculation and interpretation",
+                    "Cpm (capability with target)",
+                    "Process centering",
+                    "Short-term vs. long-term capability",
+                    "Capability studies",
+                    "Non-normal distribution capability"
+                  ]
+                },
+                {
+                  "id": "msa",
+                  "name": "Measurement System Analysis (MSA)",
+                  "description": "Gage R&R and measurement uncertainty",
+                  "micro_skills": [
+                    "Gage R&R (Repeatability & Reproducibility)",
+                    "Type 1 Gage R&R",
+                    "Type 2 Gage R&R",
+                    "Attribute Gage R&R",
+                    "Measurement uncertainty",
+                    "Calibration requirements",
+                    "Gage control charts"
+                  ]
+                },
+                {
+                  "id": "control_charts",
+                  "name": "Statistical Process Control (SPC)",
+                  "description": "Control charts and process monitoring",
+                  "micro_skills": [
+                    "Xbar-R charts",
+                    "Xbar-S charts",
+                    "I-MR charts",
+                    "EWMA charts",
+                    "CUSUM charts",
+                    "p-charts (proportion)",
+                    "np-charts (number)",
+                    "c-charts (count)",
+                    "u-charts (rate)",
+                    "Control limits calculation",
+                    "Out-of-control signals",
+                    "Western Electric rules",
+                    "Nelson rules",
+                    "Special cause vs. common cause",
+                    "Rational subgrouping"
+                  ]
+                },
+                {
+                  "id": "doe",
+                  "name": "Design of Experiments (DOE)",
+                  "description": "Experimental design for process optimization",
+                  "micro_skills": [
+                    "Factorial designs (2^k, 3^k)",
+                    "Fractional factorial",
+                    "Response surface methodology (RSM)",
+                    "Central composite design",
+                    "Plackett-Burman designs",
+                    "Taguchi methods",
+                    "Main effects and interactions",
+                    "Blocking and randomization"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "mes_erp_integration",
+              "name": "MES/ERP Integration",
+              "description": "Manufacturing execution systems and enterprise resource planning",
+              "competencies": [
+                {
+                  "id": "mes_integration",
+                  "name": "MES Integration with Quality",
+                  "description": "Integrating quality into manufacturing execution",
+                  "micro_skills": [
+                    "Real-time quality data collection",
+                    "Quality gates in MES",
+                    "Nonconformance tracking in MES",
+                    "Traceability in MES"
+                  ]
+                }
+              ]
+            }
+          ],
+          "meta_knowledge": {
+            "operational_interdependencies": {
+              "description": "How manufacturing, quality, supply chain, and operations interact",
+              "impact_areas": [
+                "Quality affects production efficiency",
+                "Production affects quality outcomes",
+                "Supply chain affects both quality and production",
+                "Human factors affect all operational areas"
+              ]
+            }
+          }
+        },
+        {
+          "id": "supplier_quality",
+          "name": "Supplier Quality & Global Supply Chain",
+          "description": "Supplier management, qualification, and supply chain quality",
+          "level": 1,
+          "subdomains": [
+            {
+              "id": "supplier_qualification",
+              "name": "Supplier Qualification",
+              "description": "Evaluating and approving suppliers",
+              "competencies": [
+                {
+                  "id": "supplier_evaluation",
+                  "name": "Supplier Evaluation Process",
+                  "description": "Comprehensive supplier assessment",
+                  "micro_skills": [
+                    "Capability assessment",
+                    "Financial stability evaluation",
+                    "Quality system assessment",
+                    "Delivery performance review",
+                    "Cost competitiveness analysis",
+                    "Technical capability assessment",
+                    "Responsiveness evaluation",
+                    "Communication assessment",
+                    "Risk assessment",
+                    "Approved Supplier List (ASL) management"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "scar_management",
+              "name": "SCAR Management",
+              "description": "Supplier Corrective Action Request process",
+              "competencies": [
+                {
+                  "id": "scar_process",
+                  "name": "SCAR Process",
+                  "description": "Managing supplier corrective actions",
+                  "micro_skills": [
+                    "SCAR issuance",
+                    "Root cause analysis with suppliers",
+                    "Corrective action planning",
+                    "SCAR follow-up",
+                    "Effectiveness verification",
+                    "SCAR closure"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "as9102_fai",
+              "name": "AS9102 First Article Inspection",
+              "description": "First article inspection requirements",
+              "competencies": [
+                {
+                  "id": "fai_process",
+                  "name": "FAI Process",
+                  "description": "First article inspection execution",
+                  "micro_skills": [
+                    "FAI planning",
+                    "FAI form completion (Form 1, 2, 3)",
+                    "Characteristic accountability",
+                    "FAI documentation",
+                    "FAI approval"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "traceability_flowdown",
+              "name": "Traceability and Flowdown",
+              "description": "Requirements flowdown and part traceability",
+              "competencies": [
+                {
+                  "id": "requirements_flowdown",
+                  "name": "Requirements Flowdown",
+                  "description": "Flowing customer requirements to suppliers",
+                  "micro_skills": [
+                    "Purchase order compliance",
+                    "Specification flowdown",
+                    "Quality requirements flowdown",
+                    "Traceability requirements",
+                    "FOD prevention requirements",
+                    "Counterfeit prevention requirements"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "human_factors",
+          "name": "Human Factors, Competence, and Organizational Knowledge",
+          "description": "Human factors engineering, competence systems, and organizational behavior",
+          "level": 1,
+          "subdomains": [
+            {
+              "id": "human_factors_engineering",
+              "name": "Human Factors Engineering",
+              "description": "Designing for human performance and error prevention",
+              "competencies": [
+                {
+                  "id": "hf_design_principles",
+                  "name": "Human Factors Design Principles",
+                  "description": "Designing systems for human use",
+                  "micro_skills": [
+                    "Cognitive load management",
+                    "Attention and focus design",
+                    "Error prevention design",
+                    "Workload management",
+                    "Fatigue considerations",
+                    "Stress effects on performance",
+                    "Multitasking limitations",
+                    "Human-machine interface design"
+                  ]
+                },
+                {
+                  "id": "error_psychology",
+                  "name": "Error Psychology and Prevention",
+                  "description": "Understanding why humans make mistakes",
+                  "micro_skills": [
+                    "Why mistakes happen (not malice)",
+                    "Cognitive psychology of quality",
+                    "Error prevention design",
+                    "Mistake-proofing (Poka-Yoke)",
+                    "Training effectiveness",
+                    "Knowledge retention",
+                    "Skill decay over time"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "competence_systems",
+              "name": "Competence Systems",
+              "description": "Competence management and verification",
+              "competencies": [
+                {
+                  "id": "competence_assessment",
+                  "name": "Competence Assessment",
+                  "description": "Evaluating and maintaining competence",
+                  "micro_skills": [
+                    "Competency identification",
+                    "Training needs analysis",
+                    "Competency levels",
+                    "Competence verification",
+                    "Competency records",
+                    "Refresher training scheduling"
+                  ]
+                },
+                {
+                  "id": "training_effectiveness",
+                  "name": "Training Effectiveness Evaluation",
+                  "description": "Verifying training effectiveness",
+                  "micro_skills": [
+                    "Knowledge testing",
+                    "Skills demonstration",
+                    "Performance verification",
+                    "Competency confirmation",
+                    "Long-term effectiveness",
+                    "Training documentation"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "organizational_behavior",
+              "name": "Organizational Behavior and Culture",
+              "description": "Understanding organizational dynamics",
+              "competencies": [
+                {
+                  "id": "org_dynamics",
+                  "name": "Organizational Dynamics",
+                  "description": "Understanding how organizations work",
+                  "micro_skills": [
+                    "Organizational politics",
+                    "Power dynamics",
+                    "Silos and turf wars",
+                    "Change resistance",
+                    "Cultural factors",
+                    "Communication patterns",
+                    "Decision-making models"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "data_governance",
+          "name": "Data Governance, Cybersecurity, and Digital QMS",
+          "description": "IT security, data integrity, and digital quality systems",
+          "level": 1,
+          "subdomains": [
+            {
+              "id": "secure_it",
+              "name": "Secure IT Architecture",
+              "description": "Cybersecurity for quality systems",
+              "competencies": [
+                {
+                  "id": "it_security",
+                  "name": "IT Security for QMS",
+                  "description": "Securing quality management systems",
+                  "micro_skills": [
+                    "Access controls",
+                    "Data encryption",
+                    "Network security",
+                    "Vulnerability management",
+                    "Incident response"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "configuration_management",
+              "name": "Configuration Management",
+              "description": "Managing changes and versions",
+              "competencies": [
+                {
+                  "id": "config_control",
+                  "name": "Configuration Control",
+                  "description": "Controlling changes and configurations",
+                  "micro_skills": [
+                    "Change control process",
+                    "Version control",
+                    "Configuration identification",
+                    "Change impact assessment",
+                    "Configuration status accounting"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "data_integrity",
+              "name": "Data Integrity Standards",
+              "description": "ALCOA+ principles and data integrity",
+              "competencies": [
+                {
+                  "id": "alcoa_plus",
+                  "name": "ALCOA+ Principles",
+                  "description": "Data integrity requirements",
+                  "micro_skills": [
+                    "Attributable",
+                    "Legible",
+                    "Contemporaneous",
+                    "Original",
+                    "Accurate",
+                    "Complete",
+                    "Consistent",
+                    "Enduring",
+                    "Available"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "audit_science",
+          "name": "Audit Science & Regulatory Interpretation",
+          "description": "Advanced auditing, regulatory interpretation, and compliance",
+          "level": 1,
+          "subdomains": [
+            {
+              "id": "audit_methodology",
+              "name": "Advanced Audit Methodology",
+              "description": "Sophisticated auditing techniques",
+              "competencies": [
+                {
+                  "id": "audit_planning",
+                  "name": "Risk-Based Audit Planning",
+                  "description": "Planning audits based on risk",
+                  "micro_skills": [
+                    "Risk assessment for audit planning",
+                    "Audit scope definition",
+                    "Audit objective setting",
+                    "Sampling strategies",
+                    "Audit resource allocation",
+                    "Audit schedule development"
+                  ]
+                },
+                {
+                  "id": "evidence_standards",
+                  "name": "Audit Evidence Standards",
+                  "description": "What constitutes valid audit evidence",
+                  "micro_skills": [
+                    "Evidence types (documentary, physical, testimonial)",
+                    "Evidence sufficiency",
+                    "Evidence appropriateness",
+                    "Evidence evaluation",
+                    "Evidence documentation"
+                  ]
+                },
+                {
+                  "id": "nc_writing",
+                  "name": "Nonconformance Writing",
+                  "description": "Writing effective nonconformances",
+                  "micro_skills": [
+                    "Nonconformance structure",
+                    "Evidence citation",
+                    "Requirement citation",
+                    "Finding severity classification",
+                    "Clear, objective language",
+                    "Actionable nonconformances"
+                  ]
+                },
+                {
+                  "id": "audit_psychology",
+                  "name": "Audit Psychology",
+                  "description": "Understanding audit behavior and psychology",
+                  "micro_skills": [
+                    "Auditee psychology",
+                    "Interview techniques",
+                    "Building rapport",
+                    "Managing defensiveness",
+                    "Encouraging openness",
+                    "Reading body language (when in person)"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "regulatory_interpretation",
+              "name": "Regulatory Interpretation",
+              "description": "Interpreting regulations beyond literal text",
+              "competencies": [
+                {
+                  "id": "intent_based_interpretation",
+                  "name": "Intent-Based Regulatory Interpretation",
+                  "description": "Understanding regulatory intent",
+                  "micro_skills": [
+                    "Determine requirement meaning beyond literal text",
+                    "Identify underlying risk the rule addresses",
+                    "Predict how authority interprets compliance",
+                    "Understand regulatory history and context",
+                    "Apply regulatory guidance"
+                  ]
+                },
+                {
+                  "id": "authority_expectations",
+                  "name": "Authority Expectations",
+                  "description": "Understanding what regulators expect",
+                  "micro_skills": [
+                    "FDA inspection expectations",
+                    "FAA audit expectations",
+                    "EASA inspection expectations",
+                    "Common findings patterns",
+                    "Warning letter patterns",
+                    "Form 483 patterns"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "as9104",
+              "name": "AS9104 Oversight",
+              "description": "Aerospace quality management system oversight",
+              "competencies": [
+                {
+                  "id": "as9104_requirements",
+                  "name": "AS9104 Requirements",
+                  "description": "Oversight body requirements",
+                  "micro_skills": [
+                    "Oversight body structure",
+                    "Certification body requirements",
+                    "Auditor qualification",
+                    "Audit process requirements"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "meta_knowledge_domains": [
+        {
+          "id": "standards_integration",
+          "name": "Standards Integration Expertise",
+          "description": "Understanding how standards work together",
+          "competencies": [
+            {
+              "id": "convergence_analysis",
+              "name": "Standards Convergence Analysis",
+              "description": "Identifying where standards align",
+              "micro_skills": [
+                "Map common requirements across standards",
+                "Identify standard synergies",
+                "Design integrated QMS",
+                "Leverage common elements",
+                "Add standard-specific where needed"
+              ]
+            },
+            {
+              "id": "divergence_analysis",
+              "name": "Standards Divergence Analysis",
+              "description": "Understanding where standards differ",
+              "micro_skills": [
+                "Identify unique requirements",
+                "Understand divergence reasons",
+                "Design to satisfy all applicable standards",
+                "Manage standard-specific requirements"
+              ]
+            },
+            {
+              "id": "shall_mapping",
+              "name": "Shall Statement Mapping",
+              "description": "Mapping all mandatory requirements to procedures",
+              "micro_skills": [
+                "Extract all 'shall' statements",
+                "Map to procedural architecture",
+                "Ensure no 'shall' is unaddressed",
+                "Design procedures to satisfy 'shalls'",
+                "Verify completeness"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cross_domain_synthesis",
+          "name": "Cross-Domain Synthesis",
+          "description": "Linking knowledge across domains",
+          "competencies": [
+            {
+              "id": "domain_linking",
+              "name": "Domain Linking",
+              "description": "Connecting knowledge across domains",
+              "micro_skills": [
+                "Link engineering + operations + supply chain",
+                "Bridge regulatory + business reality",
+                "Integrate human factors + technical requirements",
+                "Model QMS as dynamic system",
+                "Understand interdependencies"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "predictive_foresight",
+          "name": "Predictive Foresight",
+          "description": "Anticipating trends and failure modes",
+          "competencies": [
+            {
+              "id": "trend_forecasting",
+              "name": "Regulatory and Industry Trend Forecasting",
+              "description": "Predicting future requirements",
+              "micro_skills": [
+                "Monitor regulatory trends",
+                "Anticipate industry changes",
+                "Forecast failure modes",
+                "Integrate field data",
+                "Predict audit focus areas"
+              ]
+            }
+          ]
+        }
+      ],
+      "human_intelligence_domains": [
+        {
+          "id": "emotional_intelligence",
+          "name": "Emotional Intelligence",
+          "description": "Understanding and responding to emotions",
+          "competencies": [
+            {
+              "id": "empathy",
+              "name": "Empathy",
+              "description": "Understanding and sharing feelings",
+              "micro_skills": [
+                "Recognize user emotions",
+                "Validate feelings",
+                "Respond with understanding",
+                "Acknowledge stress/pressure",
+                "Provide encouragement"
+              ]
+            },
+            {
+              "id": "cultural_awareness",
+              "name": "Cultural Awareness",
+              "description": "Understanding cultural differences",
+              "micro_skills": [
+                "Regional communication norms",
+                "Authority structures across cultures",
+                "Cultural decision-making models",
+                "Respect cultural differences"
+              ]
+            },
+            {
+              "id": "resistance_reading",
+              "name": "Resistance and Motivation Reading",
+              "description": "Understanding why people resist or are motivated",
+              "micro_skills": [
+                "Detect resistance patterns",
+                "Understand resistance reasons",
+                "Identify motivation factors",
+                "Adapt approach to motivation"
+              ]
+            },
+            {
+              "id": "psychological_safety",
+              "name": "Psychological Safety Creation",
+              "description": "Creating safe spaces for questions and mistakes",
+              "micro_skills": [
+                "Encourage questions",
+                "Normalize mistakes",
+                "Focus on learning",
+                "Avoid blame",
+                "Build trust"
+              ]
+            },
+            {
+              "id": "conflict_deescalation",
+              "name": "Conflict De-escalation",
+              "description": "Managing and resolving conflicts",
+              "micro_skills": [
+                "Recognize conflict",
+                "De-escalate tension",
+                "Find common ground",
+                "Facilitate resolution"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "communication_mastery",
+          "name": "Communication Mastery",
+          "description": "Effective communication across contexts",
+          "competencies": [
+            {
+              "id": "simplification",
+              "name": "Simplifying Complex Concepts",
+              "description": "Making complex ideas accessible",
+              "micro_skills": [
+                "Explain technical concepts simply",
+                "Use analogies",
+                "Break down complexity",
+                "Adapt to audience level"
+              ]
+            },
+            {
+              "id": "influence",
+              "name": "Influencing Leaders",
+              "description": "Gaining support from leadership",
+              "micro_skills": [
+                "Build business cases",
+                "Frame in business language",
+                "Show ROI",
+                "Address concerns",
+                "Present data effectively"
+              ]
+            },
+            {
+              "id": "training_delivery",
+              "name": "Training Diverse Groups",
+              "description": "Effective training delivery",
+              "micro_skills": [
+                "Adapt to learning styles",
+                "Use multiple teaching methods",
+                "Check understanding",
+                "Make training engaging"
+              ]
+            },
+            {
+              "id": "documentation",
+              "name": "Clear Documentation",
+              "description": "Writing audit-ready documentation",
+              "micro_skills": [
+                "Clear, concise writing",
+                "Audit-ready format",
+                "Complete information",
+                "Appropriate detail level"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ethical_integrity",
+          "name": "Ethical Backbone & Integrity",
+          "description": "Maintaining ethical standards",
+          "competencies": [
+            {
+              "id": "transparency",
+              "name": "Transparency",
+              "description": "Being open and honest",
+              "micro_skills": [
+                "Admit limitations",
+                "Share concerns",
+                "Be honest about problems",
+                "No concealment"
+              ]
+            },
+            {
+              "id": "courage",
+              "name": "Courage Under Pressure",
+              "description": "Standing firm on quality principles",
+              "micro_skills": [
+                "Maintain standards under pressure",
+                "Speak up about issues",
+                "Resist shortcuts",
+                "Protect safety"
+              ]
+            },
+            {
+              "id": "zero_tolerance",
+              "name": "Zero Tolerance for Concealment",
+              "description": "Never hiding compliance issues",
+              "micro_skills": [
+                "Report all nonconformances",
+                "No cover-ups",
+                "Full disclosure",
+                "Regulatory transparency"
+              ]
+            },
+            {
+              "id": "regulatory_trust",
+              "name": "Maintaining Regulatory Trust",
+              "description": "Building and maintaining trust with authorities",
+              "micro_skills": [
+                "Honest communication",
+                "Timely reporting",
+                "Full cooperation",
+                "Proactive disclosure"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "curiosity_learning",
+          "name": "Curiosity & Lifelong Learning",
+          "description": "Continuous learning and improvement",
+          "competencies": [
+            {
+              "id": "constant_reevaluation",
+              "name": "Constant Re-evaluation",
+              "description": "Always questioning and improving",
+              "micro_skills": [
+                "Question assumptions",
+                "Seek better ways",
+                "Learn from mistakes",
+                "Stay current"
+              ]
+            },
+            {
+              "id": "research_behavior",
+              "name": "Research Behavior",
+              "description": "Actively seeking knowledge",
+              "micro_skills": [
+                "Research new requirements",
+                "Study best practices",
+                "Learn from others",
+                "Stay informed"
+              ]
+            },
+            {
+              "id": "trend_awareness",
+              "name": "Trend Awareness",
+              "description": "Staying current with industry trends",
+              "micro_skills": [
+                "Monitor industry news",
+                "Track regulatory changes",
+                "Follow technology trends",
+                "Understand emerging risks"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "humility_mastery",
+          "name": "Humility + Mastery",
+          "description": "Balancing expertise with humility",
+          "competencies": [
+            {
+              "id": "knowing_limits",
+              "name": "Knowing Limits",
+              "description": "Recognizing when you don't know",
+              "micro_skills": [
+                "Admit uncertainty",
+                "Ask for help",
+                "Consult experts",
+                "Acknowledge gaps"
+              ]
+            },
+            {
+              "id": "frontline_input",
+              "name": "Seeking Frontline Input",
+              "description": "Learning from those doing the work",
+              "micro_skills": [
+                "Listen to operators",
+                "Value practical experience",
+                "Learn from mistakes",
+                "Respect expertise"
+              ]
+            },
+            {
+              "id": "avoid_arrogance",
+              "name": "Avoiding Expert Arrogance",
+              "description": "Staying humble despite expertise",
+              "micro_skills": [
+                "Respect others' knowledge",
+                "Don't dismiss concerns",
+                "Stay teachable",
+                "Value different perspectives"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "expert_reasoning_patterns": {
+      "question_approach": {
+        "pattern": "Understand context before answering",
+        "steps": [
+          "Clarify what user is really asking",
+          "Understand their situation/constraints",
+          "Identify their experience level",
+          "Detect emotional state",
+          "Determine urgency",
+          "Then provide appropriate answer"
+        ]
+      },
+      "root_cause_analysis": {
+        "pattern": "Go beyond symptoms to true causes",
+        "steps": [
+          "Identify the problem clearly",
+          "Ask 'why' recursively (5-Why)",
+          "Consider multiple potential causes",
+          "Verify root cause with data",
+          "Distinguish root cause from symptoms",
+          "Consider human factors",
+          "Consider system factors",
+          "Consider environmental factors"
+        ]
+      },
+      "evidence_evaluation": {
+        "pattern": "Evaluate evidence critically",
+        "steps": [
+          "Assess evidence quality",
+          "Determine evidence sufficiency",
+          "Consider evidence reliability",
+          "Look for contradictory evidence",
+          "Verify evidence authenticity",
+          "Consider evidence context"
+        ]
+      },
+      "regulatory_operational_balance": {
+        "pattern": "Balance regulatory requirements with operational reality",
+        "steps": [
+          "Understand regulatory requirement",
+          "Understand operational constraints",
+          "Identify creative solutions",
+          "Find win-win approaches",
+          "Maintain compliance",
+          "Enable operations"
+        ]
+      },
+      "human_judgment": {
+        "pattern": "Apply human judgment in compliance decisions",
+        "steps": [
+          "Understand the rule",
+          "Understand the situation",
+          "Consider intent of rule",
+          "Assess risk",
+          "Consider alternatives",
+          "Make judgment call",
+          "Document reasoning"
+        ]
+      }
+    },
+    "persona_alignment": {
+      "voice": {
+        "tone": "Warm but professional, conversational not academic",
+        "style": "Clear, direct, practical, empathetic",
+        "personality": "Caring, experienced, humble, wise"
+      },
+      "reasoning": {
+        "approach": "Context-aware, evidence-based, practical",
+        "depth": "Comprehensive but accessible",
+        "balance": "Technical accuracy with human understanding"
+      },
+      "interaction": {
+        "style": "Coaching, mentoring, supportive",
+        "adaptation": "Adjusts to user's experience, emotion, and needs",
+        "relationship": "Long-term companion, not just answer provider"
+      },
+      "ambiguity_detection": {
+        "pattern": "Recognizes when information is unclear or missing",
+        "response": "Asks clarifying questions, identifies gaps, seeks more information"
+      },
+      "risk_identification": {
+        "pattern": "Identifies risks proactively",
+        "response": "Highlights risks, suggests mitigation, prioritizes"
+      }
+    }
+  }
+}
+

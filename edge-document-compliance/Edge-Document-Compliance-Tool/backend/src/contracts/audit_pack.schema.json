@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Audit Pack",
+  "description": "Canonical JSON schema for audit packs (checklists with requirements and evidence expectations)",
+  "type": "object",
+  "required": ["version", "auditId", "generatedAt", "sources", "items"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version (e.g., '1.0.0')",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "auditId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the audit"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when audit pack was generated"
+    },
+    "sources": {
+      "type": "array",
+      "description": "Source documents/standards/regulations used to generate this audit",
+      "items": {
+        "type": "object",
+        "required": ["sourceId", "sourceType", "name"],
+        "properties": {
+          "sourceId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Reference to source_documents table"
+          },
+          "sourceType": {
+            "type": "string",
+            "enum": ["STANDARD", "REGULATION", "CUSTOMER", "CHECKLIST"],
+            "description": "Type of source document"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of source (e.g., 'ISO 9001:2015', '14 CFR Part 21')"
+          },
+          "code": {
+            "type": "string",
+            "description": "Standard/regulation code (e.g., 'ISO9001', '14CFR21')"
+          },
+          "revision": {
+            "type": "string",
+            "description": "Version/revision identifier"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional source metadata"
+          }
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "description": "Audit checklist items (requirements to be assessed)",
+      "items": {
+        "type": "object",
+        "required": ["itemId", "sourceType", "requirementRef", "question", "evidenceExpectations"],
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for this audit item"
+          },
+          "sourceType": {
+            "type": "string",
+            "enum": ["STANDARD", "REGULATION", "CUSTOMER", "CHECKLIST"],
+            "description": "Type of source for this item"
+          },
+          "requirementId": {
+            "type": ["string", "null"],
+            "format": "uuid",
+            "description": "Reference to requirements table (if normalized requirement exists)"
+          },
+          "requirementRef": {
+            "type": "string",
+            "description": "Human-readable reference (e.g., '7.5.3.2', '14 CFR 21.137(a)')"
+          },
+          "requirementText": {
+            "type": "string",
+            "description": "Full text of the requirement"
+          },
+          "question": {
+            "type": "string",
+            "description": "Audit question derived from requirement"
+          },
+          "evidenceExpectations": {
+            "type": "object",
+            "description": "Expected evidence types and criteria",
+            "properties": {
+              "docTypes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["Procedure", "WorkInstruction", "Form", "Record", "Manual", "Register", "Policy", "Plan", "Other"]
+                },
+                "description": "Expected document types"
+              },
+              "keywords": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Keywords that should appear in evidence"
+              },
+              "criteria": {
+                "type": "string",
+                "description": "Free-text criteria description"
+              }
+            }
+          },
+          "grouping": {
+            "type": "object",
+            "description": "Grouping information for display",
+            "properties": {
+              "section": {
+                "type": "string",
+                "description": "Section name (e.g., 'Section A: Standards')"
+              },
+              "subsection": {
+                "type": "string",
+                "description": "Subsection name"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "description": "Display order within section"
+              }
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional item metadata"
+          }
+        }
+      }
+    },
+    "filters": {
+      "type": "object",
+      "description": "Filters applied during generation",
+      "properties": {
+        "scope": {
+          "type": "string",
+          "description": "Scope description"
+        },
+        "granularity": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Level of detail"
+        },
+        "evidenceDepth": {
+          "type": "string",
+          "enum": ["minimal", "standard", "comprehensive"],
+          "description": "Expected evidence depth"
+        },
+        "clausePrefixes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Clause prefixes to include (e.g., ['7.', '8.'])"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional audit pack metadata"
+    }
+  }
+}

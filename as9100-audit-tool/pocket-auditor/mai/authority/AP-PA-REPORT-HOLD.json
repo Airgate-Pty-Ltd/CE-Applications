@@ -1,0 +1,21 @@
+{
+  "authorityProfileId": "AP-PA-REPORT-HOLD",
+  "version": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "trustedSourceClasses": [
+    "VALIDATED_INTERNAL"
+  ],
+  "permittedBehaviors": [
+    "ADVISE",
+    "HOLD"
+  ],
+  "humanApprovalPerInstance": false,
+  "constraints": [
+    "HOLD applies only to host action 'report-issuance' on the audit that triggered it",
+    "Kernel never modifies, classifies, closes or deletes any record"
+  ],
+  "escalateWhen": [
+    "HOLD overridden twice on the same audit"
+  ]
+}

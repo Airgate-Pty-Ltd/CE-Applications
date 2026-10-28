@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AS9100D QMS Self-Assessment Tool | Conform-Edge</title>
+<style>
+  :root {
+    --navy: #1a2744;
+    --steel: #4a6fa5;
+    --steel-light: #6a8fbd;
+    --accent: #e8a020;
+    --green: #2d7a4f;
+    --amber: #d97706;
+    --red: #c0392b;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #d1d9e6;
+    --text: #1e2d3d;
+    --muted: #6b7a8d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    color: white;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  }
+  .header-brand { display: flex; align-items: center; gap: 14px; }
+  .header-logo {
+    width: 42px; height: 42px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 18px; color: var(--navy);
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; opacity: .75; margin-top: 2px; }
+  .header-badge {
+    background: var(--steel);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .5px;
+  }
+
+  /* INTRO */
+  .intro {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--steel) 100%);
+    color: white;
+    padding: 36px 32px;
+    text-align: center;
+  }
+  .intro h1 { font-size: 26px; font-weight: 700; margin-bottom: 10px; }
+  .intro p { opacity: .85; max-width: 680px; margin: 0 auto 20px; font-size: 15px; }
+  .intro-meta {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+    font-size: 13px; opacity: .8;
+  }
+  .intro-meta span::before { content: "✓ "; color: var(--accent); }
+
+  /* PROGRESS BAR */
+  .progress-bar-wrap {
+    background: var(--navy);
+    padding: 12px 32px 16px;
+  }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    color: rgba(255,255,255,.7); font-size: 12px; margin-bottom: 6px;
+  }
+  .progress-track {
+    height: 6px; background: rgba(255,255,255,.2); border-radius: 3px;
+  }
+  .progress-fill {
+    height: 6px; background: var(--accent); border-radius: 3px;
+    transition: width .3s ease; width: 0%;
+  }
+
+  /* MAIN */
+  .main { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+
+  /* ORG INFO */
+  .org-info-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .org-info-card h3 {
+    font-size: 14px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .8px; color: var(--steel); margin-bottom: 16px;
+  }
+  .org-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .org-grid label { font-size: 13px; font-weight: 600; color: var(--text); display: block; margin-bottom: 4px; }
+  .org-grid input, .org-grid select {
+    width: 100%; padding: 8px 12px;
+    border: 1px solid var(--border); border-radius: 6px;
+    font-size: 14px; color: var(--text);
+    background: var(--bg);
+    transition: border-color .2s;
+  }
+  .org-grid input:focus, .org-grid select:focus {
+    outline: none; border-color: var(--steel);
+    box-shadow: 0 0 0 3px rgba(74,111,165,.12);
+  }
+
+  /* SECTION */
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .section-header {
+    background: var(--navy);
+    color: white;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s;
+  }
+  .section-header:hover { background: var(--steel); }
+  .section-clause {
+    background: var(--accent);
+    color: var(--navy);
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    white-space: nowrap;
+  }
+  .section-title { font-size: 15px; font-weight: 700; flex: 1; }
+  .section-score {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .section-chevron { font-size: 12px; opacity: .6; transition: transform .2s; }
+  .section-chevron.open { transform: rotate(90deg); }
+  .section-body { display: none; padding: 0; }
+  .section-body.open { display: block; }
+
+  /* QUESTION */
+  .question {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+  }
+  .question:last-child { border-bottom: none; }
+  .question:hover { background: #f8f9fc; }
+  .q-text {
+    font-size: 14px; font-weight: 600; margin-bottom: 10px;
+    color: var(--text);
+    display: flex; gap: 8px;
+  }
+  .q-num {
+    color: var(--steel); font-weight: 700; white-space: nowrap;
+    min-width: 32px;
+  }
+  .q-clause {
+    font-size: 11px; color: var(--muted); font-weight: 500;
+    margin-bottom: 10px; margin-left: 40px;
+  }
+  .q-options {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-left: 40px;
+  }
+  .q-options label {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .15s;
+    user-select: none;
+    font-weight: 500;
+  }
+  .q-options input[type=radio] { display: none; }
+  .q-options label:hover { border-color: var(--steel); color: var(--steel); }
+  .q-options input:checked + label.opt-full { border-color: var(--green); background: #eaf7f0; color: var(--green); }
+  .q-options input:checked + label.opt-partial { border-color: var(--amber); background: #fff8ec; color: var(--amber); }
+  .q-options input:checked + label.opt-none { border-color: var(--red); background: #fdf2f0; color: var(--red); }
+  .q-options input:checked + label.opt-na { border-color: var(--muted); background: #f0f2f5; color: var(--muted); }
+
+  /* SCORE SUMMARY */
+  .score-card {
+    background: var(--navy);
+    color: white;
+    border-radius: 10px;
+    padding: 28px 28px 24px;
+    margin-bottom: 20px;
+    display: none;
+  }
+  .score-card.visible { display: block; }
+  .score-card h2 { font-size: 20px; margin-bottom: 20px; }
+  .score-main {
+    display: flex; align-items: center; gap: 28px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .score-donut-wrap { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
+  .score-donut-wrap svg { transform: rotate(-90deg); }
+  .score-donut-text {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-size: 26px; font-weight: 800;
+  }
+  .score-donut-text small { display: block; font-size: 11px; opacity: .6; font-weight: 400; }
+  .score-details { flex: 1; min-width: 220px; }
+  .score-verdict {
+    font-size: 22px; font-weight: 700; margin-bottom: 6px;
+  }
+  .score-verdict-sub { font-size: 14px; opacity: .75; }
+  .score-bars { margin-top: 20px; }
+  .score-bar-row { margin-bottom: 10px; }
+  .score-bar-label {
+    display: flex; justify-content: space-between;
+    font-size: 12px; margin-bottom: 4px; opacity: .85;
+  }
+  .score-bar-track { height: 8px; background: rgba(255,255,255,.15); border-radius: 4px; }
+  .score-bar-fill { height: 8px; border-radius: 4px; transition: width .5s ease; }
+  .bar-green { background: #4ade80; }
+  .bar-amber { background: #fbbf24; }
+  .bar-red { background: #f87171; }
+
+  /* FINDINGS TABLE */
+  .findings-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .findings-card.visible { display: block; }
+  .findings-header {
+    background: var(--navy); color: white;
+    padding: 14px 20px;
+    font-size: 15px; font-weight: 700;
+  }
+  .findings-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .findings-table th {
+    background: var(--bg); padding: 10px 16px;
+    text-align: left; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .6px; color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .findings-table td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .findings-table tr:last-child td { border-bottom: none; }
+  .findings-table tr:hover td { background: #f8f9fc; }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 700; white-space: nowrap;
+  }
+  .badge-gap { background: #fee2e2; color: #b91c1c; }
+  .badge-partial { background: #fef3c7; color: #92400e; }
+  .badge-ok { background: #d1fae5; color: #065f46; }
+
+  /* BUTTONS */
+  .btn-wrap {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .btn {
+    padding: 12px 24px;
+    border: none; border-radius: 8px;
+    font-size: 14px; font-weight: 700;
+    cursor: pointer; transition: all .2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary { background: var(--steel); color: white; }
+  .btn-primary:hover { background: var(--navy); }
+  .btn-accent { background: var(--accent); color: var(--navy); }
+  .btn-accent:hover { background: #c88a18; }
+  .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+  .btn-outline:hover { border-color: var(--steel); color: var(--steel); }
+
+  /* FOOTER */
+  .footer {
+    background: var(--navy); color: rgba(255,255,255,.5);
+    padding: 20px 32px; text-align: center;
+    font-size: 12px; margin-top: 40px;
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+
+  /* PRINT */
+  @media print {
+    .header-badge, .btn-wrap, .intro-meta, .progress-bar-wrap { display: none; }
+    .section-body { display: block !important; }
+    .score-card, .findings-card { display: block !important; }
+    body { background: white; }
+    .section { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+  }
+
+  @media (max-width: 600px) {
+    .org-grid { grid-template-columns: 1fr; }
+    .score-main { flex-direction: column; gap: 14px; }
+    .intro { padding: 24px 16px; }
+    .main { padding: 20px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-brand">
+    <div class="header-logo">CE</div>
+    <div>
+      <div class="header-title">Conform-Edge</div>
+      <div class="header-sub">AS9100D QMS Self-Assessment Tool</div>
+    </div>
+  </div>
+  <div class="header-badge">Rev D · 2024 Edition</div>
+</div>
+
+<div class="intro">
+  <h1>AS9100D Aerospace QMS Readiness Self-Assessment</h1>
+  <p>Score your Quality Management System against AS9100 Rev D requirements across all major clauses. Identify gaps before your certification or surveillance audit. Get a clause-level report with prioritized findings.</p>
+  <div class="intro-meta">
+    <span>35 audit-ready questions</span>
+    <span>All AS9100D clauses covered</span>
+    <span>Aerospace-specific requirements</span>
+    <span>Instant scored gap report</span>
+  </div>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-label">
+    <span id="progressLabel">0 of 35 questions answered</span>
+    <span id="progressPct">0%</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ORG INFO -->
+  <div class="org-info-card">
+    <h3>Organization Information</h3>
+    <div class="org-grid">
+      <div>
+        <label>Organization Name</label>
+        <input type="text" id="orgName" placeholder="Enter organization name">
+      </div>
+      <div>
+        <label>Certificate / Registration #</label>
+        <input type="text" id="certNum" placeholder="e.g. AS9100-2024-00123">
+      </div>
+      <div>
+        <label>Audit Type</label>
+        <select id="auditType">
+          <option value="">Select...</option>
+          <option>Initial Certification Gap Assessment</option>
+          <option>Surveillance Audit Readiness</option>
+          <option>Re-certification Readiness</option>
+          <option>Internal Pre-audit Self-Assessment</option>
+          <option>Supplier Qualification Review</option>
+        </select>
+      </div>
+      <div>
+        <label>Assessment Date</label>
+        <input type="date" id="assessDate">
+      </div>
+      <div>
+        <label>Primary Contact / Assessor</label>
+        <input type="text" id="assessor" placeholder="Name and title">
+      </div>
+      <div>
+        <label>Certification Body (if applicable)</label>
+        <input type="text" id="cb" placeholder="e.g. BSI, Bureau Veritas, SGS">
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTRUCTIONS -->
+  <div style="background:#eef2fa;border-left:4px solid var(--steel);border-radius:6px;padding:14px 18px;margin-bottom:24px;font-size:13px;">
+    <strong>How to score:</strong>
+    <strong style="color:var(--green)">Full</strong> = requirement is fully met with objective evidence.
+    <strong style="color:var(--amber)">Partial</strong> = partially addressed; gaps remain.
+    <strong style="color:var(--red)">Not Met</strong> = requirement is absent or not implemented.
+    <strong style="color:var(--muted)">N/A</strong> = not applicable to your scope. Click a section header to expand/collapse.
+  </div>
+
+  <!-- SECTIONS -->
+
+  <!-- CLAUSE 4 -->
+  <div class="section" id="sec-4">
+    <div class="section-header" onclick="toggleSection('sec-4')">
+      <span class="section-clause">CL 4</span>
+      <span class="section-title">Context of the Organization</span>
+      <span class="section-score" id="score-sec-4">—</span>
+      <span class="section-chevron" id="chev-sec-4">▶</span>
+    </div>
+    <div class="section-body" id="body-sec-4">
+      <div class="question" data-section="sec-4">
+        <div class="q-text"><span class="q-num">Q1.</span>The organization has determined internal and external issues relevant to its purpose and the QMS, including those relevant to aerospace customers and regulatory bodies.</div>
+        <div class="q-clause">AS9100D §4.1 | Context &amp; Issues</div>
+        <div class="q-options">
+          <input type="radio" name="q1" id="q1f" value="2"><label for="q1f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q1" id="q1p" value="1"><label for="q1p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q1" id="q1n" value="0"><label for="q1n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q1" id="q1na" value="na"><label for="q1na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-4">
+        <div class="q-text"><span class="q-num">Q2.</span>Relevant interested parties (customers, regulatory authorities, certification bodies, OEMs, suppliers) and their requirements have been identified and documented.</div>
+        <div class="q-clause">AS9100D §4.2 | Interested Parties</div>
+        <div class="q-options">
+          <input type="radio" name="q2" id="q2f" value="2"><label for="q2f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q2" id="q2p" value="1"><label for="q2p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q2" id="q2n" value="0"><label for="q2n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q2" id="q2na" value="na"><label for="q2na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-4">
+        <div class="q-text"><span class="q-num">Q3.</span>The QMS scope is defined, documented, and includes applicable product/service lines, sites, and exclusions with justification (no exclusions allowed in clauses 8.3, 8.4).</div>
+        <div class="q-clause">AS9100D §4.3 | Scope of the QMS</div>
+        <div class="q-options">
+          <input type="radio" name="q3" id="q3f" value="2"><label for="q3f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q3" id="q3p" value="1"><label for="q3p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q3" id="q3n" value="0"><label for="q3n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q3" id="q3na" value="na"><label for="q3na" class="opt-na">N/A</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAUSE 5 -->
+  <div class="section" id="sec-5">
+    <div class="section-header" onclick="toggleSection('sec-5')">
+      <span class="section-clause">CL 5</span>
+      <span class="section-title">Leadership &amp; Commitment</span>
+      <span class="section-score" id="score-sec-5">—</span>
+      <span class="section-chevron" id="chev-sec-5">▶</span>
+    </div>
+    <div class="section-body" id="body-sec-5">
+      <div class="question" data-section="sec-5">
+        <div class="q-text"><span class="q-num">Q4.</span>Top management demonstrates active leadership accountability for QMS effectiveness — not just delegation to Quality. Evidence includes visible involvement in management review, policy setting, and resource allocation.</div>
+        <div class="q-clause">AS9100D §5.1 | Leadership &amp; Commitment</div>
+        <div class="q-options">
+          <input type="radio" name="q4" id="q4f" value="2"><label for="q4f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q4" id="q4p" value="1"><label for="q4p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q4" id="q4n" value="0"><label for="q4n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q4" id="q4na" value="na"><label for="q4na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-5">
+        <div class="q-text"><span class="q-num">Q5.</span>A quality policy exists that is appropriate to the organization, includes a commitment to comply with requirements and continually improve, is communicated, understood, and reviewed for continued suitability.</div>
+        <div class="q-clause">AS9100D §5.2 | Quality Policy</div>
+        <div class="q-options">
+          <input type="radio" name="q5" id="q5f" value="2"><label for="q5f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q5" id="q5p" value="1"><label for="q5p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q5" id="q5n" value="0"><label for="q5n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q5" id="q5na" value="na"><label for="q5na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-5">
+        <div class="q-text"><span class="q-num">Q6.</span>Organizational roles, responsibilities, and authorities are assigned and communicated. A Management Representative (or equivalent function) has been designated with specific QMS authority, including customer focus.</div>
+        <div class="q-clause">AS9100D §5.3 | Roles &amp; Responsibilities</div>
+        <div class="q-options">
+          <input type="radio" name="q6" id="q6f" value="2"><label for="q6f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q6" id="q6p" value="1"><label for="q6p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q6" id="q6n" value="0"><label for="q6n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q6" id="q6na" value="na"><label for="q6na" class="opt-na">N/A</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAUSE 6 -->
+  <div class="section" id="sec-6">
+    <div class="section-header" onclick="toggleSection('sec-6')">
+      <span class="section-clause">CL 6</span>
+      <span class="section-title">Planning</span>
+      <span class="section-score" id="score-sec-6">—</span>
+      <span class="section-chevron" id="chev-sec-6">▶</span>
+    </div>
+    <div class="section-body" id="body-sec-6">
+      <div class="question" data-section="sec-6">
+        <div class="q-text"><span class="q-num">Q7.</span>Risks and opportunities are determined, assessed, and addressed — with specific consideration of operational risks and opportunities in the aerospace context (supply chain, regulatory changes, safety events).</div>
+        <div class="q-clause">AS9100D §6.1 | Risk &amp; Opportunity Management</div>
+        <div class="q-options">
+          <input type="radio" name="q7" id="q7f" value="2"><label for="q7f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q7" id="q7p" value="1"><label for="q7p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q7" id="q7n" value="0"><label for="q7n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q7" id="q7na" value="na"><label for="q7na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-6">
+        <div class="q-text"><span class="q-num">Q8.</span>Quality objectives are established, measurable, aligned to policy, communicated, monitored, and include aerospace-specific metrics (OTD, first-pass yield, NCR rate, customer complaints, etc.).</div>
+        <div class="q-clause">AS9100D §6.2 | Quality Objectives</div>
+        <div class="q-options">
+          <input type="radio" name="q8" id="q8f" value="2"><label for="q8f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q8" id="q8p" value="1"><label for="q8p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q8" id="q8n" value="0"><label for="q8n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q8" id="q8na" value="na"><label for="q8na" class="opt-na">N/A</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAUSE 7 -->
+  <div class="section" id="sec-7">
+    <div class="section-header" onclick="toggleSection('sec-7')">
+      <span class="section-clause">CL 7</span>
+      <span class="section-title">Support (Resources, Competence, Communication, Documented Information)</span>
+      <span class="section-score" id="score-sec-7">—</span>
+      <span class="section-chevron" id="chev-sec-7">▶</span>
+    </div>
+    <div class="section-body" id="body-sec-7">
+      <div class="question" data-section="sec-7">
+        <div class="q-text"><span class="q-num">Q9.</span>Organizational knowledge needed for QMS operation has been determined, maintained, and made available. Lessons learned from nonconformities, customer feedback, and project reviews are captured and applied.</div>
+        <div class="q-clause">AS9100D §7.1.6 | Organizational Knowledge</div>
+        <div class="q-options">
+          <input type="radio" name="q9" id="q9f" value="2"><label for="q9f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q9" id="q9p" value="1"><label for="q9p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q9" id="q9n" value="0"><label for="q9n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q9" id="q9na" value="na"><label for="q9na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-7">
+        <div class="q-text"><span class="q-num">Q10.</span>Personnel performing QMS-affecting work are competent — education, training, skills, and experience are defined, verified, and recorded. Training effectiveness is evaluated.</div>
+        <div class="q-clause">AS9100D §7.2 | Competence</div>
+        <div class="q-options">
+          <input type="radio" name="q10" id="q10f" value="2"><label for="q10f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q10" id="q10p" value="1"><label for="q10p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q10" id="q10n" value="0"><label for="q10n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q10" id="q10na" value="na"><label for="q10na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-7">
+        <div class="q-text"><span class="q-num">Q11.</span>Documented information required by AS9100D is created, controlled, and maintained. Document control includes approval, version management, distribution control, and prevention of unintended use of obsolete documents.</div>
+        <div class="q-clause">AS9100D §7.5 | Documented Information</div>
+        <div class="q-options">
+          <input type="radio" name="q11" id="q11f" value="2"><label for="q11f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q11" id="q11p" value="1"><label for="q11p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q11" id="q11n" value="0"><label for="q11n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q11" id="q11na" value="na"><label for="q11na" class="opt-na">N/A</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAUSE 8 — OPERATION -->
+  <div class="section" id="sec-8">
+    <div class="section-header" onclick="toggleSection('sec-8')">
+      <span class="section-clause">CL 8</span>
+      <span class="section-title">Operation — Planning, Customer Requirements &amp; Aerospace-Specific Controls</span>
+      <span class="section-score" id="score-sec-8">—</span>
+      <span class="section-chevron" id="chev-sec-8">▶</span>
+    </div>
+    <div class="section-body" id="body-sec-8">
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q12.</span>Operational planning defines quality criteria, resources, control of externally provided items, required monitoring/measurement points, acceptance criteria, and records of conformance for each product/service line.</div>
+        <div class="q-clause">AS9100D §8.1 | Operational Planning &amp; Control</div>
+        <div class="q-options">
+          <input type="radio" name="q12" id="q12f" value="2"><label for="q12f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q12" id="q12p" value="1"><label for="q12p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q12" id="q12n" value="0"><label for="q12n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q12" id="q12na" value="na"><label for="q12na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q13.</span>Configuration management is established — covering product/part identification, change control, configuration status accounting, and configuration audits. Engineering change management is documented and controlled.</div>
+        <div class="q-clause">AS9100D §8.1.2 | Configuration Management (Aerospace-Specific)</div>
+        <div class="q-options">
+          <input type="radio" name="q13" id="q13f" value="2"><label for="q13f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q13" id="q13p" value="1"><label for="q13p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q13" id="q13n" value="0"><label for="q13n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q13" id="q13na" value="na"><label for="q13na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q14.</span>Product safety is proactively managed — including key characteristics identification, Safety Management practices, escapes reporting, and awareness of the consequences of failures for safety-critical products.</div>
+        <div class="q-clause">AS9100D §8.1.3 | Product Safety (Aerospace-Specific)</div>
+        <div class="q-options">
+          <input type="radio" name="q14" id="q14f" value="2"><label for="q14f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q14" id="q14p" value="1"><label for="q14p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q14" id="q14n" value="0"><label for="q14n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q14" id="q14na" value="na"><label for="q14na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q15.</span>Customer requirements are determined and reviewed before acceptance (including airworthiness requirements, regulatory/statutory requirements, and product safety requirements). Records of reviews are maintained.</div>
+        <div class="q-clause">AS9100D §8.2 | Customer Requirements Review</div>
+        <div class="q-options">
+          <input type="radio" name="q15" id="q15f" value="2"><label for="q15f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q15" id="q15p" value="1"><label for="q15p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q15" id="q15n" value="0"><label for="q15n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q15" id="q15na" value="na"><label for="q15na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q16.</span>Design and development planning, inputs, controls, outputs, and changes are managed. Design reviews, verification, and validation are performed. Design changes are controlled and approved before implementation.</div>
+        <div class="q-clause">AS9100D §8.3 | Design &amp; Development</div>
+        <div class="q-options">
+          <input type="radio" name="q16" id="q16f" value="2"><label for="q16f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q16" id="q16p" value="1"><label for="q16p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q16" id="q16n" value="0"><label for="q16n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q16" id="q16na" value="na"><label for="q16na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q17.</span>Externally provided processes, products, and services are controlled. Supplier selection, evaluation, re-evaluation, and performance monitoring are conducted. Approved Supplier Lists (ASL) are maintained and current.</div>
+        <div class="q-clause">AS9100D §8.4 | Control of Externally Provided Processes</div>
+        <div class="q-options">
+          <input type="radio" name="q17" id="q17f" value="2"><label for="q17f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q17" id="q17p" value="1"><label for="q17p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q17" id="q17n" value="0"><label for="q17n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q17" id="q17na" value="na"><label for="q17na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q18.</span>Counterfeit part prevention measures are in place — including supplier controls, receiving inspection for suspect counterfeit parts, segregation, and reporting. Awareness training is conducted for relevant personnel.</div>
+        <div class="q-clause">AS9100D §8.1.4 | Prevention of Counterfeit Parts (Aerospace-Specific)</div>
+        <div class="q-options">
+          <input type="radio" name="q18" id="q18f" value="2"><label for="q18f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q18" id="q18p" value="1"><label for="q18p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q18" id="q18n" value="0"><label for="q18n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q18" id="q18na" value="na"><label for="q18na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q19.</span>Special processes (welding, heat treat, NDT, plating, composites, etc.) are validated and controlled. Personnel performing special processes are qualified/certified. Records of qualification are maintained.</div>
+        <div class="q-clause">AS9100D §8.5.1 | Special Processes &amp; Process Validation</div>
+        <div class="q-options">
+          <input type="radio" name="q19" id="q19f" value="2"><label for="q19f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q19" id="q19p" value="1"><label for="q19p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q19" id="q19n" value="0"><label for="q19n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q19" id="q19na" value="na"><label for="q19na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q20.</span>First Article Inspection (FAI) is performed in accordance with AS9102 (or equivalent customer requirement) for new parts, changes to design/process/supplier, and production interruptions meeting defined thresholds.</div>
+        <div class="q-clause">AS9100D §8.5.1 / First Article Inspection (AS9102 linkage)</div>
+        <div class="q-options">
+          <input type="radio" name="q20" id="q20f" value="2"><label for="q20f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q20" id="q20p" value="1"><label for="q20p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q20" id="q20n" value="0"><label for="q20n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q20" id="q20na" value="na"><label for="q20na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q21.</span>Key Characteristics (KCs) are identified, flowed down from customer requirements, controlled through production, and monitored with statistical or other methods. KC results are recorded and traceability is maintained.</div>
+        <div class="q-clause">AS9100D §8.5.1 | Key Characteristics</div>
+        <div class="q-options">
+          <input type="radio" name="q21" id="q21f" value="2"><label for="q21f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q21" id="q21p" value="1"><label for="q21p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q21" id="q21n" value="0"><label for="q21n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q21" id="q21na" value="na"><label for="q21na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q22.</span>Product identification and traceability is maintained throughout production — from receiving through shipment. Lot/serial/batch traceability can be reconstructed to raw material, process, and inspection records.</div>
+        <div class="q-clause">AS9100D §8.5.2 | Identification &amp; Traceability</div>
+        <div class="q-options">
+          <input type="radio" name="q22" id="q22f" value="2"><label for="q22f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q22" id="q22p" value="1"><label for="q22p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q22" id="q22n" value="0"><label for="q22n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q22" id="q22na" value="na"><label for="q22na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q23.</span>Release of products/services is controlled — acceptance criteria are defined, inspection/test activities are performed and documented, and conformance is authorized before release. Authorized release documents are issued correctly.</div>
+        <div class="q-clause">AS9100D §8.6 | Release of Products &amp; Services</div>
+        <div class="q-options">
+          <input type="radio" name="q23" id="q23f" value="2"><label for="q23f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q23" id="q23p" value="1"><label for="q23p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q23" id="q23n" value="0"><label for="q23n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q23" id="q23na" value="na"><label for="q23na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-8">
+        <div class="q-text"><span class="q-num">Q24.</span>Nonconforming outputs are identified, controlled, and segregated. Disposition (use-as-is, rework, scrap, return to supplier) is reviewed and authorized. The customer and/or regulatory authority are notified when required.</div>
+        <div class="q-clause">AS9100D §8.7 | Control of Nonconforming Outputs</div>
+        <div class="q-options">
+          <input type="radio" name="q24" id="q24f" value="2"><label for="q24f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q24" id="q24p" value="1"><label for="q24p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q24" id="q24n" value="0"><label for="q24n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q24" id="q24na" value="na"><label for="q24na" class="opt-na">N/A</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAUSE 9 -->
+  <div class="section" id="sec-9">
+    <div class="section-header" onclick="toggleSection('sec-9')">
+      <span class="section-clause">CL 9</span>
+      <span class="section-title">Performance Evaluation</span>
+      <span class="section-score" id="score-sec-9">—</span>
+      <span class="section-chevron" id="chev-sec-9">▶</span>
+    </div>
+    <div class="section-body" id="body-sec-9">
+      <div class="question" data-section="sec-9">
+        <div class="q-text"><span class="q-num">Q25.</span>Customer satisfaction is monitored — including customer complaint data, on-time delivery, quality escapes to customer, and any customer scorecards. Trends are analyzed and acted upon.</div>
+        <div class="q-clause">AS9100D §9.1.2 | Customer Satisfaction</div>
+        <div class="q-options">
+          <input type="radio" name="q25" id="q25f" value="2"><label for="q25f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q25" id="q25p" value="1"><label for="q25p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q25" id="q25n" value="0"><label for="q25n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q25" id="q25na" value="na"><label for="q25na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-9">
+        <div class="q-text"><span class="q-num">Q26.</span>Data analysis covers: customer satisfaction, conformance to requirements, process and product characteristics, supplier performance, and QMS trend analysis. Results are used to support management review and continual improvement decisions.</div>
+        <div class="q-clause">AS9100D §9.1.3 | Analysis &amp; Evaluation</div>
+        <div class="q-options">
+          <input type="radio" name="q26" id="q26f" value="2"><label for="q25f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q26" id="q26p" value="1"><label for="q26p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q26" id="q26n" value="0"><label for="q26n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q26" id="q26na" value="na"><label for="q26na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-9">
+        <div class="q-text"><span class="q-num">Q27.</span>Internal audits are planned and conducted systematically. The audit program covers all processes and clauses. Auditors are objective and impartial. Findings are reported and corrective actions are verified. Audit records are maintained.</div>
+        <div class="q-clause">AS9100D §9.2 | Internal Audit</div>
+        <div class="q-options">
+          <input type="radio" name="q27" id="q27f" value="2"><label for="q27f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q27" id="q27p" value="1"><label for="q27p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q27" id="q27n" value="0"><label for="q27n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q27" id="q27na" value="na"><label for="q27na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-9">
+        <div class="q-text"><span class="q-num">Q28.</span>Management review is conducted at planned intervals with all required AS9100D inputs (including operational KPIs, audit results, customer feedback, NC/CAR status, risk status). Outputs include decisions and action items with owners and due dates.</div>
+        <div class="q-clause">AS9100D §9.3 | Management Review</div>
+        <div class="q-options">
+          <input type="radio" name="q28" id="q28f" value="2"><label for="q28f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q28" id="q28p" value="1"><label for="q28p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q28" id="q28n" value="0"><label for="q28n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q28" id="q28na" value="na"><label for="q28na" class="opt-na">N/A</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAUSE 10 -->
+  <div class="section" id="sec-10">
+    <div class="section-header" onclick="toggleSection('sec-10')">
+      <span class="section-clause">CL 10</span>
+      <span class="section-title">Improvement (Corrective Action, NCR/CAR, Continual Improvement)</span>
+      <span class="section-score" id="score-sec-10">—</span>
+      <span class="section-chevron" id="chev-sec-10">▶</span>
+    </div>
+    <div class="section-body" id="body-sec-10">
+      <div class="question" data-section="sec-10">
+        <div class="q-text"><span class="q-num">Q29.</span>Nonconformities are documented in a formal NCR/CAR system. Root cause analysis is performed using structured methodologies (5-Why, Fishbone, 8D). Corrective actions address root cause, not symptom. Effectiveness verification is performed.</div>
+        <div class="q-clause">AS9100D §10.2 | Nonconformity &amp; Corrective Action</div>
+        <div class="q-options">
+          <input type="radio" name="q29" id="q29f" value="2"><label for="q29f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q29" id="q29p" value="1"><label for="q29p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q29" id="q29n" value="0"><label for="q29n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q29" id="q29na" value="na"><label for="q29na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-10">
+        <div class="q-text"><span class="q-num">Q30.</span>The organization systematically identifies opportunities for improvement — beyond corrective action. Improvement projects are linked to quality objectives, KPIs, and customer satisfaction data. Results are tracked and reported.</div>
+        <div class="q-clause">AS9100D §10.3 | Continual Improvement</div>
+        <div class="q-options">
+          <input type="radio" name="q30" id="q30f" value="2"><label for="q30f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q30" id="q30p" value="1"><label for="q30p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q30" id="q30n" value="0"><label for="q30n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q30" id="q30na" value="na"><label for="q30na" class="opt-na">N/A</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AEROSPACE ADD-ONS -->
+  <div class="section" id="sec-ae">
+    <div class="section-header" onclick="toggleSection('sec-ae')">
+      <span class="section-clause">AE+</span>
+      <span class="section-title">Aerospace-Specific Additional Requirements (Customer-Specific &amp; OASIS)</span>
+      <span class="section-score" id="score-sec-ae">—</span>
+      <span class="section-chevron" id="chev-sec-ae">▶</span>
+    </div>
+    <div class="section-body" id="body-sec-ae">
+      <div class="question" data-section="sec-ae">
+        <div class="q-text"><span class="q-num">Q31.</span>Customer-specific requirements (CSRs) — including OEM Quality Requirements (Boeing D6-82479, Airbus AIPI 00-00-004, etc.) — have been reviewed, captured, and flowed down to applicable processes and suppliers.</div>
+        <div class="q-clause">AS9100D §8.2 / Customer-Specific Requirements</div>
+        <div class="q-options">
+          <input type="radio" name="q31" id="q31f" value="2"><label for="q31f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q31" id="q31p" value="1"><label for="q31p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q31" id="q31n" value="0"><label for="q31n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q31" id="q31na" value="na"><label for="q31na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-ae">
+        <div class="q-text"><span class="q-num">Q32.</span>The organization is registered in OASIS (or applicable customer portals) and the registration is current and accurate. Certificate of conformance data is available and accessible to customers as required.</div>
+        <div class="q-clause">IAQG / OASIS Registration Requirements</div>
+        <div class="q-options">
+          <input type="radio" name="q32" id="q32f" value="2"><label for="q32f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q32" id="q32p" value="1"><label for="q32p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q32" id="q32n" value="0"><label for="q32n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q32" id="q32na" value="na"><label for="q32na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-ae">
+        <div class="q-text"><span class="q-num">Q33.</span>Measurement and test equipment is calibrated, controlled, and protected against damage. Calibration records include equipment ID, calibration status, calibration date, next due date, and calibration standard traceability to national standards.</div>
+        <div class="q-clause">AS9100D §7.1.5 | Monitoring &amp; Measuring Resources</div>
+        <div class="q-options">
+          <input type="radio" name="q33" id="q33f" value="2"><label for="q33f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q33" id="q33p" value="1"><label for="q33p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q33" id="q33n" value="0"><label for="q33n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q33" id="q33na" value="na"><label for="q33na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-ae">
+        <div class="q-text"><span class="q-num">Q34.</span>Preservation of products — including handling, storage, packaging, and protection — is defined and implemented. Environmental controls (temperature, humidity, ESD, shelf life) are applied as required for aerospace materials and assemblies.</div>
+        <div class="q-clause">AS9100D §8.5.4 | Preservation</div>
+        <div class="q-options">
+          <input type="radio" name="q34" id="q34f" value="2"><label for="q34f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q34" id="q34p" value="1"><label for="q34p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q34" id="q34n" value="0"><label for="q34n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q34" id="q34na" value="na"><label for="q34na" class="opt-na">N/A</label>
+        </div>
+      </div>
+      <div class="question" data-section="sec-ae">
+        <div class="q-text"><span class="q-num">Q35.</span>Post-delivery support obligations are defined — including warranty processes, field returns, escape notification to customers, and handling of post-delivery nonconformities. If not in scope, this is documented as justified.</div>
+        <div class="q-clause">AS9100D §8.5.5 | Post-Delivery Activities</div>
+        <div class="q-options">
+          <input type="radio" name="q35" id="q35f" value="2"><label for="q35f" class="opt-full">✓ Full</label>
+          <input type="radio" name="q35" id="q35p" value="1"><label for="q35p" class="opt-partial">~ Partial</label>
+          <input type="radio" name="q35" id="q35n" value="0"><label for="q35n" class="opt-none">✗ Not Met</label>
+          <input type="radio" name="q35" id="q35na" value="na"><label for="q35na" class="opt-na">N/A</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="btn-wrap" style="margin-top:28px;">
+    <button class="btn btn-accent" onclick="generateReport()">⚡ Generate Gap Report</button>
+    <button class="btn btn-outline" onclick="expandAll()">Expand All Sections</button>
+    <button class="btn btn-outline" onclick="resetAll()">↺ Reset Assessment</button>
+    <button class="btn btn-outline" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
+
+  <!-- SCORE CARD -->
+  <div class="score-card" id="scoreCard">
+    <h2>📊 AS9100D Readiness Assessment Results</h2>
+    <div class="score-main">
+      <div class="score-donut-wrap">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="14"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#fbbf24" stroke-width="14"
+                  stroke-dasharray="314" stroke-dashoffset="314"
+                  stroke-linecap="round" id="donutArc" style="transition: stroke-dashoffset 1s ease;"/>
+        </svg>
+        <div class="score-donut-text" id="donutText">0%<small>Score</small></div>
+      </div>
+      <div class="score-details">
+        <div class="score-verdict" id="scoreVerdict">—</div>
+        <div class="score-verdict-sub" id="scoreVerdictSub">—</div>
+        <div style="margin-top:12px; font-size:13px; opacity:.75;" id="scoreMeta">—</div>
+      </div>
+    </div>
+    <div class="score-bars" id="scoreBars"></div>
+  </div>
+
+  <!-- FINDINGS TABLE -->
+  <div class="findings-card" id="findingsCard">
+    <div class="findings-header">🔍 Gap Findings — Prioritized</div>
+    <table class="findings-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Clause / Requirement</th>
+          <th>Status</th>
+          <th>Suggested Action</th>
+        </tr>
+      </thead>
+      <tbody id="findingsBody"></tbody>
+    </table>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div style="background:#fff8e7;border:1px solid #f5c843;border-radius:8px;padding:14px 18px;font-size:12px;color:#7a5c00;margin-bottom:28px;">
+    <strong>⚠ Disclaimer:</strong> This self-assessment is for internal gap identification purposes only. It does not constitute, replace, or guarantee the outcome of a formal AS9100D certification audit conducted by an IAQG-accredited Certification Body. Results are based on self-reported information and should be verified with objective evidence. Conform-Edge assessment tools are developed by experienced AS9100D lead auditors but do not confer certification status.
+  </div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  <strong style="color:rgba(255,255,255,.8)">Conform-Edge</strong> &nbsp;|&nbsp;
+  AI-Powered QMS Intelligence &nbsp;|&nbsp;
+  <a href="https://conform-edge.com">conform-edge.com</a> &nbsp;|&nbsp;
+  AS9100D Self-Assessment Tool · 2024 Edition &nbsp;|&nbsp;
+  Built by a Lead Auditor, for quality professionals
+</div>
+
+<script>
+// ===== DATA =====
+const questions = [
+  // [qNum, sectionId, text, clause]
+  [1,'sec-4','Internal/external issues determined and documented','§4.1 Context & Issues'],
+  [2,'sec-4','Interested parties identified and requirements documented','§4.2 Interested Parties'],
+  [3,'sec-4','QMS scope defined with documented exclusions/justification','§4.3 QMS Scope'],
+  [4,'sec-5','Top management demonstrates active QMS accountability','§5.1 Leadership'],
+  [5,'sec-5','Quality policy established, communicated, reviewed','§5.2 Quality Policy'],
+  [6,'sec-5','Roles, responsibilities, and authorities assigned','§5.3 Roles & Responsibilities'],
+  [7,'sec-6','Risks and opportunities determined and addressed','§6.1 Risk & Opportunity'],
+  [8,'sec-6','Quality objectives established and monitored','§6.2 Quality Objectives'],
+  [9,'sec-7','Organizational knowledge captured and applied','§7.1.6 Knowledge Mgmt'],
+  [10,'sec-7','Personnel competence defined, verified, and recorded','§7.2 Competence'],
+  [11,'sec-7','Document control system is complete and effective','§7.5 Documented Info'],
+  [12,'sec-8','Operational planning complete with acceptance criteria','§8.1 Op. Planning'],
+  [13,'sec-8','Configuration management system established and used','§8.1.2 Configuration Mgmt'],
+  [14,'sec-8','Product safety program addresses key characteristics','§8.1.3 Product Safety'],
+  [15,'sec-8','Customer requirements reviewed before acceptance','§8.2 Customer Req. Review'],
+  [16,'sec-8','Design & development fully planned and controlled','§8.3 Design & Development'],
+  [17,'sec-8','Supplier control program with ASL current','§8.4 External Providers'],
+  [18,'sec-8','Counterfeit part prevention program in place','§8.1.4 Counterfeit Parts'],
+  [19,'sec-8','Special processes validated, personnel qualified','§8.5.1 Special Processes'],
+  [20,'sec-8','FAI performed per AS9102 requirements','§8.5.1 First Article Inspection'],
+  [21,'sec-8','Key characteristics identified and controlled','§8.5.1 Key Characteristics'],
+  [22,'sec-8','Product identification and traceability maintained','§8.5.2 ID & Traceability'],
+  [23,'sec-8','Product release controlled with acceptance records','§8.6 Release of Products'],
+  [24,'sec-8','Nonconforming outputs controlled and dispositioned','§8.7 NC Output Control'],
+  [25,'sec-9','Customer satisfaction monitored and analyzed','§9.1.2 Customer Satisfaction'],
+  [26,'sec-9','Data analysis drives process and QMS decisions','§9.1.3 Analysis & Evaluation'],
+  [27,'sec-9','Internal audit program systematic and effective','§9.2 Internal Audit'],
+  [28,'sec-9','Management review conducted with all required inputs','§9.3 Management Review'],
+  [29,'sec-10','NCR/CAR system with root cause analysis and effectiveness verification','§10.2 NC & Corrective Action'],
+  [30,'sec-10','Continual improvement linked to objectives and data','§10.3 Continual Improvement'],
+  [31,'sec-ae','Customer-specific requirements captured and flowed down','CSR Flow-down'],
+  [32,'sec-ae','OASIS registration current and accurate','OASIS Registration'],
+  [33,'sec-ae','M&TE calibrated with NIST-traceable records','§7.1.5 Calibration'],
+  [34,'sec-ae','Product preservation controls defined and implemented','§8.5.4 Preservation'],
+  [35,'sec-ae','Post-delivery support obligations defined','§8.5.5 Post-Delivery'],
+];
+
+const sectionLabels = {
+  'sec-4':  'Clause 4 — Context',
+  'sec-5':  'Clause 5 — Leadership',
+  'sec-6':  'Clause 6 — Planning',
+  'sec-7':  'Clause 7 — Support',
+  'sec-8':  'Clause 8 — Operation',
+  'sec-9':  'Clause 9 — Performance',
+  'sec-10': 'Clause 10 — Improvement',
+  'sec-ae': 'Aerospace-Specific',
+};
+
+const remediationMap = {
+  1:  'Conduct a formal context analysis workshop; document results in QMS manual or standalone register.',
+  2:  'Create an Interested Party Register listing each party, their requirements, and how requirements are monitored.',
+  3:  'Document QMS scope with clear boundaries; justify any exclusions and ensure §8.3/§8.4 are never excluded.',
+  4:  'Establish top management KPIs for QMS accountability; evidence leadership presence in management review records.',
+  5:  'Issue a quality policy signed by CEO; distribute to all staff; add to onboarding training deck.',
+  6:  'Create a RACI or roles/authority matrix; ensure QMS rep has written charter; update org chart.',
+  7:  'Implement a risk register tool; link risks to processes; document treatment plans and review schedule.',
+  8:  'Establish SMART quality objectives; link each to a data source; track monthly in management dashboard.',
+  9:  'Create a lessons learned database; link NCR closure to knowledge capture; include in new project kickoffs.',
+  10: 'Audit training records for all QMS-affecting roles; add effectiveness check (test, supervisor sign-off, observation).',
+  11: 'Conduct document control audit; retire obsolete versions; implement revision history table and approval workflow.',
+  12: 'Create product-specific quality plans or control plans; include acceptance criteria and in-process inspection gates.',
+  13: 'Establish a configuration management plan; implement engineering change notice (ECN) process with approval workflow.',
+  14: 'Identify all safety-critical parts; create product safety plan; train production personnel on safety awareness.',
+  15: 'Create a contract/order review checklist; document review records for each order; flag regulatory requirements.',
+  16: 'Implement design review stages with defined exit criteria; maintain DHF with verification and validation records.',
+  17: 'Update ASL with current supplier status; implement re-evaluation schedule; define minimum supplier criteria.',
+  18: 'Implement counterfeit parts awareness training; add suspect-counterfeit inspection steps at receiving; define segregation/reporting.',
+  19: 'List all special processes; verify each has validation plan and qualified personnel; audit qualification records.',
+  20: 'Create FAI procedure referencing AS9102; define triggers (new part, change, interruption); train on Form 1 completion.',
+  21: 'Extract KC list from customer drawings; add KC controls to control plan; verify measurement and recording.',
+  22: 'Implement lot/serial tracking system; verify traceability link from raw mat → in-process → final inspection records.',
+  23: 'Define authorized signatories for product release; implement final inspection stamp/digital signature process; retain records.',
+  24: 'Establish NCR tag and segregation area; define disposition authorities; add customer notification trigger to procedure.',
+  25: 'Establish monthly customer satisfaction dashboard (OTD, PPM, complaints); present at management review with trend analysis.',
+  26: 'Identify 5+ QMS data sets to analyze monthly; create analysis template; link insights to action items.',
+  27: 'Develop annual internal audit schedule covering all clauses; train internal auditors; implement finding tracking system.',
+  28: 'Define management review agenda with all §9.3 inputs; schedule quarterly; assign action item owners; retain minutes.',
+  29: 'Implement structured NCR form with 5-Why/8D RCA section; require effectiveness verification check before closure.',
+  30: 'Create improvement project register; link improvement initiatives to objective metrics; review progress quarterly.',
+  31: 'Conduct CSR register review against all active OEM/customer documents; update annually; verify flow-down to suppliers.',
+  32: 'Log in to OASIS portal; verify scope, contact info, and certificate data are current; correct any discrepancies.',
+  33: 'Create calibration database with next-due alerts; verify all instruments have calibration stickers and NIST-traceable records.',
+  34: 'Document storage conditions by part family; add shelf-life labels; verify ESD controls in electronics handling areas.',
+  35: 'Define warranty/field support process; create escape notification procedure; document field return disposition process.',
+};
+
+// ===== STATE =====
+let answered = {};
+let totalQ = 35;
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  // Set today's date
+  const today = new Date().toISOString().slice(0,10);
+  document.getElementById('assessDate').value = today;
+
+  // Listen to all radio changes
+  document.querySelectorAll('input[type=radio]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const name = radio.name;
+      const qNum = parseInt(name.substring(1));
+      answered[qNum] = radio.value;
+      updateProgress();
+      updateSectionScore(radio.closest('.section').id);
+    });
+  });
+
+  // Open first section by default
+  toggleSection('sec-4');
+});
+
+// ===== TOGGLE SECTION =====
+function toggleSection(id) {
+  const body = document.getElementById('body-' + id);
+  const chev = document.getElementById('chev-' + id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chev.classList.toggle('open', !isOpen);
+}
+
+function expandAll() {
+  Object.keys(sectionLabels).forEach(id => {
+    document.getElementById('body-' + id).classList.add('open');
+    document.getElementById('chev-' + id).classList.add('open');
+  });
+}
+
+// ===== PROGRESS =====
+function updateProgress() {
+  const count = Object.keys(answered).length;
+  const pct = Math.round((count / totalQ) * 100);
+  document.getElementById('progressLabel').textContent = `${count} of ${totalQ} questions answered`;
+  document.getElementById('progressPct').textContent = `${pct}%`;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ===== SECTION SCORE =====
+function updateSectionScore(secId) {
+  const qs = questions.filter(q => q[1] === secId);
+  let pts = 0, max = 0;
+  qs.forEach(q => {
+    const v = answered[q[0]];
+    if (v === 'na') return;
+    max += 2;
+    if (v) pts += parseInt(v);
+  });
+  const el = document.getElementById('score-' + secId);
+  if (max === 0) { el.textContent = '—'; return; }
+  const pct = Math.round((pts / max) * 100);
+  el.textContent = pct + '%';
+  el.style.color = pct >= 80 ? '#4ade80' : pct >= 50 ? '#fbbf24' : '#f87171';
+}
+
+// ===== GENERATE REPORT =====
+function generateReport() {
+  // Gather scores
+  let totalPts = 0, totalMax = 0;
+  const sectionData = {};
+  const gaps = [], partials = [], oks = [];
+
+  Object.keys(sectionLabels).forEach(secId => {
+    let pts = 0, max = 0;
+    const qs = questions.filter(q => q[1] === secId);
+    qs.forEach(q => {
+      const v = answered[q[0]];
+      if (!v || v === 'na') return;
+      max += 2;
+      const score = parseInt(v);
+      pts += score;
+      if (score === 0) gaps.push(q);
+      else if (score === 1) partials.push(q);
+      else oks.push(q);
+    });
+    sectionData[secId] = { pts, max };
+    totalPts += pts; totalMax += max;
+  });
+
+  if (totalMax === 0) {
+    alert('Please answer at least a few questions before generating the report.');
+    return;
+  }
+
+  const pct = Math.round((totalPts / totalMax) * 100);
+
+  // Score card
+  const sc = document.getElementById('scoreCard');
+  sc.classList.add('visible');
+
+  // Donut
+  const circumference = 314;
+  const offset = circumference - (pct / 100) * circumference;
+  const arc = document.getElementById('donutArc');
+  arc.style.strokeDashoffset = offset;
+  arc.style.stroke = pct >= 80 ? '#4ade80' : pct >= 50 ? '#fbbf24' : '#f87171';
+  document.getElementById('donutText').innerHTML = `${pct}%<small>Score</small>`;
+
+  // Verdict
+  let verdict, verdictSub;
+  if (pct >= 85) { verdict = '🟢 Strong Readiness'; verdictSub = 'Your QMS shows strong compliance. Focus on evidence strength for the remaining gaps before audit.'; }
+  else if (pct >= 70) { verdict = '🟡 Moderate Gaps'; verdictSub = 'Good foundation but multiple partial gaps need closure before certification or surveillance audit.'; }
+  else if (pct >= 50) { verdict = '🟠 Significant Gaps'; verdictSub = 'Material gaps exist across key clauses. A structured remediation program is needed within 60–90 days.'; }
+  else { verdict = '🔴 Major Deficiencies'; verdictSub = 'Major gaps in foundational QMS requirements. Certification is at risk without significant corrective investment.'; }
+
+  document.getElementById('scoreVerdict').textContent = verdict;
+  document.getElementById('scoreVerdictSub').textContent = verdictSub;
+  document.getElementById('scoreMeta').textContent =
+    `Gaps: ${gaps.length} | Partials: ${partials.length} | Fully Met: ${oks.length} | Answered: ${Object.keys(answered).filter(k => answered[k] !== 'na').length} of ${totalQ}`;
+
+  // Section bars
+  const barsEl = document.getElementById('scoreBars');
+  barsEl.innerHTML = '';
+  Object.entries(sectionData).forEach(([secId, {pts, max}]) => {
+    if (max === 0) return;
+    const p = Math.round((pts / max) * 100);
+    const cls = p >= 80 ? 'bar-green' : p >= 50 ? 'bar-amber' : 'bar-red';
+    barsEl.innerHTML += `
+      <div class="score-bar-row">
+        <div class="score-bar-label"><span>${sectionLabels[secId]}</span><span>${p}%</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill ${cls}" style="width:${p}%"></div></div>
+      </div>`;
+  });
+
+  // Findings table
+  const fc = document.getElementById('findingsCard');
+  fc.classList.add('visible');
+  const tbody = document.getElementById('findingsBody');
+  tbody.innerHTML = '';
+  let row = 1;
+  // Gaps first, then partials
+  [...gaps, ...partials].forEach(q => {
+    const isGap = answered[q[0]] === '0';
+    const badge = isGap
+      ? '<span class="badge badge-gap">Gap</span>'
+      : '<span class="badge badge-partial">Partial</span>';
+    tbody.innerHTML += `
+      <tr>
+        <td>${row++}</td>
+        <td><strong>Q${q[0]}</strong> — ${q[2]}<br><small style="color:var(--muted)">${q[3]}</small></td>
+        <td>${badge}</td>
+        <td style="font-size:12px">${remediationMap[q[0]] || 'Develop and implement a compliant procedure with objective evidence.'}</td>
+      </tr>`;
+  });
+  if (row === 1) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--muted)">No gaps identified — excellent readiness!</td></tr>';
+  }
+
+  // Scroll to results
+  sc.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ===== RESET =====
+function resetAll() {
+  if (!confirm('Reset all answers and clear the report?')) return;
+  document.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
+  answered = {};
+  updateProgress();
+  document.getElementById('scoreCard').classList.remove('visible');
+  document.getElementById('findingsCard').classList.remove('visible');
+  Object.keys(sectionLabels).forEach(id => {
+    const el = document.getElementById('score-' + id);
+    if (el) el.textContent = '—';
+  });
+}
+</script>
+</body>
+</html>

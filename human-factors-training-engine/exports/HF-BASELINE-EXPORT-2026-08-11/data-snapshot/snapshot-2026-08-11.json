@@ -1,0 +1,2776 @@
+{
+  "exportedAt": "2026-08-11T23:51:30.280Z",
+  "note": "Point-in-time snapshot of HF-ENGINE regulatory-baseline data (D-058 through D-064). All content is DRAFT/unapproved. The seed scripts, not this file, are the authoritative reproduction mechanism.",
+  "counts": {
+    "spineTopics": 15,
+    "policyPacks": 2,
+    "policyPackClauses": 87,
+    "clauseTopicMaps": 79,
+    "learningAtoms": 34,
+    "atomTopicMaps": 40
+  },
+  "spineTopics": [
+    {
+      "id": "cmsklrlyq0000irt3vzssv3s4",
+      "code": "SP-01",
+      "title": "HF-Definition",
+      "intent": "HF/human performance is a defined, scoped concept in the management system",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.154Z"
+    },
+    {
+      "id": "cmsklrlyy0001irt34t0lwf2c",
+      "code": "SP-02",
+      "title": "Initial-HF-Training",
+      "intent": "Personnel receive foundational HF training before/upon entering duties",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.162Z"
+    },
+    {
+      "id": "cmsklrlz40002irt3ulok03mv",
+      "code": "SP-03",
+      "title": "Training-Scope-Breadth",
+      "intent": "All relevant personnel categories are in HF-training scope, not only certifying staff",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.168Z"
+    },
+    {
+      "id": "cmsklrlza0003irt3t3tti4vm",
+      "code": "SP-04",
+      "title": "Recurrent-Training",
+      "intent": "HF training recurs - periodic and/or trigger-based (regulatory change, procedure change, events)",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.175Z"
+    },
+    {
+      "id": "cmsklrlzh0004irt3uw07sr4y",
+      "code": "SP-05",
+      "title": "Fatigue-Management",
+      "intent": "Fatigue as an error condition; organizational controls on working time/alertness",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.182Z"
+    },
+    {
+      "id": "cmsklrlzn0005irt31vsda11c",
+      "code": "SP-06",
+      "title": "Substance-Awareness",
+      "intent": "Psychoactive substance risk, including medication scope where applicable",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.188Z"
+    },
+    {
+      "id": "cmsklrlzu0006irt3oiw66a11",
+      "code": "SP-07",
+      "title": "Error-Models",
+      "intent": "Human error models and error-producing conditions (e.g., Dirty Dozen, active/latent)",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.195Z"
+    },
+    {
+      "id": "cmsklrm010007irt31sfwyu5a",
+      "code": "SP-08",
+      "title": "Communication-Handover",
+      "intent": "Communication failure modes; shift/task handover discipline",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.201Z"
+    },
+    {
+      "id": "cmsklrm070008irt35s7a9kbm",
+      "code": "SP-09",
+      "title": "Procedural-Documentation-Discipline",
+      "intent": "Procedure compliance, documentation validity, data-control interfaces with HF",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.208Z"
+    },
+    {
+      "id": "cmsklrm0e0009irt3wy7dee5s",
+      "code": "SP-10",
+      "title": "Organizational-Influences",
+      "intent": "Organizational/latent conditions, supervision, workload allocation, culture",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.214Z"
+    },
+    {
+      "id": "cmsklrm0k000airt32mkxu2du",
+      "code": "SP-11",
+      "title": "Just-Culture-Reporting",
+      "intent": "Reporting culture, just culture, non-punitive reporting expectations",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.221Z"
+    },
+    {
+      "id": "cmsklrm0r000birt3wcb2paou",
+      "code": "SP-12",
+      "title": "Effectiveness-Verification",
+      "intent": "Training effectiveness is verified beyond completion",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.227Z"
+    },
+    {
+      "id": "cmsklrm0x000cirt3c0s018y5",
+      "code": "SP-13",
+      "title": "Competence-Records",
+      "intent": "Training/competence records exist, are controlled and retrievable",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.233Z"
+    },
+    {
+      "id": "cmsklrm14000dirt35bna0qmp",
+      "code": "SP-14",
+      "title": "SMS-Interface",
+      "intent": "HF program interfaces with the safety/quality management system",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T16:43:19.240Z"
+    },
+    {
+      "id": "cmsknjymc000ew33mc00cynes",
+      "code": "SP-15",
+      "title": "Physical-Environment-Performance-Limitations",
+      "intent": "Physical/sensory environment and performance limitations (vision, hearing, noise, illumination, climate, motion/vibration)",
+      "spineRevision": 1,
+      "status": "ACTIVE",
+      "createdAt": "2026-08-08T17:33:21.541Z"
+    }
+  ],
+  "policyPacks": [
+    {
+      "id": "cmspb1j9f0000d5fh9iwrmvb8",
+      "name": "FAA 14 CFR Part 145 / AC 145-10 — Human Factors",
+      "version": 1,
+      "regulatoryFramework": "14 CFR Part 145 / AC 145-10",
+      "regulatoryReference": "14 CFR Part 145 (ecfr.gov, verified 2026-08-07 via AQ-145) + AC 145-10 CHG 1 (advisory) — see DECISIONS.md D-064",
+      "effectiveDate": "2026-08-11T23:41:57.315Z",
+      "expiryDate": null,
+      "mandatoryTopics": "[]",
+      "mandatoryAudiences": "[]",
+      "mandatoryAssessments": "[]",
+      "recurrenceMonths": null,
+      "evidenceSufficiencyRules": null,
+      "licenseClass": null,
+      "spineRevision": 1,
+      "createdAt": "2026-08-11T23:41:57.315Z",
+      "updatedAt": "2026-08-11T23:41:57.315Z",
+      "approvedBy": null,
+      "approvedAt": null,
+      "clauses": [
+        {
+          "id": "cmspb1j9v0002d5fhjbc803pq",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "145.3(a)",
+          "clauseTitle": "Accountable manager",
+          "clauseText": "Responsibility for and authority over all Part 145 operations; primary FAA contact.",
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": []
+        },
+        {
+          "id": "cmspb1ja30004d5fhtm11mcbn",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "145.151",
+          "clauseTitle": "Personnel requirements",
+          "clauseText": "Designate AM; provide sufficient qualified personnel; determine noncertificated employees’ abilities.",
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": []
+        },
+        {
+          "id": "cmspb1jaa0006d5fhu07jcnd7",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "145.153",
+          "clauseTitle": "Supervisory personnel",
+          "clauseText": "Sufficient supervisors, appropriately certificated, overseeing personnel unfamiliar with the work.",
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": []
+        },
+        {
+          "id": "cmspb1jah0008d5fhour6n8o0",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "145.155",
+          "clauseTitle": "Inspection personnel",
+          "clauseText": "Familiarity with applicable regulations and inspection methods; proficiency with equipment; article-specific.",
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": []
+        },
+        {
+          "id": "cmspb1jan000ad5fhc5jbg2f7",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "145.157",
+          "clauseTitle": "Return-to-service authorization",
+          "clauseText": "Part 65 mechanic/repairman certification; English proficiency.",
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": []
+        },
+        {
+          "id": "cmspb1jau000cd5fhlj8c8em9",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "145.159 / 145.160",
+          "clauseTitle": "Repairman recommendation; former-FAA-employee cooling-off",
+          "clauseText": "65.101 eligibility for repairman recommendations; two-year cooling-off for former FAA inspectors.",
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": []
+        },
+        {
+          "id": "cmspb1jb1000ed5fh6i34obzg",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "145.161",
+          "clauseTitle": "Rosters and employment summaries",
+          "clauseText": "Management/supervisory, inspection, and RTS rosters; employment summaries; 5-business-day currency.",
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": []
+        },
+        {
+          "id": "cmspb1jb8000gd5fhp0uzdcea",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "145.163",
+          "clauseTitle": "FAA-approved training program",
+          "clauseText": "Initial and recurrent training ensuring capability to perform assigned tasks; 2-year records; revision procedure.",
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": []
+        },
+        {
+          "id": "cmspb1jbf000id5fhuhstg3ix",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "145.165",
+          "clauseTitle": "Hazmat training",
+          "clauseText": "Hazmat-employer training program (49 CFR 171.8/172 Subpart H) and operator-specific hazmat authorization.",
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": []
+        },
+        {
+          "id": "cmspb1jbm000kd5fhxtje20g6",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.1",
+          "clauseTitle": "Introduction to human factors",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[\"cmsko5ns7001ibawn70soum7l\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jbu000md5fhnywvbyvj",
+              "clauseId": "cmspb1jbm000kd5fhxtje20g6",
+              "topicId": "cmsklrlyq0000irt3vzssv3s4",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.403Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1jcc000od5fhzk6k3q1f",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.2",
+          "clauseTitle": "Statistics",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jci000qd5fhus1zf3li",
+              "clauseId": "cmspb1jcc000od5fhzk6k3q1f",
+              "topicId": "cmsklrm14000dirt35bna0qmp",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.427Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1jcp000sd5fhz11zny08",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.3",
+          "clauseTitle": "Safety culture/organizational factors",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[\"cmsko5o0j0033bawnkbyn1co2\",\"cmsko5nzo002xbawn1lf4y55r\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jcw000ud5fhxpoiupbk",
+              "clauseId": "cmspb1jcp000sd5fhz11zny08",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.441Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1jd9000wd5fhs7ppuykx",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.4",
+          "clauseTitle": "Human error",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[\"cmsko5nrr001fbawn01o1u9nd\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jdg000yd5fhgnkngl3x",
+              "clauseId": "cmspb1jd9000wd5fhs7ppuykx",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.460Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1jdt0010d5fhv2r6pg6c",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.5",
+          "clauseTitle": "Types of errors in maintenance task",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[\"cmsko5nqq0017bawnzgoqm1tp\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jdz0012d5fh74v2t1ih",
+              "clauseId": "cmspb1jdt0010d5fhv2r6pg6c",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.480Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1jec0014d5fhd2nv23cc",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.6",
+          "clauseTitle": "Human reliability",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[\"cmsko5njl0000bawna4xx5ako\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jei0016d5fheud4j2nd",
+              "clauseId": "cmspb1jec0014d5fhd2nv23cc",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.499Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1jf00018d5fhyedrkq56",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.7",
+          "clauseTitle": "Vision",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jfb001ad5fhyaezfa1k",
+              "clauseId": "cmspb1jf00018d5fhyedrkq56",
+              "topicId": "cmsknjymc000ew33mc00cynes",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.528Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1jfr001cd5fhu73bq6j0",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.8",
+          "clauseTitle": "Hearing",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jg3001ed5fhldek6t6m",
+              "clauseId": "cmspb1jfr001cd5fhu73bq6j0",
+              "topicId": "cmsknjymc000ew33mc00cynes",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.556Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1jgg001gd5fhq6w0sz6a",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.9",
+          "clauseTitle": "Stress",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[\"cmsko5nr5001abawngrglncpf\",\"cmsko5nka0005bawniddwd1x5\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jgm001id5fhw3fe6tz1",
+              "clauseId": "cmspb1jgg001gd5fhq6w0sz6a",
+              "topicId": "cmsklrlzh0004irt3uw07sr4y",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.575Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1jgz001kd5fh40vo0xzw",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.10",
+          "clauseTitle": "Situational awareness",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[\"cmsko5nt3001obawnit802y8u\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jh6001md5fhazgtoecx",
+              "clauseId": "cmspb1jgz001kd5fh40vo0xzw",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.594Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1jhj001od5fh0l4tbaci",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.11",
+          "clauseTitle": "Workload management",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[\"cmsko5nuj001xbawn1o1k3st0\",\"cmsko5nr5001abawngrglncpf\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1jhp001qd5fhass9o8xu",
+              "clauseId": "cmspb1jhj001od5fh0l4tbaci",
+              "topicId": "cmsklrlzh0004irt3uw07sr4y",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.613Z"
+            }
+          ]
+        },
+        {
+          "id": "cmspb1ji1001sd5fhm79owjhf",
+          "packId": "cmspb1j9f0000d5fh9iwrmvb8",
+          "clauseNumber": "AC145-10-HF.12",
+          "clauseTitle": "Human performance and limitation",
+          "clauseText": null,
+          "section": null,
+          "sectionLabel": null,
+          "mappedAtomIds": "[\"cmsko5nka0005bawniddwd1x5\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmspb1ji7001ud5fh686w2wpb",
+              "clauseId": "cmspb1ji1001sd5fhm79owjhf",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-faa-part145-pack",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-11T23:41:57.631Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cmsklrm1b000eirt30rz2ngy2",
+      "name": "GM1 145.A.30(e) — EASA Human Factors Training Syllabus",
+      "version": 1,
+      "regulatoryFramework": "GM1 145.A.30(e)",
+      "regulatoryReference": "GM1 145.A.30(e) (EASA AMC & GM to Part-145) — see DECISIONS.md D-058/D-060 for citation verification",
+      "effectiveDate": "2026-08-08T16:43:19.247Z",
+      "expiryDate": null,
+      "mandatoryTopics": "[]",
+      "mandatoryAudiences": "[]",
+      "mandatoryAssessments": "[]",
+      "recurrenceMonths": 24,
+      "evidenceSufficiencyRules": null,
+      "licenseClass": null,
+      "spineRevision": 1,
+      "createdAt": "2026-08-08T16:43:19.247Z",
+      "updatedAt": "2026-08-08T16:43:19.247Z",
+      "approvedBy": null,
+      "approvedAt": null,
+      "clauses": [
+        {
+          "id": "cmsklrm1h000girt3eujal6xs",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "1.1",
+          "clauseTitle": "Need to address safety management and human factors",
+          "clauseText": "Why maintenance organisations formally manage safety and human factors, rather than treating them as incidental.",
+          "section": "1",
+          "sectionLabel": "General/Introduction to Safety Management and Human Factors",
+          "mappedAtomIds": "[\"cmsko5ns7001ibawn70soum7l\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmdg0044irt3wpupjwxj",
+              "clauseId": "cmsklrm1h000girt3eujal6xs",
+              "topicId": "cmsklrlyq0000irt3vzssv3s4",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.684Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm1n000iirt3zxvx4fk5",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "1.2",
+          "clauseTitle": "Statistics",
+          "clauseText": "What industry accident/incident data shows about the role human factors play in maintenance-related events.",
+          "section": "1",
+          "sectionLabel": "General/Introduction to Safety Management and Human Factors",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmdm0046irt3tq3m0g0h",
+              "clauseId": "cmsklrm1n000iirt3zxvx4fk5",
+              "topicId": "cmsklrm14000dirt35bna0qmp",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.691Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm1t000kirt3offet7q1",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "1.3",
+          "clauseTitle": "Incidents",
+          "clauseText": "How real maintenance incidents illustrate human factors principles in practice.",
+          "section": "1",
+          "sectionLabel": "General/Introduction to Safety Management and Human Factors",
+          "mappedAtomIds": "[\"cmsko5nys002rbawnjgqs2f8t\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmds0048irt3ofycttrc",
+              "clauseId": "cmsklrm1t000kirt3offet7q1",
+              "topicId": "cmsklrm14000dirt35bna0qmp",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.697Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm1z000mirt35ll4j11u",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "1a.1",
+          "clauseTitle": "Hazard identification",
+          "clauseText": "How to recognise conditions or practices with the potential to cause harm before they do.",
+          "section": "1",
+          "sectionLabel": "General/Introduction to Safety Management and Human Factors",
+          "mappedAtomIds": "[\"cmsko5nne000mbawnyq4iqjs4\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmdz004airt3sdqhy28a",
+              "clauseId": "cmsklrm1z000mirt35ll4j11u",
+              "topicId": "cmsklrm14000dirt35bna0qmp",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.703Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm25000oirt37uxe0ode",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "1a.2",
+          "clauseTitle": "Safety risk assessment",
+          "clauseText": "How to judge the likelihood and severity of a hazard turning into an actual occurrence.",
+          "section": "1",
+          "sectionLabel": "General/Introduction to Safety Management and Human Factors",
+          "mappedAtomIds": "[\"cmsko5nnu000pbawnnudqxxv9\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrme6004cirt3a3x7a38j",
+              "clauseId": "cmsklrm25000oirt37uxe0ode",
+              "topicId": "cmsklrm14000dirt35bna0qmp",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.710Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm2b000qirt3i33oe8w2",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "1a.3",
+          "clauseTitle": "Risk mitigation and management",
+          "clauseText": "How identified risks get reduced to an acceptable level and kept there.",
+          "section": "1",
+          "sectionLabel": "General/Introduction to Safety Management and Human Factors",
+          "mappedAtomIds": "[\"cmsko5noa000sbawnk3iylt9z\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmec004eirt3i6eenjh7",
+              "clauseId": "cmsklrm2b000qirt3i33oe8w2",
+              "topicId": "cmsklrm14000dirt35bna0qmp",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.716Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm2h000sirt3hz3g4fbd",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "1a.4",
+          "clauseTitle": "Effectiveness of safety risk management",
+          "clauseText": "How an organisation knows whether its risk controls are actually working, not just documented.",
+          "section": "1",
+          "sectionLabel": "General/Introduction to Safety Management and Human Factors",
+          "mappedAtomIds": "[\"cmsko5nor000vbawni022h5hp\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmej004girt394k8zev4",
+              "clauseId": "cmsklrm2h000sirt3hz3g4fbd",
+              "topicId": "cmsklrm14000dirt35bna0qmp",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.723Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm2n000uirt3lcxyrhx0",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "2.1",
+          "clauseTitle": "Justness/trust",
+          "clauseText": "Why staff need confidence that honest reporting will be treated fairly, not punitively.",
+          "section": "2",
+          "sectionLabel": "Safety Culture/Organisational Factors",
+          "mappedAtomIds": "[\"cmsko5o030030bawn03m85qeu\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmep004iirt36ltc2npl",
+              "clauseId": "cmsklrm2n000uirt3lcxyrhx0",
+              "topicId": "cmsklrm0k000airt32mkxu2du",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.730Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm2t000wirt3xkik25jo",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "2.2",
+          "clauseTitle": "Commitment to safety",
+          "clauseText": "How visible, genuine leadership commitment to safety shapes everyday behaviour on the floor.",
+          "section": "2",
+          "sectionLabel": "Safety Culture/Organisational Factors",
+          "mappedAtomIds": "[\"cmsko5o0j0033bawnkbyn1co2\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmev004kirt382y5bqgk",
+              "clauseId": "cmsklrm2t000wirt3xkik25jo",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.736Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm30000yirt303dc6ng7",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "2.3",
+          "clauseTitle": "Adaptability",
+          "clauseText": "How a safety culture adjusts to new risks, technologies, and ways of working over time.",
+          "section": "2",
+          "sectionLabel": "Safety Culture/Organisational Factors",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmf2004mirt3805vw0vr",
+              "clauseId": "cmsklrm30000yirt303dc6ng7",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.742Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm360010irt3pwlr9tvw",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "2.4",
+          "clauseTitle": "Awareness",
+          "clauseText": "How staff and management stay attentive to safety-relevant conditions rather than becoming complacent.",
+          "section": "2",
+          "sectionLabel": "Safety Culture/Organisational Factors",
+          "mappedAtomIds": "[\"cmsko5nmh000gbawnoq75i1xa\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmf8004oirt3a71aocp9",
+              "clauseId": "cmsklrm360010irt3pwlr9tvw",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.749Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm3c0012irt37vna37iv",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "2.5",
+          "clauseTitle": "Behaviour",
+          "clauseText": "How individual and group behaviour reflects (and shapes) the organisation's real safety culture.",
+          "section": "2",
+          "sectionLabel": "Safety Culture/Organisational Factors",
+          "mappedAtomIds": "[\"cmsko5nzo002xbawn1lf4y55r\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmfe004qirt3lbceggjv",
+              "clauseId": "cmsklrm3c0012irt37vna37iv",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.755Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm3i0014irt3ut1c8jza",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "2.6",
+          "clauseTitle": "Information",
+          "clauseText": "How safety-relevant information actually flows (or fails to flow) through the organisation.",
+          "section": "2",
+          "sectionLabel": "Safety Culture/Organisational Factors",
+          "mappedAtomIds": "[\"cmsko5npr0011bawn4x8upy4u\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmfl004sirt39egvnodb",
+              "clauseId": "cmsklrm3i0014irt3ut1c8jza",
+              "topicId": "cmsklrm010007irt31sfwyu5a",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.762Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm3o0016irt3oxi0i8pr",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "3.1",
+          "clauseTitle": "Error models and theories",
+          "clauseText": "Established frameworks for understanding why human error happens, as a basis for prevention.",
+          "section": "3",
+          "sectionLabel": "Human Error",
+          "mappedAtomIds": "[\"cmsko5nrr001fbawn01o1u9nd\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmfs004uirt34ntbax4y",
+              "clauseId": "cmsklrm3o0016irt3oxi0i8pr",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.768Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm3u0018irt3g2ddhts0",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "3.2",
+          "clauseTitle": "Types of errors in maintenance tasks",
+          "clauseText": "The recognisable categories of error that occur specifically during maintenance work.",
+          "section": "3",
+          "sectionLabel": "Human Error",
+          "mappedAtomIds": "[\"cmsko5nqq0017bawnzgoqm1tp\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmfz004wirt3v3l2pd0q",
+              "clauseId": "cmsklrm3u0018irt3g2ddhts0",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.775Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm40001airt306k9kc9a",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "3.3",
+          "clauseTitle": "Violations",
+          "clauseText": "The difference between an honest error and a deliberate departure from procedure, and why that distinction matters.",
+          "section": "3",
+          "sectionLabel": "Human Error",
+          "mappedAtomIds": "[\"cmsko5nqq0017bawnzgoqm1tp\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmg5004yirt3drm03egg",
+              "clauseId": "cmsklrm40001airt306k9kc9a",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.782Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm46001cirt30t7zwt8w",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "3.4",
+          "clauseTitle": "Implications of errors",
+          "clauseText": "What a single maintenance error can actually lead to downstream, including for airworthiness.",
+          "section": "3",
+          "sectionLabel": "Human Error",
+          "mappedAtomIds": "[\"cmsko5nwo002bbawnu4totfns\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmgc0050irt3dhj41yab",
+              "clauseId": "cmsklrm46001cirt30t7zwt8w",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.788Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm4c001eirt3pjnykei8",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "3.5",
+          "clauseTitle": "Avoiding and managing errors",
+          "clauseText": "Practical techniques for reducing error likelihood and catching errors that do occur.",
+          "section": "3",
+          "sectionLabel": "Human Error",
+          "mappedAtomIds": "[\"cmsko5nq80014bawn4crm67w6\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmgj0052irt3dom2gl2o",
+              "clauseId": "cmsklrm4c001eirt3pjnykei8",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.795Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm4j001girt3mwql9jpb",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "3.6",
+          "clauseTitle": "Human reliability",
+          "clauseText": "Why humans are not uniformly reliable, and what affects the odds of a task being done correctly.",
+          "section": "3",
+          "sectionLabel": "Human Error",
+          "mappedAtomIds": "[\"cmsko5njl0000bawna4xx5ako\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmgp0054irt32gsg9abp",
+              "clauseId": "cmsklrm4j001girt3mwql9jpb",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.801Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm4q001iirt3qt329fvf",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.1",
+          "clauseTitle": "Vision",
+          "clauseText": "How the limits of human eyesight affect inspection and detection tasks.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsknjyol000gw33mbvh1vt14",
+              "clauseId": "cmsklrm4q001iirt3qt329fvf",
+              "topicId": "cmsknjymc000ew33mc00cynes",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T17:33:21.622Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm4x001kirt3xo80q4uf",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.2",
+          "clauseTitle": "Hearing",
+          "clauseText": "How hearing limitations and workplace noise affect communication and awareness.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsknjyp0000iw33mvrebkuhj",
+              "clauseId": "cmsklrm4x001kirt3xo80q4uf",
+              "topicId": "cmsknjymc000ew33mc00cynes",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T17:33:21.636Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm53001mirt3pcvx3s2y",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.3",
+          "clauseTitle": "Information-processing",
+          "clauseText": "How people take in, interpret, and act on information, and where that process can break down.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[\"cmsko5nt3001obawnit802y8u\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmh9005airt3n56yyxmn",
+              "clauseId": "cmsklrm53001mirt3pcvx3s2y",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.822Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm5a001oirt3agoys65g",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.4",
+          "clauseTitle": "Attention and perception",
+          "clauseText": "Why attention is a limited resource, and how perception can be misled.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[\"cmsko5nka0005bawniddwd1x5\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmhg005cirt3zehsmn8u",
+              "clauseId": "cmsklrm5a001oirt3agoys65g",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.829Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm5h001qirt3c3kjoiv5",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.5",
+          "clauseTitle": "Situational awareness",
+          "clauseText": "How people build and lose an accurate picture of what is actually happening around them.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[\"cmsko5nt3001obawnit802y8u\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmhm005eirt3h7mq81dg",
+              "clauseId": "cmsklrm5h001qirt3c3kjoiv5",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.835Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm5n001sirt3dwewz1dz",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.6",
+          "clauseTitle": "Memory",
+          "clauseText": "The limits of human memory and why relying on it alone is a known failure point.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[\"cmsko5nka0005bawniddwd1x5\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmht005girt3i4uuog99",
+              "clauseId": "cmsklrm5n001sirt3dwewz1dz",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.842Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm5u001uirt3veeystj1",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.7",
+          "clauseTitle": "Claustrophobia and physical access",
+          "clauseText": "How confined-space work and difficult physical access affect performance and safety.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmi0005iirt3i1qwij2l",
+              "clauseId": "cmsklrm5u001uirt3veeystj1",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.848Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm61001wirt32iyeg0kk",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.8",
+          "clauseTitle": "Motivation",
+          "clauseText": "How motivation (or its absence) shapes the quality and care taken in maintenance work.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmi6005kirt3bkycjxq8",
+              "clauseId": "cmsklrm61001wirt32iyeg0kk",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.855Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm68001yirt3mxlisi6x",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.9",
+          "clauseTitle": "Fitness/Health",
+          "clauseText": "How general physical and mental fitness for duty affects task performance.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmid005mirt3njhjdzxa",
+              "clauseId": "cmsklrm68001yirt3mxlisi6x",
+              "topicId": "cmsklrlzh0004irt3uw07sr4y",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.861Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm6e0020irt3wkw71p6i",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.10",
+          "clauseTitle": "Stress",
+          "clauseText": "How stress, in useful and harmful amounts, changes how people perform maintenance tasks.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[\"cmsko5nr5001abawngrglncpf\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmij005oirt315htfoje",
+              "clauseId": "cmsklrm6e0020irt3wkw71p6i",
+              "topicId": "cmsklrlzh0004irt3uw07sr4y",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.867Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm6l0022irt32jgfrkqz",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.11",
+          "clauseTitle": "Workload management",
+          "clauseText": "How to recognise and manage workload so it does not overwhelm safe task performance.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[\"cmsko5nr5001abawngrglncpf\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmip005qirt3w01k5roa",
+              "clauseId": "cmsklrm6l0022irt32jgfrkqz",
+              "topicId": "cmsklrlzh0004irt3uw07sr4y",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.874Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm6r0024irt3j5a9qtkh",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.12",
+          "clauseTitle": "Fatigue",
+          "clauseText": "How fatigue degrades performance and judgement, often without the person noticing.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[\"cmsko5nr5001abawngrglncpf\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmiw005sirt3aytqjshh",
+              "clauseId": "cmsklrm6r0024irt3j5a9qtkh",
+              "topicId": "cmsklrlzh0004irt3uw07sr4y",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.881Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm6y0026irt3nwhjq0o4",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.13",
+          "clauseTitle": "Alcohol, medication, drugs",
+          "clauseText": "How alcohol, medication, and drugs (prescribed or otherwise) impair safe task performance.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmj3005uirt3dl9ui4bo",
+              "clauseId": "cmsklrm6y0026irt3nwhjq0o4",
+              "topicId": "cmsklrlzn0005irt31vsda11c",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.888Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm750028irt37ewlrvei",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.14",
+          "clauseTitle": "Physical work",
+          "clauseText": "How physically demanding maintenance tasks affect fatigue and injury risk.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmjc005wirt32blhulw3",
+              "clauseId": "cmsklrm750028irt37ewlrvei",
+              "topicId": "cmsklrlzh0004irt3uw07sr4y",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.897Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm7c002airt3il39y3ac",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "4.15",
+          "clauseTitle": "Repetitive tasks/complacency",
+          "clauseText": "How doing the same task repeatedly can lead to complacency and missed steps.",
+          "section": "4",
+          "sectionLabel": "Human Performance & Limitations",
+          "mappedAtomIds": "[\"cmsko5nr5001abawngrglncpf\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmjk005yirt3sbwpi0cc",
+              "clauseId": "cmsklrm7c002airt3il39y3ac",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.904Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm7j002cirt3zzsy0cc3",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.1",
+          "clauseTitle": "Peer pressure",
+          "clauseText": "How pressure from colleagues can push someone toward an unsafe shortcut.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[\"cmsko5ny6002mbawnsu64qj64\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmjr0060irt3ec7dclva",
+              "clauseId": "cmsklrm7j002cirt3zzsy0cc3",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.912Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm7q002eirt3velpiyf6",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.2",
+          "clauseTitle": "Stressors",
+          "clauseText": "The range of workplace conditions that add stress on top of the task itself.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[\"cmsko5nr5001abawngrglncpf\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmjz0062irt3qhfihdco",
+              "clauseId": "cmsklrm7q002eirt3velpiyf6",
+              "topicId": "cmsklrlzh0004irt3uw07sr4y",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.919Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm7w002girt366gwq47m",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.3",
+          "clauseTitle": "Time pressure and deadlines",
+          "clauseText": "How schedule pressure can erode safe practice if not actively managed.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[\"cmsko5nr5001abawngrglncpf\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmk60064irt3aeq8wli3",
+              "clauseId": "cmsklrm7w002girt366gwq47m",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.926Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm84002iirt33xyy452f",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.4",
+          "clauseTitle": "Workload",
+          "clauseText": "How the volume and pacing of assigned work affects the environment a task is performed in.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[\"cmsko5nuj001xbawn1o1k3st0\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmkd0066irt3ee0x79u5",
+              "clauseId": "cmsklrm84002iirt33xyy452f",
+              "topicId": "cmsklrlzh0004irt3uw07sr4y",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.933Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm8a002kirt3xqiu59ou",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.5",
+          "clauseTitle": "Shift work",
+          "clauseText": "How shift patterns, especially night and rotating shifts, affect alertness and performance.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[\"cmsko5nvg0023bawnxd0e7zyp\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmkk0068irt3igl91ysn",
+              "clauseId": "cmsklrm8a002kirt3xqiu59ou",
+              "topicId": "cmsklrlzh0004irt3uw07sr4y",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.941Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm8h002mirt36vcs9b75",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.6",
+          "clauseTitle": "Noise and fumes",
+          "clauseText": "How noise and airborne contaminants in the workplace affect concentration and communication.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsknjypz000kw33ms10mu280",
+              "clauseId": "cmsklrm8h002mirt36vcs9b75",
+              "topicId": "cmsknjymc000ew33mc00cynes",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T17:33:21.671Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm8o002oirt3m0lcefhf",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.7",
+          "clauseTitle": "Illumination",
+          "clauseText": "How inadequate lighting affects inspection quality and error rates.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsknjyqd000mw33mv0eo21ei",
+              "clauseId": "cmsklrm8o002oirt3m0lcefhf",
+              "topicId": "cmsknjymc000ew33mc00cynes",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T17:33:21.685Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm8v002qirt32vkmskht",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.8",
+          "clauseTitle": "Climate and temperature",
+          "clauseText": "How extremes of heat or cold affect physical and mental performance.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsknjyqs000ow33me954dp4s",
+              "clauseId": "cmsklrm8v002qirt32vkmskht",
+              "topicId": "cmsknjymc000ew33mc00cynes",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T17:33:21.700Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm92002sirt34bbvapc5",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.9",
+          "clauseTitle": "Motion and vibration",
+          "clauseText": "How vibration and motion in the work environment affect precision tasks and comfort.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsknjyr6000qw33m1rlqv9y3",
+              "clauseId": "cmsklrm92002sirt34bbvapc5",
+              "topicId": "cmsknjymc000ew33mc00cynes",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T17:33:21.715Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm98002uirt370fhd4sj",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.10",
+          "clauseTitle": "Complex systems",
+          "clauseText": "How the complexity of modern aircraft systems raises the stakes of a maintenance error.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmlj006iirt3rrwg01pa",
+              "clauseId": "cmsklrm98002uirt370fhd4sj",
+              "topicId": "cmsklrm070008irt35s7a9kbm",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.976Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm9e002wirt35oldzxps",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.11",
+          "clauseTitle": "Other hazards in the workplace",
+          "clauseText": "Other physical workplace hazards not already covered elsewhere in the syllabus.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmlq006kirt308y88326",
+              "clauseId": "cmsklrm9e002wirt35oldzxps",
+              "topicId": "cmsklrm14000dirt35bna0qmp",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.983Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm9l002yirt34c1qdnet",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.12",
+          "clauseTitle": "Lack of manpower",
+          "clauseText": "How being short-staffed changes workload, pace, and error risk for those on shift.",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[\"cmsko5nxq002jbawngsl3c0jg\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmlx006mirt3nifk75wh",
+              "clauseId": "cmsklrm9l002yirt34c1qdnet",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.990Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm9r0030irt34ukksjfr",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "5.13",
+          "clauseTitle": "Distractions and interruptions",
+          "clauseText": "How interruptions during a task create a well-known, specific error risk (losing your place).",
+          "section": "5",
+          "sectionLabel": "Environment",
+          "mappedAtomIds": "[\"cmsko5nxa002gbawnh8pad9ef\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmm4006oirt3vhu70yac",
+              "clauseId": "cmsklrm9r0030irt34ukksjfr",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:19.997Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrm9y0032irt318z78xri",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "6.1",
+          "clauseTitle": "Visual inspection",
+          "clauseText": "The known limitations of visual inspection as a detection method, and how to compensate for them.",
+          "section": "6",
+          "sectionLabel": "Procedures, Information, Tools and Practices",
+          "mappedAtomIds": "[\"cmsko5njl0000bawna4xx5ako\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmmb006qirt3382gzwmd",
+              "clauseId": "cmsklrm9y0032irt318z78xri",
+              "topicId": "cmsklrm070008irt35s7a9kbm",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.004Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrma50034irt3iyakkirl",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "6.2",
+          "clauseTitle": "Work logging and recording",
+          "clauseText": "Why accurate, timely recording of work performed matters beyond paperwork compliance.",
+          "section": "6",
+          "sectionLabel": "Procedures, Information, Tools and Practices",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmmj006sirt3l3z6e24l",
+              "clauseId": "cmsklrma50034irt3iyakkirl",
+              "topicId": "cmsklrm070008irt35s7a9kbm",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.012Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmab0036irt3lnfiocak",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "6.3",
+          "clauseTitle": "Procedure - practice/mismatch/norms",
+          "clauseText": "What happens when written procedure and actual shop-floor practice drift apart, and why that gap is a real risk.",
+          "section": "6",
+          "sectionLabel": "Procedures, Information, Tools and Practices",
+          "mappedAtomIds": "[\"cmsko5nw50028bawnleamkp1q\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmmq006uirt3gqst7urs",
+              "clauseId": "cmsklrmab0036irt3lnfiocak",
+              "topicId": "cmsklrm070008irt35s7a9kbm",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.019Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmai0038irt3x1yof2sc",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "6.4",
+          "clauseTitle": "Technical documentation - access and quality",
+          "clauseText": "How the availability and quality of technical documentation affects the ability to work safely.",
+          "section": "6",
+          "sectionLabel": "Procedures, Information, Tools and Practices",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmmy006wirt3awetbblq",
+              "clauseId": "cmsklrmai0038irt3x1yof2sc",
+              "topicId": "cmsklrm070008irt35s7a9kbm",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.026Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmao003airt3e963pmp0",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "6.5",
+          "clauseTitle": "Critical maintenance tasks and error-capturing methods",
+          "clauseText": "Why certain tasks are treated as critical, and the specific error-capture methods (e.g. independent inspection) used for them.",
+          "section": "6",
+          "sectionLabel": "Procedures, Information, Tools and Practices",
+          "mappedAtomIds": "[\"cmsko5nwo002bbawnu4totfns\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmn4006yirt38umyj1rc",
+              "clauseId": "cmsklrmao003airt3e963pmp0",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.033Z"
+            },
+            {
+              "id": "cmsklrmnc0070irt3u54cs8om",
+              "clauseId": "cmsklrmao003airt3e963pmp0",
+              "topicId": "cmsklrm070008irt35s7a9kbm",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.040Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmav003cirt36xhl6iwf",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "7.1",
+          "clauseTitle": "Shift/task handover",
+          "clauseText": "Why incomplete handover between shifts or individuals is a recurring root cause of maintenance error.",
+          "section": "7",
+          "sectionLabel": "Communication",
+          "mappedAtomIds": "[\"cmsko5nvg0023bawnxd0e7zyp\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmnj0072irt33ur8ep5e",
+              "clauseId": "cmsklrmav003cirt36xhl6iwf",
+              "topicId": "cmsklrm010007irt31sfwyu5a",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.047Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmb2003eirt32mhfplxk",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "7.2",
+          "clauseTitle": "Dissemination of information",
+          "clauseText": "How safety-relevant information reaches (or fails to reach) everyone who needs it.",
+          "section": "7",
+          "sectionLabel": "Communication",
+          "mappedAtomIds": "[\"cmsko5nsm001lbawn8ozhdp1d\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmnp0074irt3e2b04shw",
+              "clauseId": "cmsklrmb2003eirt32mhfplxk",
+              "topicId": "cmsklrm010007irt31sfwyu5a",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.054Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmb9003girt3znzrj069",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "7.3",
+          "clauseTitle": "Cultural differences",
+          "clauseText": "How differences in language and cultural background can affect communication clarity in a diverse workforce.",
+          "section": "7",
+          "sectionLabel": "Communication",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmnw0076irt37ff7fann",
+              "clauseId": "cmsklrmb9003girt3znzrj069",
+              "topicId": "cmsklrm010007irt31sfwyu5a",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.061Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmbg003iirt3bjhkt5kd",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "8.1",
+          "clauseTitle": "Responsibility",
+          "clauseText": "How individual and shared responsibility for a task should be understood and assigned.",
+          "section": "8",
+          "sectionLabel": "Teamwork",
+          "mappedAtomIds": "[\"cmsko5nv00020bawn343gsvjg\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmo40078irt3zgvwtytt",
+              "clauseId": "cmsklrmbg003iirt3bjhkt5kd",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.068Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmbm003kirt3wqjveesz",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "8.2",
+          "clauseTitle": "Management, supervision and leadership",
+          "clauseText": "How effective supervision and leadership support (or undermine) safe task performance.",
+          "section": "8",
+          "sectionLabel": "Teamwork",
+          "mappedAtomIds": "[\"cmsko5nu2001ubawnwcrmzp0m\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmob007airt32clazezz",
+              "clauseId": "cmsklrmbm003kirt3wqjveesz",
+              "topicId": "cmsklrm0e0009irt3wy7dee5s",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.076Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmbt003mirt365zx8wm8",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "8.3",
+          "clauseTitle": "Decision-making",
+          "clauseText": "How decisions get made under real maintenance conditions, individually and as a team.",
+          "section": "8",
+          "sectionLabel": "Teamwork",
+          "mappedAtomIds": "[\"cmsko5ntk001rbawnzrcw9a8w\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmoj007cirt3r2ehxrcv",
+              "clauseId": "cmsklrmbt003mirt365zx8wm8",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.083Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmc0003oirt3bmc7gxp9",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "9.1",
+          "clauseTitle": "Keeping up to date; currency",
+          "clauseText": "Why staying current on aircraft type, procedures, and regulation is a personal professional responsibility.",
+          "section": "9",
+          "sectionLabel": "Professionalism and Integrity",
+          "mappedAtomIds": "[]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmoq007eirt3ukjb831e",
+              "clauseId": "cmsklrmc0003oirt3bmc7gxp9",
+              "topicId": "cmsklrm0x000cirt3c0s018y5",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.091Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmc7003qirt3hubb660t",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "9.2",
+          "clauseTitle": "Avoiding error-provoking behaviour",
+          "clauseText": "Recognising and avoiding personal habits and shortcuts known to provoke error.",
+          "section": "9",
+          "sectionLabel": "Professionalism and Integrity",
+          "mappedAtomIds": "[\"cmsko5nxa002gbawnh8pad9ef\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmox007girt3oti3x4je",
+              "clauseId": "cmsklrmc7003qirt3hubb660t",
+              "topicId": "cmsklrlzu0006irt3oiw66a11",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.098Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmce003sirt3uu0rie9q",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "9.3",
+          "clauseTitle": "Assertiveness",
+          "clauseText": "Why speaking up about a safety concern, even to someone more senior, is expected professional behaviour.",
+          "section": "9",
+          "sectionLabel": "Professionalism and Integrity",
+          "mappedAtomIds": "[\"cmsko5ny6002mbawnsu64qj64\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmp4007iirt3v3snzx64",
+              "clauseId": "cmsklrmce003sirt3uu0rie9q",
+              "topicId": "cmsklrm010007irt31sfwyu5a",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.105Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmck003uirt3iizgyn2v",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "10.1",
+          "clauseTitle": "Safety policy and objectives, just culture principles",
+          "clauseText": "The organisation's own stated safety policy, objectives, and its commitment to just culture.",
+          "section": "10",
+          "sectionLabel": "Organisation's Safety Programme",
+          "mappedAtomIds": "[\"cmsko5nlp000dbawnl5zeuytw\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmpc007kirt3byvp3dyo",
+              "clauseId": "cmsklrmck003uirt3iizgyn2v",
+              "topicId": "cmsklrm0k000airt32mkxu2du",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.112Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmcq003wirt37cpn5ncs",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "10.2",
+          "clauseTitle": "Reporting errors and hazards, internal safety reporting scheme",
+          "clauseText": "How and why to use the internal safety reporting scheme to report errors and hazards.",
+          "section": "10",
+          "sectionLabel": "Organisation's Safety Programme",
+          "mappedAtomIds": "[\"cmsko5nmy000jbawntcxp1tkm\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmpj007mirt3676kcsed",
+              "clauseId": "cmsklrmcq003wirt37cpn5ncs",
+              "topicId": "cmsklrm0k000airt32mkxu2du",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.119Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmcw003yirt30sodt7hd",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "10.3",
+          "clauseTitle": "Error investigation process",
+          "clauseText": "How the organisation investigates reported errors, and what staff should expect from that process.",
+          "section": "10",
+          "sectionLabel": "Organisation's Safety Programme",
+          "mappedAtomIds": "[\"cmsko5nz8002ubawn1faaud0h\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmpq007oirt33zifzzie",
+              "clauseId": "cmsklrmcw003yirt30sodt7hd",
+              "topicId": "cmsklrm0k000airt32mkxu2du",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.127Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmd30040irt387y6nrhv",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "10.4",
+          "clauseTitle": "Action to address problems",
+          "clauseText": "How findings from investigations and reports translate into real corrective action.",
+          "section": "10",
+          "sectionLabel": "Organisation's Safety Programme",
+          "mappedAtomIds": "[\"cmsko5nkx000abawnajhkbclb\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmpx007qirt30vfxvwha",
+              "clauseId": "cmsklrmd30040irt387y6nrhv",
+              "topicId": "cmsklrm0r000birt3wcb2paou",
+              "coverage": "PARTIAL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.133Z"
+            }
+          ]
+        },
+        {
+          "id": "cmsklrmd90042irt3dxv34lbd",
+          "packId": "cmsklrm1b000eirt30rz2ngy2",
+          "clauseNumber": "10.5",
+          "clauseTitle": "Feedback and safety promotion",
+          "clauseText": "How the organisation closes the loop with staff on outcomes, and promotes safety awareness generally.",
+          "section": "10",
+          "sectionLabel": "Organisation's Safety Programme",
+          "mappedAtomIds": "[\"cmsko5npb000ybawnm9zaitgy\"]",
+          "traceabilityNotes": null,
+          "topicMaps": [
+            {
+              "id": "cmsklrmq5007sirt3tq8zuavc",
+              "clauseId": "cmsklrmd90042irt3dxv34lbd",
+              "topicId": "cmsklrm0k000airt32mkxu2du",
+              "coverage": "FULL",
+              "deltaNote": null,
+              "mappedBy": "system:seed-regulatory-clauses",
+              "approvedBy": null,
+              "effectiveDate": null,
+              "createdAt": "2026-08-08T16:43:20.141Z"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "learningAtoms": [
+    {
+      "id": "cmsko5nsm001lbawn8ozhdp1d",
+      "title": "Communication: Getting the Knowledge Out of People's Heads",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 7.2",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-084 - Crew Resource Management CRM\\AQ-084_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.943Z"
+    },
+    {
+      "id": "cmsko5ntk001rbawnzrcw9a8w",
+      "title": "Decision-Making Under Pressure",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 8.3",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-084 - Crew Resource Management CRM\\AQ-084_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.977Z"
+    },
+    {
+      "id": "cmsko5njl0000bawna4xx5ako",
+      "title": "Designing the Error Out, and the Limits of Catching It",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) items 3.6, 6.1",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\04-AQ-050-HF-Quality\\05 - Instructor Materials\\AQ-050_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.617Z"
+    },
+    {
+      "id": "cmsko5nq80014bawn4crm67w6",
+      "title": "Error Management, Error-Tolerant Work, and Just Culture",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 3.5",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\01-AQ-083-Human-Factors\\05 - Instructor Materials\\AQ-083_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.856Z"
+    },
+    {
+      "id": "cmsko5nqq0017bawnzgoqm1tp",
+      "title": "Error Types: Why Competent People Err",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) items 3.2, 3.3",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\01-AQ-083-Human-Factors\\05 - Instructor Materials\\AQ-083_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.874Z"
+    },
+    {
+      "id": "cmsko5nzo002xbawn1lf4y55r",
+      "title": "From Pathological to Generative: The Five Rungs",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 2.5",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-091 - Safety Culture\\AQ-091_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.196Z"
+    },
+    {
+      "id": "cmsko5nne000mbawnyq4iqjs4",
+      "title": "Hazard Identification: Find Them on Purpose",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 1a.1",
+      "contentSource": "E:\\\\Conform-Edge\\\\ClaudeCowork\\\\02 Active Projects\\\\Teachable\\\\Teachable Lessons\\\\11 - Safety Academy (SMS)\\\\AQ-080 - Safety Risk Management SRM\\\\AQ-080_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.755Z"
+    },
+    {
+      "id": "cmsko5nz8002ubawn1faaud0h",
+      "title": "Interviews Done Well: Getting the Truth Without Leading or Blaming",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 10.3",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-088 - Incident Investigation\\AQ-088_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.180Z"
+    },
+    {
+      "id": "cmsko5nkx000abawnajhkbclb",
+      "title": "Just Culture, and Human Factors in RCA and CAPA",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 10.4",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\04-AQ-050-HF-Quality\\05 - Instructor Materials\\AQ-050_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.666Z"
+    },
+    {
+      "id": "cmsko5nlp000dbawnl5zeuytw",
+      "title": "Just Culture: Error, At-Risk, and Reckless — Drawing the Line Fairly / What Just Culture Protects — and What It Doesn't",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 10.1",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-075 - SMS Awareness\\AQ-075_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.693Z"
+    },
+    {
+      "id": "cmsko5nu2001ubawnwcrmzp0m",
+      "title": "Leadership, Followership, and the Authority Gradient",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 8.2",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-084 - Crew Resource Management CRM\\AQ-084_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.994Z"
+    },
+    {
+      "id": "cmsko5nys002rbawnjgqs2f8t",
+      "title": "Learn, Don't Blame: What an Investigation Is For",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 1.3",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-088 - Incident Investigation\\AQ-088_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.165Z"
+    },
+    {
+      "id": "cmsko5nmh000gbawnoq75i1xa",
+      "title": "Near-Miss Reporting: The Free Lesson Most People Throw Away",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 2.4",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-076 - SMS Participation\\AQ-076_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.722Z"
+    },
+    {
+      "id": "cmsko5nr5001abawngrglncpf",
+      "title": "Performance-Shaping Factors: The Conditions That Make Error Likely",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) items 4.10, 4.11, 4.12, 4.15, 5.2, 5.3",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\01-AQ-083-Human-Factors\\05 - Instructor Materials\\AQ-083_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.890Z"
+    },
+    {
+      "id": "cmsko5nnu000pbawnnudqxxv9",
+      "title": "Risk Analysis: Likelihood and Severity",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 1a.2",
+      "contentSource": "E:\\\\Conform-Edge\\\\ClaudeCowork\\\\02 Active Projects\\\\Teachable\\\\Teachable Lessons\\\\11 - Safety Academy (SMS)\\\\AQ-080 - Safety Risk Management SRM\\\\AQ-080_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.771Z"
+    },
+    {
+      "id": "cmsko5noa000sbawnk3iylt9z",
+      "title": "Risk Control & Mitigation: The Hierarchy of Controls",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 1a.3",
+      "contentSource": "E:\\\\Conform-Edge\\\\ClaudeCowork\\\\02 Active Projects\\\\Teachable\\\\Teachable Lessons\\\\11 - Safety Academy (SMS)\\\\AQ-080 - Safety Risk Management SRM\\\\AQ-080_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.787Z"
+    },
+    {
+      "id": "cmsko5nw50028bawnleamkp1q",
+      "title": "Shared Situational Awareness, Norms, and Violations",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 6.3",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-085 - Maintenance Resource Management MRM\\AQ-085_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.069Z"
+    },
+    {
+      "id": "cmsko5nt3001obawnit802y8u",
+      "title": "Situational Awareness: The Shared Mental Model",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) items 4.3, 4.5",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-084 - Crew Resource Management CRM\\AQ-084_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.960Z"
+    },
+    {
+      "id": "cmsko5nxa002gbawnh8pad9ef",
+      "title": "The Attention & Information Precursors",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) items 5.13, 9.2",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\02-AQ-086-Dirty-Dozen\\05 - Instructor Materials\\AQ-086_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.110Z"
+    },
+    {
+      "id": "cmsko5nxq002jbawngsl3c0jg",
+      "title": "The Capacity & Condition Precursors",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 5.12",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\02-AQ-086-Dirty-Dozen\\05 - Instructor Materials\\AQ-086_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.126Z"
+    },
+    {
+      "id": "cmsko5nvg0023bawnxd0e7zyp",
+      "title": "The Shift Handover: Maintenance's Highest-Risk Interface",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) items 7.1, 5.5",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-085 - Maintenance Resource Management MRM\\AQ-085_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.044Z"
+    },
+    {
+      "id": "cmsko5ny6002mbawnsu64qj64",
+      "title": "The Social & Cultural Precursors",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) items 5.1, 9.3",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\02-AQ-086-Dirty-Dozen\\05 - Instructor Materials\\AQ-086_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.142Z"
+    },
+    {
+      "id": "cmsko5nrr001fbawn01o1u9nd",
+      "title": "The Swiss-Cheese Model: Latent and Active Failures",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 3.1",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\01-AQ-083-Human-Factors\\05 - Instructor Materials\\AQ-083_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.912Z"
+    },
+    {
+      "id": "cmsko5npb000ybawnm9zaitgy",
+      "title": "Turning an Event Into Organisational Learning",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 10.5",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-082 - Safety Promotion\\AQ-082_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.823Z"
+    },
+    {
+      "id": "cmsko5npr0011bawn4x8upy4u",
+      "title": "Two-Way: Top-Down Messaging and Bottom-Up Reporting",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 2.6",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-082 - Safety Promotion\\AQ-082_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.840Z"
+    },
+    {
+      "id": "cmsko5nor000vbawni022h5hp",
+      "title": "Verifying SRM Controls Work: Performance Monitoring, SPIs/SPTs, and Internal Safety Audits",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 1a.4",
+      "contentSource": "E:\\\\Conform-Edge\\\\ClaudeCowork\\\\02 Active Projects\\\\Teachable\\\\Teachable Lessons\\\\11 - Safety Academy (SMS)\\\\AQ-081 - Safety Assurance\\\\AQ-081_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.804Z"
+    },
+    {
+      "id": "cmsko5o0j0033bawnkbyn1co2",
+      "title": "Visible Commitment and Going to the Floor",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 2.2",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-093 - Leadership and Safety\\AQ-093_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.227Z"
+    },
+    {
+      "id": "cmsko5o030030bawn03m85qeu",
+      "title": "Welcome, and Why Just Culture Exists",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 2.1",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-092 - Just Culture\\AQ-092_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.212Z"
+    },
+    {
+      "id": "cmsko5nv00020bawn343gsvjg",
+      "title": "What MRM Is and Why It Exists (Teamwork Failures and the Error Chain)",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 8.1",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-085 - Maintenance Resource Management MRM\\AQ-085_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.029Z"
+    },
+    {
+      "id": "cmsko5nmy000jbawntcxp1tkm",
+      "title": "What Makes a Report Actionable (and What Gets It Ignored)",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 10.2",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-076 - SMS Participation\\AQ-076_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.738Z"
+    },
+    {
+      "id": "cmsko5ns7001ibawn70soum7l",
+      "title": "Why Competent People Make Mistakes",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 1.1",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\01-AQ-083-Human-Factors\\05 - Instructor Materials\\AQ-083_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.927Z"
+    },
+    {
+      "id": "cmsko5nka0005bawniddwd1x5",
+      "title": "Why Good People Make Errors: Human Limits",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) items 4.4, 4.6",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\HF-TRAINING-COMPLETE-2026-07-21\\04-AQ-050-HF-Quality\\05 - Instructor Materials\\AQ-050_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:13.643Z"
+    },
+    {
+      "id": "cmsko5nuj001xbawn1o1k3st0",
+      "title": "Workload and Task Management",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) item 5.4",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-084 - Crew Resource Management CRM\\AQ-084_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.011Z"
+    },
+    {
+      "id": "cmsko5nwo002bbawnu4totfns",
+      "title": "Workload, Fatigue, Error Management, and Just Culture",
+      "status": "DRAFT",
+      "format": "micro_lesson",
+      "sourceClause": "GM1 145.A.30(e) items 3.4, 6.5",
+      "contentSource": "E:\\Conform-Edge\\ClaudeCowork\\02 Active Projects\\Teachable\\Teachable Lessons\\11 - Safety Academy (SMS)\\AQ-085 - Maintenance Resource Management MRM\\AQ-085_Module-Content.md",
+      "createdAt": "2026-08-08T17:50:14.088Z"
+    }
+  ],
+  "atomTopicMaps": [
+    {
+      "id": "cmsko5njv0002bawn2rlbwpc4",
+      "atomId": "cmsko5njl0000bawna4xx5ako",
+      "topicId": "cmsklrlzu0006irt3oiw66a11",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.625Z"
+    },
+    {
+      "id": "cmsko5nk30004bawn40wa7nqj",
+      "atomId": "cmsko5njl0000bawna4xx5ako",
+      "topicId": "cmsklrm070008irt35s7a9kbm",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.633Z"
+    },
+    {
+      "id": "cmsko5nki0007bawnp7b4lk7d",
+      "atomId": "cmsko5nka0005bawniddwd1x5",
+      "topicId": "cmsklrlzu0006irt3oiw66a11",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.649Z"
+    },
+    {
+      "id": "cmsko5nkq0009bawnu5rb1tuq",
+      "atomId": "cmsko5nka0005bawniddwd1x5",
+      "topicId": "cmsklrlzh0004irt3uw07sr4y",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.657Z"
+    },
+    {
+      "id": "cmsko5nl6000cbawnacyv1koc",
+      "atomId": "cmsko5nkx000abawnajhkbclb",
+      "topicId": "cmsklrm0r000birt3wcb2paou",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.673Z"
+    },
+    {
+      "id": "cmsko5nm9000fbawn1bnxvfrg",
+      "atomId": "cmsko5nlp000dbawnl5zeuytw",
+      "topicId": "cmsklrm0k000airt32mkxu2du",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.712Z"
+    },
+    {
+      "id": "cmsko5nmq000ibawn0il818b3",
+      "atomId": "cmsko5nmh000gbawnoq75i1xa",
+      "topicId": "cmsklrm0e0009irt3wy7dee5s",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.729Z"
+    },
+    {
+      "id": "cmsko5nn6000lbawnk70clzlg",
+      "atomId": "cmsko5nmy000jbawntcxp1tkm",
+      "topicId": "cmsklrm0k000airt32mkxu2du",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.744Z"
+    },
+    {
+      "id": "cmsko5nnm000obawnxvpx61aw",
+      "atomId": "cmsko5nne000mbawnyq4iqjs4",
+      "topicId": "cmsklrm14000dirt35bna0qmp",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.761Z"
+    },
+    {
+      "id": "cmsko5no2000rbawnrvh90sju",
+      "atomId": "cmsko5nnu000pbawnnudqxxv9",
+      "topicId": "cmsklrm14000dirt35bna0qmp",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.777Z"
+    },
+    {
+      "id": "cmsko5noi000ubawnl3hip35e",
+      "atomId": "cmsko5noa000sbawnk3iylt9z",
+      "topicId": "cmsklrm14000dirt35bna0qmp",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.793Z"
+    },
+    {
+      "id": "cmsko5np3000xbawnj29ls6hw",
+      "atomId": "cmsko5nor000vbawni022h5hp",
+      "topicId": "cmsklrm14000dirt35bna0qmp",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.814Z"
+    },
+    {
+      "id": "cmsko5npj0010bawng40xs4eq",
+      "atomId": "cmsko5npb000ybawnm9zaitgy",
+      "topicId": "cmsklrm0k000airt32mkxu2du",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.830Z"
+    },
+    {
+      "id": "cmsko5nq00013bawnr9rb6bvj",
+      "atomId": "cmsko5npr0011bawn4x8upy4u",
+      "topicId": "cmsklrm010007irt31sfwyu5a",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.847Z"
+    },
+    {
+      "id": "cmsko5nqh0016bawnt1qbktx2",
+      "atomId": "cmsko5nq80014bawn4crm67w6",
+      "topicId": "cmsklrlzu0006irt3oiw66a11",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.864Z"
+    },
+    {
+      "id": "cmsko5nqx0019bawnsijysrz8",
+      "atomId": "cmsko5nqq0017bawnzgoqm1tp",
+      "topicId": "cmsklrlzu0006irt3oiw66a11",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.880Z"
+    },
+    {
+      "id": "cmsko5nrd001cbawncwomfdb4",
+      "atomId": "cmsko5nr5001abawngrglncpf",
+      "topicId": "cmsklrlzh0004irt3uw07sr4y",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.895Z"
+    },
+    {
+      "id": "cmsko5nrk001ebawnwa7pxk5w",
+      "atomId": "cmsko5nr5001abawngrglncpf",
+      "topicId": "cmsklrlzu0006irt3oiw66a11",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.903Z"
+    },
+    {
+      "id": "cmsko5nrz001hbawn11zrpzsr",
+      "atomId": "cmsko5nrr001fbawn01o1u9nd",
+      "topicId": "cmsklrlzu0006irt3oiw66a11",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.917Z"
+    },
+    {
+      "id": "cmsko5nse001kbawn9gnbmn6e",
+      "atomId": "cmsko5ns7001ibawn70soum7l",
+      "topicId": "cmsklrlyq0000irt3vzssv3s4",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.933Z"
+    },
+    {
+      "id": "cmsko5nsu001nbawnsb6arj9c",
+      "atomId": "cmsko5nsm001lbawn8ozhdp1d",
+      "topicId": "cmsklrm010007irt31sfwyu5a",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.949Z"
+    },
+    {
+      "id": "cmsko5ntb001qbawna69alsl1",
+      "atomId": "cmsko5nt3001obawnit802y8u",
+      "topicId": "cmsklrlzu0006irt3oiw66a11",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.966Z"
+    },
+    {
+      "id": "cmsko5nts001tbawnr83vydf3",
+      "atomId": "cmsko5ntk001rbawnzrcw9a8w",
+      "topicId": "cmsklrlzu0006irt3oiw66a11",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:13.983Z"
+    },
+    {
+      "id": "cmsko5nu9001wbawn04hp8bhw",
+      "atomId": "cmsko5nu2001ubawnwcrmzp0m",
+      "topicId": "cmsklrm0e0009irt3wy7dee5s",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.000Z"
+    },
+    {
+      "id": "cmsko5nur001zbawn6ox47z9i",
+      "atomId": "cmsko5nuj001xbawn1o1k3st0",
+      "topicId": "cmsklrlzh0004irt3uw07sr4y",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.018Z"
+    },
+    {
+      "id": "cmsko5nv80022bawn58xsk4s7",
+      "atomId": "cmsko5nv00020bawn343gsvjg",
+      "topicId": "cmsklrm0e0009irt3wy7dee5s",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.034Z"
+    },
+    {
+      "id": "cmsko5nvn0025bawn0bejsav4",
+      "atomId": "cmsko5nvg0023bawnxd0e7zyp",
+      "topicId": "cmsklrm010007irt31sfwyu5a",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.050Z"
+    },
+    {
+      "id": "cmsko5nvu0027bawnta98t72e",
+      "atomId": "cmsko5nvg0023bawnxd0e7zyp",
+      "topicId": "cmsklrlzh0004irt3uw07sr4y",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.057Z"
+    },
+    {
+      "id": "cmsko5nwd002abawnhhj3p691",
+      "atomId": "cmsko5nw50028bawnleamkp1q",
+      "topicId": "cmsklrm070008irt35s7a9kbm",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.076Z"
+    },
+    {
+      "id": "cmsko5nwv002dbawnzxi8ctu3",
+      "atomId": "cmsko5nwo002bbawnu4totfns",
+      "topicId": "cmsklrlzu0006irt3oiw66a11",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.094Z"
+    },
+    {
+      "id": "cmsko5nx2002fbawnj9rye5h5",
+      "atomId": "cmsko5nwo002bbawnu4totfns",
+      "topicId": "cmsklrm070008irt35s7a9kbm",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.101Z"
+    },
+    {
+      "id": "cmsko5nxh002ibawnom4lwd5d",
+      "atomId": "cmsko5nxa002gbawnh8pad9ef",
+      "topicId": "cmsklrlzu0006irt3oiw66a11",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.116Z"
+    },
+    {
+      "id": "cmsko5nxy002lbawnbfk63w47",
+      "atomId": "cmsko5nxq002jbawngsl3c0jg",
+      "topicId": "cmsklrm0e0009irt3wy7dee5s",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.133Z"
+    },
+    {
+      "id": "cmsko5nyd002obawnkovawwo5",
+      "atomId": "cmsko5ny6002mbawnsu64qj64",
+      "topicId": "cmsklrm0e0009irt3wy7dee5s",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.148Z"
+    },
+    {
+      "id": "cmsko5nyl002qbawnnd125wjv",
+      "atomId": "cmsko5ny6002mbawnsu64qj64",
+      "topicId": "cmsklrm010007irt31sfwyu5a",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.156Z"
+    },
+    {
+      "id": "cmsko5nz0002tbawnhyceq7p5",
+      "atomId": "cmsko5nys002rbawnjgqs2f8t",
+      "topicId": "cmsklrm14000dirt35bna0qmp",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.171Z"
+    },
+    {
+      "id": "cmsko5nzg002wbawnhrjl1xxr",
+      "atomId": "cmsko5nz8002ubawn1faaud0h",
+      "topicId": "cmsklrm0k000airt32mkxu2du",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.187Z"
+    },
+    {
+      "id": "cmsko5nzw002zbawn432y1p8g",
+      "atomId": "cmsko5nzo002xbawn1lf4y55r",
+      "topicId": "cmsklrm0e0009irt3wy7dee5s",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.203Z"
+    },
+    {
+      "id": "cmsko5o0b0032bawnus1i31pq",
+      "atomId": "cmsko5o030030bawn03m85qeu",
+      "topicId": "cmsklrm0k000airt32mkxu2du",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.217Z"
+    },
+    {
+      "id": "cmsko5o0r0035bawnrm31p0la",
+      "atomId": "cmsko5o0j0033bawnkbyn1co2",
+      "topicId": "cmsklrm0e0009irt3wy7dee5s",
+      "mappedBy": "system:seed-baseline-content",
+      "approvedAt": "2026-08-08T17:50:14.234Z"
+    }
+  ]
+}

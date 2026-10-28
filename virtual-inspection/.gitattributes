@@ -1,0 +1,4 @@
+# One line ending in the repository, whatever machine committed.
+# The identifier gate hashes and diffs file content; mixed endings would make
+# the same file look changed between a Windows and a Linux checkout.
+* text=auto eol=lf

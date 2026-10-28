@@ -1,0 +1,60 @@
+{
+  "standard": {
+    "code": "ISO-14971",
+    "revision": "2019",
+    "title": "Medical devices \u2014 Risk management",
+    "authority": "ISO",
+    "citation_style": "page_line",
+    "parser_profile": "pdf_generic_v1",
+    "metadata": {
+      "domain": "Medical"
+    }
+  },
+  "clauses": [
+    {
+      "clause_id": "4",
+      "label": "General requirements for risk management system",
+      "parent": null,
+      "order_index": 40
+    },
+    {
+      "clause_id": "5",
+      "label": "Risk analysis",
+      "parent": null,
+      "order_index": 50
+    },
+    {
+      "clause_id": "6",
+      "label": "Risk evaluation",
+      "parent": null,
+      "order_index": 60
+    },
+    {
+      "clause_id": "7",
+      "label": "Risk control",
+      "parent": null,
+      "order_index": 70
+    },
+    {
+      "clause_id": "8",
+      "label": "Evaluation of overall residual risk",
+      "parent": null,
+      "order_index": 80
+    },
+    {
+      "clause_id": "9",
+      "label": "Risk management review",
+      "parent": null,
+      "order_index": 90
+    },
+    {
+      "clause_id": "10",
+      "label": "Production and post-production activities",
+      "parent": null,
+      "order_index": 100
+    }
+  ],
+  "crosswalk_targets": [
+    "IEC-62304-2006+A1-2015"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "templates": [
+    {
+      "name": "extract.requirements.v1",
+      "kind": "extraction",
+      "template": {
+        "prompt": "From the CONTEXT snippets, extract every normative requirement. Identify obligation (SHALL/WILL/MUST/SHOULD), actor, action, object, conditions, evidence_type. Return JSON lines with keys: req_id, obligation, actor, action, object, conditions, evidence_type, tags, citation.\n\nCONTEXT:\n{snippets}\n\nRules:\n- Only extract if an obligation verb is present.\n- Prefer clause ids if present; else form req_id from doc_id+page+lines.\n- Include one citation in format [Source: doc pX Lx\u2013Ly]."
+      }
+    },
+    {
+      "name": "extract.customer.requirements.v1",
+      "kind": "extraction",
+      "template": {
+        "prompt": "Parse the customer document excerpts and extract explicit requirements the organization must meet. Normalize to the same schema as standards. Mark each with 'customer' tag. Include one citation per requirement."
+      }
+    }
+  ]
+}

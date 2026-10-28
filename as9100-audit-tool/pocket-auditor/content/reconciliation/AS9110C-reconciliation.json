@@ -1,0 +1,10 @@
+{
+ "standard": "AS9110C",
+ "licensed_file": "licensed-private/AS9110C.pdf",
+ "licensed_sha256": "0af526813f6636639a37382a731e41e703ce23488882082d146d529fcbdd2c71",
+ "rows_checked": 106,
+ "lettered_rows_added": 309,
+ "unresolved": [],
+ "status": "RECONCILED",
+ "note": "Lettered rows carry exact references and locators only. Clause bodies stop at the notes and annexes. Unresolved rows block approval."
+}

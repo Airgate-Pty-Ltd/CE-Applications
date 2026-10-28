@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AS9110C MRO QMS Self-Assessment Tool | Conform-Edge</title>
+<style>
+  :root {
+    --navy: #1a2744;
+    --steel: #4a6fa5;
+    --steel-light: #6a8fbd;
+    --accent: #e8a020;
+    --green: #2d7a4f;
+    --amber: #d97706;
+    --red: #c0392b;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #d1d9e6;
+    --text: #1e2d3d;
+    --muted: #6b7a8d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    color: white;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  }
+  .header-brand { display: flex; align-items: center; gap: 14px; }
+  .header-logo {
+    width: 42px; height: 42px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 18px; color: var(--navy);
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; opacity: .75; margin-top: 2px; }
+  .header-badge {
+    background: var(--steel);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .5px;
+  }
+
+  /* INTRO */
+  .intro {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--steel) 100%);
+    color: white;
+    padding: 36px 32px;
+    text-align: center;
+  }
+  .intro h1 { font-size: 26px; font-weight: 700; margin-bottom: 10px; }
+  .intro p { opacity: .85; max-width: 680px; margin: 0 auto 20px; font-size: 15px; }
+  .intro-meta {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+    font-size: 13px; opacity: .8;
+  }
+  .intro-meta span::before { content: "✓ "; color: var(--accent); }
+
+  /* PROGRESS BAR */
+  .progress-bar-wrap {
+    background: var(--navy);
+    padding: 12px 32px 16px;
+  }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    color: rgba(255,255,255,.7); font-size: 12px; margin-bottom: 6px;
+  }
+  .progress-track {
+    height: 6px; background: rgba(255,255,255,.2); border-radius: 3px;
+  }
+  .progress-fill {
+    height: 6px; background: var(--accent); border-radius: 3px;
+    transition: width .3s ease; width: 0%;
+  }
+
+  /* MAIN */
+  .main { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+
+  /* ORG INFO */
+  .org-info-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 28px;
+  }
+  .org-info-card h2 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+  .org-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .org-field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+  .org-field input, .org-field select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--navy);
+    color: white;
+    padding: 14px 20px;
+    border-radius: 10px 10px 0 0;
+    margin-top: 28px;
+  }
+  .section-icon {
+    width: 34px; height: 34px;
+    background: var(--accent);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 800; color: var(--navy);
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 15px; font-weight: 700; }
+  .section-sub { font-size: 11px; opacity: .7; margin-top: 2px; }
+  .section-score {
+    margin-left: auto;
+    font-size: 12px;
+    opacity: .8;
+    white-space: nowrap;
+  }
+
+  /* QUESTION CARDS */
+  .questions-wrap {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+  }
+  .question-card {
+    background: var(--card);
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+  }
+  .question-card:last-child { border-bottom: none; }
+  .question-card.answered { background: #f9fbfd; }
+  .question-top { display: flex; gap: 12px; align-items: flex-start; }
+  .question-num {
+    background: var(--steel);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .question-clause {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .question-text { font-size: 14px; font-weight: 500; flex: 1; }
+  .question-mro-tag {
+    background: #fff3e0;
+    color: #b45309;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    text-transform: uppercase;
+  }
+
+  /* RADIO OPTIONS */
+  .options {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .option-btn {
+    flex: 1; min-width: 120px;
+    border: 2px solid var(--border);
+    border-radius: 7px;
+    padding: 8px 10px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--bg);
+    color: var(--muted);
+    transition: all .15s;
+    user-select: none;
+  }
+  .option-btn:hover { border-color: var(--steel); color: var(--steel); }
+  .option-btn.selected-0 { border-color: var(--red); background: #fdf2f2; color: var(--red); }
+  .option-btn.selected-1 { border-color: var(--amber); background: #fffbeb; color: var(--amber); }
+  .option-btn.selected-2 { border-color: var(--green); background: #f0faf4; color: var(--green); }
+  .option-score { font-size: 18px; margin-bottom: 2px; }
+
+  /* REMEDIATION TIP */
+  .remediation {
+    display: none;
+    margin-top: 10px;
+    background: #fff8e6;
+    border-left: 3px solid var(--accent);
+    padding: 10px 12px;
+    font-size: 12px;
+    border-radius: 0 5px 5px 0;
+    color: #7a5200;
+  }
+  .remediation strong { color: var(--navy); display: block; margin-bottom: 3px; font-size: 12px; }
+  .remediation.show { display: block; }
+
+  /* RESULTS PANEL */
+  .results-panel {
+    display: none;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 36px;
+  }
+  .results-panel.show { display: block; }
+  .results-header { text-align: center; margin-bottom: 28px; }
+  .results-header h2 { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+  .results-header p { color: var(--muted); font-size: 14px; }
+  .score-dial {
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-weight: 800;
+    border: 6px solid;
+  }
+  .score-dial.red { border-color: var(--red); background: #fdf2f2; color: var(--red); }
+  .score-dial.amber { border-color: var(--amber); background: #fffbeb; color: var(--amber); }
+  .score-dial.green { border-color: var(--green); background: #f0faf4; color: var(--green); }
+  .score-dial .score-pct { font-size: 36px; }
+  .score-dial .score-label { font-size: 11px; opacity: .75; }
+
+  .rating-badge {
+    text-align: center;
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 800;
+    display: inline-block;
+    margin: 0 auto 24px;
+  }
+  .rating-badge.red { background: var(--red); color: white; }
+  .rating-badge.amber { background: var(--amber); color: white; }
+  .rating-badge.green { background: var(--green); color: white; }
+
+  .results-center { text-align: center; }
+
+  /* SECTION SCORES */
+  .section-scores { margin-top: 24px; }
+  .section-score-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .section-score-row:last-child { border-bottom: none; }
+  .sscore-name { flex: 1; font-weight: 600; }
+  .sscore-bar-wrap { flex: 2; }
+  .sscore-bar { height: 8px; border-radius: 4px; background: var(--border); }
+  .sscore-fill { height: 8px; border-radius: 4px; transition: width .6s; }
+  .sscore-pct { width: 36px; text-align: right; font-weight: 700; font-size: 12px; }
+
+  /* GAP FINDINGS */
+  .gap-section { margin-top: 28px; }
+  .gap-section h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+  .gap-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid;
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .gap-item.critical { border-left-color: var(--red); }
+  .gap-item.partial { border-left-color: var(--amber); }
+  .gap-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .gap-item-title { font-weight: 700; color: var(--navy); font-size: 13px; }
+  .gap-item-clause { font-size: 10px; color: var(--muted); font-weight: 600; }
+  .gap-priority { font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 8px; }
+  .gap-priority.high { background: #fde8e8; color: var(--red); }
+  .gap-priority.medium { background: #fef3c7; color: #92400e; }
+  .gap-action { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  /* NEXT STEPS */
+  .next-steps {
+    margin-top: 28px;
+    background: linear-gradient(135deg, #1a2744, #2d4a8c);
+    color: white;
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .next-steps h3 { font-size: 15px; font-weight: 700; margin-bottom: 14px; color: var(--accent); }
+  .next-step-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; }
+  .next-step-num {
+    width: 22px; height: 22px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: var(--navy);
+    flex-shrink: 0;
+  }
+
+  /* CONFORM-EDGE CTA */
+  .cta-box {
+    margin-top: 24px;
+    background: var(--accent);
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .cta-box-text h4 { font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+  .cta-box-text p { font-size: 12px; color: #4a3500; }
+  .cta-btn {
+    background: var(--navy);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .cta-btn:hover { background: #2a3d6a; }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: var(--accent);
+    color: var(--navy);
+    border: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 28px;
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background .15s;
+  }
+  .btn-primary:hover { background: #f0b030; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--steel);
+    border: 2px solid var(--steel);
+    padding: 10px 24px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 14px;
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn-secondary:hover { background: var(--steel); color: white; }
+
+  /* PRINT */
+  @media print {
+    .intro, .progress-bar-wrap, .org-info-card, .questions-wrap, .section-header,
+    .btn-primary, .btn-secondary { display: none !important; }
+    .results-panel { display: block !important; border: none; padding: 0; }
+    .next-steps { background: #1a2744 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 600px) {
+    .org-grid { grid-template-columns: 1fr; }
+    .header { flex-direction: column; gap: 10px; text-align: center; }
+    .options { flex-direction: column; }
+    .cta-box { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-brand">
+    <div class="header-logo">CE</div>
+    <div>
+      <div class="header-title">Conform-Edge</div>
+      <div class="header-sub">MRO Quality Management Platform</div>
+    </div>
+  </div>
+  <div class="header-badge">AS9110C Rev C</div>
+</div>
+
+<!-- INTRO -->
+<div class="intro">
+  <h1>AS9110C MRO QMS Self-Assessment Tool</h1>
+  <p>Evaluate your MRO quality management system against all AS9110C Rev C requirements. 35 questions covering MRO-critical areas: certifying staff, return-to-service control, shift handovers, airworthiness directive compliance, and counterfeit part prevention. Offline. No login. No data sent anywhere.</p>
+  <div class="intro-meta">
+    <span>35 Questions — All AS9110C Clauses</span>
+    <span>MRO-Specific Requirements</span>
+    <span>Prioritized Gap Report</span>
+    <span>Fully Offline — No Data Sent</span>
+    <span>Built by Lead AS9110C Auditors</span>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar-wrap">
+  <div class="progress-label">
+    <span id="progress-text">0 of 35 questions answered</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ORG INFO -->
+  <div class="org-info-card">
+    <h2>Organization Information</h2>
+    <div class="org-grid">
+      <div class="org-field">
+        <label>Organization Name</label>
+        <input type="text" id="org-name" placeholder="Your MRO organization name">
+      </div>
+      <div class="org-field">
+        <label>Certificate / Station Number</label>
+        <input type="text" id="org-cert" placeholder="e.g., YQAR422M (Part 145) or AS9110C cert number">
+      </div>
+      <div class="org-field">
+        <label>Assessment Date</label>
+        <input type="date" id="org-date" value="2026-06-30">
+      </div>
+      <div class="org-field">
+        <label>MRO Type</label>
+        <select id="org-type">
+          <option value="">Select MRO type…</option>
+          <option>FAA Part 145 Repair Station</option>
+          <option>EASA Part-145 Approved MRO</option>
+          <option>FAA/EASA Dual-Approved (BASA)</option>
+          <option>FAA Part 145 / CAAC CCAR-145</option>
+          <option>Multi-Authority MRO</option>
+          <option>OEM Repair Station</option>
+          <option>Avionics / Component MRO</option>
+          <option>Engine MRO</option>
+          <option>Airframe Heavy MRO</option>
+        </select>
+      </div>
+      <div class="org-field">
+        <label>Assessor Name / Role</label>
+        <input type="text" id="org-assessor" placeholder="Quality Manager, Lead Auditor, etc.">
+      </div>
+      <div class="org-field">
+        <label>AS9110C Certification Status</label>
+        <select id="org-status">
+          <option value="">Select status…</option>
+          <option>Certified — Maintenance Surveillance</option>
+          <option>Certified — Recertification Prep</option>
+          <option>Pursuing Initial Certification</option>
+          <option>Gap Assessment (No Certification)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS WILL BE RENDERED HERE -->
+  <div id="questions-container"></div>
+
+  <!-- SUBMIT -->
+  <button class="btn-primary" onclick="generateReport()">Generate My Gap Report →</button>
+  <button class="btn-secondary" onclick="resetAll()">Reset Assessment</button>
+
+  <!-- RESULTS -->
+  <div class="results-panel" id="results-panel">
+    <div class="results-header">
+      <h2>AS9110C Gap Assessment Report</h2>
+      <p id="results-org-line"></p>
+    </div>
+    <div class="results-center">
+      <div class="score-dial" id="score-dial">
+        <div class="score-pct" id="score-pct">0%</div>
+        <div class="score-label">AS9110C Score</div>
+      </div>
+      <div id="rating-badge" class="rating-badge"></div>
+      <p id="rating-summary" style="color:var(--muted);font-size:13px;max-width:520px;margin:0 auto;"></p>
+    </div>
+
+    <div class="section-scores">
+      <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:14px;">Performance by Area</h3>
+      <div id="section-scores-body"></div>
+    </div>
+
+    <div class="gap-section" id="gap-section">
+      <h3>Prioritized Gap Findings</h3>
+      <div id="gaps-body"></div>
+    </div>
+
+    <div class="next-steps">
+      <h3>Recommended Next Steps</h3>
+      <div id="next-steps-body"></div>
+    </div>
+
+    <div class="cta-box">
+      <div class="cta-box-text">
+        <h4>Ready to close these gaps with expert support?</h4>
+        <p>Conform-Edge connects you with certified AS9110C auditors and provides QMS document kits, corrective action tools, and ongoing compliance monitoring — purpose-built for MRO organizations.</p>
+      </div>
+      <button class="cta-btn" onclick="alert('Visit conform-edge.com to learn more about AS9110C MRO QMS support.')">Learn About Conform-Edge →</button>
+    </div>
+
+    <button class="btn-secondary" onclick="window.print()" style="margin-top:20px;">Print / Save as PDF</button>
+  </div>
+
+</div>
+
+<script>
+// ─────────────────────────────────────────
+// QUESTION DATA
+// ─────────────────────────────────────────
+const sections = [
+  {
+    id: 's1',
+    icon: '4–5',
+    title: 'Context, Leadership & Commitment',
+    clauses: 'Clauses 4–5',
+    questions: [
+      {
+        id: 'q1', clause: '4.3',
+        text: 'Does your QMS scope clearly define the types of maintenance, repair, and overhaul activities performed — including rating categories, authorized articles, and any geographic or operational limitations?',
+        mro: false,
+        tip: 'Review your QMS scope statement against your FAA/EASA certificate and AS9110C registration. The scope must match your approved ratings and any limitations defined in your RSM/Exposition.'
+      },
+      {
+        id: 'q2', clause: '5.1',
+        text: 'Has top management demonstrated visible commitment to quality — participating in management reviews, ensuring QMS objectives are resourced, and reinforcing a safety and quality culture across the MRO organization?',
+        mro: false,
+        tip: 'Document evidence of top management participation: signed quality policy, management review minutes with attendance records, allocation of personnel and resources to quality activities.'
+      },
+      {
+        id: 'q3', clause: '5.2',
+        text: 'Is the quality policy established, communicated, and understood — specifically including commitments to regulatory compliance, airworthiness, customer requirements, and continual improvement?',
+        mro: false,
+        tip: 'The quality policy must be posted, communicated to all personnel, and include an explicit commitment to comply with applicable regulatory and customer requirements.'
+      },
+      {
+        id: 'q4', clause: '5.3',
+        text: 'Are quality management roles, responsibilities, and authorities clearly defined — including who is authorized to return aircraft or components to service and who has the authority to stop work for quality or safety concerns?',
+        mro: true,
+        tip: 'Define and document the authority matrix: Quality Manager, RSM, certifying staff, Accountable Manager (EASA). Include stop-work authority and RTS authorization limits.'
+      },
+      {
+        id: 'q5', clause: '4.2',
+        text: 'Has the organization identified its relevant interested parties (aircraft operators, regulatory authorities, OEMs, insurers) and determined their applicable requirements relevant to the QMS?',
+        mro: false,
+        tip: 'Maintain a documented register of interested parties and their requirements. Review at management review. Customer-specific requirements must flow into QMS procedures.'
+      }
+    ]
+  },
+  {
+    id: 's2',
+    icon: '6',
+    title: 'Planning, Risk & Objectives',
+    clauses: 'Clause 6',
+    questions: [
+      {
+        id: 'q6', clause: '6.1',
+        text: 'Has the organization conducted a structured risk and opportunity assessment addressing safety, airworthiness, regulatory compliance, AOG vulnerability, single-source supply chain risks, and key personnel dependencies?',
+        mro: true,
+        tip: 'Risk assessments must be documented, reviewed periodically, and result in actions. MRO-specific risks include: certifying staff coverage, tooling calibration failures, AD applicability misses, and unapproved parts entry.'
+      },
+      {
+        id: 'q7', clause: '6.1.2.3',
+        text: 'Has the organization formally identified and managed product safety risks — including known maintenance errors with airworthiness consequences, safety-critical task identification, and lessons-learned integration from incident/accident data?',
+        mro: true,
+        tip: 'Establish a product safety plan or process. Safety-critical tasks must be identified in work orders. Integrate ASIAS, SDR, and OEM service information into risk management.'
+      },
+      {
+        id: 'q8', clause: '6.1.2.4',
+        text: 'Is there a counterfeit / suspected unapproved parts (SUP) risk assessment covering all material inputs — including supplier qualification, receiving inspection screening, and employee awareness?',
+        mro: true,
+        tip: 'Document SUP risk assessment by part category. Include in supplier evaluation criteria, purchase order requirements, and receiving inspection procedures. Train all receiving and stores personnel.'
+      },
+      {
+        id: 'q9', clause: '6.2',
+        text: 'Are quality objectives established, measurable, and tracked — covering MRO-specific KPIs such as escaped defect rate, return-to-service error incidents, audit finding closure rate, and customer satisfaction scores?',
+        mro: false,
+        tip: 'Objectives must be documented, measurable, monitored at defined intervals, and reviewed in management review. MRO-relevant metrics: repeat squawk rate, RTS errors, CAR close-out time, on-time delivery.'
+      }
+    ]
+  },
+  {
+    id: 's3',
+    icon: '7',
+    title: 'Support: People, Tooling & Documentation',
+    clauses: 'Clause 7',
+    questions: [
+      {
+        id: 'q10', clause: '7.1.2',
+        text: 'Are all personnel performing maintenance, inspection, and return-to-service authorization appropriately qualified and their qualifications — including FAA certifications, EASA Part-66 licenses, and type ratings — formally documented and current?',
+        mro: true,
+        tip: 'Maintain a qualification matrix for all maintenance personnel. Include: A&P certificates, IA authorizations, EASA Part-66 licenses, type ratings, and OJT sign-offs. Audit for currency annually.'
+      },
+      {
+        id: 'q11', clause: '7.2',
+        text: 'Are certifying staff (those authorized to sign off maintenance and issue Return-to-Service authorizations) identified with their specific privileges, article limitations, and authorization boundaries formally documented?',
+        mro: true,
+        tip: 'Maintain a certifying staff authorization register. Each authorization must define: scope of approval (ATA chapters/systems), article limitations, certificate numbers, and expiry dates. Review at least annually.'
+      },
+      {
+        id: 'q12', clause: '7.2',
+        text: 'Does the training program cover initial qualification, recurrent training, human factors, shift handover training, and OJT — with documented training records, completion dates, and assessor sign-offs?',
+        mro: true,
+        tip: 'Training records must be current, complete, and retrievable. Include: HF training as required by AC 120-72 / EASA Annex III, recurrent training intervals, and OJT documentation with task and supervisor identification.'
+      },
+      {
+        id: 'q13', clause: '7.1.5.1',
+        text: 'Is all precision measuring equipment (PME), calibrated test equipment, and specialized tooling identified, calibrated on schedule, and traceable to national/international standards — with calibration status visible at the point of use?',
+        mro: true,
+        tip: 'Maintain a calibration register covering all PME and calibrated tooling. Status labels must be on equipment. Out-of-tolerance events require impact assessment on work performed since last calibration.'
+      },
+      {
+        id: 'q14', clause: '7.1.3',
+        text: 'Are the facility, tooling, test benches, and maintenance environment adequate for the scope of work authorized — with records that environmental conditions are appropriate (temperature, contamination control, FOD prevention)?',
+        mro: false,
+        tip: 'Document facility adequacy reviews. Address FOD control zones, ESD protection areas, shelf-life storage conditions, and any environmental monitoring required by OEM data.'
+      },
+      {
+        id: 'q15', clause: '7.5',
+        text: 'Is all controlled maintenance documentation — AMMs, CMMs, SRMs, STCs, EOs, IPC, ADs — current, controlled, accessible at the point of use, and protected from use of superseded revisions?',
+        mro: true,
+        tip: 'Implement document control that prevents use of obsolete data at the workbench. Subscribe to manufacturer revision services. Compare active revision status against document library at least quarterly.'
+      }
+    ]
+  },
+  {
+    id: 's4',
+    icon: '8',
+    title: 'MRO Operations — Core Requirements',
+    clauses: 'Clause 8',
+    questions: [
+      {
+        id: 'q16', clause: '8.5.1.2',
+        text: 'Are work orders (job cards / task cards / worksheets) controlled, completed for every task, and retained — identifying each task performed, materials consumed, and the individual who performed and certified the work?',
+        mro: true,
+        tip: 'Work orders are the primary maintenance record. Each task block must be signed/stamped by the performing technician. Open items at shift end must be formally captured in handover documentation, not left blank.'
+      },
+      {
+        id: 'q17', clause: '8.5.1.1',
+        text: 'Is there a process to ensure maintenance is performed only to current, approved maintenance data — preventing use of superseded AMM/CMM revisions, and documenting the data reference (including revision) on each work order?',
+        mro: true,
+        tip: 'Reference the specific maintenance document (AMM chapter, CMM section, revision) on each work order task. Auditors check whether work was performed to the current revision in force on the day of the maintenance.'
+      },
+      {
+        id: 'q18', clause: '8.5.1.3',
+        text: 'Is the Return-to-Service (RTS) process formally controlled — ensuring only authorized certifying staff issue the maintenance release, with the required airworthiness statement, regulatory reference, and their certification number documented?',
+        mro: true,
+        tip: 'RTS is the highest-risk step in MRO. Define the RTS authorization matrix. Airworthiness statements must reference the regulatory basis (14 CFR §43.9, EASA 145.A.50). Never allow uncertified personnel to sign off maintenance.'
+      },
+      {
+        id: 'q19', clause: '8.5.1.4',
+        text: 'Does the organization have a formal shift and task handover procedure — capturing maintenance status, open work, critical safety concerns, and deferred items at every shift change, signed by both the outgoing and incoming certifying personnel?',
+        mro: true,
+        tip: 'Shift handover is an AS9110C-specific requirement with no equivalent in ISO 9001. Procedure must define: handover timing, handover form content (open tasks, safety items, deferred maintenance), and signature requirements.'
+      },
+      {
+        id: 'q20', clause: '8.7',
+        text: 'Are non-routine maintenance discrepancies formally documented — with a process to identify, quarantine, document, and disposition (repair/replace/defer/scrap) non-conforming findings before RTS?',
+        mro: true,
+        tip: 'All findings that were not in the original work scope must enter the non-routine/discrepancy system. Dispositions must be documented and approved. Regulatory authority notification required for certain finding types.'
+      },
+      {
+        id: 'q21', clause: '8.5.1.2',
+        text: 'Is there a controlled process for work transfers — when maintenance tasks are initiated by one technician or shift and completed by another — with formal documentation of task status at handover and re-inspection requirements?',
+        mro: true,
+        tip: 'Work transfers are a significant human factors risk. Define re-inspection or independent verification requirements when work is transferred. Document partial completion status on the work order before transferring.'
+      },
+      {
+        id: 'q22', clause: '8.5.2',
+        text: 'Are components, parts, materials, and consumables identified, traceable throughout the maintenance process — from receipt through installation and RTS — with records linking installed parts to the aircraft or component work order?',
+        mro: true,
+        tip: 'Traceability records must allow you to identify what was installed, on what aircraft/component, with what approved release documentation (8130-3, EASA Form 1, CoC). Test traceability with a random sample selection.'
+      },
+      {
+        id: 'q23', clause: '8.1.2.4',
+        text: 'Is there a process to identify, quarantine, and report suspected unapproved parts (SUPs) — including training of receiving, stores, and maintenance personnel, and a clear escalation path when a SUP is suspected or identified?',
+        mro: true,
+        tip: 'SUP procedures must include: how personnel identify suspect parts, quarantine process (physical separation, tagging), notification chain (Quality, RSM), regulatory reporting (FAA Form 8120-11 / EASA Mandatory Occurrence Report).'
+      },
+      {
+        id: 'q24', clause: '8.5.3',
+        text: 'Is customer property (aircraft, engines, avionics, components in for maintenance) identified, protected from damage/loss/deterioration, and controlled while in the organization\'s care — with a process to notify the customer if customer property is damaged or found unsuitable?',
+        mro: false,
+        tip: 'Establish clear receiving inspection, tagging, and preservation procedures for customer property. Define notification thresholds and communication channels for customer property discrepancies.'
+      },
+      {
+        id: 'q25', clause: '8.3',
+        text: 'Is there a process for managing maintenance modifications, alterations, or repair schemes — ensuring engineering approval is obtained, regulatory authorization is in place (STC, STR, EO, DER), and all documentation is retained before return to service?',
+        mro: true,
+        tip: 'Repairs or alterations beyond manufacturers\' approved data require FAA/EASA approval before the article can be returned to service. Define the authorization chain and document retention requirements for each repair/alteration type.'
+      },
+      {
+        id: 'q26', clause: '8.5.1',
+        text: 'Is there a process to identify all applicable Airworthiness Directives (ADs) for work performed, verify AD compliance status, and document AD compliance (or deferral with approval) on work orders before return to service?',
+        mro: true,
+        tip: 'AD compliance is one of the most common FAA/EASA audit finding areas. Process must include: identifying applicable ADs for the article/aircraft, checking compliance status, documenting compliance method and data reference on the work order.'
+      },
+      {
+        id: 'q27', clause: '8.4',
+        text: 'Are externally provided maintenance services (subcontracted work, outside calibration labs, loan tooling, vendor repairs) controlled — with a qualified supplier list, purchase order requirements, receiving inspection, and authorized release documentation?',
+        mro: false,
+        tip: 'Subcontracted maintenance is a high-risk area. Supplier qualification must include capability verification. Purchase orders must specify regulatory basis and release requirements. Receiving inspection must verify the 8130-3/EASA Form 1.'
+      }
+    ]
+  },
+  {
+    id: 's5',
+    icon: '9',
+    title: 'Performance Evaluation & Management Review',
+    clauses: 'Clause 9',
+    questions: [
+      {
+        id: 'q28', clause: '9.1',
+        text: 'Does the organization systematically collect and analyze quality performance data — including escaped defects, repeat squawks, RTS error incidents, customer complaints, CAR close-out cycle times, and supplier quality trends?',
+        mro: true,
+        tip: 'Define a dashboard of QMS KPIs reviewed monthly. Include MRO-specific metrics: escaped defect rate (discrepancies found by operators post-RTS), repeat squawk rate, shop findings, and AOG response times.'
+      },
+      {
+        id: 'q29', clause: '9.2',
+        text: 'Is the internal audit program risk-based, covers all QMS elements and maintenance work areas within a defined cycle (typically 12 months), and uses qualified auditors who are independent of the area being audited?',
+        mro: false,
+        tip: 'The audit program must cover all AS9110C clauses and all maintenance capability areas within the cycle. Auditor independence is mandatory. Evidence: audit schedule, individual audit reports, NC/OFI tracking.'
+      },
+      {
+        id: 'q30', clause: '9.3',
+        text: 'Is management review conducted at planned intervals — with documented agenda inputs including QMS performance trends, audit results, customer feedback, regulatory findings, risk assessments, and resource adequacy?',
+        mro: false,
+        tip: 'Management review records must show: inputs reviewed, outputs/decisions made, action owners and due dates. AS9110C requires review of product safety data and counterfeit part risk as inputs.'
+      },
+      {
+        id: 'q31', clause: '9.1.2',
+        text: 'Are customer satisfaction data actively collected and analyzed — including aircraft operator feedback, warranty claims, AOG response performance, and on-time delivery performance — with results used to drive QMS improvements?',
+        mro: true,
+        tip: 'Define your customer satisfaction measurement method: surveys, debriefs, defect escapes reported by operators, warranty analysis. Results must feed management review and improvement actions.'
+      }
+    ]
+  },
+  {
+    id: 's6',
+    icon: '10',
+    title: 'Improvement, NC & Corrective Action',
+    clauses: 'Clause 10',
+    questions: [
+      {
+        id: 'q32', clause: '8.7 / 10.2',
+        text: 'Is there a nonconforming output process that covers identification, segregation, disposition (repair/rework/scrap/RFW/defer), regulatory reporting obligations, and customer/authority notification requirements?',
+        mro: true,
+        tip: 'Nonconforming outputs in MRO have airworthiness and regulatory reporting consequences. Define notification thresholds (FAA SDR/MOR requirements). Segregation must be physical, not just labeling.'
+      },
+      {
+        id: 'q33', clause: '10.2',
+        text: 'Are corrective actions for audit findings and quality nonconformances documented with structured root cause analysis, containment actions, systemic fixes, and formal effectiveness verification before closure?',
+        mro: false,
+        tip: 'Corrective actions must address root cause — not just the symptom. Effectiveness verification must be performed and documented before the CAR/CAPA is closed. Average open time and re-opened CARs are auditor focus areas.'
+      },
+      {
+        id: 'q34', clause: '10.3',
+        text: 'Is there evidence of continual improvement activities — using QMS performance data, audit results, customer feedback, and regulatory information to proactively improve maintenance processes, not just react to failures?',
+        mro: false,
+        tip: 'Document improvement projects and their results. Use trend analysis to identify systemic issues. Proactive use of ASIAS data, OEM service bulletins, and industry safety alerts demonstrates continual improvement intent.'
+      },
+      {
+        id: 'q35', clause: '5.1.1 / 8.1.3',
+        text: 'Does the organization have a product safety process that identifies safety-critical tasks, tracks safety occurrences and near-misses, and uses this data to improve maintenance practices and prevent recurrence of safety events?',
+        mro: true,
+        tip: 'AS9110C requires a product safety process distinct from general QMS nonconformance handling. Identify safety-critical tasks on work orders. Track safety occurrences separately. Review at management review. Integrate FAA ASAP/MOR data where applicable.'
+      }
+    ]
+  }
+];
+
+// ─────────────────────────────────────────
+// RENDER QUESTIONS
+// ─────────────────────────────────────────
+const answers = {};
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  let globalQ = 0;
+  sections.forEach(section => {
+    // Section header
+    const sh = document.createElement('div');
+    sh.className = 'section-header';
+    sh.innerHTML = `
+      <div class="section-icon">${section.icon}</div>
+      <div>
+        <div class="section-title">${section.title}</div>
+        <div class="section-sub">${section.clauses} · ${section.questions.length} questions</div>
+      </div>
+      <div class="section-score" id="sscore-${section.id}"></div>
+    `;
+    container.appendChild(sh);
+
+    const qw = document.createElement('div');
+    qw.className = 'questions-wrap';
+    section.questions.forEach(q => {
+      globalQ++;
+      const card = document.createElement('div');
+      card.className = 'question-card';
+      card.id = 'card-' + q.id;
+      card.innerHTML = `
+        <div class="question-top">
+          <div class="question-num">Q${globalQ}</div>
+          <div class="question-clause">${q.clause}</div>
+          <div class="question-text">${q.text}</div>
+          ${q.mro ? '<div class="question-mro-tag">MRO</div>' : ''}
+        </div>
+        <div class="options">
+          <div class="option-btn" data-q="${q.id}" data-v="0" onclick="selectAnswer('${q.id}', 0)">
+            <div class="option-score">✗</div>
+            <div>Not Implemented</div>
+          </div>
+          <div class="option-btn" data-q="${q.id}" data-v="1" onclick="selectAnswer('${q.id}', 1)">
+            <div class="option-score">◑</div>
+            <div>Partially Implemented</div>
+          </div>
+          <div class="option-btn" data-q="${q.id}" data-v="2" onclick="selectAnswer('${q.id}', 2)">
+            <div class="option-score">✔</div>
+            <div>Fully Implemented</div>
+          </div>
+        </div>
+        <div class="remediation" id="rem-${q.id}">
+          <strong>Remediation Guidance:</strong>
+          ${q.tip}
+        </div>
+      `;
+      qw.appendChild(card);
+    });
+    container.appendChild(qw);
+  });
+}
+
+function selectAnswer(qId, value) {
+  answers[qId] = value;
+  // Update button styles
+  document.querySelectorAll(`[data-q="${qId}"]`).forEach(btn => {
+    btn.classList.remove('selected-0', 'selected-1', 'selected-2');
+    if (parseInt(btn.dataset.v) === value) {
+      btn.classList.add('selected-' + value);
+    }
+  });
+  // Mark card as answered
+  document.getElementById('card-' + qId).classList.add('answered');
+  // Show remediation if gap
+  const rem = document.getElementById('rem-' + qId);
+  if (value < 2) {
+    rem.classList.add('show');
+  } else {
+    rem.classList.remove('show');
+  }
+  updateProgress();
+  updateSectionScores();
+}
+
+function updateProgress() {
+  const total = 35;
+  const done = Object.keys(answers).length;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('progress-text').textContent = `${done} of ${total} questions answered`;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+function updateSectionScores() {
+  sections.forEach(section => {
+    const qs = section.questions;
+    let answered = 0, total = 0;
+    qs.forEach(q => {
+      total += 2;
+      if (answers[q.id] !== undefined) answered += answers[q.id];
+    });
+    const defined = qs.filter(q => answers[q.id] !== undefined).length;
+    if (defined > 0) {
+      const pct = Math.round((answered / (defined * 2)) * 100);
+      const el = document.getElementById('sscore-' + section.id);
+      if (el) el.textContent = `${pct}% (${defined}/${qs.length} answered)`;
+    }
+  });
+}
+
+// ─────────────────────────────────────────
+// GENERATE REPORT
+// ─────────────────────────────────────────
+function generateReport() {
+  const total = 35;
+  const answered = Object.keys(answers).length;
+  if (answered < total * 0.6) {
+    alert(`Please answer at least ${Math.ceil(total * 0.6)} questions (currently ${answered}) before generating your report.`);
+    return;
+  }
+
+  // Scores
+  let totalScore = 0, maxScore = 0;
+  Object.keys(answers).forEach(qId => {
+    totalScore += answers[qId];
+    maxScore += 2;
+  });
+  const pct = Math.round((totalScore / maxScore) * 100);
+
+  // Header
+  const orgName = document.getElementById('org-name').value || 'MRO Organization';
+  const orgDate = document.getElementById('org-date').value || '2026-06-30';
+  document.getElementById('results-org-line').textContent = `${orgName} · Assessment Date: ${orgDate}`;
+
+  // Dial
+  const dial = document.getElementById('score-dial');
+  const pctEl = document.getElementById('score-pct');
+  const badgeEl = document.getElementById('rating-badge');
+  const summaryEl = document.getElementById('rating-summary');
+  pctEl.textContent = pct + '%';
+
+  let colorClass, rating, summary;
+  if (pct < 50) {
+    colorClass = 'red';
+    rating = '⚠ Critical Gaps';
+    summary = 'Significant QMS deficiencies identified. Multiple AS9110C requirements are not implemented. Immediate corrective action is required before pursuing certification or facing a regulatory audit. Prioritize the Critical findings below.';
+  } else if (pct < 75) {
+    colorClass = 'amber';
+    rating = '◑ Developing — Gaps Require Attention';
+    summary = 'Your QMS is partially conforming to AS9110C. Key requirements are implemented but gaps remain — particularly in MRO-specific areas. Address the identified gaps systematically before your next surveillance audit.';
+  } else {
+    colorClass = 'green';
+    rating = '✔ Conforming — Maintain and Improve';
+    summary = 'Your QMS demonstrates strong alignment with AS9110C Rev C. Continue monitoring the identified partial-implementation areas and use the gap findings to drive continual improvement ahead of your next audit.';
+  }
+  dial.className = 'score-dial ' + colorClass;
+  badgeEl.className = 'rating-badge ' + colorClass;
+  badgeEl.textContent = rating;
+  summaryEl.textContent = summary;
+
+  // Section breakdown
+  const sBody = document.getElementById('section-scores-body');
+  sBody.innerHTML = '';
+  const sColors = { green: '#2d7a4f', amber: '#d97706', red: '#c0392b' };
+  sections.forEach(section => {
+    let sc = 0, mx = 0;
+    section.questions.forEach(q => {
+      if (answers[q.id] !== undefined) { sc += answers[q.id]; mx += 2; }
+    });
+    if (mx === 0) return;
+    const sp = Math.round((sc / mx) * 100);
+    const sc2 = sp >= 75 ? 'green' : sp >= 50 ? 'amber' : 'red';
+    const row = document.createElement('div');
+    row.className = 'section-score-row';
+    row.innerHTML = `
+      <div class="sscore-name">${section.title}</div>
+      <div class="sscore-bar-wrap">
+        <div class="sscore-bar">
+          <div class="sscore-fill" style="width:${sp}%;background:${sColors[sc2]}"></div>
+        </div>
+      </div>
+      <div class="sscore-pct" style="color:${sColors[sc2]}">${sp}%</div>
+    `;
+    sBody.appendChild(row);
+  });
+
+  // Gap findings
+  const gBody = document.getElementById('gaps-body');
+  gBody.innerHTML = '';
+  let gapCount = 0;
+  let qNum = 0;
+
+  sections.forEach(section => {
+    section.questions.forEach(q => {
+      qNum++;
+      const v = answers[q.id];
+      if (v === undefined || v === 2) return;
+      gapCount++;
+      const isCrit = v === 0;
+      const item = document.createElement('div');
+      item.className = 'gap-item ' + (isCrit ? 'critical' : 'partial');
+      item.innerHTML = `
+        <div class="gap-item-header">
+          <div class="gap-item-title">Q${qNum}: ${q.text.substring(0, 80)}…</div>
+          <div>
+            <span class="gap-item-clause">${q.clause}</span>
+            <span class="gap-priority ${isCrit ? 'high' : 'medium'}" style="margin-left:8px">${isCrit ? 'CRITICAL' : 'PARTIAL'}</span>
+          </div>
+        </div>
+        <div class="gap-action">→ ${q.tip}</div>
+      `;
+      gBody.appendChild(item);
+    });
+  });
+
+  if (gapCount === 0) {
+    gBody.innerHTML = '<p style="color:var(--green);font-weight:600;font-size:14px;">✔ No gaps identified based on your responses. Continue monitoring and prepare evidence packages for your next audit.</p>';
+  }
+
+  // Next steps
+  const nsBody = document.getElementById('next-steps-body');
+  const steps = [];
+  if (pct < 50) {
+    steps.push('Conduct an urgent internal audit across all MRO-specific requirements identified as Critical above.');
+    steps.push('Prioritize: Return-to-Service controls, Certifying Staff authorization documentation, and Work Order completeness.');
+    steps.push('Brief the Accountable Manager and Quality Manager on the gap findings. Assign corrective action owners with due dates.');
+    steps.push('Engage a qualified AS9110C consultant or use Conform-Edge to accelerate gap closure before a regulatory audit.');
+    steps.push('Do not pursue initial certification until at least 75% of Critical findings are fully resolved.');
+  } else if (pct < 75) {
+    steps.push('Create a Gap Closure Register: document each partial finding, root cause, corrective action, and target close date.');
+    steps.push('Focus first on MRO-critical gaps: Shift Handover, AD Compliance documentation, and Calibration status at point of use.');
+    steps.push('Schedule focused process audits on the lowest-scoring areas in the section breakdown above.');
+    steps.push('Review your Internal Audit Program to ensure all AS9110C clauses are covered within the next audit cycle.');
+    steps.push('Present the gap report at the next management review with proposed corrective action priorities.');
+  } else {
+    steps.push('Document this self-assessment in your management review records as evidence of ongoing QMS monitoring.');
+    steps.push('Assign improvement actions for any partial-implementation items identified — even at high overall scores, partial gaps can become audit findings.');
+    steps.push('Update your Internal Audit Program to add focus time on MRO-specific clause 8 requirements.');
+    steps.push('Consider an independent third-party pre-audit to validate your self-assessment results before your next CB surveillance.');
+    steps.push('Capture lessons from this assessment and use them to update your risk register and quality objectives.');
+  }
+  nsBody.innerHTML = steps.map((s, i) => `
+    <div class="next-step-item">
+      <div class="next-step-num">${i + 1}</div>
+      <div>${s}</div>
+    </div>
+  `).join('');
+
+  // Show results
+  const panel = document.getElementById('results-panel');
+  panel.classList.add('show');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetAll() {
+  if (!confirm('Reset all answers and start over?')) return;
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.classList.remove('selected-0', 'selected-1', 'selected-2');
+  });
+  document.querySelectorAll('.question-card').forEach(c => c.classList.remove('answered'));
+  document.querySelectorAll('.remediation').forEach(r => r.classList.remove('show'));
+  document.getElementById('results-panel').classList.remove('show');
+  sections.forEach(s => {
+    const el = document.getElementById('sscore-' + s.id);
+    if (el) el.textContent = '';
+  });
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Init
+renderQuestions();
+updateProgress();
+</script>
+</body>
+</html>

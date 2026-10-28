@@ -1,0 +1,19 @@
+{
+  "tenantId": "t1",
+  "subject": { "tenantId": "t1", "domain": "qms", "entityType": "qms.car", "entityId": "CAR-0042", "revision": "B" },
+  "event": { "eventId": "ev-1", "eventType": "car.closure_requested", "tenantId": "t1", "occurredAt": "2026-10-01T10:00:00.000Z", "observedAt": "2026-10-01T10:00:05.000Z", "subject": { "tenantId": "t1", "domain": "qms", "entityType": "qms.car", "entityId": "CAR-0042" }, "payload": { "requestedBy": "u-9", "Zeta": 1, "alpha": 2, "Äpfel": 3, "_under": 4 }, "source": { "sourceId": "s1", "sourceType": "system" } },
+  "facts": {
+    "facts": { "status": "open", "severity": "major", "rootCause": null, "dueDate": "2026-09-01", "attachments": ["a.pdf", "b.pdf"], "score": 7.5, "nested": { "zeta": 1, "Alpha": 2, "ärger": 3, "z": 4, "B": 5, "a": 6, "résumé": "ü" } },
+    "metadata": { "evidenceRefs": [ { "evidenceId": "E-2", "sourceRef": { "sourceId": "s1", "sourceType": "system" }, "capturedAt": "2026-10-01T09:00:00Z" }, { "evidenceId": "E-1", "sourceRef": { "sourceId": "s2", "sourceType": "user" }, "capturedAt": "2026-10-01T09:30:00Z" } ], "confidence": 0.8, "Zmeta": "x", "ameta": "y" }
+  },
+  "manifestRef": { "manifestId": "man-1", "version": "1.0.0" },
+  "authorityContext": { "tenantId": "t1", "authorityProfileId": "AP-1", "authorityProfileRevision": 2, "authorityEffectiveFrom": "2026-01-01T00:00:00.000Z", "authorityProfileHash": "abc123" },
+  "evaluationContext": { "evaluatedAt": "2026-10-02T00:00:00.000Z" },
+  "rules": [
+    { "ruleId": "CAR-010", "revision": 1, "domain": "qms", "applicableEntityTypes": ["qms.car"], "condition": { "all": [ { "field": "status", "op": "eq", "value": "open" }, { "field": "rootCause", "op": "is_null" }, { "field": "score", "op": "gte", "value": 5 } ] }, "consequence": { "findingText": "Root cause missing.", "severity": "major", "resolutionHint": "Record root cause.", "clauseRefs": ["10.2.1"], "decision": { "decisionState": "ESCALATE", "permittedHostAction": "route:quality-manager" } } },
+    { "ruleId": "CAR-011", "revision": 2, "domain": "qms", "applicableEntityTypes": ["qms.car", "qms.ncr"], "applicableEventTypes": ["car.closure_requested"], "condition": { "any": [ { "field": "attachments", "op": "contains", "value": "c.pdf" }, { "not": { "field": "nested.Alpha", "op": "exists" } }, { "field": "severity", "op": "in", "value": ["major", "critical"] } ] }, "consequence": { "findingText": "Severity gate.", "severity": "minor", "resolutionHint": "Review." } },
+    { "ruleId": "car-012", "revision": 1, "domain": "qms", "applicableEntityTypes": ["qms.car"], "condition": { "status": "closed" }, "consequence": { "findingText": "Not met.", "severity": "minor", "resolutionHint": "n/a" } },
+    { "ruleId": "ÄCAR-013", "revision": 1, "domain": "qms", "applicableEntityTypes": ["qms.car"], "consequence": { "findingText": "Unconditional rule (non-ASCII id).", "severity": "minor", "resolutionHint": "Always.", "decision": { "evidenceState": "PARTIAL" } } },
+    { "ruleId": "HF-1", "revision": 1, "domain": "hf", "applicableEntityTypes": ["hf.lesson"], "consequence": { "findingText": "Other domain.", "severity": "minor", "resolutionHint": "skip" } }
+  ]
+}

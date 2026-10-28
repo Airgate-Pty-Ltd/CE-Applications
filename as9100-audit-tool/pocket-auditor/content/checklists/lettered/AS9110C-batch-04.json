@@ -1,0 +1,505 @@
+{
+ "standard": "AS9110C",
+ "batch": "04",
+ "covers": "clauses 8.3.5(a) to 8.5.5(f) (extract lines 223-302)",
+ "authored_from": "licensed-private/lettered-AS9110C.md (private licensed text)",
+ "rows": [
+  {
+   "ref": "8.3.5(a)",
+   "question": "Do design outputs meet the input requirements? Show the comparison.",
+   "evidence": [
+    "Output-to-input comparison"
+   ]
+  },
+  {
+   "ref": "8.3.5(b)",
+   "question": "Are design outputs adequate for the later processes that provide the product or service?",
+   "evidence": [
+    "Output review for later processes"
+   ]
+  },
+  {
+   "ref": "8.3.5(c)",
+   "question": "Do design outputs include or reference monitoring and measuring requirements and acceptance criteria?",
+   "evidence": [
+    "Output with acceptance criteria"
+   ]
+  },
+  {
+   "ref": "8.3.5(d)",
+   "question": "Do design outputs specify the essential characteristics, and do they define the data needed to use and maintain the product, including airworthiness directive assessment where it applies? For maintenance programmes, are the outputs incorporated into work orders?",
+   "evidence": [
+    "Essential characteristics list",
+    "Maintenance data definition",
+    "Work order incorporating the outputs"
+   ]
+  },
+  {
+   "ref": "8.3.6(a)",
+   "question": "How are design and development changes identified and controlled?",
+   "evidence": [
+    "Design change record"
+   ]
+  },
+  {
+   "ref": "8.3.6(b)",
+   "question": "Where are the results of design change reviews retained?",
+   "evidence": [
+    "Retained change review results"
+   ]
+  },
+  {
+   "ref": "8.3.6(c)",
+   "question": "Who authorized each design change, and where is that recorded?",
+   "evidence": [
+    "Authorization record for a design change"
+   ]
+  },
+  {
+   "ref": "8.3.6(d)",
+   "question": "For a design change, what actions were taken to prevent an adverse impact on conformity, under configuration management?",
+   "evidence": [
+    "Impact prevention record",
+    "Configuration management record"
+   ]
+  },
+  {
+   "ref": "8.4.1(a)",
+   "question": "For external products or services intended for incorporation into your own work, what controls apply?",
+   "evidence": [
+    "Control definition for incorporated external items"
+   ]
+  },
+  {
+   "ref": "8.4.1(b)",
+   "question": "For external providers that deliver directly to the customer on your behalf, what controls apply?",
+   "evidence": [
+    "Control definition for direct delivery by a provider"
+   ]
+  },
+  {
+   "ref": "8.4.1(c)",
+   "question": "For a process you have outsourced, what criteria are used to evaluate, select, monitor and re-evaluate the provider? Show the retained records and actions.",
+   "evidence": [
+    "Evaluation and re-evaluation records",
+    "Retained actions from evaluations"
+   ]
+  },
+  {
+   "ref": "8.4.1.1(a)",
+   "question": "Who decides a provider's approval status, how is it changed, and what conditions allow controlled use of a conditional provider?",
+   "evidence": [
+    "Approval status procedure"
+   ]
+  },
+  {
+   "ref": "8.4.1.1(b)",
+   "question": "Show your provider register: approval status and scope for each provider.",
+   "evidence": [
+    "Provider register with approval status and scope"
+   ]
+  },
+  {
+   "ref": "8.4.1.1(c)",
+   "question": "When was each provider's performance last reviewed for conformity and on-time delivery?",
+   "evidence": [
+    "Provider performance review record"
+   ]
+  },
+  {
+   "ref": "8.4.1.1(d)",
+   "question": "What action do you take with a provider that does not meet requirements? Show an example.",
+   "evidence": [
+    "Action record for a non-conforming provider"
+   ]
+  },
+  {
+   "ref": "8.4.1.1(e)",
+   "question": "How do you control documented information that providers create or keep for you?",
+   "evidence": [
+    "Provider documented information requirement"
+   ]
+  },
+  {
+   "ref": "8.4.1.1(f)",
+   "question": "How are relevant product safety principles flowed down to providers? Show the record for one provider.",
+   "evidence": [
+    "Product safety flow-down record"
+   ]
+  },
+  {
+   "ref": "8.4.2(a)",
+   "question": "How do you keep an externally provided process within your QMS control?",
+   "evidence": [
+    "Process control definition for the provider"
+   ]
+  },
+  {
+   "ref": "8.4.2(b)",
+   "question": "What controls do you apply to the provider, and what controls do you apply to the output it delivers?",
+   "evidence": [
+    "Control plan for provider and output"
+   ]
+  },
+  {
+   "ref": "8.4.2(c)",
+   "question": "How have you taken into account the impact of the provider on customer and regulatory conformity, the effectiveness of its controls, and the results of its periodic review?",
+   "evidence": [
+    "Risk and impact assessment for the provider"
+   ]
+  },
+  {
+   "ref": "8.4.2(d)",
+   "question": "Do providers hold the approvals and certificates needed for customer requirements? How are non-certificated providers qualified and overseen? What verification is applied, based on risk?",
+   "evidence": [
+    "Approval and certificate of the provider",
+    "Qualification and oversight record for a non-certificated provider",
+    "Risk-based verification records"
+   ]
+  },
+  {
+   "ref": "8.4.3(a)",
+   "question": "Does the purchasing information for a provider identify the relevant technical data for what is to be provided?",
+   "evidence": [
+    "Purchasing information with technical data references"
+   ]
+  },
+  {
+   "ref": "8.4.3(b)",
+   "question": "Is the approval of products, services, methods, processes and equipment, and their release, required of the provider?",
+   "evidence": [
+    "Approval and release requirements in purchasing information"
+   ]
+  },
+  {
+   "ref": "8.4.3(c)",
+   "question": "What competence and qualification of the provider's people is required in the purchasing information?",
+   "evidence": [
+    "Competence requirement sent to the provider"
+   ]
+  },
+  {
+   "ref": "8.4.3(d)",
+   "question": "How is the provider's interaction with your organization defined?",
+   "evidence": [
+    "Interaction definition in purchasing information"
+   ]
+  },
+  {
+   "ref": "8.4.3(e)",
+   "question": "What control and monitoring of provider performance is required from the provider?",
+   "evidence": [
+    "Performance monitoring requirement sent to the provider"
+   ]
+  },
+  {
+   "ref": "8.4.3(f)",
+   "question": "What verification or validation will you or your customer carry out at the provider's premises?",
+   "evidence": [
+    "Premises verification plan"
+   ]
+  },
+  {
+   "ref": "8.4.3(g)",
+   "question": "Does the purchasing information require the provider to implement a QMS, use customer-designated or approved sources, report non-conforming work, prevent unapproved parts, report changes, flow down requirements, and retain records?",
+   "evidence": [
+    "Purchasing information with each listed requirement"
+   ]
+  },
+  {
+   "ref": "8.4.3(h)",
+   "question": "Does the purchasing information give your organization, your customer and regulators access to the provider's relevant areas and records?",
+   "evidence": [
+    "Access clause in purchasing information"
+   ]
+  },
+  {
+   "ref": "8.4.3(i)",
+   "question": "How are provider staff made aware of their contribution to conformity, to product safety, and of ethical behaviour?",
+   "evidence": [
+    "Awareness requirement sent to the provider"
+   ]
+  },
+  {
+   "ref": "8.4.3(j)",
+   "question": "What specific authority and customer requirements are passed to the provider?",
+   "evidence": [
+    "Authority and customer requirement list sent to the provider"
+   ]
+  },
+  {
+   "ref": "8.4.3(k)",
+   "question": "What format and content is required for the provider's delivery documentation package?",
+   "evidence": [
+    "Delivery documentation requirement sent to the provider",
+    "Delivery package received and checked"
+   ]
+  },
+  {
+   "ref": "8.4.3(l)",
+   "question": "Under what conditions must the provider report product malfunctions, defects and unairworthy conditions to the relevant stakeholders? Show the reporting requirement and one report received.",
+   "evidence": [
+    "Reporting conditions in purchasing information",
+    "Malfunction or defect report received"
+   ]
+  },
+  {
+   "ref": "8.5.1(a)",
+   "question": "For one maintenance job, show the documented information that defines the characteristics and the results to be achieved, including airworthiness directive assessment where it applies.",
+   "evidence": [
+    "Work order or instruction with characteristics and results",
+    "Airworthiness directive assessment record"
+   ]
+  },
+  {
+   "ref": "8.5.1(b)",
+   "question": "Show the monitoring and measuring resources available and used for one job.",
+   "evidence": [
+    "Measuring resource list for the job"
+   ]
+  },
+  {
+   "ref": "8.5.1(c)",
+   "question": "At which stages are monitoring and measurement performed, to verify criteria and acceptance criteria are met? Show one job.",
+   "evidence": [
+    "Monitoring and measurement record at each stage"
+   ]
+  },
+  {
+   "ref": "8.5.1(d)",
+   "question": "Show the infrastructure and environment used for one job, including any tools and software.",
+   "evidence": [
+    "Tool and environment record for the job"
+   ]
+  },
+  {
+   "ref": "8.5.1(e)",
+   "question": "Show the appointment of competent people for one job, including any required qualification.",
+   "evidence": [
+    "Appointment and qualification record"
+   ]
+  },
+  {
+   "ref": "8.5.1(f)",
+   "question": "For a process whose output cannot be fully verified later, how is its ability to achieve planned results validated and periodically revalidated?",
+   "evidence": [
+    "Process validation record",
+    "Periodic revalidation record"
+   ]
+  },
+  {
+   "ref": "8.5.1(g)",
+   "question": "What actions prevent human error in maintenance? Show one example.",
+   "evidence": [
+    "Human error prevention measure"
+   ]
+  },
+  {
+   "ref": "8.5.1(h)",
+   "question": "Show the release, delivery and post-delivery activities for one job.",
+   "evidence": [
+    "Release, delivery and post-delivery records"
+   ]
+  },
+  {
+   "ref": "8.5.1(i)",
+   "question": "Where are the in-process inspection or verification points, and why are they needed where conformity cannot be verified later?",
+   "evidence": [
+    "In-process inspection points with justification"
+   ]
+  },
+  {
+   "ref": "8.5.1(j)",
+   "question": "Show the evidence that all production and inspection operations were completed as planned or instructed by the customer, in accordance with the applicable technical data.",
+   "evidence": [
+    "Operation completion record against the technical data"
+   ]
+  },
+  {
+   "ref": "8.5.1(k)",
+   "question": "How are foreign objects, including tools and hardware, prevented, detected and removed?",
+   "evidence": [
+    "Foreign object control record"
+   ]
+  },
+  {
+   "ref": "8.5.1(l)",
+   "question": "How is continuity of information kept during work handover between staff? Show one handover.",
+   "evidence": [
+    "Handover record"
+   ]
+  },
+  {
+   "ref": "8.5.1(m)",
+   "question": "How are utilities and supplies (water, compressed air, electricity, chemicals) controlled where they affect product conformity?",
+   "evidence": [
+    "Utility and supply control record"
+   ]
+  },
+  {
+   "ref": "8.5.1(n)",
+   "question": "For one job, how do you show the work matches the applicable reference standards, quality plans, type certificate holder recommendations, customer specifications and documented procedures?",
+   "evidence": [
+    "Compliance check record for the job"
+   ]
+  },
+  {
+   "ref": "8.5.1(o)",
+   "question": "How is documented information of approved maintenance capabilities and ratings managed?",
+   "evidence": [
+    "Controlled capability and ratings list"
+   ]
+  },
+  {
+   "ref": "8.5.1(p)",
+   "question": "How do you show that work on one item cannot harm the airworthiness of parts outside the scope of the work order?",
+   "evidence": [
+    "Assurance record for work outside scope"
+   ]
+  },
+  {
+   "ref": "8.5.1(q)",
+   "question": "What controls apply to work done off site? Show one off-site job.",
+   "evidence": [
+    "Off-site work control record"
+   ]
+  },
+  {
+   "ref": "8.5.1.2(a)",
+   "question": "What criteria exist for reviewing and approving special processes?",
+   "evidence": [
+    "Special process approval criteria"
+   ]
+  },
+  {
+   "ref": "8.5.1.2(b)",
+   "question": "What conditions must be maintained to keep a special process approved?",
+   "evidence": [
+    "Special process condition list"
+   ]
+  },
+  {
+   "ref": "8.5.1.2(c)",
+   "question": "How are facilities and equipment for special processes approved?",
+   "evidence": [
+    "Facility and equipment approval record"
+   ]
+  },
+  {
+   "ref": "8.5.1.2(d)",
+   "question": "How are the people doing special processes qualified?",
+   "evidence": [
+    "Qualification records for special process staff"
+   ]
+  },
+  {
+   "ref": "8.5.1.2(e)",
+   "question": "What specific methods and procedures are used to implement and monitor special processes?",
+   "evidence": [
+    "Special process procedure"
+   ]
+  },
+  {
+   "ref": "8.5.1.2(f)",
+   "question": "What documented information about special processes is retained? For outsourced special processes, how is the provider controlled?",
+   "evidence": [
+    "Retained special process records",
+    "Provider control for an outsourced special process"
+   ]
+  },
+  {
+   "ref": "8.5.4(a)",
+   "question": "How is cleaning of outputs controlled during maintenance and service, where needed?",
+   "evidence": [
+    "Cleaning requirement and record"
+   ]
+  },
+  {
+   "ref": "8.5.4(b)",
+   "question": "How are foreign objects prevented, detected and removed in preservation?",
+   "evidence": [
+    "Foreign object control in preservation"
+   ]
+  },
+  {
+   "ref": "8.5.4(c)",
+   "question": "How are sensitive products specially handled and stored?",
+   "evidence": [
+    "Special handling and storage record"
+   ]
+  },
+  {
+   "ref": "8.5.4(d)",
+   "question": "How are products marked and labelled, including safety warnings and cautions?",
+   "evidence": [
+    "Marking and labelling record"
+   ]
+  },
+  {
+   "ref": "8.5.4(e)",
+   "question": "How is shelf life controlled and stock rotated? Show a check.",
+   "evidence": [
+    "Shelf-life control record",
+    "Stock rotation check"
+   ]
+  },
+  {
+   "ref": "8.5.4(f)",
+   "question": "How are hazardous materials handled and stored?",
+   "evidence": [
+    "Hazardous material handling and storage record"
+   ]
+  },
+  {
+   "ref": "8.5.4(g)",
+   "question": "What transportation or shipping containers are used to protect the item, and are they suitable?",
+   "evidence": [
+    "Container selection record"
+   ]
+  },
+  {
+   "ref": "8.5.5(a)",
+   "question": "How are statutory and regulatory requirements taken into account for post-delivery activities?",
+   "evidence": [
+    "Post-delivery requirement register"
+   ]
+  },
+  {
+   "ref": "8.5.5(b)",
+   "question": "What undesired consequences of your products or services have been considered for post-delivery activity?",
+   "evidence": [
+    "Consequence assessment for post-delivery"
+   ]
+  },
+  {
+   "ref": "8.5.5(c)",
+   "question": "How are the nature, use and intended lifetime of the product considered in post-delivery activity?",
+   "evidence": [
+    "Product lifetime and use assessment"
+   ]
+  },
+  {
+   "ref": "8.5.5(d)",
+   "question": "How are customer requirements for post-delivery activity met?",
+   "evidence": [
+    "Customer post-delivery requirement record"
+   ]
+  },
+  {
+   "ref": "8.5.5(e)",
+   "question": "How is customer feedback used in post-delivery activity? Show an example.",
+   "evidence": [
+    "Feedback record and action"
+   ]
+  },
+  {
+   "ref": "8.5.5(f)",
+   "question": "How are product and customer support, and occurrence report investigations, handled? When a problem is found after delivery, how is it investigated and reported?",
+   "evidence": [
+    "Support record",
+    "Occurrence report investigation",
+    "Report of a post-delivery problem"
+   ]
+  }
+ ]
+}

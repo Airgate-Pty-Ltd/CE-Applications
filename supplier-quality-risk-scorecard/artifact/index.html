@@ -1,0 +1,1107 @@
+<!--
+© 2026 Conform-Edge Quality Consulting LLC. All rights reserved.
+Supplier Quality Risk Scorecard v2.0 — Multi-Standard Edition
+Proprietary software of Conform-Edge Quality Consulting LLC (Idaho LLC No. 6463380)
+Unauthorized reproduction, distribution, or modification prohibited.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta author="Conform-Edge Quality Consulting LLC">
+    <title>Supplier Quality Risk Scorecard — Conform-Edge</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: flex;
+            height: calc(100vh - 200px);
+        }
+
+        .sidebar {
+            width: 280px;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .nav-button {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border: none;
+            background: white;
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            text-align: left;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-button:hover, .nav-button.active {
+            background: #667eea;
+            color: white;
+            border-left-color: #764ba2;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1em;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .supplier-card {
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .supplier-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .risk-green { background: #d4edda; border-left: 5px solid #28a745; }
+        .risk-yellow { background: #fff3cd; border-left: 5px solid #ffc107; }
+        .risk-orange { background: #ffe0b2; border-left: 5px solid #ff9800; }
+        .risk-red { background: #f8d7da; border-left: 5px solid #dc3545; }
+
+        .supplier-name {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .score {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .score-dimensions {
+            font-size: 0.9em;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .dimension {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .dimension-bar {
+            height: 6px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 3px;
+            margin: 2px 0;
+            overflow: hidden;
+        }
+
+        .dimension-fill {
+            height: 100%;
+            background: #667eea;
+            border-radius: 3px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-buttons button {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 0.9em;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid #667eea;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #ddd;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            width: 90%;
+        }
+
+        .modal-header {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .close {
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .checklist-item input[type=checkbox] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .checklist-item label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        @media print {
+            body { background: white; }
+            .sidebar { display: none; }
+            .main-content { height: auto; }
+            .content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Supplier Quality Risk Scorecard</h1>
+            <p>Intelligent supplier compliance & risk management platform</p>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3 style="margin-bottom: 20px; color: #333;">Menu</h3>
+                <button class="nav-button active" onclick="showSection('dashboard')">📊 Dashboard</button>
+                <button class="nav-button" onclick="showSection('add-supplier')">➕ Add Supplier</button>
+                <button class="nav-button" onclick="showSection('import-export')">📥 Import/Export</button>
+                <button class="nav-button" onclick="showSection('sqa-generator')">📋 SQA Generator</button>
+                <button class="nav-button" onclick="showSection('help')">❓ Help</button>
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+                <button class="nav-button" onclick="resetToDemo()" style="border-left-color: #dc3545;">🔄 Reset Demo</button>
+            </div>
+
+            <div class="content">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="section active">
+                    <h2 style="margin-bottom: 20px;">Risk Dashboard</h2>
+                    <div class="stats" id="stats-container"></div>
+                    <h3 style="margin-top: 30px; margin-bottom: 15px;">Supplier Risk Matrix</h3>
+                    <div class="risk-matrix" id="risk-matrix"></div>
+                </div>
+
+                <!-- Add Supplier Section -->
+                <div id="add-supplier" class="section">
+                    <h2 style="margin-bottom: 20px;">Add/Edit Supplier</h2>
+                    <div class="form-group">
+                        <label>Supplier Name *</label>
+                        <input type="text" id="supplierName" placeholder="e.g., AeroTech Fasteners">
+                    </div>
+                    <div class="form-group">
+                        <label>Primary Standard *</label>
+                        <select id="standard">
+                            <option value="AS9100D">AS9100D (Aerospace)</option>
+                            <option value="ISO 9001:2015">ISO 9001:2015 (Universal)</option>
+                            <option value="IATF 16949">IATF 16949 (Automotive)</option>
+                            <option value="ISO 13485">ISO 13485 (Medical Device)</option>
+                            <option value="FAA Part 21">FAA Part 21 (US Production)</option>
+                            <option value="EASA Part 145">EASA Part 145 (EU Repair)</option>
+                            <option value="CAAC CCAR-145">CAAC CCAR-145 (China Repair)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Audit Date *</label>
+                        <input type="date" id="auditDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Certification Status *</label>
+                        <select id="certStatus">
+                            <option value="5">Current</option>
+                            <option value="3">Expires in < 3 months</option>
+                            <option value="1">Expired</option>
+                            <option value="0">Not Required</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Process Capability (1-5, where 5 = Excellent) *</label>
+                        <input type="number" id="capability" min="1" max="5" value="3">
+                    </div>
+                    <div class="form-group">
+                        <label>Recent NCRs (Count) *</label>
+                        <input type="number" id="ncrCount" min="0" value="0">
+                    </div>
+                    <button onclick="addSupplier()">Save Supplier</button>
+                    <div id="message" style="margin-top: 20px;"></div>
+                </div>
+
+                <!-- Import/Export Section -->
+                <div id="import-export" class="section">
+                    <h2 style="margin-bottom: 20px;">Import/Export Data</h2>
+
+                    <h3 style="margin-top: 20px; margin-bottom: 10px;">Import CSV</h3>
+                    <p style="margin-bottom: 10px; color: #666;">Format: Supplier Name,Standard,Last Audit Date,Certification Status,Process Capability,NCR Count</p>
+                    <div class="file-input-wrapper">
+                        <button onclick="document.getElementById('csvFile').click()">📤 Choose CSV File</button>
+                        <input type="file" id="csvFile" accept=".csv" onchange="importCSV()">
+                    </div>
+                    <div id="import-message" style="margin-top: 20px;"></div>
+
+                    <h3 style="margin-top: 30px; margin-bottom: 10px;">Export Data</h3>
+                    <button onclick="exportToCSV()">📥 Export All Suppliers to CSV</button>
+                    <button onclick="exportScorecard()" style="margin-left: 10px;">📊 Export Scorecard</button>
+                    <button onclick="window.print()" style="margin-left: 10px;">🖨️ Print Dashboard</button>
+                </div>
+
+                <!-- SQA Generator Section -->
+                <div id="sqa-generator" class="section">
+                    <h2 style="margin-bottom: 20px;">SQA Checklist Generator</h2>
+                    <div class="form-group">
+                        <label>Select Supplier *</label>
+                        <select id="sqaSupplier">
+                            <option value="">-- Choose Supplier --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Audit Date *</label>
+                        <input type="date" id="sqaAuditDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Auditor Name *</label>
+                        <input type="text" id="auditorName" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Organization Name *</label>
+                        <input type="text" id="orgName" placeholder="Your organization">
+                    </div>
+                    <button onclick="generateSQA()">Generate SQA Checklist</button>
+                    <div id="sqa-message" style="margin-top: 20px;"></div>
+
+                    <div id="sqa-preview" style="margin-top: 30px; display: none; border: 1px solid #ddd; padding: 20px; border-radius: 8px; background: #f9f9f9;">
+                        <h3 id="sqa-title"></h3>
+                        <div id="sqa-content"></div>
+                        <button onclick="downloadSQAPDF()" style="margin-top: 20px;">📄 Download as PDF</button>
+                    </div>
+                </div>
+
+                <!-- Help Section -->
+                <div id="help" class="section">
+                    <h2 style="margin-bottom: 20px;">Help & Documentation</h2>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; line-height: 1.8;">
+                        <h3 style="margin-bottom: 15px;">Quick Start</h3>
+                        <p><strong>1. View Dashboard:</strong> Click Dashboard to see all suppliers color-coded by risk (Green/Yellow/Orange/Red).</p>
+                        <p><strong>2. Add Supplier:</strong> Use Add Supplier form to enter supplier data. All fields are auto-scored.</p>
+                        <p><strong>3. Generate SQA:</strong> Use SQA Generator to create an audit checklist for any supplier in your target standard.</p>
+                        <p><strong>4. Export:</strong> Use Import/Export to backup your data or integrate with other systems.</p>
+
+                        <h3 style="margin-top: 30px; margin-bottom: 15px;">Risk Scoring</h3>
+                        <p>Suppliers are scored 0-100 across 4 dimensions:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Certification Status (25%):</strong> Current = 5pts, Expiring Soon = 3pts, Expired = 1pt</li>
+                            <li><strong>Process Capability (25%):</strong> Manual rating 1-5</li>
+                            <li><strong>Audit History (25%):</strong> Recent audit = 5pts, < 1 year = 3pts, > 1 year = 1pt</li>
+                            <li><strong>Compliance Gap (25%):</strong> No NCRs = 5pts, 1-2 NCRs = 3pts, 3+ NCRs = 1pt</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Risk Levels:</strong> Green (75-100) = Low Risk, Yellow (50-74) = Medium, Orange (25-49) = High, Red (0-24) = Critical</p>
+
+                        <h3 style="margin-top: 30px; margin-bottom: 15px;">CSV Import Format</h3>
+                        <pre style="background: white; padding: 15px; border: 1px solid #ddd; border-radius: 6px; overflow-x: auto;">Supplier Name,Standard,Last Audit Date,Certification Status,Process Capability,NCR Count
+AeroTech Fasteners,AS9100D,2026-03-15,5,4,1
+ISO Parts Distributor,ISO 9001:2015,2026-02-01,3,3,2</pre>
+
+                        <h3 style="margin-top: 30px; margin-bottom: 15px;">Data Persistence</h3>
+                        <p>All supplier data is stored in your browser's local storage. To back up, use the CSV Export feature. To reset to demo data, click "Reset Demo" in the menu.</p>
+
+                        <h3 style="margin-top: 30px; margin-bottom: 15px;">Pricing & Support</h3>
+                        <p>Starter: $99/mo (1-3 suppliers) | Basic: $199/mo (4-10) | Professional: $399/mo (11-25) | Enterprise: $999/mo (26+)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // SQA Templates by Standard
+        const sqaTemplates = {
+            'AS9100D': {
+                'Sourcing Control': [
+                    'Supplier shall maintain AS9100D certification or equivalent QMS',
+                    'Supplier approval process documented and implemented',
+                    'Supplier qualification audit completed within last 24 months',
+                    'Supplier change notification process in place',
+                    'Supplier counterfeit parts prevention policy documented',
+                    'Supplier subcontractor controls documented'
+                ],
+                'Inspection & Acceptance': [
+                    'Incoming inspection process documented',
+                    'Supplier provides Certificate of Conformance (CoC) or equivalent',
+                    'Traceability documentation provided with shipments',
+                    'First Article Inspection (FAI) completed per AS9102',
+                    'Supplier provides test reports for special processes',
+                    'Nonconforming product handling process established'
+                ],
+                'Flow-Down Requirements': [
+                    'SQA requirements flowed down to subsuppliers',
+                    'Counterfeit parts prevention requirements communicated',
+                    'Aerospace product safety requirements documented',
+                    'Key characteristics and special processes identified',
+                    'Customer special requirements flow-down confirmed',
+                    'Configuration management requirements established'
+                ],
+                'Corrective Action & Audit': [
+                    'Supplier corrective action request (SCAR) process established',
+                    'Supplier participates in annual audit by [Organization]',
+                    'Audit scheduling mutually agreed upon',
+                    'Nonconformance tracking system in place',
+                    'Supplier audit history maintained and reviewed',
+                    'Right to audit supplier subcontractors confirmed'
+                ]
+            },
+            'ISO 9001:2015': {
+                'Sourcing Control': [
+                    'Supplier maintains ISO 9001 certification',
+                    'Supplier evaluation criteria documented',
+                    'Supplier approved through formal process',
+                    'Supplier performance monitored regularly',
+                    'Supplier change management process established'
+                ],
+                'Inspection & Acceptance': [
+                    'Incoming inspection / acceptance criteria defined',
+                    'Supplier provides quality evidence (test reports, CoC)',
+                    'Product traceability maintained',
+                    'Acceptance sampling plan documented',
+                    'Nonconforming product handling established'
+                ],
+                'Flow-Down Requirements': [
+                    'Quality requirements flowed down to supplier',
+                    'Customer requirements communicated to supplier',
+                    'Statutory / regulatory requirements flow-down confirmed',
+                    'Communication of changes to supplier',
+                    'Supplier understanding of requirements verified'
+                ],
+                'Corrective Action & Audit': [
+                    'Nonconformance notification process established',
+                    'Supplier corrective action request process',
+                    'Supplier audit schedule defined',
+                    'On-site audit rights reserved',
+                    'Audit findings tracked and closed',
+                    'Supplier quality performance dashboard maintained'
+                ]
+            },
+            'IATF 16949': {
+                'Sourcing Control': [
+                    'Supplier maintains IATF 16949 certification',
+                    'PPAP submission required for new products',
+                    'Supplier APQP process validated',
+                    'Supplier FMEA assessment completed',
+                    'Supplier control plan review required'
+                ],
+                'Inspection & Acceptance': [
+                    'MSA (Measurement System Analysis) evidenced',
+                    'SPC (Statistical Process Control) implemented',
+                    'Supplier provides dimensional reports',
+                    'First piece inspection (PPAP Level 3+)',
+                    'Ongoing capability study (Cpk tracking)'
+                ],
+                'Flow-Down Requirements': [
+                    'Customer-specific requirements (CSR) flowed down',
+                    'PPAP requirements communicated',
+                    'Engineering change order (ECO) process established',
+                    'Quality indicators / KPI requirements communicated',
+                    'Layered Process Audit (LPA) expectations defined'
+                ],
+                'Corrective Action & Audit': [
+                    'Problem-solving using 8D discipline expected',
+                    'Countermeasure effectiveness verified',
+                    'Containment action for field returns documented',
+                    'Quarterly business reviews (QBR) scheduled',
+                    'Tier-1 supplier audit of Tier-2 suppliers conducted',
+                    'On-time delivery and quality metrics tracked'
+                ]
+            },
+            'ISO 13485': {
+                'Sourcing Control': [
+                    'Supplier maintains ISO 13485 certification',
+                    'Supplier quality agreement includes regulatory requirements',
+                    'Supplier change notification process defined',
+                    'Supplier risk assessment completed',
+                    'Supplier subcontractor controls established'
+                ],
+                'Inspection & Acceptance': [
+                    'Incoming inspection criteria defined per design input',
+                    'Supplier traceability for Design History File (DHF)',
+                    'Supplier provides test reports / CoC',
+                    'Supplier management record retention (6+ years)',
+                    'Acceptance sampling / AQL levels defined'
+                ],
+                'Flow-Down Requirements': [
+                    'Design input requirements flowed down',
+                    'Biocompatibility / sterilization requirements communicated',
+                    'Regulatory / labeling requirements established',
+                    'Supplier change control process',
+                    'FDA 21 CFR Part 820 compliance responsibilities'
+                ],
+                'Corrective Action & Audit': [
+                    'Supplier CAPA process aligned with company requirements',
+                    'Field safety information / complaints shared',
+                    'Supplier audit schedule and scope defined',
+                    'Nonconformance tracking for regulatory submission',
+                    'Supplier management review participation',
+                    'Design transfer / validation supplier support'
+                ]
+            },
+            'FAA Part 21': {
+                'Sourcing Control': [
+                    'Supplier approved by FAA or PMA holder',
+                    'Supplier maintains quality system acceptable to FAA',
+                    'Supplier AS/EN/JCAB audit current',
+                    'Supplier change approval obtained',
+                    'Supplier subcontractor controls established'
+                ],
+                'Inspection & Acceptance': [
+                    'First Article Inspection (FAI) per AS9102 completed',
+                    'Supplier provides Airworthiness Release documentation',
+                    'Product safety data package complete',
+                    'Configuration management documentation attached',
+                    'Supplier Certificate of Conformance accepted'
+                ],
+                'Flow-Down Requirements': [
+                    'Production approval drawing requirements communicated',
+                    'Airworthiness Release requirement understood',
+                    'Special process requirements defined',
+                    'Continuing airworthiness information requirements',
+                    'Modification / repair authority requirements'
+                ],
+                'Corrective Action & Audit': [
+                    'Field failure / accident reporting process established',
+                    'Supplier audit by FAA accepted with company audit',
+                    'Technical feedback / complaints process',
+                    'Nonconformance investigation and SCAR process',
+                    'Supplier audit history retention (FAA review)',
+                    'Airworthiness Directive (AD) compliance verification'
+                ]
+            },
+            'EASA Part 145': {
+                'Sourcing Control': [
+                    'Supplier holds EASA Part-145 approval (Repair Station)',
+                    'Supplier EASA SIS Form 8 audit current',
+                    'Supplier management of change process documented',
+                    'Supplier configuration management established',
+                    'Supplier subcontractor / outsourcing controls'
+                ],
+                'Inspection & Acceptance': [
+                    'Supplier provides EASA Form 1 (Airworthiness Release) or 8130-3',
+                    'Supplier traceability documentation attached',
+                    'Supplier testing / inspection reports included',
+                    'Supplier component approval evidence',
+                    'Return to Service (RTS) documentation'
+                ],
+                'Flow-Down Requirements': [
+                    'EASA technical requirements communicated',
+                    'Repair scope / limitations understood',
+                    'Component Technical Record (CTR) expectations',
+                    'Continuing airworthiness support',
+                    'Modification / repair authority flow-down'
+                ],
+                'Corrective Action & Audit': [
+                    'Supplier Safety Management System (SMS) compliance',
+                    'Supplier corrective action process aligned with EASA',
+                    'Supplier EASA audit / surveillance cycle',
+                    'Accident / incident reporting obligations',
+                    'Supplier audit by EASA ASI with company participation',
+                    'Configuration management / modification tracking'
+                ]
+            },
+            'CAAC CCAR-145': {
+                'Sourcing Control': [
+                    'Supplier holds CAAC CCAR-145 Repair Station certificate',
+                    'Supplier MOU (Memorandum of Understanding) signed',
+                    'Supplier assessment / audit completed',
+                    'Supplier change notification process',
+                    'Supplier subcontractor controls established'
+                ],
+                'Inspection & Acceptance': [
+                    'Supplier provides release documentation (CAAC acceptable)',
+                    'Supplier traceability records included',
+                    'Supplier test / inspection reports provided',
+                    'Supplier configuration documentation',
+                    'Return to Service certification provided'
+                ],
+                'Flow-Down Requirements': [
+                    'CAAC technical requirements understood',
+                    'Repair specifications communicated',
+                    'Configuration management requirements flow-down',
+                    'Component history record expectations',
+                    'Ongoing airworthiness responsibilities'
+                ],
+                'Corrective Action & Audit': [
+                    'Supplier CAPA process documented',
+                    'Supplier audit schedule / interval defined',
+                    'Accident / incident reporting procedures',
+                    'CAAC compliance notifications shared',
+                    'Supplier audit by CAAC with company participation',
+                    'Technical records retention (6+ years)'
+                ]
+            }
+        };
+
+        // Initialize with demo data
+        let suppliers = [];
+
+        function initDemo() {
+            suppliers = [
+                {
+                    name: 'AeroTech Fasteners',
+                    standard: 'AS9100D',
+                    auditDate: '2026-03-15',
+                    certStatus: 5,
+                    capability: 4,
+                    ncrCount: 1
+                },
+                {
+                    name: 'ISO Parts Distributor',
+                    standard: 'ISO 9001:2015',
+                    auditDate: '2026-02-01',
+                    certStatus: 3,
+                    capability: 3,
+                    ncrCount: 2
+                },
+                {
+                    name: 'Tier 1 Automotive',
+                    standard: 'IATF 16949',
+                    auditDate: '2025-12-10',
+                    certStatus: 5,
+                    capability: 4,
+                    ncrCount: 1
+                },
+                {
+                    name: 'Medical Device Components',
+                    standard: 'ISO 13485',
+                    auditDate: '2025-11-20',
+                    certStatus: 3,
+                    capability: 3,
+                    ncrCount: 2
+                },
+                {
+                    name: 'MRO Electronics',
+                    standard: 'EASA Part 145',
+                    auditDate: '2026-05-01',
+                    certStatus: 5,
+                    capability: 4,
+                    ncrCount: 0
+                }
+            ];
+            saveSuppliers();
+            renderDashboard();
+            updateSQADropdown();
+        }
+
+        function calculateScore(supplier) {
+            const auditDate = new Date(supplier.auditDate);
+            const today = new Date();
+            const daysSinceAudit = Math.floor((today - auditDate) / (1000 * 60 * 60 * 24));
+
+            let auditScore = 5;
+            if (daysSinceAudit > 365) auditScore = 1;
+            else if (daysSinceAudit > 180) auditScore = 3;
+
+            let gapScore = 5;
+            if (supplier.ncrCount >= 3) gapScore = 1;
+            else if (supplier.ncrCount >= 1) gapScore = 3;
+
+            const avgScore = (parseInt(supplier.certStatus) + supplier.capability + auditScore + gapScore) / 4;
+            return Math.round(avgScore * 20);
+        }
+
+        function getRiskLevel(score) {
+            if (score >= 75) return 'Green';
+            if (score >= 50) return 'Yellow';
+            if (score >= 25) return 'Orange';
+            return 'Red';
+        }
+
+        function saveSuppliers() {
+            localStorage.setItem('suppliers', JSON.stringify(suppliers));
+        }
+
+        function loadSuppliers() {
+            const stored = localStorage.getItem('suppliers');
+            if (stored) {
+                suppliers = JSON.parse(stored);
+            } else {
+                initDemo();
+            }
+        }
+
+        function renderDashboard() {
+            renderStats();
+            renderRiskMatrix();
+        }
+
+        function renderStats() {
+            const stats = { Green: 0, Yellow: 0, Orange: 0, Red: 0 };
+            suppliers.forEach(s => {
+                const risk = getRiskLevel(calculateScore(s));
+                stats[risk]++;
+            });
+
+            const html = `
+                <div class="stat-card" style="border-top-color: #28a745;">
+                    <div class="stat-number">${stats.Green}</div>
+                    <div class="stat-label">Low Risk (Green)</div>
+                </div>
+                <div class="stat-card" style="border-top-color: #ffc107;">
+                    <div class="stat-number">${stats.Yellow}</div>
+                    <div class="stat-label">Medium Risk (Yellow)</div>
+                </div>
+                <div class="stat-card" style="border-top-color: #ff9800;">
+                    <div class="stat-number">${stats.Orange}</div>
+                    <div class="stat-label">High Risk (Orange)</div>
+                </div>
+                <div class="stat-card" style="border-top-color: #dc3545;">
+                    <div class="stat-number">${stats.Red}</div>
+                    <div class="stat-label">Critical Risk (Red)</div>
+                </div>
+                <div class="stat-card" style="border-top-color: #667eea;">
+                    <div class="stat-number">${suppliers.length}</div>
+                    <div class="stat-label">Total Suppliers</div>
+                </div>
+            `;
+            document.getElementById('stats-container').innerHTML = html;
+        }
+
+        function renderRiskMatrix() {
+            const html = suppliers.map(supplier => {
+                const score = calculateScore(supplier);
+                const risk = getRiskLevel(score);
+                const riskClass = `risk-${risk.toLowerCase()}`;
+
+                const auditDate = new Date(supplier.auditDate);
+                const today = new Date();
+                const daysSinceAudit = Math.floor((today - auditDate) / (1000 * 60 * 60 * 24));
+
+                return `
+                    <div class="supplier-card ${riskClass}" onclick="editSupplier('${supplier.name}')">
+                        <div class="supplier-name">${supplier.name}</div>
+                        <div class="score">${score}</div>
+                        <div style="margin: 10px 0;">
+                            <span class="risk-badge" style="background: rgba(0,0,0,0.1);">${risk} Risk</span>
+                        </div>
+                        <div style="font-size: 0.9em; margin-top: 10px; color: #666;">
+                            Standard: ${supplier.standard}<br>
+                            Last Audit: ${daysSinceAudit} days ago<br>
+                            Process Capability: ${supplier.capability}/5<br>
+                            Recent NCRs: ${supplier.ncrCount}
+                        </div>
+                        <div class="action-buttons">
+                            <button onclick="generateSupplierSQA('${supplier.name}'); event.stopPropagation();">SQA</button>
+                            <button onclick="deleteSupplier('${supplier.name}'); event.stopPropagation();" style="background: #dc3545;">Delete</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('risk-matrix').innerHTML = html || '<p style="text-align: center; color: #999; padding: 40px;">No suppliers yet. Add one to get started!</p>';
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+
+            document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (sectionId === 'dashboard') {
+                renderDashboard();
+            }
+        }
+
+        function addSupplier() {
+            const name = document.getElementById('supplierName').value;
+            const standard = document.getElementById('standard').value;
+            const auditDate = document.getElementById('auditDate').value;
+            const certStatus = document.getElementById('certStatus').value;
+            const capability = parseInt(document.getElementById('capability').value);
+            const ncrCount = parseInt(document.getElementById('ncrCount').value);
+
+            if (!name || !auditDate) {
+                document.getElementById('message').innerHTML = '<div class="success-message" style="background: #f8d7da; border-color: #f5c6cb; color: #721c24;">Please fill in all required fields.</div>';
+                return;
+            }
+
+            // Remove if exists
+            suppliers = suppliers.filter(s => s.name !== name);
+
+            suppliers.push({
+                name, standard, auditDate,
+                certStatus: parseInt(certStatus),
+                capability, ncrCount
+            });
+
+            saveSuppliers();
+            document.getElementById('message').innerHTML = '<div class="success-message">✅ Supplier saved successfully!</div>';
+
+            // Clear form
+            document.getElementById('supplierName').value = '';
+            document.getElementById('auditDate').value = '';
+            document.getElementById('capability').value = 3;
+            document.getElementById('ncrCount').value = 0;
+
+            updateSQADropdown();
+            setTimeout(() => {
+                document.getElementById('message').innerHTML = '';
+            }, 3000);
+        }
+
+        function deleteSupplier(name) {
+            if (confirm(`Delete "${name}"?`)) {
+                suppliers = suppliers.filter(s => s.name !== name);
+                saveSuppliers();
+                renderDashboard();
+                updateSQADropdown();
+            }
+        }
+
+        function editSupplier(name) {
+            const supplier = suppliers.find(s => s.name === name);
+            if (supplier) {
+                document.getElementById('supplierName').value = supplier.name;
+                document.getElementById('standard').value = supplier.standard;
+                document.getElementById('auditDate').value = supplier.auditDate;
+                document.getElementById('certStatus').value = supplier.certStatus;
+                document.getElementById('capability').value = supplier.capability;
+                document.getElementById('ncrCount').value = supplier.ncrCount;
+                showSection('add-supplier');
+            }
+        }
+
+        function updateSQADropdown() {
+            const select = document.getElementById('sqaSupplier');
+            select.innerHTML = '<option value="">-- Choose Supplier --</option>' +
+                suppliers.map(s => `<option value="${s.name}">${s.name} (${s.standard})</option>`).join('');
+        }
+
+        function exportToCSV() {
+            const headers = ['Supplier Name', 'Standard', 'Last Audit Date', 'Certification Status', 'Process Capability', 'NCR Count', 'Risk Score', 'Risk Level'];
+            const rows = suppliers.map(s => [
+                s.name, s.standard, s.auditDate, s.certStatus, s.capability, s.ncrCount,
+                calculateScore(s), getRiskLevel(calculateScore(s))
+            ]);
+
+            let csv = headers.join(',') + '\n';
+            rows.forEach(row => csv += row.map(cell => `"${cell}"`).join(',') + '\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `suppliers-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+        }
+
+        function exportScorecard() {
+            window.print();
+        }
+
+        function importCSV() {
+            const file = document.getElementById('csvFile').files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const csv = e.target.result;
+                const lines = csv.split('\n');
+                let imported = 0;
+
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+
+                    const parts = lines[i].split(',').map(p => p.trim().replace(/^"|"$/g, ''));
+                    if (parts.length < 6) continue;
+
+                    suppliers.push({
+                        name: parts[0],
+                        standard: parts[1],
+                        auditDate: parts[2],
+                        certStatus: parseInt(parts[3]),
+                        capability: parseInt(parts[4]),
+                        ncrCount: parseInt(parts[5])
+                    });
+                    imported++;
+                }
+
+                saveSuppliers();
+                document.getElementById('import-message').innerHTML = `<div class="success-message">✅ Imported ${imported} supplier(s)!</div>`;
+                updateSQADropdown();
+                renderDashboard();
+                setTimeout(() => {
+                    document.getElementById('import-message').innerHTML = '';
+                    document.getElementById('csvFile').value = '';
+                }, 3000);
+            };
+            reader.readAsText(file);
+        }
+
+        function generateSQA() {
+            const supplierName = document.getElementById('sqaSupplier').value;
+            const auditor = document.getElementById('auditorName').value;
+            const org = document.getElementById('orgName').value;
+            const auditDate = document.getElementById('sqaAuditDate').value;
+
+            if (!supplierName || !auditor || !org || !auditDate) {
+                document.getElementById('sqa-message').innerHTML = '<div class="success-message" style="background: #f8d7da; border-color: #f5c6cb; color: #721c24;">Please fill in all fields.</div>';
+                return;
+            }
+
+            const supplier = suppliers.find(s => s.name === supplierName);
+            const standard = supplier.standard;
+            const template = sqaTemplates[standard];
+
+            let html = `<h2>${org} - Supplier Quality Agreement (SQA) Audit</h2>
+                <hr>
+                <p><strong>Supplier:</strong> ${supplierName}</p>
+                <p><strong>Standard:</strong> ${standard}</p>
+                <p><strong>Audit Date:</strong> ${auditDate}</p>
+                <p><strong>Auditor:</strong> ${auditor}</p>
+                <hr>`;
+
+            for (const [category, items] of Object.entries(template)) {
+                html += `<h3>${category}</h3>`;
+                items.forEach(item => {
+                    html += `<div class="checklist-item">
+                        <input type="checkbox">
+                        <label>${item}</label>
+                    </div>`;
+                });
+            }
+
+            html += `<hr>
+                <p><strong>Overall Compliance:</strong> ___% Compliant</p>
+                <p><strong>Auditor Signature:</strong> _________________ Date: _________</p>`;
+
+            document.getElementById('sqa-title').textContent = `SQA Checklist - ${supplierName} (${standard})`;
+            document.getElementById('sqa-content').innerHTML = html;
+            document.getElementById('sqa-preview').style.display = 'block';
+        }
+
+        function generateSupplierSQA(supplierName) {
+            document.getElementById('sqaSupplier').value = supplierName;
+            document.getElementById('sqaAuditDate').valueAsDate = new Date();
+            showSection('sqa-generator');
+        }
+
+        function downloadSQAPDF() {
+            window.print();
+        }
+
+        function resetToDemo() {
+            if (confirm('Reset all data to demo suppliers?')) {
+                localStorage.removeItem('suppliers');
+                initDemo();
+                showSection('dashboard');
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            loadSuppliers();
+            renderDashboard();
+            updateSQADropdown();
+        });
+    </script>
+</body>
+</html>

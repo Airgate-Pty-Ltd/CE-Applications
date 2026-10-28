@@ -1,0 +1,28 @@
+{
+  "ruleId": "SOA-002",
+  "dimId": "iso42001-aims-governance",
+  "revision": 1,
+  "effectiveDate": "2026-07-10",
+  "approvedBy": "Brian R. Olea",
+  "approvalRef": "MAI-CCB-2026-014",
+  "severity": "minor",
+  "category": "completeness",
+  "riskClass": "C",
+  "basisType": "deterministic-record-completeness",
+  "description": "A Statement of Applicability entry marked applicable must have a stated justification for why the control applies.",
+  "requiredFields": ["applicability", "justification"],
+  "events": ["soa.created", "soa.updated"],
+  "findingText": "Applicability claimed without stated rationale",
+  "resolutionHint": "Document why this control applies to your AI systems",
+  "clauseRefs": ["6.1.3"],
+  "condition": {
+    "all": [
+      { "field": "applicability", "eq": "applicable" },
+      { "field": "justification", "is_empty": true }
+    ]
+  },
+  "testCases": ["SOA-002-POS-001", "SOA-002-NEG-001", "SOA-002-MISSING-001"],
+  "limitations": [
+    "Checks only that the justification field is non-empty text — cannot judge whether the stated rationale is actually sound or accurate."
+  ]
+}

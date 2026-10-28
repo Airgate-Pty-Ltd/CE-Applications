@@ -1,0 +1,49 @@
+{
+  "ruleId": "PA-101",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "major",
+  "category": "completeness",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit"
+  ],
+  "events": [
+    "audit.closeout.requested",
+    "audit.report.issue_requested"
+  ],
+  "description": "In-scope regulatory items (authority levels 1, 2 or 3a) have not been started.",
+  "requiredFields": [
+    "regulatory_items_not_started"
+  ],
+  "findingText": "In-scope regulatory items (authority levels 1, 2 or 3a) have not been started.",
+  "resolutionHint": "Assess or formally descope these items before issuing the report.",
+  "clauseRefs": [],
+  "condition": {
+    "field": "regulatory_items_not_started",
+    "op": "length_gte",
+    "value": 1
+  },
+  "decision": {
+    "decisionState": "HOLD",
+    "permittedHostAction": "hold:report-issuance",
+    "humanReviewRequired": true,
+    "overrideAuthority": [
+      "lead_auditor"
+    ],
+    "authorityScope": "AP-PA-REPORT-HOLD"
+  },
+  "testCases": [
+    "PA-101-POS-001",
+    "PA-101-NEG-001",
+    "PA-101-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDCAT Legal</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        margin: 0;
+        background: #f8fafc;
+        color: #0f172a;
+      }
+      header {
+        padding: 1.5rem;
+        background: #0f172a;
+        color: #5eead4;
+      }
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 4rem;
+      }
+      nav {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+      }
+      nav a {
+        background: rgba(14, 165, 233, 0.12);
+        color: #0369a1;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      nav a:hover {
+        background: rgba(14, 165, 233, 0.2);
+      }
+      section {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
+      }
+      h2 {
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Conform-Edge QMS Legal Library</h1>
+      <p>Authoritative copies of privacy, terms, residency, and operational status statements.</p>
+    </header>
+    <main>
+      <nav id="legalNav"></nav>
+      <div id="legalContent">
+        <section>
+          <h2>Loading…</h2>
+          <p>Please wait while we retrieve the latest legal content.</p>
+        </section>
+      </div>
+    </main>
+    <script>
+      async function loadLegalPages() {
+        try {
+          const indexResponse = await fetch('/api/legal');
+          const indexPayload = await indexResponse.json();
+          const pages = indexPayload.pages || [];
+
+          const nav = document.getElementById('legalNav');
+          const content = document.getElementById('legalContent');
+
+          if (!pages.length) {
+            content.innerHTML = '<section><h2>No legal content published yet.</h2></section>';
+            return;
+          }
+
+          nav.innerHTML = pages
+            .map((page) => `<a href="#${page.slug}">${page.title}</a>`)
+            .join('');
+
+          const sections = [];
+          for (const page of pages) {
+            const pageResponse = await fetch(`/api/legal/${page.slug}`);
+            const pagePayload = await pageResponse.json();
+            const body = pagePayload.page?.content || '<p>Content coming soon.</p>';
+            sections.push(`
+              <section id="${page.slug}">
+                <h2>${pagePayload.page?.title || page.title}</h2>
+                ${body}
+              </section>
+            `);
+          }
+
+          content.innerHTML = sections.join('');
+
+          if (window.location.hash) {
+            const target = document.querySelector(window.location.hash);
+            target?.scrollIntoView({ behavior: 'smooth' });
+          }
+        } catch (error) {
+          document.getElementById('legalContent').innerHTML = `
+            <section>
+              <h2>Error loading legal content</h2>
+              <p>${error.message}</p>
+            </section>
+          `;
+        }
+      }
+
+      loadLegalPages();
+    </script>
+  </body>
+</html>
+

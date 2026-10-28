@@ -1,0 +1,32 @@
+{
+  "name": "edge-document-compliance",
+  "version": "1.0.0",
+  "description": "Next Generation Document Assessment Tool static preview server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "seed": "node scripts/seed.js",
+    "diagnostics": "node scripts/edcat-diagnostics.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Airgate-Pty-Ltd/Edge-Document-Compliance.git"
+  },
+  "keywords": [],
+  "author": "Conform-Edge",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Airgate-Pty-Ltd/Edge-Document-Compliance/issues"
+  },
+  "homepage": "https://github.com/Airgate-Pty-Ltd/Edge-Document-Compliance#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mammoth": "^1.11.0",
+    "multer": "^2.0.2",
+    "natural": "^8.1.0",
+    "pg": "^8.16.3",
+    "uuid": "^13.0.0",
+    "node-fetch": "^3.3.2"
+  }
+}

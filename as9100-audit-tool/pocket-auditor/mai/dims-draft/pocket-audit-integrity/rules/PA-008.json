@@ -1,0 +1,43 @@
+{
+  "ruleId": "PA-008",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "minor",
+  "category": "linkage",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit_finding"
+  ],
+  "events": [
+    "audit.finding.created"
+  ],
+  "description": "This requirement has an open finding from a prior audit of the same auditee.",
+  "requiredFields": [
+    "prior_open_finding_on_same_requirement"
+  ],
+  "findingText": "This requirement has an open finding from a prior audit of the same auditee. Possible repeat finding.",
+  "resolutionHint": "Review the prior finding and consider repeat-finding escalation.",
+  "clauseRefs": [],
+  "condition": {
+    "field": "prior_open_finding_on_same_requirement",
+    "op": "eq",
+    "value": true
+  },
+  "decision": {
+    "decisionState": "ADVISE",
+    "permittedHostAction": "none"
+  },
+  "testCases": [
+    "PA-008-POS-001",
+    "PA-008-NEG-001",
+    "PA-008-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

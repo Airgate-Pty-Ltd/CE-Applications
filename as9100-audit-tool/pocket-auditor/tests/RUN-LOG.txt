@@ -1,0 +1,102 @@
+Pocket Auditor check run  2026-10-08T20:33:22
+
+[PASS] parse FAA 14 CFR 145 extract
+    $ -I content/parse_ecfr.py sources/ecfr-14-cfr-145.xml content/rows-faa-14cfr-145.json FAA 14 CFR Part 145
+    | FAA 14 CFR Part 145: 264 paragraph rows, sha256 7f5e362ee7db965c..., wrote content/rows-faa-14cfr-145.json
+
+[PASS] parse FAA 14 CFR 21 extract
+    $ -I content/parse_ecfr.py sources/ecfr-14-cfr-21.xml content/rows-faa-14cfr-21.json FAA 14 CFR Part 21
+    | FAA 14 CFR Part 21: 871 paragraph rows, sha256 435031ef59dcfd99..., wrote content/rows-faa-14cfr-21.json
+
+[PASS] build AS findings report
+    $ -I content/build_as_findings.py
+    | wrote AS-LICENSED-REGISTER-FINDINGS.md
+
+[PASS] build audit clause universe (4-10)
+    $ -I content/build_audit_rows.py
+    | {
+    |  "AS9100D": {
+    |   "clauses_4_to_10": 100,
+    |   "seed_text_to_verify": 48,
+    |   "author_required": 52
+    |  },
+    |  "AS9110C": {
+    |   "clauses_4_to_10": 106,
+    |   "seed_text_to_verify": 9,
+    |   "author_required": 97
+    |  }
+    | }
+
+[PASS] verify audit clause universe
+    $ -I content/verify_audit_rows.py
+    | Rule AUDIT-RULE-4-10: Every clause and subclause of the standard from Clause 4 to Clause 10 is audited. No exceptions, except exceptions listed in the organization's quality manual.
+    |   AS9100D: 100 clauses in scope (4-10, subclauses included)
+    |   AS9110C: 106 clauses in scope (4-10, subclauses included)
+    |   Seed text to verify against the standard: 57
+    |   Intent still to author: 149
+    | 
+    | All structural checks pass. Intent authoring is not complete (see counts above).
+
+[PASS] engine unit tests
+    $ -I -m unittest discover -s tests -p test_*.py
+    | .....................................................................................................................................................................................................................................................................................................................................................................................................................
+    | ----------------------------------------------------------------------
+    | Ran 405 tests in 23.803s
+    | 
+    | OK
+
+[PASS] synthetic quality-manual vertical demo
+    $ -I tests/demo_qm_vertical.py
+    |    "qm_section_ref": "QM 1.6",
+    |    "evidence_links": [
+    |     "E:\\Conform-Edge\\ClaudeCowork\\04 Product Portfolio\\Conform-Edge Software\\AS9100-audit-tool\\pocket-auditor\\tests\\fixtures\\SYNTHETIC-quality-manual-v2.txt (sha256 9157574a5fd40dabb9865576f6a0141ea8975c0a4b319da487fd9284c5faa8e5)"
+    |    ],
+    |    "reviewer": "Reviewer A",
+    |    "auditor": "system-extraction",
+    |    "timestamp": "2026-10-08T10:12:00",
+    |    "approved": true
+    |   }
+    |  ],
+    |  "errors": []
+    | }
+
+[PASS] reconcile canonical checklists to licensed copies
+    $ -I content/reconcile_canonical.py
+    | AS9100D canonical rows 100 lettered rows 294 unresolved 0 status RECONCILED
+    | AS9110C canonical rows 106 lettered rows 309 unresolved 0 status RECONCILED
+
+[PASS] complete canonical row fields (locator, N/A, finding link)
+    $ -I content/complete_rows.py
+    | AS9100D {'rows': 394, 'authored': 93, 'pending_authoring': 294, 'group_headings': 7}
+    | AS9110C {'rows': 415, 'authored': 99, 'pending_authoring': 309, 'group_headings': 7}
+
+[PASS] merge authored lettered rows (duplicate, required-field and unknown-reference checks)
+    $ -I content/checklists/lettered/merge_lettered.py
+    | AS9100D: lettered total 294, authored 294, pending 0
+    | AS9110C: lettered total 309, authored 309, pending 0
+
+[PASS] checklist reconciliation against licensed sources and workbook (exceptions only)
+    $ -I content/qa/reconcile_checklists.py
+    | checks 8185  BLOCK 0  WARN 4  OWNER_DECISION 0
+
+[PASS] build prototype gate status and sample snapshot
+    $ -I content/build_prototype_status.py
+    | gate-status written; lock allowed: False | snapshot already exists (immutable): SYNTHETIC-DEMO-001-AS9110C-v1.json
+
+[PASS] JSON parses: content/library-seed.json
+[PASS] JSON parses: content/checklists/AS9100D.json
+[PASS] JSON parses: content/checklists/AS9110C.json
+[PASS] JSON parses: content/reconciliation/AS9100D-reconciliation.json
+[PASS] JSON parses: content/reconciliation/AS9110C-reconciliation.json
+[PASS] JSON parses: prototype/data/gate-status.json
+[PASS] JSON parses: content/AS-licensed-clause-register.json
+[PASS] JSON parses: content/audit-rule/clause-universe.json
+[PASS] JSON parses: content/audit-rule/rule.json
+[PASS] JSON parses: content/rows-faa-14cfr-145.json
+[PASS] JSON parses: content/rows-faa-14cfr-21.json
+[PASS] JSON parses: content/rows-easa-part145.json
+[PASS] JSON parses: content/rows-easa-part21.json
+[PASS] JSON parses: content/rows-uk-part145.json
+[PASS] JSON parses: content/rows-caac-maint-org.json
+
+RESULT: ALL CHECKS PASS

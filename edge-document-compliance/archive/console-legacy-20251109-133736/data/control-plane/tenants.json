@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "updated_at": "2025-11-09T08:09:17.227Z",
+  "tenants": [
+    {
+      "tenant_id": "cycle1-tenant",
+      "tenant_name": "Cycle1 Tenant",
+      "tenant_type": "enterprise",
+      "country": "United States",
+      "industry_sector": "other",
+      "company_legal_name": null,
+      "billing_contact_name": null,
+      "billing_contact_email": null,
+      "billing_contact_phone": null,
+      "billing_address_line1": null,
+      "billing_address_line2": null,
+      "billing_city": null,
+      "billing_state_region": null,
+      "billing_postal_code": null,
+      "billing_country": null,
+      "tax_id_vat": null,
+      "primary_admin_name": null,
+      "primary_admin_email": null,
+      "primary_admin_phone": null,
+      "technical_contact_name": null,
+      "technical_contact_email": null,
+      "technical_contact_phone": null,
+      "subscription_plan": "trial",
+      "subscription_status": "trial",
+      "subscription_start_date": "2025-11-09T08:05:47.541Z",
+      "subscription_renewal_date": null,
+      "max_users": 5,
+      "profile_id": "PROFILE_ENTERPRISE_AEROSPACE_FULL",
+      "allowed_profiles": [
+        "PROFILE_ENTERPRISE_AEROSPACE_FULL"
+      ],
+      "modules_enabled": {
+        "edcat_core": true
+      },
+      "reg_packs_enabled": [],
+      "standards_enabled": [],
+      "base_path": "/tenants/cycle1-tenant",
+      "db_instance_name": "edcat_cycle1_tenant",
+      "api_key_id": null,
+      "sso_enabled": false,
+      "health_status": "good",
+      "last_health_check": null,
+      "branding": {
+        "display_name": "Cycle1 Display",
+        "logo_url": null
+      },
+      "internal_notes": null,
+      "provisioned": false,
+      "provisioned_at": null,
+      "customer_tables": [],
+      "created_at": "2025-11-09T08:05:47.541Z",
+      "updated_at": "2025-11-09T08:09:17.225Z"
+    },
+    {
+      "tenant_id": "faa-nw",
+      "tenant_name": "FAA Northwest Ops",
+      "tenant_type": "oem_mro",
+      "country": "United States",
+      "industry_sector": "aerospace",
+      "company_legal_name": "FAA Northwest Operations",
+      "billing_contact_name": "Finance Team",
+      "billing_contact_email": "finance@faa-nw.example",
+      "billing_contact_phone": "+1-555-0100",
+      "billing_address_line1": "100 Aviation Way",
+      "billing_address_line2": null,
+      "billing_city": "Seattle",
+      "billing_state_region": "WA",
+      "billing_postal_code": "98101",
+      "billing_country": "United States",
+      "tax_id_vat": null,
+      "primary_admin_name": "Compliance Admin",
+      "primary_admin_email": "admin@faa-nw.example",
+      "primary_admin_phone": "+1-555-0101",
+      "technical_contact_name": "Tech Lead",
+      "technical_contact_email": "tech@faa-nw.example",
+      "technical_contact_phone": "+1-555-0102",
+      "subscription_plan": "regulator",
+      "subscription_status": "active",
+      "subscription_start_date": "2025-01-01T00:00:00.000Z",
+      "subscription_renewal_date": "2026-01-01T00:00:00.000Z",
+      "max_users": 50,
+      "profile_id": "PROFILE_ENTERPRISE_AEROSPACE_FULL",
+      "allowed_profiles": [
+        "PROFILE_ENTERPRISE_AEROSPACE_FULL",
+        "PROFILE_REG_FAA_PART21",
+        "PROFILE_REG_FAA_PART145"
+      ],
+      "modules_enabled": {
+        "edcat_core": true
+      },
+      "reg_packs_enabled": [
+        "REGPACK_FAA_PART21",
+        "REGPACK_FAA_PART145"
+      ],
+      "standards_enabled": [
+        "STANDARD_AS9100",
+        "STANDARD_AS9110"
+      ],
+      "base_path": "/tenants/faa-nw",
+      "db_instance_name": "edcat_faa_nw",
+      "api_key_id": null,
+      "sso_enabled": false,
+      "health_status": "good",
+      "last_health_check": null,
+      "branding": {
+        "display_name": "FAA Northwest Ops",
+        "logo_url": null
+      },
+      "internal_notes": "Seed tenant for production demo environment.",
+      "provisioned": false,
+      "provisioned_at": null,
+      "customer_tables": [],
+      "created_at": "2025-11-09T17:05:00.000Z",
+      "updated_at": "2025-11-09T17:05:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "source": "FAA Part 21",
+    "region": "USA",
+    "requirements": [
+      {
+        "requirement_ref": "21.1",
+        "requirement_text": "The applicant shall provide manufacturing data for review.",
+        "requirement_type": "shall"
+      },
+      {
+        "requirement_ref": "21.2",
+        "requirement_text": "The organization must retain records for at least five years.",
+        "requirement_type": "must"
+      }
+    ]
+  }
+]

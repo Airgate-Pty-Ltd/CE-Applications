@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FDA QMSR Transition Readiness Tool | Conform-Edge</title>
+<style>
+  :root {
+    --navy: #0d2b4e;
+    --steel: #2e5f8a;
+    --amber: #c47d00;
+    --green: #1a7a4a;
+    --red: #b52020;
+    --orange: #b85000;
+    --bg: #f4f6fa;
+    --card: #ffffff;
+    --border: #d0d8e4;
+    --muted: #5a6a7e;
+    --text: #1a2535;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Aptos', 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; }
+
+  /* Header */
+  header { background: var(--navy); color: white; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-icon { width: 40px; height: 40px; background: var(--amber); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: white; }
+  .brand-name { font-size: 20px; font-weight: 700; }
+  .brand-sub { font-size: 12px; opacity: 0.7; margin-top: 1px; }
+  .header-badge { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; }
+
+  /* Hero */
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--steel) 100%); color: white; padding: 40px 32px 36px; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+  .hero p { font-size: 15px; opacity: 0.85; max-width: 680px; margin: 0 auto 18px; line-height: 1.6; }
+  .hero-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .hero-badge { background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.28); border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 600; }
+
+  /* Regulation context bar */
+  .reg-bar { background: #fff3cd; border-bottom: 2px solid #c47d00; padding: 12px 32px; display: flex; align-items: center; gap: 12px; font-size: 13px; }
+  .reg-bar strong { color: var(--amber); }
+
+  /* Layout */
+  .container { max-width: 900px; margin: 0 auto; padding: 28px 24px 60px; }
+
+  /* Progress tracker */
+  .progress-bar-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 22px; margin-bottom: 24px; display: flex; align-items: center; gap: 18px; }
+  .progress-bar-bg { flex: 1; background: #e8eef8; border-radius: 6px; height: 10px; overflow: hidden; }
+  .progress-bar-fill { height: 10px; background: var(--steel); border-radius: 6px; transition: width 0.4s ease; width: 0%; }
+  #progressLabel { font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+  /* Section cards */
+  .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 18px; overflow: hidden; }
+  .section-head { padding: 16px 20px; background: var(--navy); color: white; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+  .section-head:hover { background: #163a63; }
+  .section-title { font-size: 15px; font-weight: 700; }
+  .section-meta { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+  .section-badge { background: rgba(255,255,255,0.18); border-radius: 12px; padding: 3px 10px; font-size: 12px; font-weight: 700; min-width: 48px; text-align: center; }
+  .section-body { display: none; padding: 20px; border-top: 1px solid var(--border); }
+  .section-body.open { display: block; }
+
+  /* Questions */
+  .q-block { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eaeff6; }
+  .q-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .q-row { display: flex; align-items: flex-start; gap: 14px; }
+  .q-num { font-size: 12px; font-weight: 700; color: var(--steel); background: #e8eef8; border-radius: 6px; padding: 3px 8px; min-width: 36px; text-align: center; margin-top: 2px; flex-shrink: 0; }
+  .q-content { flex: 1; }
+  .q-text { font-size: 14px; color: var(--text); line-height: 1.55; margin-bottom: 10px; font-weight: 500; }
+  .q-clause { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+  .q-options { display: flex; gap: 8px; flex-wrap: wrap; }
+  .opt-btn { padding: 7px 14px; border: 2px solid var(--border); border-radius: 20px; background: white; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted); transition: all 0.15s; }
+  .opt-btn:hover { border-color: var(--steel); color: var(--steel); }
+  .opt-btn.sel-full   { background: var(--green);  border-color: var(--green);  color: white; }
+  .opt-btn.sel-partial { background: var(--amber);  border-color: var(--amber);  color: white; }
+  .opt-btn.sel-none   { background: var(--red);    border-color: var(--red);    color: white; }
+  .opt-btn.sel-na     { background: #6c757d;       border-color: #6c757d;       color: white; }
+  .q-delta { font-size: 11px; color: #b52020; background: #fdf0f0; border-radius: 4px; padding: 3px 7px; display: inline-block; margin-bottom: 6px; font-weight: 600; }
+  .q-delta.new { color: #0d5c00; background: #eafaf0; }
+
+  /* Submit bar */
+  .submit-bar { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-align: center; margin-top: 10px; }
+  .submit-bar p { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .btn-primary { background: var(--navy); color: white; border: none; padding: 14px 36px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; }
+  .btn-primary:hover { background: var(--steel); }
+  .btn-secondary { background: white; color: var(--navy); border: 2px solid var(--navy); padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; margin-left: 10px; }
+  .btn-secondary:hover { background: #f0f4f8; }
+
+  /* Results */
+  #results { display: none; margin-top: 28px; }
+  .results-header { background: var(--navy); color: white; border-radius: 12px 12px 0 0; padding: 22px 28px; }
+  .results-header h2 { font-size: 20px; font-weight: 800; }
+  .results-date { font-size: 12px; opacity: 0.6; margin-top: 4px; }
+  .results-body { background: var(--card); border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; padding: 28px; }
+
+  /* Score ring */
+  .score-ring-wrap { display: flex; align-items: center; gap: 36px; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .ring-svg { flex-shrink: 0; }
+  .ring-track { fill: none; stroke: #e0e8f0; stroke-width: 16; }
+  .ring-fill  { fill: none; stroke-width: 16; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.8s ease, stroke 0.5s; stroke-dasharray: 289; stroke-dashoffset: 289; }
+  .ring-pct   { font-size: 26px; font-weight: 800; fill: var(--navy); }
+  .ring-label { font-size: 11px; fill: var(--muted); }
+  .score-text-wrap { flex: 1; }
+  .score-verdict { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .score-ready    { color: var(--green); }
+  .score-moderate { color: var(--amber); }
+  .score-high     { color: var(--orange); }
+  .score-critical { color: var(--red); }
+  .score-summary  { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* Section bars */
+  .section-bars { margin-bottom: 24px; }
+  .section-bars h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .ss-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .ss-name { font-size: 13px; color: var(--text); min-width: 220px; }
+  .ss-bar-wrap { flex: 1; background: #e8eef8; border-radius: 4px; height: 10px; overflow: hidden; }
+  .ss-bar { height: 10px; border-radius: 4px; transition: width 0.6s ease; }
+  .bar-green  { background: var(--green); }
+  .bar-amber  { background: var(--amber); }
+  .bar-red    { background: var(--red); }
+  .ss-pct { font-size: 13px; font-weight: 700; color: var(--muted); min-width: 40px; text-align: right; }
+
+  /* Action items */
+  .action-items-wrap h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .action-item { border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; }
+  .action-item.priority-high    { border-left: 4px solid var(--red);    background: #fdf8f8; }
+  .action-item.priority-medium  { border-left: 4px solid var(--amber);  background: #fdf8f0; }
+  .action-priority { font-size: 11px; font-weight: 700; margin-bottom: 5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .action-item.priority-high .action-priority   { color: var(--red); }
+  .action-item.priority-medium .action-priority { color: var(--amber); }
+  .action-text { font-size: 14px; line-height: 1.5; }
+  .action-clause { font-size: 11px; color: var(--steel); margin-top: 5px; font-weight: 600; }
+  .all-clear { background: #eafaf0; border: 1px solid var(--green); border-radius: 8px; padding: 18px; color: var(--green); font-weight: 700; text-align: center; }
+
+  .btn-print { background: var(--steel); color: white; border: none; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 16px; }
+  .btn-print:hover { background: var(--navy); }
+
+  footer { text-align: center; padding: 28px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); background: white; margin-top: 20px; }
+  footer strong { color: var(--navy); }
+
+  @media print {
+    header, .hero, .reg-bar, .progress-bar-wrap, .section-head, .q-options, .submit-bar, .btn-print, .btn-secondary, footer { display: none !important; }
+    .section-body { display: block !important; }
+    #results { display: block !important; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">CE</div>
+    <div>
+      <div class="brand-name">Conform-Edge</div>
+      <div class="brand-sub">QMS Intelligence Platform</div>
+    </div>
+  </div>
+  <div class="header-badge">FDA QMSR · 21 CFR Part 820</div>
+</header>
+
+<div class="hero">
+  <h1>FDA QMSR Transition Readiness Tool</h1>
+  <p>Self-assess your medical device QMS against the Quality Management System Regulation (21 CFR Part 820, effective February 2, 2026). Identify gaps, prioritize actions, and generate a print-ready transition report.</p>
+  <div class="hero-badges">
+    <span class="hero-badge">21 CFR Part 820 · QMSR</span>
+    <span class="hero-badge">ISO 13485:2016 Aligned</span>
+    <span class="hero-badge">40 Assessment Items</span>
+    <span class="hero-badge">Runs 100% in Browser</span>
+    <span class="hero-badge">No Data Transmitted</span>
+  </div>
+</div>
+
+<div class="reg-bar">
+  ⚠ <strong>Compliance Notice:</strong> FDA QMSR (21 CFR Part 820) became effective <strong>February 2, 2026</strong>. The transition grace period has ended. Devices marketed in the US must now conform to QMSR — not the legacy QSR. Warning letters citing QMSR violations began issuing Q1 2026.
+</div>
+
+<div class="container">
+
+  <div class="progress-bar-wrap">
+    <div style="font-size:13px;color:var(--navy);font-weight:700;">Assessment Progress</div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <div id="progressLabel">0 of 40 answered</div>
+  </div>
+
+  <!-- SECTION 1: QMS Foundation & ISO 13485 Incorporation -->
+  <div class="section-card">
+    <div class="section-head" onclick="toggleSection('s1')">
+      <div>
+        <div class="section-title">1 — QMS Foundation &amp; QMSR Scope</div>
+        <div class="section-meta">§820.1 · §820.10 · ISO 13485 §4 Integration</div>
+      </div>
+      <div class="section-badge" id="badge-s1">0/6</div>
+    </div>
+    <div class="section-body" id="body-s1">
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q1</div>
+          <div class="q-content">
+            <div class="q-delta new">NEW: QMSR incorporates ISO 13485:2016 by reference</div>
+            <div class="q-text">Your QMS documents explicitly reference ISO 13485:2016 as the incorporated standard, and leadership understands that QMSR compliance is achieved through conformance with ISO 13485:2016 plus the QMSR-specific additions.</div>
+            <div class="q-clause">§820.1(b) · 21 CFR 820 Subpart A</div>
+            <div class="q-options" data-q="1" data-sec="1" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q2</div>
+          <div class="q-content">
+            <div class="q-text">The QMS scope statement identifies all device types, all sites, and all processes covered, including any exclusions with documented justification, consistent with ISO 13485:2016 §4.2.2.</div>
+            <div class="q-clause">§820.10 · ISO 13485 §4.2.2</div>
+            <div class="q-options" data-q="2" data-sec="1" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q3</div>
+          <div class="q-content">
+            <div class="q-text">A documented Quality Manual (or equivalent documented QMS framework) is maintained and describes the interaction of QMS processes, consistent with ISO 13485:2016 §4.2.2.</div>
+            <div class="q-clause">ISO 13485 §4.2.2</div>
+            <div class="q-options" data-q="3" data-sec="1" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q4</div>
+          <div class="q-content">
+            <div class="q-delta">CHANGE: QSR → QMSR terminology update required in all documents</div>
+            <div class="q-text">Controlled documents have been reviewed and updated to replace QSR (Quality System Regulation) references with QMSR (Quality Management System Regulation) terminology, and document revision history reflects this update.</div>
+            <div class="q-clause">§820.1 · Document Control</div>
+            <div class="q-options" data-q="4" data-sec="1" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q5</div>
+          <div class="q-content">
+            <div class="q-text">Risk-based thinking is applied across all QMS processes — not just product risk — as required by ISO 13485:2016 §5.6 and §8.2.3 (risk management per ISO 14971 for devices, ISO 13485 risk process for QMS).</div>
+            <div class="q-clause">ISO 13485 §5.6 · ISO 14971</div>
+            <div class="q-options" data-q="5" data-sec="1" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q6</div>
+          <div class="q-content">
+            <div class="q-text">Management review has been updated to incorporate ISO 13485:2016 §5.6 inputs (regulatory reporting data, post-market surveillance, complaint trends, audit results) and outputs are documented with actions, owners, and due dates.</div>
+            <div class="q-clause">ISO 13485 §5.6</div>
+            <div class="q-options" data-q="6" data-sec="1" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 2: Design Controls (DHF) -->
+  <div class="section-card">
+    <div class="section-head" onclick="toggleSection('s2')">
+      <div>
+        <div class="section-title">2 — Design Controls &amp; Design History File (DHF)</div>
+        <div class="section-meta">§820.30 retained · ISO 13485 §7.3 · DHF terminology</div>
+      </div>
+      <div class="section-badge" id="badge-s2">0/6</div>
+    </div>
+    <div class="section-body" id="body-s2">
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q7</div>
+          <div class="q-content">
+            <div class="q-text">A Design History File (DHF) exists for each device type, containing or referencing all design and development records required to demonstrate conformance to design specifications.</div>
+            <div class="q-clause">§820.30(j) · ISO 13485 §7.3.10</div>
+            <div class="q-options" data-q="7" data-sec="2" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q8</div>
+          <div class="q-content">
+            <div class="q-text">Design inputs are defined, documented, and include functional, performance, safety, and regulatory requirements; incomplete or ambiguous inputs are resolved before design proceeds.</div>
+            <div class="q-clause">§820.30(c) · ISO 13485 §7.3.3</div>
+            <div class="q-options" data-q="8" data-sec="2" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q9</div>
+          <div class="q-content">
+            <div class="q-text">Design verification confirms design outputs meet design inputs; design validation confirms the device meets user needs and intended use under actual or simulated conditions of use.</div>
+            <div class="q-clause">§820.30(f)(g) · ISO 13485 §7.3.6/7.3.7</div>
+            <div class="q-options" data-q="9" data-sec="2" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q10</div>
+          <div class="q-content">
+            <div class="q-text">Design transfer to production is controlled — manufacturing procedures, specifications, and tooling are reviewed before production begins; a formal design transfer record exists.</div>
+            <div class="q-clause">§820.30(h) · ISO 13485 §7.3.8</div>
+            <div class="q-options" data-q="10" data-sec="2" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q11</div>
+          <div class="q-content">
+            <div class="q-text">Design changes are controlled through a documented change process — every change is evaluated for impact, subject to appropriate verification/validation, approved before implementation, and recorded in the DHF.</div>
+            <div class="q-clause">§820.30(i) · ISO 13485 §7.3.9</div>
+            <div class="q-options" data-q="11" data-sec="2" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q12</div>
+          <div class="q-content">
+            <div class="q-text">Design review is conducted at appropriate stages with documented attendees, findings, and action items; reviews include independent representatives from functions not directly responsible for the design under review.</div>
+            <div class="q-clause">§820.30(e) · ISO 13485 §7.3.5</div>
+            <div class="q-options" data-q="12" data-sec="2" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 3: Device Master Record (DMR) & Device History Record (DHR) -->
+  <div class="section-card">
+    <div class="section-head" onclick="toggleSection('s3')">
+      <div>
+        <div class="section-title">3 — Device Master Record (DMR) &amp; Device History Record (DHR)</div>
+        <div class="section-meta">§820.181 · §820.184 · Production Records</div>
+      </div>
+      <div class="section-badge" id="badge-s3">0/5</div>
+    </div>
+    <div class="section-body" id="body-s3">
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q13</div>
+          <div class="q-content">
+            <div class="q-text">A Device Master Record (DMR) exists for each device type and contains or references: device specifications, production process specifications, quality assurance procedures, labeling, and packaging specifications.</div>
+            <div class="q-clause">§820.181</div>
+            <div class="q-options" data-q="13" data-sec="3" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q14</div>
+          <div class="q-content">
+            <div class="q-text">Device History Records (DHRs) are maintained for each production unit (or batch/lot) and contain sufficient evidence to demonstrate the device was manufactured in accordance with the DMR.</div>
+            <div class="q-clause">§820.184</div>
+            <div class="q-options" data-q="14" data-sec="3" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q15</div>
+          <div class="q-content">
+            <div class="q-text">DHRs include: acceptance/rejection records, quantity manufactured, quantity released for distribution, primary identification label, and any unique device identifier (UDI) assigned.</div>
+            <div class="q-clause">§820.184 · UDI 21 CFR Part 830</div>
+            <div class="q-options" data-q="15" data-sec="3" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q16</div>
+          <div class="q-content">
+            <div class="q-delta new">UDI: Unique Device Identification required in records</div>
+            <div class="q-text">UDI (Unique Device Identifier) has been implemented for all applicable device classes, is incorporated into labeling, and the UDI is captured in DHRs and the FDA GUDID database as required by class and device type.</div>
+            <div class="q-clause">21 CFR Part 830 · §820.184(g)</div>
+            <div class="q-options" data-q="16" data-sec="3" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q17</div>
+          <div class="q-content">
+            <div class="q-text">Records are retained for the lifetime of the device or 2 years from device release date (whichever is longer); electronic records meet 21 CFR Part 11 requirements where applicable.</div>
+            <div class="q-clause">§820.180 · 21 CFR Part 11</div>
+            <div class="q-options" data-q="17" data-sec="3" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 4: Complaint Handling & MDR -->
+  <div class="section-card">
+    <div class="section-head" onclick="toggleSection('s4')">
+      <div>
+        <div class="section-title">4 — Complaint Handling &amp; MDR Reporting</div>
+        <div class="section-meta">§820.198 · 21 CFR Part 803 · ISO 13485 §8.2.2</div>
+      </div>
+      <div class="section-badge" id="badge-s4">0/6</div>
+    </div>
+    <div class="section-body" id="body-s4">
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q18</div>
+          <div class="q-content">
+            <div class="q-text">A formal complaint handling unit and written procedure exists; all complaints are reviewed and evaluated to determine if they represent an MDR-reportable event, and records are maintained for each complaint.</div>
+            <div class="q-clause">§820.198(a)(b) · ISO 13485 §8.2.2</div>
+            <div class="q-options" data-q="18" data-sec="4" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q19</div>
+          <div class="q-content">
+            <div class="q-delta">CHANGE: MDR reporting timelines are strictly enforced under QMSR</div>
+            <div class="q-text">MDR reportable event timelines are met: deaths/serious injuries reported within 30 days (5 days if remedial action required); malfunction reports within 30 days; MDR decision rationale is documented for all complaints evaluated.</div>
+            <div class="q-clause">21 CFR Part 803 §803.50 §803.53</div>
+            <div class="q-options" data-q="19" data-sec="4" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q20</div>
+          <div class="q-content">
+            <div class="q-text">Complaint investigations include root cause analysis when a device may have caused or contributed to a death or serious injury; investigation results and any follow-up actions are documented in the complaint file.</div>
+            <div class="q-clause">§820.198(e) · ISO 13485 §8.2.2</div>
+            <div class="q-options" data-q="20" data-sec="4" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q21</div>
+          <div class="q-content">
+            <div class="q-text">Complaint data is trended and used as a post-market surveillance input; complaint trends feed into CAPA, management review, and risk management processes at defined intervals.</div>
+            <div class="q-clause">§820.198 · ISO 13485 §8.2.1 §8.5</div>
+            <div class="q-options" data-q="21" data-sec="4" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q22</div>
+          <div class="q-content">
+            <div class="q-delta new">NEW: Post-Market Surveillance (PMS) plan formalized under QMSR</div>
+            <div class="q-text">A documented Post-Market Surveillance (PMS) plan exists for each device; PMS activities are conducted at defined intervals and results feed into product risk management and design change processes.</div>
+            <div class="q-clause">ISO 13485 §8.2.1 · §820.198</div>
+            <div class="q-options" data-q="22" data-sec="4" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q23</div>
+          <div class="q-content">
+            <div class="q-text">Field safety corrective actions (recalls, corrections, removals) are reported to FDA as required under 21 CFR Part 806; reports are submitted within the required timeframes and follow-up reports submitted when requested.</div>
+            <div class="q-clause">21 CFR Part 806 · §820.100</div>
+            <div class="q-options" data-q="23" data-sec="4" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 5: CAPA -->
+  <div class="section-card">
+    <div class="section-head" onclick="toggleSection('s5')">
+      <div>
+        <div class="section-title">5 — Corrective &amp; Preventive Action (CAPA)</div>
+        <div class="section-meta">§820.100 · ISO 13485 §8.5.2/8.5.3</div>
+      </div>
+      <div class="section-badge" id="badge-s5">0/4</div>
+    </div>
+    <div class="section-body" id="body-s5">
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q24</div>
+          <div class="q-content">
+            <div class="q-text">CAPA procedures require: data analysis to identify root causes, actions to correct nonconformities, evaluation of need for preventive actions, implementation of changes, verification of effectiveness, and dissemination of CAPA information.</div>
+            <div class="q-clause">§820.100 · ISO 13485 §8.5.2</div>
+            <div class="q-options" data-q="24" data-sec="5" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q25</div>
+          <div class="q-content">
+            <div class="q-text">Effectiveness verification is performed for all CAPAs — actions taken are confirmed to have resolved the root cause and prevented recurrence; effectiveness checks are documented with evidence.</div>
+            <div class="q-clause">§820.100(a)(6) · ISO 13485 §8.5.2(f)</div>
+            <div class="q-options" data-q="25" data-sec="5" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q26</div>
+          <div class="q-content">
+            <div class="q-text">CAPA inputs are drawn from multiple data sources: complaints, internal audits, nonconformances, process monitoring, management review, and regulatory inspections; CAPA system is not purely complaint-driven.</div>
+            <div class="q-clause">§820.100(a)(1) · ISO 13485 §8.5.2</div>
+            <div class="q-options" data-q="26" data-sec="5" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q27</div>
+          <div class="q-content">
+            <div class="q-text">CAPA records include: description of the problem, root cause analysis method, actions taken, responsible parties, target/actual completion dates, and effectiveness verification results.</div>
+            <div class="q-clause">§820.100(b) · ISO 13485 §8.5.2</div>
+            <div class="q-options" data-q="27" data-sec="5" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 6: Supplier Controls -->
+  <div class="section-card">
+    <div class="section-head" onclick="toggleSection('s6')">
+      <div>
+        <div class="section-title">6 — Supplier &amp; Purchasing Controls</div>
+        <div class="section-meta">§820.50 · ISO 13485 §7.4</div>
+      </div>
+      <div class="section-badge" id="badge-s6">0/5</div>
+    </div>
+    <div class="section-body" id="body-s6">
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q28</div>
+          <div class="q-content">
+            <div class="q-text">Approved supplier list (ASL) is maintained; suppliers are qualified based on their ability to meet specified requirements, and selection criteria are documented and applied consistently.</div>
+            <div class="q-clause">§820.50(a) · ISO 13485 §7.4.1</div>
+            <div class="q-options" data-q="28" data-sec="6" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q29</div>
+          <div class="q-content">
+            <div class="q-text">Purchase orders and/or quality agreements flow down applicable requirements to suppliers, including device-specific quality requirements, regulatory requirements, and the right of access for inspection/audit.</div>
+            <div class="q-clause">§820.50(b) · ISO 13485 §7.4.2</div>
+            <div class="q-options" data-q="29" data-sec="6" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q30</div>
+          <div class="q-content">
+            <div class="q-text">Incoming inspection or other verification activities confirm that purchased product meets specified requirements before use or processing; receiving acceptance activities are documented.</div>
+            <div class="q-clause">§820.50 · §820.80 · ISO 13485 §7.4.3</div>
+            <div class="q-options" data-q="30" data-sec="6" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q31</div>
+          <div class="q-content">
+            <div class="q-text">Supplier performance is periodically re-evaluated; suppliers with quality issues are managed through formal corrective action processes, and the ASL is updated based on performance data.</div>
+            <div class="q-clause">§820.50(a)(2) · ISO 13485 §7.4.1</div>
+            <div class="q-options" data-q="31" data-sec="6" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q32</div>
+          <div class="q-content">
+            <div class="q-delta new">NEW: Critical suppliers require quality agreements under QMSR/ISO 13485</div>
+            <div class="q-text">Written quality agreements (QAAs) exist with critical/single-source suppliers and contract manufacturers; agreements define responsibilities, quality requirements, change notification requirements, and regulatory compliance obligations.</div>
+            <div class="q-clause">ISO 13485 §7.4.1 · §820.50</div>
+            <div class="q-options" data-q="32" data-sec="6" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 7: Process Validation & Production Controls -->
+  <div class="section-card">
+    <div class="section-head" onclick="toggleSection('s7')">
+      <div>
+        <div class="section-title">7 — Process Validation &amp; Production Controls</div>
+        <div class="section-meta">§820.75 · §820.70 · ISO 13485 §7.5</div>
+      </div>
+      <div class="section-badge" id="badge-s7">0/4</div>
+    </div>
+    <div class="section-body" id="body-s7">
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q33</div>
+          <div class="q-content">
+            <div class="q-text">Special processes (sterilization, molding, welding, software, etc.) that cannot be fully verified by subsequent inspection are validated and documented; validation protocols, results, and approval are retained.</div>
+            <div class="q-clause">§820.75 · ISO 13485 §7.5.6</div>
+            <div class="q-options" data-q="33" data-sec="7" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q34</div>
+          <div class="q-content">
+            <div class="q-text">Computer software used in production and QMS is validated for its intended use; validation protocols, test results, and approval evidence are documented and retained.</div>
+            <div class="q-clause">§820.70(i) · ISO 13485 §7.5.6 Note 1</div>
+            <div class="q-options" data-q="34" data-sec="7" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q35</div>
+          <div class="q-content">
+            <div class="q-text">Device identification and traceability is maintained throughout production; each unit or lot is traceable from raw materials through finished device to distribution, and lot/serial records enable identification and retrieval if needed.</div>
+            <div class="q-clause">§820.60 · §820.65 · ISO 13485 §7.5.8/7.5.9</div>
+            <div class="q-options" data-q="35" data-sec="7" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q36</div>
+          <div class="q-content">
+            <div class="q-text">Nonconforming products are identified, segregated/controlled, and reviewed for disposition per documented procedure; concessions/use-as-is dispositions are authorized by qualified personnel and documented.</div>
+            <div class="q-clause">§820.90 · ISO 13485 §8.3</div>
+            <div class="q-options" data-q="36" data-sec="7" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 8: Internal Audit & Document Control -->
+  <div class="section-card">
+    <div class="section-head" onclick="toggleSection('s8')">
+      <div>
+        <div class="section-title">8 — Internal Audit, Document &amp; Record Control</div>
+        <div class="section-meta">§820.22 · §820.40 · §820.180 · ISO 13485 §8.2.4/4.2</div>
+      </div>
+      <div class="section-badge" id="badge-s8">0/4</div>
+    </div>
+    <div class="section-body" id="body-s8">
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q37</div>
+          <div class="q-content">
+            <div class="q-text">Internal audit program covers all QMS elements at planned intervals; auditors are trained and independent of the areas audited; audit findings are documented and fed into CAPA; management reviews audit results.</div>
+            <div class="q-clause">§820.22 · ISO 13485 §8.2.4</div>
+            <div class="q-options" data-q="37" data-sec="8" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q38</div>
+          <div class="q-content">
+            <div class="q-text">Document control procedure ensures: documents are approved before issue, reviewed/updated, current versions are available at point-of-use, obsolete documents are prevented from unintended use, and changes are identified.</div>
+            <div class="q-clause">§820.40 · ISO 13485 §4.2.4</div>
+            <div class="q-options" data-q="38" data-sec="8" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q39</div>
+          <div class="q-content">
+            <div class="q-text">Records are legible, identifiable, retrievable, and protected; retention periods are defined and meet or exceed the longer of: device lifetime + 2 years, or regulatory minimum; confidential records are protected.</div>
+            <div class="q-clause">§820.180 · ISO 13485 §4.2.5</div>
+            <div class="q-options" data-q="39" data-sec="8" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-row">
+          <div class="q-num">Q40</div>
+          <div class="q-content">
+            <div class="q-delta new">NEW: FDA inspection readiness — documented QMSR conformance evidence</div>
+            <div class="q-text">The organization maintains a documented gap analysis or conformance matrix mapping its QMS to QMSR (21 CFR Part 820) and ISO 13485:2016 requirements; inspection readiness documentation (including DHF index, DMR index, complaint log, CAPA log) is current and retrievable on demand.</div>
+            <div class="q-clause">§820.1 · QMSR Transition</div>
+            <div class="q-options" data-q="40" data-sec="8" data-max="5"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-bar">
+    <p>Answer all 40 items to generate your QMSR Transition Readiness Report. Mark "N/A" for items not applicable to your device type or scope.</p>
+    <button class="btn-primary" onclick="generateReport()">Generate QMSR Readiness Report</button>
+    <button class="btn-secondary" onclick="resetAll()">Reset</button>
+  </div>
+
+  <!-- Results -->
+  <div id="results">
+    <div class="results-header">
+      <h2>QMSR Transition Readiness Report</h2>
+      <div class="results-date" id="resultsDate"></div>
+    </div>
+    <div class="results-body">
+      <div class="score-ring-wrap">
+        <svg class="ring-svg" width="110" height="110" viewBox="0 0 110 110">
+          <circle class="ring-track" cx="55" cy="55" r="46"/>
+          <circle class="ring-fill" id="ringFill" cx="55" cy="55" r="46"/>
+          <text class="ring-pct" id="ringPct" x="55" y="52" text-anchor="middle" dominant-baseline="middle" font-family="Aptos, Segoe UI, Arial" font-size="18" font-weight="800">0%</text>
+          <text class="ring-label" x="55" y="68" text-anchor="middle" font-family="Aptos, Segoe UI, Arial" font-size="9" fill="#5a6a7e">READY</text>
+        </svg>
+        <div class="score-text-wrap">
+          <div class="score-verdict" id="scoreVerdict"></div>
+          <div class="score-summary" id="scoreSummary"></div>
+        </div>
+      </div>
+
+      <div class="section-bars">
+        <h3>Section Scores</h3>
+        <div id="sectionBarRows"></div>
+      </div>
+
+      <div class="action-items-wrap">
+        <h3>Prioritized Action Plan</h3>
+        <div id="actionItems"></div>
+      </div>
+
+      <div style="text-align:center;">
+        <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+        <button class="btn-secondary" onclick="resetAll()">Start Over</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <strong>Conform-Edge · Annex Quality</strong> — FDA QMSR Transition Readiness Tool<br>
+  Based on 21 CFR Part 820 (QMSR, effective February 2, 2026) and ISO 13485:2016 incorporated by reference.<br>
+  This tool is for self-assessment purposes only and does not constitute legal or regulatory advice. Verify all requirements against current FDA regulations before any compliance claim.<br>
+  Not affiliated with FDA. All data processed locally — nothing is transmitted or stored.
+</footer>
+
+<script>
+const SECTIONS = [
+  { id:'s1', name:'QMS Foundation & QMSR Scope', max:30 },
+  { id:'s2', name:'Design Controls & DHF',        max:30 },
+  { id:'s3', name:'DMR & Device History Records', max:25 },
+  { id:'s4', name:'Complaint Handling & MDR',     max:30 },
+  { id:'s5', name:'CAPA',                         max:20 },
+  { id:'s6', name:'Supplier & Purchasing Controls',max:25 },
+  { id:'s7', name:'Process Validation & Production',max:20 },
+  { id:'s8', name:'Internal Audit & Doc Control', max:20 },
+];
+
+const ACTIONS = {
+  1:  'Update your QMS policy statement to explicitly cite ISO 13485:2016 as the incorporated standard under 21 CFR Part 820. Train leadership on the QMSR structure.',
+  2:  'Review and update your QMS scope document. Ensure all device types, sites, and processes are identified; document exclusions with ISO 13485 §4.2.2 justification.',
+  3:  'Establish or update your Quality Manual to describe QMS process interactions per ISO 13485:2016 §4.2.2; ensure it references all QMSR process areas.',
+  4:  'Conduct a document inventory. Update all procedures referencing "QSR" to "QMSR" (21 CFR Part 820). Revise and re-approve affected documents.',
+  5:  'Embed risk-based thinking training into your QMS awareness program. Update your risk management procedure to cover QMS-level risks per ISO 13485 §5.6.',
+  6:  'Update your Management Review procedure and form to include all ISO 13485 §5.6 inputs. Add post-market surveillance data and regulatory reporting trends to MR agenda.',
+  7:  'Establish a DHF index for each device type. Confirm all design and development records are captured or referenced in the DHF. Audit one device line as a pilot.',
+  8:  'Review design input records for completeness. Establish a standard design input template with checkboxes for functional, performance, safety, and regulatory requirements.',
+  9:  'Confirm V&V protocols and reports are in place for all marketed devices. Identify any devices lacking documented clinical/simulated use validation and schedule a remediation project.',
+  10: 'Create a formal Design Transfer Checklist. Ensure manufacturing procedures and tooling are reviewed and approved before production begins; maintain transfer records in DHF.',
+  11: 'Verify your change control procedure requires DHF updates and V&V impact assessment for all design changes. Audit last 10 design changes for compliance.',
+  12: 'Review design review records for independence of attendees. Establish a standard design review agenda template that ensures representation from QA, Regulatory, and Manufacturing.',
+  13: 'Conduct a DMR completeness audit for each device line. Confirm all §820.181 elements are present or cross-referenced. Create a DMR index document.',
+  14: 'Audit 3 DHRs for completeness. Confirm batch/lot traceability from incoming materials through finished device release. Address any gaps in the DHR template.',
+  15: 'Update DHR template to include UDI fields. Confirm acceptance records include quantity manufactured, quantity released, primary label copy, and UDI assignment.',
+  16: 'Verify all device classes requiring UDI have UDI-DIs assigned and are registered in FDA GUDID. Confirm UDI-PIs appear on labels and in DHRs as required.',
+  17: 'Review your records retention schedule against §820.180 requirements. For electronic records, assess 21 CFR Part 11 compliance (audit trail, access controls, record integrity).',
+  18: 'Audit your complaint handling procedure and recent complaint files. Confirm MDR evaluation is documented for every complaint. Check for any overdue complaint investigations.',
+  19: 'Review your last 12 months of MDR decisions. Confirm 30-day (and 5-day) reports were submitted on time. Document MDR decision rationale for each complaint evaluated.',
+  20: 'Update your complaint procedure to require root cause analysis for all events involving death or serious injury. Confirm investigation records contain method used and conclusions.',
+  21: 'Implement a quarterly complaint trend report feeding directly into CAPA and Management Review. Use statistical analysis to identify systemic issues.',
+  22: 'Develop a PMS Plan for each device type. Define data sources, analysis methods, frequency, and acceptance criteria. Link PMS outputs to risk management file updates.',
+  23: 'Review your recall/field safety procedure against 21 CFR Part 806. Confirm you have a process to identify, investigate, and report corrections/removals within required timeframes.',
+  24: 'Audit your most recent 5 CAPA records against §820.100 requirements. Confirm all 6 elements are present: data analysis, correction, preventive action, verification, implementation, and dissemination.',
+  25: 'Update CAPA procedure to require documented effectiveness verification with evidence (e.g., monitoring data, re-audit results). Set default effectiveness check window at 90 days post-implementation.',
+  26: 'Add a CAPA input matrix to your procedure listing: complaint trends, audit findings, nonconformance data, process monitoring, employee feedback, and regulatory inspection findings.',
+  27: 'Revise your CAPA form to include all required fields: problem statement, RCA method, actions, owners, due dates, and effectiveness verification results.',
+  28: 'Update your Approved Supplier List. Confirm selection criteria are documented for each supplier category. Identify any suppliers active but not formally qualified.',
+  29: 'Review purchase orders and quality agreements for critical suppliers. Confirm QMS requirements, regulatory compliance obligations, and right-of-access are included.',
+  30: 'Audit receiving inspection records for your top 10 purchased components. Confirm acceptance criteria exist, inspections are documented, and rejected lots are controlled.',
+  31: 'Implement a formal supplier scorecard. Schedule annual re-evaluations for all ASL suppliers. Initiate CAPA or removal for any supplier with documented quality issues.',
+  32: 'Identify all contract manufacturers and critical single-source suppliers. Establish written quality agreements covering responsibilities, change notification, and audit rights.',
+  33: 'Inventory all special processes. Confirm each has a current validation on file (IQ/OQ/PQ or equivalent). Re-validate any process where equipment, materials, or parameters changed.',
+  34: 'Inventory all production and QMS software. Create a software validation plan for any unvalidated systems. Prioritize based on risk to product quality and data integrity.',
+  35: 'Map your traceability system from raw material receipt through distribution. Confirm a recall simulation has been performed in the last 12 months.',
+  36: 'Audit your nonconforming product procedure and recent NCR records. Confirm segregation is effective, disposition authority is appropriate, and concessions are justified and documented.',
+  37: 'Review your internal audit schedule and last cycle\'s audit reports. Confirm all QMS elements were audited within the last 12 months; update the schedule for QMSR-specific clauses.',
+  38: 'Audit your document control system. Test: retrieve a current procedure, check for obsolete copies, verify approval signatures, and confirm change identification on revised documents.',
+  39: 'Review records retention schedule. Confirm retention periods meet the greater of: (device lifetime + 2 years) or 2 years from distribution date. Check backup and recovery procedures.',
+  40: 'Create or update a QMSR conformance matrix mapping your QMS procedures to ISO 13485 clauses and §820 subsections. Maintain inspection readiness package with current DHF/DMR/CAPA/complaint log indexes.',
+};
+
+const state = {}; // q# -> score (0-5 or 'na')
+const totalQ = 40;
+
+// Section question map (q# -> section id)
+const qSection = {
+  1:'s1',2:'s1',3:'s1',4:'s1',5:'s1',6:'s1',
+  7:'s2',8:'s2',9:'s2',10:'s2',11:'s2',12:'s2',
+  13:'s3',14:'s3',15:'s3',16:'s3',17:'s3',
+  18:'s4',19:'s4',20:'s4',21:'s4',22:'s4',23:'s4',
+  24:'s5',25:'s5',26:'s5',27:'s5',
+  28:'s6',29:'s6',30:'s6',31:'s6',32:'s6',
+  33:'s7',34:'s7',35:'s7',36:'s7',
+  37:'s8',38:'s8',39:'s8',40:'s8',
+};
+
+const OPTIONS = [
+  { val:5, label:'Fully Compliant', cls:'sel-full' },
+  { val:3, label:'Partially Compliant', cls:'sel-partial' },
+  { val:0, label:'Not Compliant', cls:'sel-none' },
+  { val:'na', label:'N/A', cls:'sel-na' },
+];
+
+// Render option buttons for all questions
+document.querySelectorAll('.q-options').forEach(container => {
+  const q = container.dataset.q;
+  OPTIONS.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt.label;
+    btn.dataset.val = opt.val;
+    btn.onclick = () => selectOption(q, opt.val, opt.cls, container);
+    container.appendChild(btn);
+  });
+});
+
+function selectOption(q, val, cls, container) {
+  state[q] = val;
+  container.querySelectorAll('.opt-btn').forEach(b => {
+    b.className = 'opt-btn';
+    if (String(b.dataset.val) === String(val)) b.classList.add(cls);
+  });
+  updateProgress();
+  updateSectionBadge(qSection[q]);
+}
+
+function updateProgress() {
+  const answered = Object.keys(state).length;
+  const pct = Math.round((answered / totalQ) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${answered} of ${totalQ} answered`;
+}
+
+function updateSectionBadge(secId) {
+  const qsInSec = Object.keys(qSection).filter(k => qSection[k] === secId);
+  const answered = qsInSec.filter(k => state[k] !== undefined).length;
+  const badge = document.getElementById('badge-' + secId);
+  if (badge) badge.textContent = `${answered}/${qsInSec.length}`;
+}
+
+function toggleSection(id) {
+  const body = document.getElementById('body-' + id);
+  body.classList.toggle('open');
+}
+
+function resetAll() {
+  Object.keys(state).forEach(k => delete state[k]);
+  document.querySelectorAll('.opt-btn').forEach(b => b.className = 'opt-btn');
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressLabel').textContent = '0 of 40 answered';
+  SECTIONS.forEach(s => {
+    const badge = document.getElementById('badge-' + s.id);
+    const qsInSec = Object.keys(qSection).filter(k => qSection[k] === s.id);
+    if (badge) badge.textContent = `0/${qsInSec.length}`;
+  });
+  document.getElementById('results').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function generateReport() {
+  // Validate all answered
+  const unanswered = [];
+  for (let q = 1; q <= totalQ; q++) {
+    if (state[String(q)] === undefined) unanswered.push(q);
+  }
+  if (unanswered.length > 0) {
+    alert(`Please answer all questions before generating. Unanswered: Q${unanswered.slice(0, 5).join(', Q')}${unanswered.length > 5 ? '...' : ''}`);
+    return;
+  }
+
+  // Calculate scores
+  let total = 0, max = 0;
+  const secData = {};
+  SECTIONS.forEach(s => { secData[s.id] = { pts: 0, max: 0, gaps: [] }; });
+
+  for (let q = 1; q <= totalQ; q++) {
+    const val = state[String(q)];
+    const sec = qSection[q];
+    if (val !== 'na') {
+      const pts = parseInt(val);
+      total += pts;
+      max += 5;
+      secData[sec].pts += pts;
+      secData[sec].max += 5;
+      if (pts < 5) {
+        secData[sec].gaps.push({ q, pts });
+      }
+    }
+  }
+
+  const pct = max > 0 ? Math.round((total / max) * 100) : 100;
+
+  // Ring
+  const circumference = 289;
+  const offset = circumference - (pct / 100) * circumference;
+  const ring = document.getElementById('ringFill');
+  ring.style.strokeDashoffset = offset;
+
+  let verdict = '', summary = '', vClass = '', color = '';
+  if (pct >= 85) {
+    verdict = 'Compliant — Low Risk'; vClass = 'score-ready'; color = '#1a7a4a';
+    summary = 'Your QMS shows strong QMSR conformance. Focus on maintaining documented evidence and ensuring effectiveness verification is current. FDA inspection risk is low based on this self-assessment.';
+  } else if (pct >= 65) {
+    verdict = 'Partially Compliant — Moderate Risk'; vClass = 'score-moderate'; color = '#c47d00';
+    summary = 'Meaningful gaps exist across 1–3 areas. Prioritize high-severity items before any scheduled FDA inspection. Warning letter risk is elevated for organizations with open CAPA, complaint, or DHF gaps.';
+  } else if (pct >= 40) {
+    verdict = 'Significant Gaps — High Risk'; vClass = 'score-high'; color = '#b85000';
+    summary = 'Multiple significant gaps identified. Immediate action required — FDA Form 483 observations are likely in current state. Build a structured 90-day remediation plan beginning with DHF/DMR, complaint handling, and CAPA.';
+  } else {
+    verdict = 'Critical Non-Compliance — Urgent'; vClass = 'score-critical'; color = '#b52020';
+    summary = 'Critical QMSR non-compliance identified across multiple process areas. Voluntary action and remediation before any FDA interaction is strongly advised. Consider engaging a regulatory consultant for an accelerated corrective action program.';
+  }
+
+  ring.setAttribute('stroke', color);
+  document.getElementById('ringPct').textContent = pct + '%';
+  document.getElementById('scoreVerdict').textContent = verdict;
+  document.getElementById('scoreVerdict').className = 'score-verdict ' + vClass;
+  document.getElementById('scoreSummary').textContent = summary;
+  document.getElementById('resultsDate').textContent =
+    'Generated: ' + new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) +
+    ' · 21 CFR Part 820 (QMSR) · ISO 13485:2016';
+
+  // Section bars
+  const barWrap = document.getElementById('sectionBarRows');
+  barWrap.innerHTML = '';
+  SECTIONS.forEach(s => {
+    const sd = secData[s.id];
+    const spct = sd.max > 0 ? Math.round((sd.pts / sd.max) * 100) : 100;
+    const cls = spct >= 80 ? 'bar-green' : spct >= 55 ? 'bar-amber' : 'bar-red';
+    barWrap.innerHTML += `
+      <div class="ss-row">
+        <div class="ss-name">${s.name}</div>
+        <div class="ss-bar-wrap"><div class="ss-bar ${cls}" style="width:${spct}%"></div></div>
+        <div class="ss-pct">${sd.max === 0 ? 'N/A' : spct + '%'}</div>
+      </div>`;
+  });
+
+  // Actions
+  const actWrap = document.getElementById('actionItems');
+  actWrap.innerHTML = '';
+  const allGaps = [];
+  SECTIONS.forEach(s => {
+    secData[s.id].gaps.forEach(g => allGaps.push(g));
+  });
+  allGaps.sort((a, b) => a.pts - b.pts);
+
+  if (allGaps.length === 0) {
+    actWrap.innerHTML = '<div class="all-clear">✔ No gaps identified. Your QMS demonstrates strong QMSR conformance. Maintain current evidence and schedule a formal third-party readiness review before your next FDA inspection.</div>';
+  } else {
+    allGaps.forEach(g => {
+      const priority = g.pts === 0 ? 'high' : 'medium';
+      actWrap.innerHTML += `
+        <div class="action-item priority-${priority}">
+          <div class="action-priority">${priority === 'high' ? '⬤ CRITICAL GAP — Not Compliant' : '◐ PARTIAL GAP — Needs Strengthening'}</div>
+          <div class="action-text"><strong>Q${g.q}:</strong> ${ACTIONS[g.q]}</div>
+          <div class="action-clause">${getClause(g.q)}</div>
+        </div>`;
+    });
+  }
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function getClause(q) {
+  const clauses = {
+    1:'§820.1(b) · ISO 13485 §4',2:'§820.10 · ISO 13485 §4.2.2',3:'ISO 13485 §4.2.2',
+    4:'§820.40 · Document Control',5:'ISO 13485 §5.6 · ISO 14971',6:'ISO 13485 §5.6',
+    7:'§820.30(j) · ISO 13485 §7.3.10',8:'§820.30(c) · ISO 13485 §7.3.3',
+    9:'§820.30(f)(g) · ISO 13485 §7.3.6/7.3.7',10:'§820.30(h) · ISO 13485 §7.3.8',
+    11:'§820.30(i) · ISO 13485 §7.3.9',12:'§820.30(e) · ISO 13485 §7.3.5',
+    13:'§820.181',14:'§820.184',15:'§820.184 · UDI 21 CFR Part 830',
+    16:'21 CFR Part 830 · §820.184(g)',17:'§820.180 · 21 CFR Part 11',
+    18:'§820.198(a)(b) · ISO 13485 §8.2.2',19:'21 CFR Part 803 §803.50/803.53',
+    20:'§820.198(e) · ISO 13485 §8.2.2',21:'§820.198 · ISO 13485 §8.2.1',
+    22:'ISO 13485 §8.2.1 · §820.198',23:'21 CFR Part 806 · §820.100',
+    24:'§820.100 · ISO 13485 §8.5.2',25:'§820.100(a)(6) · ISO 13485 §8.5.2(f)',
+    26:'§820.100(a)(1)',27:'§820.100(b) · ISO 13485 §8.5.2',
+    28:'§820.50(a) · ISO 13485 §7.4.1',29:'§820.50(b) · ISO 13485 §7.4.2',
+    30:'§820.80 · ISO 13485 §7.4.3',31:'§820.50(a)(2)',32:'ISO 13485 §7.4.1 · §820.50',
+    33:'§820.75 · ISO 13485 §7.5.6',34:'§820.70(i) · ISO 13485 §7.5.6',
+    35:'§820.60 · §820.65 · ISO 13485 §7.5.8/7.5.9',36:'§820.90 · ISO 13485 §8.3',
+    37:'§820.22 · ISO 13485 §8.2.4',38:'§820.40 · ISO 13485 §4.2.4',
+    39:'§820.180 · ISO 13485 §4.2.5',40:'§820.1 · QMSR Transition',
+  };
+  return clauses[q] || '';
+}
+</script>
+</body>
+</html>

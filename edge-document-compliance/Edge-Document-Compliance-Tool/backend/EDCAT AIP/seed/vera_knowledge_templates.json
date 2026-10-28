@@ -1,0 +1,161 @@
+{
+  "version": "1.0",
+  "persona_code": "vera",
+  "knowledge_templates": {
+    "gap_analysis_scenario": {
+      "name": "Gap Analysis Workflow",
+      "description": "Template for conducting comprehensive gap analysis",
+      "steps": [
+        "1. Parse the target standard (e.g., AS9100D, ISO 9001)",
+        "2. Upload QMS documents (procedures, work instructions, records)",
+        "3. Run gap analysis: 'Analyze gaps for [standard]'",
+        "4. Review identified gaps by severity (CRITICAL, HIGH, MEDIUM, LOW)",
+        "5. Create CAPAs for critical and high-severity gaps",
+        "6. Draft procedures for missing requirements",
+        "7. Re-run analysis to verify closure"
+      ],
+      "keywords": ["gap analysis", "compliance check", "missing requirements"],
+      "related_intents": ["gap_analysis_request", "capa_request", "procedure_request"]
+    },
+    "audit_preparation_scenario": {
+      "name": "Audit Preparation Workflow",
+      "description": "Template for preparing for certification or surveillance audits",
+      "steps": [
+        "1. Ensure all standards are parsed and up-to-date",
+        "2. Upload all QMS documents (procedures, records, evidence)",
+        "3. Run gap analysis to identify any gaps",
+        "4. Address all critical and high-severity gaps",
+        "5. Generate audit readiness checklist",
+        "6. Review document coverage against standard requirements",
+        "7. Prepare evidence documentation",
+        "8. Conduct internal audit if needed"
+      ],
+      "keywords": ["audit prep", "audit readiness", "certification audit"],
+      "related_intents": ["audit_prep_request", "gap_analysis_request", "metrics_query"]
+    },
+    "capa_creation_scenario": {
+      "name": "CAPA Creation Workflow",
+      "description": "Template for creating Corrective and Preventive Actions",
+      "steps": [
+        "1. Identify the gap or nonconformity (from gap analysis or audit finding)",
+        "2. Perform root cause analysis",
+        "3. Develop corrective action plan with timeline",
+        "4. Identify preventive measures to prevent recurrence",
+        "5. Assign responsibilities and resources",
+        "6. Create verification and validation procedures",
+        "7. Track implementation and effectiveness",
+        "8. Document closure evidence"
+      ],
+      "keywords": ["capa", "corrective action", "preventive action", "nonconformity"],
+      "related_intents": ["capa_request", "gap_analysis_request", "procedure_request"]
+    },
+    "procedure_drafting_scenario": {
+      "name": "Procedure Drafting Workflow",
+      "description": "Template for drafting procedures based on standard requirements",
+      "steps": [
+        "1. Identify the clause or requirement needing a procedure",
+        "2. Review standard requirements for that clause",
+        "3. Check existing documents for related procedures",
+        "4. Draft procedure using standard format (purpose, scope, responsibilities, procedure, records)",
+        "5. Ensure procedure addresses all standard requirements",
+        "6. Review for compliance and completeness",
+        "7. Get approval and implement",
+        "8. Train personnel on new procedure"
+      ],
+      "keywords": ["procedure", "sop", "work instruction", "draft document"],
+      "related_intents": ["procedure_request", "compliance_question", "gap_analysis_request"]
+    },
+    "standard_migration_scenario": {
+      "name": "Standard Migration Workflow",
+      "description": "Template for migrating from one standard version to another",
+      "steps": [
+        "1. Compare current standard with new version",
+        "2. Identify new requirements and changed clauses",
+        "3. Run gap analysis against new standard",
+        "4. Update existing procedures to meet new requirements",
+        "5. Draft new procedures for new requirements",
+        "6. Train personnel on changes",
+        "7. Update QMS documentation",
+        "8. Conduct internal audit against new standard",
+        "9. Plan certification transition"
+      ],
+      "keywords": ["migration", "upgrade", "standard update", "revision"],
+      "related_intents": ["standard_comparison", "regulatory_update", "gap_analysis_request", "audit_prep_request"]
+    },
+    "compliance_monitoring_scenario": {
+      "name": "Compliance Monitoring Workflow",
+      "description": "Template for ongoing compliance monitoring and metrics",
+      "steps": [
+        "1. Set up regular gap analysis schedule",
+        "2. Track compliance metrics (coverage %, gap count, severity distribution)",
+        "3. Monitor document updates and changes",
+        "4. Review compliance trends over time",
+        "5. Identify recurring gaps or patterns",
+        "6. Implement preventive actions for common issues",
+        "7. Generate compliance reports for management",
+        "8. Update QMS based on findings"
+      ],
+      "keywords": ["metrics", "compliance monitoring", "kpi", "status report"],
+      "related_intents": ["metrics_query", "gap_analysis_request", "audit_prep_request"]
+    },
+    "industry_specific_setup_scenario": {
+      "name": "Industry-Specific QMS Setup",
+      "description": "Template for setting up QMS for specific industries",
+      "steps": [
+        "1. Identify industry and applicable standards (e.g., AS9100 for aerospace, ISO 13485 for medical devices)",
+        "2. Understand industry-specific regulatory requirements",
+        "3. Parse relevant standards",
+        "4. Identify industry-specific clauses and requirements",
+        "5. Draft procedures addressing industry-specific requirements",
+        "6. Set up industry-specific documentation",
+        "7. Train on industry-specific requirements",
+        "8. Prepare for industry-specific audits"
+      ],
+      "keywords": ["aerospace", "medical device", "automotive", "industry specific"],
+      "related_intents": ["industry_question", "compliance_question", "procedure_request", "audit_prep_request"]
+    }
+  },
+  "quick_reference": {
+    "common_clauses": {
+      "iso_9001": {
+        "4": "Context of the organization",
+        "5": "Leadership",
+        "6": "Planning",
+        "7": "Support",
+        "8": "Operation",
+        "9": "Performance evaluation",
+        "10": "Improvement"
+      },
+      "as9100": {
+        "4": "Context of the organization",
+        "5": "Leadership",
+        "6": "Planning",
+        "7": "Support",
+        "8": "Operation (includes aerospace-specific requirements)",
+        "9": "Performance evaluation",
+        "10": "Improvement"
+      }
+    },
+    "common_gaps": [
+      "Missing documented procedures",
+      "Incomplete risk management",
+      "Lack of evidence for requirements",
+      "Outdated procedures not reflecting current practice",
+      "Missing training records",
+      "Incomplete corrective action documentation",
+      "Lack of preventive action processes",
+      "Missing management review records"
+    ],
+    "audit_checklist_items": [
+      "All standard requirements have corresponding procedures",
+      "Procedures are current and reflect actual practice",
+      "Training records are complete and up-to-date",
+      "Internal audit program is active",
+      "Management review is conducted regularly",
+      "Corrective actions are tracked and closed",
+      "Document control is effective",
+      "Records are maintained per requirements"
+    ]
+  }
+}
+

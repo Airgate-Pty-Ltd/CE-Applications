@@ -1,0 +1,193 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Runs first, fails fast, needs no toolchain. A clean-room breach is the one
+  # failure that cannot be fixed by a later commit.
+  # ---------------------------------------------------------------------------
+  scrub:
+    name: scrub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Full history — the scan covers every commit, not just the tip.
+          fetch-depth: 0
+
+      - name: Clean-room scan (working tree)
+        env:
+          SCRUB_EXTRA_TERMS: ${{ secrets.SCRUB_TERMS }}
+          # CI has no access to the machine-local denylist. When SCRUB_TERMS is
+          # unset the scan is structural-only and says so loudly in the log.
+          # The pre-commit hook, which does have the list, is the primary gate.
+          SCRUB_ALLOW_NO_DENYLIST: '1'
+        run: bash scripts/scrub-check.sh
+
+      - name: Clean-room scan (full history)
+        env:
+          SCRUB_EXTRA_TERMS: ${{ secrets.SCRUB_TERMS }}
+          SCRUB_ALLOW_NO_DENYLIST: '1'
+        run: bash scripts/scrub-check.sh --history
+
+  typecheck:
+    name: typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      # Coverage thresholds are enforced in the vitest config: src/engine/ must
+      # hold 100% branch coverage. The engine decides inspection paths and
+      # dispositions — an unexercised branch there is an unexercised rule.
+      - run: npm run test:coverage
+
+  e2e:
+    name: e2e
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      # The tablet project runs on WebKit: an inspector's iPad is Safari, and
+      # verifying the primary platform in an engine it will never run on is not
+      # verification. Chromium covers the supervisor's laptop.
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      # The test dashboard carries fixture data and exposes the internal rule
+      # logic. Shipping it to production would hand both to a customer.
+      - name: Assert test dashboard is absent from the production bundle
+        run: |
+          if [ ! -d dist ]; then
+            echo "::error::No dist/ directory — build produced no output."
+            exit 1
+          fi
+          # Three independent checks. A route-string grep alone is NOT enough:
+          # a lazily-imported dashboard is emitted as a chunk named after the
+          # module ("TestDashboard-<hash>.js"), which contains neither the route
+          # path nor a hyphen — so the naive grep reports clean while the
+          # dashboard, its fixtures and the rule logic all ship. That exact
+          # false green happened once; these checks are why it cannot recur.
+          FAILED=0
+
+          # 1. The route path and module name, case-insensitively, in content.
+          if grep -rIil -e 'test-dashboard' -e 'testdashboard' dist/ 2>/dev/null; then
+            echo "::error::Dashboard route or module name found in bundle content."
+            FAILED=1
+          fi
+
+          # 2. Chunk FILENAMES, which content greps never see.
+          if find dist -iname '*dashboard*' -o -iname '*testdash*' | grep -q .; then
+            echo "::error::A dashboard chunk was emitted into dist/."
+            find dist -iname '*dashboard*' -o -iname '*testdash*'
+            FAILED=1
+          fi
+
+          # 3. A fixture marker. The real risk is not the route — it is the
+          #    fixture data and internal rule content reaching a customer.
+          if grep -rIl 'PHY-FOD' dist/ 2>/dev/null; then
+            echo "::error::Check-pack fixture content leaked into the production bundle."
+            FAILED=1
+          fi
+
+          if [ "$FAILED" -ne 0 ]; then
+            echo "The dashboard is dev and staging only. Check that both the route"
+            echo "AND the dynamic import expression sit behind __TEST_DASHBOARD__ —"
+            echo "a top-level lazy(() => import(...)) is emitted even when the only"
+            echo "branch using it is dead code."
+            exit 1
+          fi
+          echo "Test dashboard, its chunk, and fixture content are all absent from dist/."
+
+  audit:
+    name: audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+
+      # Blocking: the dependencies that actually reach a customer. This app
+      # ships as a static bundle, so the production tree is the attack surface.
+      - name: Audit production dependencies (blocking)
+        run: npm audit --omit=dev --audit-level=high
+
+      # Non-blocking: the dev toolchain. Visible in the log, does not fail CI.
+      #
+      # Why this is split rather than one blocking audit over everything:
+      # the remaining high/critical advisories are in the vitest dev server and
+      # esbuild dev server, neither of which is built, served, or shipped. The
+      # only clean fix is vitest 4, and on vitest 4 the v8 provider omits
+      # src/engine/ from coverage entirely — which makes the 100% branch
+      # threshold pass while checking nothing. Trading a real gate on the
+      # product's decision logic for a clean audit of a dev-only test runner is
+      # the wrong trade. Revisit when the vitest 4 coverage issue is resolved.
+      - name: Audit full tree (advisory)
+        continue-on-error: true
+        run: npm audit --audit-level=high

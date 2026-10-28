@@ -1,0 +1,68 @@
+# Dependabot configuration for RegIntel
+#
+# This file enables Dependabot version updates: weekly PRs that bump
+# dependencies in each package ecosystem. It does NOT enable Dependabot
+# alerts or secret scanning — those must be turned on in the GitHub UI.
+#
+# To enable in the UI (owner or admin required):
+#   1. Repository → Settings → Security → Dependabot
+#      - Enable "Dependabot alerts"
+#      - Enable "Dependabot security updates"
+#   2. Repository → Settings → Security → Secret scanning
+#      - Enable "Secret scanning"
+#      - Enable "Push protection"
+#
+# See RUNBOOK.md section 8 for the full procedure.
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/nextjs"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Australia/Brisbane"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mike-airgate"
+    labels:
+      - "dependencies"
+      - "nextjs"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  - package-ecosystem: "npm"
+    directory: "/worker"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Australia/Brisbane"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "mike-airgate"
+    labels:
+      - "dependencies"
+      - "worker"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  - package-ecosystem: "pip"
+    directory: "/scraper"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Australia/Brisbane"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "mike-airgate"
+    labels:
+      - "dependencies"
+      - "scraper"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"

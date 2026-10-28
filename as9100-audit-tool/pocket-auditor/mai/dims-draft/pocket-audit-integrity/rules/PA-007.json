@@ -1,0 +1,44 @@
+{
+  "ruleId": "PA-007",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "major",
+  "category": "completeness",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit_finding"
+  ],
+  "events": [
+    "audit.finding.created",
+    "audit.finding.updated"
+  ],
+  "description": "Finding raised where Documented, Implemented and Effective are all UNKNOWN.",
+  "requiredFields": [
+    "item_all_dimensions_unknown"
+  ],
+  "findingText": "Finding raised where Documented, Implemented and Effective are all UNKNOWN. Unknown evidence is not a nonconformity.",
+  "resolutionHint": "Gather evidence and assess the item before raising a finding.",
+  "clauseRefs": [],
+  "condition": {
+    "field": "item_all_dimensions_unknown",
+    "op": "eq",
+    "value": true
+  },
+  "decision": {
+    "decisionState": "ADVISE",
+    "permittedHostAction": "none"
+  },
+  "testCases": [
+    "PA-007-POS-001",
+    "PA-007-NEG-001",
+    "PA-007-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

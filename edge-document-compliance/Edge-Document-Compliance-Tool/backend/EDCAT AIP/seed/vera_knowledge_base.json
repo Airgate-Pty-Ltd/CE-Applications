@@ -1,0 +1,402 @@
+{
+  "version": "1.0",
+  "knowledge_domains": {
+    "compliance_fundamentals": {
+      "description": "Core compliance concepts and terminology",
+      "topics": [
+        "Quality Management Systems (QMS)",
+        "Document Control",
+        "Corrective and Preventive Actions (CAPA)",
+        "Internal Audits",
+        "Management Review",
+        "Risk Management",
+        "Change Control",
+        "Nonconformity Management"
+      ],
+      "common_questions": {
+        "what_is_qms": "A Quality Management System (QMS) is a formalized system that documents processes, procedures, and responsibilities for achieving quality policies and objectives. It helps coordinate and direct an organization's activities to meet customer and regulatory requirements.",
+        "what_is_capa": "CAPA (Corrective and Preventive Action) is a systematic approach to identifying, investigating, and resolving quality issues. Corrective actions address existing problems, while preventive actions prevent potential problems from occurring.",
+        "what_is_internal_audit": "An internal audit is a systematic, independent examination of an organization's quality system to verify compliance with standards, identify gaps, and ensure continuous improvement."
+      }
+    },
+    "standards_knowledge": {
+      "description": "Knowledge about common compliance standards",
+      "standards": {
+        "iso_9001": {
+          "name": "ISO 9001:2015 Quality Management Systems",
+          "key_clauses": [
+            "4.1 - Understanding the organization and its context",
+            "4.2 - Understanding the needs and expectations of interested parties",
+            "5.1 - Leadership and commitment",
+            "6.1 - Actions to address risks and opportunities",
+            "7.5 - Documented information",
+            "8.5 - Production and service provision",
+            "9.2 - Internal audit",
+            "10.2 - Nonconformity and corrective action"
+          ],
+          "common_gaps": [
+            "Missing risk-based thinking documentation",
+            "Incomplete context analysis",
+            "Weak leadership commitment evidence",
+            "Inadequate change management processes"
+          ]
+        },
+        "as9100": {
+          "name": "AS9100D Aerospace Quality Management",
+          "key_additions": [
+            "Configuration management",
+            "Design and development (for design organizations)",
+            "Key characteristics",
+            "First article inspection",
+            "Special requirements",
+            "Counterfeit parts prevention"
+          ],
+          "aerospace_specific": [
+            "Configuration management is critical",
+            "First article inspection requirements",
+            "Special processes require validation",
+            "Counterfeit parts prevention program required"
+          ]
+        },
+        "iso_13485": {
+          "name": "ISO 13485 Medical Device Quality Management",
+          "key_focus": [
+            "Regulatory compliance",
+            "Risk management (ISO 14971)",
+            "Design and development controls",
+            "Production and service provision",
+            "Post-market surveillance"
+          ],
+          "medical_device_specific": [
+            "Regulatory requirements vary by region",
+            "Risk management is mandatory",
+            "Design controls are critical",
+            "Post-market surveillance required"
+          ]
+        }
+      }
+    },
+    "audit_expertise": {
+      "description": "Audit preparation and execution knowledge",
+      "audit_types": {
+        "internal_audit": {
+          "purpose": "Verify QMS effectiveness and compliance",
+          "frequency": "At least annually, or as planned",
+          "key_areas": [
+            "Process effectiveness",
+            "Document control",
+            "Training records",
+            "CAPA effectiveness",
+            "Management review actions"
+          ]
+        },
+        "external_audit": {
+          "purpose": "Certification or surveillance audit",
+          "preparation": [
+            "Review previous audit findings",
+            "Ensure all documents are current",
+            "Verify training records are complete",
+            "Check CAPA closure status",
+            "Prepare management review records"
+          ]
+        },
+        "regulatory_audit": {
+          "purpose": "Compliance with regulatory requirements",
+          "focus": [
+            "Regulatory compliance",
+            "Product safety",
+            "Documentation accuracy",
+            "Process validation"
+          ]
+        }
+      },
+      "audit_checklist_items": [
+        "All procedures are current and approved",
+        "Training records are complete and current",
+        "Internal audit schedule is followed",
+        "CAPA items are closed or on track",
+        "Management review is conducted",
+        "Document control is effective",
+        "Records are maintained per retention policy"
+      ]
+    },
+    "gap_analysis_expertise": {
+      "description": "Gap analysis methodologies and best practices",
+      "gap_types": {
+        "documentation_gap": "Missing or incomplete procedures/work instructions",
+        "implementation_gap": "Procedure exists but not followed in practice",
+        "evidence_gap": "No objective evidence to demonstrate compliance",
+        "training_gap": "Personnel not trained on requirements"
+      },
+      "severity_classification": {
+        "critical": "Immediate regulatory or safety risk",
+        "major": "Significant compliance issue requiring prompt action",
+        "minor": "Non-compliance that doesn't affect product/service quality",
+        "observation": "Opportunity for improvement"
+      },
+      "remediation_priorities": [
+        "Address critical gaps immediately",
+        "Plan major gaps for next review cycle",
+        "Schedule minor gaps for continuous improvement",
+        "Document observations for future consideration"
+      ]
+    },
+    "procedure_drafting": {
+      "description": "Best practices for procedure and work instruction creation",
+      "procedure_structure": {
+        "purpose": "Why the procedure exists",
+        "scope": "What it covers and who it applies to",
+        "responsibilities": "Who does what",
+        "procedure": "What is done (not how - that's for work instructions)",
+        "references": "Related documents",
+        "records": "What records are created",
+        "revision_history": "Change tracking"
+      },
+      "work_instruction_structure": {
+        "purpose": "Why the work instruction exists",
+        "scope": "When to use this instruction",
+        "equipment": "What tools/equipment are needed",
+        "procedure": "Step-by-step how-to (detailed)",
+        "safety": "Safety considerations",
+        "quality_checks": "What to verify",
+        "troubleshooting": "Common issues and solutions"
+      },
+      "common_mistakes": [
+        "Mixing procedure (what) with work instruction (how)",
+        "Missing responsibilities",
+        "No revision control",
+        "Unclear scope",
+        "Missing references to related documents"
+      ]
+    },
+    "industry_specific": {
+      "aerospace": {
+        "key_standards": ["AS9100D", "AS9110C", "FAA Part 21", "FAA Part 145", "EASA Part 145"],
+        "critical_areas": [
+          "Configuration management",
+          "First article inspection",
+          "Special processes validation",
+          "Counterfeit parts prevention",
+          "Key characteristics management"
+        ],
+        "regulatory_bodies": ["FAA", "EASA", "CAAC", "Transport Canada"]
+      },
+      "medical_devices": {
+        "key_standards": ["ISO 13485", "ISO 14971", "FDA 21 CFR Part 820", "EU MDR"],
+        "critical_areas": [
+          "Risk management",
+          "Design controls",
+          "Post-market surveillance",
+          "Regulatory compliance",
+          "Clinical evaluation"
+        ],
+        "regulatory_bodies": ["FDA", "EMA", "Health Canada", "TGA"]
+      },
+      "automotive": {
+        "key_standards": ["IATF 16949", "ISO 9001"],
+        "critical_areas": [
+          "APQP (Advanced Product Quality Planning)",
+          "PPAP (Production Part Approval Process)",
+          "FMEA (Failure Mode and Effects Analysis)",
+          "SPC (Statistical Process Control)",
+          "Customer-specific requirements"
+        ],
+        "regulatory_bodies": ["IATF", "Customer-specific"]
+      }
+    }
+  },
+  "proactive_suggestions": {
+    "after_standard_parse": [
+      "Would you like me to identify key clauses that typically need procedures?",
+      "I can help you create a gap analysis checklist for this standard.",
+      "Should I generate an audit readiness assessment?"
+    ],
+    "after_gap_analysis": [
+      "I can help you create CAPA items for the critical gaps identified.",
+      "Would you like me to draft procedures for the missing requirements?",
+      "Should I generate an action plan prioritized by severity?"
+    ],
+    "after_document_upload": [
+      "I can compare this document against your parsed standards.",
+      "Would you like me to check for compliance gaps?",
+      "Should I extract procedures from this document?"
+    ],
+    "after_requirement_extraction": [
+      "I can help you map these requirements to your existing procedures.",
+      "Would you like me to identify which clauses typically need documented procedures?",
+      "Should I create a gap analysis checklist based on these requirements?"
+    ],
+    "when_user_seems_overwhelmed": [
+      "Let's break this down into smaller, manageable steps.",
+      "We can prioritize the most critical items first.",
+      "Would it help if I create an action plan with deadlines?"
+    ]
+  },
+  "advanced_knowledge_domains": {
+    "regulatory_intelligence": {
+      "description": "Deep knowledge of regulatory frameworks and their interactions",
+      "topics": [
+        "Multi-regulatory compliance strategies (MDSAP, EU MDR)",
+        "Regulatory authority expectations and inspection approaches",
+        "Regulatory change management",
+        "Cross-border compliance requirements",
+        "Regulatory submission requirements",
+        "Post-market surveillance obligations",
+        "Adverse event reporting",
+        "Regulatory correspondence best practices"
+      ]
+    },
+    "quality_engineering": {
+      "description": "Advanced quality engineering principles and methodologies",
+      "topics": [
+        "Design for Six Sigma (DFSS)",
+        "Lean manufacturing principles",
+        "Statistical process control (SPC) implementation",
+        "Measurement system analysis (MSA)",
+        "Process capability studies",
+        "Design of experiments (DOE)",
+        "Reliability engineering",
+        "Quality cost analysis and optimization"
+      ]
+    },
+    "supply_chain_quality": {
+      "description": "Supplier quality management and supply chain compliance",
+      "topics": [
+        "Supplier qualification and approval processes",
+        "Supplier audit planning and execution",
+        "Incoming inspection strategies",
+        "Supplier corrective action requests (SCAR)",
+        "Supply chain risk management",
+        "Counterfeit parts prevention",
+        "Supplier performance monitoring",
+        "Approved supplier list (ASL) management"
+      ]
+    },
+    "change_management": {
+      "description": "Change control and configuration management",
+      "topics": [
+        "Engineering change orders (ECO)",
+        "Configuration management principles",
+        "Change impact assessment",
+        "Change validation and verification",
+        "Document revision control",
+        "Change notification processes",
+        "Obsolete document management",
+        "Change traceability"
+      ]
+    },
+    "training_and_competency": {
+      "description": "Training program development and competency management",
+      "topics": [
+        "Training needs analysis",
+        "Competency matrix development",
+        "Training effectiveness evaluation",
+        "On-the-job training (OJT) programs",
+        "Certification and qualification programs",
+        "Training record management",
+        "Competency gap analysis",
+        "Continuous professional development"
+      ]
+    },
+    "data_integrity": {
+      "description": "Data integrity principles and ALCOA+",
+      "topics": [
+        "ALCOA+ principles (Attributable, Legible, Contemporaneous, Original, Accurate, Complete, Consistent, Enduring, Available)",
+        "Electronic records and signatures (21 CFR Part 11)",
+        "Data backup and recovery",
+        "Audit trail requirements",
+        "Data migration validation",
+        "System validation for data integrity",
+        "Data retention and archival",
+        "Data security and access controls"
+      ]
+    },
+    "risk_management": {
+      "description": "Comprehensive risk management methodologies",
+      "topics": [
+        "ISO 14971 risk management for medical devices",
+        "FMEA (Failure Mode and Effects Analysis)",
+        "Hazard analysis",
+        "Risk-benefit analysis",
+        "Risk control measures",
+        "Residual risk evaluation",
+        "Risk review and monitoring",
+        "Risk management file maintenance"
+      ]
+    },
+    "validation_and_verification": {
+      "description": "Process, software, and equipment validation",
+      "topics": [
+        "Process validation (IQ, OQ, PQ)",
+        "Software validation",
+        "Equipment qualification",
+        "Test method validation",
+        "Cleaning validation",
+        "Sterilization validation",
+        "Computer system validation",
+        "Validation documentation requirements"
+      ]
+    }
+  },
+  "problem_solving_frameworks": {
+    "8d_methodology": {
+      "description": "8 Disciplines problem-solving process",
+      "steps": [
+        "D1: Establish the team",
+        "D2: Describe the problem",
+        "D3: Develop interim containment actions",
+        "D4: Define and verify root cause",
+        "D5: Choose and verify permanent corrective actions",
+        "D6: Implement and validate permanent corrective actions",
+        "D7: Prevent recurrence",
+        "D8: Recognize the team"
+      ]
+    },
+    "dmaic": {
+      "description": "Define, Measure, Analyze, Improve, Control",
+      "application": "Six Sigma improvement methodology for process optimization"
+    },
+    "pdca": {
+      "description": "Plan-Do-Check-Act cycle",
+      "application": "Continuous improvement framework"
+    },
+    "root_cause_analysis": {
+      "description": "Systematic approaches to identify true root causes",
+      "techniques": [
+        "5 Whys",
+        "Fishbone (Ishikawa) diagram",
+        "Fault tree analysis",
+        "Pareto analysis",
+        "Brainstorming",
+        "Cause and effect matrix"
+      ]
+    }
+  },
+  "industry_insights": {
+    "common_pitfalls": [
+      "Over-documentation without implementation",
+      "Under-documentation of critical processes",
+      "Lack of management commitment evidence",
+      "Inadequate training programs",
+      "Weak CAPA systems",
+      "Poor document control",
+      "Insufficient risk management",
+      "Inadequate supplier management",
+      "Missing objective evidence",
+      "Nonconformities that recur"
+    ],
+    "success_factors": [
+      "Strong management commitment",
+      "Employee engagement",
+      "Clear communication",
+      "Adequate resources",
+      "Effective training",
+      "Robust CAPA system",
+      "Continuous improvement culture",
+      "Risk-based thinking",
+      "Evidence-based decision making",
+      "Stakeholder focus"
+    ]
+  }
+}
+

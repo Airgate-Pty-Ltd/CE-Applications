@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Management Review Autopilot — Conform-Edge</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <h1>Management Review Autopilot</h1>
+    <p class="tagline">Audit-defensible management review packages in under 30 minutes &mdash; a Conform-Edge product by Annex Quality</p>
+  </div>
+  <div class="scorebox" id="scorebox">
+    <div class="scoreval" id="scoreval">0%</div>
+    <div class="scorelabel">Input coverage</div>
+  </div>
+</header>
+
+<nav id="tabs">
+  <button class="tab active" data-tab="setup">1 &middot; Review Setup</button>
+  <button class="tab" data-tab="inputs">2 &middot; Input Board</button>
+  <button class="tab" data-tab="actions">3 &middot; Output Actions</button>
+  <button class="tab" data-tab="package">4 &middot; Generate Package</button>
+</nav>
+
+<main>
+  <!-- TAB 1: SETUP -->
+  <section id="tab-setup" class="tabpanel active">
+    <h2>Review Setup</h2>
+    <div class="grid2">
+      <label>Organization name
+        <input type="text" id="orgName" placeholder="[The Organization]">
+      </label>
+      <label>Standard
+        <select id="standard">
+          <option value="iso9001">ISO 9001:2015</option>
+          <option value="as9100d">AS9100D</option>
+          <option value="as9110c">AS9110C</option>
+          <option value="iso13485">ISO 13485:2016</option>
+        </select>
+      </label>
+      <label>Review date
+        <input type="date" id="reviewDate">
+      </label>
+      <label>Period covered
+        <input type="text" id="period" placeholder="e.g. Jan&ndash;Jun 2026">
+      </label>
+      <label>Chair (top management)
+        <input type="text" id="chair" placeholder="e.g. General Manager">
+      </label>
+      <label>Attendees
+        <input type="text" id="attendees" placeholder="Names / roles, comma-separated">
+      </label>
+    </div>
+    <div class="callout">
+      <strong>How it works:</strong> pick your standard, then work through the Input Board.
+      Every card is a required input of the management review clause for that standard.
+      Enter data, or mark a justified N/A &mdash; the engine flags anything a certification
+      auditor would write up. When coverage is where you want it, generate the package.
+    </div>
+    <button class="primary" onclick="switchTab('inputs')">Start the Input Board &rarr;</button>
+  </section>
+
+  <!-- TAB 2: INPUT BOARD -->
+  <section id="tab-inputs" class="tabpanel">
+    <h2>Input Board <span id="stdLabel" class="pill"></span></h2>
+    <div id="gapBanner" class="banner hidden"></div>
+    <div id="cards"></div>
+  </section>
+
+  <!-- TAB 3: ACTIONS -->
+  <section id="tab-actions" class="tabpanel">
+    <h2>Output Action Register</h2>
+    <p class="hint">The clause requires review outputs covering improvement opportunities,
+    QMS change needs, and resource needs. Log each decision/action here &mdash; auditors sample
+    this register at the next surveillance.</p>
+    <div class="grid2" id="actionForm">
+      <label>Action / decision
+        <input type="text" id="actDesc" placeholder="What was decided or assigned">
+      </label>
+      <label>Output category
+        <select id="actType"></select>
+      </label>
+      <label>Owner
+        <input type="text" id="actOwner" placeholder="Responsible person">
+      </label>
+      <label>Due date
+        <input type="date" id="actDue">
+      </label>
+    </div>
+    <button class="primary" onclick="addAction()">Add to register</button>
+    <table id="actionTable" class="hidden">
+      <thead><tr><th>#</th><th>Action</th><th>Category</th><th>Owner</th><th>Due</th><th>Status</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- TAB 4: PACKAGE -->
+  <section id="tab-package" class="tabpanel">
+    <h2>Generate Package</h2>
+    <div class="btnrow">
+      <button class="primary" onclick="generatePackage()">Generate / refresh package</button>
+      <button onclick="downloadMd()">Download .md</button>
+      <button onclick="copyMd()">Copy to clipboard</button>
+      <button onclick="window.print()">Print</button>
+      <button class="danger" onclick="resetAll()">Reset all data</button>
+    </div>
+    <div id="verdict" class="banner hidden"></div>
+    <pre id="output" class="hidden"></pre>
+  </section>
+</main>
+
+<footer>
+  Management Review Autopilot is a documentation aid. Outputs are advisory: it does not
+  certify compliance and does not replace the judgment or authority of top management.
+  All data stays in this browser (localStorage) &mdash; nothing is transmitted.
+  &copy; 2026 Annex Quality / Conform-Edge.
+  <div class="suite-note">Part of the Conform-Edge QMS suite &mdash; standard self-assessment,
+  supplier scorecard, repair-station readiness, and audit tools for the same buyer.</div>
+</footer>
+
+<script>
+// ============ STANDARD PACKS (data, not code — clause-by-intent, no verbatim text) ============
+const BASE_9001 = [
+ {id:"prev",  t:"Status of actions from previous reviews", g:"Auditor pulls the last MR minutes and checks each action was tracked to closure or carried forward."},
+ {id:"ctx",   t:"Changes in external and internal issues relevant to the QMS", g:"Evidence that context changes (market, regulation, staffing, technology) were considered."},
+ {id:"csat",  t:"Customer satisfaction and feedback from interested parties", g:"Survey results, scorecards, complaints, praise — with a trend, not a single number."},
+ {id:"obj",   t:"Extent to which quality objectives have been met", g:"Objective-by-objective status vs. target. Unmet objectives need actions."},
+ {id:"proc",  t:"Process performance and conformity of products and services", g:"KPI results for key processes; product conformity data (yield, escapes, rework)."},
+ {id:"nc",    t:"Nonconformities and corrective actions", g:"NC/CA counts, aging, effectiveness verification status, repeat findings."},
+ {id:"mon",   t:"Results of monitoring and measurement", g:"Measurement program results beyond process KPIs (e.g. inspections, verification data)."},
+ {id:"audit", t:"Internal and external audit results", g:"Findings summary by source (internal, CB, customer, authority) and closure status."},
+ {id:"supp",  t:"Performance of external providers", g:"Supplier ratings, OTD/quality scores, supplier corrective actions."},
+ {id:"res",   t:"Adequacy of resources", g:"People, infrastructure, environment, measurement resources — gaps and requests."},
+ {id:"risk",  t:"Effectiveness of actions taken to address risks and opportunities", g:"Risk register review: did the actions work? New risks identified?"},
+ {id:"ofi",   t:"Opportunities for improvement", g:"Improvement ideas from any source, feeding the output register."}
+];
+const PACKS = {
+ iso9001: {name:"ISO 9001:2015", clause:"9.3", outClause:"9.3.3",
+   inputs: BASE_9001,
+   outputs:["Opportunity for improvement","Need for change to the QMS","Resource need"]},
+ as9100d: {name:"AS9100D", clause:"9.3", outClause:"9.3.3",
+   inputs: BASE_9001.concat([
+     {id:"otd", t:"On-time delivery performance", g:"AS9100D emphasis: OTD metric with trend; poor OTD without action is a classic aerospace finding."},
+     {id:"pconf", t:"Customer satisfaction incl. product conformity and delivery performance", g:"Aerospace auditors expect conformity + delivery tied to customer scorecards (e.g. OASIS/customer portals)."}
+   ]),
+   outputs:["Opportunity for improvement","Need for change to the QMS","Resource need","Risk identified during review"]},
+ as9110c: {name:"AS9110C", clause:"9.3", outClause:"9.3.3",
+   inputs: BASE_9001.concat([
+     {id:"otd", t:"On-time delivery performance", g:"MRO context: turnaround-time and delivery performance to operators/customers."},
+     {id:"safety", t:"Safety objectives and human factors program results", g:"AS9110C emphasis: safety policy/objectives status, HF training effectiveness, event reports."},
+     {id:"airw", t:"Airworthiness and regulatory compliance status", g:"Status vs. FAA/EASA/other authority requirements: findings, ADs handling, certificate actions."}
+   ]),
+   outputs:["Opportunity for improvement","Need for change to the QMS","Resource need","Safety-related action"]},
+ iso13485: {name:"ISO 13485:2016", clause:"5.6", outClause:"5.6.3",
+   inputs:[
+     {id:"fb",   t:"Feedback (including production and post-production information)", g:"Feedback system output per 8.2.1 — not just complaints."},
+     {id:"compl",t:"Complaint handling", g:"Complaint volumes, trends, investigations, time-to-close; link to MDR/vigilance decisions."},
+     {id:"regrep",t:"Reporting to regulatory authorities", g:"Adverse event reports, recalls/advisory notices filed in the period — and near-misses."},
+     {id:"audit",t:"Audit results (internal, CB, regulatory, MDSAP)", g:"Findings and closure status by authority."},
+     {id:"proc", t:"Monitoring and measurement of processes", g:"Process KPI results incl. validated process monitoring."},
+     {id:"prod", t:"Monitoring and measurement of product", g:"Product conformity data, release records, trending of test failures."},
+     {id:"ca",   t:"Corrective actions", g:"CA status, effectiveness verification, repeat issues."},
+     {id:"pa",   t:"Preventive actions", g:"ISO 13485 keeps preventive action as its own system — show it."},
+     {id:"prev", t:"Follow-up actions from previous management reviews", g:"Prior action closure evidence."},
+     {id:"chg",  t:"Changes that could affect the quality management system", g:"Organizational, product, process, supplier changes."},
+     {id:"ofi",  t:"Recommendations for improvement", g:"Improvement inputs; note 'maintain effectiveness' framing vs. continual improvement."},
+     {id:"reg",  t:"New or revised regulatory requirements", g:"Regulatory watch output: new/changed requirements in all markets sold."}
+   ],
+   outputs:["Improvement needed to maintain QMS suitability/adequacy/effectiveness","Improvement of product related to customer requirements","Change needed to respond to new/revised regulatory requirements","Resource need"]}
+};
+
+// ============ STATE ============
+let S = { std:"iso9001", meta:{}, cards:{}, actions:[] };
+const LS_KEY = "mra_v1";
+function save(){ localStorage.setItem(LS_KEY, JSON.stringify(S)); refreshScore(); }
+function load(){ try{ const raw = localStorage.getItem(LS_KEY); if(raw) S = JSON.parse(raw);}catch(e){} }
+
+// ============ TABS ============
+function switchTab(name){
+  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active", b.dataset.tab===name));
+  document.querySelectorAll(".tabpanel").forEach(p=>p.classList.toggle("active", p.id==="tab-"+name));
+  if(name==="inputs") renderCards();
+  if(name==="actions") renderActions();
+}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
+
+// ============ SETUP ============
+function bindMeta(id){
+  const el = document.getElementById(id);
+  el.value = S.meta[id] || "";
+  el.addEventListener("input", ()=>{ S.meta[id]=el.value; save(); });
+}
+function initSetup(){
+  ["orgName","reviewDate","period","chair","attendees"].forEach(bindMeta);
+  const std = document.getElementById("standard");
+  std.value = S.std;
+  std.addEventListener("change", ()=>{ S.std = std.value; save(); renderCards(); renderActionTypes(); });
+  renderActionTypes();
+}
+
+// ============ INPUT BOARD ============
+function pack(){ return PACKS[S.std]; }
+function card(id){ if(!S.cards[S.std]) S.cards[S.std]={}; if(!S.cards[S.std][id]) S.cards[S.std][id]={status:"missing",data:"",trend:"",just:"",notes:""}; return S.cards[S.std][id]; }
+function renderCards(){
+  const p = pack();
+  document.getElementById("stdLabel").textContent = p.name + " §" + p.clause;
+  const host = document.getElementById("cards"); host.innerHTML = "";
+  p.inputs.forEach((inp,i)=>{
+    const c = card(inp.id);
+    const div = document.createElement("div");
+    div.className = "card status-"+c.status;
+    div.innerHTML = `
+      <div class="cardhead"><span class="num">${i+1}</span><h3>${inp.t}</h3>
+        <select data-f="status">
+          <option value="missing"${c.status==="missing"?" selected":""}>Missing</option>
+          <option value="entered"${c.status==="entered"?" selected":""}>Data entered</option>
+          <option value="na"${c.status==="na"?" selected":""}>N/A (justified)</option>
+        </select></div>
+      <p class="guidance"><strong>What an auditor samples:</strong> ${inp.g}</p>
+      <div class="cardbody">
+        <label>Data / summary for this period<textarea data-f="data" rows="2">${c.data}</textarea></label>
+        <div class="row">
+          <label>Trend
+            <select data-f="trend">
+              <option value=""${c.trend===""?" selected":""}>&mdash;</option>
+              <option value="Improving"${c.trend==="Improving"?" selected":""}>Improving</option>
+              <option value="Stable"${c.trend==="Stable"?" selected":""}>Stable</option>
+              <option value="Declining"${c.trend==="Declining"?" selected":""}>Declining</option>
+            </select></label>
+          <label class="grow">Notes / decisions discussed<input type="text" data-f="notes" value="${esc(c.notes)}"></label>
+        </div>
+        <label class="justif${c.status==="na"?"":" hidden"}">N/A justification (required)<input type="text" data-f="just" value="${esc(c.just)}"></label>
+      </div>`;
+    div.querySelectorAll("[data-f]").forEach(el=>{
+      el.addEventListener("input", ()=>{
+        c[el.dataset.f] = el.value;
+        if(el.dataset.f==="status"){ div.className="card status-"+c.status; div.querySelector(".justif").classList.toggle("hidden", c.status!=="na"); }
+        save();
+      });
+    });
+    host.appendChild(div);
+  });
+  refreshScore();
+}
+function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+
+// ============ DETERMINISTIC ENGINE (rules-only, advisory) ============
+function evaluate(){
+  const p = pack(); const gaps=[]; let covered=0;
+  p.inputs.forEach(inp=>{
+    const c = card(inp.id);
+    if(c.status==="entered" && c.data.trim().length>0) covered++;
+    else if(c.status==="na" && c.just.trim().length>0) covered++;
+    else if(c.status==="na") gaps.push({t:inp.t, why:"Marked N/A without justification — an auditor will not accept an unjustified exclusion of a required input."});
+    else if(c.status==="entered") gaps.push({t:inp.t, why:"Marked entered but no data recorded — the minutes would show an input with no evidence."});
+    else gaps.push({t:inp.t, why:"Required input missing — likely minor NC against §"+p.clause+" if the review proceeds without it."});
+  });
+  const pct = Math.round(100*covered/p.inputs.length);
+  const openActs = S.actions.filter(a=>a.status!=="Closed").length;
+  return {pct, gaps, covered, total:p.inputs.length, openActs};
+}
+function refreshScore(){
+  const r = evaluate();
+  document.getElementById("scoreval").textContent = r.pct+"%";
+  document.getElementById("scorebox").className = "scorebox " + (r.pct===100?"good":r.pct>=70?"warn":"bad");
+  const b = document.getElementById("gapBanner");
+  if(r.gaps.length){ b.classList.remove("hidden"); b.className="banner warnb"; b.innerHTML = "<strong>"+r.gaps.length+" gap(s) an auditor would flag:</strong><ul>"+r.gaps.map(g=>"<li><em>"+g.t+"</em> — "+g.why+"</li>").join("")+"</ul>"; }
+  else { b.classList.remove("hidden"); b.className="banner goodb"; b.textContent = "All required inputs covered. Advisory only — top management remains responsible for the review."; }
+}
+
+// ============ ACTION REGISTER ============
+function renderActionTypes(){
+  const sel = document.getElementById("actType");
+  sel.innerHTML = pack().outputs.map(o=>`<option>${o}</option>`).join("");
+}
+function addAction(){
+  const d = document.getElementById("actDesc").value.trim();
+  if(!d){ alert("Enter the action or decision first."); return; }
+  S.actions.push({desc:d, type:document.getElementById("actType").value, owner:document.getElementById("actOwner").value, due:document.getElementById("actDue").value, status:"Open", std:S.std});
+  document.getElementById("actDesc").value=""; document.getElementById("actOwner").value=""; document.getElementById("actDue").value="";
+  save(); renderActions();
+}
+function renderActions(){
+  const tb = document.querySelector("#actionTable tbody"); tb.innerHTML="";
+  document.getElementById("actionTable").classList.toggle("hidden", S.actions.length===0);
+  S.actions.forEach((a,i)=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${i+1}</td><td>${esc(a.desc)}</td><td>${esc(a.type)}</td><td>${esc(a.owner)}</td><td>${a.due||"—"}</td>
+      <td><select><option${a.status==="Open"?" selected":""}>Open</option><option${a.status==="In progress"?" selected":""}>In progress</option><option${a.status==="Closed"?" selected":""}>Closed</option></select></td>
+      <td><button class="mini danger" title="Remove">&times;</button></td>`;
+    tr.querySelector("select").addEventListener("change", e=>{ a.status=e.target.value; save(); });
+    tr.querySelector("button").addEventListener("click", ()=>{ S.actions.splice(i,1); save(); renderActions(); });
+    tb.appendChild(tr);
+  });
+}
+
+// ============ PACKAGE GENERATION ============
+function md(){
+  const p = pack(); const r = evaluate(); const m = S.meta;
+  const org = m.orgName || "[The Organization]";
+  const L = [];
+  L.push(`# Management Review Record — ${org}`);
+  L.push(`\n**Standard:** ${p.name} (clause ${p.clause})  \n**Review date:** ${m.reviewDate||"[PLACEHOLDER: date]"}  \n**Period covered:** ${m.period||"[PLACEHOLDER: period]"}  \n**Chair:** ${m.chair||"[PLACEHOLDER: chair]"}  \n**Attendees:** ${m.attendees||"[PLACEHOLDER: attendees]"}\n`);
+  L.push(`## Objective\nTo review the quality management system of ${org} at planned intervals to ensure its continuing suitability, adequacy, effectiveness, and alignment with strategic direction, as required by ${p.name} clause ${p.clause}.\n`);
+  L.push(`## Scope\nThis record covers the management review held on ${m.reviewDate||"[date]"} for the period ${m.period||"[period]"}.\n`);
+  L.push(`## Responsibilities\nTop management chairs and owns the review. The Management Representative / Quality Manager compiles inputs and maintains this record and the output action register.\n`);
+  L.push(`## Input Coverage\n**${r.covered} of ${r.total} required inputs covered (${r.pct}%).**\n`);
+  if(r.gaps.length){ L.push(`### Open gaps (advisory)\n` + r.gaps.map(g=>`- **${g.t}** — ${g.why}`).join("\n") + "\n"); }
+  L.push(`## Agenda\n` + p.inputs.map((inp,i)=>`${i+1}. ${inp.t}`).join("\n") + `\n${p.inputs.length+1}. Review outputs and action assignment (clause ${p.outClause})\n`);
+  L.push(`## Minutes — Review Inputs`);
+  p.inputs.forEach((inp,i)=>{
+    const c = card(inp.id);
+    L.push(`\n### ${i+1}. ${inp.t}`);
+    if(c.status==="na") L.push(`Status: **Not applicable.** Justification: ${c.just||"[PLACEHOLDER: justification]"}`);
+    else { L.push(`${c.data||"[PLACEHOLDER: data not yet entered]"}`); if(c.trend) L.push(`Trend: **${c.trend}**`); if(c.notes) L.push(`Discussion/decisions: ${c.notes}`); }
+  });
+  L.push(`\n## Review Outputs — Action Register (clause ${p.outClause})`);
+  if(S.actions.length){
+    L.push(`\n| # | Action / decision | Output category | Owner | Due | Status |`);
+    L.push(`|---|---|---|---|---|---|`);
+    S.actions.forEach((a,i)=>L.push(`| ${i+1} | ${a.desc} | ${a.type} | ${a.owner||"—"} | ${a.due||"—"} | ${a.status} |`));
+  } else L.push(`\n[PLACEHOLDER: no output actions recorded — a review with no outputs is itself an audit flag.]`);
+  L.push(`\n## Executive Summary\nInput coverage: **${r.pct}%** (${r.covered}/${r.total}). Open output actions: **${r.openActs}**.`);
+  const dec = p.inputs.filter(inp=>card(inp.id).trend==="Declining").map(inp=>inp.t);
+  if(dec.length) L.push(`Declining trends requiring management attention: ${dec.join("; ")}.`);
+  L.push(`Conclusion (to be confirmed by the chair): the QMS is [PLACEHOLDER: suitable / adequate / effective — confirm and sign].\n`);
+  L.push(`## References\n${p.name} clause ${p.clause}; ${org} quality manual and management review procedure.\n`);
+  L.push(`## Documented Information\nThis record and its action register are retained as documented information / quality records per the organization's retention procedure.\n`);
+  L.push(`## Revision History\n| Rev | Date | Description | By |\n|---|---|---|---|\n| A | ${m.reviewDate||"[date]"} | Initial issue of this review record | ${m.chair||"[chair]"} |\n`);
+  L.push(`## Record of Review\n| Role | Name | Signature | Date |\n|---|---|---|---|\n| Chair (Top Management) | ${m.chair||"[name]"} |  |  |\n| Management Representative |  |  |  |\n`);
+  L.push(`---\n*Generated by Management Review Autopilot (Conform-Edge / Annex Quality). Advisory documentation aid — does not certify compliance and does not replace top management judgment.*`);
+  return L.join("\n");
+}
+function generatePackage(){
+  const r = evaluate();
+  const v = document.getElementById("verdict");
+  v.classList.remove("hidden");
+  v.className = "banner " + (r.pct===100?"goodb":"warnb");
+  v.textContent = r.pct===100 ? "Readiness verdict (advisory): input-complete. Package generated below."
+    : `Readiness verdict (advisory): ${r.gaps.length} input gap(s) remain — the package is generated with [PLACEHOLDER] markers so you can see exactly what an auditor would see.`;
+  const o = document.getElementById("output");
+  o.textContent = md(); o.classList.remove("hidden");
+}
+function downloadMd(){
+  const blob = new Blob([md()],{type:"text/markdown"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `management-review-${S.std}-${(S.meta.reviewDate||"draft")}.md`;
+  a.click();
+}
+function copyMd(){ navigator.clipboard.writeText(md()).then(()=>alert("Package copied to clipboard.")); }
+function resetAll(){ if(confirm("Erase all entered data for every standard?")){ localStorage.removeItem(LS_KEY); location.reload(); } }
+
+// ============ INIT ============
+load(); initSetup(); renderCards(); refreshScore();
+</script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+{
+  "ruleSet": "Phase 1 HF Kernel Rules",
+  "version": 1,
+  "revision": "A",
+  "effectiveDate": "2026-08-05",
+  "approvedBy": "Brian R. Olea",
+  "approvalRef": "MAI-CCB-2026-001",
+  "thresholds": {
+    "T1_recurrence_window_months": 12,
+    "T2_grace_period_days": 14,
+    "T3_severity_critical_mapping": true
+  },
+  "rules": [
+    {
+      "ruleId": "HFSRC-001",
+      "dimId": "dim-hf-src",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "completeness",
+      "riskClass": "B",
+      "basisType": "deterministic-record-completeness",
+      "description": "A source record entering evidence review must carry a confidentiality classification before any further processing.",
+      "requiredFields": ["confidentialityClass"],
+      "events": ["source.review_entered"],
+      "findingText": "This source has no confidentiality classification. Unclassified material cannot be risk-routed, AI-routed, or used in training content.",
+      "resolutionHint": "Assign one of the seven license/confidentiality classifications before review proceeds.",
+      "clauseRefs": [],
+      "condition": {
+        "field": "confidentialityClass",
+        "op": "is_null"
+      },
+      "testCases": ["HFSRC-001-POS-001", "HFSRC-001-NEG-001", "HFSRC-001-MISSING-001"],
+      "limitations": ["Cannot verify the classification chosen is factually correct — only that one exists."]
+    },
+    {
+      "ruleId": "HFSRC-002",
+      "dimId": "dim-hf-src",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "authority",
+      "riskClass": "A",
+      "basisType": "deterministic-record-completeness",
+      "description": "Content classified BURRANA_PRIVATE or CUSTOMER_PRIVATE must never be routed to an external AI provider.",
+      "requiredFields": ["confidentialityClass", "aiRoutingTarget"],
+      "events": ["source.ai_routing_requested"],
+      "findingText": "An external AI routing request was made for restricted content. The request was blocked.",
+      "resolutionHint": "Confirm the block, review who initiated the request, and correct the workflow or classification if wrong.",
+      "clauseRefs": [],
+      "condition": {
+        "all": [
+          {
+            "field": "confidentialityClass",
+            "op": "in",
+            "value": ["BURRANA_PRIVATE", "CUSTOMER_PRIVATE"]
+          },
+          {
+            "field": "aiRoutingTarget",
+            "op": "eq",
+            "value": "external"
+          }
+        ]
+      },
+      "testCases": ["HFSRC-002-POS-001", "HFSRC-002-NEG-001", "HFSRC-002-MISSING-001"],
+      "limitations": ["Detects routing requests recorded by the host; cannot detect exfiltration outside the application."]
+    },
+    {
+      "ruleId": "HFSRC-003",
+      "dimId": "dim-hf-src",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "minor",
+      "category": "traceability",
+      "riskClass": "C",
+      "basisType": "deterministic-record-completeness",
+      "description": "A source whose file hash matches an existing registered source should be linked, not processed as new evidence.",
+      "requiredFields": ["duplicateOfSourceId"],
+      "events": ["source.review_entered"],
+      "findingText": "This source is hash-identical to an existing registered source.",
+      "resolutionHint": "Link this upload to the existing source record and archive the duplicate.",
+      "clauseRefs": [],
+      "condition": {
+        "field": "duplicateOfSourceId",
+        "op": "not_null"
+      },
+      "testCases": ["HFSRC-003-POS-001", "HFSRC-003-NEG-001", "HFSRC-003-MISSING-001"],
+      "limitations": ["Hash-identical only; near-duplicates are AI Assist suggestions, not kernel conditions."]
+    },
+    {
+      "ruleId": "HFSRC-004",
+      "dimId": "dim-hf-src",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "traceability",
+      "riskClass": "A",
+      "basisType": "deterministic-record-completeness",
+      "description": "AI-assisted content cannot enter approval without traceable approved source spans.",
+      "requiredFields": ["aiAssisted", "sourceSpans"],
+      "events": ["content.approval_requested"],
+      "findingText": "This AI-drafted content has no linked source spans. Ungrounded generated content cannot be approved for training.",
+      "resolutionHint": "Link the exact approved source passages the draft derives from, or reject the draft.",
+      "clauseRefs": [],
+      "condition": {
+        "all": [
+          {
+            "field": "aiAssisted",
+            "op": "eq",
+            "value": true
+          },
+          {
+            "link": "sourceSpans",
+            "op": "linked_record_missing"
+          }
+        ]
+      },
+      "testCases": ["HFSRC-004-POS-001", "HFSRC-004-NEG-001", "HFSRC-004-MISSING-001"],
+      "limitations": ["Verifies span links exist; cannot verify the spans semantically support every sentence."]
+    },
+    {
+      "ruleId": "HFSRC-005",
+      "dimId": "dim-hf-src",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "authority",
+      "riskClass": "A",
+      "basisType": "deterministic-record-completeness",
+      "description": "No content object may publish unless its status is APPROVED.",
+      "requiredFields": ["contentStatus"],
+      "events": ["content.publish_requested"],
+      "findingText": "A publication request was made for content not in APPROVED status. The request was blocked.",
+      "resolutionHint": "Route the content through review and approval, or reject it.",
+      "clauseRefs": [],
+      "condition": {
+        "not": {
+          "field": "contentStatus",
+          "op": "in",
+          "value": ["APPROVED"]
+        }
+      },
+      "testCases": ["HFSRC-005-POS-001", "HFSRC-005-NEG-001", "HFSRC-005-MISSING-001"],
+      "limitations": ["Status-based; assumes approval records themselves are controlled."]
+    },
+    {
+      "ruleId": "HFSRC-006",
+      "dimId": "dim-hf-src",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "authority",
+      "riskClass": "A",
+      "basisType": "deterministic-record-completeness",
+      "description": "A mandatory training assignment must link to a configured human approval record before issuance.",
+      "requiredFields": ["assignmentType", "approvalRecord"],
+      "events": ["assignment.issue_requested"],
+      "findingText": "A mandatory assignment was requested with no linked approval record.",
+      "resolutionHint": "Obtain and link the required approval before issuing the assignment.",
+      "clauseRefs": [],
+      "condition": {
+        "all": [
+          {
+            "field": "assignmentType",
+            "op": "eq",
+            "value": "MANDATORY"
+          },
+          {
+            "link": "approvalRecord",
+            "op": "linked_record_missing"
+          }
+        ]
+      },
+      "testCases": ["HFSRC-006-POS-001", "HFSRC-006-NEG-001", "HFSRC-006-MISSING-001"],
+      "limitations": ["Verifies the approval link exists, not that the approver held the correct role."]
+    },
+    {
+      "ruleId": "HFINT-001",
+      "dimId": "dim-hf-int",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "linkage",
+      "riskClass": "B",
+      "basisType": "deterministic-record-completeness",
+      "description": "When training is the only corrective action attached to the originating event, the intervention requires explicit justification.",
+      "requiredFields": ["otherCorrectiveControlsCount"],
+      "events": ["intervention.approval_requested"],
+      "findingText": "Training is the only corrective action for this event. Training alone rarely corrects process, tooling, or resource causes.",
+      "resolutionHint": "Complete the Appropriateness Review: confirm training is genuinely the primary control, or add the process/engineering control that is.",
+      "clauseRefs": [],
+      "condition": {
+        "field": "otherCorrectiveControlsCount",
+        "op": "eq",
+        "value": 0
+      },
+      "testCases": ["HFINT-001-POS-001", "HFINT-001-NEG-001", "HFINT-001-MISSING-001"],
+      "limitations": ["Counts linked controls in the host record; cannot judge whether those controls are adequate."]
+    },
+    {
+      "ruleId": "HFINT-002",
+      "dimId": "dim-hf-int",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "completeness",
+      "riskClass": "B",
+      "basisType": "deterministic-record-completeness",
+      "description": "An intervention requesting approval must have an Appropriateness Review confirming a competence or awareness gap.",
+      "requiredFields": ["competenceGapIdentified"],
+      "events": ["intervention.approval_requested"],
+      "findingText": "No competence or awareness gap is documented for this intervention.",
+      "resolutionHint": "Document the gap in the Appropriateness Review, or select a non-training intervention.",
+      "clauseRefs": [],
+      "condition": {
+        "any": [
+          {
+            "field": "competenceGapIdentified",
+            "op": "is_null"
+          },
+          {
+            "field": "competenceGapIdentified",
+            "op": "eq",
+            "value": false
+          }
+        ]
+      },
+      "testCases": ["HFINT-002-POS-001", "HFINT-002-NEG-001", "HFINT-002-MISSING-001"],
+      "limitations": ["Verifies the review answer exists; cannot verify the gap analysis quality."]
+    },
+    {
+      "ruleId": "HFINT-003",
+      "dimId": "dim-hf-int",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "completeness",
+      "riskClass": "B",
+      "basisType": "deterministic-record-completeness",
+      "description": "An intervention cannot be approved without a defined effectiveness method and target level.",
+      "requiredFields": ["effectivenessMethod"],
+      "events": ["intervention.approval_requested"],
+      "findingText": "This intervention defines no effectiveness method.",
+      "resolutionHint": "Define the effectiveness method, target level, owner, and observation period before approval.",
+      "clauseRefs": [],
+      "condition": {
+        "any": [
+          {
+            "field": "effectivenessMethod",
+            "op": "is_null"
+          },
+          {
+            "field": "effectivenessMethod",
+            "op": "is_empty"
+          }
+        ]
+      },
+      "testCases": ["HFINT-003-POS-001", "HFINT-003-NEG-001", "HFINT-003-MISSING-001"],
+      "limitations": ["Existence check only."]
+    },
+    {
+      "ruleId": "HFINT-004",
+      "dimId": "dim-hf-int",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "linkage",
+      "riskClass": "A",
+      "basisType": "deterministic-record-completeness",
+      "description": "If the same HF theme + process combination was previously trained and the event recurred, another training cycle requires escalated justification.",
+      "requiredFields": ["priorTrainingExistsSameThemeProcess", "priorTrainingEffective"],
+      "events": ["intervention.approval_requested"],
+      "findingText": "This theme and process were already trained within the recurrence window and the issue recurred.",
+      "resolutionHint": "Escalate: redesign the intervention, review the original causal analysis, or select a non-training control.",
+      "clauseRefs": [],
+      "condition": {
+        "all": [
+          {
+            "field": "priorTrainingExistsSameThemeProcess",
+            "op": "eq",
+            "value": true
+          },
+          {
+            "field": "priorTrainingEffective",
+            "op": "eq",
+            "value": false
+          }
+        ]
+      },
+      "testCases": ["HFINT-004-POS-001", "HFINT-004-NEG-001", "HFINT-004-MISSING-001"],
+      "limitations": ["Depends on host-computed derived fields; window length is configuration (T1), not kernel logic."]
+    },
+    {
+      "ruleId": "HFINT-005",
+      "dimId": "dim-hf-int",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "traceability",
+      "riskClass": "B",
+      "basisType": "deterministic-record-completeness",
+      "description": "A Learning Atom derived from an event whose causal status is below VERIFIED must carry the interim-awareness label.",
+      "requiredFields": ["linkedEventCausalStatus", "interimAwarenessLabel"],
+      "events": ["atom.approval_requested"],
+      "findingText": "This content presents causal factors that are not yet verified, without the required interim-awareness label.",
+      "resolutionHint": "Apply the label 'Interim preventive awareness content. Causal investigation remains open.' — or hold the atom until causal status is verified.",
+      "clauseRefs": [],
+      "condition": {
+        "all": [
+          {
+            "field": "linkedEventCausalStatus",
+            "op": "in",
+            "value": ["REPORTED", "SUSPECTED", "UNDER_INVESTIGATION", "UNSUPPORTED_ASSERTION", "DISPUTED_CONCLUSION"]
+          },
+          {
+            "field": "interimAwarenessLabel",
+            "op": "eq",
+            "value": false
+          }
+        ]
+      },
+      "testCases": ["HFINT-005-POS-001", "HFINT-005-NEG-001", "HFINT-005-MISSING-001"],
+      "limitations": ["Label-presence check; cannot judge tone of the content body."]
+    },
+    {
+      "ruleId": "HFEFF-001",
+      "dimId": "dim-hf-eff",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "completeness",
+      "riskClass": "A",
+      "basisType": "deterministic-record-completeness",
+      "description": "Effectiveness closure requires evidence at the plan's target level. Completion (Level 1) never closes a plan targeting Level 2+.",
+      "requiredFields": ["planTargetLevel", "highestEvidenceLevel"],
+      "events": ["effectiveness.closure_requested"],
+      "findingText": "Closure was requested with completion-only evidence, but the plan requires a higher effectiveness level.",
+      "resolutionHint": "Record the required evidence (assessment, observation, or outcome data) before closure, or revise the plan with approval.",
+      "clauseRefs": [],
+      "condition": {
+        "all": [
+          {
+            "field": "planTargetLevel",
+            "op": "in",
+            "value": ["2", "3", "4"]
+          },
+          {
+            "field": "highestEvidenceLevel",
+            "op": "eq",
+            "value": "1"
+          }
+        ]
+      },
+      "testCases": ["HFEFF-001-POS-001", "HFEFF-001-NEG-001", "HFEFF-001-MISSING-001"],
+      "limitations": ["Level comparison only; evidence quality is human judgment."]
+    },
+    {
+      "ruleId": "HFEFF-002",
+      "dimId": "dim-hf-eff",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "minor",
+      "category": "timeliness",
+      "riskClass": "C",
+      "basisType": "deterministic-record-completeness",
+      "description": "An open supervisor effectiveness observation past its due date requires attention.",
+      "requiredFields": ["observationStatus", "observationDueDate"],
+      "events": ["observation.status_check"],
+      "findingText": "A supervisor effectiveness observation is overdue.",
+      "resolutionHint": "Complete the observation or re-plan it with an approved new due date.",
+      "clauseRefs": [],
+      "condition": {
+        "all": [
+          {
+            "field": "observationStatus",
+            "op": "eq",
+            "value": "OPEN"
+          },
+          {
+            "field": "observationDueDate",
+            "op": "date_before_today"
+          }
+        ]
+      },
+      "testCases": ["HFEFF-002-POS-001", "HFEFF-002-NEG-001", "HFEFF-002-MISSING-001"],
+      "limitations": ["Uses server-local midnight for date comparison."]
+    },
+    {
+      "ruleId": "HFEFF-003",
+      "dimId": "dim-hf-eff",
+      "revision": 1,
+      "effectiveDate": "2026-08-05",
+      "approvedBy": "Brian R. Olea",
+      "approvalRef": "MAI-CCB-2026-001",
+      "severity": "major",
+      "category": "authority",
+      "riskClass": "A",
+      "basisType": "deterministic-record-completeness",
+      "description": "Frozen manifests are immutable; the database blocks modification. Any attempted modification event is surfaced for review.",
+      "requiredFields": ["manifestId"],
+      "events": ["manifest.modification_attempted"],
+      "findingText": "A modification was attempted on a frozen training-package manifest. The attempt was blocked.",
+      "resolutionHint": "Review who attempted the change and why. If content must change, issue a new package revision — never edit history.",
+      "clauseRefs": [],
+      "condition": {
+        "field": "manifestId",
+        "op": "not_null"
+      },
+      "testCases": ["HFEFF-003-POS-001", "HFEFF-003-NEG-001", "HFEFF-003-MISSING-001"],
+      "limitations": ["Fires on host-reported attempts; DB constraints are the actual enforcement."]
+    }
+  ]
+}

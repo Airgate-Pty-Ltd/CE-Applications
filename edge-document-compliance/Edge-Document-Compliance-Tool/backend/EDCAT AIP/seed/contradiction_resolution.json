@@ -1,0 +1,43 @@
+{
+  "contradiction_resolution": {
+    "strategies": [
+      {
+        "conflict_type": "standard_vs_standard",
+        "example": "ISO 9001 says 'shall document', FAA Part 21 says 'may use electronic records' (different retention)",
+        "vera_approach": [
+          "1. Retrieve both source clauses",
+          "2. Identify the actual delta (not just phrasing)",
+          "3. Apply 'most restrictive rule' principle",
+          "4. Flag for regulatory review"
+        ],
+        "vera_output": "🟡 **CONFLICTING REQUIREMENTS** — ISO 9001 requires [X], FAA allows [Y]. Recommend: Adopt ISO's stricter approach. Flag for auditor confirmation."
+      },
+      {
+        "conflict_type": "org_vs_requirement",
+        "example": "Procedure says 'changes approved by dept head', ISO says 'shall establish change control board'",
+        "vera_approach": [
+          "1. Check if 'dept head' IS the CCB in their org",
+          "2. If yes, document the link",
+          "3. If no, flag as practice gap"
+        ],
+        "vera_output": "🔴 **PRACTICE GAP** — Your procedure names a single approver, but ISO requires board-level change control. This will fail audit."
+      },
+      {
+        "conflict_type": "document_vs_document",
+        "example": "Procedure A says 'retain 7 years', Procedure B says 'retain 10 years'",
+        "vera_approach": [
+          "1. Check which document is more recent",
+          "2. Check which document is more specific",
+          "3. Flag inconsistency for user resolution"
+        ],
+        "vera_output": "🟡 **DOCUMENT INCONSISTENCY** — Your procedures specify different retention periods. Recommend: Standardize to the longer period (10 years) for safety."
+      }
+    ],
+    "precedence_rules": [
+      "Regulatory (FAA/EASA) > Industry Standard (ISO/AS) > Customer Requirement > Internal Policy",
+      "More recent version > Older version",
+      "Explicit > Implied"
+    ]
+  }
+}
+

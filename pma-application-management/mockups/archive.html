@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cases &amp; Archive · PMA Autopilot</title>
+  <link rel="stylesheet" href="assets/vera.css" />
+</head>
+<body data-page="cases">
+  <div class="layout">
+    <main class="content">
+      <div class="row spread">
+        <h1>PMA Cases</h1>
+        <button class="btn btn-primary" onclick="document.getElementById('m').style.display='flex'">＋ New case</button>
+      </div>
+      <p class="muted small" style="margin-top:-6px">Every case, live and archived. Archived packages remain fully readable — evidence, generated drafts, and the full assessment history are retained indefinitely.</p>
+
+      <div class="panel">
+        <div class="row">
+          <span class="label" style="align-self:center">Filter</span>
+          <button class="btn btn-ghost">All</button>
+          <button class="btn btn-cancel">Active</button>
+          <button class="btn btn-cancel">Archived</button>
+          <input class="minp" style="max-width:260px;margin-bottom:0;margin-left:auto" placeholder="Search article name" />
+        </div>
+      </div>
+
+      <div class="panel" style="padding:0">
+        <table class="grid">
+          <thead><tr><th>Article</th><th>Status</th><th>Basis</th><th>Open gaps</th><th>Updated</th></tr></thead>
+          <tbody>
+            <tr onclick="location.href='case.html'" style="cursor:pointer">
+              <td>Hydraulic Bracket Assembly</td><td><span class="stag signal">Gap review</span></td>
+              <td class="muted">STC identicality</td><td><span class="stag blocking">1 blocking</span></td><td class="muted small">2026-07-24 09:12</td>
+            </tr>
+            <tr onclick="location.href='case.html'" style="cursor:pointer">
+              <td>Bleed Air Valve</td><td><span class="stag signal">Drafting</span></td>
+              <td class="muted">Test &amp; computation</td><td><span class="stag info">none</span></td><td class="muted small">2026-07-23 16:40</td>
+            </tr>
+            <tr onclick="location.href='case.html'" style="cursor:pointer">
+              <td>Cabin Vent Duct</td><td><span class="stag signal">Intake</span></td>
+              <td class="muted">—</td><td><span class="stag warning">2 warning</span></td><td class="muted small">2026-07-22 11:02</td>
+            </tr>
+            <tr onclick="location.href='documents.html'" style="cursor:pointer">
+              <td>Fuel Return Line</td><td><span class="stag info">Exported</span></td>
+              <td class="muted">TC licensed</td><td><span class="stag info">none</span></td><td class="muted small">2026-07-19 08:55</td>
+            </tr>
+            <tr onclick="location.href='case.html'" style="cursor:pointer;opacity:.72">
+              <td>Actuator Mount Bracket</td><td><span class="stag neutral">Archived</span></td>
+              <td class="muted">STC identicality</td><td><span class="stag info">none</span></td><td class="muted small">2026-05-30 14:20</td>
+            </tr>
+            <tr onclick="location.href='case.html'" style="cursor:pointer;opacity:.72">
+              <td>Oil Cooler Line P/N 55-114</td><td><span class="stag neutral">Archived</span></td>
+              <td class="muted">Identicality (no license)</td><td><span class="stag info">none</span></td><td class="muted small">2026-04-11 10:07</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <div id="m" class="center-screen" style="display:none;position:fixed;inset:0;z-index:300;background:rgba(2,5,12,.72);backdrop-filter:blur(8px)">
+    <div class="panel panel-hi" style="width:520px">
+      <div class="row spread" style="margin-bottom:14px"><div style="font-weight:700;font-size:1.05rem">New PMA Case</div><button class="ib" onclick="document.getElementById('m').style.display='none'">✕</button></div>
+      <label class="mfi">Article name</label>
+      <input class="minp" placeholder="e.g. Hydraulic Bracket Assembly" autofocus />
+      <div class="small muted">The approval basis and article data are captured during intake — never typed from memory.</div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn btn-cancel" onclick="document.getElementById('m').style.display='none'">Cancel</button>
+        <button class="btn btn-primary" style="margin-left:auto" onclick="location.href='upload.html'">Create</button>
+      </div>
+    </div>
+  </div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

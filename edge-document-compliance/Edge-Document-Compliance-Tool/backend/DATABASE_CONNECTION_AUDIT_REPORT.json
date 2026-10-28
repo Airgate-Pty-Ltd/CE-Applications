@@ -1,0 +1,255 @@
+{
+  "incorrectDatabaseUsage": [
+    {
+      "file": "src\\routes\\parse.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI(\n          `SELECT id, code, name, uploaded_at, \n                  COALESCE(total_claus",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "src\\routes\\parse.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI(\n          `SELECT id, code, name FROM public.",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "src\\scripts\\consolidate-standards-tables.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI('SELECT id, code, name, sector, uploaded_at FROM public.",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "src\\scripts\\consolidate-standards-tables.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI('SELECT id, file_name, standard_id, file_category FROM public.",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "src\\scripts\\consolidate-standards-tables.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI('SELECT id, standard_id, clause_ref, requirement_text FROM public.",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "src\\scripts\\remove-duplicate-tables.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI(`SELECT COUNT(*) as count FROM public.",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "src\\scripts\\remove-edcat-ai-duplicates.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI(`SELECT COUNT(*) as count FROM public.",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "src\\scripts\\remove-edcat-ai-duplicates.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI('SELECT COUNT(*) as count FROM public.",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "src\\scripts\\verify-database-connection-and-data.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI('SELECT COUNT(*) as count FROM public.",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "src\\services\\vera\\VeraParserSupervisorService.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI(\r\n          `SELECT id, code, name, file_category, file_content, file_path, file_type F",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "src\\services\\vera\\VeraVectorEngine.js",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI(\r\n        `SELECT id, clause_number, requirement_text\r\n         FROM public.",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    },
+    {
+      "file": "vera\\seeds\\contextualEnrichmentSeeds.ts",
+      "issue": "queryEdcatAI used with public table",
+      "code": "queryEdcatAI(\r\n        `SELECT enrichment_id FROM edcat.vera_contextual_enrichment e\r\n         JOIN ",
+      "fix": "Verify if this should be queryPostgres instead",
+      "severity": "warning"
+    }
+  ],
+  "missingConnectionStrings": [],
+  "legacyConnectionCode": [
+    {
+      "file": "database.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "database.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/process\\.env\\.DB_HOST/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "database.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/process\\.env\\.DB_NAME/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "database.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/process\\.env\\.DB_USER/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "database.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/process\\.env\\.DB_PASSWORD/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "scripts\\apply-schema.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "scripts\\apply-schema.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/createPool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "scripts\\migrate.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "setup-db.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\database\\db.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\database\\db.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/createPool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\database\\migrate.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\apply-fixed-schema.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\check-standards-table-exists.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\create-all-tables.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\create-blueprint-tables.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\create-standards-table-directly.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\diagnose-upload-issue.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\drop-tables-now.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\find-standards-table-schema.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\fix-all-standards-issues.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\fix-standards-data.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\run-edcat-migration-only.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\run-migrations.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\verify-railway-ui-data.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\scripts\\verify-standards-table-exists.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/new\\s+Pool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    },
+    {
+      "file": "src\\services\\dbIntrospectService.js",
+      "issue": "Legacy connection code detected",
+      "pattern": "/createPool\\s*\\(/g",
+      "fix": "Use queryPostgres/queryEdcatAI from databases.js instead"
+    }
+  ],
+  "brokenConnections": [],
+  "missingTables": []
+}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documents · PMA Autopilot</title>
+  <link rel="stylesheet" href="assets/vera.css" />
+</head>
+<body data-page="cases">
+  <div class="layout">
+    <main class="content">
+      <div class="row spread"><h1>Bleed Air Valve</h1><span class="stag signal">Drafting</span></div>
+      <div class="mai-badge" style="margin-bottom:14px">● M-AI active — advisory only. Human authority controls all decisions.</div>
+
+      <div class="tabs">
+        <a class="tab" href="case.html">Overview</a>
+        <a class="tab" href="upload.html">Intake</a>
+        <a class="tab" href="conditions.html">Conditions</a>
+        <span class="tab active">Documents</span>
+        <a class="tab" href="library.html">Precedents</a>
+      </div>
+
+      <div class="panel">
+        <div class="label">Generate drafts — a blocking condition blocks generation</div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn btn-primary">Application Letter</button>
+          <button class="btn btn-primary">PMA Supplement</button>
+          <button class="btn btn-primary">Submission Checklist</button>
+          <button class="btn btn-primary">Management Review Pack</button>
+        </div>
+        <p class="wm-note" style="margin-top:12px">Every draft is watermarked “Draft for internal review only — not for FAA submission.”</p>
+      </div>
+
+      <div class="panel" style="padding:0">
+        <table class="grid">
+          <thead><tr><th>Type</th><th>Version</th><th>Submission status</th><th>Snapshot</th><th>Reg revision</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Application Letter</td><td>v2</td><td><span class="stag DRAFTED">Drafted</span></td><td class="muted small">9f2a1c4e7b03…</td><td class="muted small">AC 21.303-4 (3/21/14)</td><td><button class="btn btn-ghost">Download</button></td></tr>
+            <tr><td>PMA Supplement</td><td>v2</td><td><span class="stag DRAFTED">Drafted</span></td><td class="muted small">9f2a1c4e7b03…</td><td class="muted small">AC 21.303-4 (3/21/14)</td><td><button class="btn btn-ghost">Download</button></td></tr>
+            <tr><td>Submission Checklist</td><td>v1</td><td><span class="stag DRAFTED_WITH_GAPS">Drafted with gaps</span></td><td class="muted small">1b77e0d9a4c2…</td><td class="muted small">AC 21.303-4 (3/21/14)</td><td><button class="btn btn-ghost">Download</button></td></tr>
+            <tr><td>Management Review Pack</td><td>v1</td><td><span class="stag DRAFTED">Drafted</span></td><td class="muted small">9f2a1c4e7b03…</td><td class="muted small">AC 21.303-4 (3/21/14)</td><td><button class="btn btn-ghost">Download</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel small muted">
+        Submission status is only ever <span class="stag DRAFTED">Drafted</span> · <span class="stag DRAFTED_WITH_GAPS">Drafted with gaps</span> · <span class="stag BLOCKED">Blocked</span>. The tool never states a package is ready for FAA submission — a human certifies and submits.
+      </div>
+    </main>
+  </div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

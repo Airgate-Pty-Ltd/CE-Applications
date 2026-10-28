@@ -1,0 +1,36 @@
+{
+  "dimId": "pma-application-assessment",
+  "description": "Evaluates a PMA_Case snapshot for approval-basis signal and AC 21.303-4 §8 completeness / cross-document consistency; produces System-Detected Conditions only. Makes no PMA eligibility determination.",
+  "subscribesTo": ["pma_case.created", "pma_case.updated", "pma_case.closure_submitted"],
+  "readsFields": {
+    "pma_case": [
+      "stc_number",
+      "tc_number",
+      "tc_holder",
+      "license_agreement_present",
+      "compliance_data_present",
+      "applicant_legal_name",
+      "manufacturing_address",
+      "faa_submission_office",
+      "qms_manual_number",
+      "qms_manual_revision",
+      "qms_manual_date",
+      "marking_scheme_ref",
+      "ica_disposition_stated",
+      "ad_impact_addressed",
+      "signatory_name",
+      "signatory_title",
+      "pma_part_numbers",
+      "oem_part_numbers",
+      "letter_stc_number",
+      "supplement_stc_number",
+      "letter_model_eligibility",
+      "supplement_model_eligibility",
+      "stc_letter_supplement_mismatch",
+      "model_eligibility_letter_supplement_mismatch",
+      "pma_oem_part_number_collision"
+    ]
+  },
+  "version": "1.0",
+  "publishedAt": "2026-07-24"
+}

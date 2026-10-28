@@ -1,0 +1,30 @@
+{
+  "standard": {
+    "code": "ARP9134A",
+    "revision": "2014",
+    "title": "Supply Chain Risk Management",
+    "authority": "SAE",
+    "citation_style": "page_line",
+    "parser_profile": "pdf_generic_v1",
+    "metadata": {
+      "domain": "Aerospace"
+    }
+  },
+  "clauses": [
+    {
+      "clause_id": "1",
+      "label": "Scope",
+      "parent": null,
+      "order_index": 1
+    },
+    {
+      "clause_id": "5",
+      "label": "Risk process (supplier/product)",
+      "parent": null,
+      "order_index": 50
+    }
+  ],
+  "crosswalk_targets": [
+    "AS9100"
+  ]
+}

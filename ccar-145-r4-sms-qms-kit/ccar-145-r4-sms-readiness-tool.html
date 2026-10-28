@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCAR-145 R4 SMS+QMS Readiness Tool | Conform-Edge</title>
+<style>
+  :root {
+    --navy: #0d2b4e;
+    --steel: #2e5f8a;
+    --amber: #c47d00;
+    --red: #b52020;
+    --green: #1a7a4a;
+    --orange: #b85000;
+    --caac-red: #cc2200;
+    --bg: #f4f6fa;
+    --card: #ffffff;
+    --border: #d0d8e4;
+    --muted: #5a6a7e;
+    --text: #1a2535;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Aptos', 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.5; }
+
+  /* Header */
+  header { background: var(--navy); color: white; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-icon { width: 40px; height: 40px; background: var(--caac-red); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; color: white; }
+  .brand-name { font-size: 20px; font-weight: 700; }
+  .brand-sub { font-size: 12px; opacity: 0.7; }
+  .hdr-badges { display: flex; gap: 8px; }
+  .hdr-badge { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 16px; padding: 5px 12px; font-size: 11px; font-weight: 600; }
+
+  /* Hero */
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, #1e4a6e 100%); color: white; padding: 36px 32px 32px; }
+  .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+  .hero-sub { font-size: 14px; opacity: 0.82; max-width: 700px; line-height: 1.65; margin-bottom: 18px; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero-pill { background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.26); border-radius: 16px; padding: 5px 14px; font-size: 12px; font-weight: 600; }
+
+  /* Notice bar */
+  .notice-bar { background: #fff8e1; border-bottom: 2px solid var(--amber); padding: 11px 32px; font-size: 13px; display: flex; align-items: flex-start; gap: 10px; }
+  .notice-bar strong { color: var(--amber); }
+
+  /* Org info */
+  .org-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin-bottom: 20px; }
+  .org-card h3 { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .org-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .org-field input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; font-size: 13px; background: #f8fafc; font-family: inherit; }
+  .org-field label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+  /* Progress */
+  .prog-bar-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+  .prog-bg { flex: 1; background: #e8eef8; border-radius: 6px; height: 9px; overflow: hidden; }
+  .prog-fill { height: 9px; background: var(--steel); border-radius: 6px; transition: width 0.3s; width: 0%; }
+  #progLabel { font-size: 13px; color: var(--muted); white-space: nowrap; min-width: 120px; text-align: right; }
+
+  /* Container */
+  .container { max-width: 920px; margin: 0 auto; padding: 26px 22px 60px; }
+
+  /* Section cards */
+  .sec-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+  .sec-head { padding: 15px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+  .sec-head:hover { opacity: 0.92; }
+  .sec-head.s-a { background: linear-gradient(90deg, #0d2b4e, #163a63); color: white; }
+  .sec-head.s-b { background: linear-gradient(90deg, #1a4a7a, #23609e); color: white; }
+  .sec-head.s-c { background: linear-gradient(90deg, #0d4030, #1a6040); color: white; }
+  .sec-head.s-d { background: linear-gradient(90deg, #5a2000, #8a3800); color: white; }
+  .sec-title { font-size: 15px; font-weight: 700; }
+  .sec-meta { font-size: 11px; opacity: 0.72; margin-top: 2px; }
+  .sec-right { display: flex; align-items: center; gap: 10px; }
+  .sec-rag { font-size: 13px; font-weight: 700; padding: 4px 12px; border-radius: 12px; background: rgba(255,255,255,0.15); min-width: 70px; text-align: center; }
+  .sec-score { font-size: 13px; font-weight: 700; opacity: 0.8; }
+  .sec-body { display: none; }
+  .sec-body.open { display: block; }
+
+  /* Questions */
+  .q-wrap { padding: 18px 20px; border-top: 1px solid var(--border); }
+  .q-block { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid #eaeff6; }
+  .q-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .q-row { display: flex; align-items: flex-start; gap: 12px; }
+  .q-id { font-size: 12px; font-weight: 700; color: var(--steel); background: #e8eef8; border-radius: 6px; padding: 3px 8px; min-width: 38px; text-align: center; margin-top: 2px; flex-shrink: 0; }
+  .q-content { flex: 1; }
+  .q-text { font-size: 14px; color: var(--text); line-height: 1.55; font-weight: 500; margin-bottom: 9px; }
+  .q-options { display: flex; gap: 7px; flex-wrap: wrap; }
+  .opt { padding: 6px 14px; border: 2px solid var(--border); border-radius: 18px; background: white; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted); transition: all 0.15s; user-select: none; }
+  .opt:hover { border-color: var(--steel); color: var(--steel); }
+  .opt.sel-3 { background: var(--green);  border-color: var(--green);  color: white; }
+  .opt.sel-2 { background: var(--amber);  border-color: var(--amber);  color: white; }
+  .opt.sel-1 { background: var(--red);    border-color: var(--red);    color: white; }
+  .opt.sel-na { background: #6c757d;      border-color: #6c757d;       color: white; }
+
+  /* Risk matrix callout */
+  .risk-matrix { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; font-size: 12px; color: var(--muted); }
+  .risk-matrix strong { color: var(--navy); }
+
+  /* Submit */
+  .submit-bar { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-align: center; margin-top: 10px; }
+  .submit-bar p { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .btn-gen { background: var(--caac-red); color: white; border: none; padding: 14px 36px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; }
+  .btn-gen:hover { background: #a01800; }
+  .btn-rst { background: white; color: var(--navy); border: 2px solid var(--border); padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; margin-left: 10px; }
+  .btn-rst:hover { border-color: var(--navy); }
+
+  /* Results */
+  #results { display: none; margin-top: 28px; }
+  .res-header { background: var(--navy); color: white; border-radius: 12px 12px 0 0; padding: 20px 28px; display: flex; align-items: flex-start; justify-content: space-between; }
+  .res-header h2 { font-size: 19px; font-weight: 800; }
+  .res-date { font-size: 12px; opacity: 0.6; margin-top: 4px; }
+  .res-body { background: var(--card); border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; padding: 26px; }
+
+  /* Overall score */
+  .overall-row { display: flex; align-items: center; gap: 30px; margin-bottom: 24px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+  .score-ring { flex-shrink: 0; }
+  .ring-track  { fill: none; stroke: #e0e8f0; stroke-width: 16; }
+  .ring-arc    { fill: none; stroke-width: 16; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.8s ease, stroke 0.5s; stroke-dasharray: 289; stroke-dashoffset: 289; }
+  .ring-pct-t  { font-size: 20px; font-weight: 800; fill: var(--navy); font-family: 'Aptos', 'Segoe UI', Arial, sans-serif; }
+  .ring-lbl-t  { font-size: 10px; fill: var(--muted); font-family: 'Aptos', 'Segoe UI', Arial, sans-serif; }
+  .score-meta { flex: 1; }
+  .score-verdict { font-size: 21px; font-weight: 800; margin-bottom: 5px; }
+  .rag-green  { color: var(--green); }
+  .rag-amber  { color: var(--amber); }
+  .rag-red    { color: var(--red); }
+  .score-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* Section RAG table */
+  .rag-table-wrap { margin-bottom: 22px; }
+  .rag-table-wrap h3 { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .rag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
+  .rag-row-name { font-size: 13px; min-width: 280px; color: var(--text); }
+  .rag-bar-bg { flex: 1; background: #e8eef8; border-radius: 4px; height: 10px; overflow: hidden; }
+  .rag-bar { height: 10px; border-radius: 4px; transition: width 0.6s ease; }
+  .bar-g { background: var(--green); }
+  .bar-a { background: var(--amber); }
+  .bar-r { background: var(--red); }
+  .rag-pct { font-size: 13px; font-weight: 700; color: var(--muted); min-width: 44px; text-align: right; }
+  .rag-dot { font-size: 14px; min-width: 20px; }
+
+  /* Findings */
+  .findings-wrap h3 { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .finding { border: 1px solid var(--border); border-radius: 8px; padding: 13px 15px; margin-bottom: 9px; }
+  .finding.p-crit { border-left: 4px solid var(--red);   background: #fdf8f8; }
+  .finding.p-part { border-left: 4px solid var(--amber); background: #fdf9f0; }
+  .f-priority { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; color: var(--muted); }
+  .finding.p-crit .f-priority { color: var(--red); }
+  .finding.p-part .f-priority { color: var(--amber); }
+  .f-text { font-size: 14px; line-height: 1.5; }
+  .f-section { font-size: 11px; color: var(--steel); margin-top: 4px; font-weight: 600; }
+  .all-clear { background: #eafaf0; border: 1px solid var(--green); border-radius: 8px; padding: 18px; color: var(--green); font-weight: 700; text-align: center; font-size: 14px; }
+
+  .btn-print { background: var(--steel); color: white; border: none; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 16px; }
+  .btn-print:hover { background: var(--navy); }
+
+  footer { text-align: center; padding: 26px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); background: white; margin-top: 20px; }
+
+  @media print {
+    header, .hero, .notice-bar, .prog-bar-wrap, .sec-head, .q-options, .submit-bar, .btn-print, .btn-rst, footer { display: none !important; }
+    .sec-body, .q-wrap { display: block !important; }
+    #results { display: block !important; }
+    body { background: white; font-size: 12px; }
+    .container { padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">CE</div>
+    <div>
+      <div class="brand-name">Conform-Edge</div>
+      <div class="brand-sub">Aviation Compliance Intelligence</div>
+    </div>
+  </div>
+  <div class="hdr-badges">
+    <span class="hdr-badge">CCAR-145 R4</span>
+    <span class="hdr-badge">SMS · ICAO Annex 19</span>
+    <span class="hdr-badge">English-Language</span>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>CCAR-145 R4 SMS+QMS Readiness Self-Assessment</h1>
+  <div class="hero-sub">Assess your AMO's compliance with CCAR-145 Revision 4's integrated Safety Management System and Quality Management System requirements. Based on ICAO Annex 19 four-component SMS framework as adopted by CAAC. Fully offline — no data transmitted.</div>
+  <div class="hero-pills">
+    <span class="hero-pill">CAAC CCAR-145 R4</span>
+    <span class="hero-pill">44 Scored Requirements</span>
+    <span class="hero-pill">4 SMS Components</span>
+    <span class="hero-pill">RAG Scoring · Live Dashboard</span>
+    <span class="hero-pill">Printable Gap Report</span>
+  </div>
+</div>
+
+<div class="notice-bar">
+  ⚠&nbsp;<strong>CAAC Notice:</strong> CCAR-145 Revision 4 integrates ICAO Annex 19 Safety Management System requirements into the existing QMS framework. Western AMOs holding CAAC authorizations must implement the full 4-component SMS. This tool uses English-language plain-language interpretation — verify all requirements against official CAAC CCAR-145 R4 Chinese-language text before any CAAC audit.
+</div>
+
+<div class="container">
+
+  <!-- Org Info -->
+  <div class="org-card">
+    <h3>AMO Information (Optional — appears on printed report)</h3>
+    <div class="org-grid">
+      <div class="org-field"><label>AMO Name</label><input type="text" id="orgName" placeholder="Organization name"></div>
+      <div class="org-field"><label>CAAC Authorization No.</label><input type="text" id="orgAuth" placeholder="CCAR-145 Authorization"></div>
+      <div class="org-field"><label>Assessment Date</label><input type="date" id="orgDate"></div>
+      <div class="org-field"><label>Conducted By</label><input type="text" id="orgBy" placeholder="Assessor name/title"></div>
+      <div class="org-field"><label>Base / Location</label><input type="text" id="orgBase" placeholder="Primary base of operations"></div>
+      <div class="org-field"><label>Next CAAC Audit (est.)</label><input type="text" id="orgAudit" placeholder="e.g., Q3 2026"></div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="prog-bar-wrap">
+    <div style="font-size:13px;font-weight:700;color:var(--navy);white-space:nowrap;">Assessment Progress</div>
+    <div class="prog-bg"><div class="prog-fill" id="progFill"></div></div>
+    <div id="progLabel">0 of 44 answered</div>
+  </div>
+
+  <!-- SECTION A -->
+  <div class="sec-card">
+    <div class="sec-head s-a" onclick="toggleSec('secA')">
+      <div>
+        <div class="sec-title">Component 1 — Safety Policy &amp; Objectives</div>
+        <div class="sec-meta">10 requirements · CCAR-145 R4 Section 4 · ICAO Annex 19 §3.1</div>
+      </div>
+      <div class="sec-right">
+        <div class="sec-score" id="score-secA">0 / 30</div>
+        <div class="sec-rag" id="rag-secA">—</div>
+      </div>
+    </div>
+    <div class="sec-body" id="body-secA">
+      <div class="q-wrap">
+
+        <div class="q-block"><div class="q-row"><div class="q-id">A1</div><div class="q-content">
+          <div class="q-text">A signed Safety Policy exists at the organizational level, stating management's commitment to safety and the priority of safety over operational/commercial pressures.</div>
+          <div class="q-options" data-q="A1" data-sec="A" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">A2</div><div class="q-content">
+          <div class="q-text">The Safety Policy is personally signed by the Accountable Manager (Post Holder responsible for the entire CAAC-authorized organization) — not delegated to a subordinate signature.</div>
+          <div class="q-options" data-q="A2" data-sec="A" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">A3</div><div class="q-content">
+          <div class="q-text">The Safety Policy is communicated to, understood by, and accessible to all personnel (including contract workers and subcontractors); evidence of communication exists (briefing records, acknowledgment forms, posting records).</div>
+          <div class="q-options" data-q="A3" data-sec="A" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">A4</div><div class="q-content">
+          <div class="q-text">The Safety Policy is formally reviewed at least annually; the review is documented with date, reviewer(s), and outcome (approved unchanged / updated); version control is maintained.</div>
+          <div class="q-options" data-q="A4" data-sec="A" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">A5</div><div class="q-content">
+          <div class="q-text">Documented Safety Objectives exist, are quantified (measurable targets), and are aligned with the Safety Policy; objectives are specific enough to allow evaluation of whether they have been met.</div>
+          <div class="q-options" data-q="A5" data-sec="A" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">A6</div><div class="q-content">
+          <div class="q-text">Safety Objectives are reviewed at formal Management Review meetings; progress against objectives is assessed and decisions documented; objectives are updated based on performance data.</div>
+          <div class="q-options" data-q="A6" data-sec="A" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">A7</div><div class="q-content">
+          <div class="q-text">The Accountable Manager's safety accountabilities and authority are explicitly stated in the AMO Manual (or integrated SMS+QMS Manual); the Accountable Manager accepts ultimate responsibility for safety outcomes.</div>
+          <div class="q-options" data-q="A7" data-sec="A" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">A8</div><div class="q-content">
+          <div class="q-text">The Safety Policy is integrated with or explicitly cross-referenced to the Quality Policy; both are consistent in language, priority, and intent — no conflicting statements exist between the two policies.</div>
+          <div class="q-options" data-q="A8" data-sec="A" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">A9</div><div class="q-content">
+          <div class="q-text">A Safety Review Board (SRB), Safety Action Group (SAG), or equivalent governance forum is defined in the AMO Manual; meeting frequency, quorum, authority, and documentation requirements are specified. [Mark N/A only if AMO size/complexity is genuinely below threshold — document justification.]</div>
+          <div class="q-options" data-q="A9" data-sec="A" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">A10</div><div class="q-content">
+          <div class="q-text">Safety roles, responsibilities, and authorities are documented for all key positions in the organization; responsibilities are assigned to named role types (not just individuals) and are reflected in the organizational structure chart in the AMO Manual.</div>
+          <div class="q-options" data-q="A10" data-sec="A" data-max="3"></div>
+        </div></div></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION B -->
+  <div class="sec-card">
+    <div class="sec-head s-b" onclick="toggleSec('secB')">
+      <div>
+        <div class="sec-title">Component 2 — Safety Risk Management (Hazard ID &amp; Risk)</div>
+        <div class="sec-meta">12 requirements · CCAR-145 R4 · ICAO Annex 19 §3.2</div>
+      </div>
+      <div class="sec-right">
+        <div class="sec-score" id="score-secB">0 / 36</div>
+        <div class="sec-rag" id="rag-secB">—</div>
+      </div>
+    </div>
+    <div class="sec-body" id="body-secB">
+      <div class="q-wrap">
+
+        <div class="risk-matrix">
+          <strong>ICAO 5×5 Risk Matrix (standard for CCAR-145 R4):</strong> Severity (Catastrophic / Hazardous / Major / Minor / Negligible) × Likelihood (Frequent / Occasional / Remote / Improbable / Extremely Improbable). Risk acceptability: Intolerable → Tolerable → Acceptable. Verify AMO's matrix is consistent with CAAC/ICAO guidance.
+        </div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B1</div><div class="q-content">
+          <div class="q-text">A formal Hazard Identification process exists (documented procedure), distinct from the general discrepancy/nonconformance reporting system; the process defines what constitutes a "hazard" in the maintenance context.</div>
+          <div class="q-options" data-q="B1" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B2</div><div class="q-content">
+          <div class="q-text">A Hazard Register is maintained as a living, controlled document; it contains all identified hazards, associated risks, current mitigations, risk owners, and residual risk ratings; the register has a defined review frequency.</div>
+          <div class="q-options" data-q="B2" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B3</div><div class="q-content">
+          <div class="q-text">Hazard identification is systematically triggered by accidents, incidents, and maintenance errors; the process captures causal factors, not just the event itself.</div>
+          <div class="q-options" data-q="B3" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B4</div><div class="q-content">
+          <div class="q-text">Hazard identification is systematically triggered by near-misses and voluntary safety reports from personnel; these are treated as equal inputs to formal incident investigations.</div>
+          <div class="q-options" data-q="B4" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B5</div><div class="q-content">
+          <div class="q-text">Hazard identification is triggered by significant process or capability changes (Management of Change); no significant organizational or process change proceeds without a documented hazard identification step.</div>
+          <div class="q-options" data-q="B5" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B6</div><div class="q-content">
+          <div class="q-text">Hazard identification is triggered by new fleet types, new customers, new approved capabilities, or new work environments; the MoC procedure lists these triggers explicitly.</div>
+          <div class="q-options" data-q="B6" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B7</div><div class="q-content">
+          <div class="q-text">A documented Risk Assessment methodology is defined using a severity × likelihood matrix; risk level categories (Intolerable / Tolerable / Acceptable) are defined with explicit acceptability thresholds; the matrix is referenced in the AMO Manual.</div>
+          <div class="q-options" data-q="B7" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B8</div><div class="q-content">
+          <div class="q-text">Risk assessments are completed before implementing changes with identified hazard potential; evidence shows that hazard identification and risk assessment precede — not follow — the change implementation.</div>
+          <div class="q-options" data-q="B8" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B9</div><div class="q-content">
+          <div class="q-text">Risk mitigation actions are documented in the Hazard Register or linked records, with assigned owners, target dates, and completion status; open mitigations are tracked to closure.</div>
+          <div class="q-options" data-q="B9" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B10</div><div class="q-content">
+          <div class="q-text">Residual risk is formally assessed and accepted at the appropriate authority level (defined in the SMS procedure); residual risk acceptance is documented with the name and role of the accepting authority.</div>
+          <div class="q-options" data-q="B10" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B11</div><div class="q-content">
+          <div class="q-text">Safety risk records are retained per a defined retention period specified in the SMS procedure; records are retrievable and protected from unauthorized modification.</div>
+          <div class="q-options" data-q="B11" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">B12</div><div class="q-content">
+          <div class="q-text">The nonconformance/discrepancy reporting system includes a safety-classification layer; all nonconformances are evaluated for safety significance before disposition; safety-classified NCs are escalated per defined criteria.</div>
+          <div class="q-options" data-q="B12" data-sec="B" data-max="3"></div>
+        </div></div></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION C -->
+  <div class="sec-card">
+    <div class="sec-head s-c" onclick="toggleSec('secC')">
+      <div>
+        <div class="sec-title">Component 3 — Safety Assurance</div>
+        <div class="sec-meta">12 requirements · CCAR-145 R4 · ICAO Annex 19 §3.3</div>
+      </div>
+      <div class="sec-right">
+        <div class="sec-score" id="score-secC">0 / 36</div>
+        <div class="sec-rag" id="rag-secC">—</div>
+      </div>
+    </div>
+    <div class="sec-body" id="body-secC">
+      <div class="q-wrap">
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C1</div><div class="q-content">
+          <div class="q-text">Safety Performance Indicators (SPIs) are defined, documented, and linked to Safety Objectives; each SPI has a defined alert level (threshold triggering investigation) and a target level (desired performance goal).</div>
+          <div class="q-options" data-q="C1" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C2</div><div class="q-content">
+          <div class="q-text">SPIs are monitored and trended at defined intervals (minimum: quarterly tracking); trend charts with at least 4 consecutive periods are maintained; the data source for each SPI is identified.</div>
+          <div class="q-options" data-q="C2" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C3</div><div class="q-content">
+          <div class="q-text">SPI performance is reported to the Accountable Manager on a defined schedule; reports show trend direction, alert threshold status, and recommended actions where alerts are triggered.</div>
+          <div class="q-options" data-q="C3" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C4</div><div class="q-content">
+          <div class="q-text">A Safety Performance Monitoring Report (or integrated Safety/Quality Management Review report) is produced on a defined schedule (minimum annually); the report includes SPI trends, hazard register review, incident analysis, and action plan status.</div>
+          <div class="q-options" data-q="C4" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C5</div><div class="q-content">
+          <div class="q-text">The internal audit program includes SMS-specific audit criteria (not just QMS/CCAR-145 technical criteria); auditors evaluate the effectiveness of SMS processes, not just the existence of documents.</div>
+          <div class="q-options" data-q="C5" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C6</div><div class="q-content">
+          <div class="q-text">Internal auditors assigned to SMS audits have received SMS-specific training; their training records confirm competence in SMS concepts (hazard ID, risk assessment, safety assurance, safety promotion).</div>
+          <div class="q-options" data-q="C6" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C7</div><div class="q-content">
+          <div class="q-text">A formal Management of Change (MoC) process exists for safety-impacting organizational, process, equipment, and personnel changes; the MoC process is documented in the AMO Manual as a controlled procedure.</div>
+          <div class="q-options" data-q="C7" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C8</div><div class="q-content">
+          <div class="q-text">MoC records demonstrate that safety hazard assessments were completed and risks were evaluated before changes were implemented; MoC records are retrievable and reference the relevant Hazard Register entries.</div>
+          <div class="q-options" data-q="C8" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C9</div><div class="q-content">
+          <div class="q-text">Safety data is systematically collected from multiple sources: maintenance errors, maintenance incidents, near-misses, aircraft defect data, voluntary safety reports, and audit findings; data collection is proactive, not solely reactive.</div>
+          <div class="q-options" data-q="C9" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C10</div><div class="q-content">
+          <div class="q-text">Safety data analysis identifies trends and systemic issues (not just one-off events); trend analysis results are used to update the Hazard Register, adjust SPIs, and inform management decisions.</div>
+          <div class="q-options" data-q="C10" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C11</div><div class="q-content">
+          <div class="q-text">Audit findings can be classified by safety significance; the classification system distinguishes safety-critical findings (requiring immediate action) from quality findings (managed through standard CAR process).</div>
+          <div class="q-options" data-q="C11" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">C12</div><div class="q-content">
+          <div class="q-text">Safety corrective actions are tracked and managed — either through a dedicated Safety Action tracking system or a classified safety category within the existing CAR/CAPA system; safety actions have shorter response time targets than routine quality CARs.</div>
+          <div class="q-options" data-q="C12" data-sec="C" data-max="3"></div>
+        </div></div></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION D -->
+  <div class="sec-card">
+    <div class="sec-head s-d" onclick="toggleSec('secD')">
+      <div>
+        <div class="sec-title">Component 4 — Safety Promotion</div>
+        <div class="sec-meta">10 requirements · CCAR-145 R4 · ICAO Annex 19 §3.4</div>
+      </div>
+      <div class="sec-right">
+        <div class="sec-score" id="score-secD">0 / 30</div>
+        <div class="sec-rag" id="rag-secD">—</div>
+      </div>
+    </div>
+    <div class="sec-body" id="body-secD">
+      <div class="q-wrap">
+
+        <div class="q-block"><div class="q-row"><div class="q-id">D1</div><div class="q-content">
+          <div class="q-text">SMS/safety awareness training has been completed by ALL personnel — not only technical staff; training records confirm coverage of administrative, support, and management personnel as well as maintenance technicians.</div>
+          <div class="q-options" data-q="D1" data-sec="D" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">D2</div><div class="q-content">
+          <div class="q-text">SMS training records are maintained for all personnel; records show training topic, date, trainer/provider, and assessment result (where applicable); records are current (recurrent training completed on schedule).</div>
+          <div class="q-options" data-q="D2" data-sec="D" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">D3</div><div class="q-content">
+          <div class="q-text">Role-differentiated SMS training exists; training content differs appropriately between managers (accountability, resource allocation, safety culture), technicians (hazard ID, reporting, procedural compliance), and administrative staff (safety reporting channels, non-punitive policy).</div>
+          <div class="q-options" data-q="D3" data-sec="D" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">D4</div><div class="q-content">
+          <div class="q-text">A Just Culture policy or non-punitive reporting commitment is documented and distributed to all personnel; the policy explicitly states what behaviors are protected (unintentional errors) and what are not (gross negligence, deliberate violations, substance use).</div>
+          <div class="q-options" data-q="D4" data-sec="D" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">D5</div><div class="q-content">
+          <div class="q-text">A voluntary safety reporting channel is operational (paper form, digital system, or equivalent); evidence of actual voluntary reports exists in the system — the existence of voluntary reports indicates the Just Culture is perceived as real by personnel.</div>
+          <div class="q-options" data-q="D5" data-sec="D" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">D6</div><div class="q-content">
+          <div class="q-text">Safety communication is documented in a retrievable form (meeting minutes, safety bulletins, email broadcasts, toolbox talks, shift briefings); the communication method is consistent and reaches all shift patterns and work locations.</div>
+          <div class="q-options" data-q="D6" data-sec="D" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">D7</div><div class="q-content">
+          <div class="q-text">Lessons learned from incidents and near-misses are demonstrably communicated to affected work groups; communication records show the specific lesson and the specific recipients; feedback loop to reporters is evidenced.</div>
+          <div class="q-options" data-q="D7" data-sec="D" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">D8</div><div class="q-content">
+          <div class="q-text">Safety communication records are retained per the defined retention period in the SMS procedure; records are indexed and retrievable; communication records can be linked to specific incidents or hazards that prompted them.</div>
+          <div class="q-options" data-q="D8" data-sec="D" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">D9</div><div class="q-content">
+          <div class="q-text">Management visibly champions safety culture — records exist of leadership safety walks, safety briefings led by the Accountable Manager or senior managers, or formal management communications on safety topics; these are not solely reactive to incidents.</div>
+          <div class="q-options" data-q="D9" data-sec="D" data-max="3"></div>
+        </div></div></div>
+
+        <div class="q-block"><div class="q-row"><div class="q-id">D10</div><div class="q-content">
+          <div class="q-text">New hire onboarding includes SMS and safety culture orientation before the individual begins unsupervised work; training content covers the AMO's Just Culture policy, safety reporting channels, and basic hazard identification for maintenance environments.</div>
+          <div class="q-options" data-q="D10" data-sec="D" data-max="3"></div>
+        </div></div></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-bar">
+    <p>Score all 44 requirements, then generate your CAAC CCAR-145 R4 SMS Readiness Report. Mark N/A (with documented justification) only where genuinely not applicable.</p>
+    <button class="btn-gen" onclick="generateReport()">Generate SMS Readiness Report</button>
+    <button class="btn-rst" onclick="resetAll()">Reset</button>
+  </div>
+
+  <!-- Results -->
+  <div id="results">
+    <div class="res-header">
+      <div>
+        <h2>CCAR-145 R4 SMS+QMS Readiness Report</h2>
+        <div class="res-date" id="resDate"></div>
+      </div>
+    </div>
+    <div class="res-body">
+
+      <div class="overall-row">
+        <svg class="score-ring" width="110" height="110" viewBox="0 0 110 110">
+          <circle class="ring-track" cx="55" cy="55" r="46"/>
+          <circle class="ring-arc" id="ringArc" cx="55" cy="55" r="46"/>
+          <text class="ring-pct-t" id="ringPct" x="55" y="50" text-anchor="middle" dominant-baseline="middle">0%</text>
+          <text class="ring-lbl-t" x="55" y="67" text-anchor="middle">READY</text>
+        </svg>
+        <div class="score-meta">
+          <div class="score-verdict" id="scoreVerdict"></div>
+          <div class="score-desc" id="scoreDesc"></div>
+        </div>
+      </div>
+
+      <div class="rag-table-wrap">
+        <h3>Component Scores</h3>
+        <div id="componentBars"></div>
+      </div>
+
+      <div class="findings-wrap">
+        <h3>Priority Findings &amp; Recommended Actions</h3>
+        <div id="findingsBox"></div>
+      </div>
+
+      <div style="text-align:center;">
+        <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+        <button class="btn-rst" onclick="resetAll()" style="margin-left:10px;">Start Over</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <strong>Conform-Edge · Annex Quality</strong> — CCAR-145 R4 SMS+QMS Readiness Self-Assessment Tool<br>
+  Based on CAAC CCAR-145 Revision 4 and ICAO Annex 19 (Safety Management) four-component SMS framework.<br>
+  English-language plain-language interpretation only. Verify all requirements against official CAAC CCAR-145 R4 Chinese-language text.<br>
+  Not affiliated with CAAC or ICAO. All data processed locally — nothing is transmitted.
+</footer>
+
+<script>
+const SECTIONS = [
+  { id:'secA', name:'Component 1 — Safety Policy & Objectives', max:30, items:['A1','A2','A3','A4','A5','A6','A7','A8','A9','A10'], ragGreen:25, ragAmber:15 },
+  { id:'secB', name:'Component 2 — Safety Risk Management',     max:36, items:['B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12'], ragGreen:30, ragAmber:18 },
+  { id:'secC', name:'Component 3 — Safety Assurance',           max:36, items:['C1','C2','C3','C4','C5','C6','C7','C8','C9','C10','C11','C12'], ragGreen:30, ragAmber:18 },
+  { id:'secD', name:'Component 4 — Safety Promotion',           max:30, items:['D1','D2','D3','D4','D5','D6','D7','D8','D9','D10'], ragGreen:25, ragAmber:15 },
+];
+const TOTAL_MAX = 132;
+const TOTAL_Q = 44;
+
+const ACTIONS = {
+  A1:'Draft or update a Safety Policy document. It must include: management commitment to safety, priority of safety over commercial pressures, commitment to compliance, commitment to Just Culture, and resource provision for safety. Have the Accountable Manager personally sign it.',
+  A2:'The Accountable Manager must personally sign the Safety Policy — this cannot be delegated. If the Accountable Manager is unavailable, obtain the signature before any CAAC audit. Brief the Accountable Manager on their personal accountability under CCAR-145 R4.',
+  A3:'Implement a Safety Policy awareness program: post the policy in work areas, include it in onboarding, conduct a one-time all-hands briefing with attendance records, and add annual acknowledgment to the training matrix.',
+  A4:'Add Safety Policy review to the annual Management Review agenda. Create a Safety Policy review record that captures: date, reviewer names and roles, changes made (or confirmation unchanged), and next review date.',
+  A5:'Establish SMART Safety Objectives tied to the Safety Policy. Example: "Reduce maintenance error events by 20% vs. prior year baseline." Link each objective to a measurable Safety Performance Indicator.',
+  A6:'Update Management Review procedure to include Safety Objectives as a standing agenda item. Management Review minutes must record progress against each objective and actions where targets are not being met.',
+  A7:'Update the AMO Manual to include an explicit statement of the Accountable Manager\'s safety accountabilities: ultimate responsibility, resource provision, safety culture, and authority to stop unsafe operations. Cross-reference the Safety Policy.',
+  A8:'Review the Safety Policy and Quality Policy side by side. Ensure consistent language on priorities, remove any conflicting statements, and add a cross-reference paragraph in each policy acknowledging the integrated framework.',
+  A9:'Define a Safety Review Board or Safety Action Group in the AMO Manual: composition, frequency (minimum quarterly), quorum requirements, terms of reference, decision authority, and record-keeping requirements. Establish and hold the first meeting.',
+  A10:'Document safety responsibilities for each key role in the organizational structure: Safety Manager, Accountable Manager, Quality Manager, Post Holders, Supervisors, and Certifying Staff. Add a safety responsibilities matrix to the AMO Manual.',
+  B1:'Develop a standalone Hazard Identification Procedure. Define what constitutes a hazard, triggers for hazard identification, the identification method, and how identified hazards enter the Hazard Register. Distinguish from the existing discrepancy system.',
+  B2:'Create and populate a Hazard Register: minimum fields include Hazard ID, description, source, severity rating, likelihood rating, risk score, current controls, mitigation owner, target date, residual risk, and last review date. Make it a controlled document.',
+  B3:'Update the incident/accident investigation procedure to include mandatory hazard identification as a step. Investigators must extract hazards from each incident and add them to the Hazard Register.',
+  B4:'Implement a near-miss reporting form or voluntary reporting system. Ensure near-miss data feeds the Hazard Register. Communicate to personnel that near-miss reports are valued and protected under the Just Culture policy.',
+  B5:'Document Management of Change (MoC) as a procedure. Define what changes trigger MoC and require hazard assessment. Include process changes, equipment changes, facility changes, staffing changes, and capability additions.',
+  B6:'Add to the MoC trigger list: new aircraft type approvals, new customer approvals, new approved capabilities, new subcontractor additions, and changes to work locations. Test the MoC procedure against a recent fleet introduction.',
+  B7:'Develop a Risk Assessment Matrix document. Define the 5×5 matrix, risk level categories, acceptability thresholds, and who is authorized to accept each risk level. Incorporate into the Hazard Identification Procedure and AMO Manual.',
+  B8:'Review the last 5 significant changes made in your organization. Confirm each has a completed risk assessment that predates the change implementation. If any are missing, complete retrospective assessments and initiate MoC process going forward.',
+  B9:'Audit the Hazard Register. Confirm every hazard has documented mitigations with owners and target dates. Add a "mitigation status" column. Assign overdue mitigation actions as safety CARs for immediate follow-up.',
+  B10:'Define in the Risk Assessment procedure: who can accept Acceptable risk (Supervisor), Tolerable risk (Safety Manager), Intolerable risk (Accountable Manager). Add a residual risk acceptance signature block to the risk assessment form.',
+  B11:'Add a Safety Records Retention Schedule to your AMO Manual or records procedure. Minimum retention periods: Hazard Register — 5 years from last entry; Risk Assessments — 5 years; Incident records — 7 years. Verify with CAAC requirements.',
+  B12:'Add a safety-significance classification step to your nonconformance/discrepancy procedure. Define criteria for safety-significant nonconformances. Require safety-classified NCs to be reported to the Safety Manager within 24 hours.',
+  C1:'Define a minimum of 3–5 SPIs. Examples: Maintenance Error Rate (per 1,000 man-hours), Voluntary Report Rate, Hazard Register open items, Near-Miss Rate, CAR closure timeliness. Set alert and target levels for each SPI.',
+  C2:'Set up a quarterly SPI Monitoring Report template. Collect data for at least 4 consecutive quarters to establish a trend baseline. Use simple run charts — no complex statistics required at initial implementation.',
+  C3:'Add SPI reporting to the Accountable Manager\'s monthly or quarterly briefing. Create a one-page SPI Dashboard that the Safety Manager presents. The Accountable Manager must sign off on the SPI report to confirm awareness.',
+  C4:'Schedule a formal annual Safety Performance Monitoring Review (can be integrated into the Management Review). The agenda must include: SPI trend review, Hazard Register review, incident analysis, SMS audit findings, and forward-looking risk assessment.',
+  C5:'Update the Internal Audit Programme to include SMS-specific audit criteria covering all 4 ICAO SMS components. Develop an SMS Audit Checklist. SMS audits should be conducted at least annually alongside existing quality audits.',
+  C6:'Add SMS auditor competency to the Auditor Qualification procedure. Require internal auditors performing SMS audits to have completed SMS foundation training. Document training in auditor qualification records.',
+  C7:'Document the MoC procedure as a controlled document in the AMO Manual. Define: change types requiring MoC, approval authority for each risk level, implementation hold until hazard assessment is complete, and post-change monitoring requirements.',
+  C8:'Audit the last 10 changes processed in your organization. Confirm each has a linked MoC record with a safety hazard assessment completed before implementation. Implement a change register to track all changes in progress.',
+  C9:'Establish a multi-source safety data collection matrix: document your data sources (maintenance errors, incidents, near-misses, aircraft defects, audit findings, voluntary reports, external safety alerts). Assign a collection owner for each source.',
+  C10:'Implement trend analysis as a defined step in SPI monitoring. Use control charts or run charts with defined rules for "signal" detection (e.g., 5 consecutive points trending in one direction). Document trend analysis in the quarterly SPI report.',
+  C11:'Add a safety-significance classification field to audit finding records. Define classification levels: Safety Critical (immediate action), Safety Significant (30-day action), Quality (standard CAR process). Train auditors on classification criteria.',
+  C12:'Create a Safety Action tracking log distinct from (or classified within) the CAR system. Safety actions should have shorter closure targets (e.g., 30 days for safety-significant findings vs. 60 days for quality CARs). Report safety action status to the Accountable Manager.',
+  D1:'Complete a training records audit. List all personnel. Identify who has completed SMS awareness training. Schedule mandatory SMS awareness training for all personnel without records. Contract an SMS training provider or develop in-house training.',
+  D2:'Create an SMS Training Matrix as part of the Training Programme. Include: role, required SMS training modules, frequency (initial / recurrent), and current compliance status. Integrate into the existing training records system.',
+  D3:'Develop role-differentiated SMS training content: (1) Accountable Manager / Post Holders: safety accountability, Just Culture, resource decisions; (2) Supervisors: hazard ID, risk assessment, safety culture leadership; (3) Technicians: hazard reporting, non-punitive policy, voluntary reporting; (4) Admin: reporting channels, safety communication.',
+  D4:'Draft a Just Culture Policy document (or add a section to the Safety Policy). Specify: protected behaviors (unintentional errors, good-faith reports), unprotected behaviors (substance abuse, willful violations, gross negligence), the investigation process, and management commitment. Publish and brief all personnel.',
+  D5:'Establish a voluntary safety reporting system. Minimum viable: a paper form with drop box, collected and reviewed weekly by the Safety Manager. Communicate the system existence and the Just Culture protection to all personnel. Track voluntary report volume as an SPI.',
+  D6:'Establish a Safety Communication program. Minimum requirement: monthly safety topic communication via a structured channel (toolbox talk, safety bulletin, team brief). Document each communication with date, topic, attendees/distribution, and presenter.',
+  D7:'Implement a Lessons Learned distribution process. After each significant event or near-miss investigation, the Safety Manager prepares a Lessons Learned notice. Distribution is documented, targeted to the affected work group(s), and filed in the event record.',
+  D8:'Create a Safety Communication Register. Log each safety communication with: date, topic/subject, method, target audience, record type (attendance record / distribution list / posting record). Retain for the defined retention period.',
+  D9:'Schedule regular leadership safety walks and brief the Accountable Manager on the requirement. Document each walk with: date, manager name, areas visited, observations made, and follow-up actions. Add to SPI as "Leadership Safety Walks per quarter."',
+  D10:'Update the New Employee Onboarding Checklist to include SMS orientation as a required item before unsupervised work. Content: Just Culture policy, voluntary reporting system, how to identify and report hazards, and the AMO\'s Safety Policy.',
+};
+
+const state = {};
+
+// Render option buttons
+document.querySelectorAll('.q-options').forEach(container => {
+  const q = container.dataset.q;
+  [
+    { val: 3,    label: '3 — Fully Met',     cls: 'sel-3' },
+    { val: 2,    label: '2 — Partially Met', cls: 'sel-2' },
+    { val: 1,    label: '1 — Not Met',       cls: 'sel-1' },
+    { val: 'na', label: 'N/A',               cls: 'sel-na' },
+  ].forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.type = 'button';
+    btn.textContent = opt.label;
+    btn.dataset.val = opt.val;
+    btn.onclick = () => pick(q, opt.val, opt.cls, container, container.dataset.sec);
+    container.appendChild(btn);
+  });
+});
+
+function pick(q, val, cls, container, sec) {
+  state[q] = val;
+  container.querySelectorAll('.opt').forEach(b => {
+    b.className = 'opt';
+    if (String(b.dataset.val) === String(val)) b.classList.add(cls);
+  });
+  updateProgress();
+  updateSectionScore(sec);
+}
+
+function updateProgress() {
+  const n = Object.keys(state).length;
+  document.getElementById('progFill').style.width = Math.round(n / TOTAL_Q * 100) + '%';
+  document.getElementById('progLabel').textContent = `${n} of ${TOTAL_Q} answered`;
+}
+
+function updateSectionScore(secId) {
+  const sec = SECTIONS.find(s => s.id === secId);
+  if (!sec) return;
+  let pts = 0, max = 0;
+  sec.items.forEach(id => {
+    if (state[id] !== undefined && state[id] !== 'na') { pts += parseInt(state[id]); max += 3; }
+  });
+  const badge = document.getElementById('score-' + secId);
+  const rag   = document.getElementById('rag-' + secId);
+  if (badge) badge.textContent = `${pts} / ${sec.max}`;
+  if (rag) {
+    if (max === 0) { rag.textContent = '—'; rag.style.background = 'rgba(255,255,255,0.15)'; }
+    else if (pts >= sec.ragGreen)  { rag.textContent = '🟢 Green'; rag.style.background = 'rgba(26,122,74,0.45)'; }
+    else if (pts >= sec.ragAmber)  { rag.textContent = '🟡 Amber'; rag.style.background = 'rgba(196,125,0,0.45)'; }
+    else                           { rag.textContent = '🔴 Red';   rag.style.background = 'rgba(181,32,32,0.45)'; }
+  }
+}
+
+function toggleSec(id) {
+  document.getElementById('body-' + id).classList.toggle('open');
+}
+
+function resetAll() {
+  Object.keys(state).forEach(k => delete state[k]);
+  document.querySelectorAll('.opt').forEach(b => b.className = 'opt');
+  document.getElementById('progFill').style.width = '0%';
+  document.getElementById('progLabel').textContent = '0 of 44 answered';
+  SECTIONS.forEach(s => {
+    const badge = document.getElementById('score-' + s.id);
+    const rag   = document.getElementById('rag-' + s.id);
+    if (badge) badge.textContent = `0 / ${s.max}`;
+    if (rag)   { rag.textContent = '—'; rag.style.background = 'rgba(255,255,255,0.15)'; }
+  });
+  document.getElementById('results').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function generateReport() {
+  // Check all answered
+  const allIds = SECTIONS.flatMap(s => s.items);
+  const missing = allIds.filter(id => state[id] === undefined);
+  if (missing.length > 0) {
+    alert(`Please answer all requirements before generating. Missing: ${missing.slice(0,5).join(', ')}${missing.length > 5 ? '...' : ''}`);
+    return;
+  }
+
+  // Score
+  let total = 0, max = 0;
+  const secResults = {};
+  SECTIONS.forEach(s => {
+    let spts = 0, smax = 0, gaps = [];
+    s.items.forEach(id => {
+      if (state[id] !== 'na') {
+        const v = parseInt(state[id]);
+        spts += v; smax += 3; total += v; max += 3;
+        if (v < 3) gaps.push({ id, v });
+      }
+    });
+    secResults[s.id] = { pts: spts, max: smax, gaps };
+  });
+
+  const pct = max > 0 ? Math.round((total / max) * 100) : 100;
+
+  // Ring
+  const arc = document.getElementById('ringArc');
+  const circ = 289;
+  arc.style.strokeDashoffset = circ - (pct / 100) * circ;
+
+  let verdict = '', desc = '', vCls = '', color = '';
+  if (pct >= 83) {
+    verdict = '🟢 Substantially Compliant'; vCls = 'rag-green'; color = '#1a7a4a';
+    desc = 'Your SMS demonstrates substantial conformance with CCAR-145 R4 requirements. Address any remaining partial gaps before your next CAAC audit. Focus on documentation depth and records evidence.';
+  } else if (pct >= 60) {
+    verdict = '🟡 Moderate Gaps — Action Required'; vCls = 'rag-amber'; color = '#c47d00';
+    desc = 'Meaningful gaps exist across 1–3 SMS components. A 90-day implementation plan targeting Not Met and key Partial items is recommended before any scheduled CAAC surveillance. Start with Safety Policy and Hazard Register.';
+  } else {
+    verdict = '🔴 Significant Non-Compliance — Urgent Build Required'; vCls = 'rag-red'; color = '#b52020';
+    desc = 'Critical SMS gaps identified across multiple components. CAAC audit findings are likely in current state. An immediate structured SMS implementation program is required — engage an SMS specialist and begin with policy, governance, and hazard identification foundations.';
+  }
+
+  arc.setAttribute('stroke', color);
+  document.getElementById('ringPct').textContent = pct + '%';
+  document.getElementById('scoreVerdict').textContent = verdict;
+  document.getElementById('scoreVerdict').className = 'score-verdict ' + vCls;
+  document.getElementById('scoreDesc').textContent = desc;
+
+  // Build date line
+  const org  = document.getElementById('orgName').value;
+  const auth = document.getElementById('orgAuth').value;
+  const by   = document.getElementById('orgBy').value;
+  const dt   = document.getElementById('orgDate').value
+    ? new Date(document.getElementById('orgDate').value).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'})
+    : new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('resDate').textContent =
+    `${org ? org + ' · ' : ''}${auth ? auth + ' · ' : ''}${by ? 'Assessed by: ' + by + ' · ' : ''}Generated: ${dt} · CCAR-145 R4 · ICAO Annex 19`;
+
+  // Component bars
+  const barsEl = document.getElementById('componentBars');
+  barsEl.innerHTML = '';
+  SECTIONS.forEach(s => {
+    const sr = secResults[s.id];
+    const spct = sr.max > 0 ? Math.round((sr.pts / sr.max) * 100) : 100;
+    const barCls = spct >= 83 ? 'bar-g' : spct >= 60 ? 'bar-a' : 'bar-r';
+    const dot = spct >= 83 ? '🟢' : spct >= 60 ? '🟡' : '🔴';
+    barsEl.innerHTML += `
+      <div class="rag-row">
+        <div class="rag-dot">${dot}</div>
+        <div class="rag-row-name">${s.name}</div>
+        <div class="rag-bar-bg"><div class="rag-bar ${barCls}" style="width:${spct}%"></div></div>
+        <div class="rag-pct">${sr.max === 0 ? 'N/A' : spct + '%'}</div>
+      </div>`;
+  });
+
+  // Findings
+  const findEl = document.getElementById('findingsBox');
+  findEl.innerHTML = '';
+  const allGaps = [];
+  SECTIONS.forEach(s => {
+    secResults[s.id].gaps.forEach(g => allGaps.push({ ...g, secName: s.name }));
+  });
+  allGaps.sort((a, b) => a.v - b.v);
+
+  if (allGaps.length === 0) {
+    findEl.innerHTML = '<div class="all-clear">✔ No gaps identified. SMS demonstrates full conformance across all 44 requirements. Maintain current programs and prepare records evidence packages for CAAC audit presentation.</div>';
+  } else {
+    allGaps.forEach(g => {
+      const cls    = g.v === 1 ? 'p-crit' : 'p-part';
+      const label  = g.v === 1 ? '⬤ NOT MET — Immediate Action Required' : '◐ PARTIALLY MET — Strengthen Evidence';
+      findEl.innerHTML += `
+        <div class="finding ${cls}">
+          <div class="f-priority">${label}</div>
+          <div class="f-text"><strong>${g.id}:</strong> ${ACTIONS[g.id]}</div>
+          <div class="f-section">${g.secName}</div>
+        </div>`;
+    });
+  }
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>

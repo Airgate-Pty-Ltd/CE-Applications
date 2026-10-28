@@ -1,0 +1,8 @@
+{
+  "folder_url": "https://drive.google.com/drive/folders/YOUR_FOLDER_ID_HERE",
+  "folder_id": "YOUR_FOLDER_ID_HERE",
+  "output_directory": "./data/raw_google_drive_documents",
+  "credentials_file": "credentials.json",
+  "token_file": "token.json"
+}
+

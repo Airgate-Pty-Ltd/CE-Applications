@@ -1,0 +1,38 @@
+{
+  "info": {
+    "name": "EDCAT AI",
+    "_postman_id": "edcat-ai-collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Chat - Clause Q&A",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/ai/chat",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "ai",
+            "chat"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tenant_id\": \"00000000-0000-0000-0000-000000000001\", \"session_id\": \"11111111-1111-1111-1111-111111111111\", \"persona_code\": \"vera\", \"message\": \"What does AS9100 8.7 require?\", \"secure_mode\": false}"
+        }
+      }
+    }
+  ]
+}

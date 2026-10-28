@@ -1,0 +1,33 @@
+{
+  "ruleId": "PMA-SUPP-003",
+  "dimId": "pma-application-assessment",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "PENDING-REVIEW",
+  "approvalRef": "Organization supplement development procedure \u2014 model eligibility punctuation",
+  "severity": "minor",
+  "gapClass": "WARNING",
+  "category": "completeness",
+  "riskClass": "C",
+  "basisType": "deterministic-record-completeness",
+  "description": "Model eligibility column must not contain a dot unless it is part of the model number.",
+  "requiredFields": [
+    "model_eligibility_dot_violation"
+  ],
+  "logicResult": "model_eligibility_dot_violation",
+  "findingText": "A Model/Series Eligibility cell contains a '.' that is not part of a model number.",
+  "resolutionHint": "Remove the period from the Model/Series Eligibility cell unless it forms part of the model number itself.",
+  "clauseRefs": [
+    "Organization supplement development procedure \u2014 model eligibility punctuation"
+  ],
+  "condition": {
+    "field": "model_eligibility_dot_violation",
+    "op": "eq",
+    "value": true
+  },
+  "limitations": [
+    "Character-level check only."
+  ],
+  "citationScope": "generic",
+  "citationNote": "Cites the form/procedure by role; the tenant profile supplies its own controlled document number and revision when the finding is rendered."
+}

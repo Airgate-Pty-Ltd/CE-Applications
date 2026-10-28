@@ -1,0 +1,33 @@
+{
+  "ruleId": "PMA-XDOC-004",
+  "dimId": "pma-application-assessment",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "PENDING-REVIEW",
+  "approvalRef": "Submission Checklist item 3.A.IV (Model Eligibility)",
+  "severity": "major",
+  "gapClass": "BLOCKING",
+  "category": "linkage",
+  "riskClass": "A",
+  "basisType": "deterministic-record-completeness",
+  "description": "Model Eligibility must match across the assist letter/STC, the application letter, and the PMA supplement.",
+  "requiredFields": [
+    "model_eligibility_matches_across_documents"
+  ],
+  "logicResult": "model_eligibility_mismatch",
+  "findingText": "The Model Eligibility does not match across all three documents (assist letter or STC, application letter, and PMA supplement).",
+  "resolutionHint": "Reconcile Model Eligibility. Use 'B' before Boeing models and 'A' before Airbus models; use the word 'Series' or 'Models' as the assist letter or STC does; add special notes or exceptions as applicable.",
+  "clauseRefs": [
+    "Submission Checklist item 3.A.IV (Model Eligibility)"
+  ],
+  "condition": {
+    "field": "model_eligibility_matches_across_documents",
+    "op": "eq",
+    "value": false
+  },
+  "limitations": [
+    "Cannot verify the eligibility itself against the TCDS; it checks agreement between the three documents only."
+  ],
+  "citationScope": "generic",
+  "citationNote": "Cites the form/procedure by role; the tenant profile supplies its own controlled document number and revision when the finding is rendered."
+}

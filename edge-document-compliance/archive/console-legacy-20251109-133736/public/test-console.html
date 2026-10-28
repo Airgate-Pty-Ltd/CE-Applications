@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edge AdminIntel – Test Console</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0f172a;
+        --card: rgba(15, 23, 42, 0.7);
+        --border: rgba(148, 163, 184, 0.25);
+        --accent: #6366f1;
+        --success: #22c55e;
+        --danger: #ef4444;
+        --text: #f8fafc;
+        --muted: rgba(226, 232, 240, 0.7);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          sans-serif;
+        background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent),
+          var(--bg);
+        color: var(--text);
+      }
+
+      header {
+        padding: 28px 40px 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 1.9rem;
+      }
+
+      header a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      main {
+        padding: 0 40px 60px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+      }
+
+      section {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 20px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      section h2 {
+        margin: 0;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      section p {
+        margin: 0;
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button,
+      label.action-button {
+        border: 1px solid rgba(99, 102, 241, 0.35);
+        background: rgba(99, 102, 241, 0.1);
+        color: var(--text);
+        border-radius: 10px;
+        padding: 8px 14px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.15s ease;
+      }
+
+      button:hover,
+      label.action-button:hover {
+        background: rgba(99, 102, 241, 0.2);
+      }
+
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        background: rgba(15, 23, 42, 0.4);
+        border: 1px solid var(--border);
+        color: var(--text);
+        border-radius: 10px;
+        padding: 8px 10px;
+        font-size: 0.9rem;
+      }
+
+      textarea {
+        min-height: 90px;
+        resize: vertical;
+      }
+
+      .field-group {
+        display: grid;
+        gap: 8px;
+      }
+
+      .field-row {
+        display: grid;
+        gap: 10px;
+      }
+
+      .field-row.two {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+
+      .multi-select {
+        min-height: 80px;
+      }
+
+      #consoleOutput {
+        grid-column: 1 / -1;
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(99, 102, 241, 0.35);
+        border-radius: 20px;
+        padding: 22px 26px;
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        font-size: 0.88rem;
+        max-height: 420px;
+        overflow-y: auto;
+        position: sticky;
+        bottom: 40px;
+      }
+
+      #consoleOutput h2 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+      }
+
+      #logContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .log-entry {
+        border-left: 3px solid var(--accent);
+        padding-left: 12px;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .log-entry.error {
+        border-left-color: var(--danger);
+      }
+
+      .log-entry.success {
+        border-left-color: var(--success);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        background: rgba(99, 102, 241, 0.15);
+        color: var(--muted);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .small {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--border);
+        margin: 6px 0 4px;
+      }
+
+      .file-input {
+        background: rgba(99, 102, 241, 0.08);
+        padding: 10px;
+        border-radius: 12px;
+      }
+
+      .help {
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+
+      a.inline-link {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a.inline-link:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 720px) {
+        header,
+        main {
+          padding: 20px;
+        }
+
+        #consoleOutput {
+          position: static;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <div class="badge">Internal QA Utility</div>
+        <h1>Edge Document Compliance – Test Console</h1>
+        <p class="small">
+          Use this console to exercise every module: API calls, uploads, assessments, regulatory syncs, and
+          document library checks. Results stream to the console output below.
+        </p>
+      </div>
+      <a href="/" title="Back to main experience">← Return to main tool</a>
+    </header>
+
+      <main>
+        <section id="commandCenterSection">
+          <h2>📊 Command Center</h2>
+          <p>Validate summary aggregation and regulatory sync states.</p>
+          <div class="actions">
+            <button id="btnFetchSummary">Fetch Summary</button>
+          </div>
+        </section>
+
+        <section id="standardsSection">
+          <h2>📚 Standards & Requirements</h2>
+          <p>Upload standards, inspect parsed requirements, and validate catalog.</p>
+          <div class="actions">
+            <button id="btnListStandards">List Standards</button>
+            <button id="btnRefreshStandardSelects">Refresh Selectors</button>
+          </div>
+          <div class="field-group">
+            <strong>Upload Standard / Customer Requirement</strong>
+            <div class="field-row two">
+              <div>
+                <label for="standardName">Name *</label>
+                <input id="standardName" placeholder="AS9100D" />
+              </div>
+              <div>
+                <label for="standardTitle">Title</label>
+                <input id="standardTitle" placeholder="Quality Management Systems" />
+              </div>
+            </div>
+            <div class="field-row two">
+              <div>
+                <label for="standardVersion">Version</label>
+                <input id="standardVersion" placeholder="Revision D" />
+              </div>
+              <div>
+                <label for="standardIssuing">Issuing Body</label>
+                <input id="standardIssuing" placeholder="SAE" />
+              </div>
+            </div>
+            <div>
+              <label for="standardCategory">Category</label>
+              <select id="standardCategory">
+                <option value="Standard">Standard</option>
+                <option value="Customer Requirement">Customer Requirement</option>
+                <option value="Regulation">Regulation</option>
+              </select>
+            </div>
+            <div class="file-input">
+              <label for="standardFile">Upload File *</label>
+              <input id="standardFile" type="file" accept=".pdf,.doc,.docx" />
+              <p class="help">DOCX recommended while PDF parsing replacement is in progress.</p>
+            </div>
+            <button id="btnUploadStandard">Upload Standard</button>
+          </div>
+          <div class="divider"></div>
+          <div class="field-group">
+            <strong>Inspect Standard</strong>
+            <div>
+              <label for="standardIdLookup">Standard ID</label>
+              <input id="standardIdLookup" placeholder="UUID from list" />
+            </div>
+            <div class="actions">
+              <button id="btnGetStandard">Get Standard + Requirements</button>
+              <button id="btnGetStandardRequirements">Fetch Requirements Only</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="regulatorySection">
+          <h2>🛰️ Regulatory Catalog</h2>
+          <p>Manage regulatory options, fetch authoritative content, and sync the catalog.</p>
+          <div class="actions">
+            <button id="btnListRegulatoryOptions">List Options</button>
+            <button id="btnSyncRegulations">Sync Catalog</button>
+          </div>
+          <div class="field-group">
+            <label for="regulationSelect">Select regulation(s) to fetch</label>
+            <select id="regulationSelect" multiple class="multi-select"></select>
+            <button id="btnFetchRegulations">Fetch Selected Regulations</button>
+          </div>
+        </section>
+
+        <section id="assessmentsSection">
+          <h2>🛡️ Assessments</h2>
+          <p>Create assessments, inspect details, and view RTM coverage.</p>
+          <div class="actions">
+            <button id="btnListAssessments">List Assessments</button>
+          </div>
+          <div class="field-group">
+            <strong>Create Assessment</strong>
+            <div class="field-row two">
+              <div>
+                <label for="assessmentName">Name *</label>
+                <input id="assessmentName" placeholder="AS9100 Gap Review" />
+              </div>
+              <div>
+                <label for="assessmentOwner">Owner *</label>
+                <input id="assessmentOwner" placeholder="Auditor" />
+              </div>
+            </div>
+            <div class="field-row two">
+              <div>
+                <label for="assessmentCustomer">Customer / Org</label>
+                <input id="assessmentCustomer" placeholder="Edge Aerospace" />
+              </div>
+              <div>
+                <label for="assessmentNotes">Notes</label>
+                <input id="assessmentNotes" placeholder="Optional context" />
+              </div>
+            </div>
+            <label for="assessmentStandards">Standards (parsed requirement sets)</label>
+            <select id="assessmentStandards" multiple class="multi-select"></select>
+            <label for="assessmentRegulations">Regulations (catalog IDs)</label>
+            <select id="assessmentRegulations" multiple class="multi-select"></select>
+            <label for="assessmentCustomers">Customer Requirement Sets</label>
+            <select id="assessmentCustomers" multiple class="multi-select"></select>
+            <button id="btnCreateAssessment">Create Assessment</button>
+          </div>
+          <div class="divider"></div>
+          <div class="field-group">
+            <strong>Inspect Assessment</strong>
+            <div class="field-row two">
+              <div>
+                <label for="assessmentId">Assessment ID</label>
+                <input id="assessmentId" placeholder="UUID from list" />
+              </div>
+            </div>
+            <div class="actions">
+              <button id="btnGetAssessment">Get Assessment Details</button>
+              <button id="btnGetAssessmentMatrix">Fetch RTM</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="documentsSection">
+          <h2>📄 Documents</h2>
+          <p>Upload organization documents and validate parsed output for mapping.</p>
+          <div class="actions">
+            <button id="btnListDocuments">List Documents</button>
+          </div>
+          <div class="field-group">
+            <strong>Upload Document</strong>
+            <div class="field-row two">
+              <div>
+                <label for="docTitle">Title *</label>
+                <input id="docTitle" placeholder="WI-001 Procedure" />
+              </div>
+              <div>
+                <label for="docNumber">Document Number</label>
+                <input id="docNumber" placeholder="WI-001" />
+              </div>
+            </div>
+            <div class="field-row two">
+              <div>
+                <label for="docCategory">Category</label>
+                <input id="docCategory" placeholder="Procedure" />
+              </div>
+              <div>
+                <label for="docVersion">Version</label>
+                <input id="docVersion" placeholder="1.0" />
+              </div>
+            </div>
+            <div class="file-input">
+              <label for="docFile">Upload File *</label>
+              <input id="docFile" type="file" accept=".pdf,.doc,.docx" />
+            </div>
+            <button id="btnUploadDocument">Upload Document</button>
+          </div>
+        </section>
+
+        <section id="librarySection">
+          <h2>🗂️ Library & Traceability</h2>
+          <p>Ensure requirement library and coverage matrix return expected datasets.</p>
+          <div class="actions">
+            <button id="btnGetLibraryMatrix">Fetch Library Matrix</button>
+          </div>
+        </section>
+
+        <section id="customersSection">
+          <h2>👥 Customers</h2>
+          <p>Manage customer records for assessments and documents.</p>
+          <div class="actions">
+            <button id="btnListCustomers">List Customers</button>
+          </div>
+          <div class="field-group">
+            <strong>Create Customer</strong>
+            <div class="field-row two">
+              <div>
+                <label for="customerName">Company *</label>
+                <input id="customerName" placeholder="Edge Aerospace" />
+              </div>
+              <div>
+                <label for="customerContact">Contact Name</label>
+                <input id="customerContact" placeholder="Quality Manager" />
+              </div>
+            </div>
+            <div class="field-row two">
+              <div>
+                <label for="customerEmail">Contact Email</label>
+                <input id="customerEmail" placeholder="quality@example.com" />
+              </div>
+              <div>
+                <label for="customerPhone">Contact Phone</label>
+                <input id="customerPhone" placeholder="+1 555-0101" />
+              </div>
+            </div>
+            <div>
+              <label for="customerIndustry">Industry</label>
+              <input id="customerIndustry" placeholder="Aerospace" />
+            </div>
+            <button id="btnCreateCustomer">Create Customer</button>
+          </div>
+        </section>
+
+        <section id="edcatControlSection">
+          <h2>🏢 EDCAT Control Plane</h2>
+          <p>Exercise tenant provisioning endpoints for the unified console.</p>
+          <div class="actions">
+            <button id="btnEdcatListTenants">List Tenants</button>
+            <button id="btnEdcatGetTenant">Get Tenant</button>
+            <button id="btnEdcatUpsertTenant">Upsert Tenant</button>
+            <button id="btnEdcatProvisionTenant">Provision Tables</button>
+            <button id="btnEdcatVerifyTenant">Run Verification</button>
+          </div>
+          <div class="field-group">
+            <div class="field-row two">
+              <div>
+                <label for="edcatTenantId">Tenant ID</label>
+                <input id="edcatTenantId" placeholder="auto or existing id" />
+              </div>
+              <div>
+                <label for="edcatTenantName">Tenant Name *</label>
+                <input id="edcatTenantName" placeholder="Burrana Inc" />
+              </div>
+            </div>
+            <div class="field-row two">
+              <div>
+                <label for="edcatTenantType">Tenant Type *</label>
+                <select id="edcatTenantType">
+                  <option value="">Select type…</option>
+                  <option value="regulator">Regulator</option>
+                  <option value="cert_body">Certification Body</option>
+                  <option value="enterprise">Enterprise</option>
+                  <option value="oem">OEM</option>
+                  <option value="mro">MRO</option>
+                  <option value="oem_mro">OEM + MRO</option>
+                  <option value="consultant">Consultant</option>
+                </select>
+              </div>
+              <div>
+                <label for="edcatCountry">Jurisdiction *</label>
+                <select id="edcatCountry">
+                  <option value="">Select country…</option>
+                  <option>United States</option>
+                  <option>Australia</option>
+                  <option>European Union</option>
+                  <option>United Kingdom</option>
+                  <option>Canada</option>
+                  <option>Brazil</option>
+                  <option>China</option>
+                  <option>India</option>
+                  <option>United Arab Emirates</option>
+                  <option>Singapore</option>
+                  <option>New Zealand</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-row two">
+              <div>
+                <label for="edcatAllowedProfiles">Allowed Profiles (comma separated)</label>
+                <input id="edcatAllowedProfiles" placeholder="PROFILE_ENTERPRISE_AEROSPACE_FULL" />
+              </div>
+              <div>
+                <label for="edcatPrimaryProfile">Primary Profile</label>
+                <input id="edcatPrimaryProfile" placeholder="PROFILE_ENTERPRISE_AEROSPACE_FULL" />
+              </div>
+            </div>
+            <div class="field-row two">
+              <div>
+                <label for="edcatStandards">Standards (comma separated)</label>
+                <input id="edcatStandards" placeholder="STANDARD_AS9100,STANDARD_AS9110" />
+              </div>
+              <div>
+                <label for="edcatRegPacks">Reg Packs (comma separated)</label>
+                <input id="edcatRegPacks" placeholder="REGPACK_FAA_PART21,REGPACK_FAA_PART145" />
+              </div>
+            </div>
+            <div>
+              <label for="edcatBrandName">Brand Display Name</label>
+              <input id="edcatBrandName" placeholder="Customer Display Name" />
+            </div>
+          </div>
+        </section>
+
+        <section id="utilitiesSection">
+          <h2>🛠️ Utilities</h2>
+          <p>Helpers for refreshing local caches and clearing the console.</p>
+          <div class="actions">
+            <button id="btnRefreshAll">Refresh All Selectors</button>
+            <button id="btnClearConsole">Clear Console Output</button>
+          </div>
+          <p class="help">
+            Note: For destructive tests (removing requirement sets, resetting schema) use deployment commands. This console focuses on functional validation through the public APIs.
+          </p>
+        </section>
+
+        <section id="consoleOutput">
+          <h2>Console Output</h2>
+          <div id="logContainer"></div>
+        </section>
+      </main>
+
+    <script>
+      const state = {
+        standards: [],
+        regulationOptions: [],
+        customers: []
+      };
+
+      const logContainer = document.getElementById('logContainer');
+
+      function log(title, payload, type = 'info') {
+        const entry = document.createElement('div');
+        entry.className = `log-entry ${type}`;
+        const timestamp = new Date().toLocaleTimeString();
+        const dataString =
+          typeof payload === 'string'
+            ? payload
+            : JSON.stringify(payload, null, 2);
+        entry.textContent = `[${timestamp}] ${title}\n${dataString}`;
+        logContainer.prepend(entry);
+      }
+
+      async function apiRequest(method, url, { body, formData } = {}) {
+        const options = {
+          method,
+          headers: {}
+        };
+
+        if (formData) {
+          options.body = formData;
+        } else if (body !== undefined) {
+          options.headers['Content-Type'] = 'application/json';
+          options.body = JSON.stringify(body);
+        }
+
+        const response = await fetch(url, options);
+        const text = await response.text();
+        let data;
+        try {
+          data = text ? JSON.parse(text) : {};
+        } catch (err) {
+          data = text;
+        }
+
+        if (!response.ok) {
+          const error = typeof data === 'string' ? data : data?.error || response.statusText;
+          throw new Error(error);
+        }
+
+        return data;
+      }
+
+      function populateSelect(selectEl, items, getOption = (item) => ({ value: item.id, label: item.label })) {
+        if (!selectEl) return;
+        selectEl.innerHTML = '';
+        items.forEach((item) => {
+          const { value, label } = getOption(item);
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = label;
+          selectEl.appendChild(option);
+        });
+      }
+
+      async function refreshStandards(updateLog = true) {
+        try {
+          const result = await apiRequest('GET', '/api/standards');
+          if (result.success) {
+            state.standards = result.standards || [];
+            const standardSets = state.standards.filter((item) => item.requirement_set_type === 'standard' && item.status === 'parsed');
+            const customerSets = state.standards.filter((item) => item.requirement_set_type === 'customer' && item.status === 'parsed');
+
+            populateSelect(
+              document.getElementById('assessmentStandards'),
+              standardSets,
+              (item) => ({ value: item.requirement_set_id, label: `${item.name} (${item.requirement_set_id?.slice(0, 8) || 'n/a'})` })
+            );
+
+            populateSelect(
+              document.getElementById('assessmentCustomers'),
+              customerSets,
+              (item) => ({ value: item.requirement_set_id, label: `${item.name} (${item.requirement_set_id?.slice(0, 8) || 'n/a'})` })
+            );
+
+            if (updateLog) {
+              log('Standards refreshed', result);
+            }
+          }
+        } catch (error) {
+          log('Failed to refresh standards', error.message, 'error');
+        }
+      }
+
+      async function refreshRegulationOptions(updateLog = true) {
+        try {
+          const result = await apiRequest('GET', '/api/regulatory/options');
+          if (result.success) {
+            state.regulationOptions = result.options || [];
+            populateSelect(
+              document.getElementById('regulationSelect'),
+              state.regulationOptions,
+              (item) => ({ value: item.id, label: `${item.name} (${item.jurisdiction || 'N/A'})` })
+            );
+            populateSelect(
+              document.getElementById('assessmentRegulations'),
+              state.regulationOptions,
+              (item) => ({ value: item.id, label: `${item.name}` })
+            );
+            if (updateLog) {
+              log('Regulatory catalog refreshed', result);
+            }
+          }
+        } catch (error) {
+          log('Failed to refresh regulatory options', error.message, 'error');
+        }
+      }
+
+      async function refreshCustomers(updateLog = false) {
+        try {
+          const result = await apiRequest('GET', '/api/customers');
+          state.customers = result.customers || [];
+          if (updateLog) {
+            log('Customers listed', result);
+          }
+        } catch (error) {
+          log('Failed to refresh customers', error.message, 'error');
+        }
+      }
+
+      function getSelectedValues(selectEl) {
+        if (!selectEl) return [];
+        return Array.from(selectEl.selectedOptions).map((option) => option.value);
+      }
+
+      function clearConsole() {
+        logContainer.innerHTML = '';
+      }
+
+      document.getElementById('btnFetchSummary').addEventListener('click', async () => {
+        try {
+          const result = await apiRequest('GET', '/api/command-center/summary');
+          log('Command Center Summary', result, 'success');
+        } catch (error) {
+          log('Command Center Summary failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnListStandards').addEventListener('click', async () => {
+        await refreshStandards();
+      });
+
+      document.getElementById('btnRefreshStandardSelects').addEventListener('click', async () => {
+        await refreshStandards(false);
+        log('Select inputs refreshed with latest standards', { standards: state.standards.length });
+      });
+
+      document.getElementById('btnUploadStandard').addEventListener('click', async () => {
+        const fileInput = document.getElementById('standardFile');
+        const file = fileInput.files?.[0];
+        const name = document.getElementById('standardName').value.trim();
+        const title = document.getElementById('standardTitle').value.trim();
+        const version = document.getElementById('standardVersion').value.trim();
+        const issuing_body = document.getElementById('standardIssuing').value.trim();
+        const category = document.getElementById('standardCategory').value;
+
+        if (!file) {
+          log('Upload Standard', 'File is required', 'error');
+          return;
+        }
+
+        if (!name) {
+          log('Upload Standard', 'Name is required', 'error');
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append('standard', file);
+        formData.append('name', name);
+        if (title) formData.append('title', title);
+        if (version) formData.append('version', version);
+        if (issuing_body) formData.append('issuing_body', issuing_body);
+        if (category) formData.append('category', category);
+
+        try {
+          const result = await apiRequest('POST', '/api/standards/upload', { formData });
+          log('Standard uploaded', result, 'success');
+          await refreshStandards(false);
+        } catch (error) {
+          log('Standard upload failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnGetStandard').addEventListener('click', async () => {
+        const id = document.getElementById('standardIdLookup').value.trim();
+        if (!id) {
+          log('Get Standard', 'Provide a standard ID', 'error');
+          return;
+        }
+        try {
+          const result = await apiRequest('GET', `/api/standards/${id}`);
+          log(`Standard ${id}`, result, 'success');
+        } catch (error) {
+          log('Get Standard failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnGetStandardRequirements').addEventListener('click', async () => {
+        const standardId = document.getElementById('standardIdLookup').value.trim();
+        if (!standardId) {
+          log('Get Standard Requirements', 'Provide a standard ID', 'error');
+          return;
+        }
+
+        try {
+          const result = await apiRequest('GET', `/api/standards/${standardId}/requirements`);
+          log(`Standard ${standardId} requirements`, result, 'success');
+        } catch (error) {
+          log('Get standard requirements failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnListRegulatoryOptions').addEventListener('click', async () => {
+        await refreshRegulationOptions();
+      });
+
+      document.getElementById('btnFetchRegulations').addEventListener('click', async () => {
+        const ids = getSelectedValues(document.getElementById('regulationSelect'));
+        if (!ids.length) {
+          log('Fetch Regulations', 'Select at least one regulation ID', 'error');
+          return;
+        }
+        try {
+          const result = await apiRequest('POST', '/api/regulatory/fetch', { body: { ids } });
+          log('Regulations fetched', result, 'success');
+          await refreshStandards(false);
+        } catch (error) {
+          log('Fetch regulations failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnSyncRegulations').addEventListener('click', async () => {
+        try {
+          const result = await apiRequest('POST', '/api/regulatory/sync');
+          log('Regulatory sync complete', result, 'success');
+          await refreshStandards(false);
+        } catch (error) {
+          log('Regulatory sync failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnListAssessments').addEventListener('click', async () => {
+        try {
+          const result = await apiRequest('GET', '/api/assessments');
+          log('Assessments', result, 'success');
+        } catch (error) {
+          log('List assessments failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnCreateAssessment').addEventListener('click', async () => {
+        const name = document.getElementById('assessmentName').value.trim();
+        const owner = document.getElementById('assessmentOwner').value.trim();
+        const customer = document.getElementById('assessmentCustomer').value.trim();
+        const notes = document.getElementById('assessmentNotes').value.trim();
+        const standard_ids = getSelectedValues(document.getElementById('assessmentStandards'));
+        const regulation_ids = getSelectedValues(document.getElementById('assessmentRegulations'));
+        const customer_set_ids = getSelectedValues(document.getElementById('assessmentCustomers'));
+
+        if (!name || !owner) {
+          log('Create Assessment', 'Name and owner are required', 'error');
+          return;
+        }
+
+        try {
+          const result = await apiRequest('POST', '/api/assessments', {
+            body: { name, owner, customer, notes, standard_ids, regulation_ids, customer_set_ids }
+          });
+          log('Assessment created', result, 'success');
+        } catch (error) {
+          log('Create assessment failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnGetAssessment').addEventListener('click', async () => {
+        const id = document.getElementById('assessmentId').value.trim();
+        if (!id) {
+          log('Get Assessment', 'Provide an assessment ID', 'error');
+          return;
+        }
+        try {
+          const result = await apiRequest('GET', `/api/assessments/${id}`);
+          log(`Assessment ${id}`, result, 'success');
+        } catch (error) {
+          log('Get assessment failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnGetAssessmentMatrix').addEventListener('click', async () => {
+        const id = document.getElementById('assessmentId').value.trim();
+        if (!id) {
+          log('Get Assessment Matrix', 'Provide an assessment ID', 'error');
+          return;
+        }
+        try {
+          const result = await apiRequest('GET', `/api/assessments/${id}/rtm`);
+          log(`Assessment ${id} RTM`, result, 'success');
+        } catch (error) {
+          log('Get assessment RTM failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnListDocuments').addEventListener('click', async () => {
+        try {
+          const result = await apiRequest('GET', '/api/documents');
+          log('Documents', result, 'success');
+        } catch (error) {
+          log('List documents failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnUploadDocument').addEventListener('click', async () => {
+        const fileInput = document.getElementById('docFile');
+        const file = fileInput.files?.[0];
+        const title = document.getElementById('docTitle').value.trim();
+        const document_number = document.getElementById('docNumber').value.trim();
+        const category = document.getElementById('docCategory').value.trim();
+        const version = document.getElementById('docVersion').value.trim();
+
+        if (!file) {
+          log('Upload Document', 'File is required', 'error');
+          return;
+        }
+
+        if (!title) {
+          log('Upload Document', 'Title is required', 'error');
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append('document', file);
+        formData.append('title', title);
+        if (document_number) formData.append('document_number', document_number);
+        if (category) formData.append('category', category);
+        if (version) formData.append('version', version);
+
+        try {
+          const result = await apiRequest('POST', '/api/documents/upload', { formData });
+          log('Document uploaded', result, 'success');
+        } catch (error) {
+          log('Upload document failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnGetLibraryMatrix').addEventListener('click', async () => {
+        try {
+          const result = await apiRequest('GET', '/api/library/matrix');
+          log('Library matrix', result, 'success');
+        } catch (error) {
+          log('Library matrix failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnListCustomers').addEventListener('click', async () => {
+        await refreshCustomers(true);
+      });
+
+      document.getElementById('btnCreateCustomer').addEventListener('click', async () => {
+        const company_name = document.getElementById('customerName').value.trim();
+        const contact_name = document.getElementById('customerContact').value.trim();
+        const contact_email = document.getElementById('customerEmail').value.trim();
+        const contact_phone = document.getElementById('customerPhone').value.trim();
+        const industry = document.getElementById('customerIndustry').value.trim();
+
+        if (!company_name) {
+          log('Create Customer', 'Company name is required', 'error');
+          return;
+        }
+
+        try {
+          const result = await apiRequest('POST', '/api/customers', {
+            body: { company_name, contact_name, contact_email, contact_phone, industry }
+          });
+          log('Customer created', result, 'success');
+        } catch (error) {
+          log('Create customer failed', error.message, 'error');
+        }
+      });
+
+      const edcatTenantId = document.getElementById('edcatTenantId');
+      const edcatTenantName = document.getElementById('edcatTenantName');
+      const edcatTenantType = document.getElementById('edcatTenantType');
+      const edcatCountry = document.getElementById('edcatCountry');
+      const edcatAllowedProfiles = document.getElementById('edcatAllowedProfiles');
+      const edcatPrimaryProfile = document.getElementById('edcatPrimaryProfile');
+      const edcatStandards = document.getElementById('edcatStandards');
+      const edcatRegPacks = document.getElementById('edcatRegPacks');
+      const edcatBrandName = document.getElementById('edcatBrandName');
+
+      document.getElementById('btnEdcatListTenants').addEventListener('click', async () => {
+        try {
+          const result = await apiRequest('GET', '/api/edcat/tenants-list');
+          log('EDCAT tenants', result, 'success');
+          if (window.TenantService && Array.isArray(result.tenants)) {
+            window.TenantService.hydrate(result.tenants);
+          }
+        } catch (error) {
+          log('List tenants failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnEdcatGetTenant').addEventListener('click', async () => {
+        const tenantId = edcatTenantId.value.trim();
+        if (!tenantId) {
+          log('Get tenant', 'Tenant ID required', 'error');
+          return;
+        }
+        try {
+          const result = await apiRequest('GET', `/api/edcat/tenants/${tenantId}`);
+          log('EDCAT tenant', result, 'success');
+          if (result.tenant) {
+            edcatTenantName.value = result.tenant.tenant_name || '';
+            edcatTenantType.value = result.tenant.tenant_type || '';
+            edcatCountry.value = result.tenant.country || '';
+            edcatAllowedProfiles.value = (result.tenant.allowed_profiles || []).join(',');
+            edcatPrimaryProfile.value = result.tenant.profile_id || '';
+            edcatStandards.value = (result.tenant.standards_enabled || []).join(',');
+            edcatRegPacks.value = (result.tenant.reg_packs_enabled || []).join(',');
+            edcatBrandName.value = result.tenant.branding?.display_name || '';
+          }
+        } catch (error) {
+          log('Get tenant failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnEdcatUpsertTenant').addEventListener('click', async () => {
+        const name = edcatTenantName.value.trim();
+        const type = edcatTenantType.value;
+        const country = edcatCountry.value;
+        if (!name || !type || !country) {
+          log('Upsert tenant', 'Name, type, and jurisdiction required', 'error');
+          return;
+        }
+        const payload = {
+          tenant_id: edcatTenantId.value.trim() || undefined,
+          tenant_name: name,
+          tenant_type: type,
+          country,
+          branding: {
+            display_name: edcatBrandName.value.trim() || name
+          },
+          allowed_profiles: edcatAllowedProfiles.value
+            .split(',')
+            .map((value) => value.trim())
+            .filter(Boolean),
+          profile_id: edcatPrimaryProfile.value.trim() || null,
+          standards_enabled: edcatStandards.value
+            .split(',')
+            .map((value) => value.trim())
+            .filter(Boolean),
+          reg_packs_enabled: edcatRegPacks.value
+            .split(',')
+            .map((value) => value.trim())
+            .filter(Boolean)
+        };
+        try {
+          const result = await apiRequest('POST', '/api/edcat/tenants', { body: payload });
+          log('Tenant saved', result, 'success');
+          if (result.tenant && result.tenant.tenant_id) {
+            edcatTenantId.value = result.tenant.tenant_id;
+          }
+        } catch (error) {
+          log('Upsert tenant failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnEdcatProvisionTenant').addEventListener('click', async () => {
+        const tenantId = edcatTenantId.value.trim();
+        if (!tenantId) {
+          log('Provision tenant', 'Tenant ID required', 'error');
+          return;
+        }
+        try {
+          const result = await apiRequest('POST', `/api/edcat/tenants/${tenantId}/provision`);
+          log('Provision result', result, 'success');
+        } catch (error) {
+          log('Provision tenant failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnEdcatVerifyTenant').addEventListener('click', async () => {
+        const tenantId = edcatTenantId.value.trim();
+        if (!tenantId) {
+          log('Verify tenant', 'Tenant ID required', 'error');
+          return;
+        }
+        try {
+          const result = await apiRequest('GET', `/api/edcat/tenants/${tenantId}/verify`);
+          log('Verification result', result, result.ok ? 'success' : 'error');
+        } catch (error) {
+          log('Verify tenant failed', error.message, 'error');
+        }
+      });
+
+      document.getElementById('btnRefreshAll').addEventListener('click', async () => {
+        await Promise.all([refreshStandards(false), refreshRegulationOptions(false), refreshCustomers(false)]);
+        log('All selectors refreshed', {
+          standards: state.standards.length,
+          regulations: state.regulationOptions.length,
+          customers: state.customers.length
+        });
+      });
+
+      document.getElementById('btnClearConsole').addEventListener('click', clearConsole);
+
+      // Initial bootstrap
+      (async function bootstrap() {
+        log('Console ready', 'Loading initial datasets...', 'success');
+        await Promise.all([refreshStandards(false), refreshRegulationOptions(false), refreshCustomers(false)]);
+        log('Initial datasets loaded', {
+          standards: state.standards.length,
+          regulations: state.regulationOptions.length,
+          customers: state.customers.length
+        });
+      })();
+    </script>
+  </body>
+</html>
+

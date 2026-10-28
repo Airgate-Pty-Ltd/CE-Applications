@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Conform-Edge RegIntel™ — UI Preview</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+ :root { --navy:#1a2744; --steel:#4a6fa5; --amber:#e8a020; }
+ .page { display:none; }
+ .page.active { display:block; }
+ .tab-btn { cursor:pointer; }
+ @keyframes spin { to { transform:rotate(360deg); } }
+</style>
+</head>
+<body class="bg-gray-100 font-sans antialiased text-gray-900">
+
+<!-- ============================
+ TOP NAV (preview switcher)
+ ============================ -->
+<div class="bg-gray-800 text-white text-xs px-4 py-2 flex items-center gap-3 sticky top-0 z-50">
+ <span class="font-bold text-amber-400">UI PREVIEW</span>
+ <span class="text-gray-500">|</span>
+ <span class="text-gray-400">Click a page to preview:</span>
+ <button onclick="showPage('landing')" class="tab-btn px-3 py-1 rounded hover:bg-gray-700 transition-colors" id="tab-landing">Landing</button>
+ <button onclick="showPage('dashboard')" class="tab-btn px-3 py-1 rounded hover:bg-gray-700 transition-colors" id="tab-dashboard">Dashboard</button>
+ <button onclick="showPage('archive')" class="tab-btn px-3 py-1 rounded hover:bg-gray-700 transition-colors" id="tab-archive">Archive</button>
+ <button onclick="showPage('profile')" class="tab-btn px-3 py-1 rounded hover:bg-gray-700 transition-colors" id="tab-profile">Profile</button>
+ <button onclick="showPage('admin')" class="tab-btn px-3 py-1 rounded hover:bg-gray-700 transition-colors" id="tab-admin">Admin</button>
+ <button onclick="showPage('pricing')" class="tab-btn px-3 py-1 rounded hover:bg-gray-700 transition-colors" id="tab-pricing">Pricing</button>
+</div>
+
+<!-- ============================ PAGE: LANDING ============================ -->
+<div id="page-landing" class="page">
+ <nav class="sticky top-8 z-40 bg-[#1a2744] text-white px-6 py-3 flex items-center justify-between shadow-md">
+ <div class="flex items-center gap-3">
+ <div class="bg-amber-400 text-[#1a2744] font-black w-8 h-8 rounded-lg flex items-center justify-center text-sm">CE</div>
+ <span class="font-bold text-sm tracking-wide">Conform-Edge RegIntel™</span>
+ </div>
+ <div class="hidden md:flex items-center gap-6 text-sm text-gray-300">
+ <a href="#" class="hover:text-white">Features</a>
+ <a href="#" class="hover:text-white">Who It's For</a>
+ <a href="#" class="hover:text-white">Pricing</a>
+ </div>
+ <div class="flex items-center gap-3">
+ <a href="#" class="text-sm text-gray-300 hover:text-white">Sign In</a>
+ <a href="#" class="bg-amber-400 hover:bg-amber-300 text-[#1a2744] font-bold text-sm px-4 py-2 rounded-lg">Free Trial</a>
+ </div>
+ </nav>
+
+ <section class="bg-gradient-to-br from-[#1a2744] via-[#243358] to-[#4a6fa5] text-white py-24 px-6 text-center">
+ <div class="max-w-3xl mx-auto">
+ <div class="inline-block bg-amber-400/20 text-amber-300 text-xs font-bold px-3 py-1 rounded-full mb-6 border border-amber-400/30">
+ 12 Regulatory Authorities · Updated Daily · Weekdays
+ </div>
+ <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+ Never Miss a Regulatory Change<br/>
+ <span class="text-amber-400">That Costs You an Audit Finding.</span>
+ </h1>
+ <p class="text-lg text-gray-200 mb-8 max-w-2xl mx-auto">
+ Conform-Edge RegIntel™ monitors FAA, EASA, IAQG, ISO, UK CAA, CAAC, FDA, and 5 more authorities every weekday. One clean dashboard. Zero manual website-checking.
+ </p>
+ <div class="flex flex-col sm:flex-row gap-4 justify-center">
+ <button onclick="showPage('dashboard')" class="bg-amber-400 hover:bg-amber-300 text-[#1a2744] font-black text-base px-8 py-4 rounded-xl shadow-lg">
+ Start 14-Day Free Trial
+ </button>
+ <button onclick="showPage('pricing')" class="border border-white/30 hover:border-white text-white font-semibold text-base px-8 py-4 rounded-xl">
+ View Pricing →
+ </button>
+ </div>
+ <p class="text-xs text-gray-400 mt-4">No credit card required · Cancel anytime</p>
+ </div>
+ </section>
+
+ <section class="bg-[#f5f7fa] border-y border-gray-200 py-6 px-6">
+ <p class="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Authorities Monitored</p>
+ <div class="flex flex-wrap justify-center gap-3">
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">FAA</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">EASA</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">IAQG / AS9100</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">ISO 9001 · 13485 · 14001</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">UK CAA</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">Transport Canada</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">FDA / QMSR</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">CAAC</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">ANAC</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">SAE</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">IATF 16949</span>
+ <span class="bg-white border border-gray-200 text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">Health Canada</span>
+ </div>
+ </section>
+
+ <section class="py-20 px-6 max-w-6xl mx-auto">
+ <div class="text-center mb-14">
+ <h2 class="text-3xl font-black text-[#1a2744] mb-3">Built for Regulated Aviation & Quality Professionals</h2>
+ </div>
+ <div class="grid md:grid-cols-3 gap-8">
+ <div class="bg-white rounded-2xl border border-gray-200 p-7 shadow-sm">
+ <div class="text-4xl mb-4"></div>
+ <h3 class="font-bold text-[#1a2744] text-lg mb-3">MRO & Part 145 Repair Stations</h3>
+ <p class="text-sm text-gray-500 mb-4 leading-relaxed">Dual-authority repair stations juggling FAA, EASA bilateral, CAAC, UK CAA, and TCCA approvals struggle to stay current across all regulatory channels simultaneously.</p>
+ <div class="bg-[#eef2fa] rounded-lg p-3 text-sm text-[#1a2744] font-medium">One dashboard. Every authority. No missed changes that trigger a Form 8 finding.</div>
+ </div>
+ <div class="bg-white rounded-2xl border border-gray-200 p-7 shadow-sm">
+ <div class="text-4xl mb-4"></div>
+ <h3 class="font-bold text-[#1a2744] text-lg mb-3">Production Approval Holders (PAH)</h3>
+ <p class="text-sm text-gray-500 mb-4 leading-relaxed">PMA, STC, TC, and POA holders must track FAA Part 21 rulemaking, EASA Part 21 NPAs, and bilateral changes that affect their design approvals.</p>
+ <div class="bg-[#eef2fa] rounded-lg p-3 text-sm text-[#1a2744] font-medium">Get flagged the day an NPRM drops — not when the comment period closes.</div>
+ </div>
+ <div class="bg-white rounded-2xl border border-gray-200 p-7 shadow-sm">
+ <div class="text-4xl mb-4"></div>
+ <h3 class="font-bold text-[#1a2744] text-lg mb-3">QMS Consultants & Lead Auditors</h3>
+ <p class="text-sm text-gray-500 mb-4 leading-relaxed">Clients rely on you to know when AS9100D gets a sanctioned interpretation, when IATF issues CSR updates, or when ISO 9001:2026 timeline shifts.</p>
+ <div class="bg-[#eef2fa] rounded-lg p-3 text-sm text-[#1a2744] font-medium">Your daily briefing, delivered. Show up to every client call with the freshest intelligence.</div>
+ </div>
+ </div>
+ </section>
+
+ <footer class="bg-[#1a2744] text-gray-400 py-10 px-6">
+ <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+ <div class="flex items-center gap-3">
+ <div class="bg-amber-400 text-[#1a2744] font-black w-7 h-7 rounded flex items-center justify-center text-xs">CE</div>
+ <span class="font-bold text-white text-sm">Conform-Edge RegIntel™</span>
+ </div>
+ <div class="flex gap-6 text-sm">
+ <a href="#" class="hover:text-white">Pricing</a>
+ <a href="#" class="hover:text-white">Sign In</a>
+ <a href="#" class="hover:text-white">Contact</a>
+ </div>
+ <div class="text-xs">© 2026 Conform-Edge. All rights reserved.</div>
+ </div>
+ </footer>
+</div>
+
+<!-- ============================ PAGE: DASHBOARD ============================ -->
+<div id="page-dashboard" class="page">
+ <!-- Dashboard nav -->
+ <nav class="bg-[#1a2744] text-white px-4 py-3 flex items-center justify-between sticky top-8 z-40 shadow-md">
+ <div class="flex items-center gap-2">
+ <div class="bg-amber-400 text-[#1a2744] font-black w-7 h-7 rounded flex items-center justify-center text-xs">CE</div>
+ <span class="font-bold text-sm">RegIntel™</span>
+ </div>
+ <div class="flex items-center gap-1">
+ <button onclick="showPage('dashboard')" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-[#4a6fa5] text-white">Dashboard</button>
+ <button onclick="showPage('archive')" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10">Archive</button>
+ <button onclick="showPage('profile')" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10">Profile & Billing</button>
+ </div>
+ <div class="flex items-center gap-3">
+ <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-400 text-[#1a2744] uppercase">Pro</span>
+ <span class="text-xs text-gray-400">b.r.olea.gqm@gmail.com</span>
+ <button class="text-xs text-gray-300 hover:text-white border border-gray-600 px-3 py-1.5 rounded-lg">Sign Out</button>
+ </div>
+ </nav>
+
+ <div class="flex h-[calc(100vh-72px)] overflow-hidden">
+ <!-- Sidebar filters -->
+ <div class="w-60 bg-white border-r border-gray-200 p-4 overflow-y-auto shrink-0">
+ <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Filters</h3>
+
+ <div class="mb-5">
+ <p class="text-xs font-bold text-[#1a2744] mb-2">Authority</p>
+ <div class="space-y-1.5">
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" checked class="accent-[#1a2744]"/> <span>All (12)</span></label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> FAA</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> EASA</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> IAQG</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> ISO</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> UK CAA</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> FDA</label>
+ </div>
+ </div>
+
+ <div class="mb-5">
+ <p class="text-xs font-bold text-[#1a2744] mb-2">Category</p>
+ <div class="space-y-1.5">
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" checked class="accent-[#1a2744]"/> All</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> Final Rule</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> NPRM</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> Advisory Circular</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> Standard Revision</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-[#1a2744]"/> Interpretation</label>
+ </div>
+ </div>
+
+ <div>
+ <p class="text-xs font-bold text-[#1a2744] mb-2">Priority</p>
+ <div class="space-y-1.5">
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" checked class="accent-[#1a2744]"/> All</label>
+ <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-red-600"/> Urgent</label>
+   <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-orange-500"/> High</label>
+   <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-blue-600"/> Normal</label>
+   <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="accent-gray-500"/> Low</label>
+ </div>
+ </div>
+ </div>
+
+ <!-- Main content -->
+ <div class="flex-1 overflow-y-auto">
+ <!-- Urgent alert strip -->
+ <div class="bg-red-600 px-5 py-2.5 flex gap-3 overflow-x-auto">
+ <span class="font-bold text-white text-sm whitespace-nowrap">URGENT (2):</span>
+ <span class="bg-red-700 text-white text-xs px-3 py-1 rounded whitespace-nowrap font-medium">FAA NPRM 2026-14: Part 145 Digital Records — Comment closes July 5</span>
+ <span class="bg-red-700 text-white text-xs px-3 py-1 rounded whitespace-nowrap font-medium">EASA NPA 2026-07 — Comment closes July 3</span>
+ </div>
+
+ <!-- Tab bar -->
+ <div class="bg-white border-b border-gray-200 px-5 flex gap-1 pt-2">
+ <button id="dtab-feed" onclick="switchDTab('feed')" class="px-4 py-2 text-sm font-semibold border-b-2 border-[#1a2744] text-[#1a2744]">Findings Feed</button>
+ <button id="dtab-report" onclick="switchDTab('report')" class="px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-gray-500 hover:text-gray-700">Full Report</button>
+ </div>
+
+ <!-- Findings Feed -->
+ <div id="dtab-feed-content" class="p-5 space-y-4">
+ <!-- Report date header -->
+ <div class="flex items-center justify-between">
+ <div>
+ <h2 class="text-lg font-black text-[#1a2744]">Report: Monday, June 30, 2026</h2>
+ <p class="text-xs text-gray-400">Generated 6:02 AM MT · 14 findings across 9 authorities</p>
+ </div>
+ <span class="text-xs bg-green-100 text-green-700 font-bold px-2 py-1 rounded-full">Complete</span>
+ </div>
+
+ <!-- Findings -->
+ <div class="border-l-4 border-red-500 bg-red-50 rounded-lg p-4">
+ <div class="flex items-center gap-2 mb-2 flex-wrap">
+ <span class="bg-[#1a2744] text-white text-xs font-bold px-2 py-0.5 rounded">FAA</span>
+ <span class="bg-white text-gray-600 text-xs px-2 py-0.5 rounded border border-gray-200">NPRM</span>
+ <span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-0.5 rounded uppercase">URGENT</span>
+ <span class="text-xs font-semibold text-red-700 ml-auto">Comment due: July 5, 2026</span>
+ </div>
+ <p class="font-semibold text-[#1a2744] mb-1">NPRM 2026-14: Electronic Records for Part 145 Repair Stations</p>
+ <p class="text-sm text-gray-600 mb-3">Proposes mandatory digital recordkeeping for work orders, inspection records, and authorized release documents under 14 CFR Part 145. Affects all U.S. certificated repair stations. DRS for small repair stations included.</p>
+ <a href="#" class="text-xs text-[#4a6fa5] font-medium hover:underline">↗ View Source: federalregister.gov</a>
+ </div>
+
+ <div class="border-l-4 border-red-500 bg-red-50 rounded-lg p-4">
+ <div class="flex items-center gap-2 mb-2 flex-wrap">
+ <span class="bg-[#1a2744] text-white text-xs font-bold px-2 py-0.5 rounded">EASA</span>
+ <span class="bg-white text-gray-600 text-xs px-2 py-0.5 rounded border border-gray-200">NPA</span>
+ <span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-0.5 rounded uppercase">URGENT</span>
+ <span class="text-xs font-semibold text-red-700 ml-auto">Comment due: July 3, 2026</span>
+ </div>
+ <p class="font-semibold text-[#1a2744] mb-1">NPA 2026-07: Part-M / Part-CAMO Light Amendment — Continuing Airworthiness</p>
+ <p class="text-sm text-gray-600 mb-3">Proposes amendments to Part-M and Part-CAMO to align with ICAO Annex 8 changes and introduce proportionate requirements for ELA2 aircraft. Three-day comment window due to alignment deadline.</p>
+ <a href="#" class="text-xs text-[#4a6fa5] font-medium hover:underline">↗ View Source: easa.europa.eu</a>
+ </div>
+
+ <div class="border-l-4 border-orange-400 bg-orange-50 rounded-lg p-4">
+ <div class="flex items-center gap-2 mb-2 flex-wrap">
+ <span class="bg-[#1a2744] text-white text-xs font-bold px-2 py-0.5 rounded">EASA</span>
+ <span class="bg-white text-gray-600 text-xs px-2 py-0.5 rounded border border-gray-200">AMC/GM Update</span>
+ <span class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-0.5 rounded uppercase">HIGH</span>
+ <span class="text-xs text-gray-500 ml-auto">Effective: Aug 1, 2026</span>
+ </div>
+ <p class="font-semibold text-[#1a2744] mb-1">ED Decision 2026/005/R — SMS Integration AMC/GM: Part-145 Update</p>
+ <p class="text-sm text-gray-600 mb-3">Updates AMC/GM to Part-145 to align with MAG Change 10 SMS/SMSVP requirements for U.S.-EU bilateral repair stations. Affects EASA Supplement Section 20 (new SMS section) for Part 145 holders with bilateral approvals.</p>
+ <div class="bg-amber-50 border border-amber-200 rounded p-2 mb-2 text-xs text-amber-800 font-medium">Consulting flag: Repair stations with bilateral BASA approvals will need Supplement updates. Outreach opportunity for existing MRO clients.</div>
+ <a href="#" class="text-xs text-[#4a6fa5] font-medium hover:underline">↗ View Source: easa.europa.eu</a>
+ </div>
+
+ <div class="border-l-4 border-blue-400 bg-blue-50 rounded-lg p-4">
+ <div class="flex items-center gap-2 mb-2 flex-wrap">
+ <span class="bg-[#1a2744] text-white text-xs font-bold px-2 py-0.5 rounded">IAQG</span>
+ <span class="bg-white text-gray-600 text-xs px-2 py-0.5 rounded border border-gray-200">Sanctioned Interpretation</span>
+ <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded uppercase">NORMAL</span>
+ </div>
+ <p class="font-semibold text-[#1a2744] mb-1">AS9100D SI-006: Configuration Management Records — Acceptable Formats</p>
+ <p class="text-sm text-gray-600 mb-3">Clarifies acceptable formats for configuration baseline documentation under clause 8.1.2. Digital records in read-only formats (PDF/A, signed XML) are now explicitly acceptable. Applies immediately to all IAQG-registered CB audits.</p>
+ <a href="#" class="text-xs text-[#4a6fa5] font-medium hover:underline">↗ View Source: iaqg.org</a>
+ </div>
+
+ <div class="border-l-4 border-blue-400 bg-blue-50 rounded-lg p-4">
+ <div class="flex items-center gap-2 mb-2 flex-wrap">
+ <span class="bg-[#1a2744] text-white text-xs font-bold px-2 py-0.5 rounded">FAA</span>
+ <span class="bg-white text-gray-600 text-xs px-2 py-0.5 rounded border border-gray-200">Advisory Circular</span>
+ <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded uppercase">NORMAL</span>
+ </div>
+ <p class="font-semibold text-[#1a2744] mb-1">AC 21-55A Update — PAH Project Initiation Plans for Offshore Facilities</p>
+ <p class="text-sm text-gray-600 mb-3">Revised guidance for Production Approval Holders using manufacturing facilities outside the U.S. Clarifies the "no undue burden" determination process and updates documentation requirements for foreign facility approvals.</p>
+ <a href="#" class="text-xs text-[#4a6fa5] font-medium hover:underline">↗ View Source: faa.gov</a>
+ </div>
+
+ <div class="border-l-4 border-gray-300 bg-gray-50 rounded-lg p-4">
+ <div class="flex items-center gap-2 mb-2 flex-wrap">
+ <span class="bg-[#1a2744] text-white text-xs font-bold px-2 py-0.5 rounded">ISO</span>
+ <span class="bg-white text-gray-600 text-xs px-2 py-0.5 rounded border border-gray-200">Timeline Update</span>
+ <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-0.5 rounded uppercase">Low</span>
+ </div>
+ <p class="font-semibold text-[#1a2744] mb-1">ISO 9001:2026 — DIS Ballot Results Published</p>
+ <p class="text-sm text-gray-600 mb-3">Draft International Standard ballot closed June 20. Results indicate broad consensus with minor editorial comments. FDIS expected Q4 2026, with publication target Q2 2027. 3-year transition period from publication date anticipated.</p>
+ <a href="#" class="text-xs text-[#4a6fa5] font-medium hover:underline">↗ View Source: iso.org</a>
+ </div>
+
+ <p class="text-center text-xs text-gray-400 pt-2">+ 8 more findings (IATF, FDA, UK CAA, CAAC, ANAC) · Download full report below</p>
+ <div class="flex justify-center pt-2">
+ <button class="bg-[#1a2744] text-white text-sm font-bold px-5 py-2.5 rounded-lg hover:bg-[#4a6fa5] transition-colors">↓ Download Full Report (.md)</button>
+ </div>
+ </div>
+
+ <!-- Full Report Tab (hidden) -->
+ <div id="dtab-report-content" class="p-5 hidden">
+ <div class="flex justify-between items-center mb-4">
+ <h2 class="text-lg font-black text-[#1a2744]">Full Narrative Report — June 30, 2026</h2>
+ <div class="flex gap-2">
+ <button class="text-xs bg-[#1a2744] text-white px-3 py-1.5 rounded-lg font-bold">↓ Download .md</button>
+ <button onclick="window.print()" class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg font-bold border border-gray-200">Print</button>
+ </div>
+ </div>
+ <div class="bg-[#f5f7fa] rounded-xl p-6 font-mono text-xs text-gray-700 leading-relaxed whitespace-pre-wrap overflow-y-auto max-h-[600px]"># Conform-Edge RegIntel™ — Regulatory Intelligence Report
+Date: 2026-06-30 | Authorities: 12 | Findings: 14 | Generated: 06:02 MT
+
+## EXECUTIVE SUMMARY
+Two urgent items require immediate action this week. The FAA's NPRM on digital
+recordkeeping for Part 145 stations closes July 5 — all certificated repair
+stations should review and consider filing comments. EASA's NPA 2026-07 closes
+July 3 and affects Part-M/CAMO organizations.
+
+The EASA AMC/GM update on SMS integration (effective August 1) is the most
+significant operational change this week for dual-authority repair stations
+operating under the US-EU BASA.
+
+---
+
+## FAA — Federal Aviation Administration
+
+### URGENT URGENT — NPRM 2026-14: Electronic Records for Part 145 Stations
+**Category:** NPRM | **Priority:** Urgent | **Comment Deadline:** July 5, 2026
+**Source:** federalregister.gov/documents/2026/06/15/2026-13012
+
+The FAA proposes to amend 14 CFR Part 145 to require that repair stations
+maintain certain records in electronic format. Records covered include:
+work orders, inspection records, authorized release documents (Form 8130-3),
+and training records. A Regulatory Flexibility Analysis / DRS is included
+for stations with fewer than 50 employees...
+
+## EASA — European Union Aviation Safety Agency
+
+### URGENT URGENT — NPA 2026-07: Part-M / Part-CAMO Light Amendment
+**Category:** NPA | **Priority:** Urgent | **Comment Deadline:** July 3, 2026
+...
+
+[Report continues — 14 findings total]</div>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- ============================ PAGE: ARCHIVE ============================ -->
+<div id="page-archive" class="page">
+ <nav class="bg-[#1a2744] text-white px-4 py-3 flex items-center justify-between sticky top-8 z-40 shadow-md">
+ <div class="flex items-center gap-2">
+ <div class="bg-amber-400 text-[#1a2744] font-black w-7 h-7 rounded flex items-center justify-center text-xs">CE</div>
+ <span class="font-bold text-sm">RegIntel™</span>
+ </div>
+ <div class="flex items-center gap-1">
+ <button onclick="showPage('dashboard')" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10">Dashboard</button>
+ <button onclick="showPage('archive')" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-[#4a6fa5] text-white">Archive</button>
+ <button onclick="showPage('profile')" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10">Profile & Billing</button>
+ </div>
+ <div class="flex items-center gap-3">
+ <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-400 text-[#1a2744] uppercase">Pro</span>
+ <button class="text-xs text-gray-300 border border-gray-600 px-3 py-1.5 rounded-lg">Sign Out</button>
+ </div>
+ </nav>
+
+ <div class="max-w-4xl mx-auto px-4 py-8">
+ <div class="flex items-center justify-between mb-6">
+ <div>
+ <h1 class="text-2xl font-black text-[#1a2744]">Report Archive</h1>
+ <p class="text-sm text-gray-500 mt-0.5">Archive depth: <span class="font-semibold">90 days</span> (Pro plan)</p>
+ </div>
+ </div>
+
+ <div class="space-y-3">
+ <!-- Mock report rows -->
+ <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+ <div class="flex items-center justify-between px-5 py-4 hover:bg-[#f5f7fa] cursor-pointer" onclick="toggleArchiveRow(this)">
+ <div class="flex items-center gap-4">
+ <div>
+ <p class="text-xs text-gray-400">Monday</p>
+ <p class="text-sm font-bold text-[#1a2744]">June 30, 2026</p>
+ </div>
+ <div class="flex gap-2">
+ <span class="text-xs bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-full">2 urgent</span>
+ <span class="text-xs bg-orange-100 text-orange-700 font-bold px-2 py-0.5 rounded-full">3 high</span>
+ <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">14 total</span>
+ </div>
+ </div>
+ <span class="text-gray-400 text-sm">▼</span>
+ </div>
+ </div>
+
+ <div class="bg-white rounded-xl border border-gray-200 shadow-sm">
+ <div class="flex items-center justify-between px-5 py-4 hover:bg-[#f5f7fa] cursor-pointer">
+ <div class="flex items-center gap-4">
+ <div>
+ <p class="text-xs text-gray-400">Friday</p>
+ <p class="text-sm font-bold text-[#1a2744]">June 27, 2026</p>
+ </div>
+ <div class="flex gap-2">
+ <span class="text-xs bg-orange-100 text-orange-700 font-bold px-2 py-0.5 rounded-full">1 high</span>
+ <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">8 total</span>
+ </div>
+ </div>
+ <span class="text-gray-400 text-sm">▼</span>
+ </div>
+ </div>
+
+ <div class="bg-white rounded-xl border border-gray-200 shadow-sm">
+ <div class="flex items-center justify-between px-5 py-4 hover:bg-[#f5f7fa] cursor-pointer">
+ <div class="flex items-center gap-4">
+ <div>
+ <p class="text-xs text-gray-400">Thursday</p>
+ <p class="text-sm font-bold text-[#1a2744]">June 26, 2026</p>
+ </div>
+ <div class="flex gap-2">
+ <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">11 total</span>
+ </div>
+ </div>
+ <span class="text-gray-400 text-sm">▼</span>
+ </div>
+ </div>
+
+ <div class="bg-white rounded-xl border border-gray-200 shadow-sm">
+ <div class="flex items-center justify-between px-5 py-4 hover:bg-[#f5f7fa] cursor-pointer">
+ <div class="flex items-center gap-4">
+ <div>
+ <p class="text-xs text-gray-400">Wednesday</p>
+ <p class="text-sm font-bold text-[#1a2744]">June 25, 2026</p>
+ </div>
+ <div class="flex gap-2">
+ <span class="text-xs bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-full">1 urgent</span>
+ <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">9 total</span>
+ </div>
+ </div>
+ <span class="text-gray-400 text-sm">▼</span>
+ </div>
+ </div>
+
+ <p class="text-center text-xs text-gray-400 pt-3">Showing 4 of 65 reports (90-day archive) · Upgrade to Enterprise for unlimited history</p>
+ </div>
+ </div>
+</div>
+
+<!-- ============================ PAGE: PROFILE ============================ -->
+<div id="page-profile" class="page">
+ <nav class="bg-[#1a2744] text-white px-4 py-3 flex items-center justify-between sticky top-8 z-40 shadow-md">
+ <div class="flex items-center gap-2">
+ <div class="bg-amber-400 text-[#1a2744] font-black w-7 h-7 rounded flex items-center justify-center text-xs">CE</div>
+ <span class="font-bold text-sm">RegIntel™</span>
+ </div>
+ <div class="flex items-center gap-1">
+ <button onclick="showPage('dashboard')" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10">Dashboard</button>
+ <button onclick="showPage('archive')" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10">Archive</button>
+ <button onclick="showPage('profile')" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-[#4a6fa5] text-white">Profile & Billing</button>
+ </div>
+ <div class="flex items-center gap-3">
+ <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-400 text-[#1a2744] uppercase">Pro</span>
+ <button class="text-xs text-gray-300 border border-gray-600 px-3 py-1.5 rounded-lg">Sign Out</button>
+ </div>
+ </nav>
+
+ <div class="max-w-2xl mx-auto px-4 py-8">
+ <h1 class="text-2xl font-black text-[#1a2744] mb-6">Profile & Billing</h1>
+
+ <div class="bg-white rounded-xl border border-gray-200 p-6 mb-5 shadow-sm">
+ <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Account</h2>
+ <div class="space-y-3">
+ <div class="flex justify-between items-center">
+ <span class="text-sm text-gray-600">Email</span>
+ <span class="text-sm font-semibold text-[#1a2744]">b.r.olea.gqm@gmail.com</span>
+ </div>
+ <div class="flex justify-between items-center">
+ <span class="text-sm text-gray-600">Member since</span>
+ <span class="text-sm font-semibold text-[#1a2744]">July 2026</span>
+ </div>
+ <div class="flex justify-between items-center">
+ <span class="text-sm text-gray-600">Status</span>
+ <span class="text-xs font-bold px-2 py-1 rounded-full bg-green-100 text-green-700">Active</span>
+ </div>
+ </div>
+ </div>
+
+ <div class="bg-white rounded-xl border border-gray-200 p-6 mb-5 shadow-sm">
+ <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Subscription</h2>
+ <div class="flex items-center justify-between mb-5">
+ <div>
+ <div class="flex items-center gap-2 mb-1">
+ <span class="text-xs font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 uppercase">Pro</span>
+ </div>
+ <p class="text-2xl font-black text-[#1a2744]">$79/mo</p>
+ </div>
+ <button class="bg-[#1a2744] text-white text-sm font-bold px-4 py-2 rounded-lg hover:bg-[#4a6fa5]">Manage Billing</button>
+ </div>
+ <div class="bg-[#f5f7fa] rounded-lg p-3 text-sm text-gray-600">
+ <span class="font-semibold">Archive depth:</span> 90 days · <span class="font-semibold">Seats:</span> 3
+ </div>
+ <div class="mt-4 pt-4 border-t border-gray-100">
+ <p class="text-xs text-gray-500 mb-3 font-medium uppercase tracking-wide">Upgrade your plan</p>
+ <button class="w-full bg-[#1a2744] hover:bg-[#4a6fa5] text-white font-bold text-sm py-2 px-4 rounded-lg transition-colors">
+ Upgrade to Enterprise — $299/mo
+ </button>
+ </div>
+ </div>
+
+ <div class="bg-[#eef2fa] rounded-xl border border-[#c5d3e8] p-5">
+ <h2 class="text-sm font-bold text-[#1a2744] mb-3">Your Plan Includes</h2>
+ <ul class="space-y-2 text-sm text-[#1a2744]">
+ <li>12 regulatory authorities monitored daily (weekdays)</li>
+ <li>Priority alert feed with urgent/high/normal classification</li>
+ <li>Full narrative report download (Markdown)</li>
+ <li>Daily email digest (6 AM MT)</li>
+ <li>Consulting opportunity flags</li>
+ <li>PDF export</li>
+ <li>90-day archive · 3 seats</li>
+ </ul>
+ </div>
+ </div>
+</div>
+
+<!-- ============================ PAGE: ADMIN ============================ -->
+<div id="page-admin" class="page">
+ <nav class="bg-[#1a2744] text-white px-4 py-3 flex items-center justify-between sticky top-8 z-40 shadow-md">
+ <div class="flex items-center gap-2">
+ <div class="bg-amber-400 text-[#1a2744] font-black w-7 h-7 rounded flex items-center justify-center text-xs">CE</div>
+ <span class="font-bold text-sm">RegIntel™ <span class="text-red-400 text-xs">[ADMIN]</span></span>
+ </div>
+ <div class="flex items-center gap-2">
+ <button onclick="showPage('dashboard')" class="text-xs text-gray-300 hover:text-white px-3 py-1.5">← Back to Dashboard</button>
+ </div>
+ <button class="text-xs text-gray-300 border border-gray-600 px-3 py-1.5 rounded-lg">Sign Out</button>
+ </nav>
+
+ <div class="max-w-6xl mx-auto px-4 py-8">
+ <div class="flex items-center gap-3 mb-6">
+ <h1 class="text-2xl font-black text-[#1a2744]">Admin Panel</h1>
+ <span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-0.5 rounded-full">ADMIN ONLY</span>
+ </div>
+
+ <!-- Stats -->
+ <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+ <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+ <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Total Users</p>
+ <p class="text-3xl font-black text-[#1a2744]">7</p>
+ <p class="text-xs text-gray-400 mt-0.5">all time</p>
+ </div>
+ <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+ <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Active</p>
+ <p class="text-3xl font-black text-[#1a2744]">4</p>
+ <p class="text-xs text-gray-400 mt-0.5">paying subscribers</p>
+ </div>
+ <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+ <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Trialing</p>
+ <p class="text-3xl font-black text-[#1a2744]">3</p>
+ <p class="text-xs text-gray-400 mt-0.5">free trial</p>
+ </div>
+ <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+ <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">MRR</p>
+ <p class="text-3xl font-black text-[#1a2744]">$386</p>
+ <p class="text-xs text-gray-400 mt-0.5">active subs only</p>
+ </div>
+ </div>
+
+ <!-- Tier breakdown -->
+ <div class="grid grid-cols-3 gap-3 mb-6">
+ <div class="bg-gray-100 text-gray-700 rounded-lg p-3 text-center"><p class="text-2xl font-black">3</p><p class="text-xs font-semibold">Basic</p></div>
+ <div class="bg-amber-100 text-amber-800 rounded-lg p-3 text-center"><p class="text-2xl font-black">3</p><p class="text-xs font-semibold">Pro</p></div>
+ <div class="bg-purple-100 text-purple-800 rounded-lg p-3 text-center"><p class="text-2xl font-black">1</p><p class="text-xs font-semibold">Enterprise</p></div>
+ </div>
+
+ <!-- Trigger -->
+ <div class="bg-[#1a2744] rounded-xl p-5 mb-6 text-white">
+ <h2 class="font-bold mb-2">Trigger Report Generation</h2>
+ <p class="text-sm text-gray-300 mb-4">Normally runs automatically weekdays at 6 AM MT via Railway cron. Use this to trigger manually.</p>
+ <button class="bg-amber-400 hover:bg-amber-300 text-[#1a2744] font-black px-5 py-2 rounded-lg">Trigger Report Now</button>
+ </div>
+
+ <!-- Subscribers table -->
+ <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+ <div class="px-5 py-3 border-b border-gray-100 flex gap-2">
+ <button class="px-4 py-1.5 rounded-lg text-sm font-bold bg-[#1a2744] text-white">Subscribers (7)</button>
+ <button class="px-4 py-1.5 rounded-lg text-sm font-bold bg-white border border-gray-200 text-gray-600">Report History (5)</button>
+ </div>
+ <table class="w-full text-sm">
+ <thead class="bg-[#f5f7fa] border-b border-gray-200">
+ <tr>
+ <th class="text-left p-4 font-semibold text-gray-600">Email</th>
+ <th class="p-4 font-semibold text-gray-600 text-center">Tier</th>
+ <th class="p-4 font-semibold text-gray-600 text-center">Status</th>
+ <th class="p-4 font-semibold text-gray-600 text-center">Joined</th>
+ <th class="p-4 font-semibold text-gray-600 text-center">Stripe</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr class="bg-white">
+ <td class="p-4 font-medium text-[#1a2744]">b.r.olea.gqm@gmail.com</td>
+ <td class="p-4 text-center"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 uppercase">enterprise</span></td>
+ <td class="p-4 text-center"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">active</span></td>
+ <td class="p-4 text-center text-gray-500 text-xs">Jul 1, 2026</td>
+ <td class="p-4 text-center"><a href="#" class="text-xs text-[#4a6fa5] underline">View →</a></td>
+ </tr>
+ <tr class="bg-[#f9fafb]">
+ <td class="p-4 font-medium text-[#1a2744]">quality.mgr@aeromro.com</td>
+ <td class="p-4 text-center"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 uppercase">pro</span></td>
+ <td class="p-4 text-center"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">active</span></td>
+ <td class="p-4 text-center text-gray-500 text-xs">Jul 5, 2026</td>
+ <td class="p-4 text-center"><a href="#" class="text-xs text-[#4a6fa5] underline">View →</a></td>
+ </tr>
+ <tr class="bg-white">
+ <td class="p-4 font-medium text-[#1a2744]">director@qmsconsult.net</td>
+ <td class="p-4 text-center"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 uppercase">pro</span></td>
+ <td class="p-4 text-center"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">trialing</span></td>
+ <td class="p-4 text-center text-gray-500 text-xs">Jun 28, 2026</td>
+ <td class="p-4 text-center"><a href="#" class="text-xs text-[#4a6fa5] underline">View →</a></td>
+ </tr>
+ <tr class="bg-[#f9fafb]">
+ <td class="p-4 font-medium text-[#1a2744]">compliance@partsmfg.com</td>
+ <td class="p-4 text-center"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 uppercase">basic</span></td>
+ <td class="p-4 text-center"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">trialing</span></td>
+ <td class="p-4 text-center text-gray-500 text-xs">Jun 29, 2026</td>
+ <td class="p-4 text-center"><span class="text-xs text-gray-400">—</span></td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+</div>
+
+<!-- ============================ PAGE: PRICING ============================ -->
+<div id="page-pricing" class="page">
+ <nav class="bg-[#1a2744] text-white px-6 py-3 flex items-center justify-between sticky top-8 z-40">
+ <a href="#" onclick="showPage('landing')" class="flex items-center gap-3">
+ <div class="bg-amber-400 text-[#1a2744] font-black w-8 h-8 rounded-lg flex items-center justify-center text-sm">CE</div>
+ <span class="font-bold text-sm">Conform-Edge RegIntel™</span>
+ </a>
+ <div class="flex items-center gap-3">
+ <button onclick="showPage('landing')" class="text-sm text-gray-300 hover:text-white">Sign In</button>
+ <button onclick="showPage('dashboard')" class="bg-amber-400 hover:bg-amber-300 text-[#1a2744] font-bold text-sm px-4 py-2 rounded-lg">Free Trial</button>
+ </div>
+ </nav>
+
+ <section class="bg-[#f5f7fa] py-16 px-6 text-center">
+ <h1 class="text-4xl font-black text-[#1a2744] mb-3">Simple, Transparent Pricing</h1>
+ <p class="text-gray-500 max-w-lg mx-auto">14-day free trial on every plan. No credit card required. Cancel anytime.</p>
+ </section>
+
+ <section class="py-14 px-6">
+ <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
+ <div class="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm flex flex-col">
+ <h2 class="text-2xl font-black text-[#1a2744] mb-1">Basic</h2>
+ <div class="flex items-end gap-1 mb-3"><span class="text-4xl font-black text-[#1a2744]">$29</span><span class="text-sm text-gray-500 pb-1">/month</span></div>
+ <p class="text-sm text-gray-500 mb-5">For individual quality professionals who need daily situational awareness.</p>
+ <ul class="space-y-2 mb-6 flex-1 text-sm text-gray-600">
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> 12 authorities monitored daily</li>
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> Priority alert feed</li>
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> Custom authority filters</li>
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> 30-day archive</li>
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> 1 user seat</li>
+ </ul>
+ <button onclick="showPage('dashboard')" class="bg-[#1a2744] hover:bg-[#4a6fa5] text-white font-bold py-3 rounded-xl text-sm">Start Free Trial →</button>
+ <p class="text-xs text-center text-gray-400 mt-2">14 days free · No card needed</p>
+ </div>
+
+ <div class="bg-[#1a2744] text-white rounded-2xl p-7 shadow-xl flex flex-col scale-105">
+ <div class="bg-amber-400 text-[#1a2744] text-xs font-black px-3 py-1 rounded-full w-fit mb-4">Most Popular</div>
+ <h2 class="text-2xl font-black text-white mb-1">Pro</h2>
+ <div class="flex items-end gap-1 mb-3"><span class="text-4xl font-black text-amber-400">$79</span><span class="text-sm text-gray-300 pb-1">/month</span></div>
+ <p class="text-sm text-gray-300 mb-5">For consultants and quality managers who act on intelligence.</p>
+ <ul class="space-y-2 mb-6 flex-1 text-sm text-gray-200">
+ <li class="flex gap-2"><span class="text-green-400 font-bold">&#10003;</span> Everything in Basic</li>
+ <li class="flex gap-2"><span class="text-green-400 font-bold">&#10003;</span> Daily email digest (6 AM MT)</li>
+ <li class="flex gap-2"><span class="text-green-400 font-bold">&#10003;</span> Consulting opportunity flags</li>
+ <li class="flex gap-2"><span class="text-green-400 font-bold">&#10003;</span> PDF export</li>
+ <li class="flex gap-2"><span class="text-green-400 font-bold">&#10003;</span> 90-day archive</li>
+ <li class="flex gap-2"><span class="text-green-400 font-bold">&#10003;</span> 3 user seats</li>
+ </ul>
+ <button onclick="showPage('dashboard')" class="bg-amber-400 hover:bg-amber-300 text-[#1a2744] font-bold py-3 rounded-xl text-sm">Start Free Trial →</button>
+ <p class="text-xs text-center text-gray-400 mt-2">14 days free · No card needed</p>
+ </div>
+
+ <div class="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm flex flex-col">
+ <h2 class="text-2xl font-black text-[#1a2744] mb-1">Enterprise</h2>
+ <div class="flex items-end gap-1 mb-3"><span class="text-4xl font-black text-[#1a2744]">$299</span><span class="text-sm text-gray-500 pb-1">/month</span></div>
+ <p class="text-sm text-gray-500 mb-5">For teams and organizations needing full access and API integration.</p>
+ <ul class="space-y-2 mb-6 flex-1 text-sm text-gray-600">
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> Everything in Pro</li>
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> REST API access</li>
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> White-label PDF export</li>
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> Unlimited team seats</li>
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> Unlimited archive history</li>
+ <li class="flex gap-2"><span class="text-green-500 font-bold">&#10003;</span> Priority support</li>
+ </ul>
+ <button onclick="showPage('dashboard')" class="bg-[#1a2744] hover:bg-[#4a6fa5] text-white font-bold py-3 rounded-xl text-sm">Start Free Trial →</button>
+ <p class="text-xs text-center text-gray-400 mt-2">14 days free · No card needed</p>
+ </div>
+ </div>
+ </section>
+</div>
+
+<script>
+function showPage(name) {
+ document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+ document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('bg-gray-600','text-white'));
+ document.getElementById('page-' + name).classList.add('active');
+ const tb = document.getElementById('tab-' + name);
+ if (tb) { tb.classList.add('bg-gray-600','text-white'); }
+}
+
+function switchDTab(tab) {
+ document.getElementById('dtab-feed-content').classList.toggle('hidden', tab !== 'feed');
+ document.getElementById('dtab-report-content').classList.toggle('hidden', tab !== 'report');
+ document.getElementById('dtab-feed').className = 'px-4 py-2 text-sm font-semibold border-b-2 ' + (tab==='feed' ? 'border-[#1a2744] text-[#1a2744]' : 'border-transparent text-gray-500 hover:text-gray-700');
+ document.getElementById('dtab-report').className = 'px-4 py-2 text-sm font-semibold border-b-2 ' + (tab==='report' ? 'border-[#1a2744] text-[#1a2744]' : 'border-transparent text-gray-500 hover:text-gray-700');
+}
+
+// Start on landing
+showPage('landing');
+</script>
+</body>
+</html>

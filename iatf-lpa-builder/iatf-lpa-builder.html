@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IATF 16949 Layered Process Audit Builder | Conform-Edge</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0f1117;color:#e2e8f0;min-height:100vh}
+header{background:linear-gradient(135deg,#1a2a1a 0%,#0f1a10 100%);padding:18px 32px;border-bottom:2px solid #2d5a2d;display:flex;align-items:center;gap:16px}
+header .brand{font-size:11px;letter-spacing:2px;color:#66bb6a;text-transform:uppercase;font-weight:600}
+header h1{font-size:20px;font-weight:700;color:#e8fde8}
+header .sub{font-size:12px;color:#a5d6a7;margin-top:2px}
+.clause-badge{background:#1b5e20;color:#a5d6a7;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:600;margin-left:auto}
+.container{max-width:1000px;margin:0 auto;padding:24px 20px}
+.step-nav{display:flex;gap:0;margin-bottom:28px;border-radius:8px;overflow:hidden;border:1px solid #2d3748}
+.step-btn{flex:1;padding:11px 8px;background:#1a1f2e;color:#94a3b8;font-size:12px;font-weight:600;text-align:center;cursor:pointer;border:none;border-right:1px solid #2d3748;transition:all .2s;text-transform:uppercase;letter-spacing:.5px}
+.step-btn:last-child{border-right:none}
+.step-btn.active{background:#1b5e20;color:#fff}
+.step-btn.done{background:#1a3a1a;color:#66bb6a}
+.card{background:#1a1f2e;border:1px solid #2d3748;border-radius:10px;padding:24px;margin-bottom:20px}
+.card h2{font-size:16px;font-weight:700;color:#66bb6a;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.card .desc{font-size:13px;color:#94a3b8;margin-bottom:18px;line-height:1.5}
+.field-group{margin-bottom:14px}
+label{display:block;font-size:12px;font-weight:600;color:#66bb6a;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+input[type=text],select,textarea{width:100%;padding:9px 12px;background:#0f1117;border:1px solid #2d3748;border-radius:6px;color:#e2e8f0;font-size:13px}
+input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:#2e7d32}
+textarea{height:64px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.process-builder{border:1px solid #2d3748;border-radius:8px;overflow:hidden;margin-top:12px}
+.pb-header{background:#0f1117;padding:10px 14px;font-size:12px;font-weight:600;color:#66bb6a;display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 80px;gap:8px}
+.pb-row{padding:8px 14px;border-top:1px solid #1e293b;display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 80px;gap:8px;align-items:center}
+.pb-row input,.pb-row select{padding:6px 8px;font-size:12px}
+.pb-row:nth-child(even){background:#131820}
+.btn{padding:9px 22px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:#1b5e20;color:#fff}
+.btn-primary:hover{background:#2e7d32}
+.btn-secondary{background:#2d3748;color:#e2e8f0}
+.btn-secondary:hover{background:#374151}
+.btn-add{background:#0f3a1a;color:#4ade80;border:1px solid #166534;padding:7px 16px;font-size:12px}
+.btn-remove{background:#3b0c0c;color:#f87171;border:1px solid #7f1d1d;padding:5px 10px;font-size:11px;border-radius:4px;cursor:pointer}
+.btn-export{background:#0f3a1a;color:#4ade80;border:1px solid #166534}
+.btn-row-btns{display:flex;gap:10px;margin-top:20px}
+.audit-question{background:#0f1117;border:1px solid #2d3748;border-radius:8px;padding:14px 16px;margin-bottom:8px}
+.aq-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
+.aq-text{font-size:13px;font-weight:500;color:#e2e8f0;flex:1}
+.aq-layer{font-size:10px;background:#1b5e20;color:#a5d6a7;border-radius:3px;padding:2px 8px;font-weight:700;flex-shrink:0}
+.aq-ref{font-size:11px;color:#64748b;margin-bottom:8px}
+.aq-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.radio-group{display:flex;gap:6px}
+.radio-group label{display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:#e2e8f0;cursor:pointer;font-size:12px}
+.radio-group input[type=radio]{accent-color:#2e7d32;cursor:pointer}
+.finding-input{flex:1;min-width:180px;padding:5px 8px;font-size:12px;background:#1a1f2e;border:1px solid #374151;border-radius:4px;color:#e2e8f0}
+.finding-input::placeholder{color:#4b5563}
+.critical-tag{background:#7f1d1d;color:#fca5a5;border-radius:3px;padding:2px 7px;font-size:10px;font-weight:700}
+.results-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:12px}
+.results-table th{background:#0f3a1a;color:#4ade80;padding:8px 10px;text-align:left;font-size:11px;text-transform:uppercase}
+.results-table td{padding:8px 10px;border-bottom:1px solid #1e293b;vertical-align:top}
+.results-table tr:hover td{background:rgba(255,255,255,.03)}
+.badge{border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;white-space:nowrap}
+.pass{background:#166534;color:#4ade80}
+.fail{background:#7f1d1d;color:#fca5a5}
+.na{background:#1e293b;color:#64748b}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:#0f3a1a;border:1px solid #166534;border-radius:8px;padding:14px;text-align:center}
+.stat-card.warn{background:#2d1f00;border-color:#92400e}
+.stat-card.fail-c{background:#3b0c0c;border-color:#7f1d1d}
+.stat-num{font-size:28px;font-weight:800;color:#4ade80}
+.stat-card.warn .stat-num{color:#fbbf24}
+.stat-card.fail-c .stat-num{color:#f87171}
+.stat-label{font-size:11px;color:#94a3b8;margin-top:2px}
+.narrative-box{background:#0f1117;border:1px solid #374151;border-radius:6px;padding:14px;font-size:12px;color:#94a3b8;line-height:1.7;white-space:pre-wrap;margin-top:14px}
+.hidden{display:none}
+.progress-bar{height:4px;background:#1a1f2e;border-radius:2px;margin-bottom:24px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#1b5e20,#4caf50);border-radius:2px;transition:width .4s}
+.layer-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.layer-pill{padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600}
+.l1{background:#1a237e;color:#90caf9}
+.l2{background:#1b5e20;color:#a5d6a7}
+.l3{background:#4a148c;color:#ce93d8}
+.filter-bar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.filter-btn{padding:5px 14px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #2d3748;background:#1a1f2e;color:#94a3b8;transition:all .2s}
+.filter-btn.active{border-color:#2e7d32;color:#4ade80;background:#0f3a1a}
+footer{text-align:center;padding:24px;font-size:11px;color:#4b5563;border-top:1px solid #1e293b;margin-top:32px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Conform-Edge · Powered by QMS Intelligence</div>
+    <h1>IATF 16949 Layered Process Audit Builder</h1>
+    <div class="sub">LPA Checklist Generator · Multi-Layer Process Audit · IATF CSR Compliance</div>
+  </div>
+  <div class="clause-badge">IATF 16949 Cl. 10.2.3</div>
+</header>
+<div class="container">
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+<div class="step-nav">
+  <button class="step-btn active" onclick="goStep(0)" id="tab0">1 · Audit Setup</button>
+  <button class="step-btn" onclick="goStep(1)" id="tab1">2 · Process Inventory</button>
+  <button class="step-btn" onclick="goStep(2)" id="tab2">3 · Audit Checklist</button>
+  <button class="step-btn" onclick="goStep(3)" id="tab3">4 · Results</button>
+</div>
+
+<!-- Step 0: Setup -->
+<div id="step0">
+<div class="card">
+  <h2>⚙️ Audit Setup</h2>
+  <div class="desc">Configure the LPA audit. Layered Process Audits require at least 3 frequency layers: operator/supervisor-level (frequent), engineering/quality-level (periodic), and management-level (monthly+). IATF requires 100% of assigned processes to be covered each year.</div>
+  <div class="grid2">
+    <div class="field-group"><label>Organization / Plant</label><input type="text" id="org" placeholder="e.g., Acme Manufacturing — Plant 1"></div>
+    <div class="field-group"><label>Audit Date</label><input type="text" id="auditDate" placeholder="e.g., 2026-09-09"></div>
+  </div>
+  <div class="grid2">
+    <div class="field-group"><label>Audit Number / Reference</label><input type="text" id="auditRef" placeholder="e.g., LPA-2026-09-001"></div>
+    <div class="field-group"><label>Applicable Customer Requirement</label>
+      <select id="csr">
+        <option value="General IATF">General IATF 16949 (no specific CSR)</option>
+        <option value="GM">GM — GMS/BIQS</option>
+        <option value="Ford">Ford — Q1 / FPDS</option>
+        <option value="Stellantis">Stellantis — Stellantis Supplier Quality Requirements</option>
+        <option value="BMW">BMW — BMW Group QMH</option>
+        <option value="VW">Volkswagen Group — VDA</option>
+        <option value="Toyota">Toyota — TNGA Quality Requirements</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid3">
+    <div class="field-group"><label>Layer 1 Auditor (Operator/Supervisor)</label><input type="text" id="l1aud" placeholder="Name"></div>
+    <div class="field-group"><label>Layer 2 Auditor (Quality/Engineering)</label><input type="text" id="l2aud" placeholder="Name"></div>
+    <div class="field-group"><label>Layer 3 Auditor (Management)</label><input type="text" id="l3aud" placeholder="Name"></div>
+  </div>
+  <div class="field-group"><label>Applicable Product / Part Number</label><input type="text" id="partNum" placeholder="e.g., P/N 5544-B — Gear Housing Assembly"></div>
+  <div class="btn-row-btns"><button class="btn btn-primary" onclick="goStep(1)">Next: Process Inventory →</button></div>
+</div>
+</div>
+
+<!-- Step 1: Process Inventory -->
+<div id="step1" class="hidden">
+<div class="card">
+  <h2>🏭 Process Inventory</h2>
+  <div class="desc">Define the manufacturing processes to be included in this LPA. Each process generates L1/L2/L3 checklist items. Processes can be added to the default list or replaced entirely.</div>
+  <div id="processTable">
+    <div class="process-builder">
+      <div class="pb-header">
+        <span>Process Name</span>
+        <span>Key Characteristic</span>
+        <span>Risk Level</span>
+        <span>Control Method</span>
+        <span></span>
+      </div>
+      <div id="processRows"></div>
+    </div>
+  </div>
+  <div class="btn-row-btns">
+    <button class="btn btn-add" onclick="addProcess()">+ Add Process</button>
+  </div>
+  <div class="btn-row-btns">
+    <button class="btn btn-secondary" onclick="goStep(0)">← Back</button>
+    <button class="btn btn-primary" onclick="buildChecklist()">Generate Checklist →</button>
+  </div>
+</div>
+</div>
+
+<!-- Step 2: Audit Checklist -->
+<div id="step2" class="hidden">
+<div class="card">
+  <h2>📋 LPA Checklist</h2>
+  <div class="desc">Complete the layered process audit below. Mark each question PASS, FAIL, or N/A. Enter findings for any FAIL items. Critical items (marked ★) will escalate the overall result if failed.</div>
+  <div class="layer-legend">
+    <span class="layer-pill l1">L1 — Operator / Supervisor (Daily/Shift)</span>
+    <span class="layer-pill l2">L2 — Quality / Engineering (Weekly)</span>
+    <span class="layer-pill l3">L3 — Management (Monthly)</span>
+  </div>
+  <div class="filter-bar">
+    <span style="font-size:12px;color:#64748b;font-weight:600">FILTER:</span>
+    <button class="filter-btn active" onclick="filterQ('all',this)">All</button>
+    <button class="filter-btn" onclick="filterQ('L1',this)">L1 Only</button>
+    <button class="filter-btn" onclick="filterQ('L2',this)">L2 Only</button>
+    <button class="filter-btn" onclick="filterQ('L3',this)">L3 Only</button>
+    <button class="filter-btn" onclick="filterQ('FAIL',this)">Failures Only</button>
+  </div>
+  <div id="checklistItems"></div>
+  <div class="btn-row-btns">
+    <button class="btn btn-secondary" onclick="goStep(1)">← Back</button>
+    <button class="btn btn-primary" onclick="computeResults()">Generate Results →</button>
+  </div>
+</div>
+</div>
+
+<!-- Step 3: Results -->
+<div id="step3" class="hidden">
+<div class="summary-grid" id="summaryGrid"></div>
+<div class="card">
+  <h2>📊 Findings Detail</h2>
+  <table class="results-table">
+    <thead><tr><th>Layer</th><th>Process</th><th>Question</th><th>Result</th><th>Finding</th></tr></thead>
+    <tbody id="resultsBody"></tbody>
+  </table>
+</div>
+<div class="card">
+  <h2>📝 LPA Audit Record (IATF Cl. 10.2.3 Narrative)</h2>
+  <div class="narrative-box" id="narrative"></div>
+</div>
+<div class="btn-row-btns">
+  <button class="btn btn-secondary" onclick="goStep(2)">← Revise Audit</button>
+  <button class="btn btn-export" onclick="exportJSON()">⬇ Export JSON Record</button>
+</div>
+<div id="mai-interface" data-mai-domain="iatf-lpa-builder" data-mai-version="1.0" data-mai-reserved="true" style="display:none"></div>
+</div>
+
+</div>
+<footer>Conform-Edge Quality Consulting LLC · IATF 16949 LPA Builder v1.0 · IATF 16949:2016 Cl. 10.2.3 / Customer-Specific Requirements · For QMS implementation support only. Not a substitute for qualified QMS, regulatory, or legal advice.</footer>
+
+<script>
+// Default processes
+const DEFAULT_PROCESSES = [
+  {name:'Incoming Inspection', kc:'Material certification / dimensional', risk:'HIGH', control:'Control Plan / Traveler'},
+  {name:'Machining / CNC', kc:'Critical dimensions / tolerances', risk:'HIGH', control:'Control Plan / SPC'},
+  {name:'Assembly', kc:'Torque values / fit/form', risk:'MEDIUM', control:'Work Instructions / Poka-yoke'},
+  {name:'Welding / Joining', kc:'Weld parameters / strength', risk:'HIGH', control:'WPS / Control Plan'},
+  {name:'Final Inspection / Test', kc:'Acceptance criteria / functional test', risk:'HIGH', control:'Control Plan / Test Records'},
+  {name:'Packaging / Labeling', kc:'Label accuracy / pack qty', risk:'MEDIUM', control:'Work Instructions'},
+];
+
+// LPA question templates per layer
+const LAYER_QUESTIONS = {
+  L1: [
+    {t:'Operator has reviewed the Control Plan for this process and knows the key characteristics', ref:'IATF 8.5.1', crit:true},
+    {t:'Work Instructions are available at the workstation, current revision, and operator can locate them', ref:'IATF 7.5.1', crit:true},
+    {t:'Operator is performing all process checks specified in the Control Plan at the correct frequency', ref:'IATF 8.5.1', crit:true},
+    {t:'Measuring equipment used is identified, calibrated, and within calibration due date', ref:'IATF 7.1.5.1', crit:true},
+    {t:'All non-conforming parts are segregated and tagged in the designated red-bin / hold area', ref:'IATF 8.7.1', crit:true},
+    {t:'Setup approval / First-off approval was completed and signed before production started', ref:'IATF 8.5.1.4', crit:false},
+    {t:'Operator can identify key characteristics for this operation and explain their significance', ref:'IATF 8.5.1.1', crit:false},
+    {t:'Tooling condition is acceptable; no excessive wear, missing inserts, or unauthorized changes', ref:'IATF 8.5.1.5', crit:false},
+    {t:'Process parameters (speeds, feeds, temperatures, pressures) match those specified in the Control Plan', ref:'IATF 8.5.1', crit:false},
+    {t:'Operator is recording results on the required check sheet / log at correct intervals', ref:'IATF 8.5.1', crit:false},
+  ],
+  L2: [
+    {t:'Control Plan is current, approved, and reflects all engineering changes to date', ref:'IATF 8.5.1.1', crit:true},
+    {t:'SPC charts (where required) are in control; Cpk meets minimum requirement (≥1.67 for KCs)', ref:'IATF 8.5.1.1', crit:true},
+    {t:'All engineering changes have been implemented per ECN; no unauthorized deviations to print', ref:'IATF 8.3.7', crit:true},
+    {t:'Mistake-proofing devices (poka-yoke) are functional and last verification record is current', ref:'IATF 8.3.4.4', crit:true},
+    {t:'PFMEA reflects current process risk; no high RPNs with open action items past due', ref:'IATF 8.3.3.3', crit:false},
+    {t:'Production Part Approval (PPAP) is on file and reflects current part configuration', ref:'IATF 8.6.6', crit:false},
+    {t:'Internal audit of this process was completed within the audit program schedule', ref:'IATF 9.2.2', crit:false},
+    {t:'Operator training records are current for this process; no untrained operators on the line', ref:'IATF 7.2', crit:false},
+    {t:'Gage R&R is on file for measurement systems used in this process; results acceptable', ref:'IATF 7.1.5.1.1', crit:false},
+    {t:'Any open corrective actions for this process have assigned owners and are not past due', ref:'IATF 10.2.1', crit:false},
+  ],
+  L3: [
+    {t:'Quality metrics for this process are being tracked and reported to management (PPM, scrap, rework)', ref:'IATF 9.1.1', crit:true},
+    {t:'Customer complaints or warranty returns linked to this process have been reviewed at management level', ref:'IATF 10.2.1', crit:true},
+    {t:'Quality objectives for this process are set, tracked, and aligned to customer requirements', ref:'IATF 6.2.2', crit:false},
+    {t:'Resource adequacy for this process (staffing, equipment, tooling) has been reviewed in management review', ref:'IATF 9.3.3', crit:false},
+    {t:'Escalated quality issues from L1/L2 audits have received management response within required timeframe', ref:'IATF 9.2.2.3', crit:false},
+    {t:'Supplier performance for materials used in this process is acceptable (no open SCAR past due)', ref:'IATF 8.4.1', crit:false},
+    {t:'LPA program effectiveness is being reviewed; repeat findings from prior audits have been addressed', ref:'IATF 9.2.2.3', crit:false},
+    {t:'CSR requirements specific to this process are confirmed current and implemented', ref:'IATF 1.2', crit:false},
+  ]
+};
+
+let processes = [];
+let checklist = [];
+let currentStep = 0;
+
+function addProcess(p={}) {
+  const rows = document.getElementById('processRows');
+  const idx = processes.length;
+  processes.push({name:'',kc:'',risk:'MEDIUM',control:''});
+  const div = document.createElement('div');
+  div.className='pb-row';
+  div.id='pr_'+idx;
+  div.innerHTML=`
+    <input type="text" placeholder="Process name" value="${p.name||''}" onchange="processes[${idx}].name=this.value">
+    <input type="text" placeholder="Key characteristic" value="${p.kc||''}" onchange="processes[${idx}].kc=this.value">
+    <select onchange="processes[${idx}].risk=this.value">
+      <option value="HIGH"${(p.risk||'MEDIUM')==='HIGH'?' selected':''}>HIGH</option>
+      <option value="MEDIUM"${(p.risk||'MEDIUM')==='MEDIUM'?' selected':''}>MEDIUM</option>
+      <option value="LOW"${(p.risk==='LOW')?' selected':''}>LOW</option>
+    </select>
+    <input type="text" placeholder="Control method" value="${p.control||''}" onchange="processes[${idx}].control=this.value">
+    <button class="btn-remove" onclick="removeProcess(${idx})">✕ Remove</button>
+  `;
+  rows.appendChild(div);
+  if(p.name) processes[idx]={...p};
+}
+
+function removeProcess(idx){
+  const el=document.getElementById('pr_'+idx);
+  if(el)el.remove();
+  processes[idx]=null;
+}
+
+function buildChecklist(){
+  const activeProceses=processes.filter(p=>p&&p.name&&p.name.trim());
+  if(activeProceses.length===0){alert('Please add at least one process before generating the checklist.');return;}
+  checklist=[];
+  const container=document.getElementById('checklistItems');
+  container.innerHTML='';
+  activeProceses.forEach(proc=>{
+    ['L1','L2','L3'].forEach(layer=>{
+      LAYER_QUESTIONS[layer].forEach((q,qi)=>{
+        const id=`q_${proc.name.replace(/\W/g,'_')}_${layer}_${qi}`;
+        checklist.push({id,proc:proc.name,layer,text:q.t,ref:q.ref,crit:q.crit,result:'',finding:''});
+        const div=document.createElement('div');
+        div.className='audit-question';
+        div.dataset.layer=layer;
+        div.dataset.id=id;
+        div.innerHTML=`
+          <div class="aq-header">
+            <div class="aq-text">${q.t}${q.crit?'<span class="critical-tag" style="margin-left:8px">★ CRITICAL</span>':''}</div>
+            <span class="layer-pill ${layer.toLowerCase()}">${layer}</span>
+          </div>
+          <div class="aq-ref">Process: <b>${proc.name}</b> · Ref: ${q.ref}</div>
+          <div class="aq-controls">
+            <div class="radio-group">
+              <label><input type="radio" name="${id}" value="PASS" onchange="setResult('${id}','PASS')"> ✅ PASS</label>
+              <label><input type="radio" name="${id}" value="FAIL" onchange="setResult('${id}','FAIL')"> ❌ FAIL</label>
+              <label><input type="radio" name="${id}" value="NA" onchange="setResult('${id}','NA')"> — N/A</label>
+            </div>
+            <input class="finding-input" id="fi_${id}" type="text" placeholder="Finding / observation (if FAIL)" oninput="setFinding('${id}',this.value)">
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    });
+  });
+  goStep(2);
+}
+
+function setResult(id,val){
+  const item=checklist.find(c=>c.id===id);
+  if(item)item.result=val;
+}
+function setFinding(id,val){
+  const item=checklist.find(c=>c.id===id);
+  if(item)item.finding=val;
+}
+
+function filterQ(layer,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.audit-question').forEach(el=>{
+    if(layer==='all') el.style.display='';
+    else if(layer==='FAIL'){
+      const id=el.dataset.id;
+      const item=checklist.find(c=>c.id===id);
+      el.style.display=(item&&item.result==='FAIL')?'':'none';
+    } else {
+      el.style.display=(el.dataset.layer===layer)?'':'none';
+    }
+  });
+}
+
+function computeResults(){
+  const answered=checklist.filter(c=>c.result!=='');
+  if(answered.length<Math.floor(checklist.length*0.5)){
+    if(!confirm('Less than 50% of questions answered. Continue anyway?'))return;
+  }
+  const passes=checklist.filter(c=>c.result==='PASS').length;
+  const fails=checklist.filter(c=>c.result==='FAIL').length;
+  const nas=checklist.filter(c=>c.result==='NA').length;
+  const critFails=checklist.filter(c=>c.result==='FAIL'&&c.crit).length;
+  const total=checklist.length;
+
+  let overall='COMPLIANT';
+  if(critFails>0) overall='ESCALATE';
+  else if(fails>0) overall='NEEDS-CORRECTIVE-ACTION';
+
+  const colorMap={'COMPLIANT':'#1b5e20','NEEDS-CORRECTIVE-ACTION':'#92400e','ESCALATE':'#7f1d1d'};
+  const textMap={'COMPLIANT':'COMPLIANT','NEEDS-CORRECTIVE-ACTION':'CORRECTIVE ACTION REQUIRED','ESCALATE':'ESCALATE — Critical Failures'};
+
+  document.getElementById('summaryGrid').innerHTML=`
+    <div class="stat-card" style="background:${colorMap[overall]}22;border-color:${colorMap[overall]}">
+      <div class="stat-num" style="color:${overall==='COMPLIANT'?'#4ade80':overall==='NEEDS-CORRECTIVE-ACTION'?'#fbbf24':'#f87171'}">${textMap[overall]}</div>
+      <div class="stat-label">Audit Outcome</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#4ade80">${passes}</div><div class="stat-label">PASS</div>
+    </div>
+    <div class="stat-card ${fails>0?'warn':''}">
+      <div class="stat-num">${fails}</div><div class="stat-label">FAIL</div>
+    </div>
+    <div class="stat-card ${critFails>0?'fail-c':''}">
+      <div class="stat-num">${critFails}</div><div class="stat-label">Critical Failures</div>
+    </div>
+  `;
+
+  // Results table
+  const tbody=document.getElementById('resultsBody');
+  tbody.innerHTML='';
+  checklist.forEach(item=>{
+    if(!item.result)return;
+    const cls=item.result==='PASS'?'pass':item.result==='FAIL'?'fail':'na';
+    tbody.innerHTML+=`<tr>
+      <td><span class="layer-pill ${item.layer.toLowerCase()}">${item.layer}</span></td>
+      <td>${item.proc}</td>
+      <td>${item.text}${item.crit?'<span class="critical-tag" style="margin-left:6px">★</span>':''}</td>
+      <td><span class="badge ${cls}">${item.result}</span></td>
+      <td style="color:#fcd34d">${item.finding||'—'}</td>
+    </tr>`;
+  });
+
+  // Narrative
+  const org=document.getElementById('org').value||'[Organization]';
+  const dt=document.getElementById('auditDate').value||new Date().toISOString().split('T')[0];
+  const ref=document.getElementById('auditRef').value||'[LPA ref]';
+  const csr=document.getElementById('csr').value;
+  const part=document.getElementById('partNum').value||'[Not specified]';
+  const l1a=document.getElementById('l1aud').value||'[Not specified]';
+  const l2a=document.getElementById('l2aud').value||'[Not specified]';
+  const l3a=document.getElementById('l3aud').value||'[Not specified]';
+  const procs=[...new Set(checklist.map(c=>c.proc))].join(', ');
+  const failItems=checklist.filter(c=>c.result==='FAIL');
+  const critFailItems=checklist.filter(c=>c.result==='FAIL'&&c.crit);
+
+  document.getElementById('narrative').textContent=`LAYERED PROCESS AUDIT RECORD
+Standard: IATF 16949:2016 Cl. 10.2.3${csr!=='General IATF'?' / '+csr+' CSR':''}
+Organization: ${org}
+Audit Number: ${ref}
+Date: ${dt}
+Product / P/N: ${part}
+Processes Audited: ${procs}
+Auditors: L1 — ${l1a} | L2 — ${l2a} | L3 — ${l3a}
+Generated: ${new Date().toISOString()}
+
+AUDIT OUTCOME: ${textMap[overall]}
+
+RESULTS SUMMARY:
+  Total questions in scope:  ${total}
+  Answered:                  ${answered.length}
+  PASS:                      ${passes}
+  FAIL:                      ${fails} (${critFails} critical)
+  N/A:                       ${nas}
+
+${critFailItems.length>0?'CRITICAL FAILURES — IMMEDIATE ESCALATION REQUIRED:\n'+critFailItems.map((f,i)=>`  ${i+1}. [${f.proc}] ${f.text}\n     Finding: ${f.finding||'Not recorded'}`).join('\n')+'\n\n':''}${failItems.filter(f=>!f.crit).length>0?'NON-CRITICAL FAILURES — CORRECTIVE ACTION REQUIRED:\n'+failItems.filter(f=>!f.crit).map((f,i)=>`  ${i+1}. [${f.proc}] [${f.layer}] ${f.text}\n     Finding: ${f.finding||'Not recorded'}`).join('\n')+'\n\n':''}${overall==='COMPLIANT'?'No failures identified. All answered items PASS.\n\n':''}NEXT STEPS:
+${critFails>0?'1. Escalate critical failures to management immediately per IATF Cl. 9.2.2.3.\n2. Initiate containment action within 24 hours.\n3. Open CAR for each critical failure.\n4. Re-audit affected process within 5 business days.\n':''}${fails>0&&critFails===0?'1. Open corrective actions for all FAIL items.\n2. Assign owners and target dates.\n3. Re-audit affected questions at next scheduled LPA.\n':''}${overall==='COMPLIANT'?'Continue LPA at scheduled frequency. No immediate action required.\n':''}
+AUDITOR SIGN-OFF:
+  L1 — ${l1a}: _________________ Date: _______
+  L2 — ${l2a}: _________________ Date: _______
+  L3 — ${l3a}: _________________ Date: _______`;
+
+  window._lpaData={org,ref,dt,part,csr,overall,passes,fails,critFails,nas,total,answeredCount:answered.length,auditors:{l1:l1a,l2:l2a,l3:l3a},processes:procs,failItems:failItems.map(f=>({proc:f.proc,layer:f.layer,question:f.text,critical:f.crit,finding:f.finding})),tool:'iatf-lpa-builder-v1.0'};
+  goStep(3);
+}
+
+function exportJSON(){
+  if(!window._lpaData)return;
+  const blob=new Blob([JSON.stringify(window._lpaData,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='LPA-Record-'+(window._lpaData.ref||'audit').replace(/[^a-z0-9]/gi,'_')+'-'+new Date().toISOString().split('T')[0]+'.json';
+  a.click();
+}
+
+function goStep(n){
+  document.getElementById('step'+currentStep).classList.add('hidden');
+  document.getElementById('step'+n).classList.remove('hidden');
+  document.querySelectorAll('.step-btn').forEach((b,i)=>{
+    b.classList.remove('active');
+    if(i<n)b.classList.add('done');else b.classList.remove('done');
+  });
+  document.getElementById('tab'+n).classList.add('active');
+  currentStep=n;
+  const pct=((n+1)/4)*100;
+  document.getElementById('progressFill').style.width=pct+'%';
+}
+
+// Init with defaults
+DEFAULT_PROCESSES.forEach(p=>addProcess(p));
+</script>
+</body>
+</html>

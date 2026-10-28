@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AS9100D Planned Change Gate Tool | Conform-Edge</title>
+<style>
+  :root{--bg:#0d1117;--surface:rgba(255,255,255,.04);--surface2:rgba(255,255,255,.07);--border:rgba(255,255,255,.10);--border2:rgba(255,255,255,.16);--text:#e6edf3;--text2:#8b949e;--text3:#6e7681;--blue:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--orange:#e3b341;--accent:#388bfd;--radius:10px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;line-height:1.6;}
+  .topbar{background:rgba(13,17,23,.95);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);}
+  .topbar-logo{font-size:13px;font-weight:700;color:var(--blue);letter-spacing:.05em;}
+  .topbar-sep{color:var(--border2);}
+  .topbar-title{font-size:13px;color:var(--text2);}
+  .container{max-width:820px;margin:0 auto;padding:32px 20px 80px;}
+  h1{font-size:22px;font-weight:700;margin-bottom:4px;}
+  .subtitle{color:var(--text2);font-size:13px;margin-bottom:24px;}
+  .badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;border:1px solid;margin-right:6px;}
+  .badge-blue{border-color:var(--blue);color:var(--blue);}
+  .badge-green{border-color:var(--green);color:var(--green);}
+  .intro-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:28px;font-size:13px;color:var(--text2);}
+  .intro-box strong{color:var(--text);}
+  .step-indicator{display:flex;gap:0;margin-bottom:28px;}
+  .step{flex:1;padding:10px 16px;background:var(--surface);border:1px solid var(--border);text-align:center;font-size:12px;color:var(--text2);cursor:default;}
+  .step:first-child{border-radius:var(--radius) 0 0 var(--radius);}
+  .step:last-child{border-radius:0 var(--radius) var(--radius) 0;}
+  .step+.step{border-left:none;}
+  .step.active{background:rgba(56,139,253,.12);border-color:var(--accent);color:var(--blue);font-weight:600;}
+  .step.done{background:rgba(63,185,80,.08);border-color:var(--green);color:var(--green);}
+
+  .section-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;overflow:hidden;}
+  .section-header{background:var(--surface2);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+  .section-num{background:var(--accent);color:#fff;font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .section-title{font-size:14px;font-weight:600;}
+  .field-wrap{padding:16px 20px;border-bottom:1px solid var(--border);}
+  .field-wrap:last-child{border-bottom:none;}
+  .field-label{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .field-label .req{color:var(--red);font-size:11px;}
+  .field-ref{font-size:11px;color:var(--text3);margin-bottom:6px;}
+  .field-note{font-size:11px;color:var(--text3);margin-top:6px;}
+  input[type=text],textarea{width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:8px;padding:8px 12px;font-size:13px;font-family:inherit;outline:none;transition:border .15s;}
+  input[type=text]:focus,textarea:focus{border-color:var(--accent);}
+  textarea{min-height:80px;resize:vertical;}
+  .radio-group{display:flex;flex-direction:column;gap:8px;}
+  .radio-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .15s;}
+  .radio-option:hover{background:var(--surface2);}
+  .radio-option.selected{border-color:var(--accent);background:rgba(56,139,253,.07);}
+  .radio-option input{margin-top:3px;flex-shrink:0;accent-color:var(--accent);}
+  .radio-label{font-size:13px;color:var(--text);}
+  .radio-desc{font-size:11px;color:var(--text2);margin-top:2px;}
+
+  .check-group{display:flex;flex-direction:column;gap:6px;}
+  .check-option{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .15s;}
+  .check-option:hover{background:var(--surface2);}
+  .check-option.selected{border-color:var(--blue);background:rgba(88,166,255,.06);}
+  .check-option input{margin-top:3px;flex-shrink:0;accent-color:var(--accent);}
+  .check-label{font-size:13px;color:var(--text);}
+
+  .action-bar{position:sticky;bottom:0;background:rgba(13,17,23,.97);border-top:1px solid var(--border);padding:12px 20px;display:flex;gap:10px;align-items:center;justify-content:flex-end;backdrop-filter:blur(8px);z-index:50;}
+  .btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s;}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:var(--blue);}
+  .btn-secondary{background:var(--surface2);border:1px solid var(--border2);color:var(--text2);}
+  .btn-secondary:hover{color:var(--text);border-color:var(--text3);}
+
+  #result{display:none;}
+  .decision-banner{border-radius:var(--radius);padding:24px;margin-bottom:24px;border:2px solid;}
+  .decision-PROCEED{border-color:var(--green);background:rgba(63,185,80,.06);}
+  .decision-HOLD{border-color:var(--yellow);background:rgba(210,153,34,.06);}
+  .decision-ESCALATE{border-color:var(--red);background:rgba(248,81,73,.06);}
+  .decision-label{font-size:11px;font-weight:700;letter-spacing:.08em;margin-bottom:6px;}
+  .decision-label-PROCEED{color:var(--green);}
+  .decision-label-HOLD{color:var(--yellow);}
+  .decision-label-ESCALATE{color:var(--red);}
+  .decision-title{font-size:20px;font-weight:700;margin-bottom:8px;}
+  .decision-desc{font-size:13px;color:var(--text2);}
+
+  .checklist-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;overflow:hidden;}
+  .checklist-header{padding:12px 20px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:13px;font-weight:600;}
+  .checklist-row{padding:10px 20px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:20px 1fr auto;gap:12px;font-size:13px;align-items:start;}
+  .checklist-row:last-child{border-bottom:none;}
+  .check-icon{color:var(--text3);font-size:14px;}
+  .check-text{color:var(--text);}
+  .check-clause{font-size:11px;color:var(--text3);}
+  .check-priority{font-size:11px;padding:2px 8px;border-radius:10px;border:1px solid;font-weight:600;white-space:nowrap;}
+  .priority-required{border-color:var(--red);color:var(--red);}
+  .priority-review{border-color:var(--yellow);color:var(--yellow);}
+  .priority-advisory{border-color:var(--text3);color:var(--text3);}
+
+  .notif-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;padding:16px 20px;}
+  .notif-title{font-size:13px;font-weight:600;margin-bottom:12px;}
+  .notif-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;font-size:13px;}
+  .notif-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+
+  .narrative-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px;}
+  .narrative-title{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:10px;}
+  .narrative-text{font-size:13px;color:var(--text);white-space:pre-wrap;line-height:1.7;}
+  .export-btn{background:var(--surface);border:1px solid var(--border2);color:var(--text2);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;}
+  .export-btn:hover{color:var(--text);}
+  .notice{font-size:11px;color:var(--text3);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:20px;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-logo">CONFORM-EDGE</span>
+  <span class="topbar-sep">|</span>
+  <span class="topbar-title">AS9100D Cl. 8.1.2 Planned Change Gate Tool</span>
+</div>
+
+<div class="container">
+  <div id="assessment">
+    <h1>AS9100D Planned Change Gate Tool</h1>
+    <p class="subtitle">
+      <span class="badge badge-blue">AS9100D Cl. 8.1.2</span>
+      <span class="badge badge-green">Change Management</span>
+      Determine the approval pathway for a planned change and generate the required evidence checklist and notification determination.
+    </p>
+    <div class="intro-box">
+      <strong>Purpose:</strong> AS9100D Clause 8.1.2 requires organizations to plan, implement, control, review, and approve changes to operational planning to ensure continued conformity of products and services. This tool applies a deterministic gate to determine whether a proposed change may PROCEED, requires a HOLD for further review, or must be ESCALATED before implementation.
+    </div>
+
+    <!-- Step 1: Change Description -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Change Identification</div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">Change Title / Description <span class="req">*</span></div>
+        <input type="text" id="changeTitle" placeholder="e.g., Substitute supplier for 7075 aluminum billet (PN 4450-01)" />
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">Change Initiator / Date</div>
+        <input type="text" id="changeInitiator" placeholder="Name, Role — YYYY-MM-DD" />
+      </div>
+    </div>
+
+    <!-- Step 2: Change Type -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">Change Type</div>
+        <div style="font-size:12px;color:var(--text2);margin-left:auto">Select the primary change category</div>
+      </div>
+      <div class="field-wrap">
+        <div class="radio-group" id="changeType">
+          <label class="radio-option" onclick="selectRadio('changeType',this)">
+            <input type="radio" name="changeType" value="design">
+            <div><div class="radio-label">Design / Engineering Change</div><div class="radio-desc">Drawing revision, material substitution, tolerance change, design configuration</div></div>
+          </label>
+          <label class="radio-option" onclick="selectRadio('changeType',this)">
+            <input type="radio" name="changeType" value="process">
+            <div><div class="radio-label">Manufacturing / Process Change</div><div class="radio-desc">New tooling, process sequence change, work instruction revision, production method change</div></div>
+          </label>
+          <label class="radio-option" onclick="selectRadio('changeType',this)">
+            <input type="radio" name="changeType" value="supplier">
+            <div><div class="radio-label">Supplier / Source Change</div><div class="radio-desc">Alternate supplier, new sub-tier, transfer of production, change of manufacturing location</div></div>
+          </label>
+          <label class="radio-option" onclick="selectRadio('changeType',this)">
+            <input type="radio" name="changeType" value="software">
+            <div><div class="radio-label">Software / ERP / QMS System Change</div><div class="radio-desc">Software version update, database change, ERP configuration, QMS platform change</div></div>
+          </label>
+          <label class="radio-option" onclick="selectRadio('changeType',this)">
+            <input type="radio" name="changeType" value="facility">
+            <div><div class="radio-label">Facility / Equipment Change</div><div class="radio-desc">New equipment, facility relocation, equipment calibration scope change, utilities</div></div>
+          </label>
+          <label class="radio-option" onclick="selectRadio('changeType',this)">
+            <input type="radio" name="changeType" value="org">
+            <div><div class="radio-label">Organizational / Responsibility Change</div><div class="radio-desc">Restructure, role change, outsourcing of function, change of authorized release personnel</div></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Impact Factors -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">Impact Assessment</div>
+        <div style="font-size:12px;color:var(--text2);margin-left:auto">Check all that apply</div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">Product / Service Impact</div>
+        <div class="check-group">
+          <label class="check-option" onclick="toggleCheck('pi1',this)"><input type="checkbox" id="pi1"><div><div class="check-label">Change affects a Key Characteristic (KC) or critical characteristic</div></div></label>
+          <label class="check-option" onclick="toggleCheck('pi2',this)"><input type="checkbox" id="pi2"><div><div class="check-label">Change affects fit, form, function, or interchangeability</div></div></label>
+          <label class="check-option" onclick="toggleCheck('pi3',this)"><input type="checkbox" id="pi3"><div><div class="check-label">Change affects a special process (welding, heat treat, NDT, plating, etc.)</div></div></label>
+          <label class="check-option" onclick="toggleCheck('pi4',this)"><input type="checkbox" id="pi4"><div><div class="check-label">Change affects product safety — risk of injury, hazardous failure, or safety-critical function</div></div></label>
+          <label class="check-option" onclick="toggleCheck('pi5',this)"><input type="checkbox" id="pi5"><div><div class="check-label">Change affects airworthiness or regulatory certification basis of the article</div></div></label>
+        </div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">Customer / Regulatory Triggers</div>
+        <div class="check-group">
+          <label class="check-option" onclick="toggleCheck('cr1',this)"><input type="checkbox" id="cr1"><div><div class="check-label">Customer PO, contract, or drawing is affected by this change</div></div></label>
+          <label class="check-option" onclick="toggleCheck('cr2',this)"><input type="checkbox" id="cr2"><div><div class="check-label">Customer has a prior-approval or notification requirement for this change type (e.g., Boeing D6-82479, Airbus AIPS, NADCAP CSL)</div></div></label>
+          <label class="check-option" onclick="toggleCheck('cr3',this)"><input type="checkbox" id="cr3"><div><div class="check-label">Change requires FAA, EASA, UK CAA, CAAC, or other regulatory authority approval before implementation</div></div></label>
+          <label class="check-option" onclick="toggleCheck('cr4',this)"><input type="checkbox" id="cr4"><div><div class="check-label">Change affects a product under an STC, PMA, TC, or design approval</div></div></label>
+        </div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">QMS / Process Impact</div>
+        <div class="check-group">
+          <label class="check-option" onclick="toggleCheck('qi1',this)"><input type="checkbox" id="qi1"><div><div class="check-label">Change requires revision to a controlled procedure, work instruction, or inspection plan</div></div></label>
+          <label class="check-option" onclick="toggleCheck('qi2',this)"><input type="checkbox" id="qi2"><div><div class="check-label">Change affects the First Article Inspection (FAI) basis per AS9102</div></div></label>
+          <label class="check-option" onclick="toggleCheck('qi3',this)"><input type="checkbox" id="qi3"><div><div class="check-label">Change affects an approved supplier or the Approved Supplier List (ASL)</div></div></label>
+          <label class="check-option" onclick="toggleCheck('qi4',this)"><input type="checkbox" id="qi4"><div><div class="check-label">Change affects configuration management, part numbering, or traceability</div></div></label>
+        </div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">Risk Determination</div>
+        <div class="radio-group" id="riskLevel">
+          <label class="radio-option" onclick="selectRadio('riskLevel',this)">
+            <input type="radio" name="riskLevel" value="low">
+            <div><div class="radio-label">LOW — Change is administrative or cosmetic; no product, process, customer, or regulatory impact identified above</div></div>
+          </label>
+          <label class="radio-option" onclick="selectRadio('riskLevel',this)">
+            <input type="radio" name="riskLevel" value="medium">
+            <div><div class="radio-label">MEDIUM — Change has limited product or QMS impact; 1–2 items identified above; no safety or regulatory triggers</div></div>
+          </label>
+          <label class="radio-option" onclick="selectRadio('riskLevel',this)">
+            <input type="radio" name="riskLevel" value="high">
+            <div><div class="radio-label">HIGH — Change has significant product, customer, safety, or regulatory impact; 3 or more items identified above</div></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Authorized Review -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">Review &amp; Authorization Status</div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">Who has reviewed this change so far? (check all completed)</div>
+        <div class="check-group">
+          <label class="check-option" onclick="toggleCheck('rv1',this)"><input type="checkbox" id="rv1"><div><div class="check-label">Engineering / Design Authority review completed</div></div></label>
+          <label class="check-option" onclick="toggleCheck('rv2',this)"><input type="checkbox" id="rv2"><div><div class="check-label">Quality review completed</div></div></label>
+          <label class="check-option" onclick="toggleCheck('rv3',this)"><input type="checkbox" id="rv3"><div><div class="check-label">Production / Operations review completed</div></div></label>
+          <label class="check-option" onclick="toggleCheck('rv4',this)"><input type="checkbox" id="rv4"><div><div class="check-label">Customer notification / approval obtained (if required)</div></div></label>
+          <label class="check-option" onclick="toggleCheck('rv5',this)"><input type="checkbox" id="rv5"><div><div class="check-label">Regulatory authority approval obtained (if required)</div></div></label>
+        </div>
+      </div>
+      <div class="field-wrap">
+        <div class="field-label">Additional Notes (optional)</div>
+        <textarea id="notes" placeholder="Add context, specific concerns, or supporting references..."></textarea>
+      </div>
+    </div>
+  </div><!-- end assessment -->
+
+  <div id="result">
+    <div id="decision-banner" class="decision-banner"></div>
+    <div id="checklist-section"></div>
+    <div id="notif-section"></div>
+    <div class="narrative-box">
+      <div class="narrative-title">Change Management Record — AS9100D Cl. 8.1.2</div>
+      <div class="narrative-text" id="narrative"></div>
+    </div>
+    <div class="notice">This tool is a decision-support aid aligned to AS9100D Clause 8.1.2 intent. It does not replace engineering judgment, customer-specific requirements, or regulatory approvals required by applicable authorities. Always verify current customer flow-down requirements and regulatory approval thresholds before implementing any change.</div>
+    <button class="export-btn" onclick="exportJSON()">⬇ Export JSON Record</button>
+    &nbsp;
+    <button class="export-btn" onclick="resetTool()">↩ New Change</button>
+  </div>
+</div>
+
+<div class="action-bar">
+  <button class="btn btn-secondary" onclick="resetTool()">Reset</button>
+  <button class="btn btn-primary" onclick="computeDecision()">Evaluate Change →</button>
+</div>
+
+<script>
+window.__MAI_KERNEL_RESERVED = {
+  domainId: 'as9100d-planned-change',
+  version: '1.0.0',
+  assessmentType: 'change-management-gate',
+  standard: 'AS9100D',
+  clause: '8.1.2',
+  decisionPaths: ['PROCEED','HOLD','ESCALATE'],
+  status: 'ARCHITECTURE_DEFINED',
+  connect: function(kernel){ this._kernel=kernel; return this; }
+};
+
+let checkState = {};
+
+function selectRadio(group, el) {
+  document.querySelectorAll(`#${group} .radio-option, [name="${group}"]~.radio-option`).forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function toggleCheck(id, el) {
+  const cb = document.getElementById(id);
+  if (!cb) return;
+  const checked = !cb.checked;
+  cb.checked = checked;
+  el.classList.toggle('selected', checked);
+  checkState[id] = checked;
+}
+
+function getRadioValue(name) {
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : null;
+}
+
+function getChecked(ids) { return ids.filter(id => document.getElementById(id)?.checked); }
+
+function computeDecision() {
+  const title = document.getElementById('changeTitle').value.trim();
+  const changeType = getRadioValue('changeType');
+  const riskLevel = getRadioValue('riskLevel');
+
+  if (!title) { alert('Please enter a change title/description.'); return; }
+  if (!changeType) { alert('Please select a change type.'); return; }
+  if (!riskLevel) { alert('Please select a risk level.'); return; }
+
+  // Impact flags
+  const safetyFlags = getChecked(['pi4','pi5','cr3','cr4']);
+  const customerNotifRequired = getChecked(['cr1','cr2']).length > 0;
+  const regulatoryRequired = getChecked(['cr3','cr4']).length > 0;
+  const kcFlag = document.getElementById('pi1')?.checked;
+  const faiFlag = document.getElementById('qi2')?.checked;
+
+  // Reviews completed
+  const reviewsDone = getChecked(['rv1','rv2','rv3','rv4','rv5']);
+  const customerApprovalDone = document.getElementById('rv4')?.checked;
+  const regApprovalDone = document.getElementById('rv5')?.checked;
+
+  // Gate logic
+  let decision, reasons = [];
+
+  if (safetyFlags.length > 0) {
+    decision = 'ESCALATE';
+    reasons.push('Safety or airworthiness impact identified — requires engineering authority and Quality Director approval before proceeding');
+  } else if (regulatoryRequired && !regApprovalDone) {
+    decision = 'ESCALATE';
+    reasons.push('Regulatory authority approval required but not yet obtained — implementation blocked until approval is on record');
+  } else if (customerNotifRequired && !customerApprovalDone) {
+    decision = 'HOLD';
+    reasons.push('Customer prior-approval or notification required — obtain customer disposition before implementation');
+  } else if (riskLevel === 'high') {
+    const reviewsNeeded = ['rv1','rv2','rv3'];
+    const reviewsMissing = reviewsNeeded.filter(r => !document.getElementById(r)?.checked);
+    if (reviewsMissing.length > 0) {
+      decision = 'HOLD';
+      reasons.push('HIGH risk change requires Engineering, Quality, and Operations review — not all reviews completed');
+    } else {
+      decision = 'PROCEED';
+      reasons.push('HIGH risk change — all required reviews completed; implement with full evidence package and post-implementation verification');
+    }
+  } else if (riskLevel === 'medium') {
+    const qReview = document.getElementById('rv2')?.checked;
+    if (!qReview) {
+      decision = 'HOLD';
+      reasons.push('MEDIUM risk change requires Quality review at minimum before implementation');
+    } else {
+      decision = 'PROCEED';
+      reasons.push('MEDIUM risk change — Quality review confirmed; implement with documented evidence and effectivity record');
+    }
+  } else {
+    decision = 'PROCEED';
+    reasons.push('LOW risk administrative/cosmetic change — implement with documented change record and effectivity notice');
+  }
+
+  const DECISIONS = {
+    PROCEED: { label:'PROCEED', title:'Change Approved to Implement', desc:'The planned change has met the AS9100D Cl. 8.1.2 gate criteria. Complete the evidence checklist below before implementation. Record the change effectivity and retain documentation per Clause 7.5.' },
+    HOLD: { label:'HOLD — ACTION REQUIRED', title:'Change On Hold — Complete Required Actions', desc:'The change cannot proceed until identified actions are completed. Address the hold conditions listed below, then re-evaluate through this gate.' },
+    ESCALATE: { label:'ESCALATE — DO NOT IMPLEMENT', title:'Escalation Required Before Proceeding', desc:'One or more safety, airworthiness, or regulatory triggers require executive/engineering authority disposition. Do not implement the change until escalation is resolved and documented.' }
+  };
+
+  const d = DECISIONS[decision];
+  const banner = document.getElementById('decision-banner');
+  banner.className = 'decision-banner decision-' + decision;
+  banner.innerHTML = `
+    <div class="decision-label decision-label-${decision}">${d.label}</div>
+    <div class="decision-title">${d.title}</div>
+    <div class="decision-desc">${d.desc}</div>
+    ${reasons.length?`<ul style="margin-top:12px;padding-left:18px;font-size:13px;color:var(--text2)">${reasons.map(r=>'<li style="margin-bottom:4px">'+r+'</li>').join('')}</ul>`:''}
+  `;
+
+  // Evidence checklist
+  const checklist = buildChecklist(changeType, riskLevel, safetyFlags.length>0, kcFlag, faiFlag, regulatoryRequired, customerNotifRequired);
+  let clHtml = '<div class="checklist-card"><div class="checklist-header">Required Evidence Checklist — AS9100D Cl. 8.1.2</div>';
+  checklist.forEach(item => {
+    clHtml += `<div class="checklist-row">
+      <div class="check-icon">☐</div>
+      <div><div class="check-text">${item.text}</div><div class="check-clause">${item.clause}</div></div>
+      <div><span class="check-priority priority-${item.priority}">${item.priority.toUpperCase()}</span></div>
+    </div>`;
+  });
+  clHtml += '</div>';
+  document.getElementById('checklist-section').innerHTML = clHtml;
+
+  // Notification determination
+  let notifHtml = '<div class="notif-card"><div class="notif-title">Customer &amp; Regulatory Notification Determination</div>';
+  const notifItems = [];
+  if (customerNotifRequired) notifItems.push({ color:'var(--red)', text:'Customer prior-approval required per contract/flow-down — obtain written disposition before implementation' });
+  else notifItems.push({ color:'var(--green)', text:'No customer prior-approval trigger identified — document in change record as "customer notification: not required"' });
+  if (regulatoryRequired) notifItems.push({ color:'var(--red)', text:'Regulatory authority approval required (FAA/EASA/CAAC/other) — do not implement without approval on record' });
+  else notifItems.push({ color:'var(--green)', text:'No regulatory approval trigger identified based on inputs — verify against design approval basis before finalizing' });
+  notifItems.forEach(n => {
+    notifHtml += `<div class="notif-row"><div class="notif-dot" style="background:${n.color}"></div><div>${n.text}</div></div>`;
+  });
+  notifHtml += '</div>';
+  document.getElementById('notif-section').innerHTML = notifHtml;
+
+  // Narrative
+  const date = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const initiator = document.getElementById('changeInitiator').value.trim() || 'Not specified';
+  const notes = document.getElementById('notes').value.trim();
+  let narr = `Planned Change Gate Evaluation — AS9100D Clause 8.1.2\nEvaluation Date: ${date}\n\n`;
+  narr += `Change: ${title}\nInitiator: ${initiator}\nType: ${changeType} | Risk Level: ${riskLevel.toUpperCase()}\n\n`;
+  narr += `Gate Decision: ${d.label}\n${reasons.map(r=>'• '+r).join('\n')}\n\n`;
+  narr += `Customer Notification: ${customerNotifRequired?(customerApprovalDone?'REQUIRED — approval obtained':'REQUIRED — PENDING'):'Not required'}\n`;
+  narr += `Regulatory Approval: ${regulatoryRequired?(regApprovalDone?'REQUIRED — approval obtained':'REQUIRED — PENDING'):'Not required'}\n\n`;
+  narr += `Required Evidence: ${checklist.filter(c=>c.priority==='required').length} required items, ${checklist.filter(c=>c.priority==='review').length} review items.\n`;
+  if(notes) narr += `\nNotes: ${notes}`;
+  document.getElementById('narrative').textContent = narr;
+
+  document.getElementById('assessment').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function buildChecklist(type, risk, hasSafety, hasKC, hasFAI, hasReg, hasCust) {
+  const items = [
+    { text:'Change Record created with: change description, initiator, date, change type, affected parts/documents/processes', clause:'AS9100D Cl. 8.1.2(a)', priority:'required' },
+    { text:'Reason for change documented — business case, root cause, or customer request stated', clause:'AS9100D Cl. 8.1.2(b)', priority:'required' },
+    { text:'Impact assessment documented — product, process, QMS, customer, and regulatory impacts evaluated', clause:'AS9100D Cl. 8.1.2(c)', priority:'required' },
+    { text:'Approval signatures obtained from all required review functions', clause:'AS9100D Cl. 8.1.2 / Cl. 5.3', priority:'required' },
+    { text:'Affected controlled documents identified and revision scheduled or completed', clause:'AS9100D Cl. 7.5', priority: risk==='low'?'advisory':'required' },
+    { text:'Effectivity point defined (part number, serial number, date, or lot) and communicated', clause:'AS9100D Cl. 8.1.2(d)', priority:'required' },
+    { text:'Post-implementation verification plan defined — how conformance will be confirmed after the change', clause:'AS9100D Cl. 8.1.2(e)', priority: risk==='low'?'advisory':'required' },
+    { text:'Training needs assessed — operators/inspectors affected by the change briefed before effectivity', clause:'AS9100D Cl. 7.2', priority:'review' },
+  ];
+  if (hasSafety) items.push({ text:'Product Safety / Airworthiness risk assessment documented and approved by Engineering Authority', clause:'AS9100D Cl. 8.1.3 (product safety)', priority:'required' });
+  if (hasKC) items.push({ text:'Key Characteristic impact assessed — KC control plan updated if affected', clause:'AS9100D Cl. 8.1.1', priority:'required' });
+  if (hasFAI) items.push({ text:'FAI requirement assessed — new FAI, delta FAI, or documented rationale for no FAI required per AS9102', clause:'AS9100D Cl. 8.1.2 / AS9102', priority:'required' });
+  if (hasReg) items.push({ text:'Regulatory approval documented on file — approval reference number and authority recorded in change record', clause:'AS9100D Cl. 8.1.2 / applicable regulatory requirement', priority:'required' });
+  if (hasCust) items.push({ text:'Customer disposition on file — written approval, concession, or notification confirmation retained', clause:'AS9100D Cl. 8.1.2 / customer flow-down', priority:'required' });
+  if (type==='supplier') items.push({ text:'Supplier change documented in ASL; new supplier qualification evidence on file if new source', clause:'AS9100D Cl. 8.4', priority:'required' });
+  if (type==='process') items.push({ text:'Process validation or re-validation assessed — special processes require NADCAP or equivalent re-approval if process changed', clause:'AS9100D Cl. 8.5.1', priority:'review' });
+  return items;
+}
+
+function resetTool() {
+  document.getElementById('changeTitle').value = '';
+  document.getElementById('changeInitiator').value = '';
+  document.getElementById('notes').value = '';
+  document.querySelectorAll('.radio-option').forEach(el=>el.classList.remove('selected'));
+  document.querySelectorAll('.check-option').forEach(el=>el.classList.remove('selected'));
+  document.querySelectorAll('input[type=checkbox]').forEach(el=>el.checked=false);
+  document.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);
+  checkState = {};
+  document.getElementById('assessment').style.display = 'block';
+  document.getElementById('result').style.display = 'none';
+  window.scrollTo(0,0);
+}
+
+function exportJSON() {
+  const data = {
+    tool: 'AS9100D Planned Change Gate Tool',
+    standard: 'AS9100D Clause 8.1.2',
+    assessmentDate: new Date().toISOString(),
+    change: { title: document.getElementById('changeTitle').value, initiator: document.getElementById('changeInitiator').value, notes: document.getElementById('notes').value },
+    maiBridge: window.__MAI_KERNEL_RESERVED
+  };
+  const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='planned-change-gate-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
+}
+</script>
+<footer style="text-align:center;padding:24px;font-size:11px;color:#4b5563;border-top:1px solid #1e293b;margin-top:32px">Conform-Edge Quality Consulting LLC · AS9100D Cl. 8.1.2 Planned Change Gate Tool v1.0.0 · For internal use and client QMS implementation support · Not a substitute for qualified QMS advice</footer>
+</body>
+</html>

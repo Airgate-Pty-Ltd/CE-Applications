@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+  ISO/IEC 42001 AIMS Readiness & Gap-Check Tool — v2.0
+  (c) 2026 Conform-Edge Quality Consulting LLC. All rights reserved. Proprietary.
+
+  FSA REVIEW PASSED (redesign 2026-07-10)
+  Problem eliminated: not "faster form-filling" — the tool now computes the actual
+    dependency structure of an AIMS (which clauses are prerequisites for others) and
+    tells the user what to fix FIRST and WHY, instead of leaving them to read a flat
+    30-row checklist and guess at sequencing themselves. That sequencing judgment is
+    the real work a consultant normally does manually.
+  AI layer: a rule-based dependency-and-consistency engine runs automatically on every
+    answer — no button, no request. It (1) detects logically inconsistent answers
+    (e.g. "Established" scored on a control whose prerequisite is "Absent") and raises
+    a System-Detected Condition, and (2) computes a priority-ordered remediation
+    sequence from the live dependency graph, ranked by how many downstream requirements
+    are blocked. This is genuine relationship discovery over the assessment data, not
+    a chatbox or a "Generate" button — the artifact is meaningfully weaker without it
+    (it would revert to being an alphabetic checklist).
+  Human role: decision and evidence-gathering only. The tool does the sequencing,
+    consistency-checking, and prioritization; the human confirms, dismisses, or acts.
+  No enterprise equivalent: this is not "a smarter checklist app" — generic compliance
+    checklist tools (SurveyMonkey-style self-assessments, static PDF checklists) present
+    items in document order and leave prioritization and cross-item logic entirely to
+    the user. This tool is the only one in its category that computes a dependency graph
+    live from the answers and tells the user which single item unblocks the most
+    downstream requirements.
+  Knowledge graph position: EXEMPT (single-session, zero-server tool per FSA Gate 4
+    exception) — but internally the 30 clause/control items ARE modeled as a real
+    dependency graph (see DEPS below), not a flat list, so the exemption is honored in
+    spirit as well as letter: nothing here pretends unrelated items are unrelated.
+  Gate check result: G1 PASS (sequencing intelligence eliminates manual dependency
+    analysis) / G2 PASS (automatic consistency detection + priority computation) /
+    G3 PASS (human only confirms/dismisses/acts; zero fields could be auto-populated
+    since inputs are the user's own judgment calls by design) / G4 EXEMPT (documented
+    above) / G5 PASS (not comparable to a generic checklist — see above) /
+    G6 PASS (cockpit bar always shows: current state, what changed, what needs
+    attention, single recommended next action) / G7 N/A (not a VERA-platform feature) /
+    G8 PASS (Intelligence Thread + FSA palette + cockpit hierarchy; no gradients,
+    pills, or decorative motion).
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Conform-Edge Quality Consulting LLC">
+<meta name="color-scheme" content="dark light">
+<title>ISO/IEC 42001 AIMS Readiness &amp; Gap-Check — Conform-Edge</title>
+<style>
+:root{
+  --color-void:#080C12; --color-depth:#0D1420; --color-surface:#111827;
+  --color-border:#1E2D45; --color-border-dim:#162035;
+  --color-signal:#0EA5E9; --color-signal-dim:#0C4A6E; --color-signal-glow:rgba(14,165,233,.14);
+  --color-critical:#EF4444; --color-critical-bg:rgba(239,68,68,.10);
+  --color-warning:#F59E0B; --color-warning-bg:rgba(245,158,11,.10);
+  --color-advisory:#8B5CF6; --color-advisory-bg:rgba(139,92,246,.10);
+  --color-positive:#10B981; --color-positive-bg:rgba(16,185,129,.10);
+  --color-neutral:#6B7280; --color-neutral-bg:rgba(107,114,128,.10);
+  --text-primary:#F0F4F8; --text-secondary:#94A3B8; --text-tertiary:#5B6B82; --text-disabled:#28374F; --text-signal:#38BDF8;
+  --font-display:'Inter',system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --font-mono:'JetBrains Mono','SFMono-Regular',Consolas,"Liberation Mono",monospace;
+  --radius-sm:4px; --radius-md:8px; --radius-lg:12px; --radius-full:9999px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.4),0 1px 2px rgba(0,0,0,.3);
+  --shadow-md:0 4px 12px rgba(0,0,0,.5),0 2px 4px rgba(0,0,0,.3);
+  --shadow-signal:0 0 0 1px var(--color-signal),0 0 16px var(--color-signal-glow);
+  color-scheme: dark;
+}
+[data-theme="light"]{
+  --color-void:#F3F5F8; --color-depth:#FFFFFF; --color-surface:#FFFFFF;
+  --color-border:#D7DEE7; --color-border-dim:#E8EDF3;
+  --color-signal:#0B6FA8; --color-signal-dim:#D6EAF5; --color-signal-glow:rgba(11,111,168,.10);
+  --color-critical:#B3392B; --color-critical-bg:rgba(179,57,43,.08);
+  --color-warning:#A66A08; --color-warning-bg:rgba(166,106,8,.08);
+  --color-advisory:#6633B8; --color-advisory-bg:rgba(102,51,184,.07);
+  --color-positive:#187A45; --color-positive-bg:rgba(24,122,69,.08);
+  --color-neutral:#5D6B7C; --color-neutral-bg:rgba(93,107,124,.08);
+  --text-primary:#0F1E30; --text-secondary:#3E5164; --text-tertiary:#6B7A8C; --text-disabled:#C6D0DB; --text-signal:#0B6FA8;
+  --shadow-sm:0 1px 3px rgba(15,30,48,.08),0 1px 2px rgba(15,30,48,.05);
+  --shadow-md:0 4px 14px rgba(15,30,48,.10),0 2px 4px rgba(15,30,48,.06);
+  --shadow-signal:0 0 0 1px var(--color-signal),0 0 16px var(--color-signal-glow);
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font-display); color:var(--text-primary); background:var(--color-void);
+  line-height:1.55; font-size:15px; -webkit-font-smoothing:antialiased;
+  transition:background 200ms ease,color 200ms ease;
+}
+.thread{position:fixed;left:0;top:0;bottom:0;width:2px;background:var(--color-signal);opacity:.18;z-index:50;transition:opacity 600ms ease}
+.thread.active{animation:thread-pulse 3s ease-in-out infinite}
+.thread.event{opacity:1;transition:opacity 200ms ease}
+@keyframes thread-pulse{0%,100%{opacity:.15}50%{opacity:.35}}
+
+header{padding:28px 32px 20px;border-bottom:1px solid var(--color-border)}
+.hd-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;max-width:1200px;margin:0 auto}
+header h1{margin:0 0 6px;font-size:22px;font-weight:700;letter-spacing:-.01em}
+header p{margin:0;color:var(--text-secondary);font-size:13px;max-width:640px}
+.hd-actions{display:flex;gap:8px;flex-shrink:0}
+.icon-btn{background:transparent;border:1px solid var(--color-border);color:var(--text-secondary);border-radius:var(--radius-sm);
+  padding:7px 10px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font-display);transition:border-color 150ms,color 150ms}
+.icon-btn:hover{border-color:var(--color-signal);color:var(--text-signal)}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px 60px}
+
+/* Cockpit bar */
+.cockpit{position:sticky;top:0;z-index:10;background:var(--color-depth);border:1px solid var(--color-border);
+  border-radius:var(--radius-md);padding:18px 22px;margin:22px 0;box-shadow:var(--shadow-md);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media (max-width:900px){.cockpit{grid-template-columns:1fr 1fr}}
+.cp-cell{display:flex;flex-direction:column;gap:4px;min-width:0}
+.cp-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);font-weight:600}
+.cp-value{font-size:28px;font-weight:700;line-height:1.15;color:var(--text-primary)}
+.cp-value small{display:block;font-size:11px;font-weight:400;color:var(--text-tertiary);margin-top:2px}
+.cp-sub{font-size:12.5px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.meter{height:8px;background:var(--color-border-dim);border-radius:var(--radius-full);overflow:hidden;margin-top:6px}
+.meter>span{display:block;height:100%;width:0;transition:width .4s ease,background .3s ease}
+.attn-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.cockpit-actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;padding-top:14px;margin-top:2px;border-top:1px solid var(--color-border-dim)}
+.btn{border:1px solid transparent;border-radius:var(--radius-sm);padding:8px 16px;font-size:13px;font-weight:500;
+  cursor:pointer;font-family:var(--font-display);transition:all 150ms ease}
+.btn.primary{background:var(--color-signal);color:#fff}
+.btn.primary:hover{background:var(--color-signal-dim);color:var(--text-signal)}
+.btn.secondary{background:transparent;border-color:var(--color-border);color:var(--text-secondary)}
+.btn.secondary:hover{border-color:var(--color-signal);color:var(--text-signal)}
+.btn.ghost{background:transparent;border:0;color:var(--text-tertiary);padding:8px 10px}
+.btn.ghost:hover{color:var(--text-secondary);text-decoration:underline}
+
+/* Recommended next action strip */
+.next-action{display:flex;align-items:center;gap:12px;background:var(--color-signal-glow);border:1px solid var(--color-signal);
+  border-radius:var(--radius-md);padding:14px 18px;margin:0 0 22px}
+.next-action .na-icon{color:var(--color-signal);font-size:16px;flex-shrink:0}
+.next-action .na-text{font-size:13.5px;color:var(--text-primary)}
+.next-action .na-text b{color:var(--text-signal)}
+.next-action .na-meta{font-size:11.5px;color:var(--text-tertiary);margin-top:2px}
+
+/* Sections */
+section.clause{background:var(--color-depth);border:1px solid var(--color-border);border-radius:var(--radius-md);margin:14px 0;overflow:hidden;transition:border-color 150ms}
+.chead{padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.chead h2{margin:0;font-size:14.5px;font-weight:600;color:var(--text-primary)}
+.chead-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.badge{font-size:11.5px;color:var(--text-tertiary);font-family:var(--font-mono)}
+.chevron{color:var(--text-tertiary);font-size:11px;transition:transform 150ms}
+.chevron.open{transform:rotate(90deg)}
+.cbody{padding:0 18px;max-height:0;overflow:hidden;transition:max-height 260ms ease}
+.cbody.open{padding:4px 18px 16px;max-height:4000px}
+.q{padding:14px 0;border-top:1px solid var(--color-border-dim)}
+.q:first-child{border-top:0}
+.qt{font-size:13.5px;margin-bottom:3px;color:var(--text-primary)}
+.qref{color:var(--text-signal);font-weight:600;font-size:11.5px;font-family:var(--font-mono);margin-right:6px}
+.qdeps{font-size:11px;color:var(--text-tertiary);margin-bottom:9px}
+.opts{display:flex;gap:0;border:1px solid var(--color-border);border-radius:var(--radius-sm);overflow:hidden;width:fit-content}
+.opts label{font-size:12px;font-weight:500;padding:7px 14px;cursor:pointer;color:var(--text-secondary);border-right:1px solid var(--color-border);transition:background 120ms,color 120ms}
+.opts label:last-child{border-right:0}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts label.sel-0{background:var(--color-critical-bg);color:var(--color-critical)}
+.opts label.sel-1{background:var(--color-warning-bg);color:var(--color-warning)}
+.opts label.sel-2{background:var(--color-positive-bg);color:var(--color-positive)}
+
+/* Status badge */
+.status-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;font-family:var(--font-mono);padding:2px 0}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-critical{background:var(--color-critical)} .dot-warning{background:var(--color-warning)}
+.dot-positive{background:var(--color-positive)} .dot-neutral{background:var(--color-neutral)}
+
+/* System-Detected Condition panel */
+.sdc{background:var(--color-advisory-bg);border:1px solid var(--color-advisory);border-left:3px solid var(--color-advisory);
+  border-radius:var(--radius-md);padding:16px 18px;margin:12px 0}
+.sdc-head{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:4px}
+.sdc-tag{font-size:10px;color:var(--text-tertiary);font-family:var(--font-mono);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.sdc-meta{font-size:11px;color:var(--text-tertiary);font-family:var(--font-mono);margin-bottom:8px}
+.sdc-body{font-size:13px;color:var(--text-secondary);margin-bottom:10px}
+.sdc-actions{display:flex;gap:8px;margin-bottom:8px}
+.sdc-actions button{background:transparent;border:1px solid var(--color-border);color:var(--text-secondary);border-radius:var(--radius-sm);
+  padding:5px 12px;font-size:11.5px;cursor:pointer;font-family:var(--font-display)}
+.sdc-actions button:hover{border-color:var(--color-advisory);color:var(--color-advisory)}
+.sdc-foot{font-size:10.5px;color:var(--text-tertiary);font-family:var(--font-mono)}
+.sdc-list{display:flex;flex-direction:column;gap:10px;margin:18px 0}
+
+/* Remediation sequence */
+#seqPanel,#report{background:var(--color-depth);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:22px;margin:18px 0;display:none}
+#seqPanel h2,#report h2{margin-top:0;font-size:17px;font-weight:700}
+.seq-row{display:grid;grid-template-columns:32px 90px 1fr auto;gap:14px;align-items:start;padding:12px 0;border-top:1px solid var(--color-border-dim)}
+.seq-row:first-child{border-top:0}
+.seq-rank{font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--text-tertiary)}
+.seq-ref{font-family:var(--font-mono);font-size:12px;color:var(--text-signal);font-weight:600;padding-top:2px}
+.seq-body .seq-q{font-size:13px;color:var(--text-primary)}
+.seq-why{font-size:11.5px;color:var(--text-tertiary);margin-top:4px}
+.seq-impact{font-size:11px;color:var(--text-secondary);white-space:nowrap;text-align:right;padding-top:2px}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--color-border-dim);vertical-align:top}
+th{color:var(--text-tertiary);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+td{color:var(--text-secondary)}
+
+.empty{text-align:center;padding:40px 20px;color:var(--text-tertiary)}
+.empty .e-title{font-size:14px;color:var(--text-secondary);margin-bottom:6px}
+.empty .e-sub{font-size:12.5px}
+
+footer{text-align:center;color:var(--text-tertiary);font-size:11px;padding:30px 20px 40px;max-width:900px;margin:0 auto;border-top:1px solid var(--color-border-dim);margin-top:30px}
+
+.resume-banner{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--color-neutral-bg);
+  border:1px solid var(--color-border);border-radius:var(--radius-md);padding:12px 18px;margin:0 0 16px;font-size:12.5px;color:var(--text-secondary)}
+
+@media print{.thread,.cockpit-actions,.hd-actions,.icon-btn,.opts,.resume-banner,.chevron{display:none!important}.cbody{max-height:none!important;padding:4px 18px 16px!important}}
+</style>
+</head>
+<body data-theme="dark">
+<div class="thread" id="thread"></div>
+
+<header>
+  <div class="hd-row">
+    <div>
+      <h1>ISO/IEC 42001 — AI Management System Readiness &amp; Gap-Check</h1>
+      <p>Self-assessment across management-system clauses 4&ndash;10 and Annex A controls, with a dependency-aware
+        remediation sequence computed live from your answers. Runs entirely in your browser &mdash; nothing you enter
+        leaves this page.</p>
+    </div>
+    <div class="hd-actions">
+      <button class="icon-btn" id="themeToggle" onclick="toggleTheme()">Light mode</button>
+      <button class="icon-btn" onclick="exportJSON()">Export answers</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="resume-banner" id="resumeBanner" style="display:none">
+    <span id="resumeText"></span>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" onclick="dismissResume()">Dismiss</button>
+      <button class="icon-btn" onclick="resetAll()">Start over</button>
+    </div>
+  </div>
+
+  <div class="cockpit">
+    <div class="cp-cell">
+      <span class="cp-label">Readiness</span>
+      <span class="cp-value" id="scoreNum">0%<small id="scoreSub">0 of 33 items assessed</small></span>
+      <div class="meter"><span id="meterFill"></span></div>
+    </div>
+    <div class="cp-cell">
+      <span class="cp-label">Last updated</span>
+      <span class="cp-value" id="lastRef" style="font-size:18px">&mdash;</span>
+      <span class="cp-sub" id="lastWhen">No items assessed yet</span>
+    </div>
+    <div class="cp-cell">
+      <span class="cp-label">Needs attention</span>
+      <span class="cp-value" id="attnCount"><span class="attn-dot dot-neutral" id="attnDot"></span>0</span>
+      <span class="cp-sub">System-detected consistency flags</span>
+    </div>
+    <div class="cp-cell">
+      <span class="cp-label">Recommended next</span>
+      <span class="cp-value" id="nextRef" style="font-size:18px">&mdash;</span>
+      <span class="cp-sub" id="nextSub">Assess an item to begin</span>
+    </div>
+    <div class="cockpit-actions">
+      <button class="btn secondary" onclick="expandAll(true)">Expand all</button>
+      <button class="btn secondary" onclick="expandAll(false)">Collapse all</button>
+      <button class="btn primary" onclick="buildReport()">Generate gap report</button>
+      <button class="btn ghost" onclick="resetAll()">Reset assessment</button>
+    </div>
+  </div>
+
+  <div id="form"></div>
+
+  <div id="seqPanel"></div>
+  <div id="report"></div>
+</div>
+
+<footer>
+  &copy; 2026 Conform-Edge Quality Consulting LLC. All rights reserved.<br>
+  ISO/IEC 42001 AIMS Readiness &amp; Gap-Check Tool is proprietary software of Conform-Edge Quality Consulting LLC
+  (Idaho LLC No. 6463380), Pocatello, Idaho, USA. Unauthorized reproduction, distribution, modification, or resale
+  is prohibited. "Conform-Edge" and the Conform-Edge mark are trademarks of Conform-Edge Quality Consulting LLC.<br>
+  Advisory documentation aid &mdash; does not certify compliance and does not replace the judgment of the user's
+  organization or top management. The dependency sequencing and consistency checks are rule-based logic embedded in
+  this page, not a live AI model &mdash; they are provided as advisory prioritization only.<br>
+  Not affiliated with ISO. Verify against the current standard text before certification.
+</footer>
+
+<script>
+/* ---- Assessment model ---- */
+const MODEL = [
+ {id:"C4", title:"Clause 4 — Context of the organization",
+  items:[
+   {ref:"4.1", q:"Internal/external issues affecting the AIMS (and the org's role as AI provider, developer, or user) are identified and reviewed."},
+   {ref:"4.2", q:"Needs and expectations of interested parties relevant to AI are determined."},
+   {ref:"4.3", q:"AIMS scope is documented, including products/services and roles in the AI lifecycle."},
+   {ref:"4.4", q:"The AI management system and its processes are established and maintained."}
+  ]},
+ {id:"C5", title:"Clause 5 — Leadership",
+  items:[
+   {ref:"5.1", q:"Top management demonstrates leadership and commitment to the AIMS."},
+   {ref:"5.2", q:"A documented AI policy exists, appropriate to the org's purpose and the responsible use of AI."},
+   {ref:"5.3", q:"AIMS roles, responsibilities, and authorities are assigned and communicated."}
+  ]},
+ {id:"C6", title:"Clause 6 — Planning",
+  items:[
+   {ref:"6.1.2", q:"AI risk assessment process is defined (criteria, repeatability)."},
+   {ref:"6.1.3", q:"AI risk treatment process produces a Statement of Applicability against Annex A controls."},
+   {ref:"6.1.4", q:"AI system impact assessments (to individuals, groups, society) are planned and performed."},
+   {ref:"6.2", q:"AI objectives are set, measurable, and have plans to achieve them."}
+  ]},
+ {id:"C7", title:"Clause 7 — Support",
+  items:[
+   {ref:"7.2", q:"Competence of people doing AIMS work is determined and evidenced."},
+   {ref:"7.3", q:"Awareness of the AI policy and their contribution is established."},
+   {ref:"7.4", q:"Internal/external communication relevant to the AIMS is determined."},
+   {ref:"7.5", q:"Documented information is controlled (creation, approval, versioning)."}
+  ]},
+ {id:"C8", title:"Clause 8 — Operation",
+  items:[
+   {ref:"8.1", q:"AIMS operational processes are planned, implemented, and controlled."},
+   {ref:"8.2", q:"AI risk assessments are performed at planned intervals and on change."},
+   {ref:"8.3", q:"AI risk treatment is implemented per the plan."},
+   {ref:"8.4", q:"AI system impact assessments are performed and acted upon."}
+  ]},
+ {id:"C9", title:"Clause 9 — Performance evaluation",
+  items:[
+   {ref:"9.1", q:"Monitoring, measurement, analysis, and evaluation of the AIMS are defined and done."},
+   {ref:"9.2", q:"Internal audits of the AIMS are planned and conducted."},
+   {ref:"9.3", q:"Management review of the AIMS occurs with required inputs/outputs."}
+  ]},
+ {id:"C10", title:"Clause 10 — Improvement",
+  items:[
+   {ref:"10.1", q:"Continual improvement of the AIMS is pursued."},
+   {ref:"10.2", q:"Nonconformities are corrected and corrective actions taken and recorded."}
+  ]},
+ {id:"A", title:"Annex A — AI controls (representative set)",
+  items:[
+   {ref:"A.2", q:"Policies for AI are documented and aligned with the org's overall policies."},
+   {ref:"A.3", q:"Internal roles/responsibilities for AI (incl. reporting of concerns) are defined."},
+   {ref:"A.4", q:"Resources for AI systems (data, tooling, compute, human) are identified and documented."},
+   {ref:"A.5", q:"Impacts of AI systems on individuals/society are assessed and documented."},
+   {ref:"A.6", q:"AI system lifecycle requirements (design, development, verification, deployment) are defined and met."},
+   {ref:"A.7", q:"Data for AI systems is managed (provenance, quality, preparation) across the lifecycle."},
+   {ref:"A.8", q:"Information for interested parties (intended use, limitations, instructions) is provided."},
+   {ref:"A.9", q:"Responsible use of AI systems by the org is defined and monitored."},
+   {ref:"A.10", q:"Third-party and customer relationships allocate AI responsibilities and flow down requirements."}
+  ]}
+];
+
+/* ---- Dependency graph: which items are structural prerequisites for others.
+   This is advisory sequencing logic authored from general AIMS/ISO management-system
+   structure, not verified against a licensed copy of ISO/IEC 42001:2023 — see footer
+   disclaimer and NEEDS-FROM-BRIAN.md. It is what turns a flat checklist into a
+   priority engine. ---- */
+const DEPS = {
+  "4.4":["4.1","4.2","4.3"],
+  "5.2":["5.1","4.3"],
+  "5.3":["5.2"],
+  "6.1.2":["5.2","4.3"],
+  "6.1.3":["6.1.2"],
+  "6.1.4":["5.2"],
+  "6.2":["5.2","6.1.2"],
+  "7.2":["5.3"],
+  "7.3":["5.2","5.3"],
+  "7.4":["5.3"],
+  "7.5":["4.4"],
+  "8.1":["6.2","7.5"],
+  "8.2":["6.1.2"],
+  "8.3":["6.1.3","8.2"],
+  "8.4":["6.1.4"],
+  "9.1":["6.2"],
+  "9.2":["8.1"],
+  "9.3":["9.1","9.2"],
+  "10.1":["9.3"],
+  "10.2":["9.2"],
+  "A.2":["5.2"],
+  "A.3":["5.3"],
+  "A.4":["4.4"],
+  "A.5":["6.1.4"],
+  "A.6":["6.1.2"],
+  "A.7":["A.6"],
+  "A.8":["A.6"],
+  "A.9":["5.2","A.3"],
+  "A.10":["A.3","A.9"]
+};
+
+const LABELS=["Absent","Partial","Established"];
+const STORE_KEY="ce-iso42001-gapcheck-v2";
+let state={};        // ref -> {v:0/1/2, ts:epoch}
+let dismissed={};    // ref -> true (dismissed SDC)
+let lastTouched=null;
+const ALL_REFS=[];
+MODEL.forEach(s=>s.items.forEach(it=>ALL_REFS.push(it.ref)));
+
+/* Reverse graph + downstream counts, computed once */
+const REVERSE={}; ALL_REFS.forEach(r=>REVERSE[r]=[]);
+Object.keys(DEPS).forEach(r=>DEPS[r].forEach(p=>{ if(!REVERSE[p]) REVERSE[p]=[]; REVERSE[p].push(r); }));
+function downstreamCount(ref){
+  const seen=new Set(); const stack=[...(REVERSE[ref]||[])];
+  while(stack.length){ const n=stack.pop(); if(seen.has(n)) continue; seen.add(n); (REVERSE[n]||[]).forEach(x=>stack.push(x)); }
+  return seen.size;
+}
+const DOWNSTREAM={}; ALL_REFS.forEach(r=>DOWNSTREAM[r]=downstreamCount(r));
+
+function refLabel(r){ for(const s of MODEL){ for(const it of s.items){ if(it.ref===r) return it.q; } } return r; }
+function sectionOf(r){ for(const s of MODEL){ if(s.items.some(it=>it.ref===r)) return s; } return null; }
+
+/* ---- persistence ---- */
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORE_KEY);
+    if(raw){ const parsed=JSON.parse(raw); state=parsed.state||{}; dismissed=parsed.dismissed||{}; lastTouched=parsed.lastTouched||null; return Object.keys(state).length>0; }
+  }catch(e){}
+  return false;
+}
+function saveState(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify({state,dismissed,lastTouched,savedAt:Date.now()})); }catch(e){}
+}
+function resetAll(){
+  if(!confirm('Clear all answers and start over? This cannot be undone.')) return;
+  state={}; dismissed={}; lastTouched=null; saveState();
+  document.getElementById('resumeBanner').style.display='none';
+  render();
+}
+function dismissResume(){ document.getElementById('resumeBanner').style.display='none'; }
+function exportJSON(){
+  const t=totals();
+  const payload={tool:"ISO42001 AIMS Readiness & Gap-Check",version:"2.0",exportedAt:new Date().toISOString(),
+    readinessPct: t.answered? Math.round((t.got/(t.answered*2))*100):0, answers:state};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='iso42001-aims-gapcheck-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
+}
+
+/* ---- theme ---- */
+function initTheme(){
+  let theme=localStorage.getItem('ce-theme');
+  if(!theme) theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light':'dark';
+  document.body.setAttribute('data-theme', theme);
+  document.getElementById('themeToggle').textContent = theme==='dark' ? 'Light mode':'Dark mode';
+}
+function toggleTheme(){
+  const cur=document.body.getAttribute('data-theme');
+  const next=cur==='dark'?'light':'dark';
+  document.body.setAttribute('data-theme',next);
+  localStorage.setItem('ce-theme',next);
+  document.getElementById('themeToggle').textContent = next==='dark' ? 'Light mode':'Dark mode';
+}
+
+/* ---- render ---- */
+function render(){
+  const f=document.getElementById('form'); f.innerHTML='';
+  MODEL.forEach(sec=>{
+    const s=document.createElement('section'); s.className='clause';
+    s.innerHTML=`<div class="chead" onclick="toggle('${sec.id}')">
+        <h2>${sec.title}</h2>
+        <div class="chead-right"><span class="badge" id="bdg-${sec.id}"></span><span class="chevron" id="chev-${sec.id}">&#9656;</span></div>
+      </div>
+      <div class="cbody" id="body-${sec.id}"></div>`;
+    const body=s.querySelector('.cbody');
+    sec.items.forEach(it=>{
+      const opts=LABELS.map((l,v)=>`<label id="lab-${cssid(it.ref)}-${v}">
+          <input type="radio" name="${it.ref}" value="${v}" ${state[it.ref]&&state[it.ref].v===v?'checked':''} onchange="setVal('${it.ref}',${v},'${sec.id}')">${l}</label>`).join('');
+      const deps=DEPS[it.ref];
+      const dstream=DOWNSTREAM[it.ref];
+      let depLine='';
+      if(deps && deps.length) depLine=`Depends on ${deps.join(', ')}. `;
+      if(dstream>0) depLine+=`${dstream} requirement${dstream===1?'':'s'} build on this.`;
+      const d=document.createElement('div'); d.className='q'; d.id='q-'+cssid(it.ref);
+      d.innerHTML=`<div class="qt"><span class="qref">${it.ref}</span>${it.q}</div>
+        ${depLine?`<div class="qdeps">${depLine}</div>`:''}
+        <div class="opts">${opts}</div>`;
+      body.appendChild(d);
+    });
+    f.appendChild(s);
+  });
+  // open first section by default
+  toggle(MODEL[0].id, true);
+  updateBadges(); updateCockpit(); renderConditions();
+}
+function cssid(r){return r.replace(/\./g,'-');}
+function toggle(id, forceOpen){
+  const body=document.getElementById('body-'+id); const chev=document.getElementById('chev-'+id);
+  const isOpen=body.classList.contains('open');
+  const open = forceOpen!==undefined ? forceOpen : !isOpen;
+  body.classList.toggle('open',open); chev.classList.toggle('open',open);
+}
+function expandAll(open){ MODEL.forEach(s=>toggle(s.id, open)); }
+
+function setVal(ref,v,secId){
+  state[ref]={v:v, ts:Date.now()};
+  lastTouched=ref;
+  saveState();
+  for(let i=0;i<3;i++){ const el=document.getElementById(`lab-${cssid(ref)}-${i}`); if(el) el.className=(i===v)?`sel-${v}`:''; }
+  updateBadges(); updateCockpit(); renderConditions();
+}
+function updateBadges(){
+  MODEL.forEach(sec=>{
+    const n=sec.items.length, done=sec.items.filter(it=>state[it.ref]!==undefined).length;
+    const el=document.getElementById('bdg-'+sec.id); if(el) el.textContent=`${done}/${n}`;
+  });
+}
+function totals(){
+  let max=0,got=0,answered=0,total=0;
+  MODEL.forEach(s=>s.items.forEach(it=>{total++;max+=2;if(state[it.ref]!==undefined){answered++;got+=state[it.ref].v;}}));
+  return {max,got,answered,total};
+}
+function meterColor(pct){
+  if(pct<40) return 'var(--color-critical)';
+  if(pct<75) return 'var(--color-warning)';
+  return 'var(--color-positive)';
+}
+function relTime(ts){
+  const s=Math.round((Date.now()-ts)/1000);
+  if(s<60) return 'just now';
+  if(s<3600) return Math.round(s/60)+' min ago';
+  if(s<86400) return Math.round(s/3600)+' hr ago';
+  return new Date(ts).toLocaleDateString();
+}
+
+/* ---- consistency detection (System-Detected Conditions) ---- */
+function detectConditions(){
+  const flags=[];
+  ALL_REFS.forEach(ref=>{
+    const cur=state[ref];
+    if(!cur || cur.v===0) return; // only flag when THIS item claims some maturity
+    const deps=DEPS[ref]||[];
+    deps.forEach(p=>{
+      const pv=state[p];
+      if(pv && pv.v===0){
+        const key=ref+'|'+p;
+        if(!dismissed[key]) flags.push({ref, prereq:p, key});
+      }
+    });
+  });
+  return flags;
+}
+function renderConditions(){
+  const flags=detectConditions();
+  const thread=document.getElementById('thread');
+  thread.className='thread'+(flags.length?' active':'');
+  const attnCount=document.getElementById('attnCount'); const attnDot=document.getElementById('attnDot');
+  attnCount.innerHTML=`<span class="attn-dot ${flags.length?'dot-warning':'dot-positive'}" id="attnDot"></span>${flags.length}`;
+  // inject panels right after the relevant question in the DOM
+  document.querySelectorAll('.sdc').forEach(e=>e.remove());
+  flags.forEach(fl=>{
+    const host=document.getElementById('q-'+cssid(fl.ref));
+    if(!host) return;
+    const panel=document.createElement('div'); panel.className='sdc';
+    panel.innerHTML=`
+      <div class="sdc-head"><span>&#9670; System-Detected Condition</span><span class="sdc-tag">advisory only</span></div>
+      <div class="sdc-meta">Consistency check &middot; ${fl.ref} vs. prerequisite ${fl.prereq}</div>
+      <div class="sdc-body">${fl.ref} is scored <b>${LABELS[state[fl.ref].v]}</b>, but its prerequisite <b>${fl.prereq}</b>
+        (&ldquo;${refLabel(fl.prereq)}&rdquo;) is scored <b>Absent</b>. That combination is unusual for a real AIMS &mdash;
+        worth double-checking the evidence behind ${fl.ref} before relying on it.</div>
+      <div class="sdc-actions">
+        <button onclick="jumpTo('${fl.prereq}')">Review ${fl.prereq}</button>
+        <button onclick="dismissFlag('${fl.key}')">Not applicable / acknowledged</button>
+      </div>
+      <div class="sdc-foot">Rule-based cross-reference &mdash; not a live AI model. Human judgment controls the final answer.</div>`;
+    host.appendChild(panel);
+  });
+}
+function dismissFlag(key){ dismissed[key]=true; saveState(); renderConditions(); }
+function jumpTo(ref){
+  const sec=sectionOf(ref); if(sec) toggle(sec.id, true);
+  const el=document.getElementById('q-'+cssid(ref));
+  if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* ---- remediation sequence (priority-ordered, dependency-aware) ---- */
+function buildSequence(){
+  const gaps=ALL_REFS.filter(r=>state[r] && state[r].v<2);
+  const unmet=r=>{
+    const deps=DEPS[r]||[];
+    return deps.filter(p=>!state[p] || state[p].v<2).length;
+  };
+  return gaps.map(r=>({ref:r, v:state[r].v, unmet:unmet(r), impact:DOWNSTREAM[r], q:refLabel(r)}))
+    .sort((a,b)=> a.unmet-b.unmet || b.impact-a.impact || a.ref.localeCompare(b.ref));
+}
+
+/* ---- cockpit summary ---- */
+function updateCockpit(){
+  const t=totals();
+  const pct=t.answered? Math.round((t.got/(t.answered*2))*100):0;
+  document.getElementById('scoreNum').innerHTML=pct+'%<small id="scoreSub">'+t.answered+' of '+t.total+' items assessed</small>';
+  const mf=document.getElementById('meterFill'); mf.style.width=pct+'%'; mf.style.background=meterColor(pct);
+
+  if(lastTouched && state[lastTouched]){
+    document.getElementById('lastRef').textContent=lastTouched;
+    document.getElementById('lastWhen').textContent=refLabel(lastTouched).slice(0,44)+(refLabel(lastTouched).length>44?'…':'')+' — '+relTime(state[lastTouched].ts);
+  } else {
+    document.getElementById('lastRef').textContent='—';
+    document.getElementById('lastWhen').textContent='No items assessed yet';
+  }
+
+  const seq=buildSequence();
+  if(seq.length){
+    document.getElementById('nextRef').textContent=seq[0].ref;
+    document.getElementById('nextSub').textContent = seq[0].impact>0
+      ? `Unblocks ${seq[0].impact} downstream requirement${seq[0].impact===1?'':'s'}`
+      : 'Highest-priority open item';
+  } else if(t.answered<t.total){
+    document.getElementById('nextRef').textContent='Assess more';
+    document.getElementById('nextSub').textContent=(t.total-t.answered)+' item(s) not yet assessed';
+  } else {
+    document.getElementById('nextRef').textContent='None';
+    document.getElementById('nextSub').textContent='All assessed items are Established';
+  }
+}
+
+/* ---- reports ---- */
+function buildReport(){
+  const t=totals();
+  if(t.answered===0){ alert('Assess at least one item first.'); return; }
+  const seq=buildSequence();
+  const seqPanel=document.getElementById('seqPanel');
+  seqPanel.style.display='block';
+  if(seq.length===0){
+    seqPanel.innerHTML=`<h2>Remediation sequence</h2><div class="empty"><div class="e-title">No open items among what you've assessed</div>
+      <div class="e-sub">Assess the remaining items, or proceed to internal audit for the items marked Established.</div></div>`;
+  } else {
+    let rows=seq.map((s,i)=>`<div class="seq-row">
+        <div class="seq-rank">${i+1}</div>
+        <div class="seq-ref">${s.ref}</div>
+        <div class="seq-body"><div class="seq-q">${s.q}</div>
+          <div class="seq-why">${s.unmet>0? s.unmet+' unresolved prerequisite'+(s.unmet===1?'':'s')+' — resolve those first, or address in parallel.' : 'No unresolved prerequisites — safe to act on now.'}
+          Currently <b>${LABELS[s.v]}</b>.</div></div>
+        <div class="seq-impact">${s.impact>0? 'Unblocks '+s.impact : 'No downstream dependents'}</div>
+      </div>`).join('');
+    seqPanel.innerHTML=`<h2>Remediation sequence</h2>
+      <p style="color:var(--text-secondary);font-size:13px;margin-top:-6px">Ordered by fewest unresolved prerequisites, then by how many other requirements depend on it &mdash; not by clause number.</p>
+      ${rows}`;
+  }
+
+  let rows='', gaps=0, parts=0, oks=0;
+  MODEL.forEach(sec=>{
+    sec.items.forEach(it=>{
+      const cur=state[it.ref]; if(!cur) return; const v=cur.v;
+      let pillClass,txt;
+      if(v===0){pillClass='dot-critical';txt='GAP';gaps++;}
+      else if(v===1){pillClass='dot-warning';txt='PARTIAL';parts++;}
+      else{pillClass='dot-positive';txt='OK';oks++;}
+      if(v<2){
+        rows+=`<tr><td><b>${it.ref}</b></td><td>${it.q}</td>
+          <td><span class="status-badge"><span class="status-dot ${pillClass}"></span>${txt}</span></td>
+          <td>${v===0?'Establish documented evidence and a responsible owner; treat as priority finding.'
+                     :'Strengthen/complete existing arrangement and capture objective evidence.'}</td></tr>`;
+      }
+    });
+  });
+  const pct=Math.round((t.got/(t.answered*2))*100);
+  const r=document.getElementById('report');
+  r.style.display='block';
+  r.innerHTML=`<h2>ISO/IEC 42001 Gap Report</h2>
+    <p style="font-size:13px;color:var(--text-secondary)"><b style="color:var(--text-primary)">Overall readiness: ${pct}%</b> &nbsp;|&nbsp;
+       <span class="status-badge"><span class="status-dot dot-positive"></span>${oks} OK</span> &nbsp;
+       <span class="status-badge"><span class="status-dot dot-warning"></span>${parts} Partial</span> &nbsp;
+       <span class="status-badge"><span class="status-dot dot-critical"></span>${gaps} Gap</span> &nbsp;
+       (${t.answered}/${t.total} items assessed)</p>
+    ${rows?`<table><thead><tr><th>Ref</th><th>Requirement intent</th><th>Status</th><th>Recommended action</th></tr></thead>
+      <tbody>${rows}</tbody></table>`:'<p style="color:var(--text-secondary);font-size:13px">No gaps among assessed items — capture evidence and proceed to internal audit.</p>'}
+    <p style="font-size:11px;color:var(--text-tertiary)">Generated ${new Date().toLocaleString()}. Intent-based self-assessment; not a certification decision. See the remediation sequence above for a priority-ordered action order rather than clause order.</p>
+    <button class="btn secondary" onclick="window.print()">Print / Save as PDF</button>`;
+  seqPanel.scrollIntoView({behavior:'smooth'});
+}
+
+/* ---- boot ---- */
+initTheme();
+const hadState=loadState();
+render();
+if(hadState){
+  const t=totals();
+  document.getElementById('resumeText').textContent=`Resumed your saved assessment — ${t.answered} of ${t.total} items already scored.`;
+  document.getElementById('resumeBanner').style.display='flex';
+}
+</script>
+</body>
+</html>

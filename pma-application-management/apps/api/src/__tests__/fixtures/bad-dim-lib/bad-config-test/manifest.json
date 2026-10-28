@@ -1,0 +1,8 @@
+{
+  "dimId": "bad-config-test",
+  "description": "Fixture: a DIM whose rule is missing required configuration fields.",
+  "subscribesTo": ["pma_case.created", "pma_case.updated"],
+  "readsFields": { "pma_case": ["applicant_legal_name"] },
+  "version": "1.0",
+  "publishedAt": "2026-07-24"
+}

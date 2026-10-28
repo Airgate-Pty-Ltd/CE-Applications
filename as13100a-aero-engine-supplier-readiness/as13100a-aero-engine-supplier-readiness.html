@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AS13100A Aero-Engine Supplier Readiness — Conform-Edge</title>
+<style>
+:root{--navy:#0b1f33;--panel:#12293f;--steel:#5b7488;--ink:#e8eef4;--good:#2e9e6b;--warn:#d8a12a;--bad:#c1493f;--line:#22405a}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif;background:var(--navy);color:var(--ink)}
+header{padding:20px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+h1{font-size:19px;margin:0;letter-spacing:.3px}.brand{color:var(--steel);font-size:12px;text-transform:uppercase;letter-spacing:2px}
+main{max-width:1020px;margin:0 auto;padding:22px}
+.pick{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.pick button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 14px;cursor:pointer;font-size:13px}
+.pick button.on{border-color:var(--steel);box-shadow:0 0 0 2px rgba(91,116,136,.3)}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+.q h3{margin:0 0 4px;font-size:14px;line-height:1.4}.q p{margin:0 0 10px;color:#a9bccb;font-size:13px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}.opts label{border:1px solid var(--line);border-radius:7px;padding:6px 11px;cursor:pointer;font-size:13px}
+.opts input{margin-right:6px}
+.bar{position:sticky;bottom:0;background:var(--navy);border-top:1px solid var(--line);padding:14px 0;margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{background:var(--steel);color:#04121f;border:0;border-radius:8px;padding:11px 18px;font-weight:600;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+#out{margin-top:18px}.verdict{border-radius:10px;padding:16px 18px;margin:12px 0;border:1px solid var(--line)}
+.score{font-size:34px;font-weight:700}.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.t-good{background:rgba(46,158,107,.18);color:#7fe0b3}.t-warn{background:rgba(216,161,42,.18);color:#f0cf7f}.t-bad{background:rgba(193,73,63,.2);color:#f0a49c}
+.gap{border-left:3px solid var(--bad);padding:8px 12px;margin:8px 0;background:rgba(193,73,63,.07);border-radius:0 8px 8px 0}
+.gap.med{border-left-color:var(--warn);background:rgba(216,161,42,.07)}
+.gap.ofi{border-left-color:var(--steel);background:rgba(91,116,136,.07)}
+.muted{color:var(--steel);font-size:12px}
+.overall{margin-top:14px;border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.oem-note{background:rgba(91,116,136,.12);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;color:#a9bccb}
+.section-hdr{color:#8fb0c8;font-size:14px;margin:18px 0 4px;font-weight:600;letter-spacing:.3px}
+</style></head><body>
+<header>
+  <div>
+    <h1>AS13100A Aero-Engine Supplier Readiness</h1>
+    <div class="brand">Conform-Edge &middot; Deterministic Compliance Readiness Engine</div>
+  </div>
+  <div class="muted">Compliance date: 31 Mar 2026 &nbsp;|&nbsp; Self-contained. No data leaves this page.</div>
+</header>
+<main>
+<p>Assess readiness against the <b>AS13100A aero-engine supplier quality requirements</b> as mandated by GE Aerospace, Rolls-Royce, Pratt &amp; Whitney, Safran, and Honeywell supply chains. Select the requirement families applicable to your organization, answer each element, and receive a <b>per-family compliance verdict</b>, a prioritized gap plan, and an overall readiness gate. Intent-based — evidence must be demonstrable, not just documented.</p>
+<div class="pick" id="families"></div>
+<div id="quiz"></div>
+<div class="bar">
+  <button class="btn" onclick="runScore()">Generate readiness verdict</button>
+  <button class="btn ghost" onclick="window.print()">Print / PDF</button>
+  <button class="btn ghost" onclick="exportFindings()">Export findings (JSON)</button>
+  <span class="muted" id="prog"></span>
+</div>
+<div id="out"></div>
+<p class="muted" style="margin-top:24px">Reference: AS13100A (Aero-Engine Supplier Quality Requirements) and AS9100D by clause intent only. This tool does not reproduce standard text and is a self-preparation aid, not a certification or OEM approval. OEM-specific Customer Quality Requirements (CQRs) may impose additional obligations beyond this assessment.</p>
+</main>
+<script>
+const KB={
+ "QMS Foundation (AS9100D + AS13100A)":[
+  ["Quality Management System documented, implemented, and maintained with current scope, context, and top management approval",3],
+  ["Internal audit program is risk-weighted, covers all processes, results actioned and trended to management",3],
+  ["Management review held at planned intervals with all AS9100D 9.3 inputs; minutes and actions with owners and due dates",2],
+  ["Corrective action is closed-loop: root cause required, effectiveness verified, systemic escape analysis performed",3],
+  ["Quality objectives are measurable, tracked, and reported to management with trend data",2],
+  ["Document control: version control, approval authority, access controls, and change history maintained for all documented information",2],
+  ["Change management process requires risk re-evaluation and customer notification triggers for design, process, material, and supplier changes",3]],
+ "Key Characteristics (KCs) & Special Characteristics":[
+  ["KCs identified from customer drawing, contract flow-down, and internal FMEA; each KC tracked in a controlled register",3],
+  ["Control plan defines the measurement method, frequency, sample size, and reaction plan for every KC",3],
+  ["SPC or equivalent statistical monitoring applied to all KCs; control limits set from capable process data, not specification limits",3],
+  ["Out-of-control or non-capable KC conditions trigger documented customer notification before shipment of affected product",3],
+  ["KC flow-down to subtier suppliers verified; supplier control plans cover any KCs in subtier processes",2],
+  ["Annual re-evaluation or revalidation of KC control effectiveness documented",2]],
+ "First Article Inspection (AS9102)":[
+  ["FAI performed for every new part number, design change, process change, or production interruption per AS9102 Rev B scope triggers",3],
+  ["FAI balloon drawing (annotated with measurement point numbers) retained as controlled documented information",3],
+  ["All dimensional and functional results recorded with actual measurements — not pass/fail check marks",3],
+  ["Material and process certifications verified and traceable to the FAI lot; retained with the FAI package",3],
+  ["Both design characteristics and manufacturing process characteristics are covered in the FAI",2],
+  ["Partial FAI or re-FAI triggers are defined in procedure and consistently applied",2],
+  ["FAI packages available for OEM review within agreed turnaround; electronically accessible on demand",2]],
+ "Special Processes & Nadcap":[
+  ["All special processes (heat treat, NDT, welding, brazing, chemical processing, coatings, shot peen) identified and documented",3],
+  ["Each special process performed at Nadcap-accredited or OEM-approved facility; current certificates retained with expiry dates monitored",3],
+  ["Nadcap approval scope verified to cover all processes in use — no scope gaps between certificate and actual operations",3],
+  ["Process qualification records (PQR, WPS, NDT procedure approval) current for each in-house special process",3],
+  ["Subtier special process suppliers are Nadcap-accredited or have specific OEM approval before product release",3],
+  ["Special process changes (personnel, equipment, parameters) require requalification or OEM notification per applicable specification",2],
+  ["Special process records retained per contractual minimum periods; retrievable within 24 hours of request",2]],
+ "Non-Conformance & Supplier Corrective Action":[
+  ["NCRs raised for all out-of-tolerance, out-of-process, or customer-return findings; none dispositioned verbally or without documentation",3],
+  ["MRB/engineering disposition authority defined; Use-As-Is and Repair require engineering sign-off; unauthorized departures from drawing not permitted",3],
+  ["Concession/deviation requests submitted to OEM before shipment for any product not meeting drawing — no undisclosed deviations shipped",3],
+  ["SCAR responses delivered within contractual timeframe with root cause and corrective action evidence — not assertions",3],
+  ["Repeat nonconformance analysis performed at minimum quarterly; systemic causes escalated to management review",2],
+  ["Nonconforming product physically segregated and clearly identified from conforming product at all stages including WIP",3],
+  ["Customer notification decision tree defines which escapes trigger mandatory OEM notification and in what timeframe",3]],
+ "Traceability & Configuration Management":[
+  ["Lot/batch and serial number traceability maintained from raw material certification through final product shipment — unbroken chain",3],
+  ["Material certifications traceable to the production lot and retained per minimum retention requirements",3],
+  ["Drawing and specification revision control verified at point of use; superseded revisions removed or physically segregated",3],
+  ["Product configuration at shipment (drawing rev, BOM rev, process routing rev) recorded and retrievable for part life",2],
+  ["Engineering change orders incorporated on a defined effectivity date; mixed-revision inventory prevented or explicitly controlled",2],
+  ["Customer-furnished property (tooling, GFE, GFM) identified, protected, tracked, and loss/damage reported to customer",2]],
+ "Subtier Supplier Control":[
+  ["Approved Supplier List maintained and controlled; unapproved suppliers not used for flight-critical materials or processes",3],
+  ["Supplier qualification evidence (audits, certifications, SCAR history) on file and current for all approved suppliers",2],
+  ["Purchase orders include applicable drawing revision, specifications, quality flow-down, and customer-specific requirements",3],
+  ["Receiving inspection or first-article acceptance records on file per supplier/commodity; waiver requires documented risk justification",2],
+  ["Supplier performance monitored (delivery, NCR rate, SCAR response); poor performers subject to escalation or disqualification",2],
+  ["Counterfeit parts prevention (AS5553/AS6174) flowed to distributors and brokers; unapproved sources prohibited for flight hardware",3],
+  ["OEM-directed source changes communicated to OEM before implementation — no unauthorized subtier changes on directed sources",3]],
+ "Personnel Competency & Authorized Release":[
+  ["Personnel performing safety-critical operations (NDT, welding, final inspection, authorized release) are qualified and current per applicable specification",3],
+  ["Training records demonstrate task-specific competency with on-the-job sign-off by a qualified observer — not awareness only",2],
+  ["Authorized release personnel listed in a current approved authorization matrix with signatures and approval date",3],
+  ["Departures from written procedures require supervisor or engineering authorization — verbal departures not accepted undocumented",2],
+  ["Human factors awareness training current for production and inspection staff",1],
+  ["Staffing changes in key technical roles (QA, NDT Level II/III, welding) trigger a re-evaluation of coverage and risk",2]]
+};
+const sev={3:"Major — blocking / OEM finding risk",2:"Significant",1:"OFI"};
+const oem={
+ "QMS Foundation (AS9100D + AS13100A)":"GE Aerospace, Rolls-Royce, and Pratt & Whitney require AS13100A compliance as a condition of supplier approval. Management review discipline and corrective action closure are primary OEM audit focus areas.",
+ "Key Characteristics (KCs) & Special Characteristics":"Rolls-Royce and GE Aerospace require SPC on all Safety/Critical KCs. PW mandates KC flow-down evidence to Tier 2. Non-capable KC conditions must trigger customer notification before shipment across all five OEM programs.",
+ "First Article Inspection (AS9102)":"All five OEMs require AS9102 Rev B FAI. GE and PW frequently require witnessing for new programs. Actual measurement data (not pass/fail check marks) is a non-negotiable requirement — FAI reports with check marks are rejected.",
+ "Special Processes & Nadcap":"Nadcap accreditation is mandatory for most special processes across GE/RR/PW/Safran. Safran also requires PRI QML status for select heat treat and NDT commodities. Scope gaps between Nadcap certificate and actual process operations are a consistently cited OEM finding.",
+ "Non-Conformance & Supplier Corrective Action":"SCAR non-response is the leading cause of supplier disqualification in OEM programs. Shipping product under an undisclosed concession/deviation is a critical (Level 1) finding in most OEM programs. MRB authority must be in writing.",
+ "Traceability & Configuration Management":"Lot traceability to raw material certification is non-negotiable across all aero-engine OEMs. GE Aerospace requires records retrievable within 24 hours. Drawing revision at point-of-use is a top-five finding in OEM source inspections.",
+ "Subtier Supplier Control":"OEM-directed sources require specific flow-down in the PO. Counterfeit parts prevention per AS5553/AS6174 is mandatory for all distributor purchases. Unauthorized subtier changes — even to 'equivalent' suppliers — require OEM notification before implementation.",
+ "Personnel Competency & Authorized Release":"Authorization matrices must be current, signed, and available for OEM review at any time. NDT Level II/III currency is a common gap. PW requires specific human factors recurrent training for maintenance-adjacent operations."
+};
+const fams=Object.keys(KB);let picked=new Set();
+const fEl=document.getElementById('families');
+fams.forEach(f=>{const b=document.createElement('button');b.textContent=f;b.onclick=()=>{b.classList.toggle('on');picked.has(f)?picked.delete(f):picked.add(f);render()};fEl.appendChild(b)});
+function render(){const q=document.getElementById('quiz');q.innerHTML='';let n=0;
+ [...picked].forEach(f=>{
+  const hdr=document.createElement('div');hdr.className='section-hdr';hdr.textContent=f;q.appendChild(hdr);
+  KB[f].forEach((item,i)=>{n++;const d=document.createElement('div');d.className='q';
+   const id='q'+btoa(unescape(encodeURIComponent(f))).slice(0,5)+i;
+   d.innerHTML='<h3>'+item[0]+'</h3><p class="muted">'+sev[item[1]]+'</p><div class="opts">'+
+   ['Implemented &amp; evidenced','Partial / evidence gap','Not implemented','N/A — not applicable'].map((o,k)=>
+   '<label><input type="radio" name="'+id+'" value="'+k+'">'+o+'</label>').join('')+'</div>';
+   d.dataset.fam=f;d.dataset.w=item[1];d.dataset.item=item[0];q.appendChild(d)})});
+ document.getElementById('prog').textContent=n?(n+' elements across '+picked.size+' area(s)'):'Select at least one requirement area.';}
+function runScore(){const out=document.getElementById('out');out.innerHTML='';
+ if(!picked.size){out.innerHTML='<p class="tag t-warn">Select a requirement area first.</p>';return;}
+ let byFam={};document.querySelectorAll('.q').forEach(q=>{
+  const f=q.dataset.fam,w=+q.dataset.w;
+  const sel=q.querySelector('input:checked');const v=sel?+sel.value:1;
+  byFam[f]=byFam[f]||{max:0,got:0,gaps:[]};
+  if(v===3)return;
+  byFam[f].max+=w;if(v===0){byFam[f].got+=w;}
+  else{byFam[f].gaps.push({item:q.dataset.item,w:w,partial:v===1});}});
+ let allMax=0,allGot=0,anyMajor=false;
+ Object.keys(byFam).forEach(f=>{const b=byFam[f];const pct=b.max?Math.round(100*b.got/b.max):100;
+  const majors=b.gaps.filter(g=>g.w===3).length;
+  if(majors>0)anyMajor=true;allMax+=b.max;allGot+=b.got;
+  let verdict,cls;
+  if(majors>0){verdict='NON-COMPLIANT — '+majors+' major open item'+(majors>1?'s':'');cls='bad';}
+  else if(pct>=80){verdict='COMPLIANT';cls='good';}
+  else{verdict='CONDITIONAL — raise score to 80%+';cls='warn';}
+  let html='<div class="verdict"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'+
+   '<div><b style="font-size:15px">'+f+'</b><br><span class="tag t-'+cls+'">'+verdict+'</span></div>'+
+   '<div class="score" style="color:var(--'+(cls==='good'?'good':cls==='bad'?'bad':'warn')+')">'+pct+'%</div></div>';
+  if(b.gaps.length){
+   html+='<p class="muted" style="margin-top:12px">Prioritized closure plan:</p>';
+   b.gaps.sort((a,c)=>c.w-a.w).forEach(g=>{
+    const gcls=g.w===3?'':g.w===2?' med':' ofi';
+    html+='<div class="gap'+gcls+'"><b>'+sev[g.w]+':</b> '+g.item+(g.partial?' <i>(partial — evidence not yet demonstrable)</i>':'')+'</div>';});}
+  else html+='<p class="tag t-good" style="margin-top:10px">No open gaps in this area.</p>';
+  if(oem[f])html+='<div class="oem-note"><b>OEM context:</b> '+oem[f]+'</div>';
+  html+='</div>';out.innerHTML+=html;});
+ const op=allMax?Math.round(100*allGot/allMax):100;
+ let overallVerdict,ocls;
+ if(anyMajor){overallVerdict='NON-COMPLIANT — resolve all major items before OEM audit or re-qualification';ocls='bad';}
+ else if(op>=80){overallVerdict='COMPLIANT — maintain evidence and monitor KC and special process currency';ocls='good';}
+ else{overallVerdict='CONDITIONAL — raise overall score to 80%; no majors open but significant gaps remain';ocls='warn';}
+ out.innerHTML+='<div class="overall"><b>Overall AS13100A Readiness Gate:</b><br>'+
+  '<span class="tag t-'+ocls+'" style="margin-top:6px;display:inline-block">'+overallVerdict+'</span>'+
+  ' &nbsp;<span class="muted">Overall score: '+op+'%</span>'+
+  '<p class="muted" style="margin-top:8px">Compliance date was 31 March 2026. Non-compliant suppliers risk notification under OEM supplier approval programs. Address all majors before the next OEM audit or surveillance visit.</p></div>';
+ window._findings=byFam;out.scrollIntoView({behavior:'smooth'});}
+function exportFindings(){if(!window._findings)runScore();
+ const blob=new Blob([JSON.stringify(window._findings,null,2)],{type:'application/json'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='as13100a-readiness-findings.json';a.click();}
+</script></body></html>

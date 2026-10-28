@@ -1,0 +1,28 @@
+{
+  "ruleId": "NCR-001",
+  "dimId": "iso42001-aims-governance",
+  "revision": 1,
+  "effectiveDate": "2026-07-10",
+  "approvedBy": "Brian R. Olea",
+  "approvalRef": "MAI-CCB-2026-014",
+  "severity": "major",
+  "category": "timeliness",
+  "riskClass": "B",
+  "basisType": "deterministic-record-completeness",
+  "description": "A nonconformity's corrective action due date must not pass while the NCR remains open.",
+  "requiredFields": ["due_date", "status"],
+  "events": ["ncr.created", "ncr.updated"],
+  "findingText": "Overdue corrective action",
+  "resolutionHint": "Close the NCR or document a revised, justified due date",
+  "clauseRefs": ["10.2"],
+  "condition": {
+    "all": [
+      { "field": "due_date", "date_before_today": true },
+      { "field": "status", "ne": "closed" }
+    ]
+  },
+  "testCases": ["NCR-001-POS-001", "NCR-001-NEG-001", "NCR-001-MISSING-001"],
+  "limitations": [
+    "Evaluates the recorded due_date and status fields only — cannot verify whether corrective action work is actually underway."
+  ]
+}

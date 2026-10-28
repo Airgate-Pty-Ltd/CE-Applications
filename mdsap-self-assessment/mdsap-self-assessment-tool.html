@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDSAP 7-Process Self-Assessment Tool | Conform-Edge</title>
+<style>
+  :root {
+    --navy: #1a2744;
+    --steel: #4a6fa5;
+    --teal: #2d9cdb;
+    --white: #ffffff;
+    --light-bg: #f4f6fb;
+    --border: #d1d9e6;
+    --green: #27ae60;
+    --amber: #f39c12;
+    --red: #e74c3c;
+    --text: #1e2a3a;
+    --muted: #6b7c93;
+    --card: #ffffff;
+    --shadow: 0 2px 12px rgba(26,39,68,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--light-bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .tool-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #2a3d6e 100%);
+    color: var(--white);
+    padding: 24px 32px 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .tool-header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+  .tool-header p { font-size: 12px; color: #a8c0e8; margin-top: 4px; }
+  .header-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  /* AUTHORITY PILLS */
+  .authority-row {
+    background: var(--navy);
+    padding: 0 32px 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .auth-pill {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.20);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: #c8d8f0;
+    font-weight: 600;
+  }
+
+  /* DASHBOARD */
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    padding: 20px 32px 8px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .dash-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .dash-card .label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; }
+  .dash-card .value { font-size: 28px; font-weight: 800; margin-top: 4px; color: var(--navy); }
+  .dash-card .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .dash-card.grade .value { font-size: 36px; }
+  .grade-A { color: var(--green) !important; }
+  .grade-B { color: #2ecc71 !important; }
+  .grade-C { color: var(--amber) !important; }
+  .grade-D { color: #e67e22 !important; }
+  .grade-F { color: var(--red) !important; }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    background: var(--border);
+    border-radius: 4px;
+    height: 6px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease, background 0.4s;
+    background: var(--steel);
+  }
+
+  /* ACTIONS */
+  .actions {
+    padding: 8px 32px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-primary { background: var(--steel); color: white; }
+  .btn-outline { background: white; color: var(--navy); border: 1px solid var(--border); }
+  .btn-danger { background: #fdf0f0; color: var(--red); border: 1px solid #f5c6c6; }
+
+  /* MAIN CONTENT */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 32px 40px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 20px;
+  }
+
+  /* SIDEBAR NAV */
+  .sidebar { display: flex; flex-direction: column; gap: 6px; }
+  .sidebar-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    margin: 8px 0 4px 4px;
+  }
+  .proc-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background: transparent;
+    text-align: left;
+    width: 100%;
+    transition: background 0.15s;
+  }
+  .proc-nav-item:hover { background: rgba(74,111,165,0.08); }
+  .proc-nav-item.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .proc-nav-item .proc-number {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .proc-nav-item.active .proc-number { background: rgba(255,255,255,0.2); color: white; }
+  .proc-nav-item .proc-label { font-size: 12px; font-weight: 600; }
+  .proc-nav-item .proc-sub { font-size: 10px; color: var(--muted); margin-top: 1px; }
+  .proc-nav-item.active .proc-sub { color: #a8c0e8; }
+  .proc-score-pill {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: var(--border);
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .proc-nav-item.active .proc-score-pill { background: rgba(255,255,255,0.2); color: white; }
+
+  /* PROCESS PANEL */
+  .process-panel { display: none; }
+  .process-panel.active { display: block; }
+  .panel-header {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .panel-header h2 { font-size: 18px; font-weight: 700; color: var(--navy); }
+  .panel-header p { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .panel-header .auth-note {
+    margin-top: 10px;
+    font-size: 11px;
+    background: #eef3fb;
+    border-left: 3px solid var(--steel);
+    padding: 8px 12px;
+    border-radius: 0 6px 6px 0;
+    color: var(--navy);
+  }
+
+  /* REQUIREMENT GROUPS */
+  .req-group {
+    background: var(--card);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .req-group-header {
+    padding: 12px 18px;
+    background: #f8faff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .req-group-header h3 { font-size: 13px; font-weight: 700; color: var(--navy); flex: 1; }
+  .req-group-score { font-size: 11px; font-weight: 700; color: var(--muted); }
+
+  /* REQUIREMENT ITEMS */
+  .req-list { padding: 4px 0; }
+  .req-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 18px;
+    border-bottom: 1px solid #f0f2f7;
+    transition: background 0.1s;
+  }
+  .req-item:last-child { border-bottom: none; }
+  .req-item:hover { background: #fafbff; }
+  .req-check {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    border: 2px solid var(--border);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .req-check.checked {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .req-check.checked::after {
+    content: '✓';
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .req-check.na {
+    background: #e8e8e8;
+    border-color: #ccc;
+  }
+  .req-check.na::after {
+    content: 'N/A';
+    color: #888;
+    font-size: 8px;
+    font-weight: 700;
+  }
+  .req-content { flex: 1; }
+  .req-text { font-size: 13px; color: var(--text); }
+  .req-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+  .req-tag {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .tag-fda { background: #fff0e6; color: #c0551a; }
+  .tag-hc { background: #e6f4ff; color: #1a5fa0; }
+  .tag-anvisa { background: #f0ffe6; color: #2a7a1a; }
+  .tag-tga { background: #fff8e6; color: #a07a1a; }
+  .tag-pmda { background: #ffe6f0; color: #a01a50; }
+  .tag-all { background: #e8ecf8; color: #3a4f8a; }
+  .tag-critical { background: #ffe6e6; color: #a01a1a; }
+
+  .req-actions { display: flex; gap: 4px; margin-top: 2px; }
+  .req-btn {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .req-btn:hover { background: #f0f2f7; }
+
+  /* GAP REPORT */
+  #gap-report-panel {
+    display: none;
+    background: var(--card);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    padding: 24px;
+  }
+  #gap-report-panel h2 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+  .gap-item {
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border-left: 4px solid;
+    background: #fafbff;
+  }
+  .gap-critical { border-color: var(--red); background: #fff8f8; }
+  .gap-major { border-color: var(--amber); background: #fffdf5; }
+  .gap-minor { border-color: var(--steel); background: #f8faff; }
+  .gap-item .gap-title { font-size: 13px; font-weight: 600; color: var(--text); }
+  .gap-item .gap-proc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .main { grid-template-columns: 1fr; padding: 12px 16px 32px; }
+    .tool-header, .authority-row, .dashboard, .actions { padding-left: 16px; padding-right: 16px; }
+    .sidebar { flex-direction: row; flex-wrap: wrap; }
+    .proc-nav-item { width: auto; }
+  }
+
+  .disclaimer {
+    font-size: 11px;
+    color: var(--muted);
+    background: #f8faff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-top: 16px;
+  }
+
+  .print-only { display: none; }
+  @media print {
+    .sidebar, .actions, .btn, .req-btn { display: none !important; }
+    .main { grid-template-columns: 1fr; }
+    .print-only { display: block; }
+    .process-panel { display: block !important; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tool-header">
+  <div>
+    <h1>MDSAP 7-Process Self-Assessment Tool</h1>
+    <p>Medical Device Single Audit Program (MDSAP) — Pre-Audit Gap Analysis | Conform-Edge</p>
+  </div>
+  <div class="header-badge">ISO 13485 · MDSAP 2024</div>
+</div>
+
+<div class="authority-row">
+  <span class="auth-pill">🇺🇸 FDA (US)</span>
+  <span class="auth-pill">🇨🇦 Health Canada</span>
+  <span class="auth-pill">🇧🇷 ANVISA (Brazil)</span>
+  <span class="auth-pill">🇦🇺 TGA (Australia)</span>
+  <span class="auth-pill">🇯🇵 PMDA (Japan)</span>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard">
+  <div class="dash-card">
+    <div class="label">Overall Score</div>
+    <div class="value" id="pct-overall">0%</div>
+    <div class="progress-wrap"><div class="progress-bar" id="bar-overall" style="width:0%"></div></div>
+    <div class="sub" id="sub-overall">0 / 0 requirements met</div>
+  </div>
+  <div class="dash-card grade">
+    <div class="label">MDSAP Grade</div>
+    <div class="value grade-F" id="grade-display">—</div>
+    <div class="sub" id="grade-sub">Complete assessment to see grade</div>
+  </div>
+  <div class="dash-card">
+    <div class="label">Open Gaps</div>
+    <div class="value" id="gap-count" style="color:var(--red)">—</div>
+    <div class="sub">items not yet confirmed</div>
+  </div>
+  <div class="dash-card">
+    <div class="label">N/A Items</div>
+    <div class="value" id="na-count" style="color:var(--muted)">0</div>
+    <div class="sub">marked not applicable</div>
+  </div>
+  <div class="dash-card">
+    <div class="label">Progress</div>
+    <div class="value" id="answered-pct">0%</div>
+    <div class="progress-wrap"><div class="progress-bar" id="bar-answered" style="width:0%; background:var(--teal)"></div></div>
+    <div class="sub">of items answered</div>
+  </div>
+</div>
+
+<div class="actions">
+  <button class="btn btn-primary" onclick="generateGapReport()">📋 Generate Gap Report</button>
+  <button class="btn btn-outline" onclick="exportCSV()">⬇ Export CSV</button>
+  <button class="btn btn-outline" onclick="window.print()">🖨 Print</button>
+  <button class="btn btn-danger" onclick="resetAll()">↺ Reset All</button>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-section-label">7 Audit Processes</div>
+
+    <button class="proc-nav-item active" onclick="showProcess('p1', this)" id="nav-p1">
+      <div class="proc-number">1</div>
+      <div><div class="proc-label">Management</div><div class="proc-sub">MG</div></div>
+      <span class="proc-score-pill" id="pill-p1">0%</span>
+    </button>
+
+    <button class="proc-nav-item" onclick="showProcess('p2', this)" id="nav-p2">
+      <div class="proc-number">2</div>
+      <div><div class="proc-label">Device Marketing Auth.</div><div class="proc-sub">DMAFR</div></div>
+      <span class="proc-score-pill" id="pill-p2">0%</span>
+    </button>
+
+    <button class="proc-nav-item" onclick="showProcess('p3', this)" id="nav-p3">
+      <div class="proc-number">3</div>
+      <div><div class="proc-label">Design &amp; Development</div><div class="proc-sub">DD</div></div>
+      <span class="proc-score-pill" id="pill-p3">0%</span>
+    </button>
+
+    <button class="proc-nav-item" onclick="showProcess('p4', this)" id="nav-p4">
+      <div class="proc-number">4</div>
+      <div><div class="proc-label">Purchasing &amp; Supplier</div><div class="proc-sub">PC</div></div>
+      <span class="proc-score-pill" id="pill-p4">0%</span>
+    </button>
+
+    <button class="proc-nav-item" onclick="showProcess('p5', this)" id="nav-p5">
+      <div class="proc-number">5</div>
+      <div><div class="proc-label">Production &amp; Service</div><div class="proc-sub">PSC</div></div>
+      <span class="proc-score-pill" id="pill-p5">0%</span>
+    </button>
+
+    <button class="proc-nav-item" onclick="showProcess('p6', this)" id="nav-p6">
+      <div class="proc-number">6</div>
+      <div><div class="proc-label">Measurement &amp; Analysis</div><div class="proc-sub">MAI</div></div>
+      <span class="proc-score-pill" id="pill-p6">0%</span>
+    </button>
+
+    <button class="proc-nav-item" onclick="showProcess('p7', this)" id="nav-p7">
+      <div class="proc-number">7</div>
+      <div><div class="proc-label">Supporting Processes</div><div class="proc-sub">SP</div></div>
+      <span class="proc-score-pill" id="pill-p7">0%</span>
+    </button>
+
+    <div class="sidebar-section-label" style="margin-top:16px">Reports</div>
+    <button class="proc-nav-item" onclick="showProcess('gap', this)" id="nav-gap">
+      <div class="proc-number" style="background:#ffe6e6; color:var(--red)">!</div>
+      <div><div class="proc-label">Gap Report</div><div class="proc-sub">All open items</div></div>
+    </button>
+  </div>
+
+  <!-- PROCESS PANELS -->
+  <div id="panels">
+
+    <!-- PROCESS 1: MANAGEMENT -->
+    <div class="process-panel active" id="panel-p1">
+      <div class="panel-header">
+        <h2>Process 1 — Management (MG)</h2>
+        <p>Leadership commitment, quality policy, objectives, management review, and risk-based thinking across the QMS.</p>
+        <div class="auth-note">⚡ <strong>Key MDSAP grading note:</strong> Management process findings are weighted heavily. Grade 5 findings here trigger immediate authority notification across all 5 participating nations.</div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>1.1 Quality Management System Foundation</h3>
+          <span class="req-group-score" id="score-p1g1">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g1')" data-id="p1-1" data-proc="p1" data-group="p1g1"></div>
+            <div class="req-content">
+              <div class="req-text">Quality Manual (or equivalent documented scope/QMS framework) exists, is current, and defines the scope of the QMS including exclusions with justification.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g1')" data-id="p1-2" data-proc="p1" data-group="p1g1"></div>
+            <div class="req-content">
+              <div class="req-text">Quality Policy is established, communicated to all personnel, reviewed for continuing suitability, and available as documented information.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g1')" data-id="p1-3" data-proc="p1" data-group="p1g1"></div>
+            <div class="req-content">
+              <div class="req-text">Quality Objectives are established at relevant functions and levels, are measurable, monitored, communicated, and updated as appropriate.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g1')" data-id="p1-4" data-proc="p1" data-group="p1g1"></div>
+            <div class="req-content">
+              <div class="req-text">Processes needed for the QMS are identified, their sequence and interaction are determined, and inputs/outputs of each process are defined.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g1')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>1.2 Leadership &amp; Organizational Roles</h3>
+          <span class="req-group-score" id="score-p1g2">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g2')" data-id="p1-5" data-proc="p1" data-group="p1g2"></div>
+            <div class="req-content">
+              <div class="req-text">Top management demonstrates leadership and commitment to the QMS (e.g., resource allocation, promoting customer focus, integration with business strategy).</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g2')" data-id="p1-6" data-proc="p1" data-group="p1g2"></div>
+            <div class="req-content">
+              <div class="req-text">Management Representative (or equivalent role) is designated with authority and responsibility for ensuring QMS requirements are met and reporting to top management.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g2')" data-id="p1-7" data-proc="p1" data-group="p1g2"></div>
+            <div class="req-content">
+              <div class="req-text">Organizational roles, responsibilities, and authorities are defined, documented, and communicated throughout the organization.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g2')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>1.3 Management Review</h3>
+          <span class="req-group-score" id="score-p1g3">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g3')" data-id="p1-8" data-proc="p1" data-group="p1g3"></div>
+            <div class="req-content">
+              <div class="req-text">Management Review is conducted at planned intervals (minimum annually) with records maintained.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g3')" data-id="p1-9" data-proc="p1" data-group="p1g3"></div>
+            <div class="req-content">
+              <div class="req-text">Management Review inputs include: audit results, customer feedback, process/product performance, CAPA status, risk assessment, regulatory changes, and previous review actions.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g3')" data-id="p1-10" data-proc="p1" data-group="p1g3"></div>
+            <div class="req-content">
+              <div class="req-text">Management Review outputs include decisions and actions related to QMS improvements, resource needs, and device/process changes.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g3')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>1.4 Risk Management (QMS Level)</h3>
+          <span class="req-group-score" id="score-p1g4">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g4')" data-id="p1-11" data-proc="p1" data-group="p1g4"></div>
+            <div class="req-content">
+              <div class="req-text">Risk-based thinking is applied to QMS planning (risks and opportunities identified and addressed at the QMS level, not just device-level).</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g4')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p1','p1g4')" data-id="p1-12" data-proc="p1" data-group="p1g4"></div>
+            <div class="req-content">
+              <div class="req-text">ISO 14971 risk management process is implemented for product/process risk and is linked to the QMS (risk management file exists per device family).</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p1','p1g4')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        ℹ️ This tool is a self-assessment aid. It is not a substitute for a formal MDSAP audit by an Authorized Auditing Organization (AAO). Regulatory requirements are subject to change; verify against current MDSAP Audit Approach documents.
+      </div>
+    </div>
+
+    <!-- PROCESS 2: DMAFR -->
+    <div class="process-panel" id="panel-p2">
+      <div class="panel-header">
+        <h2>Process 2 — Device Marketing Authorization &amp; Facility Registration (DMAFR)</h2>
+        <p>Ensures devices have valid marketing authorizations in each market and the facility is properly registered with applicable regulatory authorities.</p>
+        <div class="auth-note">⚡ This process has the highest authority-specific variation. Requirements differ significantly by country — check each authority column carefully.</div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>2.1 Marketing Authorizations — United States (FDA)</h3>
+          <span class="req-group-score" id="score-p2g1">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p2','p2g1')" data-id="p2-1" data-proc="p2" data-group="p2g1"></div>
+            <div class="req-content">
+              <div class="req-text">All US-marketed devices have valid FDA clearance/approval (510(k), PMA, De Novo, or HDE) or are exempt; FDA Establishment Registration is current (annual renewal).</div>
+              <div class="req-tags"><span class="req-tag tag-fda">FDA</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p2','p2g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p2','p2g1')" data-id="p2-2" data-proc="p2" data-group="p2g1"></div>
+            <div class="req-content">
+              <div class="req-text">Device Listing is current and accurate in FDA's database (21 CFR Part 807). All listed devices reflect current labeling and indications.</div>
+              <div class="req-tags"><span class="req-tag tag-fda">FDA</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p2','p2g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p2','p2g1')" data-id="p2-3" data-proc="p2" data-group="p2g1"></div>
+            <div class="req-content">
+              <div class="req-text">UDI labels applied to device packaging (DI on all levels; PI on primary package where required); GUDID database submissions are current per FDA UDI Rule.</div>
+              <div class="req-tags"><span class="req-tag tag-fda">FDA</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p2','p2g1')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>2.2 Marketing Authorizations — Canada (Health Canada)</h3>
+          <span class="req-group-score" id="score-p2g2">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p2','p2g2')" data-id="p2-4" data-proc="p2" data-group="p2g2"></div>
+            <div class="req-content">
+              <div class="req-text">Medical Device Licence (MDL) is current for all Class II/III/IV devices marketed in Canada; Class I devices have Establishment Licence only.</div>
+              <div class="req-tags"><span class="req-tag tag-hc">Health Canada</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p2','p2g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p2','p2g2')" data-id="p2-5" data-proc="p2" data-group="p2g2"></div>
+            <div class="req-content">
+              <div class="req-text">Medical Device Establishment Licence (MDEL) is current and reflects current activities (manufacture, import, distribute).</div>
+              <div class="req-tags"><span class="req-tag tag-hc">Health Canada</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p2','p2g2')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>2.3 Marketing Authorizations — Brazil (ANVISA), Australia (TGA), Japan (PMDA)</h3>
+          <span class="req-group-score" id="score-p2g3">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p2','p2g3')" data-id="p2-6" data-proc="p2" data-group="p2g3"></div>
+            <div class="req-content">
+              <div class="req-text">ANVISA Registro (product registration) is current for all devices marketed in Brazil; GMP Certificate from MDSAP AAO is accepted by ANVISA in lieu of separate ANVISA inspection.</div>
+              <div class="req-tags"><span class="req-tag tag-anvisa">ANVISA</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p2','p2g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p2','p2g3')" data-id="p2-7" data-proc="p2" data-group="p2g3"></div>
+            <div class="req-content">
+              <div class="req-text">TGA ARTG listing/registration is current for all devices marketed in Australia; TGA accepts MDSAP audit report in lieu of separate TGA audit (verify TGA's current MDSAP recognition scope).</div>
+              <div class="req-tags"><span class="req-tag tag-tga">TGA</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p2','p2g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p2','p2g3')" data-id="p2-8" data-proc="p2" data-group="p2g3"></div>
+            <div class="req-content">
+              <div class="req-text">PMDA marketing authorization (Shonin/Ninsho) is current for all devices marketed in Japan; GMP/QMS certification from Japanese registrar (or MDSAP-equivalent accepted by PMDA) is current.</div>
+              <div class="req-tags"><span class="req-tag tag-pmda">PMDA</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p2','p2g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p2','p2g3')" data-id="p2-9" data-proc="p2" data-group="p2g3"></div>
+            <div class="req-content">
+              <div class="req-text">A process exists to identify and track pending regulatory changes/new requirements across all applicable authorities; responsibility is assigned.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p2','p2g3')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS 3: DESIGN & DEVELOPMENT -->
+    <div class="process-panel" id="panel-p3">
+      <div class="panel-header">
+        <h2>Process 3 — Design &amp; Development (DD)</h2>
+        <p>Controls over the design and development of medical devices to ensure requirements are met and devices are safe and effective.</p>
+        <div class="auth-note">⚡ FDA requires a Design History File (DHF) — auditors will sample DHF entries against design output records and verify traceability. Health Canada, ANVISA, TGA, and PMDA require Technical Documentation maintained per regional requirements.</div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>3.1 Design Planning &amp; Controls</h3>
+          <span class="req-group-score" id="score-p3g1">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p3','p3g1')" data-id="p3-1" data-proc="p3" data-group="p3g1"></div>
+            <div class="req-content">
+              <div class="req-text">Design and development planning is documented for each device/project; plans identify stages, review points, responsibilities, and required resources.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p3','p3g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p3','p3g1')" data-id="p3-2" data-proc="p3" data-group="p3g1"></div>
+            <div class="req-content">
+              <div class="req-text">Design inputs are defined, documented, and reviewed for adequacy (functional, performance, safety, regulatory, and usability requirements).</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p3','p3g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p3','p3g1')" data-id="p3-3" data-proc="p3" data-group="p3g1"></div>
+            <div class="req-content">
+              <div class="req-text">Design outputs are documented in a form that allows verification against design inputs; outputs include device specifications, drawings, software code, labeling, and manufacturing procedures.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p3','p3g1')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>3.2 Design Review, Verification &amp; Validation</h3>
+          <span class="req-group-score" id="score-p3g2">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p3','p3g2')" data-id="p3-4" data-proc="p3" data-group="p3g2"></div>
+            <div class="req-content">
+              <div class="req-text">Design reviews are conducted at appropriate stages; reviewers include personnel not directly responsible for the design stage; results and actions are recorded.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p3','p3g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p3','p3g2')" data-id="p3-5" data-proc="p3" data-group="p3g2"></div>
+            <div class="req-content">
+              <div class="req-text">Design verification confirms outputs meet inputs; verification results, methods, and acceptance criteria are documented.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p3','p3g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p3','p3g2')" data-id="p3-6" data-proc="p3" data-group="p3g2"></div>
+            <div class="req-content">
+              <div class="req-text">Design validation confirms device meets user needs and intended use (including clinical evaluation, usability/HFE studies, and simulated or real-use testing).</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p3','p3g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p3','p3g2')" data-id="p3-7" data-proc="p3" data-group="p3g2"></div>
+            <div class="req-content">
+              <div class="req-text">Design transfer to production is documented; manufacturing process capabilities are verified before final release.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p3','p3g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p3','p3g2')" data-id="p3-8" data-proc="p3" data-group="p3g2"></div>
+            <div class="req-content">
+              <div class="req-text">Design changes are identified, reviewed, verified/validated as appropriate, approved, and communicated before implementation; impact on regulatory submissions assessed.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p3','p3g2')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>3.3 Design History File / Technical Documentation</h3>
+          <span class="req-group-score" id="score-p3g3">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p3','p3g3')" data-id="p3-9" data-proc="p3" data-group="p3g3"></div>
+            <div class="req-content">
+              <div class="req-text">Design History File (DHF) maintained for each device type; DHF demonstrates the device was developed in accordance with the approved design plan. (FDA: 21 CFR 820.30(j))</div>
+              <div class="req-tags"><span class="req-tag tag-fda">FDA</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p3','p3g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p3','p3g3')" data-id="p3-10" data-proc="p3" data-group="p3g3"></div>
+            <div class="req-content">
+              <div class="req-text">Technical Documentation (technical file) is maintained and kept current; includes device description, design specifications, risk management file, clinical data summary, and labeling.</div>
+              <div class="req-tags"><span class="req-tag tag-hc">Health Canada</span><span class="req-tag tag-anvisa">ANVISA</span><span class="req-tag tag-tga">TGA</span><span class="req-tag tag-pmda">PMDA</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p3','p3g3')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS 4: PURCHASING & SUPPLIER CONTROLS -->
+    <div class="process-panel" id="panel-p4">
+      <div class="panel-header">
+        <h2>Process 4 — Purchasing &amp; Supplier Controls (PC)</h2>
+        <p>Controls to ensure purchased products and services conform to requirements, with supplier evaluation and monitoring proportionate to risk.</p>
+        <div class="auth-note">⚡ MDSAP auditors specifically look for risk-based supplier classification and evidence of actual re-evaluation — not just a list of approved suppliers. Critical suppliers require documented performance reviews.</div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>4.1 Supplier Qualification &amp; Approved Supplier List</h3>
+          <span class="req-group-score" id="score-p4g1">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p4','p4g1')" data-id="p4-1" data-proc="p4" data-group="p4g1"></div>
+            <div class="req-content">
+              <div class="req-text">Approved Supplier List (ASL) is maintained; suppliers are classified by risk/criticality; qualification criteria are defined per risk tier.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p4','p4g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p4','p4g1')" data-id="p4-2" data-proc="p4" data-group="p4g1"></div>
+            <div class="req-content">
+              <div class="req-text">Supplier qualification records exist for critical/high-risk suppliers (surveys, on-site audits, certificates, quality agreements as appropriate).</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p4','p4g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p4','p4g1')" data-id="p4-3" data-proc="p4" data-group="p4g1"></div>
+            <div class="req-content">
+              <div class="req-text">Suppliers are periodically re-evaluated (frequency commensurate with risk); re-evaluation records are maintained and inform continued approval status.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p4','p4g1')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>4.2 Purchasing Controls &amp; Incoming Inspection</h3>
+          <span class="req-group-score" id="score-p4g2">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p4','p4g2')" data-id="p4-4" data-proc="p4" data-group="p4g2"></div>
+            <div class="req-content">
+              <div class="req-text">Purchase orders/specifications clearly define requirements for products and services (quality requirements, standards references, documentation requirements).</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p4','p4g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p4','p4g2')" data-id="p4-5" data-proc="p4" data-group="p4g2"></div>
+            <div class="req-content">
+              <div class="req-text">Incoming inspection or equivalent verification activities are conducted per defined procedures; records are maintained showing results and release authority.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p4','p4g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p4','p4g2')" data-id="p4-6" data-proc="p4" data-group="p4g2"></div>
+            <div class="req-content">
+              <div class="req-text">Nonconforming purchased product is controlled; supplier notification, disposition, and SCAR/corrective action process is in place.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p4','p4g2')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS 5: PRODUCTION & SERVICE CONTROLS -->
+    <div class="process-panel" id="panel-p5">
+      <div class="panel-header">
+        <h2>Process 5 — Production &amp; Service Controls (PSC)</h2>
+        <p>Controls over production and service provision to ensure devices are manufactured consistently and meet specifications.</p>
+        <div class="auth-note">⚡ Device History Records (DHRs) are frequently the focus of FDA inspection sampling. Auditors will pull specific DHRs and trace them against the Device Master Record (DMR). Ensure your DHRs are complete and retrievable by lot/serial.</div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>5.1 Production Process Controls</h3>
+          <span class="req-group-score" id="score-p5g1">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p5','p5g1')" data-id="p5-1" data-proc="p5" data-group="p5g1"></div>
+            <div class="req-content">
+              <div class="req-text">Device Master Record (DMR) / Technical File exists for each device type; includes device specifications, production procedures, quality specifications, labeling, and packaging specifications.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p5','p5g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p5','p5g1')" data-id="p5-2" data-proc="p5" data-group="p5g1"></div>
+            <div class="req-content">
+              <div class="req-text">Device History Record (DHR) is maintained for each manufactured lot/batch/unit; DHR demonstrates the device was manufactured in accordance with the DMR.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p5','p5g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p5','p5g1')" data-id="p5-3" data-proc="p5" data-group="p5g1"></div>
+            <div class="req-content">
+              <div class="req-text">Equipment used in production/quality is identified, maintained, calibrated (where applicable), and records maintained; out-of-tolerance equipment impact is assessed.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p5','p5g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p5','p5g1')" data-id="p5-4" data-proc="p5" data-group="p5g1"></div>
+            <div class="req-content">
+              <div class="req-text">Special processes (sterilization, coating, welding, etc.) are validated before implementation; revalidation triggers are defined and followed.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p5','p5g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p5','p5g1')" data-id="p5-5" data-proc="p5" data-group="p5g1"></div>
+            <div class="req-content">
+              <div class="req-text">Software used in production or quality systems is validated for intended use (IQ/OQ/PQ or equivalent) per a defined validation plan.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p5','p5g1')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>5.2 Labeling, Packaging &amp; UDI</h3>
+          <span class="req-group-score" id="score-p5g2">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p5','p5g2')" data-id="p5-6" data-proc="p5" data-group="p5g2"></div>
+            <div class="req-content">
+              <div class="req-text">Labeling control procedure is in place; labels are reviewed and approved before use; label inspection is part of the production release process.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p5','p5g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p5','p5g2')" data-id="p5-7" data-proc="p5" data-group="p5g2"></div>
+            <div class="req-content">
+              <div class="req-text">UDI requirements are met: DI applied to primary/secondary/tertiary packaging levels as required; GUDID (FDA), UDI-DI (HC/ANVISA/TGA) submissions are current and accurate.</div>
+              <div class="req-tags"><span class="req-tag tag-fda">FDA</span><span class="req-tag tag-hc">Health Canada</span><span class="req-tag tag-anvisa">ANVISA</span><span class="req-tag tag-tga">TGA</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p5','p5g2')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>5.3 Complaint Handling &amp; Post-Market</h3>
+          <span class="req-group-score" id="score-p5g3">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p5','p5g3')" data-id="p5-8" data-proc="p5" data-group="p5g3"></div>
+            <div class="req-content">
+              <div class="req-text">Complaint handling procedure exists; all complaints are received, evaluated, investigated (where warranted), and dispositioned with records maintained.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p5','p5g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p5','p5g3')" data-id="p5-9" data-proc="p5" data-group="p5g3"></div>
+            <div class="req-content">
+              <div class="req-text">MDR/Vigilance reporting process is documented; staff know when to escalate a complaint to reportable event status; reporting timelines per authority are defined.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p5','p5g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p5','p5g3')" data-id="p5-10" data-proc="p5" data-group="p5g3"></div>
+            <div class="req-content">
+              <div class="req-text">Post-Market Surveillance (PMS) system is implemented; PMS data feeds back into risk management and design/production controls.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p5','p5g3')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS 6: MEASUREMENT, ANALYSIS & IMPROVEMENT -->
+    <div class="process-panel" id="panel-p6">
+      <div class="panel-header">
+        <h2>Process 6 — Measurement, Analysis &amp; Improvement (MAI)</h2>
+        <p>Monitoring, measurement, analysis, and improvement activities to ensure conformity of devices and QMS, and to facilitate continual improvement.</p>
+        <div class="auth-note">⚡ MDSAP auditors follow NC trails rigorously — they will sample CAPA records, check escape points, verify effectiveness verification was done, and look for systemic patterns across product families. Weak CAPA is the most common Grade 3+ finding.</div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>6.1 Internal Audit Program</h3>
+          <span class="req-group-score" id="score-p6g1">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p6','p6g1')" data-id="p6-1" data-proc="p6" data-group="p6g1"></div>
+            <div class="req-content">
+              <div class="req-text">Internal audit program covers all QMS processes and all applicable regulatory requirements on a defined schedule; frequency is risk-based.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p6','p6g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p6','p6g1')" data-id="p6-2" data-proc="p6" data-group="p6g1"></div>
+            <div class="req-content">
+              <div class="req-text">Auditors are independent of the areas they audit; auditor competence is documented (training records, lead auditor qualifications).</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p6','p6g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p6','p6g1')" data-id="p6-3" data-proc="p6" data-group="p6g1"></div>
+            <div class="req-content">
+              <div class="req-text">Audit findings are communicated to management; CAPAs are opened for nonconformities; effectiveness of CAPAs is verified before closure.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p6','p6g1')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>6.2 CAPA — Corrective &amp; Preventive Action</h3>
+          <span class="req-group-score" id="score-p6g2">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p6','p6g2')" data-id="p6-4" data-proc="p6" data-group="p6g2"></div>
+            <div class="req-content">
+              <div class="req-text">CAPA procedure is documented; it requires root cause analysis (not just symptom treatment) and includes containment, root cause, corrective action, preventive action, and verification of effectiveness.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p6','p6g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p6','p6g2')" data-id="p6-5" data-proc="p6" data-group="p6g2"></div>
+            <div class="req-content">
+              <div class="req-text">CAPA records are maintained; open CAPAs are tracked with due dates and owner assignments; aging/overdue CAPAs are escalated per defined process.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p6','p6g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p6','p6g2')" data-id="p6-6" data-proc="p6" data-group="p6g2"></div>
+            <div class="req-content">
+              <div class="req-text">CAPA actions are evaluated for potential impact on safety/performance; regulatory authority notification assessed where applicable.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p6','p6g2')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>6.3 Nonconforming Product/Output</h3>
+          <span class="req-group-score" id="score-p6g3">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p6','p6g3')" data-id="p6-7" data-proc="p6" data-group="p6g3"></div>
+            <div class="req-content">
+              <div class="req-text">Nonconforming product is identified, segregated, and controlled to prevent unintended use; disposition decisions (rework, use-as-is with justification, scrap) are documented and authorized.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p6','p6g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p6','p6g3')" data-id="p6-8" data-proc="p6" data-group="p6g3"></div>
+            <div class="req-content">
+              <div class="req-text">If a nonconforming device is released (e.g., waiver/concession), the process for obtaining authorization is documented; patient safety risk is formally assessed.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p6','p6g3')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>6.4 Recalls, Field Corrections &amp; Vigilance</h3>
+          <span class="req-group-score" id="score-p6g4">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p6','p6g4')" data-id="p6-9" data-proc="p6" data-group="p6g4"></div>
+            <div class="req-content">
+              <div class="req-text">Corrections and removals (recall) procedure is documented; process covers detection, risk assessment, regulatory notification, field action execution, and effectiveness check.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p6','p6g4')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p6','p6g4')" data-id="p6-10" data-proc="p6" data-group="p6g4"></div>
+            <div class="req-content">
+              <div class="req-text">Regulatory reporting timelines for adverse events/MDRs are documented and known by responsible staff (FDA: 5/10/30 days; HC: 10/30 days; ANVISA: 72 hrs/15 days; TGA: 2/10/30 days; PMDA: 15/30 days).</div>
+              <div class="req-tags"><span class="req-tag tag-fda">FDA</span><span class="req-tag tag-hc">Health Canada</span><span class="req-tag tag-anvisa">ANVISA</span><span class="req-tag tag-tga">TGA</span><span class="req-tag tag-pmda">PMDA</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p6','p6g4')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS 7: SUPPORTING PROCESSES -->
+    <div class="process-panel" id="panel-p7">
+      <div class="panel-header">
+        <h2>Process 7 — Supporting Processes (SP)</h2>
+        <p>Document and record control, training, infrastructure, and competence management that underpin all other QMS processes.</p>
+        <div class="auth-note">⚡ Supporting process failures cascade into every other process finding. Auditors sample document control across all processes — a missing record or an unapproved document can generate findings in every process it touches.</div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>7.1 Document Control</h3>
+          <span class="req-group-score" id="score-p7g1">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p7','p7g1')" data-id="p7-1" data-proc="p7" data-group="p7g1"></div>
+            <div class="req-content">
+              <div class="req-text">Document control procedure ensures documents are reviewed, approved prior to issue, current version is available at point of use, and obsolete documents are prevented from unintended use.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span><span class="req-tag tag-critical">Critical</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p7','p7g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p7','p7g1')" data-id="p7-2" data-proc="p7" data-group="p7g1"></div>
+            <div class="req-content">
+              <div class="req-text">External documents (regulatory standards, customer specs, supplier documents) are identified, controlled, and updated when the external source changes.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p7','p7g1')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p7','p7g1')" data-id="p7-3" data-proc="p7" data-group="p7g1"></div>
+            <div class="req-content">
+              <div class="req-text">Electronic document management system (if used) is validated for intended use and access controls are enforced.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p7','p7g1')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>7.2 Record Control</h3>
+          <span class="req-group-score" id="score-p7g2">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p7','p7g2')" data-id="p7-4" data-proc="p7" data-group="p7g2"></div>
+            <div class="req-content">
+              <div class="req-text">Record retention schedule is defined; records are legible, identifiable, and retrievable; retention periods meet or exceed regulatory minimums (FDA: lifetime of device + 2 years minimum; HC: life of device; ANVISA: 5–15 yrs; TGA: 5 yrs minimum; PMDA: per device class).</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p7','p7g2')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p7','p7g2')" data-id="p7-5" data-proc="p7" data-group="p7g2"></div>
+            <div class="req-content">
+              <div class="req-text">Electronic records (if used) meet regulatory data integrity requirements (21 CFR Part 11 for FDA; equivalent for other authorities); audit trails are enabled and reviewed.</div>
+              <div class="req-tags"><span class="req-tag tag-fda">FDA</span><span class="req-tag tag-hc">Health Canada</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p7','p7g2')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>7.3 Human Resources, Competence &amp; Training</h3>
+          <span class="req-group-score" id="score-p7g3">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p7','p7g3')" data-id="p7-6" data-proc="p7" data-group="p7g3"></div>
+            <div class="req-content">
+              <div class="req-text">Competence requirements are defined for all roles affecting product quality and regulatory compliance; training needs are identified and training is provided.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p7','p7g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p7','p7g3')" data-id="p7-7" data-proc="p7" data-group="p7g3"></div>
+            <div class="req-content">
+              <div class="req-text">Training records are maintained and demonstrate effectiveness (competency assessment, OJT sign-off, exam results); records are retrievable per personnel.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p7','p7g3')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p7','p7g3')" data-id="p7-8" data-proc="p7" data-group="p7g3"></div>
+            <div class="req-content">
+              <div class="req-text">New employees and contractors performing QMS-regulated activities are trained before performing those activities independently.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p7','p7g3')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-header">
+          <h3>7.4 Infrastructure &amp; Work Environment</h3>
+          <span class="req-group-score" id="score-p7g4">—</span>
+        </div>
+        <div class="req-list">
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p7','p7g4')" data-id="p7-9" data-proc="p7" data-group="p7g4"></div>
+            <div class="req-content">
+              <div class="req-text">Infrastructure requirements (buildings, equipment, IT) are identified and maintained; preventive maintenance program is in place and records are maintained.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p7','p7g4')">N/A</button></div>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check" onclick="toggle(this, 'p7','p7g4')" data-id="p7-10" data-proc="p7" data-group="p7g4"></div>
+            <div class="req-content">
+              <div class="req-text">Work environment requirements (cleanliness, ESD, temperature, humidity, etc.) are defined, controlled, and monitored where they affect product quality; records are maintained.</div>
+              <div class="req-tags"><span class="req-tag tag-all">All 5 Authorities</span></div>
+              <div class="req-actions"><button class="req-btn" onclick="markNA(this, 'p7','p7g4')">N/A</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAP REPORT -->
+    <div class="process-panel" id="panel-gap">
+      <div id="gap-report-panel">
+        <h2>Gap Report</h2>
+        <p style="color:var(--muted); margin-bottom:16px; font-size:13px;">Run "Generate Gap Report" or complete more of the assessment first.</p>
+      </div>
+    </div>
+
+  </div><!-- /panels -->
+</div><!-- /main -->
+
+<script>
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const state = {}; // id -> 'checked' | 'na' | null
+
+// Map group IDs to their items
+const groupMap = {
+  p1g1: ['p1-1','p1-2','p1-3','p1-4'],
+  p1g2: ['p1-5','p1-6','p1-7'],
+  p1g3: ['p1-8','p1-9','p1-10'],
+  p1g4: ['p1-11','p1-12'],
+  p2g1: ['p2-1','p2-2','p2-3'],
+  p2g2: ['p2-4','p2-5'],
+  p2g3: ['p2-6','p2-7','p2-8','p2-9'],
+  p3g1: ['p3-1','p3-2','p3-3'],
+  p3g2: ['p3-4','p3-5','p3-6','p3-7','p3-8'],
+  p3g3: ['p3-9','p3-10'],
+  p4g1: ['p4-1','p4-2','p4-3'],
+  p4g2: ['p4-4','p4-5','p4-6'],
+  p5g1: ['p5-1','p5-2','p5-3','p5-4','p5-5'],
+  p5g2: ['p5-6','p5-7'],
+  p5g3: ['p5-8','p5-9','p5-10'],
+  p6g1: ['p6-1','p6-2','p6-3'],
+  p6g2: ['p6-4','p6-5','p6-6'],
+  p6g3: ['p6-7','p6-8'],
+  p6g4: ['p6-9','p6-10'],
+  p7g1: ['p7-1','p7-2','p7-3'],
+  p7g2: ['p7-4','p7-5'],
+  p7g3: ['p7-6','p7-7','p7-8'],
+  p7g4: ['p7-9','p7-10']
+};
+
+const procGroups = {
+  p1: ['p1g1','p1g2','p1g3','p1g4'],
+  p2: ['p2g1','p2g2','p2g3'],
+  p3: ['p3g1','p3g2','p3g3'],
+  p4: ['p4g1','p4g2'],
+  p5: ['p5g1','p5g2','p5g3'],
+  p6: ['p6g1','p6g2','p6g3','p6g4'],
+  p7: ['p7g1','p7g2','p7g3','p7g4']
+};
+
+// Collect all items with their text and criticality for gap report
+const itemMeta = {};
+document.querySelectorAll('.req-item').forEach(item => {
+  const check = item.querySelector('.req-check');
+  if (!check) return;
+  const id = check.dataset.id;
+  const text = item.querySelector('.req-text').textContent.trim();
+  const tags = [...item.querySelectorAll('.req-tag')].map(t => t.textContent.trim());
+  const proc = check.dataset.proc;
+  const group = check.dataset.group;
+  const isCritical = tags.includes('Critical');
+  itemMeta[id] = { text, tags, proc, group, isCritical };
+});
+
+// ─── INTERACTION ─────────────────────────────────────────────────────────────
+function toggle(el, proc, group) {
+  const id = el.dataset.id;
+  const current = state[id];
+  if (current === 'checked') {
+    state[id] = null;
+    el.classList.remove('checked', 'na');
+  } else {
+    state[id] = 'checked';
+    el.classList.remove('na');
+    el.classList.add('checked');
+  }
+  recalc(proc, group);
+}
+
+function markNA(btn, proc, group) {
+  const reqItem = btn.closest('.req-item');
+  const check = reqItem.querySelector('.req-check');
+  const id = check.dataset.id;
+  if (state[id] === 'na') {
+    state[id] = null;
+    check.classList.remove('na');
+    btn.textContent = 'N/A';
+  } else {
+    state[id] = 'na';
+    check.classList.remove('checked');
+    check.classList.add('na');
+    btn.textContent = 'Undo N/A';
+  }
+  recalc(proc, group);
+}
+
+function recalc(proc, group) {
+  // Group score
+  const groupItems = groupMap[group] || [];
+  const checked = groupItems.filter(id => state[id] === 'checked').length;
+  const na = groupItems.filter(id => state[id] === 'na').length;
+  const applicable = groupItems.length - na;
+  const groupEl = document.getElementById('score-' + group);
+  if (groupEl) {
+    groupEl.textContent = applicable > 0 ? `${checked}/${applicable}` : 'N/A';
+  }
+
+  // Process score
+  let procChecked = 0, procNA = 0, procTotal = 0;
+  (procGroups[proc] || []).forEach(g => {
+    (groupMap[g] || []).forEach(id => {
+      procTotal++;
+      if (state[id] === 'checked') procChecked++;
+      if (state[id] === 'na') procNA++;
+    });
+  });
+  const procApplicable = procTotal - procNA;
+  const procPct = procApplicable > 0 ? Math.round((procChecked / procApplicable) * 100) : 0;
+  const pillEl = document.getElementById('pill-' + proc);
+  if (pillEl) pillEl.textContent = procApplicable > 0 ? procPct + '%' : '—';
+
+  // Overall
+  recalcOverall();
+}
+
+function recalcOverall() {
+  let totalChecked = 0, totalNA = 0, totalItems = 0;
+  Object.keys(itemMeta).forEach(id => {
+    totalItems++;
+    if (state[id] === 'checked') totalChecked++;
+    if (state[id] === 'na') totalNA++;
+  });
+  const applicable = totalItems - totalNA;
+  const answered = Object.values(state).filter(v => v !== null && v !== undefined).length;
+  const pct = applicable > 0 ? Math.round((totalChecked / applicable) * 100) : 0;
+  const answeredPct = totalItems > 0 ? Math.round((answered / totalItems) * 100) : 0;
+  const gaps = applicable - totalChecked;
+
+  document.getElementById('pct-overall').textContent = pct + '%';
+  document.getElementById('sub-overall').textContent = `${totalChecked} / ${applicable} requirements met`;
+  document.getElementById('gap-count').textContent = gaps;
+  document.getElementById('na-count').textContent = totalNA;
+  document.getElementById('answered-pct').textContent = answeredPct + '%';
+  document.getElementById('bar-overall').style.width = pct + '%';
+  document.getElementById('bar-answered').style.width = answeredPct + '%';
+
+  // Color the overall bar
+  const bar = document.getElementById('bar-overall');
+  bar.style.background = pct >= 80 ? '#27ae60' : pct >= 60 ? '#f39c12' : '#e74c3c';
+
+  // Grade
+  let grade = '—', gradeClass = '', gradeSub = '';
+  if (applicable > 0) {
+    if (pct >= 90) { grade = 'A'; gradeClass = 'grade-A'; gradeSub = 'Excellent — Audit Ready'; }
+    else if (pct >= 75) { grade = 'B'; gradeClass = 'grade-B'; gradeSub = 'Good — Minor Gaps Remain'; }
+    else if (pct >= 60) { grade = 'C'; gradeClass = 'grade-C'; gradeSub = 'Fair — CAPAs Required'; }
+    else if (pct >= 40) { grade = 'D'; gradeClass = 'grade-D'; gradeSub = 'Significant Gaps — Remediate Now'; }
+    else { grade = 'F'; gradeClass = 'grade-F'; gradeSub = 'Critical Gaps — Not Audit Ready'; }
+  } else { gradeSub = 'Complete assessment to see grade'; }
+
+  const gradeEl = document.getElementById('grade-display');
+  gradeEl.textContent = grade;
+  gradeEl.className = 'value ' + gradeClass;
+  document.getElementById('grade-sub').textContent = gradeSub;
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+function showProcess(id, btn) {
+  document.querySelectorAll('.proc-nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.process-panel').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const panel = document.getElementById('panel-' + id);
+  if (panel) panel.classList.add('active');
+}
+
+// ─── GAP REPORT ──────────────────────────────────────────────────────────────
+function generateGapReport() {
+  const panel = document.getElementById('gap-report-panel');
+  const gaps = Object.keys(itemMeta).filter(id => !state[id] || state[id] === null);
+
+  const critical = gaps.filter(id => itemMeta[id].isCritical);
+  const nonCritical = gaps.filter(id => !itemMeta[id].isCritical);
+
+  const procNames = { p1:'Management', p2:'Marketing Auth.', p3:'Design & Dev.', p4:'Purchasing', p5:'Production', p6:'Measurement', p7:'Supporting' };
+
+  let html = `<h2>Gap Report — ${gaps.length} Open Items</h2>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">Generated ${new Date().toLocaleDateString()}. Items marked N/A are excluded. Complete the full assessment for accurate results.</p>`;
+
+  if (gaps.length === 0) {
+    html += `<div style="text-align:center;padding:40px;color:var(--green);font-size:20px;font-weight:700;">✓ No open gaps! All applicable items are confirmed.</div>`;
+  } else {
+    if (critical.length > 0) {
+      html += `<h3 style="color:var(--red);margin-bottom:10px;font-size:14px;">🔴 Critical Items (${critical.length})</h3>`;
+      critical.forEach(id => {
+        const m = itemMeta[id];
+        html += `<div class="gap-item gap-critical"><div class="gap-title">${m.text.substring(0,120)}${m.text.length>120?'…':''}</div><div class="gap-proc">Process ${m.proc.replace('p','')} — ${procNames[m.proc] || ''} | ${m.tags.filter(t=>t!=='Critical').join(' · ')}</div></div>`;
+      });
+    }
+    if (nonCritical.length > 0) {
+      html += `<h3 style="color:var(--amber);margin:16px 0 10px;font-size:14px;">🟡 Standard Items (${nonCritical.length})</h3>`;
+      nonCritical.slice(0, 30).forEach(id => {
+        const m = itemMeta[id];
+        html += `<div class="gap-item gap-major"><div class="gap-title">${m.text.substring(0,120)}${m.text.length>120?'…':''}</div><div class="gap-proc">Process ${m.proc.replace('p','')} — ${procNames[m.proc] || ''} | ${m.tags.join(' · ')}</div></div>`;
+      });
+      if (nonCritical.length > 30) {
+        html += `<p style="color:var(--muted);font-size:12px;margin-top:8px;">…and ${nonCritical.length-30} more. Complete more processes to narrow the list.</p>`;
+      }
+    }
+  }
+
+  html += `<div class="disclaimer" style="margin-top:20px;">⚠️ This gap report reflects your self-assessment responses. It is not a substitute for a formal MDSAP audit by an Authorized Auditing Organization (AAO). All findings should be reviewed by a qualified regulatory professional before submission to any authority.</div>`;
+  panel.innerHTML = html;
+
+  showProcess('gap', document.getElementById('nav-gap'));
+}
+
+// ─── EXPORT ──────────────────────────────────────────────────────────────────
+function exportCSV() {
+  const rows = [['Process','Group','Item ID','Requirement (truncated)','Status','Critical']];
+  const procNames = { p1:'Management (MG)', p2:'DMAFR', p3:'Design & Dev (DD)', p4:'Purchasing (PC)', p5:'Production (PSC)', p6:'Measurement (MAI)', p7:'Supporting (SP)' };
+  Object.keys(itemMeta).forEach(id => {
+    const m = itemMeta[id];
+    const status = state[id] === 'checked' ? 'CONFORMING' : state[id] === 'na' ? 'N/A' : 'OPEN GAP';
+    rows.push([
+      procNames[m.proc] || m.proc,
+      m.group,
+      id,
+      '"' + m.text.substring(0,100).replace(/"/g,'""') + '"',
+      status,
+      m.isCritical ? 'YES' : 'NO'
+    ]);
+  });
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `MDSAP-Self-Assessment-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+}
+
+// ─── RESET ────────────────────────────────────────────────────────────────────
+function resetAll() {
+  if (!confirm('Reset all responses? This cannot be undone.')) return;
+  Object.keys(state).forEach(k => delete state[k]);
+  document.querySelectorAll('.req-check').forEach(el => el.classList.remove('checked','na'));
+  document.querySelectorAll('.req-btn').forEach(btn => { if (btn.textContent === 'Undo N/A') btn.textContent = 'N/A'; });
+  Object.keys(groupMap).forEach(g => {
+    const el = document.getElementById('score-' + g);
+    if (el) el.textContent = '—';
+  });
+  ['p1','p2','p3','p4','p5','p6','p7'].forEach(p => {
+    const pill = document.getElementById('pill-' + p);
+    if (pill) pill.textContent = '0%';
+  });
+  recalcOverall();
+}
+
+// Initialize
+recalcOverall();
+</script>
+</body>
+</html>

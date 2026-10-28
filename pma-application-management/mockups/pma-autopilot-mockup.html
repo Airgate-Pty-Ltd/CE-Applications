@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-view="login">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PMA Autopilot · Draft UI (single file)</title>
+<style>
+/* Conform-Edge · Airgate design system — self-contained. System fonts only, so
+   this file works fully offline with zero external requests. Drafts only. */
+*,*::before,*::after{box-sizing:border-box}
+[data-theme=dark]{--void:#04080F;--surface:#0E1624;--topbar:rgba(4,8,15,.92);--sb:rgba(5,9,18,.86);
+--glass:rgba(8,14,28,.74);--glass-hi:rgba(6,11,22,.90);--border:rgba(255,255,255,.055);--border-hi:rgba(14,165,233,.50);
+--signal:#0EA5E9;--sig-dim:rgba(14,165,233,.10);--critical:#EF4444;--crit-dim:rgba(239,68,68,.12);
+--positive:#10B981;--pos-dim:rgba(16,185,129,.12);--warning:#F59E0B;--warn-dim:rgba(245,158,11,.12);
+--t1:#E8F0F8;--t2:#7A90A8;--t3:#3D5570;--sh:0 4px 24px rgba(0,0,0,.7),0 1px 4px rgba(0,0,0,.5);--shi:0 0 40px rgba(14,165,233,.14),0 4px 24px rgba(0,0,0,.7)}
+[data-theme=light]{--void:#D8E4F0;--surface:#fff;--topbar:rgba(220,232,246,.94);--sb:rgba(215,228,244,.88);
+--glass:rgba(230,240,252,.80);--glass-hi:rgba(240,248,255,.94);--border:rgba(0,0,0,.08);--border-hi:rgba(3,105,161,.45);
+--signal:#0369A1;--sig-dim:rgba(3,105,161,.09);--critical:#DC2626;--crit-dim:rgba(220,38,38,.10);
+--positive:#059669;--pos-dim:rgba(5,150,105,.10);--warning:#D97706;--warn-dim:rgba(217,119,6,.10);
+--t1:#0A1628;--t2:#4A607A;--t3:#94A3B8;--sh:0 2px 12px rgba(0,0,0,.09);--shi:0 0 20px rgba(3,105,161,.10)}
+:root{--fs:14px}[data-font=compact]{--fs:12px}[data-font=large]{--fs:16px}html{font-size:var(--fs)}
+body{margin:0;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased;background:var(--void);color:var(--t1);min-height:100vh}
+a{color:var(--signal);text-decoration:none;cursor:pointer}h1{font-size:1.5rem}h1,h2,h3{letter-spacing:-.02em;margin:0 0 .4em}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:10px;padding:0 16px;height:48px;background:var(--topbar);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border)}
+.brand{font-size:.95rem;font-weight:800;letter-spacing:-.01em;color:var(--t1);white-space:nowrap;text-transform:uppercase}
+.brand em{color:var(--signal);font-style:normal}.brand-tool{font-weight:400;font-size:.85rem;color:var(--t2);letter-spacing:0;text-transform:none}
+.tsep{width:1px;height:16px;background:var(--border)}.tsp{flex:1}
+.tstat{display:flex;align-items:center;gap:5px;font-size:.67rem;color:var(--t3)}
+.tdot{width:6px;height:6px;border-radius:50%;background:var(--positive);box-shadow:0 0 7px var(--positive)}
+.tctrl{display:flex;align-items:center;gap:2px}
+.ib{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--t2);font-size:.71rem;font-family:inherit}
+.ib:hover{background:var(--surface);color:var(--t1);border-color:var(--border-hi)}.ib.on{background:var(--sig-dim);border-color:var(--border-hi);color:var(--signal)}
+.layout{display:flex;padding-top:48px;min-height:100vh}
+.sidebar{width:210px;background:var(--sb);backdrop-filter:blur(20px) saturate(160%);border-right:1px solid var(--border);padding:16px 12px;position:fixed;top:48px;bottom:0;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;color:var(--t2);font-size:.82rem;cursor:pointer;margin-bottom:3px}
+.nav-item:hover{background:var(--surface);color:var(--t1)}.nav-item.active{background:var(--sig-dim);color:var(--signal);border:1px solid var(--border-hi)}
+.nav-ico{width:16px;text-align:center;opacity:.85}
+.content{margin-left:210px;flex:1;padding:26px 32px;max-width:1200px}
+.wm{position:absolute;bottom:14px;left:12px;right:12px}
+.panel{background:var(--glass);backdrop-filter:blur(20px) saturate(150%);border:1px solid var(--border);border-radius:12px;box-shadow:var(--sh);padding:20px;margin-bottom:18px}
+.panel-hi{background:var(--glass-hi);border:1px solid var(--border-hi);border-radius:13px;box-shadow:var(--shi)}
+.label{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--t3)}
+.muted{color:var(--t2)}.small{font-size:.78rem}.micro{font-size:.66rem}
+.stag{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:.59rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--border);color:var(--t3)}
+.stag.signal{color:var(--signal);border-color:var(--signal);background:var(--sig-dim)}
+.stag.blocking,.stag.BLOCKED{color:var(--critical);border-color:var(--critical);background:var(--crit-dim)}
+.stag.warning,.stag.DRAFTED_WITH_GAPS{color:var(--warning);border-color:var(--warning);background:var(--warn-dim)}
+.stag.info,.stag.DRAFTED,.stag.ok{color:var(--positive);border-color:var(--positive);background:var(--pos-dim)}
+.stag.neutral{color:var(--t3)}
+.mai-badge{display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:20px;background:var(--sig-dim);border:1px solid var(--border-hi);font-size:.66rem;color:var(--signal)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:9px;border:none;font-size:.82rem;font-weight:600;font-family:inherit;cursor:pointer}
+.btn:active{transform:scale(.97)}.btn-primary{background:var(--signal);color:#fff;box-shadow:0 2px 12px rgba(14,165,233,.28)}
+.btn-primary:hover{opacity:.92}.btn-ghost{background:transparent;color:var(--signal);border:1px solid var(--border-hi)}
+.btn-cancel{background:transparent;color:var(--t2);border:1px solid var(--border)}
+.minp,select.minp,textarea.minp{width:100%;background:var(--void);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--t1);font-size:.84rem;font-family:inherit;outline:none;margin-bottom:12px}
+.minp:focus{border-color:var(--border-hi);box-shadow:0 0 0 3px var(--sig-dim)}
+.mfi{display:block;font-size:.66rem;font-weight:500;color:var(--t3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+table.grid{width:100%;border-collapse:collapse;font-size:.82rem}
+table.grid th{text-align:left;font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);padding:8px 10px;border-bottom:1px solid var(--border)}
+table.grid td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--t1);vertical-align:top}
+table.grid tr:hover td{background:var(--surface)}
+.cond{border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:10px;background:var(--glass)}
+.cond.blocking{border-color:var(--critical)}.cond.warning{border-color:var(--warning)}
+.cond-find{font-size:.86rem;margin:6px 0}.cond-hint{font-size:.77rem;color:var(--t2)}.cond-refs{font-size:.68rem;color:var(--t3);margin-top:5px}
+.tabs{display:flex;gap:4px;margin-bottom:18px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.tab{padding:9px 15px;font-size:.82rem;color:var(--t2);cursor:pointer;border-bottom:2px solid transparent}
+.tab.active{color:var(--signal);border-bottom-color:var(--signal)}
+.center-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.wm-note{font-size:.66rem;text-transform:uppercase;letter-spacing:.12em;color:var(--t3)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.spread{justify-content:space-between}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.banner-block{border:1px solid var(--critical);background:var(--crit-dim);border-radius:10px;padding:12px 16px;margin-bottom:18px}
+.dropzone{border:1.5px dashed var(--border-hi);border-radius:12px;padding:34px;text-align:center;color:var(--t2);background:var(--sig-dim)}
+.mock-flag{position:fixed;right:12px;bottom:12px;z-index:200;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);background:var(--glass-hi);border:1px solid var(--border);border-radius:20px;padding:4px 12px}
+/* View switching */
+.screen{display:none}.screen.active{display:block;animation:in .26s cubic-bezier(.16,1,.3,1)}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+[data-view=login] .topbar,[data-view=login] .sidebar{display:none}
+[data-view=login] .content{margin-left:0;max-width:none;padding:0}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">CONFORM<em>-</em>EDGE <span class="brand-tool">· PMA Autopilot</span></div>
+  <div class="tsep"></div>
+  <div class="tstat"><div class="tdot"></div><span>Online</span></div>
+  <div class="tsp"></div>
+  <span class="small muted" style="margin-right:10px">Ada Admin · ADMIN</span>
+  <div class="tctrl">
+    <button class="ib" onclick="setFont('compact')">A−</button>
+    <button class="ib on" onclick="setFont('default')">A</button>
+    <button class="ib" onclick="setFont('large')">A+</button>
+    <div class="tsep"></div>
+    <button class="ib" onclick="toggleTheme()" title="Toggle theme">◑</button>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="nav-item" data-go="dashboard"><span class="nav-ico">▦</span> Dashboard</div>
+    <div class="nav-item" data-go="cases"><span class="nav-ico">🗂</span> Cases</div>
+    <div class="nav-item" data-go="library"><span class="nav-ico">📚</span> Library</div>
+    <div class="nav-item" data-go="registry"><span class="nav-ico">🛡</span> Registry</div>
+    <div class="nav-item" data-go="settings"><span class="nav-ico">⚙</span> Settings</div>
+    <div style="margin-top:20px"><div class="nav-item" data-go="login"><span class="nav-ico">⏻</span> Sign out</div></div>
+    <div class="wm"><div class="wm-note">Drafts only — never for FAA submission</div></div>
+  </nav>
+
+  <main class="content">
+
+    <!-- LOGIN -->
+    <section class="screen" data-screen="login">
+      <div class="center-screen">
+        <form class="panel panel-hi" style="width:400px" onsubmit="return false">
+          <div class="brand" style="margin-bottom:4px">CONFORM<em>-</em>EDGE <span class="brand-tool">· PMA Autopilot</span></div>
+          <p class="small muted" style="margin-top:0">FAA Part 21 / AC 21.303-4 PMA drafting. Drafts only — never for FAA submission.</p>
+          <label class="mfi">Email</label><input class="minp" type="email" value="ada@acme-aero.com" />
+          <label class="mfi">Password</label><input class="minp" type="password" value="••••••••••••" />
+          <button class="btn btn-primary" style="width:100%;justify-content:center" data-go="dashboard">Sign in</button>
+          <div class="small muted" style="margin-top:12px;text-align:center;cursor:pointer" onclick="document.getElementById('reg').style.display='block';this.style.display='none'">New organization? Register</div>
+          <div id="reg" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px">
+            <label class="mfi">Organization name</label><input class="minp" placeholder="Acme Aerospace LLC" />
+            <label class="mfi">Organization slug</label><input class="minp" placeholder="acme-aero" />
+            <label class="mfi">Your full name</label><input class="minp" placeholder="Ada Admin" />
+            <button class="btn btn-primary" style="width:100%;justify-content:center" data-go="dashboard">Create organization</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section class="screen" data-screen="dashboard">
+      <h1>Dashboard</h1>
+      <p class="muted small" style="margin-top:-6px">Where every case stands, and the single most important thing to do next.</p>
+      <div class="banner-block">
+        <div class="label" style="color:var(--critical)">What matters most right now</div>
+        <div style="margin-top:4px">Oldest open blocking condition — <a data-go="case">Hydraulic Bracket Assembly</a>: The applicant's legal name is not recorded (mandatory AC 21.303-4 §8 element).</div>
+      </div>
+      <div class="grid-cards">
+        <div class="panel" data-go="case" style="cursor:pointer">
+          <div class="row spread"><strong>Hydraulic Bracket Assembly</strong><span class="stag signal">Gap review</span></div>
+          <div class="small muted" style="margin:8px 0">Basis: STC identicality</div>
+          <div class="row"><span class="stag blocking">1 blocking</span><span class="stag warning">3 warning</span></div>
+          <div class="small" style="margin-top:10px;color:var(--signal)">→ Resolve 1 blocking condition</div>
+        </div>
+        <div class="panel" data-go="documents" style="cursor:pointer">
+          <div class="row spread"><strong>Bleed Air Valve</strong><span class="stag signal">Drafting</span></div>
+          <div class="small muted" style="margin:8px 0">Basis: Test &amp; computation</div>
+          <div class="row"><span class="stag info">no open gaps</span></div>
+          <div class="small" style="margin-top:10px;color:var(--signal)">→ Generate documents</div>
+        </div>
+        <div class="panel" data-go="upload" style="cursor:pointer">
+          <div class="row spread"><strong>Cabin Vent Duct</strong><span class="stag signal">Intake</span></div>
+          <div class="small muted" style="margin:8px 0">Basis: not confirmed</div>
+          <div class="row"><span class="stag warning">2 warning</span></div>
+          <div class="small" style="margin-top:10px;color:var(--signal)">→ Confirm the approval basis</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASES / ARCHIVE -->
+    <section class="screen" data-screen="cases">
+      <div class="row spread"><h1>PMA Cases</h1><button class="btn btn-primary" data-go="upload">＋ New case</button></div>
+      <p class="muted small" style="margin-top:-6px">Every case, live and archived. Archived packages remain fully readable — evidence, generated drafts, and the full assessment history are retained indefinitely.</p>
+      <div class="panel"><div class="row"><span class="label" style="align-self:center">Filter</span><button class="btn btn-ghost">All</button><button class="btn btn-cancel">Active</button><button class="btn btn-cancel">Archived</button><input class="minp" style="max-width:260px;margin:0 0 0 auto" placeholder="Search article name" /></div></div>
+      <div class="panel" style="padding:0"><table class="grid">
+        <thead><tr><th>Article</th><th>Status</th><th>Basis</th><th>Open gaps</th><th>Updated</th></tr></thead>
+        <tbody>
+          <tr data-go="case" style="cursor:pointer"><td>Hydraulic Bracket Assembly</td><td><span class="stag signal">Gap review</span></td><td class="muted">STC identicality</td><td><span class="stag blocking">1 blocking</span></td><td class="muted small">2026-07-24 09:12</td></tr>
+          <tr data-go="documents" style="cursor:pointer"><td>Bleed Air Valve</td><td><span class="stag signal">Drafting</span></td><td class="muted">Test &amp; computation</td><td><span class="stag info">none</span></td><td class="muted small">2026-07-23 16:40</td></tr>
+          <tr data-go="upload" style="cursor:pointer"><td>Cabin Vent Duct</td><td><span class="stag signal">Intake</span></td><td class="muted">—</td><td><span class="stag warning">2 warning</span></td><td class="muted small">2026-07-22 11:02</td></tr>
+          <tr style="cursor:pointer;opacity:.72"><td>Actuator Mount Bracket</td><td><span class="stag neutral">Archived</span></td><td class="muted">STC identicality</td><td><span class="stag info">none</span></td><td class="muted small">2026-05-30 14:20</td></tr>
+          <tr style="cursor:pointer;opacity:.72"><td>Oil Cooler Line P/N 55-114</td><td><span class="stag neutral">Archived</span></td><td class="muted">Identicality (no license)</td><td><span class="stag info">none</span></td><td class="muted small">2026-04-11 10:07</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- UPLOAD / INTAKE -->
+    <section class="screen" data-screen="upload">
+      <div class="row spread"><h1>Hydraulic Bracket Assembly</h1><span class="stag signal">Intake</span></div>
+      <div class="mai-badge" style="margin-bottom:14px">● M-AI active — advisory only. Human authority controls all decisions. <a data-go="conditions" style="margin-left:8px;text-decoration:underline">What can this assistant do?</a></div>
+      <div class="tabs"><span class="tab" data-go="case">Overview</span><span class="tab active">Intake</span><span class="tab" data-go="conditions">Conditions (4)</span><span class="tab" data-go="documents">Documents</span><span class="tab" data-go="library">Precedents</span></div>
+      <div class="panel">
+        <div class="label">Upload source document — deterministic extraction, no LLM</div>
+        <div class="row" style="margin:12px 0"><select class="minp" style="max-width:240px;margin:0"><option>STC</option><option>ASSIST_LETTER</option><option>TC_HOLDER_LETTER</option><option>MASTER_DRAWING_LIST</option><option>QMS_MANUAL_EXCERPT</option></select></div>
+        <div class="dropzone"><div style="font-size:1.4rem">⬆</div><div style="margin-top:6px">Drop a PDF here, or <span style="color:var(--signal);text-decoration:underline;cursor:pointer">browse</span></div><div class="micro muted" style="margin-top:6px">Fillable form fields are read structurally; STC/TC numbers and dates are matched against known FAA formats.</div></div>
+      </div>
+      <div class="panel">
+        <div class="label">Extracted this upload — STC_8110-2.pdf</div>
+        <table class="grid" style="margin-top:10px"><thead><tr><th>Field</th><th>Value</th><th>Method</th><th>Source</th></tr></thead><tbody>
+          <tr><td>STC number</td><td>ST01234AT</td><td><span class="stag ok">form field read</span></td><td class="muted small">form_field:stc_number</td></tr>
+          <tr><td>TC holder</td><td>OEM Airframes Inc</td><td><span class="stag ok">form field read</span></td><td class="muted small">form_field:tc_holder</td></tr>
+          <tr><td>Model eligibility</td><td>Model 737-800</td><td><span class="stag warning">pattern match</span></td><td class="muted small">pattern:MODEL</td></tr>
+        </tbody></table>
+        <div class="small muted" style="margin-top:10px">Every extracted value is written CONFIRMED with its source cited — there is no “likely”/unconfirmed state.</div>
+      </div>
+      <div class="panel">
+        <div class="label">Guided transcription — record fields off the document in front of you</div>
+        <div class="grid-cards" style="margin-top:12px">
+          <div><label class="mfi">Applicant legal name</label><input class="minp" placeholder="e.g. Acme Aerospace LLC" /></div>
+          <div><label class="mfi">Manufacturing address</label><input class="minp" placeholder="Facility street address" /></div>
+          <div><label class="mfi">FAA submission office</label><input class="minp" placeholder="ACO / MIDO — never assumed" /></div>
+          <div><label class="mfi">QMS manual number</label><input class="minp" value="QM-100" /></div>
+          <div><label class="mfi">Signatory name</label><input class="minp" placeholder="Authorized signatory" /></div>
+          <div><label class="mfi">Marking scheme reference</label><input class="minp" placeholder="Drawing / spec ref" /></div>
+        </div>
+        <button class="btn btn-primary" data-go="conditions">Save transcribed fields</button>
+      </div>
+    </section>
+
+    <!-- CASE OVERVIEW -->
+    <section class="screen" data-screen="case">
+      <div class="row spread"><h1>Hydraulic Bracket Assembly</h1><span class="stag signal">Gap review</span></div>
+      <div class="mai-badge" style="margin-bottom:14px">● M-AI active — advisory only. Human authority controls all decisions. <a data-go="conditions" style="margin-left:8px;text-decoration:underline">What can this assistant do?</a></div>
+      <div class="tabs"><span class="tab active">Overview</span><span class="tab" data-go="upload">Intake</span><span class="tab" data-go="conditions">Conditions (4)</span><span class="tab" data-go="documents">Documents</span><span class="tab" data-go="library">Precedents</span></div>
+      <div class="panel">
+        <div class="label">Approval basis (human decision)</div>
+        <div class="row" style="margin:8px 0 16px"><select class="minp" style="max-width:300px;margin:0"><option>— confirm basis —</option><option selected>STC identicality</option><option>TC licensed</option><option>Identicality (no license)</option><option>Test &amp; computation</option></select><span class="stag info">STC identicality</span></div>
+        <div class="label">Advance status (gate-enforced)</div>
+        <div class="row" style="margin-top:8px"><button class="btn btn-cancel">Intake</button><button class="btn btn-ghost">Gap review</button><button class="btn btn-ghost" style="opacity:.5" title="Blocked — resolve blocking conditions first">Drafting</button><button class="btn btn-ghost" style="opacity:.5">Under review</button><button class="btn btn-ghost" style="opacity:.5">Ready for signature</button><button class="btn btn-cancel">Archived</button></div>
+        <p class="small muted" style="margin-top:14px">A case cannot leave Gap Review with an open blocking condition; moving out of Drafting requires a Reviewer.</p>
+      </div>
+      <div class="grid-2">
+        <div class="panel"><div class="label">Recorded case data</div><table class="grid" style="margin-top:8px"><tbody>
+          <tr><td class="muted">Article</td><td>Hydraulic Bracket Assembly</td></tr>
+          <tr><td class="muted">STC number</td><td>ST01234AT</td></tr>
+          <tr><td class="muted">Applicant</td><td style="color:var(--critical)">[CONFIRM: applicant legal name]</td></tr>
+          <tr><td class="muted">QMS manual</td><td>QM-100 Rev C · 2026-01-15</td></tr>
+        </tbody></table></div>
+        <div class="panel"><div class="label">Case ledger</div><div class="small" style="margin-top:10px;line-height:1.9">
+          <div>· case created — 09:00</div><div>· evidence uploaded (STC) — 09:04</div><div>· fields extracted (3) — 09:04</div><div>· basis confirmed: STC identicality — 09:08</div><div>· status → Gap review — 09:12</div>
+        </div><div class="micro muted" style="margin-top:12px">Every action is written to an append-only audit ledger with a content hash.</div></div>
+      </div>
+    </section>
+
+    <!-- CONDITIONS -->
+    <section class="screen" data-screen="conditions">
+      <div class="row spread"><h1>Hydraulic Bracket Assembly</h1><span class="stag signal">Gap review</span></div>
+      <div class="mai-badge" style="margin-bottom:14px">● M-AI active — advisory only. Human authority controls all decisions. <a onclick="document.getElementById('charter').style.display='flex'" style="margin-left:8px;text-decoration:underline">What can this assistant do?</a></div>
+      <div class="tabs"><span class="tab" data-go="case">Overview</span><span class="tab" data-go="upload">Intake</span><span class="tab active">Conditions (4)</span><span class="tab" data-go="documents">Documents</span><span class="tab" data-go="library">Precedents</span></div>
+      <div class="cond blocking"><div class="row spread"><span class="stag blocking">blocking</span><span class="small muted">data confidence: high</span></div>
+        <div class="cond-find">The applicant's legal name is not recorded. It is a mandatory element of the PMA application letter per AC 21.303-4 §8.</div>
+        <div class="cond-hint">→ Record the applicant's exact legal name from the applicant's source documents.</div>
+        <div class="cond-refs">PMA-COMPLETE-001 r1 · AC 21.303-4 §8 · 14 CFR 21.303</div>
+        <div class="row" style="margin-top:10px"><button class="btn btn-ghost">Confirm</button><button class="btn btn-cancel">Dismiss — incorrect</button><button class="btn btn-cancel">Dismiss — N/A</button></div></div>
+      <div class="cond warning"><div class="row spread"><span class="stag warning">warning</span><span class="small muted">data confidence: high</span></div>
+        <div class="cond-find">The FAA submission office is not recorded. It must be confirmed for the geographic area of the manufacturing facility per AC 21.303-4 §7a and is never assumed.</div>
+        <div class="cond-hint">→ Confirm and record the ACO or MIDO for the manufacturing facility's geographic area (AC 21.303-4 Appendix F).</div>
+        <div class="cond-refs">PMA-COMPLETE-003 r1 · AC 21.303-4 §7a · AC 21.303-4 Appendix F</div>
+        <div class="row" style="margin-top:10px"><button class="btn btn-ghost">Confirm</button><button class="btn btn-cancel">Dismiss — incorrect</button><button class="btn btn-cancel">Dismiss — N/A</button></div></div>
+      <div class="cond" style="border-color:var(--border-hi)"><div class="row spread"><span class="stag signal">info</span><span class="small muted">data confidence: high</span></div>
+        <div class="cond-find">Evidence suggests an STC_IDENTICALITY basis (STC number present, PMA production authorized). Confirm the approval basis before drafting.</div>
+        <div class="cond-refs">PMA-BASIS-001 r1 · 14 CFR 21.303(a)(4) · AC 21-43</div>
+        <div class="row" style="margin-top:10px"><span class="stag ok">resolved · confirmed by Ada Admin</span></div></div>
+    </section>
+
+    <!-- DOCUMENTS -->
+    <section class="screen" data-screen="documents">
+      <div class="row spread"><h1>Bleed Air Valve</h1><span class="stag signal">Drafting</span></div>
+      <div class="mai-badge" style="margin-bottom:14px">● M-AI active — advisory only. Human authority controls all decisions.</div>
+      <div class="tabs"><span class="tab" data-go="case">Overview</span><span class="tab" data-go="upload">Intake</span><span class="tab" data-go="conditions">Conditions</span><span class="tab active">Documents</span><span class="tab" data-go="library">Precedents</span></div>
+      <div class="panel"><div class="label">Generate drafts — a blocking condition blocks generation</div>
+        <div class="row" style="margin-top:10px"><button class="btn btn-primary">Application Letter</button><button class="btn btn-primary">PMA Supplement</button><button class="btn btn-primary">Submission Checklist</button><button class="btn btn-primary">Management Review Pack</button></div>
+        <p class="wm-note" style="margin-top:12px">Every draft is watermarked “Draft for internal review only — not for FAA submission.”</p></div>
+      <div class="panel" style="padding:0"><table class="grid"><thead><tr><th>Type</th><th>Version</th><th>Submission status</th><th>Snapshot</th><th></th></tr></thead><tbody>
+        <tr><td>Application Letter</td><td>v2</td><td><span class="stag DRAFTED">Drafted</span></td><td class="muted small">9f2a1c4e7b03…</td><td><button class="btn btn-ghost">Download</button></td></tr>
+        <tr><td>PMA Supplement</td><td>v2</td><td><span class="stag DRAFTED">Drafted</span></td><td class="muted small">9f2a1c4e7b03…</td><td><button class="btn btn-ghost">Download</button></td></tr>
+        <tr><td>Submission Checklist</td><td>v1</td><td><span class="stag DRAFTED_WITH_GAPS">Drafted with gaps</span></td><td class="muted small">1b77e0d9a4c2…</td><td><button class="btn btn-ghost">Download</button></td></tr>
+      </tbody></table></div>
+      <div class="panel small muted">Submission status is only ever <span class="stag DRAFTED">Drafted</span> · <span class="stag DRAFTED_WITH_GAPS">Drafted with gaps</span> · <span class="stag BLOCKED">Blocked</span>. The tool never states a package is ready for FAA submission — a human certifies and submits.</div>
+    </section>
+
+    <!-- REGISTRY -->
+    <section class="screen" data-screen="registry">
+      <div class="row spread"><h1>Regulatory Source Registry</h1><div class="row"><button class="btn btn-ghost">Run check now</button><button class="btn btn-primary">＋ Add source</button></div></div>
+      <p class="muted small" style="margin-top:-6px">The system detects and proposes fixes on a schedule; an Admin approves what gets trusted. No URL is ever auto-replaced, and nothing about the regulation is inferred by a model.</p>
+      <div class="panel" style="padding:0"><table class="grid"><thead><tr><th>Title</th><th>Category</th><th>Status</th><th>URL</th><th></th></tr></thead><tbody>
+        <tr><td>AC 21.303-4</td><td class="muted">AC</td><td><span class="stag ok">OK</span></td><td class="muted small">faa.gov/…/AC_21_303-4.pdf</td><td></td></tr>
+        <tr><td>14 CFR Part 21 Subpart K</td><td class="muted">CFR_SECTION</td><td><span class="stag warning">CHANGED</span> <span class="stag blocking">frozen</span></td><td class="muted small">ecfr.gov/…/subpart-K</td><td><button class="btn btn-ghost">Accept change</button></td></tr>
+        <tr><td>FAA Form 8110-2</td><td class="muted">FAA_FORM</td><td><span class="stag blocking">BROKEN</span></td><td class="muted small">proposed: faa.gov/forms/?search=8110-2</td><td><button class="btn btn-ghost">Approve URL</button></td></tr>
+      </tbody></table></div>
+      <div class="banner-block" style="border-color:var(--warning);background:var(--warn-dim)"><div class="label" style="color:var(--warning)">Source changed — new drafts frozen</div><div class="small" style="margin-top:4px">14 CFR Part 21 Subpart K content changed since the last check. New document generation is held for this org until an Admin reviews and accepts the change.</div></div>
+    </section>
+
+    <!-- LIBRARY -->
+    <section class="screen" data-screen="library">
+      <h1>Approved Document Library</h1>
+      <p class="muted small" style="margin-top:-6px">Precedent from your organization's own approved packages. Promoted only by explicit human action, and never auto-copied into a new case.</p>
+      <div class="panel"><div class="row"><select class="minp" style="max-width:240px;margin:0"><option>All bases</option><option>STC identicality</option><option>TC licensed</option></select><input class="minp" style="max-width:260px;margin:0" placeholder="Search article name" /></div></div>
+      <div class="panel" style="padding:0"><table class="grid"><thead><tr><th>Article</th><th>Basis</th><th>Summary</th><th>Added</th></tr></thead><tbody>
+        <tr><td>Actuator Mount Bracket</td><td><span class="stag info">STC identicality</span></td><td class="muted small">STC identicality bracket, single-source MDL</td><td class="muted small">2026-05-30</td></tr>
+        <tr><td>Oil Cooler Line P/N 55-114</td><td><span class="stag info">Identicality (no license)</span></td><td class="muted small">Comparison evidence enclosed; distinct PMA P/N</td><td class="muted small">2026-04-11</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="screen" data-screen="settings">
+      <h1>Organization Settings</h1>
+      <div class="panel"><div class="label">Submission Office Profile</div><p class="small muted">Tenant-specific. Never defaulted from another organization, and never auto-assumed on a case.</p>
+        <div class="grid-2" style="margin-top:8px">
+          <div><label class="mfi">FAA office name</label><input class="minp" value="ACO Los Angeles" /></div>
+          <div><label class="mfi">Office address</label><input class="minp" value="3960 Paramount Blvd, Lakewood CA" /></div>
+          <div><label class="mfi">Office contact</label><input class="minp" value="AIR-LAX@faa.gov" /></div>
+          <div><label class="mfi">Submission method</label><input class="minp" value="Electronic (eSubmission)" /></div>
+        </div><button class="btn btn-primary">Save</button></div>
+      <div class="panel"><div class="label">Users &amp; roles</div><table class="grid" style="margin-top:10px"><thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead><tbody>
+        <tr><td>Ada Admin</td><td class="muted">ada@acme-aero.com</td><td><span class="stag signal">Admin</span></td></tr>
+        <tr><td>Quinn Engineer</td><td class="muted">quinn@acme-aero.com</td><td><span class="stag neutral">Reviewer</span></td></tr>
+        <tr><td>Pat Preparer</td><td class="muted">pat@acme-aero.com</td><td><span class="stag neutral">Preparer</span></td></tr>
+      </tbody></table></div>
+      <div class="panel"><div class="label">Appearance</div><div class="row" style="margin-top:10px"><button class="btn btn-cancel" onclick="setFont('compact')">A− Compact</button><button class="btn btn-cancel" onclick="setFont('default')">A Default</button><button class="btn btn-cancel" onclick="setFont('large')">A+ Large</button><button class="btn btn-ghost" onclick="toggleTheme()">◑ Toggle theme</button></div></div>
+    </section>
+
+  </main>
+</div>
+
+<div id="charter" class="center-screen" style="display:none;position:fixed;inset:0;z-index:300;background:rgba(2,5,12,.72);backdrop-filter:blur(8px)">
+  <div class="panel panel-hi" style="width:640px;max-height:86vh;overflow:auto">
+    <div class="row spread" style="margin-bottom:12px"><div style="font-weight:700">Authority Charter — pma-application-assessment</div><button class="ib" onclick="document.getElementById('charter').style.display='none'">✕</button></div>
+    <p class="small muted">This DIM evaluates recorded data completeness and cross-document consistency only. It makes no PMA eligibility determination, never classifies an approval basis on its own authority, and never blocks a human from proceeding — it surfaces System-Detected Conditions for a human to confirm or dismiss.</p>
+    <div class="label" style="margin-top:12px">What it can never do</div>
+    <p class="small muted">Approve, reject, close, or disposition anything; change case status or ownership; judge airworthiness; mark a package “ready for FAA submission”; communicate externally; or alter its own rules.</p>
+  </div>
+</div>
+
+<div class="mock-flag">Draft mockup · single file</div>
+
+<script>
+function show(name){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('active', s.dataset.screen===name)});
+  document.documentElement.setAttribute('data-view', name==='login' ? 'login' : 'app');
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.toggle('active', n.dataset.go===name)});
+  if(location.hash!=='#'+name) location.hash=name;
+  window.scrollTo(0,0);
+}
+function setFont(s){document.documentElement.setAttribute('data-font',s);try{localStorage.setItem('ce-font',s)}catch(e){}}
+function toggleTheme(){var n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('ce-theme',n)}catch(e){}}
+document.addEventListener('click', function(e){
+  var el = e.target.closest('[data-go]'); if(!el) return;
+  e.preventDefault(); show(el.getAttribute('data-go'));
+});
+(function(){
+  try{ var t=localStorage.getItem('ce-theme'); if(t) document.documentElement.setAttribute('data-theme',t);
+       var f=localStorage.getItem('ce-font'); if(f) document.documentElement.setAttribute('data-font',f);}catch(e){}
+  var start=(location.hash||'#login').slice(1);
+  show(document.querySelector('[data-screen="'+start+'"]') ? start : 'login');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "session_management": {
+    "maintains_across_turns": [
+      {
+        "key": "active_analysis_id",
+        "purpose": "So Vera remembers which customer/standard you're analyzing"
+      },
+      {
+        "key": "established_facts",
+        "purpose": "If user corrects a gap classification, Vera remembers for the rest of session"
+      },
+      {
+        "key": "scope_constraints",
+        "purpose": "If user says 'ignore procedure X', Vera remembers"
+      },
+      {
+        "key": "user_preferences",
+        "purpose": "User's preferred output format, detail level, etc."
+      },
+      {
+        "key": "clarification_history",
+        "purpose": "Track what clarifications were asked and answered"
+      }
+    ],
+    "resets": [
+      "At end of each analysis (user asks 'Analyze new customer')",
+      "If 30 min of inactivity",
+      "User explicitly says 'Reset conversation'"
+    ],
+    "persistence": {
+      "session_timeout_minutes": 30,
+      "save_to_database": true,
+      "table": "ai_chat_log"
+    }
+  }
+}
+

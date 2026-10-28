@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The identifier gate scans commit content, not just the working tree.
+          # A shallow clone would let a scrubbed-in-place identifier survive in
+          # history unnoticed.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test
+
+      - name: Clean-room identifier gate + opinion-language gate
+        # SCRUB_DENYLIST holds the owner's list of company, person, office and
+        # third-party product names. It is a repository secret written to a
+        # temporary file, never committed: a file listing the names that must
+        # not appear in this repository would itself be the violation.
+        env:
+          SCRUB_DENYLIST_CONTENT: ${{ secrets.SCRUB_DENYLIST }}
+        run: |
+          if [ -n "$SCRUB_DENYLIST_CONTENT" ]; then
+            printf '%s\n' "$SCRUB_DENYLIST_CONTENT" > "$RUNNER_TEMP/denylist.txt"
+            export SCRUB_DENYLIST="$RUNNER_TEMP/denylist.txt"
+          else
+            echo "::warning::SCRUB_DENYLIST secret is not set. Structured identifiers are still gated; name-based terms are not covered on this run."
+          fi
+          npm run scrub:history
+
+      - name: Production build excludes the test dashboard
+        # Checking for the route string alone is not enough. A lazy import left
+        # statically reachable still emits the dashboard as its own chunk -
+        # unroutable, but shipped to the customer. Both are checked.
+        run: |
+          npm run build
+          failed=0
+          for needle in "dev/test-dashboard" "Eligibility gate inspector" "Interruption simulator"; do
+            if grep -rlF "$needle" dist/ ; then
+              echo "::error::Test dashboard content reached the production bundle: $needle"
+              failed=1
+            fi
+          done
+          if ls dist/assets 2>/dev/null | grep -i "dashboard" ; then
+            echo "::error::A test dashboard chunk was emitted into the production bundle."
+            failed=1
+          fi
+          if [ "$failed" -ne 0 ]; then exit 1; fi
+          echo "Test dashboard is absent from the production bundle, route and code."

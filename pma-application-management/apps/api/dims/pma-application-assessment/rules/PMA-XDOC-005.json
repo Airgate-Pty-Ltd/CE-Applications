@@ -1,0 +1,33 @@
+{
+  "ruleId": "PMA-XDOC-005",
+  "dimId": "pma-application-assessment",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "PENDING-REVIEW",
+  "approvalRef": "Submission Checklist item 3.A.V (Enclosures)",
+  "severity": "major",
+  "gapClass": "WARNING",
+  "category": "completeness",
+  "riskClass": "B",
+  "basisType": "deterministic-record-completeness",
+  "description": "The Enclosures list in the application letter must match what paragraphs 1 and 2 (or the table) of the same letter declare.",
+  "requiredFields": [
+    "enclosures_match_letter_body"
+  ],
+  "logicResult": "enclosures_mismatch",
+  "findingText": "The Enclosures listed in the application letter's last paragraph do not match the documents declared in paragraphs 1 and 2 (or the table) of the same letter.",
+  "resolutionHint": "Align the Enclosures list with the STC, supplement, and drawing/index list actually cited in the letter body.",
+  "clauseRefs": [
+    "Submission Checklist item 3.A.V (Enclosures)"
+  ],
+  "condition": {
+    "field": "enclosures_match_letter_body",
+    "op": "eq",
+    "value": false
+  },
+  "limitations": [
+    "Checks internal consistency of the letter; it cannot confirm the enclosures were physically attached."
+  ],
+  "citationScope": "generic",
+  "citationNote": "Cites the form/procedure by role; the tenant profile supplies its own controlled document number and revision when the finding is rendered."
+}

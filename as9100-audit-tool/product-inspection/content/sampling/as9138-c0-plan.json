@@ -1,0 +1,26 @@
+{
+  "_note": "AS9138 / C=0 zero-acceptance sampling plan. Lot size range → sample size n. Accept number is always 0; reject number is always 1.",
+  "_source": "AS9138 Table 1 and common aerospace C=0 practice. Do not redistribute.",
+  "_rule": "ac=0, re=1 for all entries. If sample size n > lot size, use n = lot size.",
+
+  "ranges": [
+    { "min": 2,    "max": 8,    "n": 2   },
+    { "min": 9,    "max": 15,   "n": 3   },
+    { "min": 16,   "max": 25,   "n": 5   },
+    { "min": 26,   "max": 50,   "n": 8   },
+    { "min": 51,   "max": 90,   "n": 13  },
+    { "min": 91,   "max": 150,  "n": 20  },
+    { "min": 151,  "max": 280,  "n": 32  },
+    { "min": 281,  "max": 500,  "n": 50  },
+    { "min": 501,  "max": 1200, "n": 80  },
+    { "min": 1201, "max": 3200, "n": 125 },
+    { "min": 3201, "max": 10000,"n": 200 },
+    { "min": 10001,"max": 35000,"n": 315 },
+    { "min": 35001,"max": 150000,"n": 500 },
+    { "min": 150001,"max": 500000,"n": 800 },
+    { "min": 500001,"max": null, "n": 1250 }
+  ],
+
+  "ac": 0,
+  "re": 1
+}

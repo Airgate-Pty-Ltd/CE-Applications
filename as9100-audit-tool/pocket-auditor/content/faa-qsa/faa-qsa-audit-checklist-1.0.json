@@ -1,0 +1,2559 @@
+{
+ "schema": "pocket-auditor.source-checklist.v1",
+ "standard": "FAA QSA Audit Checklist 1.0",
+ "source_file": "C:\\Users\\oleab\\OneDrive - Burrana\\VP Quality\\Certification\\FAA\\FAA PMA\\QSA AUDIT CHECKLIST 1.0.xlsx",
+ "source_sha256": "a659ebdf754692463303a39d0dc07c17d61db125f403d2be1d95fc526ac2e86a",
+ "licence_scope": "BURRANA_PRIVATE_SOURCE",
+ "status": "DRAFT_SOURCE_IMPORTED",
+ "criteria_count": 126,
+ "criteria": [
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "101",
+   "question": "Is the production approval/authorization retained at the audited facility in which the product is manufactured and was it available to the FAA upon request?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that the production certificate is available as required. This should include all attachments, such as the Production Limitation Record (PLR)."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "102",
+   "question": "Is the audited facility operating within the production limitations of the production approval?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that the audited facility is manufacturing, for sale/installation, those products it is authorized to manufacture under a production approval."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "103",
+   "question": "Has the PAH provided to the FAA a document describing how its organization will ensure compliance with provisions of the regulatory subpart?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. The policy document includes:\n(1) A description of assigned responsibilities and delegated authority.\n(2) A description of the functional relationship of those responsible for quality to management and other organizational components."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "105",
+   "question": "Has the PAH provided to the FAA a quality manual describing its quality system? Are the documents prepared in the English language and retrievable in a form acceptable to the FAA?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that the quality manual, including electronically stored versions, is available in the major quality and inspection areas, and is subject to periodic review and revision.\n(1) Everyone associated with the quality system is performing within their described assigned responsibilities and delegated authority.\n(2) A table or organizational chart describes the functional relationship of the quality organization to management and to the other organizational components.\n(3) A description of assigned responsibilities and delegated authority to make changes to the quality system is provided.\n(4) The individual identified for managing the quality program has the necessary authority and organizational freedom."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "106",
+   "question": "Is quality system data, and changes thereto, submitted to the FAA?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Each change to the quality system is subject to review by the FAA.\nb. The holder of a production approval must immediately notify the FAA, in writing, of any change that may affect the inspection, conformity, or airworthiness of its product or article."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "107",
+   "question": "Are tags, forms, and other documents described and controlled?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures include, but are not limited to—\n(1) A sample of each tag, form, and other document with instructions for use as applicable.\n(2) A formal change control procedure.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "108",
+   "question": "Has the audited facility established procedures for control of quality records?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that—\n(1) Procedures are maintained for identifying, storing, protecting, retrieving, and retaining quality records.\n(2) Quality records are retained for at least 5 years.\n(3) Quality records having critical components are identified and retained for at least 10 years.\n(4) TSO authorization technical design data necessary to determine conformity and airworthiness of each article produced, is retained by the manufacturer.\n(5) Records are legible, complete, and accurate."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "109",
+   "question": "Has the PAH made appropriate notification to the FAA with regard to undue burden, relocation, or change to manufacturing facilities?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Has “no undue burden” been determined by the FAA for PAH manufacturing facilities located outside the United States?\nb. Has FAA approval been obtained before location changes to any PAH manufacturing facilities were made?\nc. Has the PAH notified the FAA in writing of any change to its manufacturing facilities that may affect the inspection, conformity, or airworthiness of its product or article?"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "110",
+   "question": "Are failures, malfunctions, and defects reported to the FAA?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. The organization has established procedures for reporting failures, malfunctions, and defects.\nb. The organization’s procedures for reporting failures, malfunctions, or defects—\n(1) Establish definitions of conditions that must be reported to the FAA.\n(2) Establish a method of documenting reportable conditions and a method for reporting them to the FAA.\n(3) Require prompt audit of each condition to determine if it is reportable to the FAA.\n(4) Require that the condition be reported to the FAA within 24 hours (with provisions for weekends and holidays) after it has determined that the failure, malfunction, or defect required to be reported has occurred.\n(5) Require retention of each reported condition document, the FAA response, and the organization’s disposition of the condition.\nc. There is objective evidence of adherence to these procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "111",
+   "question": "Are service bulletins and maintenance manuals approved by authorized personnel and coordinated with FAA engineering?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures define specific organizational and individual responsibilities for issuing service bulletins, maintenance manuals, SDRs, and other related communication.\nb. Changes are approved by authorized personnel and coordinated with FAA engineering.\nc. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "112",
+   "question": "Are there procedures for receiving and processing feedback on in-service failures, malfunctions, and defects?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) A requirement to include a process for assisting the design approval holder to address any in-service problem involving design changes.\n(2) A requirement to include a process for assisting the design approval holder to determine if any changes to the Instructions for Continued Airworthiness are necessary.\n(3) Determination of appropriate manufacturing, design, or Instructions for Continued Airworthiness responsibilities for the reported problem.\n(4) A system of tracking for accountability.\n(a) Records are generated and maintained.\n(b) Contents of each record used include when the report was received, what was reported, and actions taken.\n(c) Requirements established that tape files, microfilm, etc., used for record retention exhibit legible data, acceptance stamps and/or signatures, as required.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "113",
+   "question": "Are service problems (both design and manufacturing), unairworthy conditions, unsafe features, or unsafe characteristics reported by the FAA or users investigated? Are prompt corrective actions taken by the audited facility?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) A method of investigating, identifying, locating, and reporting suspected unsafe products.\n(2) Prompt corrective action, which includes, at a minimum—\n(a) Root cause determination and correction of deficient design or manufacturing.\n(b) A means of purging, tracking, and accountability of known unsafe products.\n(3) Investigating reports of unairworthy conditions or unsafe features or characteristics reported by the FAA.\n(4) Reporting investigation results and actions taken or proposed to the FAA.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "114",
+   "question": "Do procedures provide a method to notify users and recall products, when necessary, when nonconformances are suspected or known to exist in products in service?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "115",
+   "question": "Is there a means for keeping users of the product/article informed of service information, including field purges?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for informing product users of service difficulties, and of required field purges for suspected or known unsafe conditions.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "116",
+   "question": "Are there procedures for planning, conducting, and documenting internal audits?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) Planned and documented internal audits of personnel, procedures, operations, equipment, material, processes performed, and records in all major functional areas.\n(2) Criteria for conducting compliance, systems, and product audits.\n(3) A formal audit schedule that is available, approved by management, and followed.\n(4) Requirements for the qualification and training of personnel who are performing the audits.\n(5) Auditors who are independent of the activity being audited.\n(6) Special audits when significant customer problems are detected, or when there are significant changes to processes or systems.\n(7) Methods for identifying and reporting nonconformance and obtaining required corrective action."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "117",
+   "question": "Are results of internal audits reported to the appropriate facility personnel?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) A requirement to report the results of internal audits to the manager responsible for implementing corrective and preventive actions.\n(2) Review of internal audit results by personnel having responsibility for the areas audited.\n(3) Root cause determination and development of appropriate and prompt corrective action.\n(4) Followup audits (as necessary) to ensure effective implementation of corrective action.\n(5) Actions taken to determine if changes are required to the quality system or other similar processes (which may not have been audited) in addition to correcting reported noncompliance."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "118",
+   "question": "Are there procedures for implementing corrective and preventive actions to eliminate the causes of an actual or potential nonconformity to the approved design, or noncompliance with the approved quality system?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "119",
+   "question": "Are there procedures for identifying, analyzing, and initiating corrective action for products or articles that have been released from the quality system, but do not conform to applicable design data or quality system requirements?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "201",
+   "question": "Are there procedures for the control of technical data/documents and do they include storage, maintenance, and protection?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) Storing, maintaining, and protecting design data/documents to preserve their integrity, including magnetic storage media used as part of design documentation, if applicable.\n(2) Identification of technical data/documents.\n(3) Indication of technical data/documents approval, including FAA approval.\n(4) A list of technical data/documents necessary to define configuration of the FAA-approved design.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "202",
+   "question": "Are there procedures for controlling design data and subsequent changes?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence of—\n(1) Use of current, correct, and approved data.\n(2) Control of design and technical data document issuance, including persons authorized to obtain documents and for retrieval of obsolete documents.\n(3) The method for making available to or notifying employees concerning changes in technical data.\n(4) Verification that correct documents are in use for the product being produced.\n(5) Current design and technical data document distribution lists.\n(6) A complete and current file of technical data, including design drawings and specifications.\n(7) Electronically stored and transmitted technical design and quality data are adequately controlled."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "203",
+   "question": "Do the manufacturing, quality, and service/support organizations participate in the review of design and technical data changes?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for the manufacturing organization, quality organization, and service/support organization to review design and technical data changes before release to ensure the product can be produced in conformity to an FAA-approved design.\n(1) The product can be properly audited and verified to be in conformity to an FAA-approved design. Inspection equipment is available or can be procured that will adequately verify conformity to FAA-approved design, and that can be controlled for accuracy, when required.\n(2) Service/product organization review design data changes before release to ensure appropriate airworthiness and service documents that are affected by the design change are revised as required.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "205",
+   "question": "Are changes to technical data referenced on FAA-approved design data (specifications, installation instructions [when applicable], and airborne software documentation) appropriately documented and approved?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide that changes to technical data referenced on FAA-approved design data are documented and approved in the same way as changes to product design.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "206",
+   "question": "Are minor design changes approved under a method acceptable to the FAA?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that—\n(1) Minor changes in a type design are approved by the FAA or by a method acceptable to the FAA. For example, an FAA-approved procedure whereby the PAH approves minor design changes.\n(2) For TSO articles, all necessary revised data are submitted to the FAA when minor changes are made and agree with any part number plan specified in the original application. \n(3) For PMA, a minor change to the design of an article has no appreciable effect on the approval basis.\nb. There is objective evidence of observance to established procedures"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "207",
+   "question": "Are major design changes, including process specification changes, submitted to the FAA for approval?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that—\n(1) Major design changes are submitted to the FAA for approval, including changes to manufacturing and special process specifications.\n(2) Design changes resulting from applicable ADs, and design changes, which contribute to the safety of the product, are submitted to the FAA for approval."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "208",
+   "question": "Have design changes necessary to correct unsafe conditions been incorporated into the FAA-approved design, when applicable?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that design changes necessary to correct unsafe conditions have been incorporated into the FAA-approved design. This evidence may include one or more of the following:\n(1) Identification of applicable ADs.\n(2) Tracking the status of AD incorporation.\n(3) Furnishing the customer with the AD incorporation status at the time the product is delivered."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "209",
+   "question": "Are the instructions for continued airworthiness kept current with design changes, when appropriate, and made available to appropriate persons?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "210",
+   "question": "Is descriptive data and information on FAA-approved design changes resulting from incorporation of ADs or that contribute to the safety of the product made available to users of the product?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that all applicable descriptive data and information covering FAA-approved design changes or improvements that contribute to the safety of the product are made available to product users."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "211",
+   "question": "If commercial parts are used, has the PAH provided to the FAA a listing of parts defined as commercial, along with additional information, as required?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for the submittal of commercial parts list and supporting data for all parts designated as commercial."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "1",
+   "question": "System Element Description. This system element addresses the planning and integration of the audited facility’s procedures for continuously maintaining the integrity of software used in type-certificated aircraft or related products (airborne software), and the integrity of software and related hardware used for product acceptance. Document DO-178, Software Considerations in Airborne Systems and Equipment Certification (current edition), of the Radio Technical Commission for Aeronautics (RTCA), or comparable means, should be used as guidance for control of airborne software.",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "2",
+   "question": "System Element Standardized Audit Criteria. The criteria used to document the audit of this system element are divided into two parts: Part A, Airborne Software, and Part B, Product Acceptance Software.",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Part A. Airborne Software"
+   ],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "301",
+   "question": "Is there a Software Configuration Management Plan or procedure to control airborne software configuration?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) Installation of the correct version of the software in the delivered product in accordance with the FAA-approved design.\n(2) A method by which controlled software containing the FAA-approved design data is transitioned into production. The media containing the software installed in the product is directly traceable to the Software Configuration Management library.\n(3) Documentation of integration of software with hardware to specify a unique version for incorporation into the product.\n(4) Cross-reference of software documents to their associated software.\n(5) The technical data/documents control system that includes software identification methods at the media level and at the product level. The media level identification is incorporated into the software, and the product level identifications are marked on the outside of the product indicating software configuration.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "302",
+   "question": "Is there a Configuration Index Document (CID) listing all software documents under configuration control and defining the hardware and software part numbers?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for traceability of hardware and software part numbers to the drawing control system.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "303",
+   "question": "Are there practices and procedures for reporting, tracking, and resolving software problems?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Corrective action procedures, for problems found subsequent to the FAA-approved design, include provisions for airborne software and hardware/software combinations. Procedures may parallel or be part of hardware corrective action procedures.\nb. Problem reports addressing changes to software code are under change control.\nc. The production test procedures have been modified to reflect the software change and successfully executed against the changed version.\nd. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "304",
+   "question": "Is obsolete and noncurrent software media recalled and purged, when applicable?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Configuration control procedures for airborne software include methods of purging software for removal of obsolete and noncurrent media, when applicable. Procedures may parallel or be part of hardware purging procedures.\nb. Procedures include methods to identify, store, or dispose of obsolete and noncurrent media, when applicable.\nc. There is objective evidence of observance to established procedures"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "305",
+   "question": "Are there methods and facilities to protect computer programs from unauthorized access, inadvertent damage, or degradation?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide—\n(1) Configuration control of the airborne software within the product design files.\n(2) Limited access to software files and protection from unauthorized changes.\n(3) Separate archives for masters and duplicates.\n(4) That masters and duplicates are not revived by the same machine simultaneously.\n(5) Minimized risk of deterioration and regeneration of errors on selected storage medium.\n(6) Assurance that the reproduction of code occurs error free.\nb. There is objective evidence of observance to established procedures"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "306",
+   "question": "Are there procedures to ensure documentation and archival for each version of the delivered airborne software version?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures (that is, version description document) provide for methods to identify, document, and archive the software environment for each version of delivered airborne software.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "307",
+   "question": "Is software identified/marked externally/internally in accordance with the engineering drawing requirements?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Work instructions detail the identification/marking requirements.\nb. There is objective evidence of observance to established instructions."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "308",
+   "question": "Is airborne software programmed media handled and stored properly (for example, environmental controls and magnetic interference precautions)?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for special handling of programmed media.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "309",
+   "question": "Are build and load instructions established, maintained, and used?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide—\n(1) Software build and load into hardware components.\n(2) Successful testing of the hardware after the software load.\nb. There is objective evidence of observance to established procedures.",
+    "Part B. Product Acceptance Software"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "310",
+   "question": "Is there a Software Configuration Management Plan or procedure to control product acceptance software configuration?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) Identification of software for an application.\n(2) Control of approved versions for product acceptance.\n(3) Control of obsolete and noncurrent software.\n(4) Identification of software with a software configuration identification.\n(5) Documentation of integration of software with hardware to specify a unique version for incorporation into the product.\n(6) Cross-reference of software documents to their associated software.\n(7) The technical data/documents control system that includes software identification methods at the media level and at the product level. The media level identification is incorporated into the software, and the product level identifications are marked on the outside of the product indicating software configuration.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "311",
+   "question": "Are all changes to product acceptance software documented and approved?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for the method to change and approve product acceptance software. A procedure patterned after an engineering drawing change procedure is appropriate to provide a permanent record showing reason for change, revisions to the software, approvals, and effectivity.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "312",
+   "question": "Are there practices and procedures for reporting, tracking, and resolving software-related product acceptance problems?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Corrective action procedures for product acceptance software may parallel or be part of manufacturing’s general problem identification and corrective action procedures.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "313",
+   "question": "Are there methods and facilities to protect computer programs from unauthorized access, inadvertent damage, or degradation?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) Configuration control of product acceptance software to prevent unauthorized changes to the software.\n(2) Limited access to software files and protection from unauthorized changes.\n(3) Separate archives for masters and duplicates.\n(4) Protection from corruption of masters and duplicates, ensuring they are not available in the same machine at the same time.\n(5) Minimized risk of deterioration and regeneration of errors on selected storage medium.\n(6) Assurance that reproduction of code occurs error free.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "314",
+   "question": "Is product acceptance software verified before use?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) Independent means to verify product acceptance software, and subsequent revisions, to ensure it accomplishes its intended function.\n(2) Means to verify software/firmware/hardware is capable of discriminating between conforming and nonconforming parts or assemblies.\n(3) Formal means of identifying approved product acceptance software.\n(4) Configuration control of the product acceptance software as it relates to the product being accepted.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "criteria_ref": "315",
+   "question": "Are build and load instructions established, maintained, and used?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) Software build and load into hardware components.\n(2) Successful testing of the hardware after the software load.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "1",
+   "question": "System Element Description. This system element addresses specialized actions whereby materials, parts, or assemblies are accepted, worked or fabricated, tested, inspected, stored, and prepared for shipment. For purposes of an audit these actions are broken down as follows:",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "2",
+   "question": "System Element Standardized Audit Criteria. The following criteria are used to document audit of this system element. The criteria used to document the audit of this system element are divided into three parts: Part A, Manufacturing and Special Manufacturing Processes; Part B, Material Handling, Receiving, and Storage; and Part C, Airworthiness Determination.",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "a. Manufacturing and Special Manufacturing Processes. Specific functions and operations necessary for the fabrication and inspection of parts and assemblies (some examples are machining, riveting, and assembling). Also included are methods whereby materials, parts, or assemblies are worked or fabricated through a series of precisely controlled steps, and that undergo physical, chemical, or metallurgical transformation (some examples are heat-treating, brazing, welding, and processing of composite materials).",
+    "Part A. Manufacturing and Special Manufacturing Processes"
+   ],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "401",
+   "question": "Are work instructions and revisions to work instructions reviewed, approved, controlled, and documented?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—",
+    "(1) Preparation of work instructions and revisions to work instructions to ensure the work functions to be performed are satisfactorily accomplished. Work instructions include the following:",
+    "(a) Sequence of operations;",
+    "(b) Accept/reject criteria;",
+    "(c) Workmanship criteria;",
+    "(d) Inspection methods;",
+    "(e) Tolerance limits;",
+    "(f) Environmental conditions;",
+    "(g) Sampling plans;",
+    "(h) Special drawing notes;",
+    "(i) Skilled personnel (certified) required;",
+    "(j) Special precautions for critical product protection;",
+    "(k) Part marking and identification;",
+    "(l) Part stamp location requirements when defined by approved data;",
+    "(m) Inspection of assemblies to detect inclusion of foreign objects before closure;",
+    "(n) Reinspection of parts and assemblies that are reopened, disassembled, or tampered with; and",
+    "(o) Contamination control in hydraulic installations (for example, purging, filtration, charging, and disposal).",
+    "(2) Coordination of initial release and changes to work instructions with affected departments, such as Planning and Quality, to ensure manufacturing processes are adequately controlled.",
+    "(3) Authorized quality organization personnel review work instructions and changes before release to ensure—",
+    "(a) Inspection points are located in the manufacturing process at points that ensure conformity to FAA-approved design.",
+    "(b) Adequate inspection equipment will be available and will be controlled for accuracy, as necessary.",
+    "(c) Drawing number and revision level are referred to.",
+    "(4) Method by which temporary changes are approved by authorized personnel.",
+    "(5) Control of the number of temporary changes allowed before requiring complete incorporation of work instructions.",
+    "(6) Control and documentation of revisions to work instructions.",
+    "(7) Method by which revisions are identified on the work instructions.",
+    "(8) Record of work instruction changes.",
+    "(9) Control of obsolete work instructions.",
+    "(10) Reflection of design changes that correct unsafe conditions identified in ADs.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "402",
+   "question": "Are all special processes in use identified and defined by FAA-approved design data and detailed in process specifications?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that special processes in use are identified and documented in FAA-approved design data and/or process specifications. Process specifications address requirements, as applicable, for personnel qualifications, material, equipment, process monitoring requirements, and accept/reject criteria.\nb. There is objective evidence that all requirements listed in applicable special processes in use are completed in accordance with the approved process specifications."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "403",
+   "question": "Are procedures in place for controlling manufacturing processes?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence of— (1) Processes ensuring each product and article conforms to its approved design.\n(2) New or changed processes being substantiated and approved by appropriate personnel.\n(3) Verification/testing of new or changed manufacturing and special processes by responsible engineering personnel to ensure the process will produce what the design requires.\n(4) Approval of process changes by appropriate personnel.\n(5) Documentation of change history by responsible personnel."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "404",
+   "question": "Are special manufacturing process operators qualified and approved in accordance with the specification/manufacturer’s procedures?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence of periodic review of personnel certifications to ensure only qualified operators perform special processing."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "405",
+   "question": "Are records generated and maintained for all significant provisions of the quality/inspection program that have an effect on control of the conformity of the manufactured article to FAA-approved design data?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—",
+    "(1) Generation and content of inspection and test records.",
+    "(a) Inspection and tests for product acceptance include, as a minimum, applicable drawing/specification number and revision levels.",
+    "(b) Results of inspection and tests for first production configuration articles.",
+    "(c) In-process inspections used to determine acceptability of an article to FAA-approved design data.",
+    "(d) Final inspection acceptability of completed end items.",
+    "(e) Periodic inspection and control of tools used as a media of inspection, including check fixtures, inspection gauges, and measurement instruments.",
+    "(f) Test data directly traceable to the material, parts, or products tested.",
+    "(g) Contents of each record should include, as a minimum, the nature and number of observations, the number and type of discrepancies found, lot identity and size, sample sizes, and resultant corrective action.",
+    "(2) Generation and content of special process records:",
+    "(a) Complete and continuous monitoring of special processes per specification requirements.",
+    "(b) Product identity and material traceability throughout the processing cycle.",
+    "(c) Special process inspection approval, such as unique special process inspection approval stamps.",
+    "(3) Record legibility, completeness, and accuracy.",
+    "(4) Requirements that storage media used for record retention exhibit legible data, acceptance stamps and/or signatures, as required.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "406",
+   "question": "Is equipment required for special processing, such as tools, gauges, instruments, timers, ammeters, or voltmeters, available and calibrated?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Equipment has evidence of current calibration and is available for controlling and monitoring special processes."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "407",
+   "question": "Is action taken to correct a manufacturing/special process that is found to be out of control?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence of:\n(1) Action when there is loss of control.\n(2) Investigation to ensure acceptability of products produced while the process was out of control.\n(3) Corrective action as a result of the analysis of trends in process to prevent nonconforming products.",
+    "409 Are procedures in place that support inspection methods that ensure all products/parts and articles will conform with the FAA-approved design?",
+    "Statement of Condition\na. There is objective evidence that parts, components, and assemblies are inspected during production. The inspection system should include—",
+    "(1) Documentation and availability of criteria for determining appropriate inspection methods (attributes/characteristics).",
+    "(2) Controls of the manufacturing system when physical inspection of parts or processed material is impossible or disadvantageous.",
+    "(3) A combination of physical inspection and process control whenever either method alone is not sufficiently capable of determining the quality of parts.",
+    "(4) Inspection of assemblies to detect inclusion of foreign objects before closure.",
+    "(5) Reinspection of parts and assemblies that are reopened, disassembled, or tampered with.",
+    "(6) Contamination control in hydraulic installations (for example, purging, filtration, charging, and disposal).",
+    "(7) Procedures for the inspections and tests required to be completed for final acceptance of the completed products/parts."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "410",
+   "question": "Is the inspection status of products/parts and articles identifiable throughout the manufacturing cycle?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide methods of marking/traceability that ensure identification of inspection status throughout the manufacturing process.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "411",
+   "question": "Are inspection-marking devices/stamps issued only to authorized persons and are there procedures to ensure proper control?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—",
+    "(1) Responsibility for control of stamps.",
+    "(2) A listing of stamps issued to personnel.",
+    "(3) Handling of lost or returned stamps.",
+    "(4) Periodic check of all stamps to ensure legibility of stamp impressions and possession of stamps by correct personnel.",
+    "(5) The type of stamps to use for the various materials that will require stamp impressions to ensure the material/part is not damaged.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "412",
+   "question": "Are special environmental controls (for example, temperature, and cleanliness) used in material storage, handling, manufacturing, and assembly areas when warranted?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Environmental controls may include—",
+    "(1) Storage of sensitive materials in the original or other appropriate container.",
+    "(2) Monitoring and recording of temperature and humidity.",
+    "(3) General housekeeping to ensure the product is not adversely affected by storage and handling (for example, dirt, dust, water damage, corrosion, compression, dropping, ultraviolet light, heat, or cold).",
+    "(4) Training of appropriate personnel in maintaining established environmental controls.",
+    "b. Corrective action procedures have been established, and corrective action is taken as required.",
+    "Part B. Material Handling, Receiving, and Storage",
+    "Material Receiving, Handling & Storage Warehouse Process, Shipping and Receiving",
+    "b. Material Receiving, Handling, and Storage. The methods used to accept and protect raw materials, parts, subassemblies, assemblies, and completed products during receipt, manufacture, inspection, test, storage, and preparation for shipment."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "413",
+   "question": "Is receiving inspection required to verify raw materials and supplier-furnished parts/service conform to the FAA-approved design data or purchase order requirements?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—",
+    "(1) Conformity of supplier-furnished items, software, parts, and assemblies, including the inspection and identification of buyer-furnished material.",
+    "(2) Verification and identification of raw material, including process material (such as weld rod). Methods include—",
+    "(a) Review of certification test reports to ensure all requirements are met.",
+    "(b) Types and frequencies of analysis required to verify certifications, consisting of, at a minimum, initial and periodic verifications (dependent on supplier audits), past quality performance, and material importance.",
+    "(c) Nondestructive inspection (NDI) techniques employed to verify the quality of castings and forgings.",
+    "(d) When specified, Material Laboratory Analysis Records identifiable to batch number, serial number, or heat number for a given part number.",
+    "(e) If Material Certificate/Laboratory Analysis is for a quantity of material, serial numbers, if appropriate, identifiable to the respective Material Certificate or Laboratory Analysis.",
+    "(3) Extent of actual inspection upon receipt, depending on inspectability for conformity and quality, supplier audit results, past quality performance, inspections and reviews conducted at the supplier’s facility, and relative importance of the part/material.",
+    "(4) First article inspection and test of products produced by new suppliers.",
+    "(5) Inspection and documentation requirements to meet current design data.",
+    "(6) Audit of incoming statistical data.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "414",
+   "question": "Are quality system records of receiving inspection generated and maintained for products/articles/parts?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—",
+    "(1) Contents of each receiving inspection record to include name, part number, sample size, type and quantity of inspections made, conformance or nonconformance, quantity and description of nonconformances found, and action taken.",
+    "(2) Record legibility, completeness, and accuracy.",
+    "(3) Requirements that storage media used for record retention, exhibit legible data, acceptance stamps and/or signatures, as required.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "415",
+   "question": "Are purchased shelf-life materials and products verified to ensure specification requirements are met?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—\n(1) Verification upon receipt of purchased material or products that have shelf-life requirements to ensure they are within specified dates.\n(2) Withholding from production, purchased material or products not within the specified shelf-life requirements unless special testing is accomplished to verify conformity.\nb. There is objective evidence of observance to established procedures.",
+    "416 Are age-sensitive products/parts/articles and material identified and controlled?",
+    "Statement of Condition\na. There is objective evidence that—\n(1) Age-sensitive materials and materials susceptible to deterioration/corrosion are identified and controlled. This includes, as a minimum—",
+    "(a) Determination of shelf-life limits by type of material.",
+    "(b) Detailed mixing instructions if different from manufacturer’s.",
+    "(c) Instructions for retest and extension of shelf life.",
+    "(d) Permissible amount of time shelf life may be extended.",
+    "(e) Identification requirements for shelf-life extension dates.",
+    "(2) Bins containing limited shelf-life items are identified.",
+    "(3) Out-of-date items in bonded areas are identified and segregated until reinspected, retested, and dispositioned.",
+    "(4) Raw materials used in composites (for example, pre-preg rolls and epoxy/adhesive materials) are in compliance with manufacturer’s specifications. There is a documented trail covering receipt of material, initial testing, usage, storage, retesting, etc."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "417",
+   "question": "Are material and parts and articles awaiting acceptance segregated?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for control, identification, and segregation (where practical) of material and parts awaiting testing or inspection from those already accepted.\nb. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "418",
+   "question": "Are traceable components identified in assembly records?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that traceable components are identified in assembly records (that is, fitted parts/components/assemblies, matched sets)."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "419",
+   "question": "Are completed parts and articles traceable to raw material, when applicable?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. There is objective evidence that—",
+    "(1) Completed parts can be traced to raw material through records.",
+    "(2) Traceable parts are marked and recorded.",
+    "(3) Procedures for handling rejected traceable parts are followed."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "420",
+   "question": "Is traceability for split lots maintained, including accountability for the completion of all manufacturing and inspection operations?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition\na. Procedures provide for—",
+    "(1) Control of split lots.",
+    "(2) Accountability of products through each stage of the manufacturing process.",
+    "(3) Accountability for shortages/overages as successive operations are performed.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "421",
+   "question": "Are special identification and controls required if materials, parts, or articles are introduced into production before full acceptance?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Special identification and controls for material or parts introduced into production before full acceptance or release.",
+    "(2) Conditions in which the pre-release of material or parts will be allowed.",
+    "(3) Obtaining appropriate documented approvals before pre-release.",
+    "(4) Documentation of each pre-release to show approvals, reasons for pre-release, and where in the production line material or parts are allowed to progress until full release is obtained.",
+    "(5) Identification of material or parts in such a manner that they can be retrieved if full release is not obtained.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "422",
+   "question": "Are appropriate methods used to prevent part damage or contamination to the part or article?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence of—",
+    "(1) Instructional guidance on the use of material handling equipment.",
+    "(2) Methods for stacking parts.",
+    "(3) Methods for tying, wrapping, or properly supporting parts to preclude shifting and falling.",
+    "(4) Methods to protect critical machined surfaces, highly polished surfaces, or plated parts. Methods include use of lift fixtures, covering on forklift contact surfaces, protective containers, wrapping, interlayering with protective material, and special racks.",
+    "(5) Methods to protect electronic parts from corrosion, pin damage, or contamination from dust or dirt. Sealed parts (for example, switches, circuit breakers, or relays) are protected from rough handling and contact damage from like parts or other products.",
+    "(6) Methods to protect product from contamination. Methods may include—",
+    "(a) Capping all openings in components (for example, tubing, valves, electrical connectors, and pumps) prone to entrapment of foreign objects.",
+    "(b) Bagging, plugging, or capping completed hose and hose assemblies.",
+    "(c) Individually packaging or properly protecting oxygen equipment, plumbing, and fittings. Methods also include cleaning instructions and subsequent protection for contaminated items.",
+    "(d) Bagging or capping of sensing devices (for example, instruments, pressure and vacuum transducers, cabin pressurization equipment, gyros, switches, or air data computers), and pressure venting when required.",
+    "(7) Special handling provisions (for example, white gloves or electrostatic discharge (ESD) control), where warranted. These provisions may include—",
+    "(a) Protective measures to prevent fingerprints (particularly the by-products of oil, moisture, and salt) from deteriorating the product or causing inadequate adhesion.",
+    "(b) Protecting grease-coated products (for example, control cables, bearings, gears, and rod ends) from dust, dirt, and corrosion.",
+    "(c) Training in special handling and storage techniques.",
+    "(d) Proper handling of ESD-sensitive supplies and parts, including the methods for clearly identifying supplies and parts that require special ESD handling.",
+    "(e) Controlled workstation conditions for removing ESD parts from special tote trays, boxes, and packaging.",
+    "(8) Methods to protect products during transit. Methods may include—",
+    "(a) Bagging, boxing, or tying parts and material to prevent intermixing.",
+    "(b) Retaining product in original containers as long as possible or practical.",
+    "(c) Foam, pads, or special packaging for delicate parts susceptible to vibration and shock damage.",
+    "(d) Covering, tying, or banding parts and material that may be blown out of carts, trucks, or dollies.",
+    "(e) Protecting parts and materials from adverse weather conditions that would affect the product.",
+    "(9) Design engineering review of recurrent product damage."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "423",
+   "question": "Are cleaners, solvents, degreasers, and other fluids adequately identified and controlled to prevent potential product damage from misapplication?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Decanting and identifying cleaners, solvents, and other fluids used in the work area, specifying types of containers to be used, requirements for re-use, and method of identification.",
+    "(2) Identifying the methods to be used when potentially damaging fluids are misapplied to a product.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "424",
+   "question": "Is there proper separation and identification of products/parts and articles in storage and manufacturing areas?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence that parts and materials are identified/separated from like or similar parts and materials.",
+    "b. Contents of bins, shelves, storage areas, and manufacturing areas are identified.",
+    "Part C. Airworthiness Determination"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "425",
+   "question": "Are required design changes incorporated into products/parts and articles being stored before their release for installation/shipment?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence that required design changes are incorporated into a product/part in storage before installation or shipment. This evidence may include one or more of the following:",
+    "(1) Establishment of effectivity of a design change.",
+    "(2) Use of shop order or traveler.",
+    "(3) Stock purge requirements.",
+    "(4) Rework to engineering instructions, including reidentification requirements.",
+    "(5) Inspection requirements."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "426",
+   "question": "Are only conforming and properly identified products/parts/articles placed in storage and is removal/issuance of products/parts/articles controlled?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Placement in stock of products/parts/articles thereof that have met established acceptance criteria. This includes parts that have been previously installed and removed, but not nonconforming material.",
+    "(2) Control of parts that are not completed to prevent stocking under an identifying part number until complete as defined by print or specification.",
+    "(3) Authorized methods for removal or replacement of parts.",
+    "(4) Limited and controlled access to storage areas.",
+    "(5) Records to be generated and maintained for parts removed from the stock system.",
+    "(6) Issue of raw and process material accountable to a released production order.",
+    "(7) Control of parts that have been quarantined as a result of a suspected nonconformance.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "427",
+   "question": "Are completed products/parts/articles properly marked?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence that—",
+    "(1) Completed products/parts/articles are properly and legibly identified.",
+    "(2) Aircraft and aircraft engines are identified by means of a fireproof plate and have the required identification data.",
+    "(3) Propellers, propeller blades, and hubs are identified by means of a plate, stamping, engraving, etching, or other approved method of fireproof identification, and have the required identification data.",
+    "(4) Manned free balloons are identified by means of a fireproof plate on the balloon envelope, basket, and heater assembly, and have the required identification data.",
+    "(5) For TSO authorizations, articles are marked with the TSO holder’s name, trademark, symbol, or other FAA-approved identification and part number. In addition, each article must be marked with the applicable TSO number and letter of designation, all markings specifically required by the applicable TSO, and serial number or the date of manufacture of the article or both, unless otherwise specified in the applicable TSO.",
+    "(6) For PMA, articles are marked with the letters “FAA-PMA” and the PMA holder’s name, trademark, symbol, or other FAA-approved identification, and part number. If the FAA finds the article too small or impractical (because of characteristics) to mark all (or any) of the information on the article, the information not marked on the article must be attached to the article or its container in accordance with § 45.15(d).",
+    "(7) For critical components, parts are permanently and legibly marked with a part number (or equivalent) and a serial number (or equivalent)."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "428",
+   "question": "Are only conforming and properly identified products/parts/articles shipped under the production approval?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Packaging and shipping of products/parts/articles manufactured under the production approval that have met established acceptance criteria.",
+    "(2) Compliance with shipping instructions.",
+    "(3) Methods for preservation, packaging, and shipping of completed products.",
+    "(4) Subassemblies, component parts, or replacement articles that leave the manufacturer’s facility as FAA-approved are identified with the manufacturer’s part number, name, trademark, symbol, or other FAA-approved manufacturer’s identification.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "430",
+   "question": "If an export airworthiness approval has been issued, have the necessary documents and instructions been forwarded to the aviation authority of the importing country, or to other locations as specified in the special requirements of importing countries in AC 21-2?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence that—",
+    "(1) All documents and information necessary for proper operation of the products being exported have been forwarded to the cognizant aviation authority.",
+    "(2) Manufacturing assembly instructions and an FAA-approved flight test checkoff form have been forwarded to the cognizant aviation authority for unassembled aircraft being exported."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "431",
+   "question": "Have authorized personnel issued airworthiness approvals (FAA Form 8130-4 or 8130-3)?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for identification of personnel authorized to issue airworthiness approvals.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "criteria_ref": "432",
+   "question": "Have export airworthiness approvals been obtained for all products/parts/articles that have left the PAH’s quality system?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Methods for applying for export airworthiness approvals (FAA Form 8130-4 or FAA Form 8130-3), and the responsibilities of personnel authorized to submit applications.",
+    "(2) All exported products to meet special requirements of the importing country listed in appendix 2 to AC 21-2 (current revision). Procedures provide for properly annotating any deviation on the exporting documentation and including a letter of acceptance from the importing country for such deviations.",
+    "(3) Methods for applying for domestic airworthiness approvals (FAA Form 8130-3) and the responsibilities of personnel authorized to submit applications.",
+    "(4) Retention of copies of FAA Form 8130-4 and/or FAA Form 8130-3, as applicable.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "1",
+   "question": "System Element Description. This system element addresses specialized actions whereby a PAH ensures materials, parts, and assemblies are worked or fabricated, tested, and inspected to ensure conformity to FAA-approved design. Manufacturing controls also include methods for review and approval of materials and parts that are withheld because of departures from design data or specifications and are to be considered for installation in the finished product. For purposes of an audit, these actions are broken down as follows:",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "a. Statistical Quality Control (SQC). A method that may be used by the PAH to control product quality by statistical methods, and that may be used for continuous improvement and/or product acceptance. SQC includes techniques such as statistical sampling, PRE-control, and statistical process control (SPC).",
+    "b. Tool and Gauge. The function that establishes control of precision measuring devices (for example, tools, scales, gauges, fixtures, instruments, and automated measuring machines) used in fabrication, special processing, inspection, test of detail parts, assemblies, and completed products to determine conformity to FAA-approved design.",
+    "c. Testing. The function that provides for static, destructive, and functional tests of production products/parts thereof to ensure conformity to FAA-approved design.",
+    "d. Nondestructive Inspection. The application of technical methods to examine materials or components in ways that do not impair future usefulness and serviceability. These methods are used to detect, locate, measure, and audit discontinuities, defects, and other imperfections; to assess integrity, properties, and composition; and to measure geometrical characters.",
+    "e. Nonconforming Materials. A method of controlling, auditing, and dispositioning of any product/part thereof that does not conform to FAA-approved design."
+   ],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "2",
+   "question": "System Element Standardized Audit Criteria. The criteria used to document the audit of this system element are divided into four parts: Part A, Statistical Quality Control (SQC), Part B, Tool and Gauge, Part C, Testing and Part D, Nondestructive Inspection.",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Part A. Statistical Quality Control (SQC)"
+   ],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "501",
+   "question": "Has a statistical sampling inspection plan been established for acceptance of specified product characteristics at the receiving inspection and during manufacture?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence that—",
+    "(1) All characteristics essential to ensure compliance to FAA-approved design have been identified. Characteristics that, if not maintained, would or may cause an unsafe condition in the end product are identified separately.",
+    "(2) Product characteristics identified as having an impact on the safety of the end product have been 100-percent inspected.",
+    "(3) Samples have been selected that adequately represent the lot or process.",
+    "(4) Adjustments to the sampling plan are based on acceptance and quality history, and that the sampling plan is tightened to 100 percent inspection when nonconformances affecting safety are discovered.",
+    "(5) Statistical inspection conforms to sampling specifications or approved sampling plan requirements.",
+    "(6) Sampling plans do not allow the acceptance of “known defectives” in a lot, or acceptable quality levels with known defectives that would affect safety."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "502",
+   "question": "Do the engineering and manufacturing organizations participate in the review, implementation, and maintenance of SQC and SPC techniques used for product acceptance?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for the engineering organization to review SQC/SPC planning before release to ensure the maintenance of FAA-approved design.",
+    "b. Procedures provide for the manufacturing organization to review SQC/SPC planning before release to ensure the product can be produced in conformity to FAA-approved design.",
+    "c. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "503",
+   "question": "Has a satisfactory SPC method been established for acceptance of specific product characteristics?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Authority and responsibility for implementation and control of SPC.",
+    "(2) Scheduled independent audits of the SPC process to verify its continuing acceptability. This includes a conformity check of the product on a periodic basis.",
+    "(3) Identification of principal process characteristics of the product to be controlled and a determination as to the impact that a nonconformance would have on the safety of the end product.",
+    "(4) Identification of the types of control charts to be used to ensure maintenance of in-control processes. Variable control charts include charting for both range and variation around the mean.",
+    "(5) Capability studies to determine that the process can yield a product that conforms to FAA-approved design data.",
+    "(6) Test and measurement equipment study (for example, a gauge study) to identify, eliminate, or adjust for measurement errors that may contribute to process variability.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "504",
+   "question": "Are appropriate SPC control limits and subgroup selections used and maintained?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Subgroups representative of the product lot.",
+    "(2) Avoidance of subgroup selection biases (for example, patterns, ease of sampling, or pre-selection).",
+    "(3) Determination and adjustment of appropriate control limits for each process.",
+    "(4) Criteria for determining when an SPC process is considered to be out of control.",
+    "(5) Rules for out-of-control conditions and are available to operators or process checkers.",
+    "(6) Regular review of the SPC charts to determine changes (for example, shifts) in the process.",
+    "(a) Review and retention of charts.",
+    "(b) Identification of personnel with the authority to stop the process when necessary.",
+    "(c) Notification of functional areas when an out-of-control condition is found, their responsibilities, and response time.",
+    "(7) Corrective action for an out-of-control condition.",
+    "(a) Additional inspection conducted to ensure product is acceptable.",
+    "(b) Audit of the need for purge action to remove suspected nonconforming products when a control chart used for acceptance shows an out-of-control condition.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "505",
+   "question": "Has a satisfactory PRE-control method been established for acceptance of specific product characteristics?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Authority and responsibility for implementation and control of PRE-control.",
+    "(2) Scheduled independent audits of the PRE-control process to verify its continuing acceptability. This includes a conformity check of the product on a periodic basis.",
+    "(3) Identification of principal process characteristics, of the product to be controlled, and a determination as to the impact that a nonconformance would have on the safety of the end product.",
+    "(4) Capability studies using statistical techniques, ensuring process capability is less than the tolerance of the specific product characteristic to be measured.",
+    "(5) Test and measurement equipment study (for example, a gauge study) to identify, eliminate, or adjust for measurement errors that may contribute to process variability.",
+    "(6) Establishment of PRE-control limits based on the tolerance of the specific product characteristic to be measured to ensure maintenance of in-control processes.",
+    "(7) Qualification of the setup during production, ensuring a minimum of five consecutive parts measured fall within the target area established by the PRE-control limits.",
+    "(8) Periodic measurement during production after the setup is qualified.",
+    "(9) Corrective action to adjust the process, requalify the setup, and recall and reinspect suspected products when PRE-control limits are exceeded.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "506",
+   "question": "Are pertinent personnel trained in statistical techniques?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Responsibility for training (for example, statistical sampling, PRE-control, and SPC).",
+    "(2) Training new or newly transferred employees in statistical techniques.",
+    "b. There is objective evidence of observance to established procedures.",
+    "Part B. Tool and Gauge"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "507",
+   "question": "Does the specified equipment used for inspection and test have the degree of accuracy necessary to determine conformity of the characteristic being inspected?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Engineering involvement in the selection of precision measuring devices used in fabrication, inspection, and test to ensure the precision and accuracy required to determine conformity to the design feature/characteristic being inspected.",
+    "(2) Determinations and adjustments for the effects of tool wear.",
+    "(3) The degree of accuracy of all measurement devices and test equipment.",
+    "(4) Measurement devices and test equipment capable of the accuracy necessary and adequate for the intended purpose, including measurement devices and test equipment substituted for those specified.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "508",
+   "question": "Are tools, gauges and equipment initially approved, periodically inspected and calibrated when applicable?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Initial inspection, calibration, and approval of all test and measurement equipment.",
+    "(a) Establishment of the accuracy of all measurement devices before initial use.",
+    "(b) Assignment of calibration methods and initial calibration interval to ensure continued accuracy.",
+    "(c) Test and measurement equipment study (for example, a gauge study) to identify, eliminate, or adjust for measurement errors that may contribute to variability.",
+    "(d) Unique identification of individual measurement devices and standards to provide traceability to the calibration records.",
+    "(e) Inclusion in the identification and calibration system of personally owned gauges used for product acceptance.",
+    "(f) Indication of the calibration status of measurement devices and standards. Typically, labels are used but other suitable controls can be provided.",
+    "(2) Periodic inspection and calibration of all measurement devices at prescribed intervals, or just before use, that will ensure their continued accuracy.",
+    "(a) Adjustment of calibration intervals based on analysis of previous calibration results, wear, stability, purpose, and degree of usage.",
+    "(b) Calibration by qualified personnel.",
+    "(c) Appropriate environmental conditions for calibration to ensure accuracy.",
+    "(d) Control of measurement devices and standards that are overdue for calibration.",
+    "(3) Tool control procedures for production tooling to ensure accuracy and repeatability for product acceptance before use.",
+    "(a) Inclusion in the calibration system.",
+    "(b) Assignment of unique identifiers.",
+    "(c) Availability of current applicable tool drawings.",
+    "(4) A documented mandatory recall system to ensure all measurement devices, calibration standards, and production tooling used for product acceptance are recalibrated at prescribed intervals.",
+    "(5) Generation and maintenance of tool and gauge records:",
+    "(a) Contain nomenclature, unique identifier, location, details of all adjustment, repair or rework accomplished, calibration history, source and date next inspection is due, and standard used.",
+    "(b) Record legibility, completeness, and accuracy.",
+    "(c) Requirements that tape files, microfilm, etc., used for record retention exhibit legible data, acceptance stamps and/or signatures, as required.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "509",
+   "question": "Do standards used for calibration have adequate accuracy and are they traceable to a recognized international standards organization?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Accuracy, stability, range, and resolution of the standard used for calibration appropriate for the measurement device characteristic being calibrated. The accuracy ratio of the standard is dependent on the audited facility’s measurement requirements (a minimum of four times more accurate than the gauge being calibrated, if possible).",
+    "(a) Methodology to determine adequacy of the calibration standards.",
+    "(b) Certificates, reports, or data sheets attesting to the accuracy of all calibration standards.",
+    "(2) Calibrations are traceable to the National Institute of Standards and Technology or other recognized international standards organization. If no national standard exists, the basis for calibration is documented."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "510",
+   "question": "Are tools and gauges protected, maintained, and used in an acceptable environment, when specified, to ensure product conformity to FAA-approved design data?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Methods for handling, transporting, and storing measurement devices and standards to ensure required accuracy and reliability are maintained. Methods usually are in accordance with equipment manufacturer’s recommendations and established industry practices.",
+    "(2) Actions taken when improper handling or storage occurs. As a minimum, an investigation is made to determine the adverse effects and action to be taken.",
+    "(3) Storage of measurement devices and standards appropriate to maintain required accuracy and fitness for use. Vibration, shock, temperature variations, humidity, and contamination are some of the detrimental factors the procedure considers.",
+    "(4) Replacement of measurement devices and standards, as required, to ensure product conformity to FAA-approved design data.",
+    "(5) Identification of environmental conditions necessary for use and calibration of measurement devices and standards.",
+    "(6) Appropriate use of measurement devices and standards in environmental conditions that might affect accuracy, stability, or calibration, such as temperature, relative humidity, vibration, electrical interference, cleanliness, or other controllable factors.",
+    "(7) Compensating corrections to calibration or measurement results obtained in an environment that departs from acceptable conditions.",
+    "(8) Preclusion from use of standards, inspection tools, gauges, instruments, and jigs that are inaccurate or beyond the scheduled calibration cycle identified. Use is precluded until rework or recalibration is accomplished.",
+    "(9) Identification and control of measurement devices and standards that require rework or recalibration.",
+    "(10) Appropriate methods for rework of measurement devices and standards, and sufficient reinspection to ensure accuracy.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "511",
+   "question": "When a product has been accepted by a significantly out-of-tolerance gauge, is an audit conducted to determine the need for corrective action?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Documenting a significant out-of-tolerance condition and investigating the validity of previous measurements.",
+    "(2) Notification of the significant out-of-tolerance condition to the user of the measurement device or standard.",
+    "(3) Investigations of out-of-tolerance conditions to ensure conditions that adversely affect product quality or safety are reported to the FAA and the user, as required. This includes involvement of appropriate organizations, that is, service/product support.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "512",
+   "question": "Are tool control procedures applied to NDI equipment?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Periodic calibration of NDI equipment, and generation and maintenance of records.",
+    "(2) Measurement of black light intensity on a periodic basis (preferably daily) using a calibrated black light meter.",
+    "(3) Measurement of white lights on a periodic basis using a calibrated white light meter.",
+    "b. There is objective evidence of observance to established procedure.",
+    "Part C. Testing"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "513",
+   "question": "Are test procedures/applicable instructions and subsequent changes, established, maintained, and adequately controlled?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) A functional test to be conducted on every aircraft engine and every propeller.",
+    "(2) A flight test to be conducted on every aircraft (unless the aircraft will be exported unassembled).",
+    "(3) Preparation and maintenance of test procedures and instructions applicable to the products/parts produced to ensure each article conforms to FAA-approved design data. Test documents include the following, as applicable:",
+    "(a) Original and recurring correlation and calibration to an established standard or baseline, determined by the facility and approved by the FAA, of aircraft engine test cells for the verification, validation, and repeatability of acceptance testing.",
+    "(b) A specified schedule of post-test teardown inspection to verify product quality, followed by rebuild and retest. A higher frequency of post-test teardown inspection for new products until the adequacy of assembly tooling, instruction, and techniques has been demonstrated.",
+    "(4) Actions to be taken when tests fail.",
+    "(5) Approval and control of all test procedure and instruction changes by authorized personnel.",
+    "(6) Requirements for changing test procedures and instructions.",
+    "(7) Review and verification of test procedure/instruction changes to ensure product quality is not negatively impacted.",
+    "(8) Documentation of test procedure/instruction change history by responsible personnel.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "514",
+   "question": "Do procedures ensure the appropriate organizations participate in the review of test instructions or procedures?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) The appropriate organization (for example, manufacturing, engineering, and/or quality) review test instructions or procedures before release to ensure the product can be tested in conformity to FAA-approved design, including that—",
+    "(a) The product can be properly audited and verified to be in conformity to the FAA-approved design. This includes the identification of inspection points that ensure conformity to FAA-approved design.",
+    "(b) Inspection equipment is available or can be procured that will adequately verify conformity to FAA-approved design and that can be controlled for accuracy, when required.",
+    "(2) The appropriate organization (for example, manufacturing, engineering, and/or quality) personnel to authorize additions, deletions, or changes to inspection points in the test instructions or procedures, based on inspection results.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "515",
+   "question": "Are products/parts that have been adjusted or reworked after test acceptance retested to approved procedures?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures outline the requirements for retest of products/parts adjusted or reworked after inspection acceptance when that adjustment or rework could have an impact on the performance of those products/parts.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "516",
+   "question": "Are there procedures to ensure records are generated and maintained for completed tests of aircraft, engines, propellers, or parts thereof?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Contents of each record used, including, as a minimum:",
+    "(a) Test results,",
+    "(b) Test nonconformances, and",
+    "(c) Corrective action.",
+    "(2) Record legibility, completeness, and accuracy.",
+    "(3) Requirements that tape files, microfilm, etc., used for record retention exhibit legible data, acceptance stamps and/or signatures, as required.",
+    "b. There is objective evidence of observance to established procedures.",
+    "Part E. Nonconforming Material"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "529",
+   "question": "Is an MRB) established, documented, and operational?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence that—",
+    "(1) MRB members have been identified. This includes, as a minimum—",
+    "(a) Identification of the required members of the MRB, which should include, as a minimum, representatives of both the quality and the engineering departments.",
+    "(b) Required qualifications of the quality and engineering members of the MRB and the means by which personnel are added to the MRB.",
+    "(c) A list or electronic equivalent of approved quality and engineering representative members of the MRB, the frequency MRB lists are updated, the areas where these lists are available, and a facsimile of MRB member signatures or identification stamps.",
+    "(d) Approval of MRB representatives of both the quality and the engineering departments of MRB documents that disposition nonconforming parts “accept-as-is” and “repair.”",
+    "(2) The MRB has not exceeded its scope and limits of authority. This includes, as a minimum—",
+    "(a) Disposition of minor nonconformances as “accept-as-is,” “rework,” “repair,” “scrap,” or “return-to-supplier.”",
+    "(b) Disposition of major nonconformances as “rework” (to eliminate the nonconformance), “repair” (to reduce nonconformance to minor), “scrap,” or “return-to-supplier.”",
+    "(c) The MRB has dispositioned major nonconformances as “accept-as-is” only after the major change has been approved by the FAA as a change to the FAA-approved type design.",
+    "(3) Nonconforming material is controlled from presentation to the MRB through final MRB disposition. MRB control may be accomplished through segregation (physical or electronic), marking, or tagging, etc., in a manner to preclude inadvertent release, or release by non-MRB personnel. This includes, as a minimum—",
+    "(a) Completion of all necessary MRB documents, including all required signatures of MRB personnel, before physical release of products/parts from MRB control.",
+    "(b) Identification of MRB material sent to manufacturing areas for rework or repair to preclude subsequent release without MRB approval.",
+    "(c) Identification of MRB material sent to manufacturing areas for continued processing and reinspection of the nonconformance after subsequent operations to ensure reinspection of the specified characteristic.",
+    "(4) There is objective evidence that material review records are generated and retained.",
+    "(a) Material review records include, as a minimum, part number, quantity, date, adequate description of nonconformances (including identification as major or minor change), disposition, and authorized approval.",
+    "(b) Application of “electronic” signatures are controlled, as well as authorized access to electronic data for making changes (for example, password protection).",
+    "(c) Records are legible, complete, and accurate.",
+    "(5) Nonconforming material disposition authority delegated to preliminary review personnel is limited to “scrap,” “return-to-supplier,” “rework,” or “repair to approved standard repair procedures.”"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "530",
+   "question": "Are nonconforming products/parts/articles identified, controlled, and dispositioned?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence that nonconforming products/parts have been identified, controlled and dispositioned. Control includes segregation of nonconforming material, usually through storage in enclosed and secure holding areas, with access limited to authorized personnel. Standard repair procedures also should be controlled.",
+    "(1) Nonconforming materials and parts/products that have been dispositioned as “scrap” are properly identified, mutilated, or disposed of to preclude inadvertent use.",
+    "(2) Parts/products dispositioned as “scrap” that are retained in lieu of mutilation and disposal are properly identified and/or physically segregated to preclude inadvertent use. For example, parts placed in a “scrap retention” crib awaiting a possible repair to be developed, or used in mock-ups or experimental testing.",
+    "(3) Parts from assemblies dispositioned as “scrap” are recovered and used only if the material review disposition shows that those parts did not contain the nonconformances that led to the “scrap” disposition."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "531",
+   "question": "Are MRB dispositions identified as major changes approved by the FAA through the design approval process?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence that all nonconformance dispositions that are considered major changes to the design are submitted to the FAA for approval."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "532",
+   "question": "Does upper management review and analyze nonconforming material data to detect adverse trends and determine appropriate levels of corrective and preventive actions?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for a summary of nonconforming material data reviewed and analyzed by upper management. This includes frequency of reporting and appropriate investigations by all relevant facility organizations to reduce, prevent, and correct adverse trends.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "533",
+   "question": "Do procedures provide for engineering review of nonconforming material to determine if the documented nonconformance constitutes a major or minor change to the FAA-approved type design?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "criteria_ref": "534",
+   "question": "Is corrective action (in-plant, at suppliers, and in-service) required where processes or procedures result in a nonconforming product/article/part thereof and are the actions monitored for response, implementation, and effectiveness?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Periodic reviews of material review records to identify repetitive nonconformances. There are guidelines for initiating investigation and corrective action for repeated nonconformances that have exceeded an established limit of occurrences.",
+    "(2) Corrective action on repetitive nonconformances dispositioned “accept-as-is” to preclude de facto changes to the type design being made through MRB acceptance of those nonconformances, rather than through the FAA-approved change system.",
+    "(3) Audit of the design if a product/article/part thereof continually fails to meet the requirements of the engineering drawing.",
+    "(4) Control of any deviation system established to allow the production of products/parts thereof to increased tolerances and/or relaxed standards until the completion of corrective action. Some deviations are FAA-approved minor drawing changes to the type design.",
+    "(5) Review of material review records (including corrective action statements) for repetitive nonconformances to monitor response, implementation, and effectiveness of corrective action.",
+    "(6) Responsibilities of any Corrective Action Board (CAB) or equivalent function established, including tracking of significant corrective action.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "1",
+   "question": "System Element Description. The system by which the audited facility ensures supplier materials, parts, and services conform to FAA-approved design. For the purpose of this section, the term “supplier” includes distributors.",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Note: With the onset of profit- and risk-sharing ventures by many FAA approval holders, global marketing and procurement strategies, multinational and multicorporate activities, etc., there has been a significant increase in the global expansion of the world’s aircraft manufacturing community. Global production includes the use of associate facilities, the issuance and acceptance of import/export airworthiness approvals, and adherence to bilateral airworthiness agreements (BAA) or bilateral aviation safety agreements (BASA).",
+    "a. Reviewing PAH supplier audit records. The auditor will review a randomly selected sample of documented audit reports from the supplier listing. Use the following guidelines when selecting the sample reports:",
+    "(1) For PAHs having a supplier listing of less than or equal to 50, the auditor will select and review at least 3 audit reports.",
+    "(2) For PAHs having a supplier listing of greater than 50, but less than or equal to 100, the auditor will review at least 6 audit reports.",
+    "(3) For PAHs having a supplier listing of greater than 100, the auditor will review at least 9 audit reports.",
+    "b. Recording reviews. The auditor will record the total number of audit reports reviewed, the identification of suppliers reviewed, and the total number of noncompliances documented. This information will be recorded on the Conformity Inspection Record (FAA Form 8100-1) and entered into CMIS as part of the QSA report.",
+    "c. Recording noncompliances. Any noncompliance noted during the review of PAH supplier audit reports will be recorded under supplier control system element criteria number 602. Any noncompliances also will be documented in accordance with paragraph 3-44 of this order."
+   ],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "2",
+   "question": "System Element Standardized Audit Criteria. The following criteria are used to document audit of this system element.",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "601",
+   "question": "Is the use of approved suppliers required?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Criteria for supplier acceptability based as a minimum on audit results and quality performance history for the commodities or services provided.",
+    "(2) Collection, audit, and reporting of quality performance data.",
+    "(3) A list of suppliers that have been reviewed, audited, and found to be acceptable.",
+    "(4) Removal of suppliers from the approved list that do not meet stated requirements.",
+    "(5) Notification of the FAA of new priority parts suppliers.",
+    "(6) Methods for procurement from suppliers that require special control.",
+    "(7) Furnishing a current list to suppliers containing sources audited by the PAH.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "602",
+   "question": "Are initial and periodic audits of suppliers made as necessary and corrective actions taken to correct deficiencies found in the suppliers system?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Initial, and periodical as necessary, audit of suppliers, to determine their capability to meet requirements.",
+    "(2) The methods for determining the extent of the audits dependent, as a minimum, on the type, complexity, method of control, and importance of products or services procured, and the extent of the onsite audit, process reviews, document reviews, or independent product audits.",
+    "(3) Implementing and documenting effective corrective action when deficiencies are found.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "603",
+   "question": "Is the supplier’s quality manual (or top-level document) approved by the PAH?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide the method for reviewing and approving a supplier’s quality system data.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "604",
+   "question": "Are procedures for the use of other parties to perform supplier surveillance or assessments on behalf of the PAH contained in the quality manual or other documents?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for a control process that has been fully documented and includes initial and continuing approval of other parties to conduct supplier surveillance and assessments to include—",
+    "(1) Extent of authority given by the PAH.",
+    "(2) Verification that checklists used by the other party are equivalent or better than the PAH’s quality procedures and surveillance criteria currently in place under the PAH’s supplier control program.",
+    "(3) Verification that the other party’s surveillance frequency of the supplier is commensurate with the complexity of the product and with the surveillance frequency currently established by the PAH’s supplier control program.",
+    "(4) Verification that the supplier surveillance was conducted onsite by the other party.",
+    "(5) Verification that the other party has access to applicable proprietary data to the extent necessary to conduct supplier surveillance functions.",
+    "(6) Verification that the surveillance report will be made available to the FAA upon request.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "605",
+   "question": "Are procedures for the use of other-party registered suppliers detailed in the quality manual or other documents?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Initial and continuing approval of other-party registered suppliers.",
+    "(2) The method used by the PAH to audit the registration process of any other-party registration body used. (Note: This applies not only to new suppliers, but to any decision by the PAH to rely on other-party registration of current suppliers.) The method should include the following items as a minimum:",
+    "(a) Verification that registration standards and checklists used by the other party are equivalent or better than the PAH’s quality procedures and surveillance criteria currently in place under the PAH’s supplier control program.",
+    "(b) Verification that the other party’s surveillance frequency of the supplier is commensurate with the complexity of the product and with the surveillance frequency currently established by the PAH’s supplier control program.",
+    "(c) Verification that the supplier surveillance was conducted onsite by the other party.",
+    "(d) Verification that the other party has access to applicable proprietary data to the extent necessary to conduct supplier surveillance functions.",
+    "(e) Verification that the surveillance report will be made available to the FAA upon request.",
+    "(f) Verification that the other party continues to be recognized or accredited.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "606",
+   "question": "Do procedures require that suppliers notify the audited facility in writing when there are significant facility or organizational changes such as company name, location, or senior quality management?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "607",
+   "question": "Does the audited facility make information available to the FAA regarding all delegation of authority to suppliers to make a major inspection/material review of any products/parts/articles?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Delegation of authority for major inspections or material review.",
+    "(2) Material review requirements that include, as a minimum—",
+    "(a) Identification of relevant MRB procedures that define the scope and authority of the supplier MRB.",
+    "(b) Maintenance of an MRB system that meets all FAA requirements placed on the audited facility’s MRB system (for example, documentation of nonconformances, maintenance of records, members of the MRB, and mutilation of “scrap” material).",
+    "(c) Process for submittal to the audited facility of supplier nonconformances considered major changes to the FAA-approved type design.",
+    "(3) All delegations of authority to suppliers for major inspection of any products/parts are available for review by the FAA.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "608",
+   "question": "Does the PAH notify the FAA of suppliers authorized to direct ship?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for notification to the cognizant FAA office of each supplier authorized to direct ship.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "609",
+   "question": "Are suppliers with direct ship authorization controlled to ensure only conforming parts are released?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Flow down of applicable technical and quality requirements.",
+    "(2) Authorization and requirements for direct shipment.",
+    "(3) Supplier shipping document requirements for direct shipment.",
+    "(4) Appropriate part marking/identification and packaging.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "610",
+   "question": "Do procedures require that approved suppliers have a supplier control program in place for their suppliers?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence that suppliers have a supplier control program in place for their suppliers. The program should include as a minimum—",
+    "(1) Audit, approval, and surveillance of suppliers, including a method to ensure corrective action when a problem is identified.",
+    "(2) Flow down of all pertinent quality requirements.",
+    "(3) Documentation of parts/materials and special processes obtained from suppliers and submitted to the audited facility."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "611",
+   "question": "Does the audited facility flow down applicable technical and quality requirements to both U.S. and international suppliers?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for inclusion of applicable technical data and quality requirements in the purchase documents. Technical data and requirements include the following, as applicable:",
+    "(1) Special processing specifications/engineering requirements for suppliers performing special processing.",
+    "(2) Calibration traceable to a national standard and submittal of certificates for suppliers performing calibration services.",
+    "(3) Software specification requirements for suppliers providing software.",
+    "(4) Submittal of certification test reports for all shipments of raw material.",
+    "(5) Identification of raw and process material in accordance with industry and/or customer specifications.",
+    "(6) Appropriate identification and marking of products/parts thereof.",
+    "(7) Identification of the actual manufacturers of the supplies provided by warehouses and distributors.",
+    "(8) Declaration that parts were produced under the terms of the production approval.",
+    "(9) Identification of the product on which the part is eligible for installation.",
+    "(10) Special packaging and preservation requirements, when warranted for material protection.",
+    "(11) Identification of appropriate technical requirement revision levels.",
+    "(12) Notice of FAA review of supplier’s facilities and products as necessary.",
+    "(13) Incorporation of design changes as specified.",
+    "(14) Notification to the audited facility of any latent defects, or defects listed in § 21.3, in products or parts previously supplied.",
+    "(15) Formalized SQC policy, when required.",
+    "(16) Requests for copies of control charts and other pertinent statistical data applicable to the time period during which the supplied products/parts thereof were produced.",
+    "(17) Submittal of supplier designs and changes to the audited facility for approval before incorporation, when required.",
+    "(18) Submittal of changes to a supplier’s quality system that may affect inspection, conformity, or the airworthiness of the product.",
+    "(19) Record retention requirements.",
+    "(20) Use of the English language for quality data (for example, supplier quality procedures, certificates, reports, or other similar data required by the audited facility).",
+    "(21) A method to control the issuance and distribution of technical data and quality requirements to suppliers. Control methods include, as a minimum—",
+    "(a) Control and documentation of revisions to technical data and quality requirements (including subtier and referenced documents).",
+    "(b) Control of obsolete technical data and quality requirements.",
+    "(c) Determination of receipt status by the supplier.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "612",
+   "question": "Does the audited facility control supplier design, including changes?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for control over supplier design and changes thereto.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "613",
+   "question": "Are electronically stored and transmitted technical design and quality data adequately controlled and distributed to suppliers?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Documentation of release status of electronic documents.",
+    "(2) Only properly released data being available online.",
+    "(3) Other documents, such as purchase orders and engineering data to reflect changes to the source document.",
+    "(4) Capability determination of in-house and supplier facility to receive and maintain electronic data.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "614",
+   "question": "Does the quality organization review purchase documents before issuance?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition:",
+    "a. Procedures provide for review of purchase documents by the PAH’s quality organization before issuance to ensure all pertinent requirements have been incorporated.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "615",
+   "question": "Does the PAH act on supplier notifications of suspected problems with previously delivered products?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for methods used to act on notifications of nonconforming products, ensuring proper investigation and corrective action is taken.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "616",
+   "question": "Do procedures require that approved suppliers have a program in place to ensure the proper operation of manufacturing software and equipment used for product/part/article inspection/test?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "617",
+   "question": "Does the PAH notify the FAA of all new suppliers located in other countries and of the receipt of first articles produced by those suppliers?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for notification to the FAA of all new suppliers located in other countries and of the receipt of first articles produced by those suppliers.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "618",
+   "question": "Are products/articles/parts from associate facilities controlled?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for—",
+    "(1) Control of products/articles/parts from associate facilities.",
+    "(2) Collection of quality performance data.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Supplier Control",
+   "criteria_ref": "619",
+   "question": "Has an interface quality document been prepared for consortium (international/domestic) manufacturing activities?",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "Statement of Condition",
+    "a. Procedures provide for a quality document that establishes an interface between the quality requirements of the international/domestic manufacturing activity and the audited facility’s quality manual or procedures.",
+    "b. There is objective evidence of observance to established procedures."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "PRODUCT AUDIT ",
+   "criteria_ref": "3-74",
+   "question": "Selection of Product Audit Characteristics. The product audit will be conducted using critical characteristics and/or critical processing attributes generated during the manufacturing process, as well as certain non-critical characteristics and/or non-critical processing attributes. These characteristics and attributes are defined as follows:",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "a. Critical characteristics are those where failure to maintain conformity could cause loss of function and create an unsafe condition. Critical process attributes are those where lack of conformity directly affects the product, article, or part(s) and could cause failure or create an unsafe condition. The selection of the critical characteristics and/or critical process attributes is determined by reviewing the following (this review does not need to be documented):",
+    "(1) Known service problem areas.",
+    "(2) Characteristics/attributes that are operator controlled. Operator-controlled characteristics/attributes are controlled by people rather than machines or computers.",
+    "(3) Characteristics/attributes classified as critical as defined by the PAH’s or associate facility’s engineering drawings, process specifications, test specifications, and quality system procedures.",
+    "(4) SDRs. Information related to SDRs can be found on the Flight Standards Service Aviation Information website located at http://av-info.faa.gov/sdrx/.",
+    "b. In addition to critical characteristics and/or critical processing attributes, the PI may select certain non-critical characteristics and/or non-critical processing attributes, such as radiuses, surface finishes, machine to cast features, cad plating, or nondestructive inspection."
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "PRODUCT AUDIT ",
+   "criteria_ref": "3-75",
+   "question": "Product Audit Areas. The product audit may be divided into one or more of the following areas:",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [
+    "a. Final product,",
+    "b. Subassembly,",
+    "c. Detail parts, or",
+    "d. Raw material.",
+    "establish conformity to approved type design are listed below. This audit criteria is a minimum and not all-inclusive. Figure 3-5 indicates which criteria are applicable to each product audit area, as a minimum. Note: A product audit is not a re-inspection by the FAA representative. Rather, it is the FAA representative witnessing the re-inspection by the PAH, associate facility, or applicable supplier. The PAH’s, associate facility’s, or applicable supplier’s personnel are responsible for the handling of the article(s) during the product audit.",
+    "a. Operational/functional. Verify that the subassembly or final product conforms to the functional/operational test criteria (for example, revalidating test results, test setup, software revision, software checksum, rig approval, certified equipment, use of approved procedures, certified test parameters, use of required rig, and calibration).",
+    "b. Dimensional. Compare actual recorded measurement(s) of the selected characteristic with the approved design data. Verify that characteristics are inspected using the correct calibrated tooling, gauging, fixtures, etc., surface finish dimensions and radius meet drawing tolerances, inspections are performed in proper sequence (following work instructions); for example, review or revalidate inspection records.",
+    "c. Visual. Inspect article for obvious external defects; for example, corrosion, burrs, handling damage, and scratches.",
+    "d. Identification. Compare actual identification plates, tags, markings, etc., with approved design data or purchase order requirements and verify that identification is maintained throughout the product line; for example, part numbers, serial numbers, lot numbers for raw material, and inspection stamps. For software revision verification, verify that software part number can be displayed on screen or software load verified by documentation review.",
+    "e. Documentation. Verify the latest revision level or changes, proper work instructions, completed operations, proper authorizations; proper use of statistical sampling; for example, certificate of conformance, work travelers, blueprints, specifications, and first article inspection records.",
+    "f. Special Processes. Verify that special processes are in accordance with approved process specifications. Verify operator qualification/certification; for example, test coupons, training requirements for operators, test set-ups, and documentation. Verify oven surveys/calibration. For a chemical process such as plating, verify that control has been established over tank cleanliness and chemical concentration.",
+    "g. Material. Verify that the PAH has verified that incoming raw material meets its specification requirements.",
+    "Figure 3-5.  Applicability of Product Audit Criteria to Product Audit Areas (Minimum)",
+    "Product Audit Areas",
+    "Product Audit Criteria Final Product Subassembly Detail Parts Raw Materials",
+    "Operational/functional X X",
+    "Dimensional X X X X",
+    "Visual X X X X",
+    "Identification X X X X",
+    "Documentation X X X X",
+    "Special processes X X X",
+    "Material X X"
+   ],
+   "kind": "CRITERION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "1",
+   "question": "System Element Description. This system element addresses the audited facility’s organizational management structure and responsibilities for design control and production functions. This includes procedures and methods used to notify the FAA of specific conditions as required by the applicable CFR (such as recording, reporting, investigation, determining cause, and effecting corrective actions of significant or reported failures, malfunctions, or defects). This function also addresses internal audits whereby the facility ascertains its own abilities and procedural compliance to established policy and guidance.",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "criteria_ref": "2",
+   "question": "System Element Standardized Audit Criteria. The following criteria are used to document the audit of this system element.",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "1",
+   "question": "System Element Description. The methods for approving, controlling, and documenting FAA-approved designs and design changes. Specific functions necessary include the planning and integration of the audited facility’s procedures for continuously maintaining the integrity of design data, drawings, part lists, and specifications necessary to define the configuration and the design features of the product. This includes software used in type-certificated aircraft or related products (airborne software).",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [],
+   "kind": "SYSTEM_DESCRIPTION"
+  },
+  {
+   "source_sheet": "Design Control",
+   "criteria_ref": "2",
+   "question": "System Element Standardized Audit Criteria. The following criteria are used to document audit of this system element.",
+   "procedure": "",
+   "comments": "",
+   "status": "DRAFT_SOURCE_IMPORTED",
+   "applicability": "UNDECIDED",
+   "assessment": "NOT_ASSESSED",
+   "evidence_ids": [],
+   "finding_id": null,
+   "condition_text": [],
+   "kind": "SYSTEM_DESCRIPTION"
+  }
+ ],
+ "baseline_note": "Complete workbook baseline: 126 reference-bearing rows, of which 12 are SYSTEM_DESCRIPTION rows and 114 are CRITERION rows. The first import (122 rows) omitted four description rows.",
+ "element_context": [
+  {
+   "source_sheet": "Organizational Management",
+   "text": "Organizational Management"
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "text": "FAA-approved quality systems manuals or procedures manuals/handbooks to determine if current data ensure that regulatory requirements are met, if conforming products, articles, and parts are manufactured, and if design approval systems are maintained and controlled."
+  },
+  {
+   "source_sheet": "Organizational Management",
+   "text": "facility procedures (related to the production approval facility) that are not part of the facility’s FAA-approved data to determine if the current procedures impact any of the system elements."
+  },
+  {
+   "source_sheet": "Design Control",
+   "text": "Design Control"
+  },
+  {
+   "source_sheet": "Design Control",
+   "text": "Documented procedures"
+  },
+  {
+   "source_sheet": "Design Control",
+   "text": "design system, design approval system, and quality system data to determine if current data are FAA-approved."
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "text": "Software Quality Assurance"
+  },
+  {
+   "source_sheet": "Software Quality Assurance",
+   "text": "Engineering Processes that relate to Software QA and Compliance"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "text": "PAH supplier records by selecting a random sample of PAH supplier audit reports. (Refer to appendix H, section 6, paragraph 1a to this order.)"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "text": "Compliance to Facility Procedures and Quality Requirements."
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "text": "Material Receiving, Handling & Storage"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "text": "Warehouse Process, Shipping and Receiving"
+  },
+  {
+   "source_sheet": "Manufacturing Processes",
+   "text": "b. Material Receiving, Handling, and Storage. The methods used to accept and protect raw materials, parts, subassemblies, assemblies, and completed products during receipt, manufacture, inspection, test, storage, and preparation for shipment."
+  },
+  {
+   "source_sheet": "Manufacturing Controls",
+   "text": "FAI/In Process/Final Inspections"
+  }
+ ]
+}

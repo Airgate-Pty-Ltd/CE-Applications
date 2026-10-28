@@ -1,0 +1,425 @@
+{
+ "standard": "AS9110C",
+ "batch": "05",
+ "covers": "clauses 8.6(a) to 10.2.2(b) (extract lines 303-371)",
+ "authored_from": "licensed-private/lettered-AS9110C.md (private licensed text)",
+ "rows": [
+  {
+   "ref": "8.6(a)",
+   "question": "Show the evidence of conformity with the acceptance criteria for a released job.",
+   "evidence": [
+    "Acceptance evidence for a released job"
+   ]
+  },
+  {
+   "ref": "8.6(b)",
+   "question": "Who is the person specifically authorized to release, and do they sign the release documents only when all maintenance and inspection operations are complete, to the contract and technical data, with no known nonconformity that would endanger flight safety? Show the release document and the accompanying documentation.",
+   "evidence": [
+    "Release document signed by the authorized person",
+    "Confirmation that all operations were completed to the technical data",
+    "Accompanying documentation present at delivery"
+   ]
+  },
+  {
+   "ref": "8.7.1(a)",
+   "question": "When a maintenance nonconformity is found, what correction is made? Show one example.",
+   "evidence": [
+    "Correction record for a nonconforming output"
+   ]
+  },
+  {
+   "ref": "8.7.1(b)",
+   "question": "How are nonconforming items segregated, contained, returned or held back from delivery? Show one example.",
+   "evidence": [
+    "Segregation or containment record",
+    "Suspension of delivery record"
+   ]
+  },
+  {
+   "ref": "8.7.1(c)",
+   "question": "How is the customer informed of a nonconformity that affects them? Show one example.",
+   "evidence": [
+    "Customer notification record"
+   ]
+  },
+  {
+   "ref": "8.7.1(d)",
+   "question": "Who authorizes acceptance under concession, and has the competent authority and, where applicable, the customer authorized it? How are unsalvageable and counterfeit parts marked, and how is conformity verified after correction?",
+   "evidence": [
+    "Concession authorization by the competent authority",
+    "Customer authorization where applicable",
+    "Marking record for unsalvageable or counterfeit parts",
+    "Verification record after correction"
+   ]
+  },
+  {
+   "ref": "8.7.2(a)",
+   "question": "Does the nonconformity record describe the nonconformity clearly?",
+   "evidence": [
+    "Nonconformity record with description"
+   ]
+  },
+  {
+   "ref": "8.7.2(b)",
+   "question": "Does the record describe the actions taken?",
+   "evidence": [
+    "Nonconformity record with actions"
+   ]
+  },
+  {
+   "ref": "8.7.2(c)",
+   "question": "Does the record describe any concession obtained?",
+   "evidence": [
+    "Nonconformity record with concession"
+   ]
+  },
+  {
+   "ref": "8.7.2(d)",
+   "question": "Does the record identify the authority that decided the action?",
+   "evidence": [
+    "Nonconformity record with the deciding authority"
+   ]
+  },
+  {
+   "ref": "9.1.1(a)",
+   "question": "What do you monitor and measure, and how was that decided?",
+   "evidence": [
+    "Monitoring and measurement plan"
+   ]
+  },
+  {
+   "ref": "9.1.1(b)",
+   "question": "What methods give valid monitoring, measurement, analysis and evaluation results?",
+   "evidence": [
+    "Method documentation for monitoring and analysis"
+   ]
+  },
+  {
+   "ref": "9.1.1(c)",
+   "question": "When is each monitoring or measurement performed?",
+   "evidence": [
+    "Monitoring schedule"
+   ]
+  },
+  {
+   "ref": "9.1.1(d)",
+   "question": "When are results analysed and evaluated? Is QMS performance and effectiveness evaluated, and is the safety performance related to products and services evaluated?",
+   "evidence": [
+    "Analysis schedule",
+    "QMS performance evaluation record",
+    "Safety performance evaluation record"
+   ]
+  },
+  {
+   "ref": "9.1.3(a)",
+   "question": "What analysis shows product and service conformity?",
+   "evidence": [
+    "Conformity analysis"
+   ]
+  },
+  {
+   "ref": "9.1.3(b)",
+   "question": "What analysis shows the degree of customer satisfaction?",
+   "evidence": [
+    "Customer satisfaction analysis"
+   ]
+  },
+  {
+   "ref": "9.1.3(c)",
+   "question": "What analysis shows the performance and effectiveness of the QMS?",
+   "evidence": [
+    "QMS effectiveness analysis"
+   ]
+  },
+  {
+   "ref": "9.1.3(d)",
+   "question": "What analysis shows whether planning has been implemented effectively?",
+   "evidence": [
+    "Planning effectiveness analysis"
+   ]
+  },
+  {
+   "ref": "9.1.3(e)",
+   "question": "What analysis shows the effectiveness of actions taken for risks and opportunities?",
+   "evidence": [
+    "Risk and opportunity action effectiveness analysis"
+   ]
+  },
+  {
+   "ref": "9.1.3(f)",
+   "question": "What analysis shows the performance of external providers?",
+   "evidence": [
+    "Provider performance analysis"
+   ]
+  },
+  {
+   "ref": "9.1.3(g)",
+   "question": "What analysis identifies the need for QMS improvement? Show an example.",
+   "evidence": [
+    "Analysis that led to an improvement need"
+   ]
+  },
+  {
+   "ref": "9.1.3(h)",
+   "question": "What analysis identifies the need for improvement in product safety management?",
+   "evidence": [
+    "Product safety analysis and its outcome"
+   ]
+  },
+  {
+   "ref": "9.1.3(i)",
+   "question": "What analysis identifies opportunities to prevent maintenance error? Show an example.",
+   "evidence": [
+    "Maintenance error analysis with prevention action"
+   ]
+  },
+  {
+   "ref": "9.2.1(a)",
+   "question": "Do the internal audits check conformity to the organization's own QMS requirements, including customer and regulatory requirements, and to the standard?",
+   "evidence": [
+    "Audit criteria covering own requirements and the standard"
+   ]
+  },
+  {
+   "ref": "9.2.1(b)",
+   "question": "Do the internal audits check that the QMS is effectively implemented and maintained?",
+   "evidence": [
+    "Audit conclusion on effective implementation"
+   ]
+  },
+  {
+   "ref": "9.2.2(a)",
+   "question": "Show the audit programme: frequency, methods, responsibilities, planning and reporting, and how it considers process importance, change and previous results.",
+   "evidence": [
+    "Audit programme document"
+   ]
+  },
+  {
+   "ref": "9.2.2(b)",
+   "question": "For one audit, what criteria and scope were defined?",
+   "evidence": [
+    "Audit plan with criteria and scope"
+   ]
+  },
+  {
+   "ref": "9.2.2(c)",
+   "question": "How are auditors selected so the audit is objective and impartial? Can an auditor audit their own work?",
+   "evidence": [
+    "Auditor selection and independence record"
+   ]
+  },
+  {
+   "ref": "9.2.2(d)",
+   "question": "Where are the audit results reported, and to whom?",
+   "evidence": [
+    "Audit report and distribution to management"
+   ]
+  },
+  {
+   "ref": "9.2.2(e)",
+   "question": "How quickly are audit correction and corrective actions taken? Show one example.",
+   "evidence": [
+    "Corrective action record with dates"
+   ]
+  },
+  {
+   "ref": "9.2.2(f)",
+   "question": "Where is the documented evidence of the audit programme and its results kept?",
+   "evidence": [
+    "Retained audit programme and results records"
+   ]
+  },
+  {
+   "ref": "9.3.2(a)",
+   "question": "At the last management review, was the status of actions from earlier reviews considered?",
+   "evidence": [
+    "Review minutes showing action status"
+   ]
+  },
+  {
+   "ref": "9.3.2(b)",
+   "question": "At the last management review, were changes in external and internal issues considered?",
+   "evidence": [
+    "Review input on changed issues"
+   ]
+  },
+  {
+   "ref": "9.3.2(c)",
+   "question": "At the last management review, were the QMS performance trends considered: customer satisfaction, objectives, process performance, nonconformities, measurement, audits, providers and on-time delivery?",
+   "evidence": [
+    "Review input pack showing each trend"
+   ]
+  },
+  {
+   "ref": "9.3.2(d)",
+   "question": "At the last management review, was the adequacy of resources considered?",
+   "evidence": [
+    "Review input on resources"
+   ]
+  },
+  {
+   "ref": "9.3.2(e)",
+   "question": "At the last management review, was the effectiveness of risk and opportunity actions considered?",
+   "evidence": [
+    "Review input on risk action effectiveness"
+   ]
+  },
+  {
+   "ref": "9.3.2(f)",
+   "question": "At the last management review, were opportunities for improvement considered?",
+   "evidence": [
+    "Review input on improvement opportunities"
+   ]
+  },
+  {
+   "ref": "9.3.2(g)",
+   "question": "At the last management review, was product safety performance monitoring considered?",
+   "evidence": [
+    "Review input on product safety performance"
+   ]
+  },
+  {
+   "ref": "9.3.2(h)",
+   "question": "At the last management review, was the training programme assessed for whether it is adequate, completed and effective?",
+   "evidence": [
+    "Review input on training effectiveness"
+   ]
+  },
+  {
+   "ref": "9.3.2(i)",
+   "question": "At the last management review, were upcoming changes in what the competent authority and customers will require, and their effect on the organization, discussed?",
+   "evidence": [
+    "Review input on future requirement changes"
+   ]
+  },
+  {
+   "ref": "9.3.3(a)",
+   "question": "What decisions and actions on improvement came out of the last management review?",
+   "evidence": [
+    "Review outputs on improvement"
+   ]
+  },
+  {
+   "ref": "9.3.3(b)",
+   "question": "What decisions on changes to the QMS came out of the last management review?",
+   "evidence": [
+    "Review outputs on QMS change"
+   ]
+  },
+  {
+   "ref": "9.3.3(c)",
+   "question": "What decisions on resource needs came out of the last management review?",
+   "evidence": [
+    "Review outputs on resources"
+   ]
+  },
+  {
+   "ref": "9.3.3(d)",
+   "question": "What risks were identified at the last management review, and what happened to them?",
+   "evidence": [
+    "Review outputs on risks"
+   ]
+  },
+  {
+   "ref": "10.1(a)",
+   "question": "Show an improvement that improved products or services to meet future needs and expectations.",
+   "evidence": [
+    "Product or service improvement record"
+   ]
+  },
+  {
+   "ref": "10.1(b)",
+   "question": "Show an action that corrected, prevented or reduced an undesired effect.",
+   "evidence": [
+    "Correction or prevention record"
+   ]
+  },
+  {
+   "ref": "10.1(c)",
+   "question": "Show an improvement that raised the performance and effectiveness of the QMS.",
+   "evidence": [
+    "QMS improvement record"
+   ]
+  },
+  {
+   "ref": "10.1(d)",
+   "question": "Show an improvement that raised the performance and effectiveness of safety management.",
+   "evidence": [
+    "Safety management improvement record"
+   ]
+  },
+  {
+   "ref": "10.2.1(a)",
+   "question": "When a nonconformity occurs, how do you react: how is it controlled and corrected, and how are its consequences dealt with?",
+   "evidence": [
+    "Containment and correction record",
+    "Consequence assessment"
+   ]
+  },
+  {
+   "ref": "10.2.1(b)",
+   "question": "How do you evaluate the need for action on the cause: review and analysis, causes including human factors, and whether similar nonconformities exist or could occur?",
+   "evidence": [
+    "Root cause analysis including human factors",
+    "Similar nonconformity check"
+   ]
+  },
+  {
+   "ref": "10.2.1(c)",
+   "question": "What action was implemented to remove the cause?",
+   "evidence": [
+    "Implemented corrective action record"
+   ]
+  },
+  {
+   "ref": "10.2.1(d)",
+   "question": "How was the effectiveness of the corrective action reviewed?",
+   "evidence": [
+    "Effectiveness review record"
+   ]
+  },
+  {
+   "ref": "10.2.1(e)",
+   "question": "Were the risks and opportunities updated when the nonconformity was found?",
+   "evidence": [
+    "Updated risk register entry"
+   ]
+  },
+  {
+   "ref": "10.2.1(f)",
+   "question": "Were changes made to the QMS because of the nonconformity?",
+   "evidence": [
+    "QMS change record linked to the nonconformity"
+   ]
+  },
+  {
+   "ref": "10.2.1(g)",
+   "question": "Where an external provider was responsible, was the corrective action requirement flowed down to it?",
+   "evidence": [
+    "Flow-down record to the provider"
+   ]
+  },
+  {
+   "ref": "10.2.1(h)",
+   "question": "When corrective action was not timely or effective, what specific action was taken? Show the escalation and the documented definition of the process.",
+   "evidence": [
+    "Escalation record for a late or ineffective action",
+    "Documented nonconformity and corrective action process"
+   ]
+  },
+  {
+   "ref": "10.2.2(a)",
+   "question": "Where are the nature of nonconformities and the subsequent actions taken documented?",
+   "evidence": [
+    "Corrective action record with nature and actions"
+   ]
+  },
+  {
+   "ref": "10.2.2(b)",
+   "question": "Where are the results of corrective actions documented?",
+   "evidence": [
+    "Corrective action record with results"
+   ]
+  }
+ ]
+}

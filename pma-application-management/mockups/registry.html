@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regulatory Source Registry · PMA Autopilot</title>
+  <link rel="stylesheet" href="assets/vera.css" />
+</head>
+<body data-page="registry">
+  <div class="layout">
+    <main class="content">
+      <div class="row spread">
+        <h1>Regulatory Source Registry</h1>
+        <div class="row"><button class="btn btn-ghost">Run check now</button><button class="btn btn-primary">＋ Add source</button></div>
+      </div>
+      <p class="muted small" style="margin-top:-6px">The system detects and proposes fixes on a schedule; an Admin approves what gets trusted. No URL is ever auto-replaced, and nothing about the regulation is inferred by a model.</p>
+
+      <div class="panel" style="padding:0">
+        <table class="grid">
+          <thead><tr><th>Title</th><th>Category</th><th>Status</th><th>URL</th><th>Last checked</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td>AC 21.303-4</td><td class="muted">AC</td><td><span class="stag ok">OK</span></td>
+              <td class="muted small">faa.gov/…/AC_21_303-4.pdf</td><td class="muted small">2026-07-22 06:00</td><td></td>
+            </tr>
+            <tr>
+              <td>14 CFR Part 21 Subpart K</td><td class="muted">CFR_SECTION</td>
+              <td><span class="stag warning">CHANGED</span> <span class="stag blocking">frozen</span></td>
+              <td class="muted small">ecfr.gov/…/part-21/subpart-K</td><td class="muted small">2026-07-22 06:00</td>
+              <td><button class="btn btn-ghost">Accept change</button></td>
+            </tr>
+            <tr>
+              <td>FAA Form 8110-2</td><td class="muted">FAA_FORM</td><td><span class="stag blocking">BROKEN</span></td>
+              <td class="muted small">proposed: faa.gov/forms/?search=8110-2</td><td class="muted small">2026-07-22 06:00</td>
+              <td><button class="btn btn-ghost">Approve URL</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="banner-block" style="border-color:var(--warning);background:var(--warn-dim)">
+        <div class="label" style="color:var(--warning)">Source changed — new drafts frozen</div>
+        <div class="small" style="margin-top:4px">14 CFR Part 21 Subpart K content changed since the last check. New document generation is held for this org until an Admin reviews and accepts the change.</div>
+      </div>
+    </main>
+  </div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

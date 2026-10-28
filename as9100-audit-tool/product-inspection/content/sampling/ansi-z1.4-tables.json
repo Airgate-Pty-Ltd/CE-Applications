@@ -1,0 +1,56 @@
+{
+  "_note": "ANSI Z1.4 Table II-A attribute sampling. Source: ANSI/ASQ Z1.4-2003 (R2018). Do not redistribute. This table is derived from the standard for in-app use only.",
+  "_verified": "lot=200 / AQL=1.5% / Level II → Code G → n=32 / Ac=1 / Re=2 ✓ (2026-10-21)",
+
+  "code_letter_table": {
+    "_columns": ["S1", "S2", "I", "II", "III"],
+    "_note": "lot size range [min, max] (inclusive) → code letter per inspection level",
+    "ranges": [
+      { "min": 2,    "max": 8,    "S1": "A", "S2": "A", "I": "A", "II": "A",  "III": "B" },
+      { "min": 9,    "max": 15,   "S1": "A", "S2": "A", "I": "A", "II": "B",  "III": "C" },
+      { "min": 16,   "max": 25,   "S1": "A", "S2": "A", "I": "B", "II": "C",  "III": "D" },
+      { "min": 26,   "max": 50,   "S1": "A", "S2": "B", "I": "C", "II": "D",  "III": "E" },
+      { "min": 51,   "max": 90,   "S1": "B", "S2": "B", "I": "C", "II": "E",  "III": "F" },
+      { "min": 91,   "max": 150,  "S1": "B", "S2": "C", "I": "D", "II": "F",  "III": "G" },
+      { "min": 151,  "max": 280,  "S1": "B", "S2": "C", "I": "E", "II": "G",  "III": "H" },
+      { "min": 281,  "max": 500,  "S1": "B", "S2": "C", "I": "F", "II": "H",  "III": "J" },
+      { "min": 501,  "max": 1200, "S1": "C", "S2": "D", "I": "G", "II": "J",  "III": "K" },
+      { "min": 1201, "max": 3200, "S1": "C", "S2": "D", "I": "H", "II": "K",  "III": "L" },
+      { "min": 3201, "max": 10000,"S1": "C", "S2": "D", "I": "J", "II": "L",  "III": "M" },
+      { "min": 10001,"max": 35000,"S1": "C", "S2": "D", "I": "K", "II": "M",  "III": "N" },
+      { "min": 35001,"max": 150000,"S1":"D", "S2": "E", "I": "L", "II": "N",  "III": "P" },
+      { "min": 150001,"max":500000,"S1":"D", "S2": "E", "I": "M", "II": "P",  "III": "Q" },
+      { "min": 500001,"max": null, "S1": "D", "S2": "E", "I": "N", "II": "Q", "III": "R" }
+    ]
+  },
+
+  "sample_size_table": {
+    "_note": "code letter → sample size n",
+    "A": 2, "B": 3, "C": 5, "D": 8, "E": 13, "F": 20,
+    "G": 32, "H": 50, "J": 80, "K": 125, "L": 200,
+    "M": 315, "N": 500, "P": 800, "Q": 1250, "R": 2000
+  },
+
+  "acceptance_table": {
+    "_note": "code letter + AQL → {ac, re}. null means use arrow (next larger or smaller sample from standard); for app purposes use the sample size as given and note 'use tightened/reduced plan'.",
+    "_aql_values": ["0.065", "0.10", "0.15", "0.25", "0.40", "0.65", "1.0", "1.5", "2.5", "4.0", "6.5"],
+    "A":  { "0.65": null, "1.0": null, "1.5": null, "2.5": null, "4.0": {"ac":0,"re":1}, "6.5": {"ac":0,"re":1} },
+    "B":  { "0.65": null, "1.0": null, "1.5": null, "2.5": {"ac":0,"re":1}, "4.0": {"ac":0,"re":1}, "6.5": {"ac":1,"re":2} },
+    "C":  { "0.65": null, "1.0": null, "1.5": {"ac":0,"re":1}, "2.5": {"ac":0,"re":1}, "4.0": {"ac":1,"re":2}, "6.5": {"ac":1,"re":2} },
+    "D":  { "0.65": null, "1.0": {"ac":0,"re":1}, "1.5": {"ac":0,"re":1}, "2.5": {"ac":1,"re":2}, "4.0": {"ac":1,"re":2}, "6.5": {"ac":2,"re":3} },
+    "E":  { "0.65": {"ac":0,"re":1}, "1.0": {"ac":0,"re":1}, "1.5": {"ac":1,"re":2}, "2.5": {"ac":1,"re":2}, "4.0": {"ac":2,"re":3}, "6.5": {"ac":3,"re":4} },
+    "F":  { "0.65": {"ac":0,"re":1}, "1.0": {"ac":1,"re":2}, "1.5": {"ac":1,"re":2}, "2.5": {"ac":2,"re":3}, "4.0": {"ac":3,"re":4}, "6.5": {"ac":5,"re":6} },
+    "G":  { "0.65": {"ac":1,"re":2}, "1.0": {"ac":1,"re":2}, "1.5": {"ac":1,"re":2}, "2.5": {"ac":3,"re":4}, "4.0": {"ac":5,"re":6}, "6.5": {"ac":7,"re":8} },
+    "H":  { "0.65": {"ac":1,"re":2}, "1.0": {"ac":2,"re":3}, "1.5": {"ac":2,"re":3}, "2.5": {"ac":5,"re":6}, "4.0": {"ac":7,"re":8}, "6.5": {"ac":10,"re":11} },
+    "J":  { "0.65": {"ac":2,"re":3}, "1.0": {"ac":3,"re":4}, "1.5": {"ac":3,"re":4}, "2.5": {"ac":7,"re":8}, "4.0": {"ac":10,"re":11}, "6.5": {"ac":14,"re":15} },
+    "K":  { "0.65": {"ac":3,"re":4}, "1.0": {"ac":5,"re":6}, "1.5": {"ac":5,"re":6}, "2.5": {"ac":10,"re":11}, "4.0": {"ac":14,"re":15}, "6.5": {"ac":21,"re":22} },
+    "L":  { "0.65": {"ac":5,"re":6}, "1.0": {"ac":7,"re":8}, "1.5": {"ac":7,"re":8}, "2.5": {"ac":14,"re":15}, "4.0": {"ac":21,"re":22}, "6.5": {"ac":21,"re":22} },
+    "M":  { "0.65": {"ac":7,"re":8}, "1.0": {"ac":10,"re":11}, "1.5": {"ac":10,"re":11}, "2.5": {"ac":21,"re":22}, "4.0": {"ac":21,"re":22}, "6.5": null },
+    "N":  { "0.65": {"ac":10,"re":11}, "1.0": {"ac":14,"re":15}, "1.5": {"ac":14,"re":15}, "2.5": {"ac":21,"re":22}, "4.0": null, "6.5": null },
+    "P":  { "0.65": {"ac":14,"re":15}, "1.0": {"ac":21,"re":22}, "1.5": {"ac":21,"re":22}, "2.5": null, "4.0": null, "6.5": null },
+    "Q":  { "0.65": {"ac":21,"re":22}, "1.0": {"ac":21,"re":22}, "1.5": null, "2.5": null, "4.0": null, "6.5": null },
+    "R":  { "0.65": {"ac":21,"re":22}, "1.0": null, "1.5": null, "2.5": null, "4.0": null, "6.5": null }
+  },
+
+  "_aql_key_note": "The app exposes AQL options: 0.65, 1.0, 1.5, 2.5, 4.0. For 1.0 use key '1.0'; for 1.5 use key '1.5'. Keys in this table are exact string matches."
+}

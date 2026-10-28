@@ -1,0 +1,442 @@
+{
+ "standard": "AS9110C",
+ "batch": "02",
+ "covers": "clauses 6.2.2(a) to 7.5.3.1(b) (extract lines 76-148)",
+ "authored_from": "licensed-private/lettered-AS9110C.md (private licensed text)",
+ "rows": [
+  {
+   "ref": "6.2.2(a)",
+   "question": "For one quality objective, what will be done to achieve it?",
+   "evidence": [
+    "Objective action plan"
+   ]
+  },
+  {
+   "ref": "6.2.2(b)",
+   "question": "For one quality objective, what resources will be required?",
+   "evidence": [
+    "Resource plan for the objective"
+   ]
+  },
+  {
+   "ref": "6.2.2(c)",
+   "question": "For one quality objective, who is responsible for achieving it?",
+   "evidence": [
+    "Named owner for the objective"
+   ]
+  },
+  {
+   "ref": "6.2.2(d)",
+   "question": "For one quality objective, when is it due to be completed?",
+   "evidence": [
+    "Planned completion date"
+   ]
+  },
+  {
+   "ref": "6.2.2(e)",
+   "question": "For one quality objective, how will the results be evaluated?",
+   "evidence": [
+    "Evaluation method and result"
+   ]
+  },
+  {
+   "ref": "6.3(a)",
+   "question": "For a planned QMS change, what is its purpose and what are its potential consequences?",
+   "evidence": [
+    "Change plan with purpose and consequences"
+   ]
+  },
+  {
+   "ref": "6.3(b)",
+   "question": "For a planned QMS change, how is the integrity of the QMS protected?",
+   "evidence": [
+    "Change plan with integrity considerations"
+   ]
+  },
+  {
+   "ref": "6.3(c)",
+   "question": "For a planned QMS change, what resources are available to carry it out?",
+   "evidence": [
+    "Resource confirmation for the change"
+   ]
+  },
+  {
+   "ref": "6.3(d)",
+   "question": "For a planned QMS change, how are responsibilities and authorities allocated or reallocated?",
+   "evidence": [
+    "Responsibility and authority record for the change"
+   ]
+  },
+  {
+   "ref": "6.3(e)",
+   "question": "For a planned QMS change, what risks arise during the transition period, and what mitigation actions were planned?",
+   "evidence": [
+    "Transition risk and mitigation record"
+   ]
+  },
+  {
+   "ref": "7.1.1(a)",
+   "question": "What are your internal resource capabilities and constraints, and how did you assess them?",
+   "evidence": [
+    "Resource assessment record"
+   ]
+  },
+  {
+   "ref": "7.1.1(b)",
+   "question": "What resources are obtained from external providers, and how are they controlled?",
+   "evidence": [
+    "External resource list",
+    "Provider control record"
+   ]
+  },
+  {
+   "ref": "7.1.1(c)",
+   "question": "For one maintenance task, were tools, equipment, maintenance data, facilities, materials and qualified persons available when the task was performed?",
+   "evidence": [
+    "Task resource record",
+    "Tool and equipment availability record",
+    "Current maintenance data at point of work"
+   ]
+  },
+  {
+   "ref": "7.1.3(a)",
+   "question": "What buildings and utilities are needed for your processes, and how are they maintained?",
+   "evidence": [
+    "Building and utilities list",
+    "Maintenance record"
+   ]
+  },
+  {
+   "ref": "7.1.3(b)",
+   "question": "What equipment, hardware and software do your processes need, and how is it maintained?",
+   "evidence": [
+    "Equipment and software list",
+    "Maintenance and validation records"
+   ]
+  },
+  {
+   "ref": "7.1.3(c)",
+   "question": "What transportation resources are needed, and how are they managed?",
+   "evidence": [
+    "Transportation resource list"
+   ]
+  },
+  {
+   "ref": "7.1.3(d)",
+   "question": "What information and communication technology supports your processes, and how is it kept available?",
+   "evidence": [
+    "ICT list",
+    "Availability or backup record"
+   ]
+  },
+  {
+   "ref": "7.1.3(e)",
+   "question": "How are serviceable and unserviceable articles, and aviation and non-aviation products, segregated? Show the arrangement.",
+   "evidence": [
+    "Segregation arrangement with a physical check"
+   ]
+  },
+  {
+   "ref": "7.1.4(a)",
+   "question": "What social environment conditions matter to your maintenance processes, and how are they set?",
+   "evidence": [
+    "Environment requirement for the process"
+   ]
+  },
+  {
+   "ref": "7.1.4(b)",
+   "question": "What psychological conditions matter to your processes, and how are they supported?",
+   "evidence": [
+    "Support or wellbeing arrangements"
+   ]
+  },
+  {
+   "ref": "7.1.4(c)",
+   "question": "What physical conditions (temperature, humidity, light, airflow, cleanliness, noise) matter to your processes, and how are they monitored?",
+   "evidence": [
+    "Environmental monitoring records"
+   ]
+  },
+  {
+   "ref": "7.1.5.1(a)",
+   "question": "For one monitoring or measuring resource, show that it suits the specific activity it is used for.",
+   "evidence": [
+    "Suitability record for the resource"
+   ]
+  },
+  {
+   "ref": "7.1.5.1(b)",
+   "question": "Show the documented evidence that a measuring resource remains fit for its purpose.",
+   "evidence": [
+    "Fitness-for-purpose record",
+    "Maintenance record"
+   ]
+  },
+  {
+   "ref": "7.1.5.2(a)",
+   "question": "Pick a calibrated instrument. Show its calibration at the set interval against a traceable standard. Where no standard exists, what basis was used?",
+   "evidence": [
+    "Calibration certificate traceable to national or international standards",
+    "Recorded basis where no standard exists"
+   ]
+  },
+  {
+   "ref": "7.1.5.2(b)",
+   "question": "How is the calibration status of each instrument identified? Show it on one instrument.",
+   "evidence": [
+    "Status label on the instrument"
+   ]
+  },
+  {
+   "ref": "7.1.5.2(c)",
+   "question": "How is an instrument safeguarded from adjustment or damage? Show the recall process, the register entry, and what was reviewed when an instrument was found out of tolerance.",
+   "evidence": [
+    "Safeguarding arrangement",
+    "Recall process",
+    "Register entry with type, ID, location, method, frequency and acceptance criteria",
+    "Review of past results after an out-of-tolerance finding"
+   ]
+  },
+  {
+   "ref": "7.1.6(a)",
+   "question": "What internal knowledge is critical to your processes, and how is it captured and shared?",
+   "evidence": [
+    "Knowledge register or lessons-learned record"
+   ]
+  },
+  {
+   "ref": "7.1.6(b)",
+   "question": "What external knowledge sources do you use to keep critical knowledge current?",
+   "evidence": [
+    "Record of external sources used"
+   ]
+  },
+  {
+   "ref": "7.2(a)",
+   "question": "For one role that affects the QMS or maintenance, what competence is required?",
+   "evidence": [
+    "Competence requirement for the role"
+   ]
+  },
+  {
+   "ref": "7.2(b)",
+   "question": "How do you confirm a person in that role is competent, on the basis of education, training or experience?",
+   "evidence": [
+    "Training or qualification records for the person"
+   ]
+  },
+  {
+   "ref": "7.2(c)",
+   "question": "When competence was lacking, what action was taken, and how was its effectiveness evaluated?",
+   "evidence": [
+    "Competence action record",
+    "Effectiveness evaluation"
+   ]
+  },
+  {
+   "ref": "7.2(d)",
+   "question": "Where is the documented evidence of competence kept?",
+   "evidence": [
+    "Competence records in a controlled location"
+   ]
+  },
+  {
+   "ref": "7.2(e)",
+   "question": "How are persons doing maintenance identified, qualified and certified in line with the competent authority's requirements? Show a certifying staff member's authorization.",
+   "evidence": [
+    "Identification and qualification record",
+    "Certification record per the competent authority",
+    "Certifying staff authorization"
+   ]
+  },
+  {
+   "ref": "7.2(f)",
+   "question": "How are initial and recurrent training and assessment programmes run, so that maintenance staff, including certifying staff, stay current in procedures, human factors, technical knowledge and on-the-job training?",
+   "evidence": [
+    "Training and assessment programme",
+    "Recurrent training records",
+    "On-the-job training records"
+   ]
+  },
+  {
+   "ref": "7.2(g)",
+   "question": "Where is the documented information on persons performing maintenance, as the competent authority requires?",
+   "evidence": [
+    "Documented information on persons performing maintenance"
+   ]
+  },
+  {
+   "ref": "7.2(h)",
+   "question": "Before a non-qualified person does unsupervised work, how is their ability to understand maintenance data and carry out tasks assessed? Show the surveillance record.",
+   "evidence": [
+    "Surveillance and assessment record for a non-qualified person"
+   ]
+  },
+  {
+   "ref": "7.3(a)",
+   "question": "Can a staff member tell you what the quality policy says?",
+   "evidence": [
+    "Staff interview record"
+   ]
+  },
+  {
+   "ref": "7.3(b)",
+   "question": "Can a staff member tell you the quality objectives relevant to their work?",
+   "evidence": [
+    "Staff interview record"
+   ]
+  },
+  {
+   "ref": "7.3(c)",
+   "question": "Can a staff member explain their contribution to QMS effectiveness and the benefit of improved performance?",
+   "evidence": [
+    "Staff interview record"
+   ]
+  },
+  {
+   "ref": "7.3(d)",
+   "question": "Can a staff member explain the implications of not conforming to QMS requirements?",
+   "evidence": [
+    "Staff interview record"
+   ]
+  },
+  {
+   "ref": "7.3(e)",
+   "question": "How are staff told about relevant QMS documents and the changes made to them?",
+   "evidence": [
+    "Change notification records"
+   ]
+  },
+  {
+   "ref": "7.3(f)",
+   "question": "Can a staff member explain their contribution to product or service conformity?",
+   "evidence": [
+    "Staff interview record"
+   ]
+  },
+  {
+   "ref": "7.3(g)",
+   "question": "Can a staff member explain their contribution to product safety?",
+   "evidence": [
+    "Staff interview record",
+    "Product safety briefing record"
+   ]
+  },
+  {
+   "ref": "7.3(h)",
+   "question": "How is the importance of ethical behaviour communicated to staff?",
+   "evidence": [
+    "Ethics briefing or training record"
+   ]
+  },
+  {
+   "ref": "7.3(i)",
+   "question": "Can a staff member describe the safety policy and the safety objectives related to the product?",
+   "evidence": [
+    "Staff interview record",
+    "Safety briefing record"
+   ]
+  },
+  {
+   "ref": "7.3(j)",
+   "question": "Can a technician describe how human factors could affect the maintenance tasks they perform?",
+   "evidence": [
+    "Human factors training record",
+    "Staff interview record"
+   ]
+  },
+  {
+   "ref": "7.4(a)",
+   "question": "What does the organization communicate, internally and externally, about the QMS?",
+   "evidence": [
+    "Communication plan"
+   ]
+  },
+  {
+   "ref": "7.4(b)",
+   "question": "When does the organization communicate each QMS item?",
+   "evidence": [
+    "Communication schedule"
+   ]
+  },
+  {
+   "ref": "7.4(c)",
+   "question": "With whom does the organization communicate, and how is that decided?",
+   "evidence": [
+    "Communication audience list"
+   ]
+  },
+  {
+   "ref": "7.4(d)",
+   "question": "How does the organization communicate: which channels and methods?",
+   "evidence": [
+    "Communication method record"
+   ]
+  },
+  {
+   "ref": "7.4(e)",
+   "question": "Who is responsible for each communication, and how is product safety information promoted to staff?",
+   "evidence": [
+    "Communication responsibility record",
+    "Safety information bulletin"
+   ]
+  },
+  {
+   "ref": "7.5.1(a)",
+   "question": "Show the documented information the standard requires, against the standard's list.",
+   "evidence": [
+    "Cross-reference of required documented information"
+   ]
+  },
+  {
+   "ref": "7.5.1(b)",
+   "question": "What other documented information has the organization decided is needed for QMS effectiveness, and why?",
+   "evidence": [
+    "Documented decision on additional information"
+   ]
+  },
+  {
+   "ref": "7.5.1(c)",
+   "question": "What documented information has the organization decided is needed for effective product safety management?",
+   "evidence": [
+    "Product safety documented information"
+   ]
+  },
+  {
+   "ref": "7.5.2(a)",
+   "question": "Pick a controlled document. Does it show identification and description: title, date, author or reference number?",
+   "evidence": [
+    "Document identification block"
+   ]
+  },
+  {
+   "ref": "7.5.2(b)",
+   "question": "Does the document show a suitable format and media, and where relevant the software version?",
+   "evidence": [
+    "Document format and media record"
+   ]
+  },
+  {
+   "ref": "7.5.2(c)",
+   "question": "Who reviewed and approved this document for suitability and adequacy, and are those approvers authorized?",
+   "evidence": [
+    "Review and approval record",
+    "List of authorized approvers"
+   ]
+  },
+  {
+   "ref": "7.5.3.1(a)",
+   "question": "Can the people who need this controlled document reach a current copy, and is it usable where the work happens? Show the point of use.",
+   "evidence": [
+    "Access or point-of-use check"
+   ]
+  },
+  {
+   "ref": "7.5.3.1(b)",
+   "question": "How do you guard this document against unauthorised disclosure, misuse or corruption?",
+   "evidence": [
+    "Protection controls such as permissions and backups"
+   ]
+  }
+ ]
+}

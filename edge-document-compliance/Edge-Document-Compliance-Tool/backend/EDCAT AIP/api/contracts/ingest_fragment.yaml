@@ -1,0 +1,28 @@
+
+post:
+  summary: Ingest and index a customer/standard document
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [tenant_id, doc_id, file_path]
+          properties:
+            tenant_id: { type: string, format: uuid }
+            doc_id: { type: string }
+            title: { type: string }
+            kind: { type: string, enum: ["standard","regulation","customer","internal"] }
+            file_path: { type: string }
+  responses:
+    '200':
+      description: Ingest summary
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              source_doc_id: { type: string }
+              pages: { type: integer }
+              snippets: { type: integer }
+              sha256: { type: string }

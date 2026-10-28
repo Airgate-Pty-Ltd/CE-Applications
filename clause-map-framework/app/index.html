@@ -1,0 +1,156 @@
+<!doctype html>
+<!--
+FSA REVIEW PASSED (test harness)
+Problem eliminated: manual re-authoring of checklists per scope — the resolver derives the applicable set from the org profile and shows why each item is in or out.
+AI/intelligence layer: deterministic scope resolver surfaces the applicable clause set and its reasoning without the user filtering anything by hand.
+Human role: select scope, read findings, decide. No manual checklist assembly.
+No enterprise equivalent: this is a framework test harness, not a product screen.
+Note: this is the FRAMEWORK test UI, not the shipping Audit Toolkit UI.
+-->
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clause Map Framework — Test Harness</title>
+<style>
+  :root{
+    --void:#080C12;--depth:#0D1420;--surface:#111827;--border:#1E2D45;--border-dim:#162035;
+    --signal:#0EA5E9;--signal-dim:#0C4A6E;--signal-glow:rgba(14,165,233,.12);
+    --critical:#EF4444;--warning:#F59E0B;--advisory:#8B5CF6;--advisory-bg:rgba(139,92,246,.08);
+    --positive:#10B981;--positive-bg:rgba(16,185,129,.08);--neutral:#6B7280;
+    --t-primary:#F0F4F8;--t-secondary:#94A3B8;--t-tertiary:#475569;--t-signal:#38BDF8;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --sans:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--void);color:var(--t-secondary);font-family:var(--sans);
+    font-size:13px;line-height:1.6;padding:0 0 64px}
+  .thread{position:fixed;left:0;top:0;bottom:0;width:2px;background:var(--signal);opacity:.2}
+  header{padding:20px 40px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:16px}
+  header h1{font-size:15px;font-weight:600;color:var(--t-primary);margin:0;letter-spacing:.01em}
+  header .ver{font-family:var(--mono);font-size:11px;color:var(--t-tertiary)}
+  main{max-width:1200px;margin:0 auto;padding:32px 40px;display:grid;grid-template-columns:280px 1fr;gap:40px}
+  @media(max-width:860px){main{grid-template-columns:1fr;padding:24px 16px}}
+  .panel h2{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+    color:var(--t-tertiary);margin:0 0 12px}
+  .scope-group{margin-bottom:20px}
+  label.chk{display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer;color:var(--t-secondary)}
+  label.chk input{accent-color:var(--signal)}
+  select{width:100%;background:var(--void);border:1px solid var(--border);color:var(--t-primary);
+    border-radius:4px;padding:8px 10px;font-family:var(--sans);font-size:13px}
+  .counts{display:flex;gap:24px;margin-bottom:20px}
+  .count{display:flex;flex-direction:column}
+  .count .n{font-size:28px;font-weight:700;color:var(--t-primary);line-height:1}
+  .count .l{font-size:11px;color:var(--t-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+  .count.excl .n{color:var(--t-tertiary)}
+  .card{background:var(--depth);border:1px solid var(--border);border-left:3px solid var(--border);
+    border-radius:8px;padding:16px 20px;margin-bottom:12px;transition:border-color .15s}
+  .card.applied{border-left-color:var(--signal)}
+  .card.excluded{border-left-color:var(--t-tertiary);opacity:.65}
+  .card .top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  .clause{font-family:var(--mono);font-size:11px;color:var(--t-signal);background:var(--signal-glow);
+    padding:2px 8px;border-radius:4px}
+  .card .lab{font-weight:600;color:var(--t-primary);font-size:13px}
+  .reason{font-size:11px;color:var(--t-tertiary);font-family:var(--mono);margin-left:auto}
+  .intent{color:var(--t-secondary);margin:4px 0 10px}
+  .q{color:var(--t-primary);font-weight:500;margin-bottom:10px}
+  .meta{display:grid;grid-template-columns:1fr;gap:8px;font-size:12px;border-top:1px solid var(--border-dim);padding-top:10px}
+  .meta .row{display:flex;gap:8px}
+  .meta .k{color:var(--t-tertiary);min-width:76px;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+  .meta .v{color:var(--t-secondary);flex:1}
+  .frag{font-family:var(--mono);color:var(--advisory);font-size:11px}
+  .excl-head{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--t-tertiary);
+    margin:28px 0 12px;border-top:1px solid var(--border-dim);padding-top:20px}
+  .ip-note{background:var(--advisory-bg);border:1px solid var(--advisory);border-left:3px solid var(--advisory);
+    border-radius:8px;padding:12px 16px;margin-bottom:24px;font-size:12px;color:var(--t-secondary)}
+  .ip-note .d{color:var(--advisory);font-weight:600;margin-right:6px}
+</style>
+</head>
+<body>
+<div class="thread"></div>
+<header>
+  <h1>Clause Map Framework</h1>
+  <span class="ver" id="ver">test harness</span>
+</header>
+<main>
+  <div class="panel">
+    <h2>Scope of Business</h2>
+    <div class="scope-group">
+      <div style="font-size:11px;color:var(--t-tertiary);margin-bottom:6px">Activities</div>
+      <label class="chk"><input type="checkbox" class="act" value="design"> Design</label>
+      <label class="chk"><input type="checkbox" class="act" value="manufacture" checked> Manufacture</label>
+      <label class="chk"><input type="checkbox" class="act" value="distribute"> Distribute</label>
+      <label class="chk"><input type="checkbox" class="act" value="maintain"> Maintain</label>
+    </div>
+    <div class="scope-group">
+      <div style="font-size:11px;color:var(--t-tertiary);margin-bottom:6px">Standard / Pack</div>
+      <select id="pack"><option value="as9100d">AS9100D (sample, 8 items)</option></select>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ip-note"><span class="d">◆</span><span id="ipnote"></span></div>
+    <div class="counts">
+      <div class="count"><span class="n" id="cApplied">0</span><span class="l">Applicable</span></div>
+      <div class="count excl"><span class="n" id="cExcluded">0</span><span class="l">Out of Scope</span></div>
+    </div>
+    <div id="applied"></div>
+    <div id="excludedWrap"></div>
+  </div>
+</main>
+
+<script src="../src/core/resolver.js"></script>
+<script>
+const PACKS = {};
+async function loadPacks(){
+  const r = await fetch('../packs/src/as9100d.pack.json');
+  PACKS['as9100d'] = await r.json();
+  render();
+}
+function profile(){
+  return {
+    activities: [...document.querySelectorAll('.act:checked')].map(e=>e.value),
+    regulators: [], certifications: ['AS9100D'], flags: []
+  };
+}
+function render(){
+  const pack = PACKS[document.getElementById('pack').value];
+  if(!pack) return;
+  document.getElementById('ver').textContent = pack.packId + ' v' + pack.mapVersion;
+  document.getElementById('ipnote').textContent = pack.license.externalDocumentNotice || pack.license.statement;
+  const res = CEResolver.resolvePack(pack, profile());
+  document.getElementById('cApplied').textContent = res.applied.length;
+  document.getElementById('cExcluded').textContent = res.excluded.length;
+
+  document.getElementById('applied').innerHTML = res.applied.map(a=>cardHtml(a,true)).join('');
+  const ex = res.excluded;
+  document.getElementById('excludedWrap').innerHTML = ex.length
+    ? '<div class="excl-head">Out of scope — '+ex.length+'</div>' + ex.map(a=>cardHtml(a,false)).join('')
+    : '';
+}
+function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function cardHtml(a, applied){
+  const it = a.item;
+  const frag = it.quotedFragment ? '<div class="row"><span class="k">Fragment</span><span class="v frag">'+esc(it.quotedFragment)+'</span></div>' : '';
+  const body = applied ? `
+    <div class="intent">${esc(it.intent)}</div>
+    <div class="q">${esc(it.question)}</div>
+    <div class="meta">
+      <div class="row"><span class="k">Evidence</span><span class="v">${it.evidence.map(esc).join(' · ')}</span></div>
+      <div class="row"><span class="k">NC pattern</span><span class="v">${esc(it.ncPattern)}</span></div>
+      <div class="row"><span class="k">Finding</span><span class="v">${esc(it.findingStem)}</span></div>
+      ${frag}
+    </div>` : '';
+  return `<div class="card ${applied?'applied':'excluded'}">
+    <div class="top">
+      <span class="clause">${esc(it.clauseRef)}</span>
+      <span class="lab">${esc(it.label)}</span>
+      <span class="reason">${esc(a.reason)}</span>
+    </div>${body}</div>`;
+}
+document.querySelectorAll('.act').forEach(e=>e.addEventListener('change',render));
+document.getElementById('pack').addEventListener('change',render);
+loadPacks();
+</script>
+</body>
+</html>

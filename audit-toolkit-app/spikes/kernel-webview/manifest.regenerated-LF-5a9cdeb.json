@@ -1,0 +1,20 @@
+{
+  "kernel_version": "0.2.0-5f",
+  "git_sha": "5a9cdeb84453ef8c54e7a7837ed43db13a60ceaa",
+  "source_tree_hash": "e35a8fb9d250da73c08d7374946cbe5b9ff36890138ef10fc677444be8bff40b",
+  "git_dirty": false,
+  "build_hash": "0328f0644431270cab76a4fe6e94a37835a4a07f46b95a33a3913217948a3c54",
+  "schema_version": "0005_outbox",
+  "migration_checksums": {
+    "0001_core": "ff6753bb169fddff59e6e58ccaa30001cbfd41b06042db99c7db3739ad5d0a71",
+    "0002_evaluation_trace": "d81ae30e8b25d218d860a7d64036b65c39a5073922bd0cf4dc8c7d0096e856ae",
+    "0003_append_only_governance": "4cb84a3f1a3eb885676d311bec6b7cf1887d7e8b47bd5698c6684a2cdb5c528f",
+    "0004_ledger": "ed618d6f6d7eb1bd2572a31de36dd8e3a2fedd71f04440b12282e88bff3aef90",
+    "0005_outbox": "b1a84a8325ba7bc19c13c44ab80d72f6498eac5bc0ea766b92041c85bfbc1a3f"
+  },
+  "node_version": "v22.19.0",
+  "typescript_version": "5.9.3",
+  "lockfile_hash": "370b71261cbfa1b9d8444d7ad0473c4baa222c6d0dfa7f03ce28ed85f8ec8802",
+  "built_at": "2026-09-09T03:50:05.000Z",
+  "releasable": true
+}

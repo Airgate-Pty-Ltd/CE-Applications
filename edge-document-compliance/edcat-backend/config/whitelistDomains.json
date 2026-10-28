@@ -1,0 +1,30 @@
+{
+  "allowed_domains": [
+    "www.faa.gov",
+    "www.easa.europa.eu",
+    "www.casa.gov.au",
+    "www.tc.gc.ca",
+    "www.iso.org",
+    "www.sae.org",
+    "www.astm.org",
+    "www.as9100.com"
+  ],
+  "start_urls": [
+    "https://www.faa.gov/regulations_policies/handbooks_manuals/",
+    "https://www.easa.europa.eu/en/document-library",
+    "https://www.iso.org/standard/"
+  ],
+  "max_depth": 3,
+  "respect_robots_txt": true,
+  "crawl_interval_hours": 168,
+  "document_types": {
+    "www.faa.gov": "regulation",
+    "www.easa.europa.eu": "regulation",
+    "www.casa.gov.au": "regulation",
+    "www.tc.gc.ca": "regulation",
+    "www.iso.org": "standard",
+    "www.sae.org": "standard",
+    "www.astm.org": "standard"
+  }
+}
+

@@ -1,0 +1,31 @@
+[package]
+name = "no-undue-burden-generator"
+version = "0.0.1"
+description = "PAH Project Initiation Plans under FAA AC 21-55"
+authors = ["Conform-Edge Quality Consulting LLC"]
+edition = "2021"
+rust-version = "1.77"
+publish = false
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+
+# The desktop wrapper is a shell around the same web build. It deliberately
+# pulls in no plugins: the application has no backend, reads no files outside
+# its own storage, and makes no network calls, so there is nothing for a plugin
+# to do. Adding one would widen the attack surface of a product whose selling
+# point is that customer data never leaves the device.
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true

@@ -1,0 +1,9 @@
+[build]
+cmds = [
+  "npm install -g npm@10",
+  "npm install",
+  "npm run build:vera"
+]
+
+[start]
+cmd = "npm start"

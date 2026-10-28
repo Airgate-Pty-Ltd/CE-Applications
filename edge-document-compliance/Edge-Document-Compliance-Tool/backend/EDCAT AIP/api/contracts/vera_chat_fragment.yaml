@@ -1,0 +1,28 @@
+
+post:
+  summary: Chat with Vera (blueprint-aware, retrieval-first)
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [tenant_id, message]
+          properties:
+            tenant_id: { type: string, format: uuid }
+            session_id: { type: string, format: uuid }
+            persona_code: { type: string, enum: ["vera"] }
+            message: { type: string }
+            standard_code: { type: string }
+            revision: { type: string }
+  responses:
+    '200':
+      description: Model response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              text: { type: string }
+              citations: { type: array, items: { type: string } }
+              next_steps: { type: array, items: { type: string } }

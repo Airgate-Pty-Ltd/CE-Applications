@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EASA Part-IS Information Security Self-Assessment | Conform-Edge</title>
+<style>
+  :root{--ce-navy:#1a2b4a;--ce-steel:#3d6b8f;--ce-light:#e8f0f7;--ce-accent:#2ecc71;--ce-warn:#e67e22;--ce-danger:#e74c3c;--ce-neutral:#95a5a6;--ce-text:#1c2733;--ce-border:#c8d8e8;--ce-white:#ffffff;--radius:6px;--shadow:0 2px 8px rgba(0,0,0,.10)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:var(--ce-text);font-size:14px;line-height:1.5}
+  .header{background:var(--ce-navy);color:var(--ce-white);padding:18px 32px;display:flex;align-items:center;justify-content:space-between}
+  .header-title{font-size:18px;font-weight:700}
+  .header-sub{font-size:12px;opacity:.75;margin-top:2px}
+  .header-badge{background:var(--ce-steel);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.5px}
+  .container{max-width:900px;margin:0 auto;padding:24px 16px 60px}
+  .intro-card{background:var(--ce-white);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 24px;margin-bottom:24px;border-left:4px solid var(--ce-steel)}
+  .intro-card h2{font-size:15px;color:var(--ce-navy);margin-bottom:8px}
+  .intro-card p{font-size:13px;color:#4a5568;line-height:1.6}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:12px}
+  .legend-dot{width:10px;height:10px;border-radius:50%}
+  .section-card{background:var(--ce-white);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden}
+  .section-header{background:var(--ce-navy);color:var(--ce-white);padding:12px 20px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .section-num{background:var(--ce-steel);border-radius:4px;padding:2px 8px;font-size:11px}
+  .question-row{padding:14px 20px;border-bottom:1px solid var(--ce-border);display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+  .question-row:last-child{border-bottom:none}
+  .question-row:hover{background:var(--ce-light)}
+  .q-text{font-size:13px;line-height:1.5}
+  .q-clause{font-size:11px;color:var(--ce-steel);margin-top:3px;font-style:italic}
+  .critical-flag{display:inline-block;background:#fef3f2;color:var(--ce-danger);border:1px solid #fca5a5;border-radius:3px;font-size:10px;font-weight:700;padding:1px 5px;margin-left:6px;vertical-align:middle}
+  .response-group{display:flex;gap:6px;flex-shrink:0}
+  .response-btn{padding:5px 12px;border-radius:4px;border:1.5px solid var(--ce-border);background:var(--ce-white);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+  .response-btn:hover{border-color:var(--ce-steel);background:var(--ce-light)}
+  .response-btn.yes.active{background:#d1fae5;border-color:#059669;color:#065f46}
+  .response-btn.partial.active{background:#fef3c7;border-color:#d97706;color:#92400e}
+  .response-btn.no.active{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+  .response-btn.na.active{background:#f1f5f9;border-color:#94a3b8;color:#475569}
+  .results-panel{background:var(--ce-white);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-top:24px;display:none}
+  .results-panel.visible{display:block}
+  .verdict-banner{border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;text-align:center}
+  .verdict-banner.ready{background:#d1fae5;border:2px solid #059669;color:#065f46}
+  .verdict-banner.conditional{background:#fef3c7;border:2px solid #d97706;color:#92400e}
+  .verdict-banner.not-ready{background:#fee2e2;border:2px solid #dc2626;color:#7f1d1d}
+  .verdict-title{font-size:22px;font-weight:800}
+  .verdict-sub{font-size:13px;margin-top:4px}
+  .score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .score-box{background:var(--ce-light);border-radius:var(--radius);padding:12px;text-align:center}
+  .score-box .num{font-size:26px;font-weight:800;color:var(--ce-navy)}
+  .score-box .lbl{font-size:11px;color:#64748b;margin-top:2px}
+  .gap-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
+  .gap-table th{background:var(--ce-navy);color:var(--ce-white);padding:8px 12px;text-align:left}
+  .gap-table td{padding:8px 12px;border-bottom:1px solid var(--ce-border)}
+  .gap-table tr:hover td{background:var(--ce-light)}
+  .gap-sev{font-weight:700;padding:2px 6px;border-radius:3px;font-size:11px}
+  .gap-sev.critical{background:#fee2e2;color:#7f1d1d}
+  .gap-sev.major{background:#fef3c7;color:#92400e}
+  .gap-sev.minor{background:#dbeafe;color:#1e3a5f}
+  .mr-narrative{background:var(--ce-light);border-radius:var(--radius);padding:16px;margin-bottom:20px;font-size:13px;line-height:1.7;border-left:3px solid var(--ce-steel)}
+  .mr-narrative h3{font-size:12px;font-weight:700;color:var(--ce-navy);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+  .action-bar{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{padding:10px 20px;border-radius:4px;border:none;font-size:13px;font-weight:600;cursor:pointer}
+  .btn-primary{background:var(--ce-navy);color:var(--ce-white)}
+  .btn-primary:hover{background:var(--ce-steel)}
+  .btn-secondary{background:var(--ce-light);color:var(--ce-navy);border:1px solid var(--ce-border)}
+  .mai-interface{display:none}
+  .footer{text-align:center;font-size:11px;color:var(--ce-neutral);margin-top:32px}
+  @media(max-width:600px){.question-row{grid-template-columns:1fr}.score-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <div class="header-title">Conform-Edge Quality Consulting</div>
+    <div class="header-sub">EASA Part-IS Information Security Self-Assessment Tool</div>
+  </div>
+  <div class="header-badge">EASA Part-IS</div>
+</div>
+<div class="container">
+  <div class="intro-card">
+    <h2>EASA Part-IS (Information Security) Compliance Self-Assessment</h2>
+    <p>This tool provides aviation organizations subject to EASA Part-IS (Commission Regulation (EU) 2022/1645 and 2023/203) with a structured compliance self-assessment. Complete all 28 questions to generate a scored gap report, management review narrative, and JSON record. Items marked <strong>CRITICAL</strong> carry automatic override — any critical item unanswered or partial results in a NOT READY verdict.</p>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#059669"></div>Yes — fully implemented</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div>Partial — in progress</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div>No — not implemented</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#94a3b8"></div>N/A — not applicable</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Governance & Policy -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 1</span> Governance &amp; IS Policy (IS.D.OR.200 / IS.D.OR.210 / IS.D.OR.215)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q1. Has the organization defined and documented the scope of its Information Security Management System (ISMS), specifically covering aviation activities subject to EASA Part-IS? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">IS.D.OR.215</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(1,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(1,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(1,'no',this)">No</button><button class="response-btn na" onclick="sr(1,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q2. Has an Information Security Policy been established, documented, approved by the Accountable Manager, and communicated to all relevant personnel? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">IS.D.OR.200</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(2,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(2,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(2,'no',this)">No</button><button class="response-btn na" onclick="sr(2,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q3. Are information security objectives established, measurable, and aligned to the IS policy and the organization's aviation safety objectives?</div><div class="q-clause">IS.D.OR.210</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(3,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(3,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(3,'no',this)">No</button><button class="response-btn na" onclick="sr(3,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q4. Is top management accountability for IS clearly defined, including a designated IS Management representative with authority and resources?</div><div class="q-clause">IS.D.OR.200</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(4,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(4,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(4,'no',this)">No</button><button class="response-btn na" onclick="sr(4,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q5. Does the IS policy explicitly address the protection of safety-critical aviation systems from information security threats?</div><div class="q-clause">IS.D.OR.200</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(5,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(5,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(5,'no',this)">No</button><button class="response-btn na" onclick="sr(5,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <!-- Section 2: Risk Assessment & Treatment -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 2</span> IS Risk Assessment &amp; Treatment (IS.D.OR.205 / IS.D.OR.245)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q6. Has a formal IS risk assessment been conducted, documented, and maintained, covering all aviation-related IT/OT systems and data within the ISMS scope? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">IS.D.OR.205</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(6,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(6,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(6,'no',this)">No</button><button class="response-btn na" onclick="sr(6,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q7. Does the risk assessment identify aviation-specific IS threats (e.g., ATC system compromise, maintenance data integrity, airworthiness system access)?</div><div class="q-clause">IS.D.OR.205</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(7,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(7,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(7,'no',this)">No</button><button class="response-btn na" onclick="sr(7,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q8. Are IS risk assessments reviewed and updated at defined intervals and following significant changes to the organization or its information systems?</div><div class="q-clause">IS.D.OR.205</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(8,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(8,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(8,'no',this)">No</button><button class="response-btn na" onclick="sr(8,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q9. Is a risk treatment plan documented with selected controls, risk acceptance decisions, and residual risk assessment?</div><div class="q-clause">IS.D.OR.245</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(9,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(9,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(9,'no',this)">No</button><button class="response-btn na" onclick="sr(9,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q10. Are safety-critical aviation IT and OT systems identified, classified, and subject to elevated IS controls proportionate to their safety impact?</div><div class="q-clause">IS.D.OR.245</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(10,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(10,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(10,'no',this)">No</button><button class="response-btn na" onclick="sr(10,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <!-- Section 3: Security Controls & Operations -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 3</span> Security Controls &amp; Operational IS (IS.D.OR.240)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q11. Are IS controls implemented for access management to safety-critical aviation systems (authentication, authorization, privileged access controls)?</div><div class="q-clause">IS.D.OR.240</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(11,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(11,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(11,'no',this)">No</button><button class="response-btn na" onclick="sr(11,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q12. Are IS controls implemented for third-party and supply chain access to aviation systems, including external maintenance providers and software vendors?</div><div class="q-clause">IS.D.OR.240</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(12,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(12,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(12,'no',this)">No</button><button class="response-btn na" onclick="sr(12,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q13. Is a software update and patch management process in place for aviation systems, with change control to prevent unauthorized modifications?</div><div class="q-clause">IS.D.OR.240</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(13,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(13,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(13,'no',this)">No</button><button class="response-btn na" onclick="sr(13,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q14. Are physical security controls implemented for infrastructure hosting safety-critical aviation systems?</div><div class="q-clause">IS.D.OR.240</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(14,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(14,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(14,'no',this)">No</button><button class="response-btn na" onclick="sr(14,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q15. Is business continuity / disaster recovery planning in place for IS-related disruptions affecting aviation operations?</div><div class="q-clause">IS.D.OR.240</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(15,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(15,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(15,'no',this)">No</button><button class="response-btn na" onclick="sr(15,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q16. Are IS controls for remote access to aviation systems defined, enforced, and logged (VPN, multi-factor authentication, session recording)?</div><div class="q-clause">IS.D.OR.240</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(16,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(16,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(16,'no',this)">No</button><button class="response-btn na" onclick="sr(16,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <!-- Section 4: Competence, Awareness & Communication -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 4</span> Competence, Awareness &amp; Communication (IS.D.OR.220 / IS.D.OR.225 / IS.D.OR.230)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q17. Are IS competence requirements defined for roles with responsibility for aviation information systems, and are competence records maintained?</div><div class="q-clause">IS.D.OR.220</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(17,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(17,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(17,'no',this)">No</button><button class="response-btn na" onclick="sr(17,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q18. Is IS awareness training provided to all personnel with access to aviation systems, including security threat awareness and social engineering?</div><div class="q-clause">IS.D.OR.225</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(18,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(18,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(18,'no',this)">No</button><button class="response-btn na" onclick="sr(18,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q19. Is there an IS communication plan ensuring relevant IS information (threats, policy changes, incidents) is communicated to relevant stakeholders?</div><div class="q-clause">IS.D.OR.230</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(19,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(19,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(19,'no',this)">No</button><button class="response-btn na" onclick="sr(19,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q20. Are IS responsibilities and acceptable use policies communicated to contractors, vendors, and third parties with access to aviation systems?</div><div class="q-clause">IS.D.OR.225 / IS.D.OR.230</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(20,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(20,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(20,'no',this)">No</button><button class="response-btn na" onclick="sr(20,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <!-- Section 5: Monitoring, Audit, Incident Reporting & Review -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 5</span> Monitoring, Audit, Incident Reporting &amp; Review (IS.D.OR.250–270)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q21. Is IS performance monitored against objectives using defined metrics, with monitoring results reviewed at planned intervals?</div><div class="q-clause">IS.D.OR.250</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(21,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(21,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(21,'no',this)">No</button><button class="response-btn na" onclick="sr(21,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q22. Is IS event logging in place for safety-critical aviation systems, with logs reviewed for anomalies and retained per regulatory requirements?</div><div class="q-clause">IS.D.OR.250</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(22,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(22,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(22,'no',this)">No</button><button class="response-btn na" onclick="sr(22,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q23. Is an internal IS audit program in place and being executed, covering all elements of the ISMS at planned intervals?</div><div class="q-clause">IS.D.OR.255</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(23,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(23,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(23,'no',this)">No</button><button class="response-btn na" onclick="sr(23,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q24. Is a management review of the ISMS conducted at planned intervals, with inputs covering IS performance, audit results, risk changes, and objectives?</div><div class="q-clause">IS.D.OR.260</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(24,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(24,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(24,'no',this)">No</button><button class="response-btn na" onclick="sr(24,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q25. Is an IS incident management procedure in place covering detection, classification, containment, eradication, recovery, and post-incident review?</div><div class="q-clause">IS.D.OR.270</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(25,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(25,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(25,'no',this)">No</button><button class="response-btn na" onclick="sr(25,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q26. Is there a documented procedure for reporting IS incidents with potential aviation safety impact to the EASA competent authority (NAA) in the required timeframe? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">IS.D.OR.270 / Reg. 2022/1645 Art. 5</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(26,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(26,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(26,'no',this)">No</button><button class="response-btn na" onclick="sr(26,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q27. Are nonconformities from IS audits or incidents investigated with root cause analysis, corrective actions documented, and effectiveness verified?</div><div class="q-clause">IS.D.OR.265</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(27,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(27,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(27,'no',this)">No</button><button class="response-btn na" onclick="sr(27,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q28. Is the ISMS documentation controlled, current, and retained in accordance with Part-IS requirements?</div><div class="q-clause">IS.D.OR.235</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(28,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(28,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(28,'no',this)">No</button><button class="response-btn na" onclick="sr(28,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:20px 0">
+    <button class="btn btn-primary" onclick="generateResults()" style="padding:12px 32px;font-size:15px">Generate Assessment Report</button>
+  </div>
+
+  <div class="results-panel" id="resultsPanel">
+    <div class="verdict-banner" id="verdictBanner">
+      <div class="verdict-title" id="verdictTitle"></div>
+      <div class="verdict-sub" id="verdictSub"></div>
+    </div>
+    <div class="score-grid">
+      <div class="score-box"><div class="num" id="scoreYes">0</div><div class="lbl">Implemented</div></div>
+      <div class="score-box"><div class="num" id="scorePartial">0</div><div class="lbl">Partial</div></div>
+      <div class="score-box"><div class="num" id="scoreNo">0</div><div class="lbl">Not Implemented</div></div>
+      <div class="score-box"><div class="num" id="scorePercent">0%</div><div class="lbl">Score</div></div>
+    </div>
+    <div id="criticalAlert" style="display:none;background:#fee2e2;border:1px solid #dc2626;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#7f1d1d"></div>
+    <h3 style="font-size:13px;font-weight:700;color:var(--ce-navy);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">Priority Gap Register</h3>
+    <table class="gap-table" id="gapTable">
+      <thead><tr><th>Q#</th><th>Gap</th><th>Clause</th><th>Sev.</th><th>Recommended Action</th></tr></thead>
+      <tbody id="gapBody"></tbody>
+    </table>
+    <div class="mr-narrative" id="mrNarrative"></div>
+    <div class="action-bar">
+      <button class="btn btn-primary" onclick="exportJSON()">Export JSON Record</button>
+      <button class="btn btn-secondary" onclick="window.print()">Print Report</button>
+      <button class="btn btn-secondary" onclick="resetAssessment()">Reset</button>
+    </div>
+  </div>
+  <div class="footer">Conform-Edge Quality Consulting LLC &nbsp;|&nbsp; EASA Part-IS Self-Assessment Tool v1.0 &nbsp;|&nbsp; For self-assessment use only. &nbsp;|&nbsp; © 2026</div>
+</div>
+
+<div class="mai-interface" id="mai-kernel-interface"
+  data-product="easa-part-is-self-assessment"
+  data-domain="easa-part-is-readiness"
+  data-version="1.0.0"
+  data-dims='["is-governance-policy","is-risk-assessment","is-security-controls","is-competence-awareness","is-monitoring-incident"]'
+  data-authority-charter="EASA-Part-IS-2022-1645"
+  data-mai-status="ARCHITECTURE_DEFINED">
+</div>
+
+<script>
+const responses={};
+const criticals=[1,2,6,26];
+const questions={
+  1:{t:"ISMS scope defined for aviation activities",c:"IS.D.OR.215",crit:true},
+  2:{t:"IS Policy approved by Accountable Manager",c:"IS.D.OR.200",crit:true},
+  3:{t:"IS objectives established and measurable",c:"IS.D.OR.210",crit:false},
+  4:{t:"IS management representative designated",c:"IS.D.OR.200",crit:false},
+  5:{t:"Policy addresses safety-critical aviation systems",c:"IS.D.OR.200",crit:false},
+  6:{t:"IS risk assessment conducted and documented",c:"IS.D.OR.205",crit:true},
+  7:{t:"Aviation-specific IS threats identified",c:"IS.D.OR.205",crit:false},
+  8:{t:"Risk assessment reviewed at defined intervals",c:"IS.D.OR.205",crit:false},
+  9:{t:"Risk treatment plan documented",c:"IS.D.OR.245",crit:false},
+  10:{t:"Safety-critical IT/OT systems classified and protected",c:"IS.D.OR.245",crit:false},
+  11:{t:"Access controls for aviation systems implemented",c:"IS.D.OR.240",crit:false},
+  12:{t:"Third-party/supply chain access controls defined",c:"IS.D.OR.240",crit:false},
+  13:{t:"Patch/change management for aviation systems in place",c:"IS.D.OR.240",crit:false},
+  14:{t:"Physical security for aviation IT/OT infrastructure",c:"IS.D.OR.240",crit:false},
+  15:{t:"BC/DR planning covers IS disruptions",c:"IS.D.OR.240",crit:false},
+  16:{t:"Remote access controls enforced and logged",c:"IS.D.OR.240",crit:false},
+  17:{t:"IS competence requirements defined and recorded",c:"IS.D.OR.220",crit:false},
+  18:{t:"IS awareness training provided to all staff",c:"IS.D.OR.225",crit:false},
+  19:{t:"IS communication plan in place",c:"IS.D.OR.230",crit:false},
+  20:{t:"IS responsibilities communicated to third parties",c:"IS.D.OR.225/230",crit:false},
+  21:{t:"IS performance monitored against objectives",c:"IS.D.OR.250",crit:false},
+  22:{t:"Event logging in place for safety-critical systems",c:"IS.D.OR.250",crit:false},
+  23:{t:"Internal IS audit program executed",c:"IS.D.OR.255",crit:false},
+  24:{t:"ISMS management review conducted",c:"IS.D.OR.260",crit:false},
+  25:{t:"IS incident management procedure in place",c:"IS.D.OR.270",crit:false},
+  26:{t:"Competent authority (NAA) IS incident reporting procedure",c:"IS.D.OR.270",crit:true},
+  27:{t:"IS nonconformities investigated with RCA and CA",c:"IS.D.OR.265",crit:false},
+  28:{t:"ISMS documentation controlled and retained",c:"IS.D.OR.235",crit:false}
+};
+const remediation={
+  1:"Define and document the ISMS scope specifically covering EASA Part-IS aviation activities.",
+  2:"Establish IS Policy; obtain Accountable Manager approval; distribute to all relevant personnel.",
+  6:"Conduct a formal IS risk assessment covering all aviation IT/OT systems in ISMS scope.",
+  26:"Establish and test a documented IS incident reporting procedure to the competent authority (NAA) per Reg. 2022/1645 Art. 5."
+};
+
+function sr(q,v,btn){
+  responses[q]=v;
+  btn.parentElement.querySelectorAll('.response-btn').forEach(b=>b.classList.remove('active','yes','partial','no','na'));
+  btn.classList.add('active',v);
+}
+
+function generateResults(){
+  let yes=0,partial=0,no=0,na=0,critFail=[],gaps=[];
+  for(let q=1;q<=28;q++){
+    const r=responses[q]||'no';
+    const info=questions[q];
+    if(r==='yes') yes++;
+    else if(r==='partial'){partial++;if(info.crit)critFail.push(q);gaps.push({q,info,r,sev:info.crit?'critical':'minor'});}
+    else if(r==='no'){no++;if(info.crit)critFail.push(q);gaps.push({q,info,r,sev:info.crit?'critical':'major'});}
+    else if(r==='na') na++;
+  }
+  gaps.sort((a,b)=>({critical:0,major:1,minor:2}[a.sev]-{critical:0,major:1,minor:2}[b.sev]));
+  const scored=yes+partial*0.5,total=28-na,pct=total>0?Math.round(scored/total*100):0;
+  document.getElementById('scoreYes').textContent=yes;
+  document.getElementById('scorePartial').textContent=partial;
+  document.getElementById('scoreNo').textContent=no;
+  document.getElementById('scorePercent').textContent=pct+'%';
+  const banner=document.getElementById('verdictBanner');
+  banner.className='verdict-banner';
+  if(critFail.length>0){banner.classList.add('not-ready');document.getElementById('verdictTitle').textContent='⚠ NOT READY — Critical Gaps Present';document.getElementById('verdictSub').textContent=critFail.length+' critical item(s) unresolved. EASA Part-IS compliance not achievable without resolution.';}
+  else if(pct>=80){banner.classList.add('ready');document.getElementById('verdictTitle').textContent='✓ READY — Part-IS Compliance Supportable';document.getElementById('verdictSub').textContent='Score: '+pct+'%. All critical items addressed. Proceed to competent authority oversight / NAA review.';}
+  else{banner.classList.add('conditional');document.getElementById('verdictTitle').textContent='△ CONDITIONAL — Gaps Require Remediation';document.getElementById('verdictSub').textContent='Score: '+pct+'%. Address prioritized gaps before competent authority assessment.';}
+  const alert=document.getElementById('criticalAlert');
+  if(critFail.length>0){alert.style.display='block';alert.innerHTML='<strong>Critical Gap Alert:</strong> Items Q'+critFail.join(', Q')+' must be fully implemented.';}
+  else alert.style.display='none';
+  const tbody=document.getElementById('gapBody');tbody.innerHTML='';
+  if(!gaps.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:#059669;font-weight:600">No gaps identified.</td></tr>';}
+  else gaps.forEach(g=>{const tr=document.createElement('tr');tr.innerHTML='<td>Q'+g.q+'</td><td>'+g.info.t+'</td><td>'+g.info.c+'</td><td><span class="gap-sev '+g.sev+'">'+g.sev.toUpperCase()+'</span></td><td>'+(remediation[g.q]||'Review and implement '+g.info.t+' per '+g.info.c+'.')+'</td>';tbody.appendChild(tr);});
+  const critGaps=gaps.filter(g=>g.sev==='critical').length;
+  document.getElementById('mrNarrative').innerHTML='<h3>Management Review Narrative — EASA Part-IS Readiness</h3><p>Self-assessment against EASA Part-IS (Reg. 2022/1645 / 2023/203). Score: <strong>'+pct+'%</strong> ('+yes+' implemented, '+partial+' partial, '+no+' not implemented, '+na+' N/A — of 28 questions).</p><p style="margin-top:8px">Verdict: <strong>'+(critFail.length>0?'NOT READY':pct>=80?'READY':'CONDITIONAL')+'</strong>. '+gaps.length+' gap(s), '+critGaps+' critical. '+(critFail.length>0?'Critical items Q'+critFail.join(', Q')+' must be resolved before competent authority review.':pct>=80?'All critical items addressed. ISMS is positioned for Part-IS oversight.':'Remediation required before competent authority assessment.')+'</p><p style="margin-top:8px;font-size:12px;color:#64748b">Generated: '+new Date().toISOString().split('T')[0]+' | Conform-Edge EASA Part-IS Self-Assessment v1.0</p>';
+  document.getElementById('resultsPanel').classList.add('visible');
+  document.getElementById('resultsPanel').scrollIntoView({behavior:'smooth'});
+}
+
+function exportJSON(){
+  const data={tool:"Conform-Edge EASA Part-IS Self-Assessment",version:"1.0.0",standard:"EASA Part-IS (Reg. 2022/1645 / 2023/203)",domain:"easa-part-is-readiness",exportDate:new Date().toISOString(),responses,maiInterface:{status:"ARCHITECTURE_DEFINED",domain:"easa-part-is-readiness"}};
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download='easa-part-is-assessment-'+new Date().toISOString().split('T')[0]+'.json';a.click();
+}
+
+function resetAssessment(){
+  Object.keys(responses).forEach(k=>delete responses[k]);
+  document.querySelectorAll('.response-btn').forEach(b=>b.classList.remove('active','yes','partial','no','na'));
+  document.getElementById('resultsPanel').classList.remove('visible');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

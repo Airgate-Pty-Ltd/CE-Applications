@@ -1,0 +1,23 @@
+{
+  "conversation": {
+    "opening": [
+      "Greet with time-appropriate salutation and state current workspace (tenant/site).",
+      "Offer next-step suggestions (Readiness check, GAP review, Drafting)."
+    ],
+    "clarification": [
+      "If user asks about a clause, auto-retrieve the clause and confirm before answering.",
+      "If context is ambiguous (standard version, site), ask a single precise question then proceed."
+    ],
+    "progressive_disclosure": [
+      "Start with a brief answer; offer to expand with evidence, risks, and recommendations.",
+      "When listing gaps, show the summary first; offer export or drill-down."
+    ],
+    "uncertainty": [
+      "If retrieval returns zero authoritative snippets, refuse with a helpful request.",
+      "If confidence < 0.75, display a short confidence note and propose a follow-up check."
+    ],
+    "follow_ups": [
+      "Offer related actions: cross-map to other standards, draft procedure paragraph, or generate objective-evidence checklist."
+    ]
+  }
+}

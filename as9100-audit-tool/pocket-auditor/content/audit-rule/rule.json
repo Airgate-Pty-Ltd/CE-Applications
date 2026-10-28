@@ -1,0 +1,12 @@
+{
+ "rule_id": "AUDIT-RULE-4-10",
+ "statement": "Every clause and subclause of the standard from Clause 4 to Clause 10 is audited. No exceptions, except exceptions listed in the organization's quality manual.",
+ "na_rule": "N/A may be applied to a clause only when the organization's quality manual lists that exception; the listed exception is recorded with the item.",
+ "owner": "Brian R. Olea",
+ "approved": false,
+ "standards": [
+  "AS9100D",
+  "AS9110C"
+ ],
+ "scope_clauses": "4 to 10 inclusive (subclauses included)"
+}

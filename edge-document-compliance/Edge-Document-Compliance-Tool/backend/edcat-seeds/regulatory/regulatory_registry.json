@@ -1,0 +1,136 @@
+{
+  "version": "1.0.0",
+  "generated_at_utc": "2025-01-03T00:00:00Z",
+  "description": "Master registry of regulatory frameworks available to Vera for compliance reasoning.",
+  "regulations": [
+    {
+      "code": "FAA_14CFR_PART21",
+      "name": "FAA 14 CFR Part 21 - Certification Procedures for Products and Articles",
+      "authority": "FAA",
+      "jurisdiction": "United States",
+      "sector": "regulatory",
+      "primary_focus": ["production_approval_holder", "design_approval_holder", "export"],
+      "current_revision_label": "as_of_2025-01",
+      "status": "active",
+      "seed_files": [
+        "faa_part21_137.json"
+      ],
+      "tags": [
+        "aerospace",
+        "production_approval",
+        "PAH",
+        "PMA",
+        "STC"
+      ]
+    },
+    {
+      "code": "CASA_CASRS_VOL1",
+      "name": "CASA Civil Aviation Safety Regulations - Volume 1",
+      "authority": "CASA",
+      "jurisdiction": "Australia",
+      "sector": "regulatory",
+      "primary_focus": ["airworthiness", "maintenance", "operations"],
+      "current_revision_label": "as_of_2025-01",
+      "status": "active",
+      "seed_files": [
+        "casa_casrs_vol1.json"
+      ],
+      "tags": [
+        "aerospace",
+        "continuing_airworthiness",
+        "maintenance"
+      ]
+    },
+    {
+      "code": "CASA_CASRS_VOL2",
+      "name": "CASA Civil Aviation Safety Regulations - Volume 2",
+      "authority": "CASA",
+      "jurisdiction": "Australia",
+      "sector": "regulatory",
+      "primary_focus": ["maintenance_organizations", "part145"],
+      "current_revision_label": "as_of_2025-01",
+      "status": "active",
+      "seed_files": [
+        "casa_casrs_vol2.json"
+      ],
+      "tags": [
+        "aerospace",
+        "maintenance",
+        "repair_station"
+      ]
+    },
+    {
+      "code": "EASA_1321_2014",
+      "name": "EASA Regulation (EU) No 1321/2014 - Continuing Airworthiness",
+      "authority": "EASA",
+      "jurisdiction": "European_Union",
+      "sector": "regulatory",
+      "primary_focus": ["continuing_airworthiness", "CAMO", "Part-M", "Part-145"],
+      "current_revision_label": "as_of_2025-01",
+      "status": "active",
+      "seed_files": [
+        "easa_1321_2014_meta.json"
+      ],
+      "tags": [
+        "aerospace",
+        "EASA",
+        "continuing_airworthiness"
+      ]
+    },
+    {
+      "code": "UKCAA_AW_2025",
+      "name": "UK CAA Continuing Airworthiness Regulations 2025",
+      "authority": "UK_CAA",
+      "jurisdiction": "United_Kingdom",
+      "sector": "regulatory",
+      "primary_focus": ["continuing_airworthiness", "maintenance_organizations"],
+      "current_revision_label": "as_of_2025-01",
+      "status": "active",
+      "seed_files": [
+        "uk_caa_aw_2025_meta.json"
+      ],
+      "tags": [
+        "aerospace",
+        "UKCAA",
+        "continuing_airworthiness"
+      ]
+    },
+    {
+      "code": "FDA_21CFR_PART11",
+      "name": "FDA 21 CFR Part 11 - Electronic Records; Electronic Signatures",
+      "authority": "FDA",
+      "jurisdiction": "United_States",
+      "sector": "regulatory",
+      "primary_focus": ["electronic_records", "electronic_signatures"],
+      "current_revision_label": "as_of_2025-01",
+      "status": "active",
+      "seed_files": [
+        "fda_21cfr_part11_meta.json"
+      ],
+      "tags": [
+        "medical_device",
+        "pharma",
+        "data_integrity"
+      ]
+    },
+    {
+      "code": "DOT_49CFR_PART40",
+      "name": "49 CFR Part 40 - DOT Workplace Drug and Alcohol Testing Programs",
+      "authority": "USDOT",
+      "jurisdiction": "United_States",
+      "sector": "regulatory",
+      "primary_focus": ["drug_testing", "alcohol_testing", "safety_sensitive"],
+      "current_revision_label": "as_of_2025-01",
+      "status": "active",
+      "seed_files": [
+        "dot_49cfr_part40_meta.json"
+      ],
+      "tags": [
+        "transportation",
+        "safety",
+        "drug_and_alcohol_testing"
+      ]
+    }
+  ]
+}
+

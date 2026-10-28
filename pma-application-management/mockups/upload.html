@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload &amp; Intake · PMA Autopilot</title>
+  <link rel="stylesheet" href="assets/vera.css" />
+</head>
+<body data-page="cases">
+  <div class="layout">
+    <main class="content">
+      <div class="row spread"><h1>Hydraulic Bracket Assembly</h1><span class="stag signal">Intake</span></div>
+      <div class="mai-badge" style="margin-bottom:14px">● M-AI active — advisory only. Human authority controls all decisions. <a href="conditions.html" style="margin-left:8px;text-decoration:underline">What can this assistant do?</a></div>
+
+      <div class="tabs">
+        <a class="tab" href="case.html">Overview</a>
+        <span class="tab active">Intake</span>
+        <a class="tab" href="conditions.html">Conditions (4)</a>
+        <a class="tab" href="documents.html">Documents</a>
+        <a class="tab" href="library.html">Precedents</a>
+      </div>
+
+      <div class="panel">
+        <div class="label">Upload source document — deterministic extraction, no LLM</div>
+        <div class="row" style="margin:12px 0">
+          <select class="minp" style="max-width:240px;margin-bottom:0">
+            <option>STC</option><option>ASSIST_LETTER</option><option>TC_HOLDER_LETTER</option>
+            <option>MASTER_DRAWING_LIST</option><option>DRAWING</option><option>TEST_REPORT</option>
+            <option>QMS_MANUAL_EXCERPT</option><option>OTHER</option>
+          </select>
+        </div>
+        <div class="dropzone">
+          <div style="font-size:1.4rem">⬆</div>
+          <div style="margin-top:6px">Drop a PDF here, or <span style="color:var(--signal);text-decoration:underline;cursor:pointer">browse</span></div>
+          <div class="micro muted" style="margin-top:6px">Fillable form fields are read structurally; STC/TC numbers and dates are matched against known FAA formats.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="label">Extracted this upload — STC_8110-2.pdf</div>
+        <table class="grid" style="margin-top:10px">
+          <thead><tr><th>Field</th><th>Value</th><th>Method</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><td>STC number</td><td>ST01234AT</td><td><span class="stag ok">form field read</span></td><td class="muted small">form_field:stc_number</td></tr>
+            <tr><td>TC holder</td><td>OEM Airframes Inc</td><td><span class="stag ok">form field read</span></td><td class="muted small">form_field:tc_holder</td></tr>
+            <tr><td>Model eligibility (letter)</td><td>Model 737-800</td><td><span class="stag warning">pattern match</span></td><td class="muted small">pattern:MODEL</td></tr>
+          </tbody>
+        </table>
+        <div class="small muted" style="margin-top:10px">Every extracted value is written CONFIRMED with its source cited — there is no “likely”/unconfirmed state.</div>
+      </div>
+
+      <div class="panel">
+        <div class="label">Guided transcription — record fields off the document in front of you</div>
+        <div class="grid-cards" style="margin-top:12px">
+          <div><label class="mfi">Applicant legal name</label><input class="minp" placeholder="e.g. Acme Aerospace LLC" /></div>
+          <div><label class="mfi">Manufacturing address</label><input class="minp" placeholder="Facility street address" /></div>
+          <div><label class="mfi">FAA submission office</label><input class="minp" placeholder="ACO / MIDO — never assumed" /></div>
+          <div><label class="mfi">QMS manual number</label><input class="minp" value="QM-100" /></div>
+          <div><label class="mfi">QMS manual revision</label><input class="minp" value="C" /></div>
+          <div><label class="mfi">QMS manual date</label><input class="minp" value="2026-01-15" /></div>
+          <div><label class="mfi">Signatory name</label><input class="minp" placeholder="Authorized signatory" /></div>
+          <div><label class="mfi">Signatory title</label><input class="minp" placeholder="Title" /></div>
+          <div><label class="mfi">Marking scheme reference</label><input class="minp" placeholder="Drawing / spec ref" /></div>
+        </div>
+        <button class="btn btn-primary" onclick="location.href='conditions.html'">Save transcribed fields</button>
+      </div>
+
+      <div class="panel small">
+        <span class="label">Evidence on this case</span>
+        <div class="row" style="margin-top:10px">
+          <span class="stag neutral">STC_8110-2.pdf · v1</span>
+          <span class="stag neutral">Assist_Letter.pdf · v1</span>
+          <span class="stag neutral">Master_Drawing_List.pdf · v1</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

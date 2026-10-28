@@ -1,0 +1,2550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDCAT Administrator - Intelligent Compliance Assessment</title>
+    <style>
+        :root {
+            --primary: #16a085;
+            --primary-dark: #0f7970;
+            --accent: #0f9b8f;
+            --text-dark: #0a0e27;
+            --text-light: #4a5568;
+            --border: #d1d5db;
+            --bg-light: #f5f7fa;
+            --bg-card: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --header-dark: #2c3e50;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-light); color: var(--text-dark); }
+        body.dark { background: #0f1419; color: #f1f5f9; }
+        body.dark .left-area { background: #1a1f2e; border-color: #2d3748; }
+        body.dark .right-sidebar { background: #1a1f2e; border-color: #2d3748; }
+        body.dark .stat-card { background: #1e293b; border-color: #334155; color: #f1f5f9; }
+        body.dark .section-header { border-color: #334155; }
+        body.dark .content-area { background: #1a1f2e; }
+        body.dark .upload-zone { background: rgba(22, 160, 133, 0.15); border-color: var(--primary); }
+        body.dark .section-box { background: #1e293b; border-color: #334155; }
+        body.dark .chat-message { background: #1e293b; border-color: #334155; }
+        body.dark .modal-content { background: #1e293b; color: #f1f5f9; }
+
+        .app-container { display: flex; height: 100vh; flex-direction: column; }
+        
+        /* HEADER */
+        .header { 
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); 
+            color: white; 
+            padding: 14px 24px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .logo-section { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
+        .header h2 { color: white; }
+        .header h2 + p { color: rgba(255, 255, 255, 0.9); }
+        .logo-icon { font-size: 24px; }
+        .logo-img { 
+            height: 50px; 
+            width: auto; 
+            max-width: 200px;
+            object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: auto;
+            filter: brightness(1.1) contrast(1.1);
+        }
+        .logo-text { flex: 1; min-width: 0; }
+        .logo-text h1 { 
+            font-size: 16px; 
+            font-weight: 700; 
+            letter-spacing: 0.5px; 
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .logo-text p { 
+            font-size: 9px; 
+            opacity: 0.8; 
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .header-controls { display: flex; gap: 12px; align-items: center; }
+        .btn-icon { background: rgba(255,255,255,0.15); border: none; color: white; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 16px; }
+        .btn-icon:hover { background: rgba(255,255,255,0.25); }
+
+        /* MAIN LAYOUT */
+        .main-content { display: grid; grid-template-columns: 1fr 340px; gap: 0; flex: 1; overflow: hidden; }
+
+        /* LEFT MAIN AREA */
+        .left-area { background: white; border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+        .section-header { 
+            padding: 20px 24px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-title { 
+            font-size: 12px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+        .max-docs { font-size: 11px; color: var(--text-light); }
+        .content-area { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+
+        /* UPLOAD ZONE */
+        .upload-zone { 
+            border: 2px dashed var(--primary); 
+            border-radius: 8px; 
+            padding: 60px 40px; 
+            text-align: center; 
+            cursor: pointer; 
+            background: rgba(22, 160, 133, 0.08); 
+            transition: all 0.3s;
+        }
+        .upload-zone:hover { 
+            background: rgba(22, 160, 133, 0.15); 
+            border-color: var(--accent);
+        }
+        .upload-zone.drag-over { 
+            background: rgba(22, 160, 133, 0.2); 
+            transform: scale(1.01);
+        }
+        .upload-icon { font-size: 56px; margin-bottom: 16px; }
+        .upload-title { 
+            font-size: 16px; 
+            font-weight: 700; 
+            color: var(--primary); 
+            margin-bottom: 6px;
+        }
+        .upload-desc { 
+            font-size: 12px; 
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .upload-hint { 
+            font-size: 11px; 
+            color: var(--text-light);
+        }
+        input[type="file"] { display: none; }
+
+        /* STATS */
+        .stats-row { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px;
+        }
+        .stat-card { 
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-number { 
+            font-size: 36px; 
+            font-weight: 800; 
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .stat-label { 
+            font-size: 12px; 
+            color: var(--text-light);
+        }
+
+        /* DOCUMENT LIST */
+        .docs-list { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); 
+            gap: 12px;
+        }
+        .doc-badge { 
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 10px;
+            font-weight: 600;
+            position: relative;
+        }
+        .doc-badge:hover { 
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(22, 160, 133, 0.1);
+        }
+        .doc-badge-remove {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .doc-badge:hover .doc-badge-remove {
+            opacity: 1;
+        }
+
+        /* FEATURES LIST */
+        .features { 
+            background: rgba(22, 160, 133, 0.08);
+            border-radius: 6px;
+            padding: 16px;
+        }
+        .feature-item { 
+            font-size: 11px; 
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .feature-item::before { 
+            content: "✓"; 
+            color: var(--success);
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        /* CHAT AREA */
+        .chat-area {
+            background: white;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 500px;
+            height: 100%;
+        }
+        .chat-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .messages-area { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 12px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px;
+        }
+        .message { display: flex; animation: slideIn 0.3s ease-out; }
+        .message.user { justify-content: flex-end; }
+        .message-bubble { 
+            max-width: 70%; 
+            padding: 8px 12px; 
+            border-radius: 8px; 
+            font-size: 12px; 
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+        .message.user .message-bubble { 
+            background: var(--primary); 
+            color: white; 
+            border-radius: 8px 3px 8px 8px;
+        }
+        .message.bot .message-bubble { 
+            background: #f0f4f8; 
+            color: var(--text-dark); 
+            border: 1px solid var(--border); 
+            border-radius: 3px 8px 8px 8px;
+        }
+        .chat-input {
+            padding: 12px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+        }
+        .input-field { 
+            flex: 1; 
+            background: var(--bg-light); 
+            border: 1px solid var(--border); 
+            border-radius: 4px; 
+            padding: 8px; 
+            font-size: 11px; 
+            resize: none;
+        }
+        .input-field:focus { 
+            outline: none; 
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 2px rgba(22, 160, 133, 0.1);
+        }
+        .btn-send { 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            padding: 8px 14px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            font-size: 11px; 
+            transition: all 0.2s;
+        }
+        .btn-send:hover { background: var(--primary-dark); }
+        .btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* RIGHT SIDEBAR */
+        .right-sidebar { 
+            background: white;
+            overflow-y: auto; 
+            padding: 0;
+            display: flex; 
+            flex-direction: column;
+        }
+        .sidebar-section {
+            border-bottom: 1px solid var(--border);
+        }
+        .section-box-header {
+            background: rgba(22, 160, 133, 0.08);
+            padding: 12px 16px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .section-box-content {
+            padding: 16px;
+        }
+        .section-box-content.collapsed {
+            display: none;
+        }
+
+        /* FORM FIELDS */
+        .form-field { 
+            margin-bottom: 12px;
+        }
+        .form-label { 
+            display: block;
+            font-size: 9px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            color: var(--primary);
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        .form-input { 
+            width: 100%;
+            background: rgba(22, 160, 133, 0.08);
+            border: 1px solid var(--border); 
+            border-radius: 4px; 
+            padding: 8px; 
+            font-size: 11px;
+            font-family: inherit;
+        }
+        .form-input:focus { 
+            outline: none; 
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(22, 160, 133, 0.1);
+        }
+        .form-input::placeholder {
+            color: var(--text-light);
+        }
+
+        /* REQUIREMENTS LIBRARY */
+        .library-status {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning);
+            border-left: 3px solid var(--warning);
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 9px;
+            margin-bottom: 12px;
+        }
+        .library-status-icon {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .upload-btn {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            text-align: center;
+            border: 1px dashed var(--primary);
+            background: rgba(22, 160, 133, 0.05);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--primary);
+            transition: all 0.2s;
+            margin-bottom: 6px;
+        }
+        .upload-btn:hover {
+            background: rgba(22, 160, 133, 0.1);
+        }
+        .no-data {
+            font-size: 9px;
+            color: var(--text-light);
+            text-align: center;
+            padding: 16px 0;
+        }
+        .requirements-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .requirement-item {
+            padding: 8px;
+            margin-bottom: 6px;
+            background: rgba(22, 160, 133, 0.05);
+            border-radius: 4px;
+            border-left: 3px solid var(--primary);
+            font-size: 11px;
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: rgba(22, 160, 133, 0.3); border-radius: 3px; }
+
+        @keyframes slideIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        @media (max-width: 1200px) {
+            .main-content { grid-template-columns: 1fr 300px; }
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        .modal-overlay.show {
+            display: flex;
+        }
+        .modal {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        .modal-close {
+            float: right;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        .website-link {
+            display: block;
+            padding: 8px;
+            margin-bottom: 6px;
+            background: rgba(22, 160, 133, 0.05);
+            border-radius: 4px;
+            border-left: 3px solid var(--primary);
+            font-size: 10px;
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.2s;
+        }
+        .website-link:hover {
+            background: rgba(22, 160, 133, 0.1);
+        }
+        .website-link-name {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .website-link-url {
+            color: var(--text-light);
+            font-size: 9px;
+            word-break: break-all;
+        }
+        .website-link-remove {
+            float: right;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-size: 9px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo-section">
+            <img src="/public/assets/logos/logo.png" alt="Conform-Edge Logo" class="logo-img" onerror="this.onerror=null; this.src='/assets/logos/logo.png'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='flex';};">
+            <div class="logo-icon" style="display: none;">⚡</div>
+            <div class="logo-text">
+                <h1>CONFORM EDGE</h1>
+                <p>Quality Management Consulting</p>
+            </div>
+        </div>
+        <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <div style="text-align: center;">
+                <h2 style="font-size: 18px; font-weight: 700; margin: 0; letter-spacing: 0.5px;">EDCAT Administrator</h2>
+                <p style="font-size: 11px; opacity: 0.9; margin: 2px 0 0 0;">Intelligent Compliance Assessment</p>
+            </div>
+        </div>
+        <div class="header-controls">
+            <button class="btn-icon" id="theme-toggle" onclick="toggleDarkMode()">🌙</button>
+            <button class="btn-icon" onclick="clearAll()">🗑️</button>
+        </div>
+    </div>
+    
+    <!-- Greeting Banner (below header) -->
+    <div id="greeting-banner" style="display: none; background: rgba(22, 160, 133, 0.1); border-bottom: 1px solid var(--border); padding: 12px 24px;">
+        <div style="font-weight: 600; color: var(--primary); font-size: 13px;" id="greeting-text"></div>
+        <div style="font-size: 11px; color: var(--text-light); margin-top: 4px;" id="greeting-note"></div>
+        <div style="font-size: 11px; color: var(--primary); margin-top: 6px; font-weight: 500;" id="greeting-tip"></div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- LEFT MAIN AREA -->
+        <div class="left-area">
+            <div class="section-header">
+                <div class="section-title">📋 Documents to Review</div>
+                <div class="max-docs">Max 200 documents</div>
+            </div>
+            <div class="content-area">
+                <!-- UPLOAD ZONE -->
+                <div class="upload-zone" onclick="document.getElementById('doc-upload').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event, 'document')">
+                    <div class="upload-icon">📋</div>
+                    <div class="upload-title">Upload Customer Documents</div>
+                    <div class="upload-desc">Quality Manual, SOPs, Work Instructions, Procedures</div>
+                    <input type="file" id="doc-upload" accept=".pdf,.doc,.docx,.xls,.xlsx" multiple onchange="handleFileSelect(event, 'document')">
+                </div>
+
+                <!-- STATS -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-number" id="doc-count">0</div>
+                        <div class="stat-label">Documents</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="page-count">0</div>
+                        <div class="stat-label">Pages</div>
+                    </div>
+                </div>
+
+                <!-- CLIENT DOCUMENTS LIST -->
+                <div>
+                    <div class="docs-list" id="doc-list"></div>
+                </div>
+
+                <!-- FEATURES -->
+                <div class="features">
+                    <div class="feature-item">Upload in batches (up to 200 per assessment)</div>
+                    <div class="feature-item">Add more documents to same assessment</div>
+                    <div class="feature-item">Mix of PDF, Word, Excel formats</div>
+                </div>
+
+                <!-- CHAT AREA -->
+                <div class="chat-area">
+                    <div class="chat-header">
+                        <span>💬</span>
+                        <span>VERA</span>
+                    </div>
+                    <div class="messages-area" id="messages-area">
+                        <div style="text-align: center; opacity: 0.5; margin: auto; font-size: 12px;">
+                            Ready for analysis...
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="message-input" class="input-field" placeholder="Ask for analysis or standards..." onkeydown="handleKeyPress(event)">
+                        <button class="btn-send" onclick="sendMessage()" id="send-btn">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR -->
+        <div class="right-sidebar">
+            <!-- REPORT DETAILS -->
+            <div class="sidebar-section">
+                <div class="section-box-header">📋 Report Details</div>
+                <div class="section-box-content">
+                    <div class="form-field">
+                        <label class="form-label">Customer ID *</label>
+                        <input type="text" id="customer-id" class="form-input" placeholder="e.g., acme_corp" 
+                               onchange="updateCustomerContext(this.value)" required>
+                        <div style="font-size: 9px; color: var(--text-light); margin-top: 4px;">
+                            Used to isolate your data. Use lowercase letters, numbers, and underscores only.
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Customer Name</label>
+                        <input type="text" id="customer-name" class="form-input" placeholder="e.g., Boeing, Airbus">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Assessment Version</label>
+                        <input type="text" id="assessment-version" class="form-input" placeholder="e.g., v1.0, Rev A">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Completed</label>
+                        <input type="date" id="completion-date" class="form-input">
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPLIANCE DOCUMENTS LIBRARY -->
+            <div class="sidebar-section">
+                <div class="section-box-header" onclick="toggleComplianceLibrary()">
+                    📚 Compliance Documents Library
+                    <span id="compliance-library-toggle" style="font-size: 14px;">▼</span>
+                </div>
+                <div class="section-box-content" id="compliance-library-content">
+                    <!-- STANDARDS SECTION -->
+                    <div style="margin-bottom: 20px;">
+                        <div style="font-size: 10px; font-weight: 700; margin-bottom: 8px; color: var(--primary);">📋 STANDARDS</div>
+                        <button class="upload-btn" onclick="document.getElementById('qms-upload').click()" style="width: 100%; margin-bottom: 8px; font-size: 11px; padding: 6px 8px;">+ Upload Standards</button>
+                        <input type="file" id="qms-upload" accept=".pdf,.doc,.docx" multiple onchange="handleFileSelect(event, 'standards')" style="display: none;">
+                        <div class="docs-list" id="standards-list"></div>
+                    </div>
+                    
+                    <!-- REGULATIONS SECTION -->
+                    <div style="margin-bottom: 20px; padding-top: 16px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 10px; font-weight: 700; margin-bottom: 8px; color: var(--primary);">⚖️ REGULATIONS</div>
+                        <button class="upload-btn" onclick="document.getElementById('reg-upload').click()" style="width: 100%; margin-bottom: 8px; font-size: 11px; padding: 6px 8px;">+ Upload Regulations</button>
+                        <input type="file" id="reg-upload" accept=".pdf,.doc,.docx" multiple onchange="handleFileSelect(event, 'regulatory')" style="display: none;">
+                        <button class="upload-btn" onclick="showAddWebsiteModal()" style="width: 100%; margin-bottom: 8px; font-size: 11px; padding: 6px 8px; background: rgba(22, 160, 133, 0.1);">+ Add Website URL</button>
+                        <button class="upload-btn" onclick="refreshRegulations()" style="width: 100%; margin-bottom: 8px; font-size: 11px; padding: 6px 8px; background: rgba(245, 158, 11, 0.2);" id="refresh-regs-btn">🔄 Refresh Regulations</button>
+                        <div id="regulatory-websites-list" style="margin-top: 8px;"></div>
+                        <div class="docs-list" id="regulations-list"></div>
+                    </div>
+                    
+                    <!-- CUSTOMER REQUIREMENTS SECTION -->
+                    <div style="margin-bottom: 20px; padding-top: 16px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 10px; font-weight: 700; margin-bottom: 8px; color: var(--primary);">👤 CUSTOMER REQUIREMENTS</div>
+                        <button class="upload-btn" onclick="document.getElementById('cust-upload').click()" style="width: 100%; margin-bottom: 8px; font-size: 11px; padding: 6px 8px;">+ Upload Customer Requirements</button>
+                        <input type="file" id="cust-upload" accept=".pdf,.doc,.docx" multiple onchange="handleFileSelect(event, 'customer')" style="display: none;">
+                        <div class="docs-list" id="customer-requirements-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REQUIREMENTS LIBRARY (Extracted Requirements) -->
+            <div class="sidebar-section">
+                <div class="section-box-header" onclick="openRequirementsReviewPage()">
+                    🔍 Extracted Requirements
+                    <span style="font-size: 14px;">▶</span>
+                </div>
+                <div class="section-box-content" id="library-content" style="display: none;">
+                    <div style="margin-bottom: 16px;">
+                        <input type="text" id="requirements-search" placeholder="Search requirements..." 
+                               style="width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px;"
+                               onkeyup="searchRequirements(event)">
+                    </div>
+                    <div id="requirements-list" class="requirements-list">
+                        <div style="text-align: center; padding: 20px; color: var(--text-light); font-size: 13px;">
+                            Loading requirements...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- REPORT HISTORY -->
+            <div class="sidebar-section" style="flex: 1; overflow-y: auto;">
+                <div class="section-box-header">📊 Report History (10 Years)</div>
+                <div class="section-box-content" id="report-history">
+                    <div class="no-data">No reports yet</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Requirements Review Page Modal -->
+<div class="modal-overlay" id="requirements-review-modal" onclick="if(event.target === this) closeRequirementsReviewPage()">
+    <div class="modal" style="max-width: 90%; max-height: 90vh; width: 1200px;">
+        <div class="modal-header">
+            <h2>📋 Requirements Review - All Standards</h2>
+            <button class="modal-close" onclick="closeRequirementsReviewPage()">×</button>
+        </div>
+        <div style="padding: 20px; overflow-y: auto; max-height: calc(90vh - 80px);">
+            <div style="margin-bottom: 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <input type="text" id="requirements-review-search" placeholder="Search requirements..." 
+                       style="flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px;"
+                       onkeyup="filterRequirementsReview(event)">
+                <select id="requirements-review-standard-filter" onchange="filterRequirementsReview()" 
+                        style="padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px;">
+                    <option value="">All Standards</option>
+                </select>
+                <button onclick="exportRequirementsReview()" style="padding: 10px 16px; background: var(--primary); color: white; border: none; border-radius: 6px; font-size: 13px; cursor: pointer;">
+                    📥 Export
+                </button>
+            </div>
+            <div id="requirements-review-content" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6;">
+                <div style="text-align: center; padding: 40px; color: var(--text-light);">
+                    Loading requirements...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Website Modal -->
+<div class="modal-overlay" id="website-modal" onclick="if(event.target === this) closeWebsiteModal()">
+    <div class="modal">
+        <div class="modal-header">
+            Add Regulatory Website
+            <button class="modal-close" onclick="closeWebsiteModal()">×</button>
+        </div>
+        <form id="website-form" onsubmit="event.preventDefault(); addRegulatoryWebsite();">
+            <div class="form-field">
+                <label class="form-label">Website URL *</label>
+                <input type="url" id="website-url" class="form-input" placeholder="https://www.faa.gov/..." required>
+            </div>
+            <div class="form-field">
+                <label class="form-label">Name (Optional)</label>
+                <input type="text" id="website-name" class="form-input" placeholder="e.g., FAA Part 21 Regulations">
+            </div>
+            <div class="form-field">
+                <label class="form-label">Agency (Optional)</label>
+                <input type="text" id="website-agency" class="form-input" placeholder="e.g., FAA, EASA, CAAC">
+            </div>
+            <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px;">
+                <button type="button" class="btn-send" onclick="closeWebsiteModal()" style="background: var(--text-light);">Cancel</button>
+                <button type="submit" class="btn-send">Add Website</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const state = {
+        documents: [],
+        standards: [],
+        regulatory: [],
+        customer: [],
+        regulatoryWebsites: [],
+        messages: [],
+        pageCount: 0,
+        currentCustomerId: null // Current customer context
+    };
+
+    let requirementsData = {
+        standards: [],
+        requirements: []
+    };
+
+    // ===== FILE HANDLING =====
+    function dragOver(e) { 
+        e.preventDefault(); 
+        e.currentTarget.classList.add('drag-over'); 
+    }
+
+    function dragLeave(e) { 
+        e.currentTarget.classList.remove('drag-over'); 
+    }
+
+    function handleDrop(e, type) { 
+        e.preventDefault(); 
+        e.currentTarget.classList.remove('drag-over'); 
+        handleFileSelect({ target: { files: Array.from(e.dataTransfer.files) } }, type || 'document'); 
+    }
+
+    async function handleFileSelect(e, type) {
+        const files = Array.from(e.target.files);
+        let array = state[type === 'document' ? 'documents' : type === 'standards' ? 'standards' : type === 'regulatory' ? 'regulatory' : 'customer'];
+
+        const loadingMsg = document.createElement('div');
+        loadingMsg.id = 'upload-loading';
+        loadingMsg.style.cssText = 'position: fixed; top: 20px; right: 20px; background: var(--primary); color: white; padding: 12px 20px; border-radius: 8px; z-index: 10000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);';
+        loadingMsg.textContent = `Uploading ${files.length} file(s)...`;
+        document.body.appendChild(loadingMsg);
+
+        try {
+            const formData = new FormData();
+            files.forEach(file => {
+                formData.append('files', file);
+            });
+            formData.append('type', type === 'document' ? 'documents' : type);
+
+            // Add customer ID to form data and headers
+            if (state.currentCustomerId) {
+                formData.append('customerId', state.currentCustomerId);
+            }
+
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                headers: state.currentCustomerId ? {
+                    'X-Customer-Id': state.currentCustomerId
+                } : {},
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                // Clear file input to prevent duplicate uploads
+                e.target.value = '';
+                
+                result.files.forEach(file => {
+                    // Check for duplicates by name AND id
+                    const existing = array.find(f => f.name === file.originalName && f.id === file.id);
+                    if (!existing) {
+                        array.push({ 
+                            id: file.id || file.documentId,
+                            name: file.originalName, 
+                            size: file.size, 
+                            pages: Math.ceil(file.size / 50000),
+                            uploadedAt: file.uploadedAt,
+                            type: type === 'document' ? 'documents' : type
+                        });
+                    }
+                });
+
+                // Filter documents to exclude standards
+                if (type === 'document') {
+                    state.documents = state.documents.filter(doc => {
+                        const name = doc.name.toLowerCase();
+                        return !name.includes('iso') && !name.includes('as9100') && !name.includes('faa') && !name.includes('easa');
+                    });
+                }
+
+                // Only render if we're in the upload interface (not chat)
+                try {
+                    renderDocuments();
+                } catch (err) {
+                    // Silently ignore if elements don't exist (chat interface)
+                    console.warn('[handleFileSelect] Could not render documents:', err.message);
+                }
+                
+                // If compliance documents were uploaded, refresh the compliance library
+                if (type === 'standards') {
+                    loadRequirements();
+                    await renderStandardsInLibrary();
+                    setTimeout(() => {
+                        console.log('🔄 Reloading requirements library (first retry)...');
+                        loadRequirements();
+                        renderStandardsInLibrary();
+                    }, 1000);
+                    setTimeout(() => {
+                        console.log('🔄 Reloading requirements library (second retry)...');
+                        loadRequirements();
+                        renderStandardsInLibrary();
+                    }, 3000);
+                } else if (type === 'regulatory') {
+                    renderRegulationsInLibrary();
+                } else if (type === 'customer') {
+                    renderCustomerRequirementsInLibrary();
+                }
+
+                loadingMsg.style.background = '#10b981';
+                loadingMsg.textContent = `✓ Successfully uploaded ${files.length} file(s)`;
+                setTimeout(() => loadingMsg.remove(), 3000);
+            } else {
+                throw new Error(result.message || 'Upload failed');
+            }
+        } catch (error) {
+            console.error('Upload error:', error);
+            loadingMsg.style.background = '#ef4444';
+            loadingMsg.textContent = `✗ Upload failed: ${error.message}`;
+            setTimeout(() => loadingMsg.remove(), 5000);
+        }
+
+        e.target.value = '';
+    }
+
+    // Helper function to safely set innerHTML - prevents all null errors
+    function safeSetInnerHTML(elementId, html) {
+        try {
+            const el = document.getElementById(elementId);
+            if (!el) {
+                console.warn(`[safeSetInnerHTML] Element "${elementId}" not found`);
+                return false;
+            }
+            if (!document.body.contains(el)) {
+                console.warn(`[safeSetInnerHTML] Element "${elementId}" not in DOM`);
+                return false;
+            }
+            el.innerHTML = html;
+            return true;
+        } catch (error) {
+            console.warn(`[safeSetInnerHTML] Error setting innerHTML for "${elementId}":`, error.message);
+            return false;
+        }
+    }
+
+    function renderDocuments() {
+        // PATCHED VERSION v3: Using safeSetInnerHTML helper to absolutely prevent null errors
+        // VERIFICATION MARKER: If you see this log, the patched version v3 is loaded
+        console.log('[renderDocuments] Patched version v3 loaded - using safeSetInnerHTML helper');
+        
+        // Early return if primary container doesn't exist (e.g., in chat interface)
+        const docListEl = document.getElementById('doc-list');
+        if (!docListEl) {
+            // Silently skip - we're likely in chat interface, not upload interface
+            return;
+        }
+        
+        // Verify element is still in the DOM
+        if (!document.body.contains(docListEl)) {
+            console.warn('[renderDocuments] "doc-list" element found but not in DOM. Skipping render.');
+            return;
+        }
+
+        try {
+            // Ensure state.documents exists
+            if (!state.documents || !Array.isArray(state.documents)) {
+                state.documents = [];
+            }
+
+            // Filter out standards and remove duplicates
+            const filteredDocs = state.documents.filter(doc => {
+                if (!doc || !doc.name) return false;
+                const name = doc.name.toLowerCase();
+                // Exclude standards files
+                return !name.includes('iso') && !name.includes('as9100') && !name.includes('faa') && !name.includes('easa');
+            });
+
+            // Remove duplicates by name
+            const uniqueDocs = [];
+            const seenNames = new Set();
+            filteredDocs.forEach(doc => {
+                if (doc && doc.name && !seenNames.has(doc.name)) {
+                    seenNames.add(doc.name);
+                    uniqueDocs.push(doc);
+                }
+            });
+
+            // Build HTML content
+            const html = uniqueDocs.map(f => {
+                const safeName = (f.name || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                return `
+                    <div class="doc-badge">
+                        <button class="doc-badge-remove" onclick="removeFile('document', '${safeName}')">✕</button>
+                        📄 ${safeName.substring(0, 14)}${safeName.length > 14 ? '...' : ''}
+                    </div>
+                `;
+            }).join('');
+
+            // Use safe helper function - this will NEVER throw a null error
+            const success = safeSetInnerHTML('doc-list', html || '<div class="no-data">No documents uploaded</div>');
+            if (!success) {
+                console.warn('[renderDocuments] Failed to set innerHTML for doc-list. Element may have been removed.');
+                return;
+            }
+            
+            // Update count elements if they exist (optional elements)
+            const docCountEl = document.getElementById('doc-count');
+            if (docCountEl && document.body.contains(docCountEl)) {
+                try {
+                    docCountEl.textContent = uniqueDocs.length;
+                } catch (e) {
+                    console.warn('[renderDocuments] Error setting doc-count:', e.message);
+                }
+            }
+            
+            const pageCountEl = document.getElementById('page-count');
+            if (pageCountEl && document.body.contains(pageCountEl)) {
+                try {
+                    pageCountEl.textContent = uniqueDocs.reduce((sum, d) => sum + (d.pages || 0), 0);
+                } catch (e) {
+                    console.warn('[renderDocuments] Error setting page-count:', e.message);
+                }
+            }
+        } catch (error) {
+            // Log error but don't throw - this function may be called when elements don't exist
+            // Specifically catch null reference errors
+            if (error.message && (error.message.includes('null') || error.message.includes('Cannot set properties'))) {
+                console.warn('[renderDocuments] Null reference error caught and prevented:', error.message);
+            } else {
+                console.warn('[renderDocuments] Error rendering documents:', error.message);
+            }
+            // Don't log stack trace for null errors - they're expected in some contexts
+            if (!error.message || !error.message.includes('null')) {
+                console.warn('[renderDocuments] Error stack:', error.stack);
+            }
+        }
+    }
+    
+    async function renderStandardsInLibrary() {
+        const standardsListContainer = document.getElementById('standards-list');
+        if (!standardsListContainer || !document.body.contains(standardsListContainer)) {
+            return;
+        }
+        
+        try {
+            // Load standards from database
+            const standardsResponse = await fetch('/api/requirements/standards');
+            const standardsData = await standardsResponse.json();
+            
+            // Re-check element exists before setting innerHTML
+            const container = document.getElementById('standards-list');
+            if (!container || !document.body.contains(container)) {
+                console.warn('[renderStandardsInLibrary] Container removed from DOM during fetch');
+                return;
+            }
+            
+            if (standardsData.success && standardsData.standards && standardsData.standards.length > 0) {
+                // Update state.standards with database standards
+                state.standards = standardsData.standards.map(std => ({
+                    id: std.id,
+                    code: std.code,
+                    name: std.name,
+                    standardId: std.id,
+                    uploadedAt: std.uploadedAt,
+                    totalRequirements: std.totalRequirements || 0
+                }));
+                
+                const html = standardsData.standards.map(std => {
+                    const displayName = std.code || std.name || 'Unknown Standard';
+                    const reqCount = std.totalRequirements || 0;
+                    const isParsed = reqCount > 0;
+                    const standardId = std.id;
+                    const standardCode = std.code.replace(/'/g, "\\'");
+                    const standardName = std.name.replace(/'/g, "\\'");
+                    return `
+                        <div class="standard-item" style="margin-bottom: 8px; border: 1px solid var(--border); border-radius: 6px; overflow: hidden;">
+                            <div style="display: flex; align-items: center; padding: 8px 12px; background: rgba(22, 160, 133, 0.05); cursor: pointer;" 
+                                 onclick="toggleStandardActions('${standardId}')">
+                                <span style="flex: 1; font-weight: 600; font-size: 11px; color: var(--primary);">
+                                    📋 ${displayName}
+                                </span>
+                                ${reqCount > 0 ? `<span style="font-size: 10px; color: var(--text-light); margin-right: 8px;">${reqCount} reqs</span>` : '<span style="font-size: 10px; color: #f59e0b; margin-right: 8px;">Not parsed</span>'}
+                                <span id="standard-toggle-${standardId}" style="font-size: 10px; color: var(--text-light);">▼</span>
+                            </div>
+                            <div id="standard-actions-${standardId}" style="display: none; padding: 8px 12px; background: white; border-top: 1px solid var(--border);">
+                                <div style="display: flex; flex-direction: column; gap: 6px;">
+                                    ${!isParsed ? `
+                                    <button onclick="parseStandard('${standardId}', false); event.stopPropagation();" 
+                                            style="width: 100%; padding: 8px 12px; background: var(--primary); color: white; border: none; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; text-align: left;" 
+                                            title="Parse Standard">
+                                        🔄 Parse Now
+                                    </button>
+                                    ` : `
+                                    <button onclick="parseStandard('${standardId}', true); event.stopPropagation();" 
+                                            style="width: 100%; padding: 8px 12px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; text-align: left;" 
+                                            title="Re-parse Standard">
+                                        🔄 Re-parse
+                                    </button>
+                                    `}
+                                    <button onclick="showEditStandardModal('${standardId}', '${standardCode}', '${standardName}'); event.stopPropagation();" 
+                                            style="width: 100%; padding: 8px 12px; background: #6366f1; color: white; border: none; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; text-align: left;" 
+                                            title="Edit Standard">
+                                        ✏️ Edit Standard
+                                    </button>
+                                    <button onclick="deleteStandard('${standardId}', '${displayName.replace(/'/g, "\\'")}'); event.stopPropagation();" 
+                                            style="width: 100%; padding: 8px 12px; background: #ef4444; color: white; border: none; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; text-align: left;" 
+                                            title="Delete Standard">
+                                        🗑️ Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                safeSetInnerHTML('standards-list', html);
+            } else {
+                safeSetInnerHTML('standards-list', '<div class="no-data" style="font-size: 10px;">No standards uploaded</div>');
+            }
+        } catch (error) {
+            console.error('Error loading standards:', error);
+            // Use safe helper in catch block too
+            safeSetInnerHTML('standards-list', '<div class="no-data" style="font-size: 10px; color: #ef4444;">Error loading standards</div>');
+        }
+    }
+    
+    async function renderRegulationsInLibrary() {
+        const regulationsListContainer = document.getElementById('regulations-list');
+        if (!regulationsListContainer || !document.body.contains(regulationsListContainer)) {
+            return;
+        }
+        
+        try {
+            // Load regulatory files from upload API
+            const regulatoryResponse = await fetch('/api/upload?type=regulatory');
+            const regulatoryData = await regulatoryResponse.json();
+            
+            // Re-check element exists before setting innerHTML
+            const container = document.getElementById('regulations-list');
+            if (!container || !document.body.contains(container)) {
+                console.warn('[renderRegulationsInLibrary] Container removed from DOM during fetch');
+                return;
+            }
+            
+            if (regulatoryData.success && regulatoryData.files && regulatoryData.files.length > 0) {
+                const html = regulatoryData.files.map(file => {
+                    const displayName = file.originalName || 'Unknown Regulation';
+                    return `
+                        <div class="doc-badge" style="position: relative; padding-right: 60px;">
+                            <button class="doc-badge-remove" onclick="removeFile('regulatory', '${displayName.replace(/'/g, "\\'")}')" title="Delete Regulation">✕</button>
+                            <span style="cursor: pointer;" title="${displayName}">
+                                ⚖️ ${displayName.substring(0, 18)}${displayName.length > 18 ? '...' : ''}
+                            </span>
+                        </div>
+                    `;
+                }).join('');
+                
+                safeSetInnerHTML('regulations-list', html);
+            } else {
+                safeSetInnerHTML('regulations-list', '<div class="no-data" style="font-size: 10px;">No regulations uploaded</div>');
+            }
+        } catch (error) {
+            console.error('Error loading regulations:', error);
+            // Use safe helper in catch block too
+            safeSetInnerHTML('regulations-list', '<div class="no-data" style="font-size: 10px; color: #ef4444;">Error loading regulations</div>');
+        }
+    }
+    
+    async function renderCustomerRequirementsInLibrary() {
+        const customerReqListContainer = document.getElementById('customer-requirements-list');
+        if (!customerReqListContainer || !document.body.contains(customerReqListContainer)) {
+            return;
+        }
+        
+        try {
+            // Load customer requirements files from upload API
+            // Note: type='customer' maps to file_category='customer_requirements' in database
+            const customerResponse = await fetch('/api/upload?type=customer');
+            const customerData = await customerResponse.json();
+            
+            // Re-check element exists before setting innerHTML
+            const container = document.getElementById('customer-requirements-list');
+            if (!container || !document.body.contains(container)) {
+                console.warn('[renderCustomerRequirementsInLibrary] Container removed from DOM during fetch');
+                return;
+            }
+            
+            if (customerData.success && customerData.files && customerData.files.length > 0) {
+                const html = customerData.files.map(file => {
+                    const displayName = file.originalName || file.filename || 'Unknown Customer Requirement';
+                    return `
+                        <div class="doc-badge" style="position: relative; padding-right: 60px;">
+                            <button class="doc-badge-remove" onclick="removeFile('customer', '${displayName.replace(/'/g, "\\'")}')" title="Delete Customer Requirement">✕</button>
+                            <span style="cursor: pointer;" title="${displayName}">
+                                👤 ${displayName.substring(0, 18)}${displayName.length > 18 ? '...' : ''}
+                            </span>
+                        </div>
+                    `;
+                }).join('');
+                
+                safeSetInnerHTML('customer-requirements-list', html);
+            } else {
+                safeSetInnerHTML('customer-requirements-list', '<div class="no-data" style="font-size: 10px;">No customer requirements uploaded</div>');
+            }
+        } catch (error) {
+            console.error('Error loading customer requirements:', error);
+            // Use safe helper in catch block too
+            safeSetInnerHTML('customer-requirements-list', '<div class="no-data" style="font-size: 10px; color: #ef4444;">Error loading customer requirements</div>');
+        }
+    }
+
+    function renderFileList(type) {
+        // This function is deprecated - we now use renderStandardsInLibrary(), renderRegulationsInLibrary(), 
+        // and renderCustomerRequirementsInLibrary() instead. Keeping for backward compatibility but it does nothing.
+        // The old elements (qms-count, reg-count, cust-count) were removed when we moved upload buttons to Compliance Documents Library.
+    }
+
+    async function removeFile(type, fileName) {
+        const array = state[type === 'document' ? 'documents' : type];
+        const file = array.find(f => f.name === fileName);
+        
+        if (!file) return;
+
+        if (file.id) {
+            try {
+                const fileType = type === 'document' ? 'documents' : type;
+                const response = await fetch(`/api/upload/${file.id}?type=${fileType}`, {
+                    method: 'DELETE'
+                });
+                if (!response.ok) {
+                    console.error('Failed to delete file from server');
+                }
+            } catch (error) {
+                console.error('Error deleting file:', error);
+            }
+        }
+
+        const idx = array.findIndex(f => f.name === fileName);
+        if (idx > -1) array.splice(idx, 1);
+
+        if (type === 'document') {
+            try {
+                renderDocuments();
+            } catch (err) {
+                console.warn('[removeFile] Could not render documents:', err.message);
+            }
+        } else if (type === 'standards') {
+            await renderStandardsInLibrary();
+        } else if (type === 'regulatory') {
+            await renderRegulationsInLibrary();
+        } else if (type === 'customer') {
+            await renderCustomerRequirementsInLibrary();
+        }
+    }
+
+    // ===== REQUIREMENTS LIBRARY =====
+    function toggleComplianceLibrary() {
+        const content = document.getElementById('compliance-library-content');
+        const toggle = document.getElementById('compliance-library-toggle');
+        if (content) {
+            content.classList.toggle('collapsed');
+            toggle.textContent = content.classList.contains('collapsed') ? '▶' : '▼';
+        }
+    }
+
+    function toggleLibrary() {
+        const content = document.getElementById('library-content');
+        const toggle = document.getElementById('library-toggle');
+        const isOpen = !content.classList.contains('collapsed');
+        
+        if (!isOpen) {
+            loadRequirements();
+        }
+        
+        content.classList.toggle('collapsed');
+        toggle.textContent = isOpen ? '▼' : '▲';
+    }
+
+    async function loadRequirements() {
+        const listContainer = document.getElementById('requirements-list');
+        listContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-light); font-size: 13px;">Loading requirements...</div>';
+
+        try {
+            const standardsResponse = await fetch('/api/requirements/standards');
+            const standardsData = await standardsResponse.json();
+
+            console.log('📚 Standards API response:', standardsData);
+            console.log('📚 Standards count:', standardsData.standards?.length || 0);
+
+            if (standardsData.success && standardsData.standards.length > 0) {
+                requirementsData.standards = standardsData.standards;
+                
+                let allRequirements = [];
+                for (const standard of standardsData.standards) {
+                    try {
+                        const reqResponse = await fetch(`/api/requirements/standards/${standard.id}/requirements`);
+                        const reqData = await reqResponse.json();
+                        if (reqData.success && reqData.requirements.length > 0) {
+                            allRequirements.push(...reqData.requirements.map(r => ({ ...r, standardCode: standard.code, standardName: standard.name })));
+                        }
+                    } catch (err) {
+                        console.error(`Error loading requirements for ${standard.code}:`, err);
+                    }
+                }
+                requirementsData.requirements = allRequirements;
+                
+                // Always show standards with management buttons
+                renderStandardsOnly();
+                
+                // If there are requirements, also show them below
+                if (allRequirements.length > 0) {
+                    // Add a separator and requirements view
+                    const listContainer = document.getElementById('requirements-list');
+                    const currentHtml = listContainer.innerHTML;
+                    listContainer.innerHTML = currentHtml + '<div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;"><div style="font-weight: 600; margin-bottom: 8px; color: var(--primary);">📋 Extracted Requirements</div></div>';
+                    renderRequirements();
+                }
+            } else {
+                listContainer.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: var(--text-light); font-size: 13px;">
+                        <div style="font-size: 32px; margin-bottom: 8px;">📚</div>
+                        <div>No standards uploaded yet</div>
+                        <div style="font-size: 11px; margin-top: 8px; opacity: 0.7;">Upload standards below to get started</div>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            console.error('Error loading requirements:', error);
+            listContainer.innerHTML = `
+                <div style="text-align: center; padding: 20px; color: #ef4444; font-size: 13px;">
+                    Error loading requirements: ${error.message}
+                </div>
+            `;
+        }
+    }
+
+    function renderStandardsOnly() {
+        const listContainer = document.getElementById('requirements-list');
+        let html = '';
+
+        requirementsData.standards.forEach(standard => {
+            const isParsed = standard.totalRequirements > 0;
+            html += `
+                <div class="requirement-item" style="position: relative; padding-bottom: 40px;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 4px;">
+                        ${standard.code} - ${standard.name}
+                    </div>
+                    <div style="font-size: 10px; color: var(--text-light);">
+                        Uploaded: ${new Date(standard.uploadedAt).toLocaleDateString()}
+                        ${isParsed ? ` • ${standard.totalRequirements} requirements` : ''}
+                    </div>
+                    ${!isParsed ? `
+                    <div style="font-size: 10px; color: var(--warning); margin-top: 4px; margin-bottom: 6px;">
+                        ⚠️ File uploaded but not yet parsed
+                    </div>
+                    ` : ''}
+                    <div style="position: absolute; bottom: 8px; left: 8px; right: 8px; display: flex; gap: 4px; flex-wrap: wrap;">
+                        ${!isParsed ? `
+                        <button onclick="parseStandard('${standard.id}', false)" style="flex: 1; padding: 4px 8px; background: var(--primary); color: white; border: none; border-radius: 3px; font-size: 9px; cursor: pointer;">
+                            🔄 Parse Now
+                        </button>
+                        ` : `
+                        <button onclick="parseStandard('${standard.id}', true)" style="flex: 1; padding: 4px 8px; background: #f59e0b; color: white; border: none; border-radius: 3px; font-size: 9px; cursor: pointer;" title="Re-parse standard (force)">
+                            🔄 Re-parse
+                        </button>
+                        `}
+                        <button onclick="viewStandardRequirements('${standard.id}', '${standard.code.replace(/'/g, "\\'")}')" style="padding: 4px 8px; background: #10b981; color: white; border: none; border-radius: 3px; font-size: 9px; cursor: pointer;" title="View Requirements">
+                            👁️ View
+                        </button>
+                        <button onclick="showEditStandardModal('${standard.id}', '${standard.code.replace(/'/g, "\\'")}', '${standard.name.replace(/'/g, "\\'")}')" style="padding: 4px 8px; background: #6366f1; color: white; border: none; border-radius: 3px; font-size: 9px; cursor: pointer;" title="Edit/Replace Standard">
+                            ✏️ Edit
+                        </button>
+                        <button onclick="deleteStandard('${standard.id}', '${standard.code.replace(/'/g, "\\'")}')" style="padding: 4px 8px; background: #ef4444; color: white; border: none; border-radius: 3px; font-size: 9px; cursor: pointer;" title="Delete Standard">
+                            🗑️ Delete
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+
+        listContainer.innerHTML = html;
+    }
+
+    async function parseStandard(standardId, forceReparse = false) {
+        try {
+            const action = forceReparse ? 'Re-parsing' : 'Parsing';
+            addBotMessage(`🔄 ${action} standard...`);
+            
+            // Ensure standardId is a valid UUID string
+            if (!standardId || typeof standardId !== 'string') {
+                throw new Error('Invalid standard ID');
+            }
+            
+            const url = `/api/parse/standard/${standardId}${forceReparse ? '?force=true' : ''}`;
+            console.log(`📡 Parsing standard: ${url}`);
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Customer-Id': state.currentCustomerId || ''
+                }
+            });
+            
+            console.log(`📡 Parse response status: ${response.status}`);
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                if (result.message && result.message.includes('already parsed')) {
+                    addBotMessage(`ℹ️ ${result.message}\n💡 Click "Re-parse" button to force re-parsing.`);
+                } else {
+                    addBotMessage(`✅ ${action} completed: ${result.requirementsCount || 0} requirements extracted`);
+                }
+                // Reload requirements library and refresh standards display
+                setTimeout(() => {
+                    loadRequirements();
+                    renderStandardsInLibrary(); // Refresh standards list to show updated requirement count
+                }, 500);
+            } else {
+                addBotMessage(`⚠️ Could not parse: ${result.error || result.message || 'Unknown error'}`);
+            }
+        } catch (error) {
+            addBotMessage(`❌ Error: ${error.message}`);
+        }
+    }
+
+    async function viewStandardRequirements(standardId, standardCode) {
+        try {
+            addBotMessage(`👁️ Loading requirements for ${standardCode}...`);
+            
+            const response = await fetch(`/api/requirements/standards/${standardId}/requirements`);
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                if (result.requirements.length === 0) {
+                    addBotMessage(`ℹ️ No requirements found for ${standardCode}.\n💡 Click "Parse Now" or "Re-parse" to extract requirements.`);
+                } else {
+                    let message = `📋 **${standardCode}** - ${result.requirements.length} requirement(s):\n\n`;
+                    result.requirements.slice(0, 10).forEach((req, idx) => {
+                        message += `${idx + 1}. **${req.clauseNumber || 'N/A'}**: ${req.text.substring(0, 150)}${req.text.length > 150 ? '...' : ''}\n\n`;
+                    });
+                    if (result.requirements.length > 10) {
+                        message += `\n... and ${result.requirements.length - 10} more requirement(s)`;
+                    }
+                    addBotMessage(message);
+                }
+            } else {
+                addBotMessage(`❌ Error loading requirements: ${result.error || 'Unknown error'}`);
+            }
+        } catch (error) {
+            addBotMessage(`❌ Error: ${error.message}`);
+        }
+    }
+
+    function renderRequirements(searchTerm = '') {
+        const listContainer = document.getElementById('requirements-list');
+        const filtered = searchTerm 
+            ? requirementsData.requirements.filter(r => 
+                r.text.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                r.clauseNumber?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                r.standardCode?.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+            : requirementsData.requirements;
+
+        if (filtered.length === 0) {
+            listContainer.innerHTML = `
+                <div style="text-align: center; padding: 20px; color: var(--text-light); font-size: 13px;">
+                    ${searchTerm ? 'No requirements match your search' : 'No requirements available'}
+                </div>
+            `;
+            return;
+        }
+
+        const grouped = {};
+        filtered.forEach(req => {
+            const key = `${req.standardCode} - ${req.standardName}`;
+            if (!grouped[key]) {
+                grouped[key] = {
+                    standard: { code: req.standardCode, name: req.standardName },
+                    requirements: []
+                };
+            }
+            grouped[key].requirements.push(req);
+        });
+
+        let html = '';
+        Object.values(grouped).forEach(group => {
+            html += `
+                <div style="margin-bottom: 12px; padding: 10px; background: rgba(22, 160, 133, 0.05); border-radius: 6px; border: 1px solid var(--border);">
+                    <div style="font-weight: 600; font-size: 12px; color: var(--primary); margin-bottom: 6px;">
+                        ${group.standard.code} - ${group.standard.name}
+                    </div>
+                    <div style="font-size: 10px; color: var(--text-light); margin-bottom: 6px;">
+                        ${group.requirements.length} requirement(s)
+                    </div>
+            `;
+            
+            group.requirements.slice(0, 5).forEach(req => {
+                html += `
+                    <div class="requirement-item" style="margin-bottom: 4px;">
+                        <div style="font-weight: 600; color: var(--primary); font-size: 10px; margin-bottom: 2px;">
+                            ${req.clauseNumber || 'N/A'}
+                        </div>
+                        <div style="font-size: 10px; color: var(--text-dark); line-height: 1.3;">
+                            ${req.text.substring(0, 100)}${req.text.length > 100 ? '...' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (group.requirements.length > 5) {
+                html += `<div style="font-size: 10px; color: var(--text-light); text-align: center; margin-top: 4px;">+ ${group.requirements.length - 5} more...</div>`;
+            }
+
+            html += `</div>`;
+        });
+
+        listContainer.innerHTML = html;
+    }
+
+    function searchRequirements(event) {
+        const searchTerm = event.target.value.trim();
+        renderRequirements(searchTerm);
+    }
+
+    // ===== CHAT FUNCTIONALITY =====
+    async function sendMessage() {
+        const input = document.getElementById('message-input');
+        const msg = input.value.trim();
+        if (!msg) return;
+
+        addUserMessage(msg);
+        input.value = '';
+        document.getElementById('send-btn').disabled = true;
+
+        // Show typing indicator
+        const typingId = addTypingIndicator();
+
+        try {
+            const response = await fetch('/api/chat/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Customer-Id': state.currentCustomerId || ''
+                },
+                body: JSON.stringify({
+                    message: msg,
+                    documentIds: state.documents.map(d => d.id),
+                    standardIds: state.standards.map(s => s.id),
+                    customerId: state.currentCustomerId
+                })
+            });
+
+            removeTypingIndicator(typingId);
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                addBotMessage(result.response);
+                
+                // If user asked to parse and bot suggests parsing, offer to do it
+                const lowerMsg = msg.toLowerCase();
+                if ((lowerMsg.includes('parse') || lowerMsg.includes('yes') || lowerMsg.includes('proceed')) && 
+                    (result.response.includes('parse these now') || result.response.includes('Should I proceed'))) {
+                    // Auto-trigger parsing for unparsed standards
+                    setTimeout(() => {
+                        parseAllStandards();
+                    }, 1000);
+                }
+            } else {
+                addBotMessage(`❌ Error: ${result.error || 'Failed to get response'}`);
+            }
+        } catch (error) {
+            removeTypingIndicator(typingId);
+            console.error('Chat error:', error);
+            addBotMessage(`❌ Error: ${error.message}`);
+        } finally {
+            document.getElementById('send-btn').disabled = false;
+        }
+    }
+
+    function addTypingIndicator() {
+        const area = document.getElementById('messages-area');
+        const typingId = 'typing-' + Date.now();
+        const div = document.createElement('div');
+        div.id = typingId;
+        div.className = 'message bot';
+        div.innerHTML = '<div class="message-bubble">💭 Thinking...</div>';
+        area.appendChild(div);
+        area.scrollTop = area.scrollHeight;
+        return typingId;
+    }
+
+    function removeTypingIndicator(id) {
+        const typingEl = document.getElementById(id);
+        if (typingEl) {
+            typingEl.remove();
+        }
+    }
+
+    // ===== PARSE STANDARDS =====
+    async function parseAllStandards() {
+        // Get standards from database (they have IDs)
+        try {
+            const standardsResponse = await fetch('/api/requirements/standards');
+            const standardsData = await standardsResponse.json();
+
+            if (!standardsData.success || !standardsData.standards || standardsData.standards.length === 0) {
+                addBotMessage('⚠️ No standards uploaded to parse.');
+                return;
+            }
+
+            addBotMessage('🔄 Starting to parse standards...');
+
+            let parsedCount = 0;
+            let failedCount = 0;
+
+            for (const standard of standardsData.standards) {
+                try {
+                    // Check if already parsed - if so, skip unless user wants to re-parse all
+                    const isParsed = standard.totalRequirements > 0;
+                    const url = `/api/parse/standard/${standard.id}${isParsed ? '?force=true' : ''}`;
+                    
+                    const response = await fetch(url, {
+                        method: 'POST'
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        parsedCount++;
+                        const action = isParsed ? 'Re-parsed' : 'Parsed';
+                        addBotMessage(`✅ ${action} ${standard.code}: ${result.requirementsCount || 0} requirements extracted`);
+                    } else {
+                        failedCount++;
+                        addBotMessage(`⚠️ Could not parse ${standard.code}: ${result.error || result.message || 'Unknown error'}`);
+                    }
+                } catch (error) {
+                    failedCount++;
+                    addBotMessage(`❌ Error parsing ${standard.code}: ${error.message}`);
+                }
+            }
+
+            if (parsedCount > 0) {
+                addBotMessage(`\n✅ Parsing complete! ${parsedCount} standard(s) parsed successfully.`);
+                // Reload requirements library
+                setTimeout(() => {
+                    loadRequirements();
+                }, 500);
+            }
+
+            if (failedCount > 0) {
+                addBotMessage(`\n⚠️ ${failedCount} standard(s) could not be parsed.`);
+            }
+        } catch (error) {
+            addBotMessage(`❌ Error: ${error.message}`);
+        }
+    }
+
+    function addUserMessage(text) {
+        const area = document.getElementById('messages-area');
+        if (area.children.length === 1 && area.children[0].textContent.includes('Ready')) {
+            area.innerHTML = '';
+        }
+        const div = document.createElement('div');
+        div.className = 'message user';
+        div.innerHTML = `<div class="message-bubble">${text}</div>`;
+        area.appendChild(div);
+        area.scrollTop = area.scrollHeight;
+    }
+
+    function addBotMessage(text) {
+        const area = document.getElementById('messages-area');
+        if (area.children.length === 1 && area.children[0].textContent.includes('Ready')) {
+            area.innerHTML = '';
+        }
+        const div = document.createElement('div');
+        div.className = 'message bot';
+        div.innerHTML = `<div class="message-bubble">${text}</div>`;
+        area.appendChild(div);
+        area.scrollTop = area.scrollHeight;
+    }
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    }
+
+    // ===== LOAD FILES FROM DATABASE =====
+    async function loadFilesFromDatabase() {
+        try {
+            // Ensure state.documents is initialized
+            if (!state.documents) {
+                state.documents = [];
+            }
+
+            const documentsResponse = await fetch('/api/upload?type=documents');
+            if (documentsResponse.ok) {
+                const documentsData = await documentsResponse.json();
+                if (documentsData.files && documentsData.files.length > 0) {
+                    state.documents = documentsData.files.map(file => ({
+                        id: file.id,
+                        name: file.originalName || file.name || 'Unknown',
+                        size: file.size || 0,
+                        pages: Math.ceil((file.size || 0) / 50000),
+                        uploadedAt: file.uploadedAt
+                    }));
+                    // renderDocuments() now has robust null checks, safe to call
+                    renderDocuments();
+                } else {
+                    // No files - still render to show empty state
+                    state.documents = [];
+                    renderDocuments();
+                }
+            } else {
+                // API call failed - ensure state is initialized
+                if (!state.documents) {
+                    state.documents = [];
+                }
+            }
+
+            // Load standards from database (persistent standards)
+            const standardsResponse = await fetch('/api/requirements/standards');
+            if (standardsResponse.ok) {
+                const standardsData = await standardsResponse.json();
+                if (standardsData.success && standardsData.standards && standardsData.standards.length > 0) {
+                    state.standards = standardsData.standards.map(std => ({
+                        id: std.id,
+                        code: std.code,
+                        name: std.name,
+                        standardId: std.id,
+                        uploadedAt: std.uploadedAt,
+                        totalRequirements: std.totalRequirements || 0
+                    }));
+                    renderStandardsInLibrary();
+                }
+            }
+            
+            // Also load uploaded files for reference
+            const uploadedStandardsResponse = await fetch('/api/upload?type=standards');
+            if (uploadedStandardsResponse.ok) {
+                const uploadedStandardsData = await uploadedStandardsResponse.json();
+                // Keep uploaded files info but prioritize database standards
+            }
+
+            const regulatoryResponse = await fetch('/api/upload?type=regulatory');
+            if (regulatoryResponse.ok) {
+                const regulatoryData = await regulatoryResponse.json();
+                if (regulatoryData.files && regulatoryData.files.length > 0) {
+                    state.regulatory = regulatoryData.files.map(file => ({
+                        id: file.id,
+                        name: file.originalName,
+                        size: file.size,
+                        pages: Math.ceil(file.size / 50000),
+                        uploadedAt: file.uploadedAt
+                    }));
+                }
+            }
+
+            const customerResponse = await fetch('/api/upload?type=customer');
+            if (customerResponse.ok) {
+                const customerData = await customerResponse.json();
+                if (customerData.files && customerData.files.length > 0) {
+                    state.customer = customerData.files.map(file => ({
+                        id: file.id,
+                        name: file.originalName,
+                        size: file.size,
+                        pages: Math.ceil(file.size / 50000),
+                        uploadedAt: file.uploadedAt
+                    }));
+                }
+            }
+
+            const content = document.getElementById('library-content');
+            if (content && !content.classList.contains('collapsed')) {
+                loadRequirements();
+            }
+
+            // Load compliance documents library (standards, regulations, customer requirements)
+            await renderStandardsInLibrary();
+            renderRegulationsInLibrary();
+            renderCustomerRequirementsInLibrary();
+
+            // Load regulatory websites
+            loadRegulatoryWebsites();
+
+            console.log('✓ Loaded files from database');
+        } catch (error) {
+            console.error('Error loading files from database:', error);
+        }
+    }
+
+    // ===== REGULATORY WEBSITES =====
+    function showAddWebsiteModal() {
+        const modal = document.getElementById('website-modal');
+        modal.classList.add('show');
+        document.getElementById('website-url').focus();
+    }
+
+    function closeWebsiteModal() {
+        document.getElementById('website-modal').classList.remove('show');
+        document.getElementById('website-form').reset();
+    }
+
+    async function addRegulatoryWebsite() {
+        const url = document.getElementById('website-url').value.trim();
+        const name = document.getElementById('website-name').value.trim();
+        const agency = document.getElementById('website-agency').value.trim();
+
+        if (!url) {
+            alert('Please enter a website URL');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/regulatory/website', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    url: url,
+                    name: name || null,
+                    agency: agency || null
+                })
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                closeWebsiteModal();
+                loadRegulatoryWebsites();
+                addBotMessage(`✓ Added regulatory website: ${name || url}`);
+            } else {
+                alert(result.error || 'Failed to add website');
+            }
+        } catch (error) {
+            console.error('Error adding website:', error);
+            alert('Error adding website: ' + error.message);
+        }
+    }
+
+    async function loadRegulatoryWebsites() {
+        try {
+            const response = await fetch('/api/regulatory/websites', {
+                headers: state.currentCustomerId ? {
+                    'X-Customer-Id': state.currentCustomerId
+                } : {}
+            });
+            const result = await response.json();
+
+            if (result.success && result.websites) {
+                state.regulatoryWebsites = result.websites;
+                renderRegulatoryWebsites();
+            }
+        } catch (error) {
+            console.error('Error loading regulatory websites:', error);
+        }
+    }
+
+    function renderRegulatoryWebsites() {
+        const container = document.getElementById('regulatory-websites-list');
+        
+        if (!container) {
+            console.warn('⚠️ regulatory-websites-list element not found, skipping render');
+            return;
+        }
+        
+        // Verify element is in DOM before manipulation
+        if (!document.body.contains(container)) {
+            console.warn('[renderRegulatoryWebsites] "regulatory-websites-list" element not in DOM. Skipping render.');
+            return;
+        }
+        
+        if (state.regulatoryWebsites.length === 0) {
+            container.innerHTML = '';
+            return;
+        }
+
+        const html = state.regulatoryWebsites.map(website => `
+            <div class="website-link">
+                <button class="website-link-remove" onclick="deleteRegulatoryWebsite('${website.id}')" title="Remove">✕</button>
+                <div class="website-link-name">${website.name || website.agency || 'Regulatory Website'}</div>
+                <a href="${website.url}" target="_blank" rel="noopener noreferrer" class="website-link-url">${website.url}</a>
+            </div>
+        `).join('');
+
+        container.innerHTML = html;
+    }
+
+    async function deleteRegulatoryWebsite(id) {
+        if (!confirm('Remove this regulatory website?')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/regulatory/website/${id}?customerId=${state.currentCustomerId || ''}`, {
+                method: 'DELETE',
+                headers: state.currentCustomerId ? {
+                    'X-Customer-Id': state.currentCustomerId
+                } : {}
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                loadRegulatoryWebsites();
+            } else {
+                alert(result.error || 'Failed to delete website');
+            }
+        } catch (error) {
+            console.error('Error deleting website:', error);
+            alert('Error deleting website: ' + error.message);
+        }
+    }
+
+    // ===== UTILITY FUNCTIONS =====
+    function toggleDarkMode() {
+        const isDark = document.body.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.textContent = isDark ? '☀️' : '🌙';
+        }
+    }
+    
+    function getTimeBasedGreeting() {
+        const hour = new Date().getHours();
+        if (hour < 12) {
+            return 'Good morning';
+        } else if (hour < 17) {
+            return 'Good afternoon';
+        } else if (hour < 21) {
+            return 'Good evening';
+        } else {
+            return 'Good night';
+        }
+    }
+
+    function clearAll() {
+        if (confirm('Clear all data?')) {
+            state.documents = [];
+            state.pageCount = 0;
+            document.getElementById('messages-area').innerHTML = `
+                <div style="text-align: center; opacity: 0.5; margin: auto; font-size: 12px;">
+                    Ready for analysis...
+                </div>
+            `;
+            try {
+                renderDocuments();
+            } catch (err) {
+                console.warn('[removeFile] Could not render documents:', err.message);
+            }
+        }
+    }
+
+    // ===== PERSONA & GREETING =====
+    async function loadGreeting() {
+        try {
+            const banner = document.getElementById('greeting-banner');
+            const textEl = document.getElementById('greeting-text');
+            const noteEl = document.getElementById('greeting-note');
+            const tipEl = document.getElementById('greeting-tip');
+
+            // Use time-based greeting
+            const timeGreeting = getTimeBasedGreeting();
+            let greetingText = `${timeGreeting}. Ready to dig into today's clauses?`;
+            let noteText = 'EDCAT is bounded to your uploaded corpus and approved regulator sources.';
+
+            // Try to get custom greeting from API, but use time-based as fallback
+            try {
+                const response = await fetch('/api/persona/greeting');
+                const greeting = await response.json();
+                if (greeting && greeting.text) {
+                    // Replace "Good morning" with time-based greeting if present
+                    greetingText = greeting.text.replace(/Good morning/i, timeGreeting);
+                    if (greeting.compliance_note) {
+                        noteText = greeting.compliance_note;
+                    }
+                }
+            } catch (err) {
+                // Use default time-based greeting if API fails
+                console.log('Using default time-based greeting');
+            }
+
+            if (banner && textEl && noteEl) {
+                textEl.textContent = greetingText;
+                noteEl.textContent = noteText;
+                
+                if (tipEl) {
+                    tipEl.style.display = 'none';
+                }
+
+                banner.style.display = 'block';
+            }
+
+            // Load learning status for admin banner
+            try {
+                const learnResponse = await fetch('/api/gap/learn/last');
+                const learnStatus = await learnResponse.json();
+                
+                if (learnStatus.success && learnStatus.pending_review > 0) {
+                    const learnBanner = document.createElement('div');
+                    learnBanner.id = 'learn-status-banner';
+                    learnBanner.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; background: rgba(245, 158, 11, 0.15); border-bottom: 2px solid var(--warning); padding: 8px 24px; z-index: 10001; text-align: center; font-size: 11px; color: var(--text-dark);';
+                    learnBanner.innerHTML = `📊 Nightly learner: ${learnStatus.pending_review} tuning proposal(s) pending review. <a href="#admin-learning" style="color: var(--primary); font-weight: 600; text-decoration: underline;">Review in Admin → Learning</a>`;
+                    document.body.insertBefore(learnBanner, document.body.firstChild);
+                }
+            } catch (err) {
+                // Ignore learning status errors
+            }
+        } catch (error) {
+            console.error('Error loading greeting:', error);
+        }
+    }
+
+    // ===== ADMIN LEARNING =====
+    async function loadLearningProposals() {
+        try {
+            const [proposalsRes, statsRes] = await Promise.all([
+                fetch('/api/admin/learning/proposals'),
+                fetch('/api/admin/learning/stats')
+            ]);
+
+            const proposals = await proposalsRes.json();
+            const stats = await statsRes.json();
+
+            // Update stats
+            const statsEl = document.getElementById('learning-stats');
+            if (statsEl && stats.success) {
+                statsEl.innerHTML = `
+                    <div style="font-weight: 600; margin-bottom: 4px;">Last 7 Days:</div>
+                    <div>Proposals: ${stats.stats.tunings_last_7_days.total} (${stats.stats.tunings_last_7_days.approved} approved, ${stats.stats.tunings_last_7_days.pending} pending)</div>
+                    <div>Feedback: ${stats.stats.feedback_last_7_days} | Traces: ${stats.stats.traces_last_7_days}</div>
+                `;
+            }
+
+            // Render proposals
+            const proposalsEl = document.getElementById('learning-proposals');
+            if (proposalsEl && proposals.success) {
+                if (proposals.proposals.length === 0) {
+                    proposalsEl.innerHTML = '<div class="no-data">No proposals pending review</div>';
+                    return;
+                }
+
+                let html = '';
+                proposals.proposals.forEach(prop => {
+                    const rationale = typeof prop.rationale === 'string' ? JSON.parse(prop.rationale) : prop.rationale;
+                    html += `
+                        <div style="margin-bottom: 12px; padding: 10px; background: rgba(22, 160, 133, 0.05); border-radius: 4px; border-left: 3px solid var(--primary);">
+                            <div style="font-weight: 600; font-size: 11px; color: var(--primary); margin-bottom: 6px;">
+                                ${prop.standard_code} - ${prop.clause_ref} (v${prop.version})
+                            </div>
+                            <div style="font-size: 9px; color: var(--text-light); margin-bottom: 6px;">
+                                Traces: ${prop.trace_count} | Error Rate: ${rationale?.err_rate ? (rationale.err_rate * 100).toFixed(1) + '%' : 'N/A'}
+                            </div>
+                            ${prop.semantic_full ? `<div style="font-size: 9px;">semantic_full: ${prop.semantic_full.toFixed(3)}</div>` : ''}
+                            ${prop.semantic_partial ? `<div style="font-size: 9px;">semantic_partial: ${prop.semantic_partial.toFixed(3)}</div>` : ''}
+                            ${prop.boosts ? `<div style="font-size: 9px;">Boosts: ${JSON.stringify(prop.boosts)}</div>` : ''}
+                            ${prop.penalties ? `<div style="font-size: 9px;">Penalties: ${JSON.stringify(prop.penalties)}</div>` : ''}
+                            <div style="margin-top: 8px; display: flex; gap: 4px;">
+                                <button onclick="approveTuning('${prop.id}')" style="flex: 1; padding: 4px; background: var(--success); color: white; border: none; border-radius: 3px; font-size: 9px; cursor: pointer;">Approve</button>
+                                <button onclick="rejectTuning('${prop.id}')" style="flex: 1; padding: 4px; background: var(--danger); color: white; border: none; border-radius: 3px; font-size: 9px; cursor: pointer;">Reject</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                proposalsEl.innerHTML = html;
+            }
+        } catch (error) {
+            console.error('Error loading learning proposals:', error);
+        }
+    }
+
+    async function approveTuning(id) {
+        try {
+            const response = await fetch(`/api/gap/tuning/${id}/approve`, { method: 'POST' });
+            const result = await response.json();
+            if (result.success) {
+                alert('Tuning approved');
+                loadLearningProposals();
+            } else {
+                alert('Error: ' + result.error);
+            }
+        } catch (error) {
+            alert('Error: ' + error.message);
+        }
+    }
+
+    async function rejectTuning(id) {
+        if (!confirm('Reject this tuning proposal?')) return;
+        try {
+            const response = await fetch(`/api/gap/tuning/${id}/reject`, { method: 'POST' });
+            const result = await response.json();
+            if (result.success) {
+                alert('Tuning rejected');
+                loadLearningProposals();
+            } else {
+                alert('Error: ' + result.error);
+            }
+        } catch (error) {
+            alert('Error: ' + error.message);
+        }
+    }
+
+    // Show admin section if hash is present
+    function checkAdminHash() {
+        if (window.location.hash === '#admin-learning') {
+            const section = document.getElementById('admin-learning-section');
+            if (section) {
+                section.style.display = 'block';
+                loadLearningProposals();
+            }
+        }
+    }
+
+    // ===== INIT =====
+    window.addEventListener('load', () => {
+        // Apply saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark');
+        }
+        
+        // Update theme toggle icon
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        }
+        
+        document.getElementById('completion-date').valueAsDate = new Date();
+        loadFilesFromDatabase();
+        loadGreeting();
+        checkAdminHash();
+        addBotMessage('👋 Ready to analyze compliance. Upload your documents to get started.');
+    });
+
+    window.addEventListener('hashchange', checkAdminHash);
+
+    // ===== STANDARD MANAGEMENT =====
+    let editStandardModal = null;
+    let currentEditStandardId = null;
+
+    function showEditStandardModal(standardId, code, name) {
+        currentEditStandardId = standardId;
+        
+        // Create modal if it doesn't exist
+        if (!editStandardModal) {
+            editStandardModal = document.createElement('div');
+            editStandardModal.className = 'modal-overlay';
+            editStandardModal.id = 'edit-standard-modal';
+            editStandardModal.innerHTML = `
+                <div class="modal" style="max-width: 600px;">
+                    <div class="modal-header">
+                        Edit/Replace Standard
+                        <button class="modal-close" onclick="closeEditStandardModal()">×</button>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: var(--text-dark);">
+                            STANDARD CODE *
+                        </label>
+                        <input type="text" id="edit-standard-code" class="input-field" placeholder="e.g., ISO 9001-2015" style="width: 100%;">
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: var(--text-dark);">
+                            STANDARD NAME *
+                        </label>
+                        <input type="text" id="edit-standard-name" class="input-field" placeholder="e.g., ISO 9001-2015 Upload" style="width: 100%;">
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: var(--text-dark);">
+                            REPLACE FILE (Optional)
+                        </label>
+                        <input type="file" id="edit-standard-file" accept=".pdf,.doc,.docx" style="width: 100%; font-size: 11px; padding: 8px; border: 1px solid var(--border); border-radius: 4px;">
+                        <div style="font-size: 10px; color: var(--text-light); margin-top: 4px;">
+                            Upload a new file to replace the existing one. Leave empty to keep current file.
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+                        <button onclick="closeEditStandardModal()" style="padding: 8px 16px; background: var(--bg-light); color: var(--text-dark); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; font-size: 11px;">
+                            Cancel
+                        </button>
+                        <button onclick="saveStandardChanges()" style="padding: 8px 16px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(editStandardModal);
+        }
+
+        // Populate form
+        document.getElementById('edit-standard-code').value = code;
+        document.getElementById('edit-standard-name').value = name;
+        document.getElementById('edit-standard-file').value = '';
+
+        // Show modal
+        editStandardModal.classList.add('show');
+    }
+
+    function closeEditStandardModal() {
+        if (editStandardModal) {
+            editStandardModal.classList.remove('show');
+            currentEditStandardId = null;
+        }
+    }
+
+    async function saveStandardChanges() {
+        if (!currentEditStandardId) return;
+
+        const code = document.getElementById('edit-standard-code').value.trim();
+        const name = document.getElementById('edit-standard-name').value.trim();
+        const fileInput = document.getElementById('edit-standard-file');
+
+        if (!code || !name) {
+            alert('Standard code and name are required');
+            return;
+        }
+
+        try {
+            // Update standard metadata
+            const updateResponse = await fetch(`/api/requirements/standards/${currentEditStandardId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code, name })
+            });
+
+            const updateResult = await updateResponse.json();
+
+            if (!updateResponse.ok) {
+                throw new Error(updateResult.error || 'Failed to update standard');
+            }
+
+            // If a new file was selected, upload it
+            if (fileInput.files.length > 0) {
+                const formData = new FormData();
+                formData.append('files', fileInput.files[0]);
+                formData.append('type', 'standards');
+                formData.append('replaceStandardId', currentEditStandardId);
+
+                const uploadResponse = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const uploadResult = await uploadResponse.json();
+
+                if (!uploadResponse.ok) {
+                    throw new Error(uploadResult.error || 'Failed to upload replacement file');
+                }
+
+                addBotMessage(`✅ Standard updated and file replaced successfully`);
+            } else {
+                addBotMessage(`✅ Standard updated successfully`);
+            }
+
+            closeEditStandardModal();
+            
+            // Reload requirements library and standards list
+            setTimeout(() => {
+                loadRequirements();
+                renderStandardsInLibrary(); // Refresh standards in documents library
+            }, 500);
+        } catch (error) {
+            console.error('Error saving standard changes:', error);
+            alert(`Error: ${error.message}`);
+        }
+    }
+
+    async function deleteStandard(standardId, standardCode) {
+        if (!confirm(`Are you sure you want to delete "${standardCode}"?\n\nThis will also delete:\n• All extracted requirements\n• The uploaded file\n\nThis action cannot be undone.`)) {
+            return;
+        }
+
+        try {
+            addBotMessage(`🗑️ Deleting standard "${standardCode}"...`);
+
+            const response = await fetch(`/api/requirements/standards/${standardId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                addBotMessage(`✅ Standard "${standardCode}" deleted successfully`);
+                
+                // Reload requirements library and standards list
+                setTimeout(() => {
+                    loadRequirements();
+                    renderStandardsInLibrary(); // Refresh standards in documents library
+                }, 500);
+            } else {
+                throw new Error(result.error || 'Failed to delete standard');
+            }
+        } catch (error) {
+            console.error('Error deleting standard:', error);
+            addBotMessage(`❌ Error deleting standard: ${error.message}`);
+        }
+    }
+
+    // ===== REQUIREMENTS REVIEW PAGE =====
+    async function openRequirementsReviewPage() {
+        const modal = document.getElementById('requirements-review-modal');
+        modal.classList.add('show');
+        
+        // Load all standards and their requirements
+        await loadRequirementsReviewPage();
+    }
+
+    function closeRequirementsReviewPage() {
+        const modal = document.getElementById('requirements-review-modal');
+        modal.classList.remove('show');
+    }
+
+    async function loadRequirementsReviewPage() {
+        const content = document.getElementById('requirements-review-content');
+        const standardFilter = document.getElementById('requirements-review-standard-filter');
+        
+        content.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-light);">Loading requirements...</div>';
+        
+        try {
+            // Load all standards
+            const standardsResponse = await fetch('/api/requirements/standards');
+            const standardsData = await standardsResponse.json();
+            
+            if (!standardsData.success || !standardsData.standards || standardsData.standards.length === 0) {
+                content.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-light);">No standards found. Please upload and parse standards first.</div>';
+                return;
+            }
+
+            // Populate standard filter
+            standardFilter.innerHTML = '<option value="">All Standards</option>' + 
+                standardsData.standards.map(std => 
+                    `<option value="${std.id}">${std.code} - ${std.name}</option>`
+                ).join('');
+
+            // Load requirements for each standard
+            let allRequirements = [];
+            for (const standard of standardsData.standards) {
+                try {
+                    const reqResponse = await fetch(`/api/requirements/standards/${standard.id}/requirements`);
+                    const reqData = await reqResponse.json();
+                    
+                    if (reqData.success && reqData.requirements && reqData.requirements.length > 0) {
+                        allRequirements.push({
+                            standard: standard,
+                            requirements: reqData.requirements
+                        });
+                    }
+                } catch (err) {
+                    console.error(`Error loading requirements for ${standard.code}:`, err);
+                }
+            }
+
+            if (allRequirements.length === 0) {
+                content.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-light);">No requirements found. Please parse standards first.</div>';
+                return;
+            }
+
+            // Render requirements in structured format
+            renderRequirementsReview(allRequirements);
+            
+        } catch (error) {
+            console.error('Error loading requirements review:', error);
+            content.innerHTML = `<div style="text-align: center; padding: 40px; color: #ef4444;">Error loading requirements: ${error.message}</div>`;
+        }
+    }
+
+    function renderRequirementsReview(requirementsByStandard) {
+        const content = document.getElementById('requirements-review-content');
+        let html = '';
+
+        for (const { standard, requirements } of requirementsByStandard) {
+            // Group requirements by clause
+            const requirementsByClause = {};
+            requirements.forEach(req => {
+                const clause = req.clauseNumber || 'Unnumbered';
+                if (!requirementsByClause[clause]) {
+                    requirementsByClause[clause] = [];
+                }
+                requirementsByClause[clause].push(req);
+            });
+
+            // Sort clauses
+            const sortedClauses = Object.keys(requirementsByClause).sort((a, b) => {
+                // Handle numeric clauses (4.1, 4.2, etc.)
+                const aParts = a.split('.').map(n => parseInt(n) || 0);
+                const bParts = b.split('.').map(n => parseInt(n) || 0);
+                for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+                    const aVal = aParts[i] || 0;
+                    const bVal = bParts[i] || 0;
+                    if (aVal !== bVal) return aVal - bVal;
+                }
+                return a.localeCompare(b);
+            });
+
+            html += `
+                <div class="standard-section" data-standard-id="${standard.id}" style="margin-bottom: 40px; border-bottom: 2px solid var(--border); padding-bottom: 30px;">
+                    <h2 style="color: var(--primary); font-size: 20px; margin-bottom: 8px; font-weight: 700;">
+                        ${standard.code}${standard.name !== standard.code ? ' - ' + standard.name : ''}
+                    </h2>
+                    <div style="font-size: 12px; color: var(--text-light); margin-bottom: 20px;">
+                        ${requirements.length} requirement(s) • ${sortedClauses.length} clause(s)
+                    </div>
+            `;
+
+            for (const clause of sortedClauses) {
+                const clauseReqs = requirementsByClause[clause];
+                html += `
+                    <div class="clause-section" style="margin-bottom: 24px; margin-left: 20px;">
+                        <h3 style="color: var(--text-dark); font-size: 16px; font-weight: 600; margin-bottom: 12px;">
+                            ${clause}
+                        </h3>
+                `;
+
+                clauseReqs.forEach((req, idx) => {
+                    html += `
+                        <div class="requirement-item" style="margin-bottom: 12px; padding-left: 16px; border-left: 3px solid var(--primary);">
+                            <div style="font-size: 14px; color: var(--text-dark); line-height: 1.6;">
+                                ${req.text}
+                            </div>
+                            ${req.confidence ? `<div style="font-size: 11px; color: var(--text-light); margin-top: 4px;">Confidence: ${(req.confidence * 100).toFixed(0)}%</div>` : ''}
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+            }
+
+            html += `</div>`;
+        }
+
+        content.innerHTML = html;
+    }
+
+    function filterRequirementsReview(event) {
+        const searchTerm = (event ? event.target.value : document.getElementById('requirements-review-search').value).toLowerCase();
+        const standardFilter = document.getElementById('requirements-review-standard-filter').value;
+        const standardSections = document.querySelectorAll('.standard-section');
+        
+        standardSections.forEach(section => {
+            const standardId = section.getAttribute('data-standard-id');
+            const shouldShowStandard = !standardFilter || standardId === standardFilter;
+            
+            if (!shouldShowStandard) {
+                section.style.display = 'none';
+                return;
+            }
+            
+            if (!searchTerm) {
+                section.style.display = 'block';
+                // Show all requirement items
+                section.querySelectorAll('.requirement-item').forEach(item => {
+                    item.style.display = 'block';
+                });
+                section.querySelectorAll('.clause-section').forEach(clause => {
+                    clause.style.display = 'block';
+                });
+                return;
+            }
+            
+            // Search within this standard's requirements
+            const requirementItems = section.querySelectorAll('.requirement-item');
+            let hasMatch = false;
+            
+            requirementItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    hasMatch = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Hide clause sections with no matches
+            const clauseSections = section.querySelectorAll('.clause-section');
+            clauseSections.forEach(clause => {
+                const visibleReqs = clause.querySelectorAll('.requirement-item[style*="display: block"], .requirement-item:not([style*="display: none"])');
+                if (visibleReqs.length === 0 && searchTerm) {
+                    clause.style.display = 'none';
+                } else {
+                    clause.style.display = 'block';
+                }
+            });
+            
+            section.style.display = hasMatch || !searchTerm ? 'block' : 'none';
+        });
+    }
+
+    function exportRequirementsReview() {
+        const content = document.getElementById('requirements-review-content');
+        const text = content.innerText || content.textContent;
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `requirements-review-${new Date().toISOString().split('T')[0]}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // ===== STANDARD ACTIONS TOGGLE =====
+    function toggleStandardActions(standardId) {
+        const actionsDiv = document.getElementById(`standard-actions-${standardId}`);
+        const toggleSpan = document.getElementById(`standard-toggle-${standardId}`);
+        
+        if (actionsDiv && toggleSpan) {
+            const isHidden = actionsDiv.style.display === 'none';
+            actionsDiv.style.display = isHidden ? 'block' : 'none';
+            toggleSpan.textContent = isHidden ? '▲' : '▼';
+        }
+    }
+
+    // ===== REGULATORY REFRESH =====
+    async function refreshRegulations() {
+        const btn = document.getElementById('refresh-regs-btn');
+        const originalText = btn.textContent;
+        
+        btn.disabled = true;
+        btn.textContent = '🔄 Refreshing...';
+        btn.style.opacity = '0.6';
+        
+        try {
+            addBotMessage('🔄 Refreshing regulations from online sources...');
+            
+            const response = await fetch('/api/regs/refresh', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                const failures = data.failures || 0;
+                const flagged = data.flagged || 0;
+                const total = data.total || 0;
+                
+                if (failures > 0 || flagged > 0) {
+                    addBotMessage(`⚠️ Refresh completed with issues:\n• ${failures} failure(s)\n• ${flagged} flagged change(s)\n• ${total - failures} successful`);
+                    btn.style.background = 'rgba(239, 68, 68, 0.2)';
+                    btn.textContent = '🔴 RED FLAG';
+                } else {
+                    addBotMessage(`✅ Regulations refreshed successfully: ${total} regulation(s) processed`);
+                    btn.style.background = 'rgba(22, 160, 133, 0.2)';
+                    btn.textContent = originalText;
+                }
+            } else {
+                throw new Error(data.detail || data.error || 'Refresh failed');
+            }
+        } catch (error) {
+            console.error('Reg refresh error:', error);
+            addBotMessage(`❌ Error refreshing regulations: ${error.message}`);
+            btn.style.background = 'rgba(239, 68, 68, 0.2)';
+            btn.textContent = '❌ Error';
+        } finally {
+            btn.disabled = false;
+            setTimeout(() => {
+                btn.style.opacity = '1';
+                if (btn.textContent !== '🔴 RED FLAG' && btn.textContent !== '❌ Error') {
+                    btn.textContent = originalText;
+                    btn.style.background = 'rgba(245, 158, 11, 0.2)';
+                }
+            }, 5000);
+        }
+    }
+</script>
+</body>
+</html>

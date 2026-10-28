@@ -1,0 +1,27 @@
+{
+  "name": "pma-application-management",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Conform-Edge · PMA Autopilot — FAA Part 21 Subpart K / AC 21.303-4 parts-manufacturer-approval drafting tool. Deterministic completeness gate + embedded M-AI kernel. No LLM.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=apps/api\" \"npm run dev --workspace=apps/web\"",
+    "build": "npm run build --workspace=apps/api && npm run build --workspace=apps/web",
+    "db:generate": "npm run db:generate --workspace=apps/api",
+    "db:migrate": "npm run db:migrate --workspace=apps/api",
+    "db:seed": "npm run db:seed --workspace=apps/api",
+    "db:studio": "npm run db:studio --workspace=apps/api",
+    "start": "npm run start --workspace=apps/api",
+    "test": "npm run test --workspace=apps/api"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3"
+  }
+}

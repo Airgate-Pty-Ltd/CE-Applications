@@ -1,0 +1,246 @@
+{
+  "version": "2.0",
+  "persona_code": "vera",
+  "intents": {
+    "greeting": {
+      "keywords": [
+        "hi",
+        "hello",
+        "good morning",
+        "good afternoon",
+        "good evening",
+        "hey vera",
+        "hi vera"
+      ],
+      "priority": 10
+    },
+    "capability_query": {
+      "keywords": [
+        "what can you do",
+        "features",
+        "capabilities",
+        "conversational features",
+        "how do you work",
+        "what are your skills"
+      ],
+      "priority": 9
+    },
+    "self_improvement_query": {
+      "keywords": [
+        "how can we improve",
+        "how can you improve",
+        "improve your functions",
+        "improve your capabilities",
+        "what can be improved",
+        "how to make you better",
+        "what are your limitations",
+        "what are you missing",
+        "what should be added",
+        "enhance your",
+        "upgrade your",
+        "better reasoning",
+        "improve reasoning",
+        "more intelligent",
+        "smarter"
+      ],
+      "priority": 8
+    },
+    "casual_chat": {
+      "keywords": [
+        "how are you",
+        "how's your day",
+        "thank you",
+        "thanks",
+        "great job",
+        "wonderful",
+        "that's good",
+        "that is good",
+        "good to hear",
+        "glad to hear",
+        "nice",
+        "cool",
+        "awesome",
+        "excellent",
+        "perfect",
+        "sounds good",
+        "okay",
+        "ok",
+        "sure",
+        "yeah",
+        "yes",
+        "yep",
+        "right",
+        "exactly",
+        "i see",
+        "i understand",
+        "got it",
+        "makes sense",
+        "appreciate it",
+        "appreciate",
+        "good",
+        "great",
+        "fine",
+        "alright",
+        "all right"
+      ],
+      "priority": 5
+    },
+    "compliance_question": {
+      "keywords": [
+        "clause",
+        "requirement",
+        "as9100",
+        "iso 9001",
+        "iso 13485",
+        "iatf 16949",
+        "gap",
+        "nonconforming",
+        "non-conforming",
+        "audit",
+        "car",
+        "ncr",
+        "finding",
+        "what does",
+        "what is required",
+        "explain clause",
+        "tell me about"
+      ],
+      "priority": 8
+    },
+    "gap_analysis_request": {
+      "keywords": [
+        "analyze gaps",
+        "show gaps",
+        "find gaps",
+        "gap analysis",
+        "compliance gaps",
+        "what's missing",
+        "missing requirements",
+        "check compliance",
+        "compare documents",
+        "compliance check"
+      ],
+      "priority": 8
+    },
+    "audit_prep_request": {
+      "keywords": [
+        "audit prep",
+        "prepare for audit",
+        "audit readiness",
+        "audit checklist",
+        "ready for audit",
+        "audit preparation",
+        "what do i need for audit",
+        "audit evidence",
+        "audit trail"
+      ],
+      "priority": 7
+    },
+    "capa_request": {
+      "keywords": [
+        "create capa",
+        "corrective action",
+        "preventive action",
+        "capa",
+        "fix gap",
+        "remediation",
+        "action plan",
+        "how to fix",
+        "what to do about"
+      ],
+      "priority": 7
+    },
+    "procedure_request": {
+      "keywords": [
+        "write a procedure",
+        "draft procedure",
+        "create procedure",
+        "sop",
+        "work instruction",
+        "draft document",
+        "create document",
+        "procedure template",
+        "work instruction template"
+      ],
+      "priority": 7
+    },
+    "metrics_query": {
+      "keywords": [
+        "metrics",
+        "kpi",
+        "performance",
+        "statistics",
+        "how many",
+        "count",
+        "coverage",
+        "compliance rate",
+        "gap percentage",
+        "status report"
+      ],
+      "priority": 6
+    },
+    "industry_question": {
+      "keywords": [
+        "aerospace",
+        "medical device",
+        "automotive",
+        "healthcare",
+        "faa",
+        "easa",
+        "fda",
+        "industry specific",
+        "sector",
+        "regulatory body"
+      ],
+      "priority": 6
+    },
+    "regulatory_update": {
+      "keywords": [
+        "regulatory update",
+        "new regulation",
+        "standard update",
+        "revision",
+        "latest version",
+        "what changed",
+        "regulatory change",
+        "new requirement"
+      ],
+      "priority": 6
+    },
+    "standard_comparison": {
+      "keywords": [
+        "compare standards",
+        "difference between",
+        "iso vs as9100",
+        "standard mapping",
+        "crosswalk",
+        "migration",
+        "upgrade standard"
+      ],
+      "priority": 6
+    },
+    "system_help": {
+      "keywords": [
+        "parse",
+        "standard list",
+        "what is parsed",
+        "which standards are loaded",
+        "reset",
+        "how to",
+        "help",
+        "tutorial",
+        "guide"
+      ],
+      "priority": 6
+    }
+  },
+  "defaults": {
+    "unknown_intent": "compliance_question"
+  },
+  "canned_responses": {
+    "greeting": "👋 {greetingLine}",
+    "capability_query": "I can chat with you about your work, explain requirements, help you plan audits, generate GAP views, and draft procedures or work instructions based on your standards and documents. I'm not limited to a single question–answer pattern; you can explore ideas with me and I'll keep track of context within this session.",
+    "casual_chat": "{smallTalkLine}",
+    "system_help": "Here's what I can do with the EDCAT environment: list parsed standards, parse new ones, run GAP checks, and help draft documents. Tell me whether you want to look at your standards, your QMS documents, or just explore how I work."
+  }
+}

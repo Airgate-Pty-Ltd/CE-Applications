@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITAR / EAR Export Control Compliance Self-Assessment — Conform-Edge</title>
+<style>
+  :root{--navy:#1a2b4a;--steel:#4a6fa5;--ink:#1c2333;--silver:#e8edf4;--mist:#f4f6fa;--go:#1a7a4a;--go-bg:#e8f5ee;--cond:#a06000;--cond-bg:#fff8e6;--stop:#b01e28;--stop-bg:#fde8ea;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--mist);color:var(--ink);font-size:14px;}
+  header{background:var(--navy);color:white;padding:18px 28px;}
+  header .logo{font-size:10px;font-weight:700;letter-spacing:2px;color:#9ab0cc;text-transform:uppercase;}
+  header h1{font-size:18px;font-weight:700;margin:3px 0;}
+  header .sub{font-size:11px;color:#9ab0cc;}
+  .container{max-width:980px;margin:0 auto;padding:24px 18px;}
+  .card{background:white;border-radius:8px;padding:18px 22px;margin-bottom:18px;border:1px solid #dde3ef;}
+  .card h2{font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+  .setup-row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;}
+  .fld{display:flex;flex-direction:column;gap:4px;flex:1;min-width:150px;}
+  .fld label{font-size:10px;font-weight:700;color:#5a6480;text-transform:uppercase;letter-spacing:0.5px;}
+  .fld select,.fld input{padding:8px 10px;border:1px solid #c8d0e0;border-radius:5px;font-size:13px;color:var(--ink);}
+  .sec-hdr{background:var(--navy);color:white;padding:9px 16px;border-radius:6px 6px 0 0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:18px;}
+  .sec-body{background:white;border:1px solid #dde3ef;border-top:none;border-radius:0 0 6px 6px;}
+  .qrow{display:grid;grid-template-columns:26px 1fr 190px;border-bottom:1px solid #edf0f7;}
+  .qrow:last-child{border-bottom:none;}
+  .qrow.crit{border-left:3px solid var(--stop);}
+  .qnum{display:flex;align-items:flex-start;justify-content:center;padding:11px 4px 11px 6px;font-size:10px;color:#8899bb;font-weight:700;}
+  .qtxt{padding:11px 10px;}
+  .qlbl{font-size:13px;color:var(--ink);line-height:1.4;}
+  .qref{font-size:10px;color:#8899bb;margin-top:3px;}
+  .ctag{display:inline-block;background:var(--stop-bg);color:var(--stop);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;text-transform:uppercase;margin-left:5px;vertical-align:middle;}
+  .qans{display:flex;flex-direction:column;justify-content:center;padding:11px 10px;gap:5px;}
+  .rrow{display:flex;gap:5px;flex-wrap:wrap;}
+  .rlbl{display:flex;align-items:center;gap:3px;cursor:pointer;padding:4px 8px;border-radius:4px;border:1px solid #d0d8e8;font-size:11px;font-weight:700;color:#4a5470;white-space:nowrap;}
+  .rlbl:has(input:checked){background:var(--navy);color:white;border-color:var(--navy);}
+  .rlbl.yes:has(input:checked){background:var(--go);border-color:var(--go);}
+  .rlbl.no:has(input:checked){background:var(--stop);border-color:var(--stop);}
+  .rlbl.partial:has(input:checked){background:var(--cond);border-color:var(--cond);}
+  .rlbl.na:has(input:checked){background:#607090;border-color:#607090;}
+  .rlbl input{display:none;}
+  .ntxt{padding:4px 6px;border:1px solid #d0d8e8;border-radius:4px;font-size:10px;color:var(--ink);resize:none;width:100%;}
+  .vp{background:white;border-radius:8px;padding:22px;margin-top:18px;border:1px solid #dde3ef;}
+  .vlbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#5a6480;margin-bottom:8px;}
+  .vbox{border-radius:8px;padding:16px 20px;margin-bottom:14px;}
+  .vbox.go{background:var(--go-bg);border:2px solid var(--go);}
+  .vbox.cond{background:var(--cond-bg);border:2px solid var(--cond);}
+  .vbox.stop{background:var(--stop-bg);border:2px solid var(--stop);}
+  .vtitle{font-size:19px;font-weight:800;}
+  .vbox.go .vtitle{color:var(--go);}
+  .vbox.cond .vtitle{color:var(--cond);}
+  .vbox.stop .vtitle{color:var(--stop);}
+  .vsub{font-size:12px;margin-top:5px;color:#4a5470;}
+  .srow{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;}
+  .sbadge{background:var(--silver);border-radius:6px;padding:7px 12px;text-align:center;min-width:80px;}
+  .sbadge .n{font-size:20px;font-weight:800;color:var(--navy);}
+  .sbadge .t{font-size:9px;color:#5a6480;text-transform:uppercase;}
+  .pwrap{background:#dde3ef;border-radius:4px;height:5px;margin:10px 0;}
+  .pfill{height:5px;border-radius:4px;background:var(--steel);transition:width 0.4s;}
+  .gtbl{width:100%;border-collapse:collapse;margin-top:12px;font-size:11px;}
+  .gtbl th{background:var(--navy);color:white;padding:6px 9px;text-align:left;}
+  .gtbl td{padding:6px 9px;border-bottom:1px solid #edf0f7;vertical-align:top;}
+  .gtbl tr:last-child td{border-bottom:none;}
+  .gtbl tr:nth-child(even) td{background:var(--mist);}
+  .tc{background:var(--stop-bg);color:var(--stop);font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px;}
+  .tp{background:var(--cond-bg);color:var(--cond);font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px;}
+  .mai{display:inline-flex;align-items:center;gap:5px;background:#e8f0fb;border:1px solid #b0c4e4;color:var(--navy);font-size:9px;font-weight:700;padding:4px 9px;border-radius:4px;margin-bottom:12px;}
+  .mai::before{content:"M-AI";background:var(--navy);color:white;padding:1px 4px;border-radius:3px;font-size:8px;}
+  .nbx{background:var(--silver);border-radius:5px;padding:12px 14px;font-size:11px;line-height:1.7;color:var(--ink);white-space:pre-wrap;margin-top:12px;font-family:'Courier New',monospace;}
+  .brow{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;}
+  .btn{padding:9px 18px;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;border:none;}
+  .btn-p{background:var(--steel);color:white;}
+  .btn-p:hover{background:var(--navy);}
+  .btn-o{background:white;color:var(--navy);border:1.5px solid var(--navy);}
+  .btn-e{background:#2a5c3a;color:white;}
+  footer{text-align:center;padding:18px;font-size:10px;color:#8899bb;margin-top:16px;}
+  .warn-box{background:#fffbe6;border:1px solid #e8c840;border-radius:5px;padding:10px 14px;font-size:11px;color:#604000;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Conform-Edge</div>
+  <h1>ITAR / EAR Export Control Compliance Self-Assessment</h1>
+  <div class="sub">ITAR (22 CFR Parts 120–130) · EAR (15 CFR Parts 730–774) · For US Aerospace &amp; Defense Suppliers</div>
+</header>
+
+<div class="container">
+
+<div class="card">
+  <h2>Assessment Setup</h2>
+  <div class="warn-box">⚠ This tool identifies compliance gaps for internal use. It is not legal advice and does not constitute an export compliance determination. Consult qualified export counsel for licensing decisions and jurisdictional analysis.</div>
+  <div class="setup-row" style="margin-top:12px;">
+    <div class="fld">
+      <label>Export Regime Focus</label>
+      <select id="regime">
+        <option value="">— Select —</option>
+        <option value="itar">ITAR Only (Defense Articles / USML)</option>
+        <option value="ear">EAR Only (Dual-Use / ECCN / EAR99)</option>
+        <option value="both">Both ITAR &amp; EAR</option>
+      </select>
+    </div>
+    <div class="fld"><label>Organization</label><input type="text" id="org" placeholder="Your company name"></div>
+    <div class="fld"><label>Assessor</label><input type="text" id="assessor" placeholder="Your name"></div>
+    <div class="fld"><label>DoD Contractor?</label>
+      <select id="dod">
+        <option value="">— Select —</option>
+        <option value="yes">Yes — prime or sub</option>
+        <option value="no">No</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Section 1: Jurisdiction & Classification -->
+<div class="sec-hdr">Section 1 — Jurisdiction Determination &amp; Product Classification</div>
+<div class="sec-body">
+
+  <div class="qrow crit" data-key="q1" data-crit="true">
+    <div class="qnum">1</div>
+    <div class="qtxt">
+      <div class="qlbl">A formal process exists to determine whether products, technology, or software are subject to ITAR (USML) or EAR (CCL/EAR99) before export, re-export, or transfer (in-country). <span class="ctag">⚑ Critical</span></div>
+      <div class="qref">22 CFR §120.4 (ITAR commodity jurisdiction); 15 CFR §734 (EAR scope)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q1" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q1" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q1" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q1" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q2" data-crit="false">
+    <div class="qnum">2</div>
+    <div class="qtxt">
+      <div class="qlbl">A current product/technology inventory exists with documented USML category (for ITAR items) or ECCN / EAR99 classification (for EAR items) for each item or technology grouping.</div>
+      <div class="qref">22 CFR §121 USML; 15 CFR Supp. 1 to Part 774 CCL</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q2" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q2" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q2" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q2" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q3" data-crit="false">
+    <div class="qnum">3</div>
+    <div class="qtxt">
+      <div class="qlbl">When jurisdiction is uncertain, a formal commodity jurisdiction (CJ) request process (ITAR) or a self-classification review against the CCL (EAR) is followed, and results are documented.</div>
+      <div class="qref">22 CFR §120.4; 15 CFR §748.3</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q3" value="yes"> Yes</label>
+        <label class="rlbl no"><input type="radio" name="q3" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q3" value="na"> N/A</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q3" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q4" data-crit="false">
+    <div class="qnum">4</div>
+    <div class="qtxt">
+      <div class="qlbl">Technical data controlled under ITAR or EAR is identified and marked (e.g., "ITAR Controlled — Not for Foreign Nationals" or ECCN marking), and access controls are applied.</div>
+      <div class="qref">22 CFR §120.10 (technical data); 15 CFR §734.9</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q4" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q4" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q4" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q4" value="na"> N/A</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q4" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- Section 2: Registration & Licensing -->
+<div class="sec-hdr">Section 2 — Registration &amp; Export Authorization</div>
+<div class="sec-body">
+
+  <div class="qrow crit" data-key="q5" data-crit="true">
+    <div class="qnum">5</div>
+    <div class="qtxt">
+      <div class="qlbl">If the organization manufactures, exports, or brokers ITAR-controlled defense articles, it is registered with the Directorate of Defense Trade Controls (DDTC) and registration is current. <span class="ctag">⚑ Critical (ITAR)</span></div>
+      <div class="qref">22 CFR Part 122 — DDTC Registration</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q5" value="yes"> Yes</label>
+        <label class="rlbl no"><input type="radio" name="q5" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q5" value="na"> N/A — EAR Only</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q5" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow crit" data-key="q6" data-crit="true">
+    <div class="qnum">6</div>
+    <div class="qtxt">
+      <div class="qlbl">Export licenses, agreements (Manufacturing License Agreement, Technical Assistance Agreement), or applicable license exceptions are obtained and on file BEFORE exporting controlled items, technology, or software. <span class="ctag">⚑ Critical</span></div>
+      <div class="qref">22 CFR Part 123 (ITAR licenses); 15 CFR Part 740 (EAR license exceptions)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q6" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q6" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q6" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q6" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q7" data-crit="false">
+    <div class="qnum">7</div>
+    <div class="qtxt">
+      <div class="qlbl">License conditions, reporting obligations, and expiry dates are tracked in a register and managed proactively (alerts 90 days before expiry).</div>
+      <div class="qref">22 CFR §123.26 (license recordkeeping); 15 CFR §762 (EAR records)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q7" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q7" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q7" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q7" value="na"> N/A</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q7" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q8" data-crit="false">
+    <div class="qnum">8</div>
+    <div class="qtxt">
+      <div class="qlbl">Shipment records (export documentation, shippers export declarations, EEI filings via AES) are prepared accurately and retained for the required period.</div>
+      <div class="qref">15 CFR §762.2 (5-year retention); Census Bureau AES requirements</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q8" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q8" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q8" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q8" value="na"> N/A</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q8" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- Section 3: Technology Control Plan & EMCP -->
+<div class="sec-hdr">Section 3 — Export Management Program (Technology Control Plan / EMCP)</div>
+<div class="sec-body">
+
+  <div class="qrow crit" data-key="q9" data-crit="true">
+    <div class="qnum">9</div>
+    <div class="qtxt">
+      <div class="qlbl">A documented Export Management and Compliance Program (EMCP) or Technology Control Plan (TCP) is in place, assigns responsibility, defines controls for controlled technology access, and is reviewed annually. <span class="ctag">⚑ Critical</span></div>
+      <div class="qref">DDTC Best Practices for EMCP; 22 CFR §127.12 (voluntary disclosures)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q9" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q9" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q9" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q9" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q10" data-crit="false">
+    <div class="qnum">10</div>
+    <div class="qtxt">
+      <div class="qlbl">A Restricted Party Screening (RPS) process is in place to check all customers, suppliers, and business partners against applicable denied/debarred/sanctioned party lists (BIS Entity List, DDTC Debarred List, OFAC SDN) before each transaction.</div>
+      <div class="qref">15 CFR Part 744; 22 CFR Part 127; OFAC 31 CFR Part 500+</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q10" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q10" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q10" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q10" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q11" data-crit="false">
+    <div class="qnum">11</div>
+    <div class="qtxt">
+      <div class="qlbl">End-use and end-user verification is performed for transactions involving controlled items — end-user certificates (EUC) or destination control statements obtained as required.</div>
+      <div class="qref">15 CFR §758.6 (destination control statement); 22 CFR §123.9 (end-use certificate)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q11" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q11" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q11" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q11" value="na"> N/A</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q11" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q12" data-crit="false">
+    <div class="qnum">12</div>
+    <div class="qtxt">
+      <div class="qlbl">Physical access to ITAR/EAR-controlled hardware, technical data, and facilities is controlled — visitors, foreign nationals, and contractors are managed to prevent unauthorized access to controlled technology.</div>
+      <div class="qref">22 CFR §120.10; 22 CFR §120.15 (US person); TCP physical controls</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q12" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q12" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q12" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q12" value="na"> N/A</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q12" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- Section 4: Deemed Exports & Personnel -->
+<div class="sec-hdr">Section 4 — Deemed Exports, Personnel, &amp; Training</div>
+<div class="sec-body">
+
+  <div class="qrow crit" data-key="q13" data-crit="true">
+    <div class="qnum">13</div>
+    <div class="qtxt">
+      <div class="qlbl">A deemed export assessment is performed for foreign national employees and contractors with access to controlled technology — EAR-controlled technology released to a foreign national in the US is a deemed export requiring an EAR license if the item would require one to their home country. <span class="ctag">⚑ Critical</span></div>
+      <div class="qref">15 CFR §734.13 (deemed export); 22 CFR §120.17 (ITAR deemed export)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q13" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q13" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q13" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q13" value="na"> N/A — No foreign nationals</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q13" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q14" data-crit="false">
+    <div class="qnum">14</div>
+    <div class="qtxt">
+      <div class="qlbl">All employees with export-related responsibilities (shipping, engineering, sales, IT with CUI access) receive documented export compliance training at hire and on a recurring basis (at minimum annually).</div>
+      <div class="qref">DDTC EMCP Best Practices; BIS enforcement factor — training</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q14" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q14" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q14" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q14" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q15" data-crit="false">
+    <div class="qnum">15</div>
+    <div class="qtxt">
+      <div class="qlbl">A designated Export Compliance Officer (or responsible individual) with documented authority and contact information is identified for ITAR/EAR compliance decisions.</div>
+      <div class="qref">DDTC Best Practices; EMCP accountability element</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q15" value="yes"> Yes</label>
+        <label class="rlbl no"><input type="radio" name="q15" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q15" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- Section 5: Records, Violations & Self-Reporting -->
+<div class="sec-hdr">Section 5 — Records, Violation Response &amp; Voluntary Disclosure</div>
+<div class="sec-body">
+
+  <div class="qrow" data-key="q16" data-crit="false">
+    <div class="qnum">16</div>
+    <div class="qtxt">
+      <div class="qlbl">Export records (licenses, shipping docs, end-user certs, screening results, training records) are retained for a minimum of 5 years in a retrievable format.</div>
+      <div class="qref">22 CFR §122.5 (ITAR — 5 yrs); 15 CFR §762.2 (EAR — 5 yrs)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q16" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q16" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q16" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q16" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q17" data-crit="false">
+    <div class="qnum">17</div>
+    <div class="qtxt">
+      <div class="qlbl">A documented process exists to identify, investigate, and report potential export violations — including voluntary self-disclosure procedures for ITAR (DDTC) and EAR (BIS) to mitigate penalties.</div>
+      <div class="qref">22 CFR §127.12 (ITAR voluntary disclosure); 15 CFR §764.5 (EAR voluntary self-disclosure)</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q17" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q17" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q17" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q17" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q18" data-crit="false">
+    <div class="qnum">18</div>
+    <div class="qtxt">
+      <div class="qlbl">The export compliance program includes an internal audit or compliance review conducted at planned intervals to verify effectiveness and identify gaps before an enforcement action.</div>
+      <div class="qref">DDTC EMCP Best Practices; BIS voluntary self-assessment</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q18" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q18" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q18" value="no"> No</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q18" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+  <div class="qrow" data-key="q19" data-crit="false">
+    <div class="qnum">19</div>
+    <div class="qtxt">
+      <div class="qlbl">Supply chain / subcontractor flow-down requirements are in place: controlled technology shared with domestic subcontractors includes provisions preventing unauthorized re-export or foreign national access.</div>
+      <div class="qref">22 CFR §123.16; 15 CFR §740 License Exception STA flow-down conditions</div>
+    </div>
+    <div class="qans">
+      <div class="rrow">
+        <label class="rlbl yes"><input type="radio" name="q19" value="yes"> Yes</label>
+        <label class="rlbl partial"><input type="radio" name="q19" value="partial"> Partial</label>
+        <label class="rlbl no"><input type="radio" name="q19" value="no"> No</label>
+        <label class="rlbl na"><input type="radio" name="q19" value="na"> N/A</label>
+      </div>
+      <textarea class="ntxt" rows="1" id="n_q19" placeholder="Notes…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<div class="brow" style="margin-top:18px;">
+  <button class="btn btn-p" onclick="evaluate()">Evaluate Compliance Posture</button>
+  <button class="btn btn-o" onclick="clearAll()">Clear All</button>
+</div>
+
+<!-- Verdict -->
+<div class="vp" id="vp" style="display:none;">
+  <div class="mai">ARCHITECTURE DEFINED — domain: itar-ear-export-control | Reserved Kernel Interface</div>
+  <div class="vlbl">Export Compliance Posture Assessment</div>
+  <div id="vbox" class="vbox"><div id="vtitle" class="vtitle">—</div><div id="vsub" class="vsub"></div></div>
+  <div class="srow" id="srow"></div>
+  <div class="pwrap"><div class="pfill" id="pfill"></div></div>
+  <div id="gsec" style="display:none;">
+    <table class="gtbl"><thead><tr><th>Q#</th><th>Gap Item</th><th>Response</th><th>Priority</th></tr></thead><tbody id="gbody"></tbody></table>
+  </div>
+  <div class="vlbl" style="margin-top:14px;">Compliance Posture Record</div>
+  <div class="nbx" id="nbx"></div>
+  <div class="brow">
+    <button class="btn btn-e" onclick="exportJSON()">Export JSON</button>
+    <button class="btn btn-o" onclick="copyNarrative()">Copy Record</button>
+  </div>
+</div>
+
+</div>
+
+<footer>Conform-Edge Quality Consulting LLC · ITAR/EAR Export Control Self-Assessment v1.0 · For internal compliance gap identification only — not legal advice. Consult qualified export counsel for licensing decisions.</footer>
+
+<script>
+const Qs=[
+  {key:'q1',lbl:'Formal jurisdiction determination process exists before export/transfer',crit:true,sec:'Jurisdiction'},
+  {key:'q2',lbl:'Product/technology inventory with USML/ECCN/EAR99 classifications',crit:false,sec:'Jurisdiction'},
+  {key:'q3',lbl:'CJ request or CCL self-classification review process documented',crit:false,sec:'Jurisdiction'},
+  {key:'q4',lbl:'Controlled technical data marked and access-controlled',crit:false,sec:'Jurisdiction'},
+  {key:'q5',lbl:'DDTC registration current (if ITAR-applicable)',crit:true,sec:'Registration'},
+  {key:'q6',lbl:'Export licenses/exceptions obtained BEFORE export of controlled items',crit:true,sec:'Registration'},
+  {key:'q7',lbl:'License conditions, reporting, and expiry dates tracked',crit:false,sec:'Registration'},
+  {key:'q8',lbl:'Export shipment records prepared and retained 5+ years',crit:false,sec:'Registration'},
+  {key:'q9',lbl:'EMCP/TCP documented, assigns responsibility, reviewed annually',crit:true,sec:'EMCP'},
+  {key:'q10',lbl:'Restricted party screening on all customers/suppliers/partners',crit:false,sec:'EMCP'},
+  {key:'q11',lbl:'End-use/end-user verification and destination control statements',crit:false,sec:'EMCP'},
+  {key:'q12',lbl:'Physical access controls for controlled hardware and technical data',crit:false,sec:'EMCP'},
+  {key:'q13',lbl:'Deemed export assessment for foreign national employees/contractors',crit:true,sec:'Personnel'},
+  {key:'q14',lbl:'Export compliance training — all relevant employees, annual recurrence',crit:false,sec:'Personnel'},
+  {key:'q15',lbl:'Designated Export Compliance Officer with documented authority',crit:false,sec:'Personnel'},
+  {key:'q16',lbl:'Export records retained 5 years in retrievable format',crit:false,sec:'Records'},
+  {key:'q17',lbl:'Violation identification, investigation, and voluntary self-disclosure procedure',crit:false,sec:'Records'},
+  {key:'q18',lbl:'Internal audit/compliance review at planned intervals',crit:false,sec:'Records'},
+  {key:'q19',lbl:'Supply chain/subcontractor controlled-tech flow-down requirements',crit:false,sec:'Records'},
+];
+
+function getV(k){const r=document.querySelectorAll(`input[name="${k}"]`);for(const i of r)if(i.checked)return i.value;return null;}
+
+function evaluate(){
+  let answered=0,yes=0,critFail=false;const gaps=[];
+  for(const q of Qs){
+    const v=getV(q.key);
+    if(v===null){answered++;if(q.crit)critFail=true;gaps.push({q,v:'unanswered'});continue;}
+    if(v==='na')continue;
+    answered++;
+    if(v==='yes'){yes++;}
+    else{if(q.crit&&v==='no')critFail=true;gaps.push({q,v});}
+  }
+  const pct=answered>0?Math.round(yes/answered*100):0;
+  let verdict,cls;
+  if(critFail){verdict='✖ COMPLIANCE ACTION REQUIRED';cls='stop';}
+  else if(pct>=85){verdict='✔ COMPLIANT POSTURE';cls='go';}
+  else if(pct>=65){verdict='◎ DEVELOPING PROGRAM';cls='cond';}
+  else{verdict='✖ COMPLIANCE ACTION REQUIRED';cls='stop';}
+  const sub=critFail?'A critical compliance control is absent or unconfirmed. Export activity involving controlled items carries elevated enforcement risk. Prioritize critical gaps immediately and consult export counsel.':
+    (cls==='go'?'Your export compliance program addresses the key control areas. Continue annual reviews and license tracking. Consult export counsel for jurisdiction-specific transactions.':
+    (cls==='cond'?'Your program covers some areas but has gaps that increase enforcement risk. Address priority gaps and consider engaging an export compliance consultant.':
+    'Significant gaps in your export compliance program. Export activity without required controls and licenses carries risk of criminal penalties, fines, and debarment. Consult export counsel immediately.'));
+  const vb=document.getElementById('vbox');
+  vb.className=`vbox ${cls}`;
+  document.getElementById('vtitle').textContent=verdict;
+  document.getElementById('vsub').textContent=sub;
+  document.getElementById('srow').innerHTML=`<div class="sbadge"><div class="n">${pct}%</div><div class="t">Score</div></div><div class="sbadge"><div class="n">${yes}</div><div class="t">Controls Met</div></div><div class="sbadge"><div class="n">${gaps.length}</div><div class="t">Gaps</div></div><div class="sbadge"><div class="n">${critFail?'YES':'NO'}</div><div class="t">Critical Fail</div></div>`;
+  document.getElementById('pfill').style.width=pct+'%';
+  if(gaps.length>0){
+    document.getElementById('gsec').style.display='block';
+    const tb=document.getElementById('gbody');tb.innerHTML='';
+    for(const{q,v}of gaps){
+      const pri=q.crit?'<span class="tc">Critical</span>':(v==='partial'?'<span class="tp">Partial</span>':'');
+      const notes=document.getElementById(`n_${q.key}`)?.value||'';
+      tb.innerHTML+=`<tr><td>${q.key.replace('q','')}</td><td>${q.lbl}${notes?`<br><em style="font-size:10px;color:#666">${notes}</em>`:''}</td><td>${v==='unanswered'?'— Not answered':v}</td><td>${pri}</td></tr>`;
+    }
+  } else {document.getElementById('gsec').style.display='none';}
+  const org=document.getElementById('org').value||'[Organization]';
+  const asr=document.getElementById('assessor').value||'[Assessor]';
+  const regime=document.getElementById('regime').value||'Not specified';
+  const now=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  let narr=`ITAR/EAR EXPORT COMPLIANCE POSTURE RECORD\n${'='.repeat(50)}\nDate: ${now}\nAssessor: ${asr}\nOrganization: ${org}\nRegime: ${regime}\n\nVERDICT: ${verdict}\n${sub}\n\nSCORE: ${pct}% (${yes}/${answered} controls met)\nCritical Control Failure: ${critFail?'YES — immediate action required':'NONE'}\n`;
+  if(gaps.length>0){narr+=`\nGAPS / ACTION ITEMS (${gaps.length})\n${'─'.repeat(40)}\n`;for(const{q,v}of gaps){const c=q.crit?'[CRITICAL] ':'';const n=document.getElementById(`n_${q.key}`)?.value||'';narr+=`• ${c}Q${q.key.replace('q','')}: ${q.lbl}\n  Section: ${q.sec} | Response: ${v}${n?`\n  Notes: ${n}`:''}\n`;}
+  }
+  narr+=`\nM-AI SIGNAL: ARCHITECTURE DEFINED — domain itar-ear-export-control; governed decisions reserved for Kernel integration.\n\nThis assessment identifies compliance gaps for internal use. Not legal advice. Consult qualified export counsel for licensing decisions, jurisdiction analysis, and enforcement matters.\nConform-Edge ITAR/EAR Export Control Self-Assessment v1.0`;
+  document.getElementById('nbx').textContent=narr;
+  document.getElementById('vp').style.display='block';
+  document.getElementById('vp').scrollIntoView({behavior:'smooth'});
+}
+function exportJSON(){
+  const a={};for(const q of Qs)a[q.key]={label:q.lbl,critical:q.crit,section:q.sec,value:getV(q.key),notes:document.getElementById(`n_${q.key}`)?.value||''};
+  const p={tool:'Conform-Edge ITAR/EAR Export Control Self-Assessment v1.0',regime:document.getElementById('regime').value,org:document.getElementById('org').value,assessor:document.getElementById('assessor').value,date:new Date().toISOString(),answers:a,verdict:document.getElementById('vtitle').textContent,mAiSignal:'ARCHITECTURE_DEFINED',domain:'itar-ear-export-control',kernelDependency:'RESERVED_INTERFACE'};
+  const b=new Blob([JSON.stringify(p,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const el=document.createElement('a');el.href=u;el.download=`ITAR-EAR-Assessment-${(document.getElementById('org').value||'org').replace(/\s+/g,'-')}-${new Date().toISOString().slice(0,10)}.json`;el.click();URL.revokeObjectURL(u);
+}
+function copyNarrative(){const t=document.getElementById('nbx').textContent;navigator.clipboard.writeText(t).then(()=>alert('Compliance record copied to clipboard.'));}
+function clearAll(){document.querySelectorAll('input[type=radio]').forEach(i=>i.checked=false);document.querySelectorAll('.ntxt').forEach(i=>i.value='');document.getElementById('vp').style.display='none';['regime','org','assessor','dod'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});}
+</script>
+
+</body>
+</html>

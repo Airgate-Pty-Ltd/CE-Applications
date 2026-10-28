@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interested Party & Context Analysis Tool | Conform-Edge</title>
+<style>
+:root {
+  --navy: #1e2a47; --steel: #4a6fa5; --ink: #1a1a2e;
+  --bg: #f0f4f9; --panel: #ffffff; --border: #c8d4e8;
+  --green: #166534; --green-bg: #f0fdf4; --green-border: #86efac;
+  --amber: #92400e; --amber-bg: #fffbeb; --amber-border: #fcd34d;
+  --red: #991b1b; --red-bg: #fef2f2; --red-border: #fca5a5;
+  --text: #1e2a47; --muted: #64748b; --tag: #e8eef8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+header{background:var(--navy);color:#fff;padding:16px 24px;display:flex;align-items:center;gap:16px;}
+header h1{font-size:18px;font-weight:700;}
+header span{font-size:12px;background:var(--steel);padding:3px 8px;border-radius:4px;opacity:.9;}
+.main{max-width:900px;margin:0 auto;padding:28px 20px;}
+.disclaimer{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--amber);margin-bottom:22px;}
+.progress{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:26px;}
+.ps{flex:1;padding:10px 12px;font-size:12px;font-weight:600;background:var(--panel);color:var(--muted);text-align:center;border-right:1px solid var(--border);}
+.ps:last-child{border-right:none;} .ps.active{background:var(--navy);color:#fff;} .ps.done{background:var(--steel);color:#fff;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.card h2{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--border);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px;}
+.form-row.full{grid-template-columns:1fr;}
+.form-row.three{grid-template-columns:1fr 1fr 1fr;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+label{font-size:12px;font-weight:600;color:var(--navy);}
+select,input[type=text],input[type=date],textarea{border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:13px;color:var(--text);background:var(--bg);width:100%;font-family:inherit;}
+select:focus,input:focus,textarea:focus{outline:2px solid var(--steel);border-color:var(--steel);background:#fff;}
+textarea{min-height:64px;resize:vertical;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s;}
+.btn-primary{background:var(--navy);color:#fff;} .btn-primary:hover{background:var(--steel);}
+.btn-secondary{background:var(--panel);color:var(--navy);border:1px solid var(--border);} .btn-secondary:hover{background:var(--bg);}
+.btn-add{background:var(--steel);color:#fff;padding:7px 14px;font-size:12px;} .btn-add:hover{opacity:.88;}
+.btn-remove{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);padding:5px 10px;font-size:11px;} .btn-remove:hover{opacity:.8;}
+.btn-green{background:var(--green);color:#fff;} .btn-green:hover{opacity:.88;}
+.btn-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.hidden{display:none!important;}
+.party-item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;}
+.party-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.party-header span{font-size:13px;font-weight:600;color:var(--navy);}
+.context-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;}
+.context-item input{flex:1;}
+.context-item button{padding:5px 10px;font-size:12px;flex-shrink:0;margin-top:0;}
+/* Results */
+.verdict-box{padding:14px 18px;border-radius:8px;margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.verdict-COMPLETE{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);}
+.verdict-GAPS{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber);}
+.verdict-INCOMPLETE{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red);}
+.verdict-box .v-label{font-size:18px;font-weight:800;}
+.verdict-box .v-info{font-size:12px;}
+.section-title{font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.reg-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;}
+.reg-table th{background:var(--navy);color:#fff;padding:7px 10px;text-align:left;font-weight:600;}
+.reg-table td{border:1px solid var(--border);padding:7px 10px;vertical-align:top;}
+.reg-table tr:nth-child(even) td{background:#f8faff;}
+.gap-flag{display:inline-flex;padding:2px 7px;border-radius:3px;font-size:11px;font-weight:600;}
+.gap-ok{background:var(--green-bg);color:var(--green);}
+.gap-warn{background:var(--amber-bg);color:var(--amber);}
+.gap-miss{background:var(--red-bg);color:var(--red);}
+.narrative-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:16px;font-size:13px;line-height:1.7;white-space:pre-wrap;}
+.mai-notice{font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:24px;padding-top:10px;}
+.hint{font-size:11px;color:var(--muted);margin-top:3px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Interested Party &amp; Context Analysis Tool</h1>
+  <span>Conform-Edge | ISO 9001/AS9100D Clauses 4.1 &amp; 4.2</span>
+</header>
+<div class="main">
+  <div class="disclaimer">
+    <strong>Advisory Tool.</strong> Helps structure documentation for Clauses 4.1 and 4.2. Completeness assessment is self-reported — conformity determination belongs to the CB auditor. Standards referenced by clause number and intent only.
+  </div>
+  <div class="progress">
+    <div class="ps active" id="pg1">1 · Org Profile</div>
+    <div class="ps" id="pg2">2 · Interested Parties</div>
+    <div class="ps" id="pg3">3 · Context Factors</div>
+    <div class="ps" id="pg4">4 · Analysis &amp; Report</div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div id="step1">
+    <div class="card">
+      <h2>Step 1 — Organization Profile</h2>
+      <div class="form-row">
+        <div class="fg">
+          <label>Organization Name / Placeholder</label>
+          <input type="text" id="orgName" placeholder="[The Organization] or your company name">
+        </div>
+        <div class="fg">
+          <label>Sector / Industry *</label>
+          <select id="sector">
+            <option value="">— Select —</option>
+            <option value="aerospace-mfg">Aerospace Manufacturing (AS9100D)</option>
+            <option value="aerospace-mro">Aerospace MRO / Repair Station (AS9110C)</option>
+            <option value="aerospace-dist">Aerospace Distribution (AS9120B)</option>
+            <option value="medical">Medical Device (ISO 13485)</option>
+            <option value="automotive">Automotive Supplier (IATF 16949)</option>
+            <option value="general">General Manufacturing / Services (ISO 9001)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label>Primary Standard *</label>
+          <select id="primaryStd">
+            <option value="">— Select —</option>
+            <option value="AS9100D">AS9100D Rev D</option>
+            <option value="AS9110C">AS9110C Rev C</option>
+            <option value="ISO9001">ISO 9001:2015/2026</option>
+            <option value="ISO13485">ISO 13485:2016</option>
+            <option value="IATF16949">IATF 16949:2016</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Review Date</label>
+          <input type="date" id="reviewDate">
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="fg">
+          <label>QMS Scope Summary (optional — for narrative)</label>
+          <input type="text" id="qmsScope" placeholder="e.g., Design, manufacture and repair of aircraft cabin electronics">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="goStep2()">Next: Interested Parties →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" class="hidden">
+    <div class="card">
+      <h2>Step 2 — Interested Party Register</h2>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">Add all relevant interested parties (at minimum: customers, regulatory authorities, employees, and key suppliers). Use the <strong>Add Party</strong> button to add each party.</p>
+      <div id="partyList"></div>
+      <button class="btn btn-add" onclick="addParty()">+ Add Interested Party</button>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="goStep1()">← Back</button>
+        <button class="btn btn-primary" onclick="goStep3()">Next: Context Factors →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="step3" class="hidden">
+    <div class="card">
+      <h2>Step 3 — Context Factors (Clause 4.1)</h2>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Document internal and external issues relevant to your QMS. Include at least one of each. Examples: regulatory changes, market conditions, technology, organizational culture, resource availability.</p>
+      <div style="margin-bottom:20px;">
+        <div class="section-title" style="border:none;margin-bottom:10px;">External Issues / Factors</div>
+        <p class="hint" style="margin-bottom:10px;">Examples: regulatory environment, economic conditions, competitive landscape, technology trends, cultural/social factors, political environment</p>
+        <div id="extList"></div>
+        <button class="btn btn-add" style="margin-top:6px;" onclick="addContext('ext')">+ Add External Issue</button>
+      </div>
+      <div>
+        <div class="section-title" style="border:none;margin-bottom:10px;">Internal Issues / Factors</div>
+        <p class="hint" style="margin-bottom:10px;">Examples: organizational structure, leadership, culture, resource levels, technology capability, knowledge and competence, process performance</p>
+        <div id="intList"></div>
+        <button class="btn btn-add" style="margin-top:6px;" onclick="addContext('int')">+ Add Internal Issue</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="goStep2()">← Back</button>
+        <button class="btn btn-primary" onclick="generateReport()">Generate Analysis &amp; Report →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div id="step4" class="hidden">
+    <div class="card">
+      <h2>Step 4 — Context Analysis &amp; Interested Party Report</h2>
+      <div id="report"></div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="goStep3()">← Back</button>
+        <button class="btn btn-green" onclick="exportJSON()">⬇ Export JSON</button>
+        <button class="btn btn-secondary" onclick="resetTool()">↺ Start Over</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mai-notice">
+    window.__MAI_RESERVED = { domain: 'interested-party-context', version: '1.0', kernelStatus: 'RESERVED_INTERFACE' }
+    &nbsp;|&nbsp; Conform-Edge Quality Consulting LLC &nbsp;|&nbsp; Advisory use only — Clauses 4.1 &amp; 4.2
+  </div>
+</div>
+
+<script>
+window.__MAI_RESERVED = { domain: 'interested-party-context', version: '1.0', kernelStatus: 'RESERVED_INTERFACE' };
+
+let partyCount = 0;
+let extCount = 0;
+let intCount = 0;
+
+const PARTY_TYPES = [
+  { value: 'customer', label: 'Customer / End User', required: true },
+  { value: 'regulatory', label: 'Regulatory Authority', required: true },
+  { value: 'cb', label: 'Certification Body', required: false },
+  { value: 'employee', label: 'Employees / Workforce', required: true },
+  { value: 'supplier', label: 'Supplier / Subcontractor', required: true },
+  { value: 'investor', label: 'Investor / Owner / Shareholder', required: false },
+  { value: 'community', label: 'Community / Society', required: false },
+  { value: 'partner', label: 'Business Partner / Alliance', required: false },
+  { value: 'other', label: 'Other', required: false }
+];
+
+const STD_CLAUSE = {
+  AS9100D: 'AS9100D Rev D, Clauses 4.1 and 4.2',
+  AS9110C: 'AS9110C Rev C, Clauses 4.1 and 4.2',
+  ISO9001: 'ISO 9001:2015/2026, Clauses 4.1 and 4.2',
+  ISO13485: 'ISO 13485:2016, Clause 4.1',
+  IATF16949: 'IATF 16949:2016, Clauses 4.1 and 4.2'
+};
+
+function setProgress(n) {
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('pg'+i);
+    el.className = 'ps' + (i < n ? ' done' : i === n ? ' active' : '');
+  }
+}
+function showStep(n) {
+  [1,2,3,4].forEach(i => document.getElementById('step'+i).classList.add('hidden'));
+  document.getElementById('step'+n).classList.remove('hidden');
+  setProgress(n);
+}
+function goStep1() { showStep(1); }
+function goStep2() {
+  if (!document.getElementById('sector').value || !document.getElementById('primaryStd').value) {
+    alert('Please select Sector and Primary Standard.'); return;
+  }
+  showStep(2);
+  if (document.getElementById('partyList').children.length === 0) addParty();
+}
+function goStep3() {
+  const parties = getParties();
+  if (parties.length === 0) { alert('Please add at least one interested party.'); return; }
+  showStep(3);
+  if (document.getElementById('extList').children.length === 0) addContext('ext');
+  if (document.getElementById('intList').children.length === 0) addContext('int');
+}
+
+function addParty() {
+  partyCount++;
+  const id = 'party-' + partyCount;
+  const div = document.createElement('div');
+  div.className = 'party-item';
+  div.id = id;
+  div.innerHTML = `
+    <div class="party-header">
+      <span>Party #${partyCount}</span>
+      <button class="btn btn-remove" onclick="removeItem('${id}')">Remove</button>
+    </div>
+    <div class="form-row three">
+      <div class="fg">
+        <label>Party Name / Description *</label>
+        <input type="text" class="p-name" placeholder="e.g., Aviation Authority (FAA / EASA)">
+      </div>
+      <div class="fg">
+        <label>Type *</label>
+        <select class="p-type">
+          ${PARTY_TYPES.map(t=>`<option value="${t.value}">${t.label}</option>`).join('')}
+        </select>
+      </div>
+      <div class="fg">
+        <label>QMS Relevance *</label>
+        <select class="p-relevance">
+          <option value="HIGH">HIGH — Directly affects QMS design/operation</option>
+          <option value="MEDIUM">MEDIUM — Indirectly influences QMS</option>
+          <option value="LOW">LOW — Minimal QMS impact</option>
+          <option value="MONITORING">MONITORING ONLY</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="fg">
+        <label>Key Needs / Expectations / Requirements</label>
+        <textarea class="p-needs" placeholder="What does this party require from or expect of our organization and QMS?"></textarea>
+      </div>
+      <div class="fg">
+        <label>Monitoring Method</label>
+        <input type="text" class="p-monitor" placeholder="How do we monitor this party's needs? e.g., Customer feedback surveys, regulatory alert subscriptions">
+      </div>
+    </div>`;
+  document.getElementById('partyList').appendChild(div);
+}
+
+function addContext(type) {
+  const listId = type === 'ext' ? 'extList' : 'intList';
+  const count = type === 'ext' ? ++extCount : ++intCount;
+  const id = type + '-' + count;
+  const div = document.createElement('div');
+  div.className = 'context-item';
+  div.id = id;
+  div.innerHTML = `<input type="text" placeholder="${type==='ext'?'External issue or factor...':'Internal issue or factor...'}"><button class="btn btn-remove" onclick="removeItem('${id}')">✕</button>`;
+  document.getElementById(listId).appendChild(div);
+}
+
+function removeItem(id) { const el = document.getElementById(id); if (el) el.remove(); }
+
+function getParties() {
+  const items = document.querySelectorAll('.party-item');
+  return Array.from(items).map(item => ({
+    name: item.querySelector('.p-name').value.trim(),
+    type: item.querySelector('.p-type').value,
+    typeLabel: item.querySelector('.p-type').selectedOptions[0].text,
+    relevance: item.querySelector('.p-relevance').value,
+    needs: item.querySelector('.p-needs').value.trim(),
+    monitor: item.querySelector('.p-monitor').value.trim()
+  })).filter(p => p.name);
+}
+
+function getContextItems(type) {
+  const listId = type === 'ext' ? 'extList' : 'intList';
+  return Array.from(document.querySelectorAll('#'+listId+' input')).map(i=>i.value.trim()).filter(Boolean);
+}
+
+function generateReport() {
+  const parties = getParties();
+  if (parties.length === 0) { alert('Please add at least one interested party.'); return; }
+  const ext = getContextItems('ext');
+  const int_ = getContextItems('int');
+
+  const orgName = document.getElementById('orgName').value || '[The Organization]';
+  const sector = document.getElementById('sector').selectedOptions[0]?.text || '';
+  const std = document.getElementById('primaryStd').value;
+  const stdClause = STD_CLAUSE[std] || std;
+  const qmsScope = document.getElementById('qmsScope').value || '[QMS Scope]';
+  const reviewDate = document.getElementById('reviewDate').value || new Date().toISOString().slice(0,10);
+
+  // ─── COMPLETENESS ENGINE ──────────────────────────────────────────────────
+  const requiredTypes = ['customer','regulatory','employee','supplier'];
+  const presentTypes = new Set(parties.map(p => p.type));
+  const missingRequired = requiredTypes.filter(t => !presentTypes.has(t));
+
+  // HIGH relevance parties without monitoring
+  const highNoMonitor = parties.filter(p => p.relevance === 'HIGH' && !p.monitor);
+  // Parties without needs documented
+  const noNeeds = parties.filter(p => !p.needs);
+
+  const contextGaps = [];
+  if (ext.length === 0) contextGaps.push('No external issues documented (Clause 4.1 requires external context analysis)');
+  if (int_.length === 0) contextGaps.push('No internal issues documented (Clause 4.1 requires internal context analysis)');
+
+  const totalGaps = missingRequired.length + highNoMonitor.length + contextGaps.length;
+  const verdict = totalGaps === 0 ? 'COMPLETE' : (ext.length > 0 && int_.length > 0 && parties.length >= 4) ? 'GAPS' : 'INCOMPLETE';
+
+  // ─── RENDER ───────────────────────────────────────────────────────────────
+  let html = '';
+
+  // Verdict
+  const vIcon = verdict==='COMPLETE'?'✅':verdict==='GAPS'?'⚠':'❌';
+  html += `<div class="verdict-box verdict-${verdict}">
+    <div class="v-label">${vIcon} ${verdict}</div>
+    <div class="v-info">${totalGaps===0?'Required party types present; all HIGH-relevance parties have monitoring methods; context documented.':totalGaps+' gap(s) identified — see completeness check below.'}</div>
+  </div>`;
+
+  // Completeness check
+  html += `<div style="margin-bottom:20px;"><div class="section-title">Completeness Assessment</div>`;
+  requiredTypes.forEach(rt => {
+    const found = presentTypes.has(rt);
+    html += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px;">
+      <span class="gap-flag ${found?'gap-ok':'gap-miss'}">${found?'PRESENT':'MISSING'}</span>
+      <span>${rt==='customer'?'Customer / End User':rt==='regulatory'?'Regulatory Authority':rt==='employee'?'Employees / Workforce':'Supplier / Subcontractor'} — required party type</span>
+    </div>`;
+  });
+  if (highNoMonitor.length > 0) {
+    highNoMonitor.forEach(p => {
+      html += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px;"><span class="gap-flag gap-warn">MONITORING GAP</span><span>${escHtml(p.name)} (HIGH relevance) — no monitoring method defined</span></div>`;
+    });
+  }
+  if (contextGaps.length > 0) {
+    contextGaps.forEach(g => {
+      html += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px;"><span class="gap-flag gap-miss">CONTEXT GAP</span><span>${g}</span></div>`;
+    });
+  }
+  if (totalGaps === 0) {
+    html += `<div style="font-size:12px;color:var(--green);margin-top:6px;">✅ No gaps detected — all required party types present; HIGH-relevance parties have monitoring methods; both external and internal context documented.</div>`;
+  }
+  html += `</div>`;
+
+  // Party Register Table
+  html += `<div style="margin-bottom:20px;"><div class="section-title">Interested Party Register</div>
+  <table class="reg-table"><thead><tr><th>Party / Stakeholder</th><th>Type</th><th>Needs / Expectations</th><th>QMS Relevance</th><th>Monitoring Method</th><th>Status</th></tr></thead><tbody>`;
+  parties.forEach(p => {
+    const monOk = p.monitor || p.relevance !== 'HIGH';
+    const status = !p.needs ? '<span class="gap-flag gap-warn">NEEDS MISSING</span>' : (!monOk ? '<span class="gap-flag gap-warn">MONITORING GAP</span>' : '<span class="gap-flag gap-ok">DOCUMENTED</span>');
+    html += `<tr><td>${escHtml(p.name)}</td><td>${escHtml(p.typeLabel)}</td><td>${escHtml(p.needs||'—')}</td><td><strong>${p.relevance}</strong></td><td>${escHtml(p.monitor||'—')}</td><td>${status}</td></tr>`;
+  });
+  html += `</tbody></table></div>`;
+
+  // Context Summary
+  html += `<div style="margin-bottom:20px;"><div class="section-title">Context Factors (Clause 4.1)</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div><div style="font-size:12px;font-weight:600;color:var(--steel);margin-bottom:6px;">External Issues (${ext.length})</div>
+    ${ext.length?ext.map(e=>`<div style="font-size:12px;padding:5px 8px;background:var(--bg);border:1px solid var(--border);border-radius:4px;margin-bottom:4px;">• ${escHtml(e)}</div>`).join(''):'<div style="font-size:12px;color:var(--red);">None documented — required</div>'}
+    </div>
+    <div><div style="font-size:12px;font-weight:600;color:var(--steel);margin-bottom:6px;">Internal Issues (${int_.length})</div>
+    ${int_.length?int_.map(i=>`<div style="font-size:12px;padding:5px 8px;background:var(--bg);border:1px solid var(--border);border-radius:4px;margin-bottom:4px;">• ${escHtml(i)}</div>`).join(''):'<div style="font-size:12px;color:var(--red);">None documented — required</div>'}
+    </div>
+  </div></div>`;
+
+  // MR Narrative
+  const narrative = buildNarrative({ orgName, sector, std: stdClause, qmsScope, reviewDate, parties, ext, int_, verdict, missingRequired, highNoMonitor, contextGaps });
+  html += `<div style="margin-bottom:20px;"><div class="section-title">Management Review Narrative</div><div class="narrative-box">${escHtml(narrative)}</div></div>`;
+
+  window._reportData = { meta: { orgName, sector, standard: std, stdClause, qmsScope, reviewDate }, parties, externalIssues: ext, internalIssues: int_, completeness: { verdict, missingRequired, highNoMonitorCount: highNoMonitor.length, contextGaps }, narrative, generated: new Date().toISOString() };
+
+  document.getElementById('report').innerHTML = html;
+  showStep(4);
+}
+
+function buildNarrative(p) {
+  const { orgName, sector, std, qmsScope, reviewDate, parties, ext, int_, verdict, missingRequired, highNoMonitor, contextGaps } = p;
+  const partyLines = parties.map(party => `  • ${party.name} (${party.typeLabel}) — Relevance: ${party.relevance}; Requirements: ${party.needs||'not documented'}; Monitoring: ${party.monitor||'not defined'}`).join('\n');
+  const extLines = ext.map(e=>`  • ${e}`).join('\n') || '  • [Not documented]';
+  const intLines = int_.map(i=>`  • ${i}`).join('\n') || '  • [Not documented]';
+  const gapSummary = missingRequired.length === 0 && highNoMonitor.length === 0 && contextGaps.length === 0
+    ? 'No gaps identified. All required interested party categories are documented with needs, expectations, and (where HIGH relevance) monitoring methods. Both external and internal context factors are recorded.'
+    : `Gaps requiring attention: ${[...missingRequired.map(t=>`missing required party type: ${t}`), ...highNoMonitor.map(p=>`monitoring method missing for HIGH-relevance party "${p.name}"`), ...contextGaps].join('; ')}.`;
+
+  return `Context of the Organization & Interested Party Review — ${orgName}
+Review Date: ${reviewDate}
+Standard: ${std}
+QMS Scope: ${qmsScope}
+
+CONTEXT OF THE ORGANIZATION (Clause 4.1)
+
+External Issues Identified:
+${extLines}
+
+Internal Issues Identified:
+${intLines}
+
+INTERESTED PARTY REGISTER (Clause 4.2)
+Total parties documented: ${parties.length}
+
+${partyLines}
+
+COMPLETENESS ASSESSMENT: ${verdict}
+${gapSummary}
+
+This analysis was reviewed at the management review meeting and the outputs will be considered in QMS planning activities including risks and opportunities (Clause 6.1), quality objectives (Clause 6.2), and documented information requirements.`;
+}
+
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function exportJSON() {
+  if (!window._reportData) return;
+  const blob = new Blob([JSON.stringify(window._reportData, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'interested-party-context-' + (window._reportData.meta.reviewDate||'export') + '.json';
+  a.click();
+}
+
+function resetTool() {
+  if (!confirm('Clear all data and start over?')) return;
+  document.querySelectorAll('select').forEach(s=>s.selectedIndex=0);
+  document.querySelectorAll('input[type=text],input[type=date]').forEach(i=>i.value='');
+  ['partyList','extList','intList'].forEach(id=>document.getElementById(id).innerHTML='');
+  partyCount=0; extCount=0; intCount=0;
+  window._reportData=null;
+  showStep(1);
+}
+</script>
+</body>
+</html>

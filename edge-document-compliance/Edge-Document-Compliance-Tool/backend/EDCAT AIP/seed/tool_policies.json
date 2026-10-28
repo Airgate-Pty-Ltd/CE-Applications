@@ -1,0 +1,54 @@
+{
+  "policies": {
+    "retrieve_first": true,
+    "tools": [
+      {
+        "name": "retrieve.clause",
+        "description": "Retrieve authoritative snippet by clause number or keyword from indexed standards/regulations.",
+        "args_schema": {
+          "query": "string",
+          "filters": {
+            "doc_ids": "string[]",
+            "clause": "string"
+          }
+        },
+        "must_log": true
+      },
+      {
+        "name": "retrieve.document",
+        "description": "Retrieve arbitrary document snippet by semantic search and filters.",
+        "args_schema": {
+          "query": "string",
+          "filters": {
+            "doc_ids": "string[]",
+            "pages": "int[]"
+          }
+        },
+        "must_log": true
+      },
+      {
+        "name": "render.gap.table",
+        "description": "Render GAP table with RAG-backed status and citations.",
+        "args_schema": {
+          "clauses": "string[]",
+          "documents": "string[]"
+        },
+        "must_log": true
+      },
+      {
+        "name": "draft.template",
+        "description": "Draft a document section using the organization\u2019s template and style rules.",
+        "args_schema": {
+          "doc_type": "string",
+          "section": "string",
+          "inputs": "object"
+        },
+        "must_log": true
+      }
+    ],
+    "refusal_rules": [
+      "No answer without valid snippet citations.",
+      "Do not guess clause text or paraphrase without reference."
+    ]
+  }
+}

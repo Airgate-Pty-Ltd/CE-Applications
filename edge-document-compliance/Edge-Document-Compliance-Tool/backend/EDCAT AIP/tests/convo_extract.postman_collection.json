@@ -1,0 +1,67 @@
+{
+  "info": {
+    "name": "EDCAT AI Convo+Extraction",
+    "_postman_id": "edcat-ai-convo-extract",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Ingest Doc",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/ai/ingest",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "ai",
+            "ingest"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tenant_id\": \"00000000-0000-0000-0000-000000000001\", \"doc_id\": \"AS9100D.pdf\", \"title\": \"AS9100D\", \"kind\": \"standard\", \"file_path\": \"/data/AS9100D.pdf\"}"
+        }
+      }
+    },
+    {
+      "name": "Extract Requirements",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/ai/extract",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "ai",
+            "extract"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tenant_id\": \"00000000-0000-0000-0000-000000000001\", \"session_id\": \"11111111-1111-1111-1111-111111111111\", \"source_doc_id\": \"0000-0000\", \"scope\": {\"customer\": false}}"
+        }
+      }
+    }
+  ]
+}

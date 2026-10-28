@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DO-178C / DO-254 Airborne S/W & H/W Evidence Checklist | Conform-Edge</title>
+<style>
+  :root {
+    --ce-navy: #1a2744;
+    --ce-steel: #3a5a8c;
+    --ce-accent: #4e8bbf;
+    --rtca-green: #1a5c38;
+    --rtca-teal: #0d7377;
+    --ce-bg: #f4f6fb;
+    --ce-card: #ffffff;
+    --ce-border: #d0d8e8;
+    --ce-text: #1e2a3a;
+    --ce-muted: #6b7a90;
+    --pass: #166534;
+    --pass-bg: #dcfce7;
+    --warn: #854d0e;
+    --warn-bg: #fef9c3;
+    --fail: #991b1b;
+    --fail-bg: #fee2e2;
+    --crit-badge: #dc2626;
+    --dal-a: #7c3aed;
+    --dal-b: #1d4ed8;
+    --dal-c: #0891b2;
+    --dal-d: #4d7c0f;
+    --dal-e: #6b7280;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--ce-bg); color: var(--ce-text); }
+  header { background: var(--rtca-green); color: white; padding: 18px 32px; }
+  header .brand { font-size: 12px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; }
+  header h1 { font-size: 19px; font-weight: 700; margin: 4px 0; }
+  header .subtitle { font-size: 12px; opacity: 0.65; }
+  header .reg-strip { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  header .reg-badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); padding: 3px 10px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+  .container { max-width: 980px; margin: 0 auto; padding: 28px 16px; }
+  .card { background: var(--ce-card); border: 1px solid var(--ce-border); border-radius: 8px; padding: 24px; margin-bottom: 20px; }
+  .card h2 { font-size: 16px; font-weight: 700; color: var(--rtca-green); margin-bottom: 16px; border-bottom: 2px solid var(--rtca-teal); padding-bottom: 8px; }
+  .card h3 { font-size: 14px; font-weight: 700; color: var(--ce-steel); margin: 14px 0 8px; }
+  .intro { background: linear-gradient(135deg, var(--rtca-green) 0%, var(--rtca-teal) 100%); color: white; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; }
+  .intro h2 { color: white; border-color: rgba(255,255,255,0.3); }
+  .intro p { font-size: 13px; line-height: 1.7; opacity: 0.9; margin-top: 8px; }
+  .dal-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .dal-btn { padding: 8px 16px; border: 2px solid var(--ce-border); background: var(--ce-card); border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; color: var(--ce-muted); transition: all 0.2s; }
+  .dal-btn:hover { opacity: 0.85; }
+  .dal-btn.dal-a { border-color: var(--dal-a); color: var(--dal-a); }
+  .dal-btn.dal-a.active { background: var(--dal-a); color: white; }
+  .dal-btn.dal-b { border-color: var(--dal-b); color: var(--dal-b); }
+  .dal-btn.dal-b.active { background: var(--dal-b); color: white; }
+  .dal-btn.dal-c { border-color: var(--dal-c); color: var(--dal-c); }
+  .dal-btn.dal-c.active { background: var(--dal-c); color: white; }
+  .dal-btn.dal-d { border-color: var(--dal-d); color: var(--dal-d); }
+  .dal-btn.dal-d.active { background: var(--dal-d); color: white; }
+  .dal-badge { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; color: white; }
+  .dal-badge.a { background: var(--dal-a); }
+  .dal-badge.b { background: var(--dal-b); }
+  .dal-badge.c { background: var(--dal-c); }
+  .dal-badge.d { background: var(--dal-d); }
+  .section-header { padding: 9px 14px; border-radius: 5px; font-size: 13px; font-weight: 700; margin: 18px 0 10px; color: white; }
+  .sw-header { background: var(--rtca-green); }
+  .hw-header { background: var(--rtca-teal); }
+  .question-row { border: 1px solid var(--ce-border); border-radius: 6px; padding: 14px; margin-bottom: 10px; background: white; }
+  .question-row.not-applicable { opacity: 0.45; background: #f9fafb; }
+  .question-header { display: flex; align-items: flex-start; gap: 10px; }
+  .q-num { font-size: 11px; font-weight: 700; color: var(--ce-muted); min-width: 38px; padding-top: 2px; }
+  .q-text { font-size: 13px; line-height: 1.5; flex: 1; }
+  .q-badges { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+  .q-ref { font-size: 11px; color: var(--ce-muted); margin-top: 4px; font-style: italic; }
+  .response-row { display: flex; gap: 8px; margin-top: 10px; align-items: center; flex-wrap: wrap; }
+  .response-row label { font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 4px 12px; border: 1px solid var(--ce-border); border-radius: 4px; }
+  .response-row input[type="radio"] { accent-color: var(--rtca-green); }
+  .response-row label.sel-yes { background: var(--pass-bg); border-color: var(--pass); color: var(--pass); }
+  .response-row label.sel-partial { background: var(--warn-bg); border-color: var(--warn); color: var(--warn); }
+  .response-row label.sel-no { background: var(--fail-bg); border-color: var(--fail); color: var(--fail); }
+  .response-row label.sel-na { background: #f3f4f6; border-color: #9ca3af; color: #6b7280; }
+  .verdict-bar { border-radius: 8px; padding: 20px 24px; margin: 20px 0; text-align: center; }
+  .verdict-bar.ready { background: var(--pass-bg); border: 2px solid var(--pass); color: var(--pass); }
+  .verdict-bar.conditional { background: var(--warn-bg); border: 2px solid var(--warn); color: var(--warn); }
+  .verdict-bar.not-ready { background: var(--fail-bg); border: 2px solid var(--fail); color: var(--fail); }
+  .verdict-bar h3 { font-size: 22px; font-weight: 800; }
+  .verdict-bar p { font-size: 14px; margin-top: 6px; }
+  .score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 16px 0; }
+  .score-box { background: var(--ce-bg); border: 1px solid var(--ce-border); border-radius: 6px; padding: 14px; text-align: center; }
+  .score-box .val { font-size: 26px; font-weight: 800; color: var(--rtca-green); }
+  .score-box .lbl { font-size: 11px; color: var(--ce-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .gap-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .gap-table th { background: var(--rtca-green); color: white; padding: 8px 10px; text-align: left; }
+  .gap-table td { padding: 8px 10px; border-bottom: 1px solid var(--ce-border); vertical-align: top; }
+  .gap-table tr:nth-child(even) td { background: var(--ce-bg); }
+  .btn { padding: 10px 22px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; }
+  .btn-primary { background: var(--rtca-green); color: white; }
+  .btn-secondary { background: var(--rtca-teal); color: white; }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .mai-badge { background: var(--ce-bg); border: 1px solid var(--ce-border); border-radius: 6px; padding: 10px 14px; font-size: 11px; color: var(--ce-muted); display: flex; align-items: center; gap: 8px; }
+  .mai-badge span { font-weight: 700; color: var(--ce-steel); }
+  .hidden { display: none; }
+  .mode-selector { display: flex; gap: 8px; margin-bottom: 16px; }
+  .mode-btn { padding: 8px 18px; border: 2px solid var(--ce-border); background: var(--ce-card); border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ce-muted); }
+  .mode-btn.active { background: var(--rtca-green); border-color: var(--rtca-green); color: white; }
+  .mode-btn.hw-active { background: var(--rtca-teal); border-color: var(--rtca-teal); color: white; }
+  footer { text-align: center; font-size: 11px; color: var(--ce-muted); padding: 24px; border-top: 1px solid var(--ce-border); margin-top: 24px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .tabs { display: flex; border-bottom: 2px solid var(--ce-border); margin-bottom: 20px; gap: 4px; }
+  .tab { padding: 10px 20px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ce-muted); border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .tab.active-sw { color: var(--rtca-green); border-color: var(--rtca-green); }
+  .tab.active-hw { color: var(--rtca-teal); border-color: var(--rtca-teal); }
+  .dal-info { background: #f9fafb; border: 1px solid var(--ce-border); border-radius: 5px; padding: 10px 14px; font-size: 12px; margin-bottom: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Conform-Edge Quality Consulting</div>
+  <h1>DO-178C / DO-254 Airborne Software &amp; Hardware Development Assurance Evidence Checklist</h1>
+  <div class="subtitle">Pre-DER/DAR Review Evidence Readiness | FAA Order 8110.49 / AC 20-152A</div>
+  <div class="reg-strip">
+    <div class="reg-badge">DO-178C (SW)</div>
+    <div class="reg-badge">DO-254 (HW)</div>
+    <div class="reg-badge">DAL A–D</div>
+    <div class="reg-badge">FAA 8110.49 / AC 20-152A</div>
+    <div class="reg-badge">EASA CM-SWCEH-001</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="intro card">
+    <h2>About This Tool</h2>
+    <p>DO-178C (Software Considerations in Airborne Systems) and DO-254 (Design Assurance Guidance for Airborne Electronic Hardware) define the development assurance processes and evidence required for FAA/EASA certification of airborne software and hardware. The required evidence set is determined by the Design Assurance Level (DAL A through D), with DAL A having the most rigorous requirements.</p>
+    <p style="margin-top:8px;">This checklist helps development teams and DER/DAR reviewers verify that required lifecycle data and evidence is present, correct, and complete before submitting for FAA/EASA certification credit. Use one checklist per software or hardware item (LRU, function, component). Select your DAL level — questions not required at your DAL are grayed out automatically.</p>
+  </div>
+
+  <div class="card">
+    <h2>Assessment Setup</h2>
+    <div>
+      <h3>Step 1: Select Development Standard</h3>
+      <div class="tabs">
+        <div class="tab active-sw" id="tab-sw" onclick="setMode('sw')">DO-178C (Software)</div>
+        <div class="tab" id="tab-hw" onclick="setMode('hw')">DO-254 (Hardware)</div>
+      </div>
+    </div>
+    <div>
+      <h3>Step 2: Select Design Assurance Level (DAL)</h3>
+      <div class="dal-info">
+        <strong>DAL A</strong> — Catastrophic failure condition | <strong>DAL B</strong> — Hazardous/Severe-Major | <strong>DAL C</strong> — Major | <strong>DAL D</strong> — Minor<br>
+        <em>All questions for your selected DAL and higher are active. Lower DAL questions gray out automatically.</em>
+      </div>
+      <div class="dal-selector">
+        <button class="dal-btn dal-a active" id="btn-dal-a" onclick="setDAL('A')">DAL A (Catastrophic)</button>
+        <button class="dal-btn dal-b" id="btn-dal-b" onclick="setDAL('B')">DAL B (Hazardous)</button>
+        <button class="dal-btn dal-c" id="btn-dal-c" onclick="setDAL('C')">DAL C (Major)</button>
+        <button class="dal-btn dal-d" id="btn-dal-d" onclick="setDAL('D')">DAL D (Minor)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DO-178C QUESTIONS -->
+  <div id="panel-sw" class="tab-panel active">
+
+    <div class="card">
+      <h2>DO-178C Software Lifecycle Data — Evidence Checklist</h2>
+
+      <div class="section-header sw-header">Section 1 — Plan Level Documents (All DALs)</div>
+
+      <div id="sw-p1" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-P1</span><span class="q-text">Plan for Software Aspects of Certification (PSAC) — Is a PSAC document present that defines the project context, software level, software lifecycle, tools, deviations from DO-178C, and schedule for software certification activities?</span></div>
+        <div class="q-badges"><span class="dal-badge a">DAL A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.1 PSAC / FAA Order 8110.49 §6.2 PSAC review</div>
+        <div class="response-row" data-q="sw-p1"></div>
+      </div>
+      <div id="sw-p2" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-P2</span><span class="q-text">Software Development Plan (SDP) — Is an SDP present covering software development environment, coding standards, design methods, and processes to be used?</span></div>
+        <div class="q-badges"><span class="dal-badge a">DAL A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.2 SDP</div>
+        <div class="response-row" data-q="sw-p2"></div>
+      </div>
+      <div id="sw-p3" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-P3</span><span class="q-text">Software Verification Plan (SVP) — Is an SVP present describing verification activities, test methods, coverage criteria, and independence requirements for each software level?</span></div>
+        <div class="q-badges"><span class="dal-badge a">DAL A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.3 SVP</div>
+        <div class="response-row" data-q="sw-p3"></div>
+      </div>
+      <div id="sw-p4" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-P4</span><span class="q-text">Software Quality Assurance Plan (SQAP) — Is an SQAP present describing QA oversight activities, independence, authority, and review/audit scope?</span></div>
+        <div class="q-badges"><span class="dal-badge a">DAL A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.4 SQAP</div>
+        <div class="response-row" data-q="sw-p4"></div>
+      </div>
+      <div id="sw-p5" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-P5</span><span class="q-text">Software Configuration Management Plan (SCMP) — Is an SCMP present covering baselines, change control, problem reporting, archive and release, and traceability?</span></div>
+        <div class="q-badges"><span class="dal-badge a">DAL A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.5 SCMP</div>
+        <div class="response-row" data-q="sw-p5"></div>
+      </div>
+
+      <div class="section-header sw-header">Section 2 — Requirements Data (DAL A–D)</div>
+
+      <div id="sw-r1" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-R1</span><span class="q-text">Software Requirements Data — Are high-level requirements (HLRs) documented, uniquely identified, and traceable to system requirements? Are HLRs testable and unambiguous?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.9 / §5 HLR development</div>
+        <div class="response-row" data-q="sw-r1"></div>
+      </div>
+      <div id="sw-r2" class="question-row" data-min-dal="C">
+        <div class="question-header"><span class="q-num">SW-R2</span><span class="q-text">Low-Level Requirements (LLRs) — Are LLRs documented, traceable to HLRs, and sufficient to allow source code development without further design information? (DAL A/B/C)</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span></div>
+        <div class="q-ref">Ref: DO-178C §11.10 / §5.3 LLR development / DAL C structural coverage at DC basis</div>
+        <div class="response-row" data-q="sw-r2"></div>
+      </div>
+
+      <div class="section-header sw-header">Section 3 — Design &amp; Source Code Data (DAL A–D)</div>
+
+      <div id="sw-d1" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-D1</span><span class="q-text">Design Description / Software Architecture — Is the software architecture/design description document present, showing the software structure, control flow, data flow, and interfaces?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.10 design description / §5.3</div>
+        <div class="response-row" data-q="sw-d1"></div>
+      </div>
+      <div id="sw-d2" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-D2</span><span class="q-text">Source Code — Is the source code present in configuration, conforming to the documented coding standard, and all source files at their correct baseline revision?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.11 source code / §5.4 coding standards</div>
+        <div class="response-row" data-q="sw-d2"></div>
+      </div>
+
+      <div class="section-header sw-header">Section 4 — Verification Evidence (DAL A–D, with DAL-scaled depth)</div>
+
+      <div id="sw-v1" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-V1</span><span class="q-text">Software Verification Results — Are test results present showing that HLR-based tests were executed and passed, with test cases, test procedures, and test results as separate controlled documents?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.14 verification results / §6 verification objectives</div>
+        <div class="response-row" data-q="sw-v1"></div>
+      </div>
+      <div id="sw-v2" class="question-row" data-min-dal="C">
+        <div class="question-header"><span class="q-num">SW-V2</span><span class="q-text">Structural Coverage Analysis — Is structural coverage evidence present at the DAL-required level: DAL A (MC/DC), DAL B (Decision/branch), DAL C (Statement)? Are uncovered code segments explained and justified?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A (MC/DC)</span><span class="dal-badge b">B (Decision)</span><span class="dal-badge c">C (Statement)</span></div>
+        <div class="q-ref">Ref: DO-178C §6.4 structural coverage / MC/DC requirement §6.4.4.1 (DAL A only)</div>
+        <div class="response-row" data-q="sw-v2"></div>
+      </div>
+      <div id="sw-v3" class="question-row" data-min-dal="B">
+        <div class="question-header"><span class="q-num">SW-V3</span><span class="q-text">Low-Level Requirement-Based Testing — Is there evidence that LLR-based tests were executed at the target processor or equivalent, covering all LLRs? (Required DAL A and B)</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span></div>
+        <div class="q-ref">Ref: DO-178C §6.4.2 LLR-based testing / target platform testing objectives</div>
+        <div class="response-row" data-q="sw-v3"></div>
+      </div>
+      <div id="sw-v4" class="question-row" data-min-dal="A">
+        <div class="question-header"><span class="q-num">SW-V4</span><span class="q-text">Independence of Verification — For DAL A: is verification performed by personnel independent from the development team (different person or tool with independence rationale)? Is this independence documented?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A ONLY</span></div>
+        <div class="q-ref">Ref: DO-178C §12 independence requirements / Table A-8 DAL A independence</div>
+        <div class="response-row" data-q="sw-v4"></div>
+      </div>
+
+      <div class="section-header sw-header">Section 5 — Configuration Management &amp; Problem Reporting</div>
+
+      <div id="sw-c1" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-C1</span><span class="q-text">Software Configuration Index (SCI) — Is an SCI document present identifying the configuration of all software lifecycle data (documents, source code, executables, tools) and their revision status at the time of the certification baseline?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.16 SCI / §7 SCM objectives</div>
+        <div class="response-row" data-q="sw-c1"></div>
+      </div>
+      <div id="sw-c2" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-C2</span><span class="q-text">Problem Reports — Are all open problem reports evaluated for safety impact, with safety-relevant items resolved before certification? Is the problem report log accessible and current?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.17 problem reports / §7.2 problem reporting process</div>
+        <div class="response-row" data-q="sw-c2"></div>
+      </div>
+      <div id="sw-c3" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-C3</span><span class="q-text">Software Accomplishment Summary (SAS) — Is an SAS document present summarising how DO-178C objectives were met, deviations, tool qualification, and certifying DER's statement?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §11.20 SAS / DER SAS review basis</div>
+        <div class="response-row" data-q="sw-c3"></div>
+      </div>
+
+      <div class="section-header sw-header">Section 6 — Tool Qualification (where tools used)</div>
+
+      <div id="sw-t1" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">SW-T1</span><span class="q-text">Development/Verification Tool Qualification — If development or verification tools were used that could introduce errors or could not be detected, is Tool Qualification Data (TQD) present per DO-330 or a DO-178C §12.2 alternative?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-178C §12.2 / DO-330 Software Tool Qualification / TQL1–TQL5 criteria</div>
+        <div class="response-row" data-q="sw-t1"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DO-254 QUESTIONS -->
+  <div id="panel-hw" class="tab-panel">
+    <div class="card">
+      <h2>DO-254 Hardware Development Assurance — Evidence Checklist</h2>
+
+      <div class="section-header hw-header">Section 1 — Plan Level Documents</div>
+
+      <div id="hw-p1" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-P1</span><span class="q-text">Plan for Hardware Aspects of Certification (PHAC) — Is a PHAC present identifying the hardware item, design assurance level, hardware lifecycle, tools qualification approach, and schedule?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.1 PHAC / AC 20-152A §7 PHAC content</div>
+        <div class="response-row" data-q="hw-p1"></div>
+      </div>
+      <div id="hw-p2" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-P2</span><span class="q-text">Hardware Design Plan (HDP) — Is an HDP present describing the design environment, design methods, standards, and processes for requirements capture, design, and implementation?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.2 HDP</div>
+        <div class="response-row" data-q="hw-p2"></div>
+      </div>
+      <div id="hw-p3" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-P3</span><span class="q-text">Hardware Validation Plan (HVAP) — Is an HVAP present defining validation activities, methods, and environment for confirming requirements correctness and completeness?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.3 HVAP</div>
+        <div class="response-row" data-q="hw-p3"></div>
+      </div>
+      <div id="hw-p4" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-P4</span><span class="q-text">Hardware Verification Plan (HVRP) — Is an HVRP present defining tests, analysis, and review activities to verify hardware implements its requirements?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.4 HVRP</div>
+        <div class="response-row" data-q="hw-p4"></div>
+      </div>
+
+      <div class="section-header hw-header">Section 2 — Requirements &amp; Design Data</div>
+
+      <div id="hw-r1" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-R1</span><span class="q-text">Hardware Requirements — Are hardware requirements documented, traceable to system/safety requirements, uniquely identified, and reviewed for correctness, consistency, and testability?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.6 HRD / §4.1 requirements capture process</div>
+        <div class="response-row" data-q="hw-r1"></div>
+      </div>
+      <div id="hw-r2" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-R2</span><span class="q-text">Hardware Design Data — Are hardware design documents (schematic, HDL, FPGA/CPLD design files, BOM, fabrication drawings) present, at correct baseline revision, and traceable to requirements?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.7 HDD / §5 design process objectives</div>
+        <div class="response-row" data-q="hw-r2"></div>
+      </div>
+
+      <div class="section-header hw-header">Section 3 — Validation &amp; Verification Evidence</div>
+
+      <div id="hw-v1" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-V1</span><span class="q-text">Hardware Validation Results — Is evidence present that requirements were validated (requirements review, prototype testing, or analysis) showing requirements are correct, complete, and consistent with system safety requirements?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.9 validation results / §4.2 requirements validation objectives</div>
+        <div class="response-row" data-q="hw-v1"></div>
+      </div>
+      <div id="hw-v2" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-V2</span><span class="q-text">Hardware Verification Results — Are test results, analysis records, and review records present showing all requirements were verified and verification objectives at the applicable DAL were achieved?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.10 verification results / §6 verification objectives</div>
+        <div class="response-row" data-q="hw-v2"></div>
+      </div>
+      <div id="hw-v3" class="question-row" data-min-dal="B">
+        <div class="question-header"><span class="q-num">HW-V3</span><span class="q-text">Advanced Analysis — For DAL A/B: is evidence present of advanced verification techniques (formal methods, FMEA/FMECA to hardware item level, or equivalently rigorous analysis) addressing safety requirements? (DAL A/B)</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span></div>
+        <div class="q-ref">Ref: DO-254 §6.2 advanced analysis / AC 20-152A DAL A/B advanced analysis expectations</div>
+        <div class="response-row" data-q="hw-v3"></div>
+      </div>
+
+      <div class="section-header hw-header">Section 4 — Configuration Management &amp; Summary</div>
+
+      <div id="hw-c1" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-C1</span><span class="q-text">Hardware Configuration Index (HCI) — Is an HCI present listing all hardware configuration items (drawings, HDL files, test data, specifications) at their baseline revision?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.12 HCI / §7 SCM objectives</div>
+        <div class="response-row" data-q="hw-c1"></div>
+      </div>
+      <div id="hw-c2" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-C2</span><span class="q-text">Hardware Accomplishment Summary (HAS) — Is an HAS present summarising how DO-254 objectives were achieved, listing deviations, tool qualification status, and problem report disposition?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.13 HAS / DER HAS review basis</div>
+        <div class="response-row" data-q="hw-c2"></div>
+      </div>
+      <div id="hw-c3" class="question-row" data-min-dal="D">
+        <div class="question-header"><span class="q-num">HW-C3</span><span class="q-text">Problem Reports — Are hardware problem reports current, with all safety-relevant open items dispositioned and rationale for open items documented?</span></div>
+        <div class="q-badges"><span class="dal-badge a">A</span><span class="dal-badge b">B</span><span class="dal-badge c">C</span><span class="dal-badge d">D</span></div>
+        <div class="q-ref">Ref: DO-254 §10.14 problem reports / §7.2 problem reporting</div>
+        <div class="response-row" data-q="hw-c3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results-panel" class="hidden">
+    <div class="card">
+      <h2>Evidence Readiness Assessment Results</h2>
+      <div id="verdict-display"></div>
+      <div class="score-grid">
+        <div class="score-box"><div class="val" id="score-pct">—</div><div class="lbl">Score (active Qs)</div></div>
+        <div class="score-box"><div class="val" id="score-yes">—</div><div class="lbl">Yes / Present</div></div>
+        <div class="score-box"><div class="val" id="score-partial">—</div><div class="lbl">Partial</div></div>
+        <div class="score-box"><div class="val" id="score-no">—</div><div class="lbl">No / Missing</div></div>
+        <div class="score-box"><div class="val" id="score-na">—</div><div class="lbl">N/A</div></div>
+        <div class="score-box"><div class="val" id="score-active">—</div><div class="lbl">Active Questions</div></div>
+      </div>
+      <div id="mai-obs" style="margin:12px 0;"></div>
+      <div id="gap-section" class="hidden">
+        <h3 style="margin:14px 0 10px;font-size:14px;color:var(--rtca-green);">Evidence Gaps — DER/DAR Review Risk</h3>
+        <table class="gap-table">
+          <thead><tr><th>#</th><th>Evidence Item</th><th>Section</th><th>Status</th><th>DAL Applicability</th></tr></thead>
+          <tbody id="gap-tbody"></tbody>
+        </table>
+      </div>
+      <div id="mr-narrative" style="margin:14px 0;"></div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="exportJSON()">Export JSON</button>
+        <button class="btn btn-secondary" onclick="window.print()">Print Report</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mai-badge">
+      <span>M-AI</span> Domain: do178c-do254-evidence-readiness | Architecture: DEFINED | DIMs: 5 (plan-documents, requirements-data, verification-evidence, configuration-management, tool-qualification)
+    </div>
+    <div class="btn-group" style="margin-top:14px;">
+      <button class="btn btn-primary" onclick="computeResults()">Generate Evidence Assessment</button>
+      <button class="btn btn-secondary" onclick="resetAll()">Reset All</button>
+    </div>
+  </div>
+
+  <footer>
+    Conform-Edge Quality Consulting | DO-178C / DO-254 Evidence Checklist<br>
+    For pre-DER/DAR review preparation only. Reference: RTCA/DO-178C (2011), RTCA/DO-254 (2000), FAA Order 8110.49 Ch. 2, AC 20-152A, EASA CM-SWCEH-001 Issue 2.
+  </footer>
+</div>
+
+<script>
+const DAL_ORDER = {A:1, B:2, C:3, D:4};
+let currentDAL = 'A';
+let currentMode = 'sw';
+
+const SW_QUESTIONS = [
+  {id:'sw-p1',text:'PSAC document present and complete',minDAL:'D',section:'Plan Documents'},
+  {id:'sw-p2',text:'Software Development Plan (SDP) present',minDAL:'D',section:'Plan Documents'},
+  {id:'sw-p3',text:'Software Verification Plan (SVP) present',minDAL:'D',section:'Plan Documents'},
+  {id:'sw-p4',text:'Software Quality Assurance Plan (SQAP) present',minDAL:'D',section:'Plan Documents'},
+  {id:'sw-p5',text:'Software Configuration Management Plan (SCMP) present',minDAL:'D',section:'Plan Documents'},
+  {id:'sw-r1',text:'High-Level Requirements documented and traceable to system requirements',minDAL:'D',section:'Requirements Data'},
+  {id:'sw-r2',text:'Low-Level Requirements documented and traceable to HLRs (DAL A/B/C)',minDAL:'C',section:'Requirements Data'},
+  {id:'sw-d1',text:'Software architecture/design description present',minDAL:'D',section:'Design & Source Code'},
+  {id:'sw-d2',text:'Source code at correct baseline, conforming to coding standard',minDAL:'D',section:'Design & Source Code'},
+  {id:'sw-v1',text:'HLR-based test results present (cases, procedures, results)',minDAL:'D',section:'Verification Evidence'},
+  {id:'sw-v2',text:'Structural coverage evidence at required level (MC/DC, Decision, or Statement)',minDAL:'C',section:'Verification Evidence'},
+  {id:'sw-v3',text:'LLR-based tests on target processor or equivalent (DAL A/B)',minDAL:'B',section:'Verification Evidence'},
+  {id:'sw-v4',text:'Independence of verification documented (DAL A)',minDAL:'A',section:'Verification Evidence'},
+  {id:'sw-c1',text:'Software Configuration Index (SCI) present and complete',minDAL:'D',section:'Configuration Management'},
+  {id:'sw-c2',text:'Problem reports current; safety-relevant items dispositioned',minDAL:'D',section:'Configuration Management'},
+  {id:'sw-c3',text:'Software Accomplishment Summary (SAS) present',minDAL:'D',section:'Configuration Management'},
+  {id:'sw-t1',text:'Tool Qualification Data (TQD) present where tools require qualification',minDAL:'D',section:'Tool Qualification'},
+];
+
+const HW_QUESTIONS = [
+  {id:'hw-p1',text:'PHAC document present and complete',minDAL:'D',section:'Plan Documents'},
+  {id:'hw-p2',text:'Hardware Design Plan (HDP) present',minDAL:'D',section:'Plan Documents'},
+  {id:'hw-p3',text:'Hardware Validation Plan (HVAP) present',minDAL:'D',section:'Plan Documents'},
+  {id:'hw-p4',text:'Hardware Verification Plan (HVRP) present',minDAL:'D',section:'Plan Documents'},
+  {id:'hw-r1',text:'Hardware requirements documented and traceable to system/safety requirements',minDAL:'D',section:'Requirements & Design'},
+  {id:'hw-r2',text:'Hardware design data (schematics, HDL, BOM, fabrication) at correct baseline',minDAL:'D',section:'Requirements & Design'},
+  {id:'hw-v1',text:'Hardware validation results present (requirements confirmed correct)',minDAL:'D',section:'Validation & Verification'},
+  {id:'hw-v2',text:'Hardware verification results present (all requirements verified)',minDAL:'D',section:'Validation & Verification'},
+  {id:'hw-v3',text:'Advanced analysis (FMEA/FMECA/formal methods) present for safety requirements (DAL A/B)',minDAL:'B',section:'Validation & Verification'},
+  {id:'hw-c1',text:'Hardware Configuration Index (HCI) present and complete',minDAL:'D',section:'Configuration Management'},
+  {id:'hw-c2',text:'Hardware Accomplishment Summary (HAS) present',minDAL:'D',section:'Configuration Management'},
+  {id:'hw-c3',text:'Problem reports current; safety-relevant items dispositioned',minDAL:'D',section:'Configuration Management'},
+];
+
+function isActive(minDAL) {
+  return DAL_ORDER[currentDAL] <= DAL_ORDER[minDAL];
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('panel-sw').classList.toggle('active', mode==='sw');
+  document.getElementById('panel-hw').classList.toggle('active', mode==='hw');
+  document.getElementById('tab-sw').className = 'tab' + (mode==='sw'?' active-sw':'');
+  document.getElementById('tab-hw').className = 'tab' + (mode==='hw'?' active-hw':'');
+  updateDALVisibility();
+  document.getElementById('results-panel').classList.add('hidden');
+}
+
+function setDAL(dal) {
+  currentDAL = dal;
+  ['A','B','C','D'].forEach(d => {
+    const btn = document.getElementById('btn-dal-'+d.toLowerCase());
+    if(btn){
+      btn.className='dal-btn dal-'+d.toLowerCase()+(d===dal?' active':'');
+    }
+  });
+  updateDALVisibility();
+  document.getElementById('results-panel').classList.add('hidden');
+}
+
+function updateDALVisibility() {
+  const allRows = document.querySelectorAll('.question-row[data-min-dal]');
+  allRows.forEach(row => {
+    const minDAL = row.getAttribute('data-min-dal');
+    const active = isActive(minDAL);
+    row.classList.toggle('not-applicable', !active);
+    const rrow = row.querySelector('.response-row');
+    if(rrow) rrow.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = !active);
+  });
+}
+
+function buildResponseRows() {
+  const qs = [...SW_QUESTIONS, ...HW_QUESTIONS];
+  qs.forEach(q => {
+    const row = document.querySelector('.response-row[data-q="'+q.id+'"]');
+    if(!row || row.childNodes.length > 0) return;
+    ['yes','partial','no','na'].forEach(v => {
+      const lbl = document.createElement('label');
+      const inp = document.createElement('input');
+      inp.type='radio'; inp.name=q.id; inp.value=v;
+      inp.addEventListener('change', ()=>styleLabel(q.id));
+      lbl.appendChild(inp);
+      lbl.appendChild(document.createTextNode(v==='yes'?'✓ Present':v==='partial'?'~ Partial':v==='no'?'✗ Missing':'N/A'));
+      row.appendChild(lbl);
+    });
+  });
+}
+
+function styleLabel(qid) {
+  const row = document.querySelector('.response-row[data-q="'+qid+'"]');
+  if(!row) return;
+  row.querySelectorAll('label').forEach(l => {
+    l.className='';
+    if(l.querySelector('input').checked){
+      const v=l.querySelector('input').value;
+      l.className=v==='yes'?'sel-yes':v==='partial'?'sel-partial':v==='no'?'sel-no':'sel-na';
+    }
+  });
+}
+
+function computeResults() {
+  const qs = currentMode==='sw' ? SW_QUESTIONS : HW_QUESTIONS;
+  const activeQs = qs.filter(q => isActive(q.minDAL));
+  let yes=0,partial=0,no=0,na=0;
+  const gaps=[];
+  activeQs.forEach(q=>{
+    const sel=document.querySelector('input[name="'+q.id+'"]:checked');
+    const val=sel?sel.value:null;
+    if(val==='yes') yes++;
+    else if(val==='partial'){partial++;gaps.push({q,val:'Partial'});}
+    else if(val==='na') na++;
+    else{no++;gaps.push({q,val:'Missing'});}
+  });
+  const scored=yes+partial+no;
+  const score=scored>0?Math.round((yes+partial*0.5)/scored*100):0;
+  let vClass,vTitle,vMsg;
+  if(no>0&&score<70){vClass='not-ready';vTitle='⛔ NOT DER-READY';vMsg='Multiple evidence items missing. DER/DAR review would identify significant lifecycle data gaps that could delay or prevent certification credit.';}
+  else if(score>=90){vClass='ready';vTitle='✓ DER REVIEW READY';vMsg='Evidence package appears complete for selected DAL. Proceed to DER/DAR pre-submission review.';}
+  else if(score>=75){vClass='conditional';vTitle='⚠ CONDITIONAL';vMsg='Minor evidence gaps remain. Address before DER/DAR submission to avoid round-trip comments.';}
+  else{vClass='not-ready';vTitle='⚠ GAPS IDENTIFIED';vMsg='Evidence gaps will likely generate DER/DAR review comments. Resolve missing items before submission.';}
+
+  document.getElementById('verdict-display').innerHTML=`<div class="verdict-bar ${vClass}"><h3>${vTitle}</h3><p>${vMsg}</p></div>`;
+  document.getElementById('score-pct').textContent=score+'%';
+  document.getElementById('score-yes').textContent=yes;
+  document.getElementById('score-partial').textContent=partial;
+  document.getElementById('score-no').textContent=no;
+  document.getElementById('score-na').textContent=na;
+  document.getElementById('score-active').textContent=activeQs.length;
+
+  const std=currentMode==='sw'?'DO-178C':'DO-254';
+  document.getElementById('mai-obs').innerHTML=`<div class="mai-badge"><span>M-AI Observation</span> Standard: ${std} | DAL: ${currentDAL} | Active questions: ${activeQs.length} | Score: ${score}% | Missing: ${no} | Verdict: ${vTitle.replace(/[✓⛔⚠]\s*/,'')} | DIMs: plan-documents, requirements-data, verification-evidence, configuration-management, tool-qualification</div>`;
+
+  const tbody=document.getElementById('gap-tbody');
+  tbody.innerHTML='';
+  if(gaps.length){
+    document.getElementById('gap-section').classList.remove('hidden');
+    gaps.forEach((g,i)=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${i+1}</td><td>${g.q.text}</td><td>${g.q.section}</td><td>${g.val}</td><td>DAL ${g.q.minDAL}–A</td>`;
+      tbody.appendChild(tr);
+    });
+  } else document.getElementById('gap-section').classList.add('hidden');
+
+  document.getElementById('mr-narrative').innerHTML=`<div style="background:#f4f6fb;border:1px solid #d0d8e8;border-radius:6px;padding:14px;font-size:12px;color:var(--rtca-green);margin-top:10px;"><strong>DER/DAR Pre-Submission Summary:</strong><br>${std} DAL ${currentDAL} evidence readiness assessment — ${new Date().toISOString().split('T')[0]}. Active questions: ${activeQs.length}. Score: ${score}%. Missing/partial: ${no+partial}. N/A: ${na}. Verdict: ${vTitle.replace(/[✓⛔⚠]\s*/,'')}.</div>`;
+
+  document.getElementById('results-panel').classList.remove('hidden');
+  document.getElementById('results-panel').scrollIntoView({behavior:'smooth'});
+}
+
+function exportJSON(){
+  const qs=currentMode==='sw'?SW_QUESTIONS:HW_QUESTIONS;
+  const data={
+    tool:'DO-178C / DO-254 Evidence Checklist',
+    vendor:'Conform-Edge Quality Consulting',
+    standard:currentMode==='sw'?'DO-178C':'DO-254',
+    dal:currentDAL,
+    date:new Date().toISOString().split('T')[0],
+    responses:{},
+    mai:{domain:'do178c-do254-evidence-readiness',architecture:'DEFINED',dims:['plan-documents','requirements-data','verification-evidence','configuration-management','tool-qualification']}
+  };
+  qs.forEach(q=>{
+    const sel=document.querySelector('input[name="'+q.id+'"]:checked');
+    data.responses[q.id]={text:q.text,minDAL:q.minDAL,active:isActive(q.minDAL),section:q.section,response:sel?sel.value:'unanswered'};
+  });
+  const a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));
+  a.download=(currentMode==='sw'?'do178c':'do254')+'-dal'+currentDAL+'-evidence-'+data.date+'.json';
+  a.click();
+}
+
+function resetAll(){
+  document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.response-row label').forEach(l=>l.className='');
+  document.getElementById('results-panel').classList.add('hidden');
+}
+
+buildResponseRows();
+updateDALVisibility();
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "ruleId": "PA-010",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "major",
+  "category": "traceability",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit_evidence"
+  ],
+  "events": [
+    "audit.evidence.attached"
+  ],
+  "description": "Evidence file received by the server does not match the hash captured on the device.",
+  "requiredFields": [
+    "hash_mismatch"
+  ],
+  "findingText": "Evidence file received by the server does not match the hash captured on the device.",
+  "resolutionHint": "Re-upload the original file from the device.",
+  "clauseRefs": [],
+  "condition": {
+    "field": "hash_mismatch",
+    "op": "eq",
+    "value": true
+  },
+  "decision": {
+    "decisionState": "ADVISE",
+    "permittedHostAction": "none"
+  },
+  "testCases": [
+    "PA-010-POS-001",
+    "PA-010-NEG-001",
+    "PA-010-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

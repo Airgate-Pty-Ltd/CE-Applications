@@ -1,0 +1,24 @@
+{
+  "standard_code": "DOT_49CFR_PART40",
+  "title": "49 CFR Part 40 - DOT Workplace Drug and Alcohol Testing Programs",
+  "authority": "USDOT",
+  "jurisdiction": "United_States",
+  "classification": "safety_sensitive_testing",
+  "source_reference": {
+    "regulation": "49 CFR Part 40",
+    "official_document_path_hint": "Requirements/Regulatory/title 49 part 40.pdf"
+  },
+  "topic_clusters": [
+    {
+      "cluster_code": "Subpart_B_Employer",
+      "summary": "Employer responsibilities for drug and alcohol testing of safety-sensitive employees.",
+      "priority_for_vera": "medium"
+    },
+    {
+      "cluster_code": "Subpart_F_DrugTesting",
+      "summary": "Procedures for drug testing: specimen collection, handling, and laboratory requirements.",
+      "priority_for_vera": "medium"
+    }
+  ]
+}
+

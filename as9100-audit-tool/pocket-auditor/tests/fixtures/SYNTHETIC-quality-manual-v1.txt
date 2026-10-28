@@ -1,0 +1,7 @@
+SYNTHETIC QUALITY MANUAL - FOR PRODUCT TESTING ONLY - NOT A CUSTOMER DOCUMENT
+Organization: Synthetic Test Repair Station (fictitious)
+Version: v1 (deliberately contains one invalid reference for testing)
+
+EXCLUSION 8.3 | QM 1.4 | Design responsibility is not held at this site.
+EXCLUSION 8.6.1 | QM 1.5 | Release of products is not performed at this site.
+EXCLUSION 8.2 | QM 1.6 | No outsourced special processes at this site.

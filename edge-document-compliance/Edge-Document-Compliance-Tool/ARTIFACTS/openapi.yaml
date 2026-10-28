@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: EDCAT Diagnostics API
+  version: 1.0.0
+servers:
+  - url: https://your-railway-app.up.railway.app
+paths:
+  /health:
+    get:
+      summary: Healthcheck endpoint
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  mode:
+                    type: string
+                    description: Present when running in diagnose mode
+                  timestamp:
+                    type: string
+                    format: date-time
+  /__db/introspect:
+    get:
+      summary: Database introspection (diagnose mode only)
+      responses:
+        '200':
+          description: Schema report
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  report:
+                    type: object
+        '403':
+          description: Introspection disabled
+        '500':
+          description: Failed to generate report
+

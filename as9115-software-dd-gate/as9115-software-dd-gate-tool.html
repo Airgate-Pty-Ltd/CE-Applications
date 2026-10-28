@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AS9115 Software Design &amp; Development Gate Tool | Conform-Edge</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0f1117;color:#e2e8f0;min-height:100vh}
+header{background:linear-gradient(135deg,#1e2a4a 0%,#162032 100%);padding:18px 32px;border-bottom:2px solid #2d4a7a;display:flex;align-items:center;gap:16px}
+header .brand{font-size:11px;letter-spacing:2px;color:#64b5f6;text-transform:uppercase;font-weight:600}
+header h1{font-size:20px;font-weight:700;color:#e8f4fd}
+header .sub{font-size:12px;color:#90caf9;margin-top:2px}
+.badge-group{display:flex;gap:8px;margin-left:auto;flex-shrink:0}
+.clause-badge{background:#1565c0;color:#bbdefb;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:600}
+.clause-badge.sw{background:#4a1580;color:#d8b4fe}
+.container{max-width:960px;margin:0 auto;padding:24px 20px}
+.step-nav{display:flex;gap:0;margin-bottom:28px;border-radius:8px;overflow:hidden;border:1px solid #2d3748}
+.step-btn{flex:1;padding:11px 8px;background:#1a1f2e;color:#94a3b8;font-size:11px;font-weight:600;text-align:center;cursor:pointer;border:none;border-right:1px solid #2d3748;transition:all .2s;text-transform:uppercase;letter-spacing:.5px}
+.step-btn:last-child{border-right:none}
+.step-btn.active{background:#1565c0;color:#fff}
+.step-btn.active.sw{background:#6b21a8}
+.step-btn.done{background:#1b3a2a;color:#4ade80}
+.card{background:#1a1f2e;border:1px solid #2d3748;border-radius:10px;padding:24px;margin-bottom:20px}
+.card h2{font-size:16px;font-weight:700;color:#90caf9;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.card h2.sw-heading{color:#c084fc}
+.card .stage-desc{font-size:13px;color:#94a3b8;margin-bottom:18px;line-height:1.5}
+.sw-notice{background:#2d1a4a;border:1px solid #7e22ce;border-radius:8px;padding:12px 16px;font-size:12px;color:#d8b4fe;margin-bottom:18px;line-height:1.5}
+.field-group{margin-bottom:16px}
+label{display:block;font-size:12px;font-weight:600;color:#90caf9;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+label.sw{color:#c084fc}
+input[type=text],textarea,select{width:100%;padding:9px 12px;background:#0f1117;border:1px solid #2d3748;border-radius:6px;color:#e2e8f0;font-size:13px}
+input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:#1565c0}
+textarea{height:72px;resize:vertical}
+.gate-items{display:grid;gap:10px;margin-top:12px}
+.gate-item{background:#0f1117;border:1px solid #2d3748;border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:border-color .2s}
+.gate-item:hover{border-color:#1565c0}
+.gate-item.sw-item:hover{border-color:#7e22ce}
+.gate-item input[type=checkbox]{width:17px;height:17px;cursor:pointer;flex-shrink:0;margin-top:2px;accent-color:#1565c0}
+.gate-item.sw-item input[type=checkbox]{accent-color:#7e22ce}
+.gate-item-body{flex:1}
+.gate-item-title{font-size:13px;font-weight:600;color:#e2e8f0}
+.gate-item-ref{font-size:11px;color:#64b5f6;margin-top:2px}
+.gate-item-ref.sw{color:#c084fc}
+.critical-flag{font-size:10px;background:#7f1d1d;color:#fca5a5;border-radius:3px;padding:1px 6px;margin-left:8px;font-weight:700;vertical-align:middle}
+.sw-flag{font-size:10px;background:#4a1580;color:#d8b4fe;border-radius:3px;padding:1px 6px;margin-left:8px;font-weight:700;vertical-align:middle}
+.btn-row{display:flex;gap:10px;margin-top:20px}
+.btn{padding:10px 24px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:#1565c0;color:#fff}
+.btn-primary:hover{background:#1976d2}
+.btn-secondary{background:#2d3748;color:#e2e8f0}
+.btn-secondary:hover{background:#374151}
+.btn-export{background:#0f3a1a;color:#4ade80;border:1px solid #166534}
+.verdict-panel{border-radius:10px;padding:22px 24px;margin-bottom:20px;display:none}
+.verdict-PROCEED{background:#0f3a1a;border:2px solid #16a34a}
+.verdict-CONDITIONAL{background:#2d1f00;border:2px solid #d97706}
+.verdict-HOLD{background:#3b0c0c;border:2px solid #dc2626}
+.verdict-label{font-size:24px;font-weight:800;margin-bottom:6px}
+.verdict-PROCEED .verdict-label{color:#4ade80}
+.verdict-CONDITIONAL .verdict-label{color:#fbbf24}
+.verdict-HOLD .verdict-label{color:#f87171}
+.verdict-sub{font-size:13px;color:#94a3b8;margin-bottom:14px}
+.gate-summary{display:grid;gap:8px;margin-top:12px}
+.gate-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(255,255,255,.04);border-radius:6px;font-size:13px}
+.gate-row .gate-name{color:#cbd5e1}
+.badge{border-radius:4px;padding:2px 10px;font-size:11px;font-weight:700}
+.badge-pass{background:#166534;color:#4ade80}
+.badge-warn{background:#92400e;color:#fcd34d}
+.badge-fail{background:#7f1d1d;color:#fca5a5}
+.missing-list{margin-top:14px}
+.missing-list h4{font-size:12px;font-weight:700;color:#fca5a5;text-transform:uppercase;margin-bottom:8px}
+.missing-list ul{list-style:none;display:grid;gap:4px}
+.missing-list li{font-size:12px;color:#fcd34d;padding-left:14px;position:relative}
+.missing-list li::before{content:'⚠';position:absolute;left:0}
+.narrative-box{background:#0f1117;border:1px solid #374151;border-radius:6px;padding:14px;font-size:12px;color:#94a3b8;line-height:1.7;white-space:pre-wrap;margin-top:14px}
+.hidden{display:none}
+.progress-bar{height:4px;background:#1a1f2e;border-radius:2px;margin-bottom:24px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#1565c0,#7e22ce);border-radius:2px;transition:width .4s ease}
+.overall-panel{background:#1a1f2e;border:1px solid #2d3748;border-radius:10px;padding:20px;margin-bottom:20px}
+.overall-panel h3{font-size:14px;font-weight:700;color:#90caf9;margin-bottom:12px}
+.stage-pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.pill-pass{background:#166534;color:#4ade80}
+.pill-warn{background:#92400e;color:#fcd34d}
+.pill-fail{background:#7f1d1d;color:#fca5a5}
+.pill-sw{background:#4a1580;color:#d8b4fe}
+.detail-summary{display:grid;gap:8px;margin-top:12px}
+footer{text-align:center;padding:24px;font-size:11px;color:#4b5563;border-top:1px solid #1e293b;margin-top:32px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Conform-Edge · Powered by QMS Intelligence</div>
+    <h1>AS9115 Software Design &amp; Development Gate Tool</h1>
+    <div class="sub">AS9100D Cl. 8.3 + AS9115 Software Overlay · Stage Gate Review · Go/No-Go Decision</div>
+  </div>
+  <div class="badge-group">
+    <div class="clause-badge">AS9100D Cl. 8.3</div>
+    <div class="clause-badge sw">AS9115</div>
+  </div>
+</header>
+<div class="container">
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:14.2%"></div></div>
+
+<div class="step-nav">
+  <button class="step-btn active" onclick="goStep(0)" id="tab0">1 · Project</button>
+  <button class="step-btn" onclick="goStep(1)" id="tab1">2 · Planning Gate</button>
+  <button class="step-btn" onclick="goStep(2)" id="tab2">3 · Inputs Gate</button>
+  <button class="step-btn" onclick="goStep(3)" id="tab3">4 · Outputs Gate</button>
+  <button class="step-btn" onclick="goStep(4)" id="tab4">5 · V&amp;V Gate</button>
+  <button class="step-btn" onclick="goStep(5)" id="tab5">6 · SW Gate</button>
+  <button class="step-btn" onclick="goStep(6)" id="tab6">7 · Results</button>
+</div>
+
+<!-- Step 0: Project -->
+<div id="step0">
+  <div class="card">
+    <h2>Project &amp; Software Context</h2>
+    <div class="stage-desc">Identify the product, software classification, and applicable standard overlay. AS9115 requirements supplement AS9100D Cl. 8.3 — both gate sets apply.</div>
+    <div class="field-group">
+      <label>Project / Part Number</label>
+      <input type="text" id="projNum" placeholder="e.g. P/N 12345-001 Rev A">
+    </div>
+    <div class="field-group">
+      <label>Project Title / Product Description</label>
+      <input type="text" id="projTitle" placeholder="e.g. Cabin Management Controller Software v2.3">
+    </div>
+    <div class="field-group">
+      <label>Organization Name</label>
+      <input type="text" id="orgName" placeholder="e.g. Burrana Inc.">
+    </div>
+    <div class="field-group">
+      <label>Review Date</label>
+      <input type="text" id="revDate" placeholder="YYYY-MM-DD">
+    </div>
+    <div class="field-group">
+      <label>Standard Scope</label>
+      <select id="stdSelect">
+        <option value="AS9100D Rev D + AS9115">AS9100D Rev D + AS9115</option>
+        <option value="AS9100D Rev D + AS9115 + DO-178C">AS9100D Rev D + AS9115 + DO-178C</option>
+        <option value="AS9100D Rev D + AS9115 + DO-254">AS9100D Rev D + AS9115 + DO-254</option>
+        <option value="AS9100D Rev D + AS9115 + DO-178C + DO-254">AS9100D Rev D + AS9115 + DO-178C + DO-254</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label>Software Classification / Criticality Level</label>
+      <select id="swClass">
+        <option value="Not Applicable (non-safety software)">Not Applicable (non-safety software)</option>
+        <option value="DO-178C Level A (catastrophic)">DO-178C Level A (catastrophic)</option>
+        <option value="DO-178C Level B (hazardous)">DO-178C Level B (hazardous)</option>
+        <option value="DO-178C Level C (major)">DO-178C Level C (major)</option>
+        <option value="DO-178C Level D (minor)">DO-178C Level D (minor)</option>
+        <option value="DO-254 DAL A">DO-254 DAL A</option>
+        <option value="DO-254 DAL B">DO-254 DAL B</option>
+        <option value="DO-254 DAL C">DO-254 DAL C</option>
+        <option value="Not yet determined">Not yet determined</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label>Gate Type</label>
+      <select id="ddType">
+        <option value="New development — full gate review">New development — full gate review</option>
+        <option value="Software change — delta gate review">Software change — delta gate review</option>
+        <option value="Major software update (new version)">Major software update (new version)</option>
+        <option value="Hardware/software co-design">Hardware/software co-design</option>
+      </select>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="goStep(1)">Next: Planning Gate →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 1: Planning Gate (AS9100D 8.3.2) -->
+<div id="step1" class="hidden">
+  <div class="card">
+    <h2>Gate 1 — Planning (AS9100D Cl. 8.3.2)</h2>
+    <div class="stage-desc">Verify that design and development planning evidence is established before detailed design work begins. Check each item present and evidenced.</div>
+    <div class="gate-items" id="gateItems1"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goStep(0)">← Back</button>
+      <button class="btn btn-primary" onclick="goStep(2)">Next: Inputs Gate →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 2: Inputs Gate (AS9100D 8.3.3) -->
+<div id="step2" class="hidden">
+  <div class="card">
+    <h2>Gate 2 — Inputs (AS9100D Cl. 8.3.3)</h2>
+    <div class="stage-desc">Verify that design inputs are documented, reviewed, and complete before committing to detailed design outputs.</div>
+    <div class="gate-items" id="gateItems2"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goStep(1)">← Back</button>
+      <button class="btn btn-primary" onclick="goStep(3)">Next: Outputs Gate →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 3: Outputs Gate (AS9100D 8.3.4 / 8.3.5) -->
+<div id="step3" class="hidden">
+  <div class="card">
+    <h2>Gate 3 — Outputs &amp; Reviews (AS9100D Cl. 8.3.4 / 8.3.5)</h2>
+    <div class="stage-desc">Verify that design outputs meet input requirements and that formal design reviews have been conducted and recorded.</div>
+    <div class="gate-items" id="gateItems3"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goStep(2)">← Back</button>
+      <button class="btn btn-primary" onclick="goStep(4)">Next: V&amp;V Gate →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 4: V&V Gate (AS9100D 8.3.6 / 8.3.7) -->
+<div id="step4" class="hidden">
+  <div class="card">
+    <h2>Gate 4 — Verification &amp; Validation (AS9100D Cl. 8.3.6 / 8.3.7)</h2>
+    <div class="stage-desc">Verify that V&amp;V activities are planned and completed before release to production or customer delivery.</div>
+    <div class="gate-items" id="gateItems4"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goStep(3)">← Back</button>
+      <button class="btn btn-primary" onclick="goStep(5)">Next: Software Gate →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 5: Software-Specific Gate (AS9115 overlay) -->
+<div id="step5" class="hidden">
+  <div class="card">
+    <h2 class="sw-heading">Gate 5 — Software-Specific Requirements (AS9115 Overlay)</h2>
+    <div class="sw-notice">AS9115 extends AS9100D for software-intensive aerospace products. These items supplement the base D&amp;D gates. All applicable items must be satisfied before software release.</div>
+    <div class="gate-items" id="gateItems5"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goStep(4)">← Back</button>
+      <button class="btn btn-primary" onclick="computeAndShow()">Generate Gate Decision →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 6: Results -->
+<div id="step6" class="hidden">
+  <div id="verdictPanel" class="verdict-panel">
+    <div class="verdict-label" id="verdictLabel">GATE DECISION</div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <div id="critMissingBlock"></div>
+    <div id="openItemBlock"></div>
+  </div>
+  <div class="overall-panel">
+    <h3>Gate-by-Gate Summary</h3>
+    <div class="stage-pills" id="stagePills"></div>
+    <div class="detail-summary gate-summary" id="detailSummary"></div>
+  </div>
+  <div class="card">
+    <h2>Gate Review Record (Narrative)</h2>
+    <div class="narrative-box" id="narrative"></div>
+    <div class="btn-row">
+      <button class="btn btn-export" onclick="exportJSON()">Export JSON</button>
+      <button class="btn btn-secondary" onclick="goStep(0)">← Start Over</button>
+    </div>
+  </div>
+</div>
+
+</div>
+<footer>
+  AS9115 Software Design &amp; Development Gate Tool · Conform-Edge · Readiness assessment only — does not constitute AS9115 or DO-178C/DO-254 compliance certification<br>
+  Standards referenced by clause number and intent only · No standard text reproduced · For audit preparation use only
+</footer>
+
+<script>
+// M-AI Reserved Interface
+window.__MAI_INTERFACE__ = {
+  domain: 'as9115-software-dd-readiness',
+  version: '1.0.0',
+  dims: ['software-gate-completeness','sccb-authority-evidence','cdrl-status-evidence','software-vv-evidence'],
+  status: 'ARCHITECTURE_DEFINED',
+  note: 'Deterministic engine in standalone mode. Reserved for M-AI Kernel integration on platform promotion.'
+};
+
+// Gate definitions
+const GATES = {
+  planning: [
+    {id:'p1', text:'Design and development plan is documented and approved', ref:'AS9100D 8.3.2', critical:true},
+    {id:'p2', text:'Design stages and review points are defined with criteria', ref:'AS9100D 8.3.2', critical:true},
+    {id:'p3', text:'Responsibilities and authorities for D&D are assigned', ref:'AS9100D 8.3.2', critical:false},
+    {id:'p4', text:'Internal and external interfaces are identified', ref:'AS9100D 8.3.2', critical:false},
+    {id:'p5', text:'Customer and regulatory requirements for D&D are captured in the plan', ref:'AS9100D 8.3.2', critical:false},
+    {id:'p6', text:'Risk identification for D&D is documented', ref:'AS9100D 8.3.2', critical:false},
+    {id:'p7', text:'Configuration management plan or strategy for D&D is defined', ref:'AS9100D 8.3.2', critical:false}
+  ],
+  inputs: [
+    {id:'i1', text:'Functional and performance requirements are documented', ref:'AS9100D 8.3.3', critical:true},
+    {id:'i2', text:'Applicable regulatory and statutory requirements are identified', ref:'AS9100D 8.3.3', critical:true},
+    {id:'i3', text:'Information from previous design activities is referenced', ref:'AS9100D 8.3.3', critical:false},
+    {id:'i4', text:'Requirements are complete, unambiguous, and non-conflicting (review recorded)', ref:'AS9100D 8.3.3', critical:true},
+    {id:'i5', text:'Product safety requirements are identified', ref:'AS9100D 8.3.3', critical:true},
+    {id:'i6', text:'Key Characteristics (KCs) are identified where applicable', ref:'AS9100D 8.3.3', critical:false},
+    {id:'i7', text:'Interface control requirements (ICD) are captured', ref:'AS9100D 8.3.3', critical:false}
+  ],
+  outputs: [
+    {id:'o1', text:'Design outputs meet input requirements (traceability demonstrated)', ref:'AS9100D 8.3.4', critical:true},
+    {id:'o2', text:'Design outputs reference acceptance criteria', ref:'AS9100D 8.3.4', critical:true},
+    {id:'o3', text:'Design review(s) are completed and recorded', ref:'AS9100D 8.3.5', critical:true},
+    {id:'o4', text:'Review participants and decisions are documented', ref:'AS9100D 8.3.5', critical:false},
+    {id:'o5', text:'Action items from design review are tracked to closure', ref:'AS9100D 8.3.5', critical:false},
+    {id:'o6', text:'Drawing / model release is controlled and approved', ref:'AS9100D 8.3.4', critical:false},
+    {id:'o7', text:'Configuration baseline is established at output gate', ref:'AS9100D 8.3.4/8.3.7', critical:false}
+  ],
+  vv: [
+    {id:'v1', text:'Verification plan is documented with methods, criteria, and responsible parties', ref:'AS9100D 8.3.6', critical:true},
+    {id:'v2', text:'Verification activities are completed and results are recorded', ref:'AS9100D 8.3.6', critical:true},
+    {id:'v3', text:'Validation is performed under representative conditions (or rationale documented)', ref:'AS9100D 8.3.6', critical:true},
+    {id:'v4', text:'Nonconformances identified during V&V are dispositioned', ref:'AS9100D 8.3.6', critical:true},
+    {id:'v5', text:'Design changes are controlled and re-verified where required', ref:'AS9100D 8.3.7', critical:false},
+    {id:'v6', text:'Any design changes during V&V have been evaluated for impact and authorized', ref:'AS9100D 8.3.7', critical:true}
+  ],
+  software: [
+    {id:'s1', text:'Software Configuration Control Board (SCCB) is established with defined authority', ref:'AS9115 / AS9100D 8.3.2', critical:true, sw:true},
+    {id:'s2', text:'Software baseline is under formal configuration control (version controlled)', ref:'AS9115 / AS9100D 8.3.4', critical:true, sw:true},
+    {id:'s3', text:'Contract Data Requirements List (CDRL) / Data Requirements List (DRL) is current and complete', ref:'AS9115', critical:true, sw:true},
+    {id:'s4', text:'Software V&V method is documented (test plans, analysis, inspection, or simulation)', ref:'AS9115 / AS9100D 8.3.6', critical:true, sw:true},
+    {id:'s5', text:'Software criticality / classification level is determined and documented', ref:'AS9115', critical:true, sw:true},
+    {id:'s6', text:'Regression test strategy is defined for software changes', ref:'AS9115 / AS9100D 8.3.7', critical:false, sw:true},
+    {id:'s7', text:'Software release record / Software Version Description (SVD) is maintained', ref:'AS9115', critical:true, sw:true},
+    {id:'s8', text:'Interface Control Documents (ICDs) affecting software are identified and baselined', ref:'AS9115 / AS9100D 8.3.3', critical:false, sw:true},
+    {id:'s9', text:'Software problem/defect reports are tracked to closure before release', ref:'AS9115', critical:true, sw:true},
+    {id:'s10', text:'DO-178C / DO-254 compliance evidence referenced where applicable to safety level', ref:'AS9115', critical:false, sw:true},
+    {id:'s11', text:'Software development environment (tools, compilers, IDE) is documented and controlled', ref:'AS9115', critical:false, sw:true},
+    {id:'s12', text:'Supplier software (COTS, OSS, reused code) is identified and qualified', ref:'AS9115 / AS9100D 8.4', critical:false, sw:true}
+  ]
+};
+
+// Render gate items
+function renderGate(gateKey, containerId) {
+  const items = GATES[gateKey];
+  const container = document.getElementById(containerId);
+  container.innerHTML = items.map(item => `
+    <div class="gate-item${item.sw?' sw-item':''}" onclick="toggleItem('chk_${item.id}')">
+      <input type="checkbox" id="chk_${item.id}" onclick="event.stopPropagation()">
+      <div class="gate-item-body">
+        <div class="gate-item-title">
+          ${item.text}
+          ${item.critical ? '<span class="critical-flag">CRITICAL</span>' : ''}
+          ${item.sw ? '<span class="sw-flag">AS9115</span>' : ''}
+        </div>
+        <div class="gate-item-ref${item.sw?' sw':''}">Ref: ${item.ref}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleItem(id) {
+  const chk = document.getElementById(id);
+  chk.checked = !chk.checked;
+}
+
+// Navigation
+function goStep(n) {
+  for(let i=0;i<7;i++){
+    document.getElementById('step'+i).classList.toggle('hidden', i!==n);
+    const btn = document.getElementById('tab'+i);
+    btn.classList.remove('active','done');
+    if(i===n) btn.classList.add(n===5?'active sw':'active');
+    else if(i<n) btn.classList.add('done');
+  }
+  document.getElementById('progressFill').style.width = ((n+1)/7*100)+'%';
+  window.scrollTo(0,0);
+}
+
+// Scoring engine
+function getGateResults(items) {
+  const results = {total:0, checked:0, missing:[], criticalMissing:[]};
+  items.forEach(item => {
+    results.total++;
+    const chk = document.getElementById('chk_'+item.id);
+    if(chk && chk.checked) { results.checked++; }
+    else {
+      results.missing.push(item.text);
+      if(item.critical) results.criticalMissing.push(item.text);
+    }
+  });
+  return results;
+}
+
+function gateVerdict(res) {
+  if(res.criticalMissing.length > 0) return 'HOLD';
+  const pct = res.checked/res.total;
+  if(pct >= 0.9) return 'PROCEED';
+  if(pct >= 0.65) return 'CONDITIONAL';
+  return 'HOLD';
+}
+
+function computeAndShow() {
+  const g = {
+    planning: getGateResults(GATES.planning),
+    inputs: getGateResults(GATES.inputs),
+    outputs: getGateResults(GATES.outputs),
+    vv: getGateResults(GATES.vv),
+    software: getGateResults(GATES.software)
+  };
+  const v = {
+    planning: gateVerdict(g.planning),
+    inputs: gateVerdict(g.inputs),
+    outputs: gateVerdict(g.outputs),
+    vv: gateVerdict(g.vv),
+    software: gateVerdict(g.software)
+  };
+
+  // Overall verdict: any HOLD forces HOLD; any CONDITIONAL forces CONDITIONAL
+  let overall = 'PROCEED';
+  if(Object.values(v).includes('HOLD')) overall = 'HOLD';
+  else if(Object.values(v).includes('CONDITIONAL')) overall = 'CONDITIONAL';
+
+  const allMissing = [
+    ...g.planning.missing.map(m=>'[Planning] '+m),
+    ...g.inputs.missing.map(m=>'[Inputs] '+m),
+    ...g.outputs.missing.map(m=>'[Outputs] '+m),
+    ...g.vv.missing.map(m=>'[V&V] '+m),
+    ...g.software.missing.map(m=>'[Software/AS9115] '+m)
+  ];
+  const allCritMissing = [
+    ...g.planning.criticalMissing.map(m=>'[Planning] '+m),
+    ...g.inputs.criticalMissing.map(m=>'[Inputs] '+m),
+    ...g.outputs.criticalMissing.map(m=>'[Outputs] '+m),
+    ...g.vv.criticalMissing.map(m=>'[V&V] '+m),
+    ...g.software.criticalMissing.map(m=>'[Software/AS9115] '+m)
+  ];
+
+  const verdictMsg = {
+    'PROCEED': 'All gate criteria met. Software D&D activity may proceed to next phase or production release.',
+    'CONDITIONAL': 'Non-critical gaps identified. Proceed with documented open-item register and defined closure dates.',
+    'HOLD': 'One or more critical gate criteria not met. Software D&D activity must not proceed until critical items are resolved.'
+  };
+
+  // Render
+  goStep(6);
+
+  const vp = document.getElementById('verdictPanel');
+  vp.className = 'verdict-panel verdict-'+overall;
+  vp.style.display = 'block';
+  document.getElementById('verdictLabel').textContent = 'GATE DECISION: '+overall;
+  document.getElementById('verdictSub').textContent = verdictMsg[overall];
+
+  document.getElementById('critMissingBlock').innerHTML = allCritMissing.length > 0
+    ? `<div class="missing-list"><h4>Critical Items Not Satisfied (${allCritMissing.length})</h4><ul>${allCritMissing.map(m=>'<li>'+m+'</li>').join('')}</ul></div>` : '';
+  document.getElementById('openItemBlock').innerHTML = (allMissing.length > 0 && allCritMissing.length === 0)
+    ? `<div class="missing-list"><h4 style="color:#fcd34d">Open Items (${allMissing.length})</h4><ul>${allMissing.map(m=>'<li style="color:#e2e8f0">'+m+'</li>').join('')}</ul></div>` : '';
+
+  const gNames = ['Gate 1 — Planning (8.3.2)','Gate 2 — Inputs (8.3.3)','Gate 3 — Outputs (8.3.4/5)','Gate 4 — V&V (8.3.6/7)','Gate 5 — Software (AS9115)'];
+  const gData = [g.planning, g.inputs, g.outputs, g.vv, g.software];
+  const vData = [v.planning, v.inputs, v.outputs, v.vv, v.software];
+  const pillClass = {PROCEED:'pill-pass',CONDITIONAL:'pill-warn',HOLD:'pill-fail'};
+  const badgeClass = {PROCEED:'badge-pass',CONDITIONAL:'badge-warn',HOLD:'badge-fail'};
+
+  document.getElementById('stagePills').innerHTML = gNames.map((n,i) =>
+    `<span class="pill ${i===4?'pill-sw':pillClass[vData[i]]}">${n}: ${vData[i]}</span>`
+  ).join('');
+
+  document.getElementById('detailSummary').innerHTML = gNames.map((n,i) => `
+    <div class="gate-row">
+      <span class="gate-name">${n}</span>
+      <span>${gData[i].checked}/${gData[i].total} satisfied · ${gData[i].criticalMissing.length} critical open</span>
+      <span class="badge ${badgeClass[vData[i]]}">${vData[i]}</span>
+    </div>
+  `).join('');
+
+  // Narrative
+  const projNum = document.getElementById('projNum').value || 'Not specified';
+  const projTitle = document.getElementById('projTitle').value || 'Not specified';
+  const ddType = document.getElementById('ddType').value || 'Not specified';
+  const orgName = document.getElementById('orgName').value || 'Not specified';
+  const revDate = document.getElementById('revDate').value || new Date().toISOString().split('T')[0];
+  const std = document.getElementById('stdSelect').value;
+  const swClass = document.getElementById('swClass').value;
+  const totalChecked = Object.values(g).reduce((a,r)=>a+r.checked,0);
+  const totalItems = Object.values(g).reduce((a,r)=>a+r.total,0);
+
+  document.getElementById('narrative').textContent =
+`AS9115 SOFTWARE DESIGN & DEVELOPMENT GATE REVIEW RECORD
+Standard: ${std}
+Project / P/N: ${projNum}
+Description: ${projTitle}
+Activity Type: ${ddType}
+Software Classification: ${swClass}
+Organization: ${orgName}
+Review Date: ${revDate}
+Generated: ${new Date().toISOString()}
+
+OVERALL GATE DECISION: ${overall}
+${verdictMsg[overall]}
+
+GATE SUMMARY:
+  Gate 1 – Planning (Cl. 8.3.2):           ${g.planning.checked}/${g.planning.total} satisfied — ${v.planning}
+  Gate 2 – Inputs (Cl. 8.3.3):             ${g.inputs.checked}/${g.inputs.total} satisfied — ${v.inputs}
+  Gate 3 – Outputs (Cl. 8.3.4/8.3.5):      ${g.outputs.checked}/${g.outputs.total} satisfied — ${v.outputs}
+  Gate 4 – V&V (Cl. 8.3.6/8.3.7):         ${g.vv.checked}/${g.vv.total} satisfied — ${v.vv}
+  Gate 5 – Software / AS9115 Overlay:       ${g.software.checked}/${g.software.total} satisfied — ${v.software}
+  TOTAL:                                    ${totalChecked}/${totalItems} satisfied
+
+${allCritMissing.length > 0 ? 'CRITICAL OPEN ITEMS (must close before proceeding):\n' + allCritMissing.map((m,i)=>`  ${i+1}. ${m}`).join('\n') + '\n\n' : ''}${allMissing.filter(m=>!allCritMissing.some(c=>m.includes(c))).length > 0 ? 'NON-CRITICAL OPEN ITEMS:\n' + allMissing.filter(m=>!allCritMissing.some(c=>m.includes(c))).map((m,i)=>`  ${i+1}. ${m}`).join('\n') + '\n\n' : ''}REVIEWER ACKNOWLEDGEMENT:
+This record represents the gate review outcome as entered by the reviewer.
+The accountable engineer / Quality authority retains responsibility for D&D gate decisions.
+This tool provides readiness assessment only — it does not constitute AS9115 certification or approval.`;
+
+  window._gateData = {projNum, projTitle, ddType, swClass, orgName, revDate, std, overall, gates: {planning:v.planning, inputs:v.inputs, outputs:v.outputs, vv:v.vv, software:v.software}, totalChecked, totalItems};
+}
+
+function exportJSON() {
+  if(!window._gateData){alert('Generate gate decision first.');return;}
+  const blob = new Blob([JSON.stringify(window._gateData, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'as9115-dd-gate-' + (window._gateData.projNum||'review').replace(/[^a-zA-Z0-9-]/g,'_') + '.json';
+  a.click();
+}
+
+// Initialize
+renderGate('planning','gateItems1');
+renderGate('inputs','gateItems2');
+renderGate('outputs','gateItems3');
+renderGate('vv','gateItems4');
+renderGate('software','gateItems5');
+</script>
+</body>
+</html>

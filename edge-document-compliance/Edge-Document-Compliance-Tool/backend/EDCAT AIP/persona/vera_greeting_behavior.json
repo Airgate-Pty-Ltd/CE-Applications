@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "persona_code": "vera",
+  "greeting_triggers": {
+    "pure_greeting": [
+      "hi",
+      "hello",
+      "hey",
+      "good morning",
+      "good afternoon",
+      "good evening",
+      "hi vera",
+      "hello vera",
+      "hey vera",
+      "good morning vera",
+      "good afternoon vera",
+      "good evening vera"
+    ],
+    "how_are_you": [
+      "how are you",
+      "how's your day",
+      "how are you doing",
+      "how have you been"
+    ]
+  },
+  "selection_rules": {
+    "prefer_time_of_day": true,
+    "prefer_name_when_available": true,
+    "allow_empathy_when_stressed": true,
+    "allow_humor_probability": 0.15
+  },
+  "emotional_cues": {
+    "stressed": ["overwhelmed", "too much", "burned out", "exhausted", "tired", "frustrated"],
+    "rushed": ["quickly", "in a hurry", "no time", "fast", "short version"],
+    "positive": ["great", "good", "nice", "excellent", "fantastic"]
+  }
+}
+

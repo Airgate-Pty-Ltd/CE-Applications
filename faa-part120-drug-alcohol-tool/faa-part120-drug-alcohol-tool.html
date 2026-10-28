@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAA Part 120 Drug & Alcohol Compliance Tool | Conform-Edge</title>
+<style>
+  :root {
+    --bg: #0d1117; --surface: rgba(255,255,255,0.04); --surface2: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.10); --border2: rgba(255,255,255,0.16);
+    --text: #e6edf3; --text2: #8b949e; --text3: #6e7681;
+    --blue: #58a6ff; --green: #3fb950; --yellow: #d29922; --red: #f85149; --orange: #e3b341;
+    --accent: #388bfd; --radius: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.6; min-height: 100vh; }
+  .topbar { background: rgba(13,17,23,0.95); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
+  .topbar-logo { font-size: 13px; font-weight: 700; color: var(--blue); letter-spacing: 0.05em; }
+  .topbar-sep { color: var(--border2); }
+  .topbar-title { font-size: 13px; color: var(--text2); }
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .subtitle { color: var(--text2); font-size: 13px; margin-bottom: 24px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; border: 1px solid; margin-right: 6px; }
+  .badge-blue { border-color: var(--blue); color: var(--blue); }
+  .badge-yellow { border-color: var(--yellow); color: var(--yellow); }
+  .intro-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 28px; font-size: 13px; color: var(--text2); }
+  .intro-box strong { color: var(--text); }
+  .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
+  .section-header { background: var(--surface2); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
+  .section-num { background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .section-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .section-sub { font-size: 12px; color: var(--text2); margin-left: auto; }
+  .question-row { padding: 14px 20px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; }
+  .question-row:last-child { border-bottom: none; }
+  .q-text { font-size: 13px; color: var(--text); }
+  .q-ref { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .q-critical { font-size: 11px; font-weight: 700; color: var(--red); margin-top: 2px; }
+  .q-controls { display: flex; gap: 6px; flex-shrink: 0; margin-top: 2px; }
+  .q-btn { border: 1px solid var(--border2); background: transparent; color: var(--text2); font-size: 12px; padding: 4px 12px; border-radius: 6px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .q-btn:hover { background: var(--surface2); }
+  .q-btn.yes.active { background: rgba(63,185,80,0.15); border-color: var(--green); color: var(--green); }
+  .q-btn.no.active { background: rgba(248,81,73,0.15); border-color: var(--red); color: var(--red); }
+  .q-btn.na.active { background: rgba(139,148,158,0.15); border-color: var(--text2); color: var(--text2); }
+  .action-bar { position: sticky; bottom: 0; background: rgba(13,17,23,0.97); border-top: 1px solid var(--border); padding: 12px 20px; display: flex; gap: 10px; align-items: center; backdrop-filter: blur(8px); z-index: 50; }
+  .btn { padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #58a6ff; }
+  .btn-secondary { background: var(--surface2); border: 1px solid var(--border2); color: var(--text2); }
+  .btn-secondary:hover { color: var(--text); border-color: var(--text3); }
+  .progress-wrap { flex: 1; background: var(--surface2); border-radius: 4px; height: 6px; }
+  .progress-bar { height: 6px; border-radius: 4px; background: var(--accent); transition: width 0.3s; }
+  .progress-label { font-size: 12px; color: var(--text2); min-width: 60px; text-align: right; }
+  #result { display: none; }
+  .verdict-card { border-radius: var(--radius); padding: 24px; margin-bottom: 24px; border: 2px solid; }
+  .verdict-COMPLIANT { border-color: var(--green); background: rgba(63,185,80,0.06); }
+  .verdict-DEVELOPING { border-color: var(--yellow); background: rgba(210,153,34,0.06); }
+  .verdict-NON_COMPLIANT { border-color: var(--red); background: rgba(248,81,73,0.06); }
+  .verdict-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .verdict-label-COMPLIANT { color: var(--green); }
+  .verdict-label-DEVELOPING { color: var(--yellow); }
+  .verdict-label-NON_COMPLIANT { color: var(--red); }
+  .verdict-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-desc { font-size: 13px; color: var(--text2); }
+  .score-row { display: flex; gap: 20px; margin-top: 16px; }
+  .score-item { text-align: center; }
+  .score-num { font-size: 24px; font-weight: 700; }
+  .score-sub { font-size: 11px; color: var(--text2); }
+  .gap-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
+  .gap-header { padding: 12px 20px; background: var(--surface2); border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 600; }
+  .gap-row { padding: 12px 20px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start; font-size: 13px; }
+  .gap-row:last-child { border-bottom: none; }
+  .gap-crit { color: var(--red); font-weight: 700; font-size: 11px; }
+  .gap-text { color: var(--text); }
+  .gap-action { font-size: 12px; color: var(--text2); margin-top: 3px; }
+  .narrative-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; }
+  .narrative-title { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 10px; }
+  .narrative-text { font-size: 13px; color: var(--text); white-space: pre-wrap; line-height: 1.7; }
+  .export-btn { background: var(--surface); border: 1px solid var(--border2); color: var(--text2); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; }
+  .export-btn:hover { color: var(--text); border-color: var(--text3); }
+  .notice { font-size: 11px; color: var(--text3); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-logo">CONFORM-EDGE</span>
+  <span class="topbar-sep">|</span>
+  <span class="topbar-title">FAA Part 120 Drug & Alcohol Compliance Tool</span>
+</div>
+
+<div class="container">
+  <div id="assessment">
+    <h1>FAA Part 120 Drug & Alcohol Compliance Tool</h1>
+    <p class="subtitle">
+      <span class="badge badge-blue">FAA Part 120</span>
+      <span class="badge badge-yellow">49 CFR Part 40</span>
+      Self-assessment for FAA-regulated employers under DOT/FAA drug and alcohol testing requirements.
+    </p>
+
+    <div class="intro-box">
+      <strong>Scope:</strong> This tool covers FAA-regulated employers operating under 14 CFR Parts 121, 135, and 145 who must maintain a DOT/FAA-compliant drug and alcohol testing program per <strong>14 CFR Part 120</strong> and <strong>49 CFR Part 40</strong>.<br><br>
+      Answer YES, NO, or N/A for each item. Items marked <strong style="color:var(--red)">CRITICAL</strong> will trigger a NON-COMPLIANT verdict if answered NO, regardless of overall score. N/A answers are excluded from scoring.
+    </div>
+
+    <!-- Section 1: Program Administration -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Program Administration</div>
+        <div class="section-sub">Policy, MRO, DER, Coverage</div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">1. The organization has a written drug and alcohol testing policy that addresses all program elements required by 14 CFR Part 120.</div>
+          <div class="q-ref">14 CFR §120.105, §120.215 | FAA Order 9790.1</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(0,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(0,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(0,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">2. The policy has been communicated to all safety-sensitive employees and is available in the workplace.</div>
+          <div class="q-ref">14 CFR §120.111, §120.221</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(1,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(1,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(1,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">3. A qualified Medical Review Officer (MRO) has been designated or contracted for the program.</div>
+          <div class="q-ref">49 CFR §40.121 | 14 CFR §120.107</div>
+          <div class="q-critical">★ CRITICAL — MRO designation is mandatory; absence = NON-COMPLIANT</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(2,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(2,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(2,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">4. The MRO holds current DOT credentials (physician licensure, completion of DOT MRO qualification training).</div>
+          <div class="q-ref">49 CFR §40.121(a)–(c)</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(3,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(3,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(3,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">5. A Designated Employer Representative (DER) has been identified with authority to act on behalf of the employer in all program matters.</div>
+          <div class="q-ref">49 CFR §40.3 | 14 CFR §120.105</div>
+          <div class="q-critical">★ CRITICAL — DER designation is mandatory</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(4,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(4,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(4,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">6. All safety-sensitive functions covered by 14 CFR §120.105/§120.215 are correctly identified and employees in those roles are enrolled in the program.</div>
+          <div class="q-ref">14 CFR §120.105 (drug) / §120.215 (alcohol)</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(5,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(5,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(5,'na',this)">N/A</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Testing Requirements -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">Testing Requirements</div>
+        <div class="section-sub">Pre-employment, Post-accident, Reasonable Suspicion, Return-to-Duty</div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">7. Pre-employment drug testing is conducted before any employee performs a safety-sensitive function for the first time.</div>
+          <div class="q-ref">14 CFR §120.109(a) | 49 CFR §40.25</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(6,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(6,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(6,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">8. The organization queries the FAA Drug Abatement Division or the previous employer drug/alcohol record for all new safety-sensitive employees prior to first performance.</div>
+          <div class="q-ref">14 CFR §120.113 | 49 CFR §40.25</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(7,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(7,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(7,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">9. Post-accident drug AND alcohol testing is conducted per DOT criteria: fatal accidents always; non-fatal per §120.117/§120.227 thresholds.</div>
+          <div class="q-ref">14 CFR §120.117 / §120.227 | 49 CFR Part 40 Subpart K</div>
+          <div class="q-critical">★ CRITICAL — Post-accident testing failures are a primary FAA enforcement trigger</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(8,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(8,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(8,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">10. Reasonable suspicion testing is conducted when a trained supervisor observes specific, contemporaneous, articulable observations of appearance, behavior, speech, or body odors consistent with drug or alcohol use.</div>
+          <div class="q-ref">14 CFR §120.119 / §120.223 | 49 CFR §40.61</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(9,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(9,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(9,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">11. Return-to-duty testing is conducted following any violation before the employee returns to safety-sensitive duties, and follow-up testing (minimum 6 tests in 12 months per SAP direction) is in place.</div>
+          <div class="q-ref">14 CFR §120.111(c) | 49 CFR §§40.305, 40.307</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(10,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(10,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(10,'na',this)">N/A</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Random Testing Pool -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">Random Testing Program</div>
+        <div class="section-sub">Pool integrity, rates, selection, and execution</div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">12. Random drug testing is conducted at a minimum DOT rate (currently 25% of safety-sensitive employees annually); random alcohol testing at a minimum 10% rate.</div>
+          <div class="q-ref">14 CFR §120.109(c) / §120.219 | 49 CFR §40.87</div>
+          <div class="q-critical">★ CRITICAL — Minimum random testing rates are regulatory floors; rates below minimums = NON-COMPLIANT</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(11,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(11,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(11,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">13. Selection for random testing uses a truly random method (e.g., computer-generated) ensuring every covered employee has an equal probability of selection in each period.</div>
+          <div class="q-ref">49 CFR §40.87(b) | FAA AC 120-84</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(12,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(12,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(12,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">14. Selected employees are tested without advance notice, and testing is conducted immediately before, during, or after performing safety-sensitive functions.</div>
+          <div class="q-ref">14 CFR §120.109(c)(3) | 49 CFR §40.87(d)</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(13,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(13,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(13,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">15. Random testing pools are maintained accurately — all safety-sensitive employees included, no non-covered employees included, and additions/deletions are kept current.</div>
+          <div class="q-ref">49 CFR §40.87 | 14 CFR §120.109</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(14,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(14,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(14,'na',this)">N/A</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Collection & Laboratory -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">Collection, Testing Panel & Laboratory</div>
+        <div class="section-sub">Collection sites, panels, NLCP lab requirements</div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">16. Drug testing uses DHHS-certified laboratories only (National Laboratory Certification Program); the current lab certification is confirmed on file.</div>
+          <div class="q-ref">49 CFR §40.81 | 49 CFR Part 40 Subpart F</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(15,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(15,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(15,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">17. The drug testing panel tests for all 5 DOT drug classes: marijuana, cocaine, opioids, amphetamines/methamphetamines, and phencyclidine (PCP).</div>
+          <div class="q-ref">49 CFR §40.85 | DHHS Mandatory Guidelines</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(16,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(16,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(16,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">18. Collection is performed at a qualified collection site using DOT-approved Federal Custody and Control Forms (CCF); chain of custody is maintained from collection to lab.</div>
+          <div class="q-ref">49 CFR §§40.45–40.73 | 49 CFR Part 40 Subpart D</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(17,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(17,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(17,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">19. Alcohol testing uses evidential breath testing (EBT) devices on the current NHTSA Conforming Products List, operated by a trained breath alcohol technician (BAT) or screening test technician (STT).</div>
+          <div class="q-ref">49 CFR §§40.221–40.233 | 49 CFR Part 40 Subpart L</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(18,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(18,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(18,'na',this)">N/A</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5: Training Requirements -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div class="section-title">Training Requirements</div>
+        <div class="section-sub">Employee education, supervisor training, SAP referral</div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">20. All safety-sensitive employees have received initial drug and alcohol awareness education covering: effects on performance, the policy, consequences of violation, and how to seek assistance.</div>
+          <div class="q-ref">14 CFR §120.115 / §120.225</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(19,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(19,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(19,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">21. Annual refresher training or education material is provided to all safety-sensitive employees.</div>
+          <div class="q-ref">14 CFR §120.115(a) | FAA Order 9790.1</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(20,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(20,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(20,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">22. All supervisors who can make reasonable suspicion determinations have received a minimum of 60 minutes of drug and 60 minutes of alcohol training covering the signs and symptoms of use.</div>
+          <div class="q-ref">14 CFR §120.115(b) / §120.225(b) | 49 CFR §40.61</div>
+          <div class="q-critical">★ CRITICAL — Supervisor training is mandatory; gaps here void the reasonable suspicion testing authority</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(21,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(21,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(21,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">23. A Substance Abuse Professional (SAP) evaluation process is in place for employees who violate the policy, including referral, evaluation, treatment/education requirements, and return-to-duty criteria.</div>
+          <div class="q-ref">49 CFR §§40.287–40.311 | 14 CFR §120.111</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(22,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(22,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(22,'na',this)">N/A</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6: Records & Reporting -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div class="section-title">Records, Reporting & Self-Audit</div>
+        <div class="section-sub">Retention, annual MIS report, DAMIS registration</div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">24. Test results and program records are retained per required periods: verified positive results and refusals for 5 years; annual MIS reports for 5 years; negative results for 1 year; alcohol test results ≥0.02 for 5 years.</div>
+          <div class="q-ref">49 CFR §40.333 | 14 CFR §120.131</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(23,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(23,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(23,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">25. Annual Management Information System (MIS) data is reported to the FAA Drug Abatement Division by March 15 of each year as required.</div>
+          <div class="q-ref">14 CFR §120.135 | FAA MIS reporting requirement</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(24,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(24,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(24,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">26. The organization is registered with the FAA Drug Abatement Division (DAMIS) as an employer with a drug and alcohol testing program.</div>
+          <div class="q-ref">14 CFR §120.107(a) | FAA DAMIS system</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(25,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(25,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(25,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">27. The program has been audited internally or by a third party within the last 12 months; findings have corrective actions.</div>
+          <div class="q-ref">FAA Order 9790.1 | Industry best practice</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(26,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(26,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(26,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">28. If using a consortium or third-party administrator (C/TPA), the organization maintains a written service agent agreement and has confirmed the C/TPA performs all required functions.</div>
+          <div class="q-ref">49 CFR §40.15 | 49 CFR Part 40 Subpart Q</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(27,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(27,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(27,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">29. Employees are informed that the employer retains the right to conduct reasonable suspicion testing and that refusal to test is treated as a positive result and program violation.</div>
+          <div class="q-ref">14 CFR §120.111 | 49 CFR §40.61</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(28,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(28,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(28,'na',this)">N/A</button>
+        </div>
+      </div>
+      <div class="question-row">
+        <div>
+          <div class="q-text">30. The DER and any supervisors involved in program administration have received training on their specific program responsibilities, including confidentiality requirements and the prohibition on disclosing test results except as authorized by 49 CFR Part 40.</div>
+          <div class="q-ref">49 CFR §40.333(f) | 49 CFR §40.321</div>
+        </div>
+        <div class="q-controls">
+          <button class="q-btn yes" onclick="setAnswer(29,'yes',this)">YES</button>
+          <button class="q-btn no" onclick="setAnswer(29,'no',this)">NO</button>
+          <button class="q-btn na" onclick="setAnswer(29,'na',this)">N/A</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- end #assessment -->
+
+  <div id="result">
+    <div id="verdict-card" class="verdict-card"></div>
+    <div id="gap-section"></div>
+    <div class="narrative-box">
+      <div class="narrative-title">Management Review Narrative — Drug &amp; Alcohol Program Status</div>
+      <div class="narrative-text" id="narrative"></div>
+    </div>
+    <div class="notice">
+      This tool is intended for internal self-assessment and readiness preparation only. It does not constitute legal advice, regulatory approval, or a DOT/FAA compliance determination. Regulatory citations reference the CFR as of the tool publication date; verify current regulatory text before submission. Consult qualified aviation legal counsel and a Substance Abuse Professional for specific compliance determinations.
+    </div>
+    <button class="export-btn" onclick="exportJSON()">⬇ Export JSON</button>
+    &nbsp;
+    <button class="export-btn" onclick="resetAssessment()">↩ Restart</button>
+  </div>
+</div>
+
+<div class="action-bar">
+  <div class="progress-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+  <div class="progress-label" id="progress-label">0 / 30</div>
+  <button class="btn btn-secondary" onclick="resetAssessment()">Reset</button>
+  <button class="btn btn-primary" onclick="computeResult()">Generate Report →</button>
+</div>
+
+<script>
+// M-AI Kernel reserved interface (MAI-ARCH-001 Rev C)
+window.__MAI_KERNEL_RESERVED = {
+  domainId: 'faa-part120-drug-alcohol',
+  version: '1.0.0',
+  assessmentType: 'regulatory-compliance',
+  authority: 'FAA',
+  regulations: ['14 CFR Part 120', '49 CFR Part 40'],
+  criticalItems: [2, 4, 8, 11, 21],
+  dimSlots: ['program-admin', 'testing-requirements', 'random-testing', 'laboratory', 'training', 'records'],
+  status: 'ARCHITECTURE_DEFINED',
+  connect: function(kernel) { this._kernel = kernel; return this; }
+};
+
+const QUESTIONS = [
+  { text: "Written drug and alcohol testing policy", critical: false },
+  { text: "Policy communicated to safety-sensitive employees", critical: false },
+  { text: "Qualified MRO designated or contracted", critical: true },
+  { text: "MRO holds current DOT credentials", critical: false },
+  { text: "Designated Employer Representative (DER) identified", critical: true },
+  { text: "All safety-sensitive functions correctly identified and enrolled", critical: false },
+  { text: "Pre-employment drug testing conducted", critical: false },
+  { text: "Previous employer drug/alcohol records queried", critical: false },
+  { text: "Post-accident drug AND alcohol testing conducted per DOT criteria", critical: true },
+  { text: "Reasonable suspicion testing procedures established", critical: false },
+  { text: "Return-to-duty and follow-up testing in place", critical: false },
+  { text: "Random testing at or above DOT minimum rates (25% drugs / 10% alcohol)", critical: true },
+  { text: "Truly random selection method in use", critical: false },
+  { text: "Selected employees tested without advance notice", critical: false },
+  { text: "Random testing pool maintained accurately", critical: false },
+  { text: "DHHS-certified laboratory (NLCP) used for drug testing", critical: false },
+  { text: "5-panel DOT drug test used", critical: false },
+  { text: "DOT CCF and chain of custody maintained", critical: false },
+  { text: "Approved EBT device and qualified BAT/STT used for alcohol", critical: false },
+  { text: "Employee drug and alcohol awareness education provided", critical: false },
+  { text: "Annual refresher education/training provided", critical: false },
+  { text: "Supervisors trained: 60 min drug + 60 min alcohol", critical: true },
+  { text: "SAP referral and return-to-duty process established", critical: false },
+  { text: "Records retained per 49 CFR §40.333 requirements", critical: false },
+  { text: "Annual MIS data reported to FAA Drug Abatement Division", critical: false },
+  { text: "Organization registered with DAMIS", critical: false },
+  { text: "Internal or third-party program audit conducted within 12 months", critical: false },
+  { text: "C/TPA agreement and performance confirmation documented (if applicable)", critical: false },
+  { text: "Employees informed of refusal = positive rule", critical: false },
+  { text: "DER and supervisors trained on program responsibilities and confidentiality", critical: false }
+];
+
+let answers = new Array(30).fill(null);
+const SECTIONS = ["Program Administration","Program Administration","Program Administration","Program Administration","Program Administration","Program Administration","Testing Requirements","Testing Requirements","Testing Requirements","Testing Requirements","Testing Requirements","Random Testing","Random Testing","Random Testing","Random Testing","Collection & Laboratory","Collection & Laboratory","Collection & Laboratory","Collection & Laboratory","Training","Training","Training","Training","Records & Reporting","Records & Reporting","Records & Reporting","Records & Reporting","Records & Reporting","Records & Reporting","Records & Reporting"];
+
+function setAnswer(idx, val, btn) {
+  answers[idx] = val;
+  const row = btn.closest('.question-row');
+  row.querySelectorAll('.q-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateProgress();
+}
+
+function updateProgress() {
+  const answered = answers.filter(a => a !== null).length;
+  const pct = Math.round(answered / 30 * 100);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = answered + ' / 30';
+}
+
+function computeResult() {
+  const answered = answers.filter(a => a !== null).length;
+  if (answered < 20) { alert('Please answer at least 20 questions before generating a report.'); return; }
+
+  let yes = 0, no = 0, na = 0, criticalFail = [];
+  answers.forEach((a, i) => {
+    if (a === 'yes') yes++;
+    else if (a === 'no') { no++; if (QUESTIONS[i].critical) criticalFail.push(i); }
+    else if (a === 'na') na++;
+  });
+
+  const scoreable = 30 - na;
+  const pct = scoreable > 0 ? Math.round(yes / scoreable * 100) : 0;
+  let verdict;
+  if (criticalFail.length > 0) verdict = 'NON_COMPLIANT';
+  else if (pct >= 85) verdict = 'COMPLIANT';
+  else if (pct >= 60) verdict = 'DEVELOPING';
+  else verdict = 'NON_COMPLIANT';
+
+  const VERDICTS = {
+    COMPLIANT: { label: 'COMPLIANT', title: 'Program Meets DOT/FAA Requirements', desc: 'Your drug and alcohol testing program addresses the key requirements of 14 CFR Part 120 and 49 CFR Part 40. Maintain the program through annual audits, MIS reporting, and ongoing supervisor training currency.' },
+    DEVELOPING: { label: 'DEVELOPING', title: 'Program Gaps Identified — Action Required', desc: 'Your program addresses some requirements but has material gaps that need resolution before FAA inspection. Address all NO responses, particularly in testing execution and recordkeeping.' },
+    NON_COMPLIANT: { label: 'NON-COMPLIANT', title: 'Significant Compliance Gaps — Immediate Action Required', desc: 'Your program has critical deficiencies or falls below the DOT minimum threshold. Immediate corrective action is required. Consult qualified aviation counsel and correct critical gaps before next inspection.' }
+  };
+
+  const v = VERDICTS[verdict];
+  const vCard = document.getElementById('verdict-card');
+  vCard.className = 'verdict-card verdict-' + verdict;
+  vCard.innerHTML = `
+    <div class="verdict-label verdict-label-${verdict}">${v.label}</div>
+    <div class="verdict-title">${v.title}</div>
+    <div class="verdict-desc">${v.desc}</div>
+    <div class="score-row">
+      <div class="score-item"><div class="score-num" style="color:var(--green)">${yes}</div><div class="score-sub">YES</div></div>
+      <div class="score-item"><div class="score-num" style="color:var(--red)">${no}</div><div class="score-sub">NO / Gap</div></div>
+      <div class="score-item"><div class="score-num" style="color:var(--text2)">${na}</div><div class="score-sub">N/A</div></div>
+      <div class="score-item"><div class="score-num" style="color:${pct>=85?'var(--green)':pct>=60?'var(--yellow)':'var(--red)'}">${pct}%</div><div class="score-sub">Score</div></div>
+      ${criticalFail.length ? `<div class="score-item"><div class="score-num" style="color:var(--red)">${criticalFail.length}</div><div class="score-sub">Critical Fail</div></div>` : ''}
+    </div>`;
+
+  // Gap table
+  const gaps = answers.map((a,i) => a === 'no' ? i : null).filter(i => i !== null);
+  let gapHtml = '';
+  if (gaps.length) {
+    gapHtml = '<div class="gap-card"><div class="gap-header">Gaps Requiring Corrective Action (' + gaps.length + ')</div>';
+    gaps.forEach(i => {
+      const action = getAction(i);
+      gapHtml += `<div class="gap-row">
+        <div>${QUESTIONS[i].critical ? '<span class="gap-crit">★</span>' : '○'}</div>
+        <div><div class="gap-text">${SECTIONS[i]} — Q${i+1}: ${QUESTIONS[i].text}</div><div class="gap-action">${action}</div></div>
+      </div>`;
+    });
+    gapHtml += '</div>';
+  }
+  document.getElementById('gap-section').innerHTML = gapHtml;
+
+  // Narrative
+  const date = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  let narr = `Drug & Alcohol Program Status — Assessment Date: ${date}\n\n`;
+  narr += `Overall Result: ${v.label} (${pct}% compliance score; ${yes} compliant items, ${no} gaps, ${na} not applicable across 30 program requirements).\n\n`;
+  if (criticalFail.length) {
+    narr += `CRITICAL FINDINGS (${criticalFail.length}): `;
+    narr += criticalFail.map(i => `Q${i+1} — ${QUESTIONS[i].text}`).join('; ') + '.\n\n';
+    narr += 'These critical items require immediate corrective action prior to next FAA inspection.\n\n';
+  }
+  narr += `Program coverage spans 14 CFR Part 120 and 49 CFR Part 40 requirements including program administration, testing categories, random pool management, laboratory and collection standards, training requirements, and recordkeeping.\n\n`;
+  if (no > 0) {
+    narr += `${no} gap(s) identified requiring corrective action. Recommend prioritizing critical items, then addressing training, testing execution, and recordkeeping gaps in sequence. Annual MIS reporting and ongoing supervisor training currency must be verified as standing program controls.`;
+  } else {
+    narr += 'No material gaps identified. Recommend continuing annual self-audit cadence and confirming MRO and DER designation currency at each program review cycle.';
+  }
+  document.getElementById('narrative').textContent = narr;
+
+  document.getElementById('assessment').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function getAction(i) {
+  const actions = [
+    "Draft and approve a written D&A testing program policy addressing all 14 CFR Part 120 elements.",
+    "Conduct an all-hands policy briefing; post policy in the workplace; retain distribution records.",
+    "Designate or contract a qualified MRO; document the agreement and MRO credentials on file. CRITICAL.",
+    "Verify MRO's physician licensure and DOT MRO qualification training completion are current.",
+    "Designate a DER in writing; ensure the DER understands authority, responsibilities, and contact protocol. CRITICAL.",
+    "Map all safety-sensitive functions per §120.105/§120.215; verify every covered employee is in the testing pool.",
+    "Implement pre-employment testing as a condition of first safety-sensitive duty; document the process.",
+    "Establish a previous employer query process; retain consent forms and query results per §40.333.",
+    "Document post-accident testing trigger criteria; train DER on testing timelines and documentation. CRITICAL.",
+    "Document supervisor reasonable-suspicion authority and establish a written observation and referral form.",
+    "Establish return-to-duty and follow-up testing protocols; confirm SAP directs the follow-up schedule.",
+    "Calculate current random testing rate; if below 25%/10% DOT minimums, increase immediately. CRITICAL.",
+    "Implement a documented random selection mechanism (e.g., computer-generated) ensuring equal probability.",
+    "Update notification and collection protocols to eliminate advance notice; test immediately when notified.",
+    "Audit the testing pool quarterly; add/remove employees within one pay period of status changes.",
+    "Confirm current lab NLCP certification; request certification documentation; file on record.",
+    "Verify CCF and lab order specifies all 5 DOT drug classes per DHHS Mandatory Guidelines.",
+    "Train collectors on DOT-specified CCF completion and chain of custody requirements.",
+    "Confirm the EBT device appears on the NHTSA CPL; verify the BAT/STT holds current qualification.",
+    "Conduct initial employee education; document attendance; retain training records.",
+    "Implement annual refresher distribution; document date, method, and employee acknowledgment.",
+    "Schedule mandatory 60+60 min supervisor training; document completion and retain certificates. CRITICAL.",
+    "Establish written SAP referral and return-to-duty procedures; identify SAP resources available to employees.",
+    "Audit records against 49 CFR §40.333 retention schedule; apply immediately for all test result categories.",
+    "Verify MIS submission was filed by March 15; if not, submit corrective MIS and document deviation.",
+    "Register with DAMIS if not current; confirm registration accuracy with the FAA Drug Abatement Division.",
+    "Schedule internal audit; assign responsibility, scope, and corrective action ownership.",
+    "Execute a written C/TPA agreement; conduct annual performance review of the C/TPA's functions.",
+    "Issue written employee notice covering refusal-as-positive rule; retain signed acknowledgments.",
+    "Conduct DER and supervisor training on roles, confidentiality obligations, and information disclosure rules."
+  ];
+  return actions[i] || "Review requirement and implement corrective action.";
+}
+
+function resetAssessment() {
+  answers = new Array(30).fill(null);
+  document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('progress-label').textContent = '0 / 30';
+  document.getElementById('assessment').style.display = 'block';
+  document.getElementById('result').style.display = 'none';
+  window.scrollTo(0,0);
+}
+
+function exportJSON() {
+  const data = {
+    tool: 'FAA Part 120 Drug & Alcohol Compliance Tool',
+    authority: 'FAA / DOT',
+    regulations: ['14 CFR Part 120', '49 CFR Part 40'],
+    assessmentDate: new Date().toISOString(),
+    answers: answers.map((a,i) => ({ q: i+1, text: QUESTIONS[i].text, critical: QUESTIONS[i].critical, answer: a })),
+    maiBridge: window.__MAI_KERNEL_RESERVED
+  };
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'faa-part120-assessment-' + new Date().toISOString().slice(0,10) + '.json'; a.click();
+}
+</script>
+</body>
+</html>

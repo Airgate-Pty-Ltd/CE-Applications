@@ -1,0 +1,29 @@
+{
+ "label": "DRAFT DEMONSTRATION - NOT AN APPROVAL",
+ "generated_on": "2026-10-08",
+ "reconciliation": {
+  "AS9100D": {
+   "structure_reconciled": true,
+   "reasons": []
+  },
+  "AS9110C": {
+   "structure_reconciled": true,
+   "reasons": []
+  }
+ },
+ "canonical_rows": {
+  "AS9100D": 100,
+  "AS9110C": 106
+ },
+ "lettered_rows": {
+  "AS9100D": 294,
+  "AS9110C": 309
+ },
+ "demo_audit": "DEMO-AUDIT (synthetic)",
+ "lock_allowed": false,
+ "lock_reasons": [
+  "no quality manual recorded",
+  "AS9110C: status 'proposed' is not approved",
+  "AS9110C: review cycle not started (no next_review_due)"
+ ]
+}

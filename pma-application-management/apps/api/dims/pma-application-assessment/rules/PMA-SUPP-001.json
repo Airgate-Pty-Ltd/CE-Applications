@@ -1,0 +1,34 @@
+{
+  "ruleId": "PMA-SUPP-001",
+  "dimId": "pma-application-assessment",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "PENDING-REVIEW",
+  "approvalRef": "Submission Checklist item 2.B (Supplement item count)",
+  "severity": "major",
+  "gapClass": "BLOCKING",
+  "category": "completeness",
+  "riskClass": "A",
+  "basisType": "deterministic-record-completeness",
+  "description": "Every article on the PMA supplement must be authorized by the assist letter or STC, and the item count must reconcile.",
+  "requiredFields": [
+    "supplement_item_count_reconciles"
+  ],
+  "logicResult": "supplement_item_count_mismatch",
+  "findingText": "The number of articles on the PMA supplement does not reconcile with the articles authorized by the assist letter or STC. This includes duplicated supplement rows.",
+  "resolutionHint": "Compare the supplement line items against the assist letter table; remove duplicates and add any missing authorized article.",
+  "clauseRefs": [
+    "Submission Checklist item 2.B (Supplement item count)",
+    "Organization supplement development procedure"
+  ],
+  "condition": {
+    "field": "supplement_item_count_reconciles",
+    "op": "eq",
+    "value": false
+  },
+  "limitations": [
+    "Reconciles counts and part numbers; it cannot judge whether an article should have been included commercially."
+  ],
+  "citationScope": "generic",
+  "citationNote": "Cites the form/procedure by role; the tenant profile supplies its own controlled document number and revision when the finding is rendered."
+}

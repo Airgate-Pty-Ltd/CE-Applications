@@ -1,0 +1,28 @@
+{
+  "validator": "validate-content",
+  "validatorVersion": "0.3.0",
+  "mode": "release",
+  "pack": "as9100d-demo.pack.json",
+  "packSha256": "9a6a3f25121fbff4975bbef405e85e84d5448bc19ffd011dff0de68dd2725596",
+  "indexSha256": "ca58d220e0203a00dd81d6bebbf9da6a27cf2cce679c01783a1a6bc47cb0aa4e",
+  "verificationRecordSha256": "98f2ca523904ff28729550577287d1e874b778dca9366f697af566365d3eecab",
+  "frameworkValidatorSha256": "78a50c7bc4a139a3446f6fd838b4eaa5a7aa4543291dd84d27441b308eabc561",
+  "result": "FAIL",
+  "exitCode": 1,
+  "failures": [
+    "source version is not verified (source.verification.status !== \"VERIFIED\") — required before release",
+    "clause index status is UNVERIFIED-SAMPLE — designators must be verified against the licensed edition before release",
+    "OB-8.5.2: clauseHierarchy is not VERIFIED (PENDING)",
+    "OB-8.5.2: interpretation is not VERIFIED (PENDING)",
+    "OB-7.1.5.2-a: clauseHierarchy is not VERIFIED (PENDING)",
+    "OB-7.1.5.2-a: interpretation is not VERIFIED (PENDING)",
+    "OB-8.4.2-d: clauseHierarchy is not VERIFIED (PENDING)",
+    "OB-8.4.2-d: interpretation is not VERIFIED (PENDING)",
+    "OB-7.2-c: clauseHierarchy is not VERIFIED (PENDING)",
+    "OB-7.2-c: interpretation is not VERIFIED (PENDING)",
+    "OB-8.5.1.2: clauseHierarchy is not VERIFIED (PENDING)",
+    "OB-8.5.1.2: interpretation is not VERIFIED (PENDING)"
+  ],
+  "warnings": [],
+  "at": "2026-10-11T16:00:44.469Z"
+}

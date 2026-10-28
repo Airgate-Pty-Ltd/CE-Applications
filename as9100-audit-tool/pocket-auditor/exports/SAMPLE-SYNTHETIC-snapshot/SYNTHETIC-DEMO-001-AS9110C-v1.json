@@ -1,0 +1,439 @@
+{
+ "audit_id": "SYNTHETIC-DEMO-001",
+ "clauses_selected": [
+  "8.5.1",
+  "8.7.1",
+  "10.2.1"
+ ],
+ "created_at": "2026-10-08T16:18:36",
+ "licensed_source_sha256": "0af526813f6636639a37382a731e41e703ce23488882082d146d529fcbdd2c71",
+ "reconciliation_status": "RECONCILED",
+ "rows": [
+  {
+   "evidence": [
+    "Work order with current maintenance data",
+    "In-process inspection records",
+    "Operation completion record",
+    "Handover continuity record",
+    "Off-site work control record"
+   ],
+   "intent": "Work is controlled through: defined characteristics and results from current maintenance data, monitoring and measurement, suitable infrastructure, competent persons, validation of processes that cannot be fully verified, human error prevention, release, in-process inspection points, evidence that all operations were completed, foreign object control, continuity of information at work handover, utilities, compliance with reference standards and technical data, management of approved capabilities and ratings, and control of work done away from the fixed location.",
+   "locator": null,
+   "parent_ref": null,
+   "question": "Pick one maintenance job and show: current maintenance data, in-process inspection points, the record that every operation was completed, handover continuity, and control of any work done off site.",
+   "reconciliation": "MATCHED_TOC",
+   "ref": "8.5.1",
+   "title": "Control of Production and Service Provision",
+   "type": null
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (a) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (a)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (a) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(a)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (b) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (b)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (b) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(b)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (c) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (c)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (c) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(c)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (d) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (d)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (d) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(d)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (e) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (e)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (e) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(e)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (f) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (f)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (f) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(f)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (g) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (g)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (g) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(g)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (h) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (h)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (h) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(h)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (i) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (i)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (i) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(i)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (j) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (j)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (j) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(j)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (k) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (k)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (k) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(k)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (l) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (l)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (l) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(l)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (m) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (m)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (m) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(m)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (n) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (n)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (n) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(n)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (o) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (o)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (o) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(o)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (p) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (p)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (p) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(p)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (q) of 8.5.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (q)",
+   "parent_ref": "8.5.1",
+   "question": "Show how sub-paragraph (q) of clause 8.5.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(q)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Documented nonconformity process",
+    "Customer or type certificate holder notification record"
+   ],
+   "intent": "The nonconformity control process is documented: responsibility and approval of disposition, containment, timely reporting to customers and relevant parties, and corrective action for problems found after delivery.",
+   "locator": null,
+   "parent_ref": null,
+   "question": "Show the documented nonconformity process and an example of timely reporting to a customer.",
+   "reconciliation": "MATCHED_BODY",
+   "ref": "8.7.1",
+   "title": "Nonconforming outputs control process",
+   "type": null
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (a) of 8.7.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.7.1, item (a)",
+   "parent_ref": "8.7.1",
+   "question": "Show how sub-paragraph (a) of clause 8.7.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.7.1(a)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (b) of 8.7.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.7.1, item (b)",
+   "parent_ref": "8.7.1",
+   "question": "Show how sub-paragraph (b) of clause 8.7.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.7.1(b)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (c) of 8.7.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.7.1, item (c)",
+   "parent_ref": "8.7.1",
+   "question": "Show how sub-paragraph (c) of clause 8.7.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.7.1(c)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (d) of 8.7.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.7.1, item (d)",
+   "parent_ref": "8.7.1",
+   "question": "Show how sub-paragraph (d) of clause 8.7.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.7.1(d)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Corrective action record through all steps",
+    "Flow-down to a provider where responsible",
+    "Escalation record for a late action"
+   ],
+   "intent": "After a nonconformity, the organization reacts and corrects it, deals with consequences, finds causes including human factors, checks for similar nonconformities, implements and reviews corrective action, updates risks and the QMS, flows requirements to providers responsible, and takes specific action when corrective action is late or ineffective.",
+   "locator": null,
+   "parent_ref": null,
+   "question": "Show the corrective action for one nonconformity from reaction to effectiveness review, and what you did when it was late.",
+   "reconciliation": "MATCHED_BODY",
+   "ref": "10.2.1",
+   "title": "Corrective action process",
+   "type": null
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (a) of 10.2.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 10.2.1, item (a)",
+   "parent_ref": "10.2.1",
+   "question": "Show how sub-paragraph (a) of clause 10.2.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "10.2.1(a)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (b) of 10.2.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 10.2.1, item (b)",
+   "parent_ref": "10.2.1",
+   "question": "Show how sub-paragraph (b) of clause 10.2.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "10.2.1(b)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (c) of 10.2.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 10.2.1, item (c)",
+   "parent_ref": "10.2.1",
+   "question": "Show how sub-paragraph (c) of clause 10.2.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "10.2.1(c)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (d) of 10.2.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 10.2.1, item (d)",
+   "parent_ref": "10.2.1",
+   "question": "Show how sub-paragraph (d) of clause 10.2.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "10.2.1(d)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (e) of 10.2.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 10.2.1, item (e)",
+   "parent_ref": "10.2.1",
+   "question": "Show how sub-paragraph (e) of clause 10.2.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "10.2.1(e)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (f) of 10.2.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 10.2.1, item (f)",
+   "parent_ref": "10.2.1",
+   "question": "Show how sub-paragraph (f) of clause 10.2.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "10.2.1(f)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (g) of 10.2.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 10.2.1, item (g)",
+   "parent_ref": "10.2.1",
+   "question": "Show how sub-paragraph (g) of clause 10.2.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "10.2.1(g)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Objective evidence matching sub-paragraph (h) of 10.2.1"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 10.2.1, item (h)",
+   "parent_ref": "10.2.1",
+   "question": "Show how sub-paragraph (h) of clause 10.2.1 is met in practice, and record the evidence you saw.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "10.2.1(h)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  }
+ ],
+ "snapshot_version": 1,
+ "standard": "AS9110C",
+ "status": "IMMUTABLE_SNAPSHOT"
+}

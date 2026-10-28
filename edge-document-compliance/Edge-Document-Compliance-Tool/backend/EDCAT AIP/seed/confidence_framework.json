@@ -1,0 +1,45 @@
+{
+  "confidence_framework": {
+    "signals": [
+      {
+        "level": "HIGH",
+        "threshold": 0.85,
+        "indicator": "🟢",
+        "vera_language": "I'm confident this satisfies the requirement.",
+        "validation_rules": [
+          "Direct quote match",
+          "Evidence exists",
+          "No contradicting clauses"
+        ]
+      },
+      {
+        "level": "MEDIUM",
+        "threshold": 0.55,
+        "indicator": "🟡",
+        "vera_language": "This partially addresses the requirement, but needs clarification.",
+        "action": "CLARIFICATION_NEEDED",
+        "user_query": "Does your procedure satisfy this aspect? [YES] [NO] [?]"
+      },
+      {
+        "level": "LOW",
+        "threshold": 0.0,
+        "indicator": "🔴",
+        "vera_language": "I cannot find evidence of compliance.",
+        "action": "FLAG_AS_GAP"
+      }
+    ],
+    "escalation_triggers": [
+      {
+        "condition": "conflicting_standards",
+        "vera_message": "⚠️ ISO 9001 and FAA Part 21 require different approaches here. I'll flag for your regulatory expert.",
+        "action": "ESCALATE_TO_HUMAN"
+      },
+      {
+        "condition": "ambiguous_requirement",
+        "vera_message": "This clause is ambiguous across the industry. Recommend confirming with your auditor.",
+        "action": "MARK_FOR_REVIEW"
+      }
+    ]
+  }
+}
+

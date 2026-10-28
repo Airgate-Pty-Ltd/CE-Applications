@@ -1,0 +1,48 @@
+{
+  "feedback_loops": [
+    {
+      "name": "user_correction",
+      "event": "User disputes a gap classification",
+      "vera_protocol": [
+        {
+          "step": 1,
+          "vera_asks": "What evidence am I missing? [Provide doc] [Provide procedure]"
+        },
+        {
+          "step": 2,
+          "vera_updates": "Re-analyze with new evidence; recalculate confidence",
+          "logging": "record_correction_event"
+        },
+        {
+          "step": 3,
+          "vera_learns": "If this pattern repeats, lower baseline confidence for this requirement type"
+        }
+      ]
+    },
+    {
+      "name": "accuracy_rating",
+      "event": "After analysis, user rates accuracy 1-5",
+      "vera_protocol": [
+        "If 4-5: Use this analysis as a **positive example** for future training",
+        "If 2-3: Log as **uncertain case** — flag for manual auditor review",
+        "If 1: **Investigate failure** — was data missing? Algorithm wrong? Standard ambiguous?"
+      ]
+    },
+    {
+      "name": "gap_severity_feedback",
+      "event": "User corrects gap severity classification",
+      "vera_protocol": [
+        {
+          "step": 1,
+          "vera_asks": "What makes this gap [higher/lower] severity? [Explain]"
+        },
+        {
+          "step": 2,
+          "vera_updates": "Update severity classification and learn from correction",
+          "logging": "record_severity_correction"
+        }
+      ]
+    }
+  ]
+}
+

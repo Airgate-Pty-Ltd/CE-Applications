@@ -1,0 +1,33 @@
+{
+  "ruleId": "PMA-XDOC-006",
+  "dimId": "pma-application-assessment",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "PENDING-REVIEW",
+  "approvalRef": "Submission Checklist item 3.A.VI (Index/Drawing List)",
+  "severity": "major",
+  "gapClass": "BLOCKING",
+  "category": "linkage",
+  "riskClass": "A",
+  "basisType": "deterministic-record-completeness",
+  "description": "The attached Index List / Drawing List / component drawing must be the one shown on the assist letter or STC.",
+  "requiredFields": [
+    "drawing_list_matches_assist_letter"
+  ],
+  "logicResult": "drawing_list_mismatch",
+  "findingText": "The attached Index List / Drawing List / component drawing is not the one identified on the assist letter or STC.",
+  "resolutionHint": "Attach the drawing/index list named on the assist letter or STC, at the revision it cites.",
+  "clauseRefs": [
+    "Submission Checklist item 3.A.VI (Index/Drawing List)"
+  ],
+  "condition": {
+    "field": "drawing_list_matches_assist_letter",
+    "op": "eq",
+    "value": false
+  },
+  "limitations": [
+    "Compares the recorded document number and revision; it does not inspect drawing content."
+  ],
+  "citationScope": "generic",
+  "citationNote": "Cites the form/procedure by role; the tenant profile supplies its own controlled document number and revision when the finding is rendered."
+}

@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+dist/
+dist-ssr/
+build/
+.vite/
+src-tauri/target/
+
+# Test and coverage output
+coverage/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+
+# Environment — every value is customer-supplied at runtime or developer-local.
+.env
+.env.*
+!.env.example
+
+# Local-only scratch
+*.local
+
+# Editor and OS junk
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------------------------------------------------------------------------
+# CLEAN-ROOM: never commit any of the following.
+#
+# The denylist holds the very identifiers this repository is required not to
+# carry (see LICENSE and the clean-room rule). Committing it would defeat the
+# entire control. It is owner-supplied, machine-local, and permanently ignored.
+scripts/denylist.local.txt
+scripts/denylist.*.local.txt
+
+# Local fixture directories that could hold real customer data. Fixtures that
+# ship with this product live in src/fixtures/ and are fictional by rule.
+/fixtures.local/
+/local-data/
+*.customer.json
+*.customer.csv

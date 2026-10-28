@@ -1,0 +1,61 @@
+{
+  "strategies": [
+    {
+      "name": "procedure.output.strategy",
+      "doc_type": "Procedure",
+      "rules": [
+        "Define WHAT and WHY; no HOW.",
+        "Use paragraph headers; no bullets as headers; single spacing.",
+        "Include Documented Information table and MDL linkage sentence."
+      ],
+      "validator_bindings": [
+        "citations.required",
+        "style.procedure.no_howto",
+        "format.single_spacing"
+      ]
+    },
+    {
+      "name": "wi.output.strategy",
+      "doc_type": "Work Instruction",
+      "rules": [
+        "Provide step-by-step HOW; include screenshots/placeholders as allowed.",
+        "May reference systems generically; proprietary details allowed."
+      ],
+      "validator_bindings": [
+        "format.single_spacing"
+      ]
+    },
+    {
+      "name": "form.output.strategy",
+      "doc_type": "Form",
+      "rules": [
+        "Define fields, owners, and retention category (A/B/C).",
+        "Include objective evidence expectations."
+      ],
+      "validator_bindings": [
+        "format.single_spacing"
+      ]
+    },
+    {
+      "name": "output.audience.auditor",
+      "target_user": "Experienced compliance/audit professional",
+      "tone": "Peer-to-peer, technical, cites standards by clause",
+      "verbosity": "Concise (assumes understanding)",
+      "example": "AS9100 8.5.3 gap: Change board charter lacks 'risk assessment' language. Severity: HIGH. Recommendation: Add XYZ to board charter."
+    },
+    {
+      "name": "output.audience.operator",
+      "target_user": "Quality operator / procedure owner",
+      "tone": "Educational, plain language, explains 'why'",
+      "verbosity": "Detailed (includes context)",
+      "example": "Your change control process isn't documenting the risks of changes. Here's why that matters: [explanation]. Here's how to fix it: [simple steps]."
+    },
+    {
+      "name": "output.audience.executive",
+      "target_user": "Management / executive sponsor",
+      "tone": "Business risk focus, prioritized, actionable",
+      "verbosity": "Executive summary + risk/cost",
+      "example": "3 critical gaps found. 2 require <1 week to remediate (cost: $5K). 1 requires process redesign (cost: $25K, timeline: 4 weeks)."
+    }
+  ]
+}

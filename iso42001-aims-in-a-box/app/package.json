@@ -1,0 +1,24 @@
+{
+  "name": "iso42001-aims-command-center",
+  "version": "0.1.0",
+  "description": "ISO/IEC 42001 AIMS Command Center — real AI Management System record engine with embedded M-AI Kernel governance (deterministic, rules-only System-Detected Conditions).",
+  "main": "server.js",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": "Conform-Edge Quality Consulting LLC",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "setup": "node src/db/init.js",
+    "seed": "node scripts/seed.js",
+    "charter": "node scripts/generate-charter.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

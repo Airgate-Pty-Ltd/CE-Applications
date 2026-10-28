@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+  AIMS-in-a-Box (ISO/IEC 42001) — Command Center UI
+  (c) 2026 Conform-Edge Quality Consulting LLC. Proprietary. All rights reserved.
+  Conform-Edge Quality Consulting LLC (Idaho LLC No. 6463380), Pocatello, Idaho, USA.
+  Unauthorized reproduction, distribution, modification, or resale is prohibited.
+  Advisory documentation aid — does not certify compliance and does not replace the
+  judgment of the user's organization or top management.
+  Built to the FSA Visual Design System v1.0. Served static by the Express backend
+  (app/ — built separately) against the documented /api contract.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Conform-Edge Quality Consulting LLC" />
+  <title>AIMS-in-a-Box — Conform-Edge</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Signature ambient element — see styles.css section 3 -->
+  <div class="intelligence-thread" id="intelligence-thread"></div>
+
+  <div class="app-shell">
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <span class="mark">&#9670;</span>
+        <div class="name">AIMS-in-a-Box<small>ISO/IEC 42001 AI Management System</small></div>
+      </div>
+      <div class="nav-list" id="nav-list"><!-- populated by app.js --></div>
+      <div class="sidebar-footer" id="sidebar-footer"><!-- populated by app.js --></div>
+    </nav>
+
+    <div class="main-content">
+      <div class="topbar" id="topbar">
+        <div class="title-group">
+          <h1 id="view-title">Overview</h1>
+          <div class="subtitle" id="view-subtitle">Command center</div>
+        </div>
+        <div class="connection-indicator" id="connection-indicator">
+          <span class="status-dot" style="background:var(--text-tertiary)"></span>
+          <span>checking connection…</span>
+        </div>
+      </div>
+      <div class="loading-bar" id="loading-bar"></div>
+      <div class="view-root" id="view-root">
+        <!-- rendered per-view by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail / create / edit drawer — never a full navigate-away page -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-header">
+      <div>
+        <h2 id="drawer-title">Record</h2>
+        <div class="drawer-subtitle" id="drawer-subtitle"></div>
+      </div>
+      <button class="drawer-close" id="drawer-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+    <div class="drawer-footer" id="drawer-footer"></div>
+  </aside>
+
+  <!-- Authority Charter modal — "[What can this assistant do?]" -->
+  <div class="charter-overlay" id="charter-overlay">
+    <div class="charter-modal">
+      <div class="charter-modal-header">
+        <h2><span class="diamond">&#9670;</span> Authority Charter</h2>
+        <button class="drawer-close" id="charter-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="charter-modal-body" id="charter-body">Loading…</div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="schemas.js"></script>
+  <script src="app.js"></script>
+  <script src="app-views.js"></script>
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 9001:2026 Transition Readiness Assessor | Conform-Edge</title>
+<style>
+  :root {
+    --navy: #1a2744;
+    --steel: #3a5a8c;
+    --accent: #e8b84b;
+    --light: #f4f6fa;
+    --border: #d0d8e8;
+    --text: #1e2535;
+    --muted: #6b7a99;
+    --green: #1a7a4a;
+    --amber: #c47d00;
+    --red: #b52020;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
+
+  /* HEADER */
+  .header { background: var(--navy); color: var(--white); padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .header-brand { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .header h1 { font-size: 22px; font-weight: 700; color: var(--white); margin-top: 4px; }
+  .header-badge { background: var(--accent); color: var(--navy); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 12px; white-space: nowrap; letter-spacing: 0.5px; }
+
+  /* INTRO */
+  .intro { background: var(--white); border-bottom: 2px solid var(--accent); padding: 28px 40px; max-width: 960px; }
+  .intro p { color: var(--muted); font-size: 14px; max-width: 720px; }
+  .timeline-bar { display: flex; gap: 0; margin-top: 20px; border-radius: 8px; overflow: hidden; font-size: 12px; font-weight: 600; }
+  .tl-item { flex: 1; padding: 10px 14px; text-align: center; }
+  .tl-done { background: #d4edda; color: var(--green); }
+  .tl-active { background: var(--accent); color: var(--navy); }
+  .tl-future { background: #e8eef8; color: var(--muted); }
+  .tl-label { font-size: 10px; font-weight: 400; display: block; margin-top: 2px; }
+
+  /* LAYOUT */
+  .main { max-width: 960px; margin: 0 auto; padding: 32px 40px 80px; }
+
+  /* SECTION CARDS */
+  .section-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 24px; overflow: hidden; }
+  .section-header { background: var(--navy); color: var(--white); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
+  .section-header h2 { font-size: 15px; font-weight: 600; }
+  .section-clause { background: var(--steel); color: #c8d8f0; font-size: 11px; padding: 3px 10px; border-radius: 10px; white-space: nowrap; }
+  .section-body { padding: 0; }
+
+  /* QUESTIONS */
+  .question { border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; gap: 20px; align-items: flex-start; }
+  .question:last-child { border-bottom: none; }
+  .q-num { background: var(--light); border: 1px solid var(--border); border-radius: 50%; width: 28px; height: 28px; min-width: 28px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--steel); margin-top: 2px; }
+  .q-body { flex: 1; }
+  .q-text { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+  .q-why { font-size: 12px; color: var(--muted); margin-bottom: 12px; font-style: italic; }
+  .radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .radio-option input { display: none; }
+  .radio-option label {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px; cursor: pointer;
+    font-size: 12px; font-weight: 600; border: 1.5px solid var(--border);
+    background: var(--white); color: var(--muted); transition: all 0.15s;
+  }
+  .radio-option input:checked + label { border-color: var(--steel); background: var(--steel); color: var(--white); }
+  .radio-option.compliant input:checked + label { background: var(--green); border-color: var(--green); }
+  .radio-option.partial input:checked + label { background: var(--amber); border-color: var(--amber); }
+  .radio-option.gap input:checked + label { background: var(--red); border-color: var(--red); }
+  .radio-option.na input:checked + label { background: #888; border-color: #888; }
+
+  /* SUBMIT */
+  .submit-bar { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 24px; text-align: center; margin-top: 8px; }
+  .submit-bar p { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
+  .btn-assess { background: var(--navy); color: var(--white); border: none; padding: 14px 40px; border-radius: 6px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s; letter-spacing: 0.3px; }
+  .btn-assess:hover { background: var(--steel); }
+
+  /* RESULTS */
+  #results { display: none; background: var(--white); border: 2px solid var(--navy); border-radius: 10px; margin-top: 32px; overflow: hidden; }
+  .results-header { background: var(--navy); color: var(--white); padding: 20px 28px; }
+  .results-header h2 { font-size: 18px; font-weight: 700; }
+  .results-header p { color: #8aa4cc; font-size: 13px; margin-top: 4px; }
+  .results-body { padding: 28px; }
+
+  /* OVERALL SCORE */
+  .overall-score { display: flex; gap: 28px; align-items: center; background: var(--light); border-radius: 10px; padding: 24px 28px; margin-bottom: 28px; flex-wrap: wrap; }
+  .score-ring-wrap { text-align: center; }
+  .score-ring { width: 110px; height: 110px; position: relative; }
+  .score-ring svg { transform: rotate(-90deg); }
+  .score-ring-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+  .score-pct { font-size: 28px; font-weight: 800; color: var(--navy); }
+  .score-label { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+  .score-detail { flex: 1; min-width: 220px; }
+  .score-detail h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .score-detail p { font-size: 13px; color: var(--muted); }
+  .score-ready { color: var(--green); }
+  .score-moderate { color: var(--amber); }
+  .score-high { color: var(--red); }
+  .score-critical { color: #8b0000; }
+
+  /* SECTION SCORES */
+  .section-scores { margin-bottom: 28px; }
+  .section-scores h3 { font-size: 14px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
+  .ss-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; font-size: 13px; }
+  .ss-name { width: 260px; flex-shrink: 0; color: var(--text); }
+  .ss-bar-wrap { flex: 1; background: #e8eef8; border-radius: 4px; height: 10px; overflow: hidden; }
+  .ss-bar { height: 10px; border-radius: 4px; transition: width 0.6s ease; }
+  .ss-pct { width: 42px; text-align: right; font-weight: 700; color: var(--navy); }
+  .bar-green { background: var(--green); }
+  .bar-amber { background: var(--amber); }
+  .bar-red { background: var(--red); }
+
+  /* ACTION PLAN */
+  .action-plan h3 { font-size: 14px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
+  .action-item { border-left: 3px solid var(--border); padding: 12px 16px; margin-bottom: 10px; border-radius: 0 6px 6px 0; background: var(--light); }
+  .action-item.priority-high { border-left-color: var(--red); }
+  .action-item.priority-medium { border-left-color: var(--amber); }
+  .action-item.priority-low { border-left-color: var(--green); }
+  .action-priority { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+  .priority-high .action-priority { color: var(--red); }
+  .priority-medium .action-priority { color: var(--amber); }
+  .priority-low .action-priority { color: var(--green); }
+  .action-text { font-size: 13px; color: var(--text); }
+  .action-clause { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .all-clear { background: #d4edda; border: 1px solid #a3d9b1; border-radius: 8px; padding: 16px 20px; text-align: center; color: var(--green); font-weight: 600; font-size: 14px; }
+
+  /* FOOTER */
+  .results-footer { background: var(--light); border-top: 1px solid var(--border); padding: 16px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .results-footer p { font-size: 11px; color: var(--muted); }
+  .btn-print { background: transparent; border: 1.5px solid var(--navy); color: var(--navy); padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-reset { background: var(--navy); color: var(--white); padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .header, .intro, .main { padding-left: 20px; padding-right: 20px; }
+    .ss-name { width: 160px; font-size: 12px; }
+    .radio-group { gap: 6px; }
+    .radio-option label { padding: 5px 10px; font-size: 11px; }
+    .overall-score { flex-direction: column; }
+  }
+  @media print {
+    .submit-bar, .btn-print, .btn-reset { display: none; }
+    .header { background: var(--navy) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-brand">Conform-Edge &nbsp;|&nbsp; Quality Intelligence Tools</div>
+    <h1>ISO 9001:2026 Transition Readiness Assessor</h1>
+  </div>
+  <div class="header-badge">FDIS Published · Sept 2026 Release</div>
+</div>
+
+<div class="intro">
+  <p>ISO 9001:2026 is expected to publish in <strong>September 2026</strong>, replacing ISO 9001:2015. Certified organizations have a <strong>3-year transition window</strong> (until ~September 2029). The revision integrates climate change into organizational context, adds explicit quality culture and ethical behavior requirements, and addresses digitalization and AI readiness. Use this tool to assess your current gap and build a prioritized transition plan.</p>
+  <div class="timeline-bar">
+    <div class="tl-item tl-done">DIS Published<span class="tl-label">Aug 2025</span></div>
+    <div class="tl-item tl-done">FDIS Stage<span class="tl-label">Early 2026</span></div>
+    <div class="tl-item tl-active">Publication<span class="tl-label">Sept 2026 ▶</span></div>
+    <div class="tl-item tl-future">Transition Ends<span class="tl-label">~Sept 2029</span></div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- SECTION 1 -->
+<div class="section-card">
+  <div class="section-header">
+    <h2>1 &nbsp; Organizational Context &amp; Climate Change</h2>
+    <span class="section-clause">Clauses 4.1 – 4.2</span>
+  </div>
+  <div class="section-body">
+    <div class="question" data-section="1">
+      <div class="q-num">1</div>
+      <div class="q-body">
+        <div class="q-text">Has your organization explicitly assessed how climate change affects your ability to consistently provide conforming products or services?</div>
+        <div class="q-why">ISO 9001:2026 Clause 4.1 now requires climate change considerations as part of organizational context — a new mandatory input not present in the 2015 version.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q1" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q1" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q1" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q1" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="1">
+      <div class="q-num">2</div>
+      <div class="q-body">
+        <div class="q-text">Are climate-related risks and opportunities documented and integrated into your QMS context analysis?</div>
+        <div class="q-why">The climate amendment requires organizations to treat climate risks (supply disruption, resource availability, regulatory change) the same as other external factors driving QMS scope.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q2" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q2" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q2" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q2" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="1">
+      <div class="q-num">3</div>
+      <div class="q-body">
+        <div class="q-text">Do your interested party needs and expectations (Clause 4.2) include sustainability and climate-related requirements?</div>
+        <div class="q-why">Customers, regulators, and investors increasingly impose sustainability obligations. ISO 9001:2026 requires these to be identified and monitored as interested party expectations.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q3" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q3" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q3" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q3" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="1">
+      <div class="q-num">4</div>
+      <div class="q-body">
+        <div class="q-text">Is your QMS scope statement reviewed in light of digitalization capabilities and constraints that affect your processes?</div>
+        <div class="q-why">ISO 9001:2026 encourages organizations to reflect their digital capability posture within QMS scope. Gaps in digital readiness can materially affect scope boundaries.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q4" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q4" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q4" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q4" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section-card">
+  <div class="section-header">
+    <h2>2 &nbsp; Leadership, Quality Culture &amp; Ethical Behavior</h2>
+    <span class="section-clause">Clause 5</span>
+  </div>
+  <div class="section-body">
+    <div class="question" data-section="2">
+      <div class="q-num">5</div>
+      <div class="q-body">
+        <div class="q-text">Does top management actively demonstrate commitment to a quality culture — not just sign the quality policy?</div>
+        <div class="q-why">ISO 9001:2026 Clause 5.1.1 now explicitly requires top management to promote and demonstrate a quality culture. A signed policy alone no longer satisfies this clause.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q5" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q5" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q5" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q5" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="2">
+      <div class="q-num">6</div>
+      <div class="q-body">
+        <div class="q-text">Are ethical behavior expectations formally communicated, trained, and monitored within your quality management system?</div>
+        <div class="q-why">Ethical conduct is a new explicit leadership requirement in the 2026 revision. Organizations must evidence that ethics and integrity are integrated into QMS activities — not just stated in policy.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q6" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q6" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q6" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q6" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="2">
+      <div class="q-num">7</div>
+      <div class="q-body">
+        <div class="q-text">Does your quality policy and management review explicitly address quality culture outcomes (e.g., near-miss reporting culture, speaking-up behaviors)?</div>
+        <div class="q-why">Quality culture goes beyond procedures — it's about behaviors. Auditors under 2026 will seek behavioral evidence of culture, not just documented commitments.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q7" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q7" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q7" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q7" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="2">
+      <div class="q-num">8</div>
+      <div class="q-body">
+        <div class="q-text">Can your organization provide objective evidence that quality culture is measured — e.g., culture surveys, quality climate assessments, or behavioral KPIs?</div>
+        <div class="q-why">The 2026 revision shifts from "state your commitment" to "show the outcome." Culture measurement is the evidence auditors will look for.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q8" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q8" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q8" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q8" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section-card">
+  <div class="section-header">
+    <h2>3 &nbsp; Risk Planning &amp; Digitalization Strategy</h2>
+    <span class="section-clause">Clause 6</span>
+  </div>
+  <div class="section-body">
+    <div class="question" data-section="3">
+      <div class="q-num">9</div>
+      <div class="q-body">
+        <div class="q-text">Are climate-related risks (supply chain disruption, resource scarcity, regulatory change) included in your Clause 6.1 risk register?</div>
+        <div class="q-why">ISO 9001:2026 requires climate inputs from 4.1 to flow into risk and opportunity management. If climate isn't in your risk register, this is a new mandatory gap.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q9" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q9" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q9" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q9" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="3">
+      <div class="q-num">10</div>
+      <div class="q-body">
+        <div class="q-text">Are digitalization opportunities — including AI, automation, and data analytics — formally assessed as QMS opportunities (Clause 6.1)?</div>
+        <div class="q-why">ISO 9001:2026 introduces formal digital readiness requirements. Organizations that have not assessed digitalization as a quality opportunity have a gap in planning.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q10" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q10" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q10" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q10" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="3">
+      <div class="q-num">11</div>
+      <div class="q-body">
+        <div class="q-text">Does your QMS planning address how technology changes (new software, automation tools, AI adoption) affect process risk?</div>
+        <div class="q-why">Technology change is now a risk management input. Unplanned technology adoption without QMS consideration is a gap the 2026 standard explicitly addresses.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q11" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q11" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q11" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q11" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="3">
+      <div class="q-num">12</div>
+      <div class="q-body">
+        <div class="q-text">Are supply continuity risks reassessed considering both climate disruption (extreme weather, resource scarcity) and digital disruption (cyberattack, system failure)?</div>
+        <div class="q-why">ISO 9001:2026 planning expects organizations to look at compounded risk scenarios — climate and digital — not just traditional supply risk factors.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q12" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q12" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q12" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q12" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section-card">
+  <div class="section-header">
+    <h2>4 &nbsp; Digital Competence &amp; Documented Information</h2>
+    <span class="section-clause">Clause 7</span>
+  </div>
+  <div class="section-body">
+    <div class="question" data-section="4">
+      <div class="q-num">13</div>
+      <div class="q-body">
+        <div class="q-text">Is digital literacy assessed as part of competence requirements (Clause 7.2) for quality-critical roles?</div>
+        <div class="q-why">ISO 9001:2026 requires digital competency to be evaluated — not just technical job skills. Staff using quality-critical digital tools without assessed digital literacy is a gap.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q13" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q13" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q13" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q13" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="4">
+      <div class="q-num">14</div>
+      <div class="q-body">
+        <div class="q-text">Are personnel trained on the relevant digital tools (eQMS, analytics, automation) that affect their quality-critical responsibilities?</div>
+        <div class="q-why">Awareness under Clause 7.3 now extends to digital tools and their quality implications. Untrained use of digital systems creates documented information integrity risk.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q14" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q14" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q14" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q14" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="4">
+      <div class="q-num">15</div>
+      <div class="q-body">
+        <div class="q-text">Does your documented information management approach (Clause 7.5) accommodate digital records, including version control, access management, and backup for e-based records?</div>
+        <div class="q-why">ISO 9001:2026 Clause 7.5 guidance addresses digital documentation integrity. Paper-era controls applied to digital systems without adequate update are a gap.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q15" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q15" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q15" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q15" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="4">
+      <div class="q-num">16</div>
+      <div class="q-body">
+        <div class="q-text">Is there a documented strategy — even a brief one — for technology adoption as it relates to quality processes?</div>
+        <div class="q-why">ISO 9001:2026 encourages organizations to document how they approach technology adoption. Ad-hoc or undocumented adoption creates audit risk under the new revision.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q16" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q16" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q16" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q16" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section-card">
+  <div class="section-header">
+    <h2>5 &nbsp; Performance Monitoring &amp; Continual Improvement</h2>
+    <span class="section-clause">Clauses 9 – 10</span>
+  </div>
+  <div class="section-body">
+    <div class="question" data-section="5">
+      <div class="q-num">17</div>
+      <div class="q-body">
+        <div class="q-text">Does your analysis of data (Clause 9.1.3) include sustainability or climate-related performance indicators alongside traditional quality metrics?</div>
+        <div class="q-why">ISO 9001:2026 extends performance analysis to include sustainability data as a quality indicator — particularly where climate or ESG factors affect product/service conformity.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q17" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q17" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q17" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q17" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="5">
+      <div class="q-num">18</div>
+      <div class="q-body">
+        <div class="q-text">Does your management review input (Clause 9.3) include climate context status, quality culture indicators, and digital performance data?</div>
+        <div class="q-why">The 2026 revision's new inputs (climate, culture, digital) must flow into management review. A management review template not updated for these items is non-conforming.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q18" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q18" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q18" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q18" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="5">
+      <div class="q-num">19</div>
+      <div class="q-body">
+        <div class="q-text">Does your internal audit program (Clause 9.2) include assessment of digital readiness, climate risk controls, and quality culture effectiveness?</div>
+        <div class="q-why">Internal audits under ISO 9001:2026 must cover the new topic areas. Audit programs not yet updated to include digital and climate dimensions will generate surveillance NCs.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q19" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q19" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q19" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q19" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+    <div class="question" data-section="5">
+      <div class="q-num">20</div>
+      <div class="q-body">
+        <div class="q-text">Are continual improvement initiatives (Clause 10) documented for climate adaptation and digital transformation — not just traditional corrective action?</div>
+        <div class="q-why">ISO 9001:2026 broadens the scope of improvement to explicitly include climate and digital adaptation. Organizations that limit improvement to CAPA miss this new requirement.</div>
+        <div class="radio-group">
+          <span class="radio-option compliant"><input type="radio" name="q20" value="5"><label>✔ Compliant</label></span>
+          <span class="radio-option partial"><input type="radio" name="q20" value="3"><label>~ Partial</label></span>
+          <span class="radio-option gap"><input type="radio" name="q20" value="0"><label>✗ Gap</label></span>
+          <span class="radio-option na"><input type="radio" name="q20" value="na"><label>N/A</label></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT -->
+<div class="submit-bar">
+  <p>Answer all applicable questions above, then click to generate your transition readiness report.</p>
+  <button class="btn-assess" onclick="generateReport()">Generate ISO 9001:2026 Gap Report</button>
+</div>
+
+<!-- RESULTS -->
+<div id="results">
+  <div class="results-header">
+    <h2>ISO 9001:2026 Transition Readiness Report</h2>
+    <p id="results-date"></p>
+  </div>
+  <div class="results-body">
+    <div class="overall-score">
+      <div class="score-ring-wrap">
+        <div class="score-ring">
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="46" fill="none" stroke="#e8eef8" stroke-width="10"/>
+            <circle cx="55" cy="55" r="46" fill="none" id="score-arc"
+              stroke="#1a7a4a" stroke-width="10" stroke-linecap="round"
+              stroke-dasharray="289 289" stroke-dashoffset="289"/>
+          </svg>
+          <div class="score-ring-text">
+            <div class="score-pct" id="score-pct-text">—</div>
+            <div class="score-label">Readiness</div>
+          </div>
+        </div>
+      </div>
+      <div class="score-detail">
+        <h3 id="score-verdict">—</h3>
+        <p id="score-summary"></p>
+      </div>
+    </div>
+
+    <div class="section-scores">
+      <h3>Score by Area</h3>
+      <div id="section-score-rows"></div>
+    </div>
+
+    <div class="action-plan">
+      <h3>Prioritized Transition Actions</h3>
+      <div id="action-items"></div>
+    </div>
+  </div>
+  <div class="results-footer">
+    <p>Generated by Conform-Edge ISO 9001:2026 Transition Readiness Assessor · Based on FDIS published 2026 · For planning purposes only — verify against final published standard.</p>
+    <div style="display:flex;gap:10px;">
+      <button class="btn-print" onclick="window.print()">Print / Save PDF</button>
+      <button class="btn-reset" onclick="resetTool()">Start Over</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+const SECTIONS = [
+  { id: 1, name: "Context & Climate Change", clause: "Clauses 4.1–4.2" },
+  { id: 2, name: "Leadership, Culture & Ethics", clause: "Clause 5" },
+  { id: 3, name: "Risk Planning & Digitalization", clause: "Clause 6" },
+  { id: 4, name: "Digital Competence & Documented Info", clause: "Clause 7" },
+  { id: 5, name: "Performance Monitoring & Improvement", clause: "Clauses 9–10" }
+];
+
+const QUESTIONS = [
+  { id: 1, section: 1, text: "Explicit climate change assessment integrated into organizational context", action: "Conduct a climate impact assessment identifying how climate change affects your products/services and document it as input to Clause 4.1.", clause: "Clause 4.1" },
+  { id: 2, section: 1, text: "Climate risks and opportunities in QMS context analysis", action: "Add a 'Climate Risks & Opportunities' section to your context analysis. Include supply disruption, energy costs, regulatory exposure, and extreme weather scenarios.", clause: "Clause 4.1" },
+  { id: 3, section: 1, text: "Sustainability/climate requirements captured as interested party needs", action: "Review Clause 4.2 interested party register and add sustainability-related needs (customer ESG demands, regulatory emissions targets, investor expectations).", clause: "Clause 4.2" },
+  { id: 4, section: 1, text: "QMS scope reflects digitalization capabilities and constraints", action: "Update QMS scope statement to note digital capabilities and limitations that affect conformity of products/services.", clause: "Clause 4.3" },
+  { id: 5, section: 2, text: "Top management demonstrates quality culture commitment behaviorally", action: "Develop a top management quality culture commitment program: visible leadership behaviors, walkabout audits, quality stand-ups. Document and measure.", clause: "Clause 5.1.1" },
+  { id: 6, section: 2, text: "Ethical behavior expectations formally communicated and monitored", action: "Integrate ethics into QMS: code of conduct referencing quality ethics, ethics-in-quality training module, management review agenda item.", clause: "Clause 5.1.1" },
+  { id: 7, section: 2, text: "Quality policy and management review address quality culture outcomes", action: "Update quality policy to explicitly state commitment to quality culture. Add quality culture KPI to management review inputs.", clause: "Clauses 5.2, 9.3" },
+  { id: 8, section: 2, text: "Objective evidence of quality culture measurement", action: "Implement a quality culture measurement tool — survey, culture index, or behavioral observation checklist. Record results as quality records.", clause: "Clause 5.1.1" },
+  { id: 9, section: 3, text: "Climate-related risks in Clause 6.1 risk register", action: "Add climate risk categories to risk register: supply chain climate exposure, energy cost volatility, climate regulation risk, facility vulnerability to extreme weather.", clause: "Clause 6.1" },
+  { id: 10, section: 3, text: "Digitalization opportunities assessed as QMS opportunities", action: "Conduct a digital opportunity assessment: identify where AI, automation, or analytics could improve quality outcomes. Document as Clause 6.1 opportunities.", clause: "Clause 6.1" },
+  { id: 11, section: 3, text: "Technology change assessed as process risk", action: "Add 'technology change risk' to risk management procedure. Require QMS review before any digital tool change affecting quality-critical processes.", clause: "Clause 6.1" },
+  { id: 12, section: 3, text: "Supply continuity risks include climate and digital disruption scenarios", action: "Conduct compound risk analysis: update supply continuity risk assessment to include both climate disruption and cybersecurity/digital failure scenarios.", clause: "Clause 6.1" },
+  { id: 13, section: 4, text: "Digital literacy assessed as competency requirement", action: "Add digital literacy to competency matrices for quality-critical roles. Include eQMS proficiency, data integrity awareness, and tool-specific training.", clause: "Clause 7.2" },
+  { id: 14, section: 4, text: "Personnel trained on quality-critical digital tools", action: "Conduct training needs analysis for digital tools. Develop or procure training for eQMS, analytics tools, and automation systems used in quality processes.", clause: "Clauses 7.2, 7.3" },
+  { id: 15, section: 4, text: "Documented information management supports digital records", action: "Update Clause 7.5 procedure to address e-records: version control, access control, backup/recovery, electronic signature controls.", clause: "Clause 7.5" },
+  { id: 16, section: 4, text: "Documented strategy for technology adoption in quality processes", action: "Create a one-page Technology Adoption in QMS policy/procedure covering: how new digital tools are evaluated, piloted, validated, and released for quality use.", clause: "Clause 7.5" },
+  { id: 17, section: 5, text: "Sustainability/climate performance indicators in 9.1.3 analysis", action: "Add sustainability KPIs to data analysis reporting: carbon/energy metrics where they affect product quality, supplier sustainability performance.", clause: "Clause 9.1.3" },
+  { id: 18, section: 5, text: "Management review includes climate context, culture, and digital performance", action: "Update management review agenda and input template to include: climate context status, quality culture survey results, digital performance indicators.", clause: "Clause 9.3" },
+  { id: 19, section: 5, text: "Internal audit program covers digital readiness and climate risk controls", action: "Update internal audit program: add audit criteria for climate risk management, digital competency, and quality culture effectiveness. Train auditors on new criteria.", clause: "Clause 9.2" },
+  { id: 20, section: 5, text: "Improvement initiatives documented for climate and digital adaptation", action: "Expand Clause 10 improvement framework beyond CAPA: add improvement categories for climate adaptation projects and digital transformation initiatives.", clause: "Clause 10" }
+];
+
+function generateReport() {
+  const answers = {};
+  let totalPoints = 0, maxPoints = 0;
+  const sectionData = { 1: {pts:0,max:0,gaps:[]}, 2: {pts:0,max:0,gaps:[]}, 3: {pts:0,max:0,gaps:[]}, 4: {pts:0,max:0,gaps:[]}, 5: {pts:0,max:0,gaps:[]} };
+  const actions = [];
+
+  for (let q of QUESTIONS) {
+    const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+    const val = selected ? selected.value : null;
+    if (!val) { alert(`Please answer question ${q.id} before generating the report.`); return; }
+    answers[q.id] = val;
+
+    if (val !== 'na') {
+      const pts = parseInt(val);
+      sectionData[q.section].pts += pts;
+      sectionData[q.section].max += 5;
+      totalPoints += pts;
+      maxPoints += 5;
+      if (pts < 5) {
+        sectionData[q.section].gaps.push({ q, pts, priority: pts === 0 ? 'high' : 'medium' });
+        actions.push({ q, pts, priority: pts === 0 ? 'high' : 'medium' });
+      }
+    }
+  }
+
+  const pct = maxPoints > 0 ? Math.round((totalPoints / maxPoints) * 100) : 0;
+  const circumference = 289;
+  const offset = circumference - (pct / 100) * circumference;
+
+  const arc = document.getElementById('score-arc');
+  arc.style.strokeDashoffset = offset;
+  let color = '#1a7a4a';
+  let verdict = '', summary = '', vClass = '';
+  if (pct >= 85) {
+    verdict = 'Low Transition Risk'; color = '#1a7a4a'; vClass = 'score-ready';
+    summary = 'Your QMS is largely aligned with ISO 9001:2026. Address remaining partial gaps before certification body surveillance audits begin.';
+  } else if (pct >= 65) {
+    verdict = 'Moderate Transition Risk'; color = '#c47d00'; vClass = 'score-moderate';
+    summary = 'Meaningful gaps exist in 1–2 areas. Targeted remediation required within the first year of the transition period to avoid surveillance NCs.';
+  } else if (pct >= 40) {
+    verdict = 'High Transition Risk'; color = '#b52020'; vClass = 'score-high';
+    summary = 'Significant gaps across multiple areas. A structured transition project is strongly recommended — start with Leadership and Context gaps.';
+  } else {
+    verdict = 'Critical Transition Risk'; color = '#8b0000'; vClass = 'score-critical';
+    summary = 'Major unaddressed gaps that will generate nonconformities at first ISO 9001:2026 surveillance. Initiate transition project immediately.';
+  }
+  arc.setAttribute('stroke', color);
+  document.getElementById('score-pct-text').textContent = pct + '%';
+  document.getElementById('score-verdict').textContent = verdict;
+  document.getElementById('score-verdict').className = vClass;
+  document.getElementById('score-summary').textContent = summary;
+  document.getElementById('results-date').textContent = 'Generated: ' + new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) + ' · Based on ISO/FDIS 9001:2026';
+
+  // Section bars
+  const barContainer = document.getElementById('section-score-rows');
+  barContainer.innerHTML = '';
+  for (let s of SECTIONS) {
+    const sd = sectionData[s.id];
+    const spct = sd.max > 0 ? Math.round((sd.pts / sd.max) * 100) : 100;
+    const barClass = spct >= 80 ? 'bar-green' : spct >= 55 ? 'bar-amber' : 'bar-red';
+    barContainer.innerHTML += `
+      <div class="ss-row">
+        <div class="ss-name">${s.name}</div>
+        <div class="ss-bar-wrap"><div class="ss-bar ${barClass}" style="width:${spct}%"></div></div>
+        <div class="ss-pct">${sd.max === 0 ? 'N/A' : spct + '%'}</div>
+      </div>`;
+  }
+
+  // Actions
+  const actContainer = document.getElementById('action-items');
+  actContainer.innerHTML = '';
+  const sorted = actions.sort((a,b) => a.pts - b.pts);
+  if (sorted.length === 0) {
+    actContainer.innerHTML = '<div class="all-clear">✔ No gaps identified. Your QMS appears well-aligned with ISO 9001:2026. Maintain current controls and monitor final published standard for any FDIS→final changes.</div>';
+  } else {
+    for (let a of sorted) {
+      actContainer.innerHTML += `
+        <div class="action-item priority-${a.priority}">
+          <div class="action-priority">${a.priority === 'high' ? '⬤ HIGH PRIORITY GAP' : '◐ PARTIAL — IMPROVE'}</div>
+          <div class="action-text"><strong>Q${a.q.id}: ${a.q.text}</strong><br>${a.q.action}</div>
+          <div class="action-clause">${a.q.clause}</div>
+        </div>`;
+    }
+  }
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetTool() {
+  document.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
+  document.getElementById('results').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "ruleId": "PMA-SUPP-002",
+  "dimId": "pma-application-assessment",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "PENDING-REVIEW",
+  "approvalRef": "Organization supplement development procedure \u2014 filling instructions",
+  "severity": "minor",
+  "gapClass": "WARNING",
+  "category": "completeness",
+  "riskClass": "C",
+  "basisType": "deterministic-record-completeness",
+  "description": "Supplement should not exceed 10 pages; if it does, the FAA office must be notified of the total page count.",
+  "requiredFields": [
+    "supplement_page_count_over_10",
+    "faa_notified_of_page_count"
+  ],
+  "logicResult": "supplement_exceeds_ten_pages",
+  "findingText": "The PMA supplement exceeds 10 pages and the FAA office has not been recorded as notified of the total page count.",
+  "resolutionHint": "Notify the FAA certificate management office of the total number of pages, and record that notification on the case.",
+  "clauseRefs": [
+    "Organization supplement development procedure \u2014 filling instructions",
+    "Submission Checklist item 2.C (Supplement page count)"
+  ],
+  "condition": {
+    "all": [
+      {
+        "field": "supplement_page_count_over_10",
+        "op": "eq",
+        "value": true
+      },
+      {
+        "field": "faa_notified_of_page_count",
+        "op": "ne",
+        "value": true
+      }
+    ]
+  },
+  "limitations": [
+    "SOP-851-12 permits exceeding 10 pages provided the office is notified; this is advisory, not a hard stop."
+  ],
+  "citationScope": "generic",
+  "citationNote": "Cites the form/procedure by role; the tenant profile supplies its own controlled document number and revision when the finding is rendered."
+}

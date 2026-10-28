@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-font="default">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAR 8D Disciplines · Conform-Edge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #0F172A; --surface: #1E293B; --topbar: rgba(15,23,42,0.96); --sb: rgba(30,41,59,0.95);
+            --glass: rgba(30,41,59,0.85); --glass-hi: rgba(15,23,42,0.95);
+            --border: rgba(148,163,184,0.30); --border-hi: rgba(59,130,246,0.70);
+            --signal: #60A5FA; --sig-dim: rgba(96,165,250,0.20);
+            --positive: #34D399; --pos-dim: rgba(52,211,153,0.20);
+            --warning: #FBBF24; --warn-dim: rgba(251,191,36,0.20);
+            --error: #F87171; --error-dim: rgba(248,113,113,0.20);
+            --t1: #FFFFFF; --t2: #E2E8F0; --t3: #CBD5E1;
+            --sh: 0 4px 24px rgba(0,0,0,0.40), 0 1px 4px rgba(0,0,0,0.25);
+            --shi: 0 0 40px rgba(59,130,246,0.30), 0 4px 24px rgba(0,0,0,0.40);
+            --fs: 14px;
+        }
+        [data-theme="light"] {
+            --void: #F8FAFC; --surface: #FFFFFF; --topbar: rgba(248,250,252,0.98);
+            --sb: rgba(241,245,249,0.98); --glass: rgba(248,250,252,0.90); --glass-hi: rgba(241,245,249,0.95);
+            --border: rgba(59,130,246,0.20); --border-hi: rgba(59,130,246,0.60);
+            --signal: #3B82F6; --sig-dim: rgba(59,130,246,0.15);
+            --positive: #10B981; --pos-dim: rgba(16,185,129,0.15);
+            --warning: #F59E0B; --warn-dim: rgba(245,158,11,0.15);
+            --error: #EF4444; --error-dim: rgba(239,68,68,0.15);
+            --t1: #0F172A; --t2: #334155; --t3: #64748B;
+        }
+        [data-font="compact"] { --fs: 15px; }
+        [data-font="default"] { --fs: 18px; }
+        [data-font="large"] { --fs: 21px; }
+        html { font-size: var(--fs); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--void); color: var(--t1); overflow: hidden; }
+        #root { width: 100%; height: 100vh; display: flex; flex-direction: column; }
+        #canvas-container { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+        .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; gap: 10px; padding: 0 16px; height: 48px; background: var(--topbar); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .brand { font-size: 0.95rem; font-weight: 800; color: var(--t1); text-transform: uppercase; }
+        .brand em { color: var(--signal); font-style: normal; }
+        .ui-layer { position: fixed; inset: 0; z-index: 10; margin-top: 48px; display: flex; }
+        .sidebar { width: 280px; background: var(--sb); border-right: 1px solid var(--border); overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+        .sb-header { padding: 12px; background: rgba(14,165,233,0.08); border: 1px solid var(--border); border-radius: 6px; font-size: 0.75rem; }
+        .sb-car-id { font-weight: 700; color: var(--signal); margin-bottom: 6px; word-break: break-all; font-size: 0.85rem; }
+        .sb-problem { color: var(--t2); font-size: 0.72rem; margin-bottom: 10px; line-height: 1.4; font-weight: 500; }
+        .sb-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.68rem; }
+        .sb-metric-item { text-align: center; padding: 8px; background: rgba(14,165,233,0.06); border-radius: 5px; }
+        .sb-metric-label { color: var(--t3); font-size: 0.65rem; font-weight: 600; }
+        .sb-metric-value { font-weight: 800; color: var(--signal); font-size: 1.1rem; margin-top: 4px; }
+        .sb-section { margin-bottom: 12px; }
+        .sb-section-title { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .11em; color: var(--t2); margin-bottom: 10px; }
+        .sb-btn { width: 100%; padding: 8px 10px; margin-bottom: 10px; background: var(--signal); color: #fff; border: none; border-radius: 6px; font-size: 0.70rem; font-weight: 600; cursor: pointer; }
+        .sb-item { padding: 6px 8px; margin-bottom: 4px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); cursor: pointer; font-size: 0.70rem; color: var(--t2); }
+        .sb-item.active { background: var(--sig-dim); border-color: var(--border-hi); color: var(--signal); font-weight: 600; }
+        .d-item { padding: 10px 12px; margin-bottom: 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); cursor: pointer; font-size: 0.78rem; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; font-weight: 500; }
+        .d-item:hover { border-color: var(--border-hi); background: rgba(14,165,233,0.05); }
+        .d-item.current { background: var(--sig-dim); border-color: var(--signal); color: var(--signal); font-weight: 600; }
+        .d-item.complete { background: var(--pos-dim); border-color: var(--positive); color: var(--positive); }
+        .d-item.locked { opacity: 0.4; cursor: not-allowed; }
+        .d-item-name { flex: 1; font-size: 0.65rem; }
+        .d-item-status { font-size: 0.6rem; font-weight: 600; text-transform: uppercase; }
+        .content { flex: 1; overflow: auto; padding: 12px; position: relative; display: flex; flex-direction: column; }
+        .editor-wrapper { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .main-panels { display: flex; gap: 12px; flex: 1; }
+        .discipline-panel { flex: 1.6; display: flex; flex-direction: column; }
+        .m-ai-panel { flex: 1; display: flex; flex-direction: column; min-width: 320px; }
+        .home { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .panel { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; min-height: 500px; }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .panel-title { font-size: 1.15rem; font-weight: 700; color: var(--t1); }
+        .stag { padding: 2px 8px; border-radius: 4px; font-size: 0.55rem; font-weight: 600; text-transform: uppercase; border: 1px solid var(--border); color: var(--t3); }
+        .stag.complete { color: var(--positive); border-color: var(--positive); background: var(--pos-dim); }
+        .stag.in-progress { color: var(--signal); border-color: var(--signal); background: var(--sig-dim); }
+        .panel-content { display: none; overflow-y: auto; flex: 1; }
+        .panel-content.active { display: block; }
+        .form-textarea { width: 100%; padding: 14px; background: #FFFFFF; border: 2px solid var(--signal); border-radius: 8px; color: #000000; font-size: 1.05rem; font-family: inherit; resize: vertical; min-height: 200px; font-weight: 400; line-height: 1.5; }
+        .form-textarea::placeholder { color: #999999; }
+        .panel-footer { display: flex; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
+        .small-btn { flex: 1; padding: 8px 12px; font-size: 0.75rem; border: 1px solid var(--border); background: var(--surface); color: var(--t2); border-radius: 5px; cursor: pointer; font-family: inherit; font-weight: 500; }
+        .small-btn:hover { background: rgba(14,165,233,0.05); border-color: var(--border-hi); color: var(--signal); }
+        .btn-primary { padding: 8px 14px; background: var(--signal); color: #fff; border: none; border-radius: 6px; font-size: 0.75rem; font-family: inherit; cursor: pointer; }
+        .dashboard { display: none; }
+        .dashboard.active { display: none; }
+        .db-card { padding: 8px 16px; border-right: 1px solid var(--border); }
+        .db-card:last-child { border-right: none; }
+        .db-label { font-size: 0.55rem; font-weight: 600; text-transform: uppercase; color: var(--t3); margin-bottom: 2px; }
+        .db-value { font-size: 1.1rem; font-weight: 700; color: var(--signal); }
+        .db-problem { flex: 1; padding: 0 12px; border-right: 1px solid var(--border); }
+        .db-problem-label { font-size: 0.55rem; font-weight: 600; text-transform: uppercase; color: var(--t3); margin-bottom: 2px; }
+        .db-problem-value { font-size: 0.85rem; font-weight: 600; color: var(--t1); }
+        .m-ai-alert { padding: 14px; margin-bottom: 12px; border-radius: 8px; border-left: 4px solid var(--warning); background: var(--warn-dim); font-size: 0.80rem; font-weight: 500; }
+        .m-ai-alert.error { border-left-color: var(--error); background: var(--error-dim); }
+        .m-ai-alert.success { border-left-color: var(--positive); background: var(--pos-dim); }
+        .m-ai-suggestion { padding: 12px; margin-bottom: 10px; background: rgba(14,165,233,0.08); border: 1px solid var(--border); border-radius: 6px; font-size: 0.80rem; color: var(--t2); font-weight: 500; }
+        .m-ai-score { font-size: 1.6rem; font-weight: 800; color: var(--signal); margin-bottom: 4px; }
+        .modal-bg { position: fixed; inset: 0; z-index: 300; background: rgba(2,5,12,0.72); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; }
+        .modal-bg.show { display: flex; }
+        .modal { background: var(--glass-hi); backdrop-filter: blur(28px); border: 1px solid var(--border-hi); border-radius: 14px; padding: 24px 28px; width: 100%; max-width: 480px; }
+        .modal-title { font-size: 1.1rem; font-weight: 700; color: var(--t1); margin-bottom: 18px; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { font-size: 0.70rem; font-weight: 700; text-transform: uppercase; color: var(--t2); margin-bottom: 7px; display: block; letter-spacing: .05em; }
+        .form-input { width: 100%; padding: 12px 14px; background: #FFFFFF; border: 2px solid var(--signal); border-radius: 8px; color: #000000; font-size: 1rem; font-family: inherit; font-weight: 400; }
+        .form-input::placeholder { color: #999999; }
+        .modal-footer { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+        .ib { width: 26px; height: 26px; border-radius: 4px; border: 1px solid var(--border); background: transparent; cursor: pointer; color: var(--t2); font-size: 0.70rem; font-family: inherit; display: flex; align-items: center; justify-content: center; }
+        .ib:hover { background: var(--surface); border-color: var(--border-hi); color: var(--t1); }
+        .ib.on { background: var(--sig-dim); border-color: var(--border-hi); color: var(--signal); }
+        .tsp { flex: 1; }
+        .tsep { width: 1px; height: 16px; background: var(--border); }
+        .audit-modal { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; }
+        .audit-modal.show { display: flex; }
+        .audit-content { background: var(--glass-hi); border: 1px solid var(--border-hi); border-radius: 12px; width: 90%; max-width: 800px; max-height: 80vh; overflow: auto; padding: 24px; }
+        .audit-close { position: absolute; top: 16px; right: 16px; background: none; border: 1px solid var(--border); color: var(--t2); font-size: 1.2rem; cursor: pointer; width: 32px; height: 32px; border-radius: 6px; }
+        .audit-entry { padding: 12px; margin-bottom: 12px; background: rgba(14,165,233,0.05); border-left: 3px solid var(--signal); border-radius: 4px; font-size: 0.75rem; }
+        .audit-ts { color: var(--t3); font-size: 0.70rem; margin-bottom: 4px; }
+        .audit-action { color: var(--signal); font-weight: 600; margin-bottom: 2px; }
+        .audit-detail { color: var(--t2); font-size: 0.70rem; }
+        .sb-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+        #importFileInput { display: none; }
+        .action-btn { width: 100%; padding: 12px 14px; font-size: 0.85rem; background: var(--signal); border: 1px solid var(--border-hi); border-radius: 6px; color: #FFFFFF; cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .action-btn:hover { background: #0EA5E9; border-color: #0EA5E9; box-shadow: 0 0 16px rgba(14,165,233,0.40); transform: translateY(-2px); }
+        @media print {
+          body { background: white; color: black; }
+          #root > *:not(#print-container) { display: none; }
+          .topbar, .sidebar, .m-ai-panel { display: none !important; }
+          .print-report { display: block; width: 100%; padding: 20px; font-family: Arial, sans-serif; }
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div id="canvas-container"></div>
+    <header class="topbar">
+        <div class="brand">CONFORM<em>-</em>EDGE <span style="font-weight: 400; font-size: 0.85rem; color: var(--t2);">· CAR 8D</span></div>
+        <div class="tsep"></div>
+        <div style="font-size: 0.67rem; color: var(--t3);">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--positive); display: inline-block; margin-right: 5px; box-shadow: 0 0 7px var(--positive);"></span>operational
+        </div>
+        <div class="tsp"></div>
+        <div style="display: flex; gap: 2px;">
+            <button class="ib" id="fs-compact" onclick="app.setFont('compact')">A−</button>
+            <button class="ib on" id="fs-default" onclick="app.setFont('default')">A</button>
+            <button class="ib" id="fs-large" onclick="app.setFont('large')">A+</button>
+            <div class="tsep"></div>
+            <button class="ib" onclick="app.toggleTheme()">◑</button>
+            <button class="ib" onclick="app.toggleSidebar()">☰</button>
+        </div>
+    </header>
+    <div class="dashboard" id="dashboard"></div>
+    <div class="ui-layer">
+        <aside class="sidebar" id="sidebar">
+            <div class="sb-section">
+                <div class="sb-section-title">CARs</div>
+                <button class="sb-btn" onclick="app.openNewCARModal()">+ NEW</button>
+                <div id="carList"></div>
+            </div>
+        </aside>
+        <div class="content" id="content">
+            <div class="home" id="home">
+                <div style="font-size: 0.64rem; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; color: var(--signal); margin-bottom: 14px;">8D Disciplines</div>
+                <div style="font-size: 1.55rem; font-weight: 700; color: var(--t1); margin-bottom: 10px;">Root Cause Mastery</div>
+                <div style="font-size: 0.83rem; color: var(--t2); max-width: 440px; margin-bottom: 32px;">A structured 8-discipline approach to problem-solving and corrective action.</div>
+                <button class="btn-primary" onclick="app.openNewCARModal()" style="padding: 14px 28px; font-size: 0.92rem; background: var(--signal); color: #fff; border: none; border-radius: 12px; font-weight: 700; cursor: pointer;">＋ NEW 8D</button>
+            </div>
+            <div id="carView"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-bg" id="modalBg" onclick="if(event.target === this) app.closeModal()">
+    <div class="modal">
+        <div class="modal-title">+ NEW 8D</div>
+        <div class="form-group">
+            <label class="form-label">Title</label>
+            <input class="form-input" id="carTitle" placeholder="Problem description">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Owner</label>
+            <input class="form-input" id="carOwner" placeholder="Responsible person">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" id="carEmail" placeholder="owner@company.com">
+        </div>
+        <div class="modal-footer">
+            <button class="btn-primary" style="background: transparent; color: var(--t2); border: 1px solid var(--border);" onclick="app.closeModal()">Cancel</button>
+            <button class="btn-primary" onclick="app.createCAR()">Create 8D</button>
+        </div>
+    </div>
+</div>
+
+<div class="audit-modal" id="auditModal">
+    <div class="audit-content">
+        <button class="audit-close" onclick="app.closeAuditLog()">×</button>
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--t1);">Audit Log</h2>
+        <div id="auditLogContent"></div>
+    </div>
+</div>
+
+<div id="print-container"></div>
+<input type="file" id="importFileInput" accept=".json" onchange="app.importCAR(event)">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const DISCIPLINES = [
+    {id:'d0',name:'Team',n:0},{id:'d1',name:'Problem',n:1},{id:'d2',name:'Containment',n:2},
+    {id:'d3',name:'Root Cause',n:3},{id:'d4',name:'Corrective Action',n:4},{id:'d5',name:'Implementation',n:5},
+    {id:'d6',name:'Prevention',n:6},{id:'d7',name:'Effectiveness',n:7},{id:'d8',name:'Closure',n:8}
+];
+
+const mAI={
+  auditLog:[],
+  analyzeQuality(disc,dName){
+    const notes=disc.notes||'';const owners=disc.owners||[];const verified=disc.verified;const alerts=[],suggestions=[];
+    let completeness=0,quality=0,requirementsMet=0;
+    const totalReqs=4;
+    if(notes.length>=20){completeness+=25;quality+=25;}else{alerts.push({type:'error',msg:`Notes too brief (${notes.length}/20 chars)`});}
+    if(notes.length>=100){quality+=20;}else if(notes.length>=20){suggestions.push('Expand notes with observations, timeline, findings.');}
+    if(owners.length>=1){completeness+=25;quality+=25;requirementsMet++;}else{alerts.push({type:'error',msg:'No owners (need 1-5)'});}
+    if(owners.length>=2&&dName>='3'&&dName<='5'){quality+=10;}else if(owners.length<2&&dName>='3'&&dName<='5'){suggestions.push('D3-D5 benefit from 2+ owners');}
+    if(disc.status==='complete'){completeness+=25;}if(disc.status==='complete'&&!verified){alerts.push({type:'warn',msg:'Complete but not verified'});}
+    if(verified){completeness+=25;quality+=20;requirementsMet++;}
+    if(notes.match(/todo|tbd|placeholder|fill in/gi)){alerts.push({type:'warn',msg:'Placeholder text detected'});}else if(notes.length>=20){quality+=10;}
+    const requirementsScore=(requirementsMet/totalReqs)*100;
+    return{completeness:Math.round(completeness/100*100),quality:Math.min(100,quality),requirements:Math.round(requirementsScore),alerts,suggestions};
+  },
+  log(action,carId,dId,details){
+    this.auditLog.push({ts:new Date().toISOString(),action,carId,dId,details});
+    localStorage.setItem('car8d-audit',JSON.stringify(this.auditLog));
+  }
+};
+
+const app={cars:JSON.parse(localStorage.getItem('car8d-cars')||'{}'),currentCarId:localStorage.getItem('car8d-current')||null,currentDisciplineId:localStorage.getItem('car8d-current-d')||null,
+save(){localStorage.setItem('car8d-cars',JSON.stringify(this.cars));localStorage.setItem('car8d-current',this.currentCarId);localStorage.setItem('car8d-current-d',this.currentDisciplineId);},
+switchDiscipline(did){this.currentDisciplineId=did;this.save();setTimeout(()=>this.render(),0);},
+setFont(s){document.documentElement.setAttribute('data-font',s);localStorage.setItem('ce-font',s);document.querySelectorAll('[id^="fs-"]').forEach(b=>b.classList.remove('on'));document.getElementById('fs-'+s).classList.add('on');},
+toggleTheme(){const n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('ce-theme',n);},
+toggleSidebar(){document.getElementById('sidebar').style.display=document.getElementById('sidebar').style.display==='none'?'block':'none';},
+openNewCARModal(){document.getElementById('modalBg').classList.add('show');},
+closeModal(){document.getElementById('modalBg').classList.remove('show');document.getElementById('carTitle').value='';document.getElementById('carOwner').value='';document.getElementById('carEmail').value='';},
+createCAR(){const t=document.getElementById('carTitle').value.trim(),o=document.getElementById('carOwner').value.trim(),e=document.getElementById('carEmail')?document.getElementById('carEmail').value.trim():'';if(!t||!o){alert('Fill in all fields');return;}const id='CAR-'+Date.now();this.cars[id]={id,title:t,owner:o,email:e,createdDate:new Date().toISOString().split('T')[0],disciplines:{}};DISCIPLINES.forEach(d=>{this.cars[id].disciplines[d.id]={status:'new',notes:'',owners:[],verified:false,verifiedBy:null,verifiedDate:null}});this.currentCarId=id;this.save();this.closeModal();this.render();},
+canAccessDiscipline(did){if(!this.currentCarId||!this.cars[this.currentCarId])return false;const dIdx=DISCIPLINES.findIndex(d=>d.id===did);if(dIdx===0)return true;const disc=this.cars[this.currentCarId].disciplines[did];if(disc.status==='complete')return true;const prevD=DISCIPLINES[dIdx-1];return this.cars[this.currentCarId].disciplines[prevD.id].status==='complete';},
+addOwner(did,name,email){if(this.currentCarId&&this.cars[this.currentCarId]){const disc=this.cars[this.currentCarId].disciplines[did];if(!disc.owners)disc.owners=[];if(disc.owners.length<5&&name.trim()){disc.owners.push({name:name.trim(),email:email||'',dateAdded:new Date().toISOString().split('T')[0]});this.save();this.render();}}},
+removeOwner(did,idx){if(this.currentCarId&&this.cars[this.currentCarId]){const disc=this.cars[this.currentCarId].disciplines[did];if(disc.owners){disc.owners.splice(idx,1);this.save();this.render();}}},
+verifyDiscipline(did,approverName,approverEmail){if(!approverName.trim()){alert('Please enter approver name');return;}if(this.currentCarId&&this.cars[this.currentCarId]){const disc=this.cars[this.currentCarId].disciplines[did];disc.verified=true;disc.verifiedBy=approverName.trim();disc.verifiedEmail=approverEmail||'';disc.verifiedDate=new Date().toISOString().split('T')[0];this.save();this.render();}},
+allPreviousVerified(did){const dIdx=DISCIPLINES.findIndex(d=>d.id===did);for(let i=0;i<dIdx;i++){if(!this.cars[this.currentCarId].disciplines[DISCIPLINES[i].id].verified)return false;}return true;},
+renderCarList(){const list=document.getElementById('carList');if(!list)return;list.innerHTML='';Object.values(this.cars).forEach(car=>{const div=document.createElement('div');div.className='sb-item'+(car.id===this.currentCarId?' active':'');div.textContent=car.id;div.onclick=()=>{this.currentCarId=car.id;this.save();this.render();};list.appendChild(div);});},
+updateStatus(did,status){if(!this.currentCarId||!this.cars[this.currentCarId])return;const disc=this.cars[this.currentCarId].disciplines[did];if(!this.canAccessDiscipline(did)){alert('Cannot proceed - complete previous discipline first (Rule: No Skipping Ahead)');return;}if(status==='in-progress'&&(!disc.owners||disc.owners.length===0)){alert('Cannot proceed - add at least 1 owner first (Rule: Owner Required)');return;}if(did==='d8'&&status==='complete'&&!this.allPreviousVerified(did)){alert('Cannot close - all previous disciplines must be verified first (Rule: Verification Required)');return;}disc.status=status;this.save();setTimeout(()=>this.render(),0);},
+saveNotes(did){if(this.currentCarId&&this.cars[this.currentCarId]){this.cars[this.currentCarId].disciplines[did].notes=document.getElementById('notes-'+did).value;this.save();alert('Saved!');}},
+updateKernelRealtime(did){if(this.currentCarId&&this.cars[this.currentCarId]){const textarea=document.getElementById('notes-'+did);if(textarea){this.cars[this.currentCarId].disciplines[did].notes=textarea.value;const d=DISCIPLINES.find(x=>x.id===did);const disc=this.cars[this.currentCarId].disciplines[did];const q=mAI.analyzeQuality(disc,d.n);const kernelPanel=document.querySelector('.m-ai-panel .panel-content');if(kernelPanel){let html=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;"><div><div style="font-size:0.65rem;font-weight:600;color:var(--t3);margin-bottom:3px;">Completeness</div><div class="m-ai-score" style="font-size:1rem;">${q.completeness}%</div></div><div><div style="font-size:0.65rem;font-weight:600;color:var(--t3);margin-bottom:3px;">Quality</div><div class="m-ai-score" style="font-size:1rem;">${q.quality}%</div></div><div><div style="font-size:0.65rem;font-weight:600;color:var(--t3);margin-bottom:3px;">Requirements</div><div class="m-ai-score" style="font-size:1rem;">${q.requirements}%</div></div></div><div style="font-size:0.65rem;color:var(--t3);margin-bottom:8px;padding:6px;background:rgba(14,165,233,0.05);border-radius:4px;">📊 Three perspectives on discipline health</div>${q.alerts.map(a=>`<div class="m-ai-alert ${a.type}">${a.msg}</div>`).join('')}${q.suggestions.length>0?`<div style="margin-top:12px;"><div style="font-size:0.70rem;font-weight:600;color:var(--t3);margin-bottom:6px;">Suggestions</div>${q.suggestions.map(s=>`<div class="m-ai-suggestion">💡 ${s}</div>`).join('')}</div>`:''}<div style="font-size:0.70rem;color:var(--t3);margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">M-AI analyzes completeness, quality, and compliance. Focus on high-quality outputs for lasting improvements.</div>`;kernelPanel.innerHTML=html;}}}},
+togglePanel(did,e){if(e){e.preventDefault();e.stopPropagation();}const c=document.getElementById('panel-'+did);if(c)c.classList.toggle('active');},
+openAuditLog(){const log=mAI.auditLog;const content=document.getElementById('auditLogContent');let html='';if(!log||log.length===0){html='<div style="color:var(--t3);text-align:center;padding:20px;">No audit entries yet.</div>';}else{html=log.map(e=>`<div class="audit-entry"><div class="audit-ts">${e.ts}</div><div class="audit-action">${e.action}</div><div class="audit-detail">CAR: ${e.carId} | D: ${e.dId}</div></div>`).join('');}content.innerHTML=html;document.getElementById('auditModal').classList.add('show');},
+closeAuditLog(){document.getElementById('auditModal').classList.remove('show');},
+printReport(){const car=this.cars[this.currentCarId];if(!car)return;let html=`<html><head><meta charset="UTF-8"><title>${car.id}</title><style>body{font-family:Arial,sans-serif;padding:20px;color:#000;background:#fff;}h1{font-size:24px;margin-bottom:10px;}h2{font-size:16px;margin-top:20px;margin-bottom:10px;border-bottom:2px solid #333;padding-bottom:5px;}.meta{background:#f5f5f5;padding:10px;margin:10px 0;border-radius:4px;}.discipline{page-break-inside:avoid;margin-bottom:20px;padding:15px;border:1px solid #ccc;border-radius:4px;}.owners{margin-top:10px;}.owner{padding:5px;background:#f0f0f0;margin:3px 0;border-radius:3px;font-size:12px;}.status{display:inline-block;padding:3px 8px;border-radius:3px;font-weight:bold;font-size:12px;}.status.complete{background:#10B981;color:white;}.status.verified{background:#0EA5E9;color:white;}table{width:100%;border-collapse:collapse;}th,td{padding:8px;text-align:left;border-bottom:1px solid #ddd;}th{background:#f5f5f5;font-weight:bold;}</style></head><body>`;html+=`<h1>8D Corrective Action Report</h1><div class="meta"><strong>CAR ID:</strong> ${car.id}<br><strong>Problem:</strong> ${car.title}<br><strong>Owner:</strong> ${car.owner} (${car.email||'No email'})<br><strong>Created:</strong> ${car.createdDate}</div>`;html+='<h2>Discipline Summary</h2><table><tr><th>Discipline</th><th>Status</th><th>Verified</th><th>Owners</th></tr>';DISCIPLINES.forEach(d=>{const disc=car.disciplines[d.id];const owners=(disc.owners||[]).map(o=>typeof o==='string'?o:o.name).join(', ');html+=`<tr><td>D${d.n} - ${d.name}</td><td class="status ${disc.status==='complete'?'complete':''}">${disc.status}</td><td>${disc.verified?'✓':'✗'}</td><td>${owners||'None'}</td></tr>`;});html+='</table>';DISCIPLINES.forEach(d=>{const disc=car.disciplines[d.id];html+=`<div class="discipline"><h3>D${d.n} - ${d.name}</h3><p>${disc.notes||'No notes'}</p><div class="owners"><strong>Team Members:</strong><br>`;if(disc.owners&&disc.owners.length>0){disc.owners.forEach(o=>{const owner=typeof o==='string'?{name:o,email:'',dateAdded:''}:o;html+=`<div class="owner">${owner.name} (${owner.email||'No email'}) - Added: ${owner.dateAdded||'N/A'}</div>`;});}else{html+='<div class="owner">No owners assigned</div>';}html+='</div>';if(disc.verified){html+=`<p style="margin-top:10px;"><strong>Approved by:</strong> ${disc.verifiedBy} (${disc.verifiedEmail||''})<br><strong>Date:</strong> ${disc.verifiedDate}</p>`;}html+='</div>';});html+='<p style="margin-top:40px;font-size:12px;color:#999;">Generated: '+new Date().toLocaleString()+'</p></body></html>';const win=window.open('','','width=900,height=600');win.document.write(html);win.document.close();win.print();},
+exportReport(){const car=this.cars[this.currentCarId];if(!car)return;const report={carId:car.id,title:car.title,owner:car.owner,email:car.email,createdDate:car.createdDate,exportDate:new Date().toISOString(),disciplines:{},auditLog:mAI.auditLog};DISCIPLINES.forEach(d=>{const disc=car.disciplines[d.id];report.disciplines[d.id]={name:d.name,status:disc.status,notes:disc.notes,owners:disc.owners||[],verified:disc.verified,verifiedBy:disc.verifiedBy,verifiedDate:disc.verifiedDate};});const json=JSON.stringify(report,null,2);const blob=new Blob([json],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=car.id+'_8D_Report.json';a.click();URL.revokeObjectURL(url);},
+triggerImport(){document.getElementById('importFileInput').click();},
+importCAR(event){const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=(e)=>{try{const importedData=JSON.parse(e.target.result);if(!importedData.carId||!importedData.disciplines){alert('Invalid file format. Please import a valid CAR 8D JSON export.');return;}const carId=importedData.carId;if(this.cars[carId]){const overwrite=confirm(`CAR ${carId} already exists. Overwrite with imported data?`);if(!overwrite)return;}this.cars[carId]={id:carId,title:importedData.title||'Imported CAR',owner:importedData.owner||'',email:importedData.email||'',createdDate:importedData.createdDate||new Date().toISOString().split('T')[0],disciplines:{}};DISCIPLINES.forEach(d=>{const importedDisc=importedData.disciplines[d.id];if(importedDisc){this.cars[carId].disciplines[d.id]={status:importedDisc.status||'new',notes:importedDisc.notes||'',owners:importedDisc.owners||[],verified:importedDisc.verified||false,verifiedBy:importedDisc.verifiedBy||null,verifiedEmail:importedDisc.verifiedEmail||'',verifiedDate:importedDisc.verifiedDate||null};}else{this.cars[carId].disciplines[d.id]={status:'new',notes:'',owners:[],verified:false,verifiedBy:null,verifiedEmail:'',verifiedDate:null};}});if(importedData.auditLog&&Array.isArray(importedData.auditLog)){importedData.auditLog.forEach(entry=>{mAI.log(entry.action||'import',entry.carId||carId,entry.dId||'',entry.details||{})});mAI.log('import-complete',carId,'',{source:file.name});}this.currentCarId=carId;this.currentDisciplineId='d0';this.save();this.render();alert(`CAR ${carId} imported successfully!`);}catch(err){alert('Error importing file: '+err.message);}finally{document.getElementById('importFileInput').value='';}};reader.readAsText(file);},
+render(){this.renderCarList();const home=document.getElementById('home'),view=document.getElementById('carView'),sb=document.getElementById('sidebar');if(!this.currentCarId||!this.cars[this.currentCarId]){home.style.display='flex';view.innerHTML='';sb.innerHTML='';return;}const car=this.cars[this.currentCarId];if(!this.currentDisciplineId){this.currentDisciplineId='d0';this.save();}home.style.display='none';const c=Object.values(car.disciplines).filter(d=>d.status==='complete').length;const v=Object.values(car.disciplines).filter(d=>d.verified).length;let sbHTML=`<div class="sb-header"><div class="sb-car-id">${car.id}</div><div class="sb-problem">${car.title}</div><div class="sb-metrics"><div class="sb-metric-item"><div class="sb-metric-label">Progress</div><div class="sb-metric-value">${c}/${DISCIPLINES.length}</div></div><div class="sb-metric-item"><div class="sb-metric-label">Verified</div><div class="sb-metric-value">${v}/${DISCIPLINES.length}</div></div><div class="sb-metric-item"><div class="sb-metric-label">Pending</div><div class="sb-metric-value">${DISCIPLINES.length-c}</div></div><div class="sb-metric-item"><div class="sb-metric-label">Status</div><div class="sb-metric-value">${c===DISCIPLINES.length?'✓':'→'}</div></div></div></div><div class="sb-section"><div class="sb-section-title">Disciplines</div>`;DISCIPLINES.forEach(d=>{const disc=car.disciplines[d.id];const canAccess=this.canAccessDiscipline(d.id);const isCurrent=d.id===this.currentDisciplineId;let cls='d-item';if(isCurrent)cls+=' current';else if(disc.status==='complete')cls+=' complete';else if(!canAccess)cls+=' locked';const statusIcon=disc.status==='complete'?'✓':!canAccess?'🔒':'';sbHTML+=`<div class="${cls}" onclick="event.stopPropagation();app.switchDiscipline('${d.id}');return false"><span class="d-item-name">D${d.n}</span><span class="d-item-status">${statusIcon}</span></div>`;});sbHTML+=`</div><div class="sb-actions"><button class="action-btn" onclick="app.openAuditLog()">📋 Audit Log</button><button class="action-btn" onclick="app.printReport()">🖨️ Print Report</button><button class="action-btn" onclick="app.exportReport()">💾 Export JSON</button><button class="action-btn" onclick="app.triggerImport()">📂 Import JSON</button></div>`;sb.innerHTML=sbHTML;if(this.currentDisciplineId&&this.cars[this.currentCarId]&&this.cars[this.currentCarId].disciplines[this.currentDisciplineId]){const d=DISCIPLINES.find(x=>x.id===this.currentDisciplineId);const disc=car.disciplines[this.currentDisciplineId];if(!disc.owners)disc.owners=[];const q=mAI.analyzeQuality(disc,d.n);const ownersList=disc.owners.map((o,i)=>{const owner=typeof o==='string'?{name:o,email:'',dateAdded:''}:o;return `<div style="font-size:0.73rem;padding:8px;background:var(--sig-dim);border-radius:4px;margin-bottom:6px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span style="font-weight:600;">${owner.name}</span><button class="small-btn" style="padding:1px 4px;font-size:0.60rem;" onclick="event.stopPropagation();app.removeOwner('${d.id}',${i});return false">✕</button></div><div style="color:var(--t3);font-size:0.65rem;">${owner.email}</div>${owner.dateAdded?`<div style="color:var(--t3);font-size:0.65rem;">Added: ${owner.dateAdded}</div>`:''}</div>`;}).join('');let html=`<div class="main-panels"><div class="discipline-panel"><div class="panel"><div class="panel-header"><div class="panel-title">D${d.n} · ${d.name}</div><span class="stag ${disc.status}">${disc.status.replace('-',' ')}${disc.verified?' ✓':''}</span></div><div class="panel-content" style="display:block;"><div class="form-group"><label class="form-label">Details</label><textarea class="form-textarea" id="notes-${d.id}" oninput="app.updateKernelRealtime('${d.id}')" onchange="mAI.log('save-notes','${car.id}','${d.id}',null)">${disc.notes}</textarea></div><div class="form-group"><label class="form-label">Owners (${disc.owners.length}/5)</label><div style="margin-bottom:8px;">${ownersList}</div>${disc.owners.length<5?`<input type="text" id="owner-name-${d.id}" class="form-input" placeholder="Owner name" style="margin-bottom:4px;"><input type="email" id="owner-email-${d.id}" class="form-input" placeholder="Email" style="margin-bottom:4px;"><button class="small-btn" onclick="event.stopPropagation();const n=document.getElementById('owner-name-${d.id}').value;const e=document.getElementById('owner-email-${d.id}').value;app.addOwner('${d.id}',n,e);document.getElementById('owner-name-${d.id}').value='';document.getElementById('owner-email-${d.id}').value='';return false">Add Owner</button>`:''}</div>${disc.status==='complete'?`<div class="form-group"><label class="form-label">Verification</label><div style="background:var(--surface);padding:8px;border-radius:6px;border:1px solid var(--border);"><div style="font-size:0.70rem;margin-bottom:4px;color:var(--t3);">Verified: ${disc.verified?'✓ YES':'✗ NO'}</div>${disc.verified?`<div style="font-size:0.70rem;color:var(--t2);"><div><strong>${disc.verifiedBy}</strong></div><div>${disc.verifiedEmail||''}</div><div>${disc.verifiedDate}</div></div>`:`<input type="text" id="approver-name-${d.id}" class="form-input" placeholder="Approver" style="margin-bottom:3px;"><input type="email" id="approver-email-${d.id}" class="form-input" placeholder="Email" style="margin-bottom:3px;"><button class="small-btn" onclick="event.stopPropagation();const n=document.getElementById('approver-name-${d.id}').value;const e=document.getElementById('approver-email-${d.id}').value;app.verifyDiscipline('${d.id}',n,e);return false">Verify</button>`}</div></div>`:''}<div class="panel-footer"><button class="small-btn" onclick="event.stopPropagation();app.updateStatus('${d.id}','new');return false">New</button><button class="small-btn" onclick="event.stopPropagation();app.updateStatus('${d.id}','in-progress');return false">In Progress</button><button class="small-btn" onclick="event.stopPropagation();app.updateStatus('${d.id}','complete');return false">Complete</button><button class="small-btn" onclick="event.stopPropagation();app.saveNotes('${d.id}');return false">Save</button></div></div></div></div><div class="m-ai-panel"><div class="panel"><div class="panel-header"><div class="panel-title">M-AI Kernel</div></div><div class="panel-content" style="display:block;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;"><div><div style="font-size:0.65rem;font-weight:600;color:var(--t3);margin-bottom:3px;">Completeness</div><div class="m-ai-score" style="font-size:1rem;">${q.completeness}%</div></div><div><div style="font-size:0.65rem;font-weight:600;color:var(--t3);margin-bottom:3px;">Quality</div><div class="m-ai-score" style="font-size:1rem;">${q.quality}%</div></div><div><div style="font-size:0.65rem;font-weight:600;color:var(--t3);margin-bottom:3px;">Requirements</div><div class="m-ai-score" style="font-size:1rem;">${q.requirements}%</div></div></div><div style="font-size:0.65rem;color:var(--t3);margin-bottom:8px;padding:6px;background:rgba(14,165,233,0.05);border-radius:4px;">📊 Three perspectives on discipline health</div>${q.alerts.map(a=>`<div class="m-ai-alert ${a.type}">${a.msg}</div>`).join('')}${q.suggestions.length>0?`<div style="margin-top:12px;"><div style="font-size:0.70rem;font-weight:600;color:var(--t3);margin-bottom:6px;">Suggestions</div>${q.suggestions.map(s=>`<div class="m-ai-suggestion">💡 ${s}</div>`).join('')}</div>`:''}<div style="font-size:0.70rem;color:var(--t3);margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">M-AI analyzes completeness, quality, and compliance. Focus on high-quality outputs for lasting improvements.</div></div></div></div></div>`;view.innerHTML=html;}}};
+document.addEventListener('DOMContentLoaded',()=>{const th=localStorage.getItem('ce-theme')||'dark',fn=localStorage.getItem('ce-font')||'default';document.documentElement.setAttribute('data-theme',th);app.setFont(fn);app.render();initThreeJS();});
+function initThreeJS(){const c=document.createElement('canvas');c.style.cssText='position:fixed;inset:0;z-index:1;';document.getElementById('canvas-container').appendChild(c);const s=new THREE.Scene();s.background=new THREE.Color(0x04080F);const cam=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,2000);cam.position.set(0,0,100);const r=new THREE.WebGLRenderer({canvas:c,antialias:!0,alpha:!0});r.setSize(window.innerWidth,window.innerHeight);r.setClearColor(0x04080F,1);const geom=new THREE.BufferGeometry();const stars=[];for(let i=0;i<1000;i++){const x=(Math.random()-0.5)*2000;const y=(Math.random()-0.5)*2000;const z=(Math.random()-0.5)*2000;stars.push(x,y,z);}geom.setAttribute('position',new THREE.BufferAttribute(new Float32Array(stars),3));const mat=new THREE.PointsMaterial({color:0x0EA5E9,size:2,sizeAttenuation:!0});const points=new THREE.Points(geom,mat);s.add(points);const l=new THREE.DirectionalLight(0xffffff,0.3);l.position.set(50,100,50);s.add(l);s.add(new THREE.AmbientLight(0xffffff,0.2));let t=0;function a(){requestAnimationFrame(a);t+=0.00005;points.rotation.x+=0.00001;points.rotation.y+=0.00002;cam.position.x=Math.sin(t)*120;cam.position.z=Math.cos(t)*120;cam.lookAt(0,0,0);r.render(s,cam);}a();}
+</script>
+</body>
+</html>

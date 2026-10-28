@@ -1,0 +1,218 @@
+[
+  {
+    "id": "REGPACK_FAA_PART21",
+    "name": "FAA 14 CFR Part 21 – Certification & Production",
+    "group": "Aerospace",
+    "jurisdiction": "USA",
+    "source_type": "regulation",
+    "source_url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-C/part-21"
+  },
+  {
+    "id": "REGPACK_FAA_PART145",
+    "name": "FAA 14 CFR Part 145 – Repair Stations",
+    "group": "Aerospace",
+    "jurisdiction": "USA",
+    "source_type": "regulation",
+    "source_url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-G/part-145"
+  },
+  {
+    "id": "REGPACK_EASA_PART21",
+    "name": "EASA Part-21 – Design & Production",
+    "group": "Aerospace",
+    "jurisdiction": "European Union",
+    "source_type": "regulation",
+    "source_url": "https://www.easa.europa.eu"
+  },
+  {
+    "id": "REGPACK_EASA_PART145",
+    "name": "EASA Part-145 – Maintenance Organisations",
+    "group": "Aerospace",
+    "jurisdiction": "European Union",
+    "source_type": "regulation",
+    "source_url": "https://www.easa.europa.eu"
+  },
+  {
+    "id": "REGPACK_UKCAA_PART21",
+    "name": "UK CAA Part-21 – Design & Production",
+    "group": "Aerospace",
+    "jurisdiction": "United Kingdom",
+    "source_type": "regulation",
+    "source_url": "https://www.caa.co.uk"
+  },
+  {
+    "id": "REGPACK_UKCAA_PART145",
+    "name": "UK CAA Part-145 – Maintenance Organisations",
+    "group": "Aerospace",
+    "jurisdiction": "United Kingdom",
+    "source_type": "regulation",
+    "source_url": "https://www.caa.co.uk"
+  },
+  {
+    "id": "REGPACK_CASA_PART21",
+    "name": "CASA CASR Part 21 – Certification & Production",
+    "group": "Aerospace",
+    "jurisdiction": "Australia",
+    "source_type": "regulation",
+    "source_url": "https://www.casa.gov.au"
+  },
+  {
+    "id": "REGPACK_CASA_PART145",
+    "name": "CASA Part 145 – Approved Maintenance Organisations",
+    "group": "Aerospace",
+    "jurisdiction": "Australia",
+    "source_type": "regulation",
+    "source_url": "https://www.casa.gov.au"
+  },
+  {
+    "id": "REGPACK_TCCA_PART21",
+    "name": "TCCA Part 21 / CAR 521 – Certification of Aeronautical Products",
+    "group": "Aerospace",
+    "jurisdiction": "Canada",
+    "source_type": "regulation",
+    "source_url": "https://tc.canada.ca/en/aviation"
+  },
+  {
+    "id": "REGPACK_TCCA_AMO",
+    "name": "TCCA AMO / CAR 573 – Approved Maintenance Organisations",
+    "group": "Aerospace",
+    "jurisdiction": "Canada",
+    "source_type": "regulation",
+    "source_url": "https://tc.canada.ca/en/aviation"
+  },
+  {
+    "id": "REGPACK_ANAC_RBAC21",
+    "name": "ANAC RBAC 21 – Certification Procedures for Products and Articles",
+    "group": "Aerospace",
+    "jurisdiction": "Brazil",
+    "source_type": "regulation",
+    "source_url": "https://www.gov.br/anac/pt-br"
+  },
+  {
+    "id": "REGPACK_ANAC_RBAC145",
+    "name": "ANAC RBAC 145 – Maintenance Organisations",
+    "group": "Aerospace",
+    "jurisdiction": "Brazil",
+    "source_type": "regulation",
+    "source_url": "https://www.gov.br/anac/pt-br"
+  },
+  {
+    "id": "REGPACK_CAAC_CCAR21",
+    "name": "CAAC CCAR-21 – Certification of Products and Parts",
+    "group": "Aerospace",
+    "jurisdiction": "China",
+    "source_type": "regulation",
+    "source_url": "https://www.caac.gov.cn"
+  },
+  {
+    "id": "REGPACK_CAAC_CCAR145",
+    "name": "CAAC CCAR-145 – Maintenance Organisations",
+    "group": "Aerospace",
+    "jurisdiction": "China",
+    "source_type": "regulation",
+    "source_url": "https://www.caac.gov.cn"
+  },
+  {
+    "id": "REGPACK_DGCA_CAR21",
+    "name": "DGCA India CAR-21 – Certification Requirements",
+    "group": "Aerospace",
+    "jurisdiction": "India",
+    "source_type": "regulation",
+    "source_url": "https://dgca.gov.in"
+  },
+  {
+    "id": "REGPACK_DGCA_MRO",
+    "name": "DGCA India CAR MRO – Maintenance Organisations",
+    "group": "Aerospace",
+    "jurisdiction": "India",
+    "source_type": "regulation",
+    "source_url": "https://dgca.gov.in"
+  },
+  {
+    "id": "REGPACK_GCAA_CAR21",
+    "name": "GCAA UAE CAR 21 – Certification & Production",
+    "group": "Aerospace",
+    "jurisdiction": "United Arab Emirates",
+    "source_type": "regulation",
+    "source_url": "https://www.gcaa.gov.ae"
+  },
+  {
+    "id": "REGPACK_GCAA_CAR145",
+    "name": "GCAA UAE CAR 145 – Maintenance Organisations",
+    "group": "Aerospace",
+    "jurisdiction": "United Arab Emirates",
+    "source_type": "regulation",
+    "source_url": "https://www.gcaa.gov.ae"
+  },
+  {
+    "id": "REGPACK_CAAS_ANR21",
+    "name": "CAAS Singapore ANR-21 – Certification",
+    "group": "Aerospace",
+    "jurisdiction": "Singapore",
+    "source_type": "regulation",
+    "source_url": "https://www.caas.gov.sg"
+  },
+  {
+    "id": "REGPACK_CAAS_ANR145",
+    "name": "CAAS Singapore ANR-145 – Maintenance Organisations",
+    "group": "Aerospace",
+    "jurisdiction": "Singapore",
+    "source_type": "regulation",
+    "source_url": "https://www.caas.gov.sg"
+  },
+  {
+    "id": "REGPACK_CAANZ_PART21",
+    "name": "CAA New Zealand Part 21 – Certification of Products & Parts",
+    "group": "Aerospace",
+    "jurisdiction": "New Zealand",
+    "source_type": "regulation",
+    "source_url": "https://www.aviation.govt.nz"
+  },
+  {
+    "id": "REGPACK_CAANZ_PART145",
+    "name": "CAA New Zealand Part 145 – Maintenance Organisations",
+    "group": "Aerospace",
+    "jurisdiction": "New Zealand",
+    "source_type": "regulation",
+    "source_url": "https://www.aviation.govt.nz"
+  },
+  {
+    "id": "REGPACK_FDA_21CFR820",
+    "name": "FDA 21 CFR 820 – Quality System Regulation",
+    "group": "Medical Device",
+    "jurisdiction": "USA",
+    "source_type": "regulation",
+    "source_url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820"
+  },
+  {
+    "id": "REGPACK_EU_MDR",
+    "name": "EU Medical Device Regulation (EU MDR)",
+    "group": "Medical Device",
+    "jurisdiction": "European Union",
+    "source_type": "regulation",
+    "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32017R0745"
+  },
+  {
+    "id": "REGPACK_MDSAP",
+    "name": "Medical Device Single Audit Program (MDSAP)",
+    "group": "Medical Device",
+    "jurisdiction": "International",
+    "source_type": "regulation",
+    "source_url": "https://www.fda.gov/medical-devices/cdrh-international-affairs/medical-device-single-audit-program-mdsap"
+  },
+  {
+    "id": "REGPACK_NHTSA_FMVSS",
+    "name": "NHTSA Federal Motor Vehicle Safety Standards",
+    "group": "Automotive",
+    "jurisdiction": "USA",
+    "source_type": "regulation",
+    "source_url": "https://www.nhtsa.gov/laws-regulations/fmvss"
+  },
+  {
+    "id": "REGPACK_UNECE_WP29",
+    "name": "UNECE WP.29 Vehicle Regulations",
+    "group": "Automotive",
+    "jurisdiction": "International",
+    "source_type": "regulation",
+    "source_url": "https://unece.org/transport/vehicle-regulations"
+  }
+]

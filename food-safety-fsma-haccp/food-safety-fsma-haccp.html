@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Safety Readiness Self-Assessment — FSMA / HACCP | Conform-Edge</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0e1a;--panel:rgba(15,22,40,0.92);--border:rgba(100,140,200,0.18);--navy:#0d1b3e;--steel:#2a4a7f;--accent:#4a9eff;--ok:#22c55e;--warn:#f59e0b;--crit:#ef4444;--text:#e2e8f0;--muted:#7a8fa6;--glass:rgba(255,255,255,0.04)}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;min-height:100vh}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#0a1628 60%,#0d2040 100%);padding:28px 32px 22px;border-bottom:1px solid var(--border)}
+.brand{font-size:11px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:6px;font-weight:600}
+h1{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px}
+.sub{color:var(--muted);font-size:13px}
+.container{max-width:900px;margin:0 auto;padding:24px 20px}
+.sec{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.sec-title{font-size:15px;font-weight:600;color:#fff}
+.sec-ref{font-size:11px;color:var(--accent);font-weight:600}
+.sec-score{font-size:12px;color:var(--muted)}
+.q-item{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(100,140,200,0.06)}
+.q-item:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.q-text{font-size:13px;color:var(--text);margin-bottom:8px;line-height:1.5}
+.q-crit{display:inline-block;font-size:10px;font-weight:700;color:var(--crit);background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+.q-ref{font-size:10px;color:var(--muted);margin-bottom:6px}
+.btn-grp{display:flex;gap:6px}
+.ans-btn{padding:5px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s}
+.ans-btn.sel-0{background:rgba(239,68,68,.15);border-color:var(--crit);color:var(--crit)}
+.ans-btn.sel-1{background:rgba(245,158,11,.12);border-color:var(--warn);color:var(--warn)}
+.ans-btn.sel-2{background:rgba(34,197,94,.1);border-color:var(--ok);color:var(--ok)}
+.action-hint{font-size:11px;color:var(--muted);margin-top:6px;display:none;line-height:1.5}
+.action-hint.show{display:block}
+.sticky-bar{position:sticky;top:0;background:rgba(10,14,26,0.97);border-bottom:1px solid var(--border);padding:10px 20px;z-index:100;display:flex;align-items:center;justify-content:space-between}
+.progress-wrap{flex:1;max-width:300px;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;margin:0 16px}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--steel),var(--accent));border-radius:3px;transition:width .3s}
+.progress-text{font-size:12px;color:var(--muted)}
+.btn{padding:9px 20px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600}
+.btn-primary{background:linear-gradient(135deg,var(--steel),var(--accent));color:#fff}
+.btn-sec{background:transparent;border:1px solid var(--border);color:var(--text)}
+#results{display:none}
+.r-hero{background:linear-gradient(135deg,var(--navy),#0a1628);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:18px}
+.r-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:4px}
+.r-meta{font-size:12px;color:var(--muted);margin-bottom:16px}
+.verdict{font-size:15px;font-weight:700;padding:12px 18px;border-radius:8px;margin-top:12px;display:inline-block}
+.v-ready{background:rgba(34,197,94,.12);color:var(--ok);border:1px solid rgba(34,197,94,.25)}
+.v-cond{background:rgba(245,158,11,.1);color:var(--warn);border:1px solid rgba(245,158,11,.2)}
+.v-not{background:rgba(239,68,68,.1);color:var(--crit);border:1px solid rgba(239,68,68,.2)}
+.stats{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.stat{background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:12px 16px;text-align:center;min-width:90px}
+.stat .v{font-size:24px;font-weight:700;color:var(--accent)}
+.stat .l{font-size:11px;color:var(--muted);margin-top:2px}
+.r-sec{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+.r-sec-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:rgba(74,158,255,0.1);padding:8px 10px;text-align:left;color:var(--accent);font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:7px 10px;border-bottom:1px solid rgba(100,140,200,0.07);vertical-align:top}
+.p-c{color:var(--crit);font-weight:700}
+.p-m{color:var(--warn);font-weight:600}
+.p-n{color:var(--muted)}
+.nar-box{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;line-height:1.7;color:var(--muted);white-space:pre-wrap;font-family:inherit}
+.exp-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px}
+@media print{.sticky-bar,.exp-row,.btn{display:none}#questions{display:block}#results{display:block}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="brand">Conform-Edge &middot; Food Safety Intelligence</div>
+  <h1>Food Safety Readiness Self-Assessment</h1>
+  <div class="sub">FSMA 21 CFR Part 117 &middot; HACCP / HARPC &middot; GMP &middot; Preventive Controls &middot; Allergen Management</div>
+</div>
+
+<div class="sticky-bar">
+  <span class="progress-text" id="progText">0 / 35 answered</span>
+  <div class="progress-wrap"><div class="progress-bar" id="progBar" style="width:0%"></div></div>
+  <button class="btn btn-primary" onclick="showResults()" id="assessBtn">View Assessment</button>
+</div>
+
+<div class="container" id="questions"></div>
+
+<div class="container" id="resultsArea">
+<div id="results">
+  <div class="r-hero">
+    <div class="r-title">Food Safety Readiness Assessment</div>
+    <div class="r-meta" id="rMeta"></div>
+    <div class="verdict" id="verdict"></div>
+    <div class="stats">
+      <div class="stat"><div class="v" id="rScore">-</div><div class="l">Score</div></div>
+      <div class="stat"><div class="v p-c" id="rCrit">-</div><div class="l">Critical Gaps</div></div>
+      <div class="stat"><div class="v p-m" id="rMaj">-</div><div class="l">Major Gaps</div></div>
+      <div class="stat"><div class="v p-n" id="rMin">-</div><div class="l">Minor Gaps</div></div>
+    </div>
+  </div>
+  <div class="r-sec">
+    <div class="r-sec-title">Gap Analysis — Prioritized by Risk</div>
+    <table><thead><tr><th>Requirement</th><th>FDA Reference</th><th>Status</th><th>Priority</th><th>Corrective Action</th></tr></thead>
+    <tbody id="gapTable"></tbody></table>
+  </div>
+  <div class="r-sec">
+    <div class="r-sec-title">Management Review Narrative</div>
+    <div class="nar-box" id="narrative"></div>
+  </div>
+  <div class="exp-row">
+    <button class="btn btn-primary" onclick="window.print()">Print / Save PDF</button>
+    <button class="btn btn-sec" onclick="expJSON()">Export JSON (M-AI)</button>
+    <button class="btn btn-sec" onclick="copyNar()">Copy Narrative</button>
+    <button class="btn btn-sec" onclick="scrollTo(0,0)">Back to Assessment</button>
+  </div>
+</div>
+</div>
+
+<footer>Food Safety Readiness Self-Assessment by Conform-Edge Quality Consulting LLC &mdash; Self-preparation aid only. Not a substitute for PCQI training, FDA regulatory guidance, or professional food safety consulting. &copy; 2026 Conform-Edge LLC. All rights reserved.</footer>
+
+<script>
+var SECS=[
+{id:"s1",title:"Management Commitment & Food Safety Culture",ref:"21 CFR 117.126 / Subpart C",questions:[
+  {id:"1.1",text:"Senior management has designated a qualified individual (PCQI) responsible for the food safety plan.",crit:true,ref:"21 CFR 117.126(b)(1)",action:"Designate a PCQI with documented qualifications. PCQI must have completed FSPCA Preventive Controls for Human Food training or equivalent."},
+  {id:"1.2",text:"A written food safety policy is established, communicated to all personnel involved in food handling, and reviewed at defined intervals.",crit:false,ref:"21 CFR 117.126(c)",action:"Establish and communicate a written food safety policy. Document review intervals and evidence of communication (sign-in sheets, training records)."},
+  {id:"1.3",text:"Management allocates adequate resources (personnel, equipment, training) to maintain the food safety system.",crit:false,ref:"21 CFR 117.126(c)",action:"Document resource allocation in management review records. Include budget line items or equivalent evidence."},
+  {id:"1.4",text:"Food safety performance is reviewed by management at planned intervals with documented outcomes and actions.",crit:false,ref:"21 CFR 117.126(c) / FSMA intent",action:"Establish a management review cadence (minimum annual). Document inputs, outputs, and action items."},
+  {id:"1.5",text:"A documented food safety plan is in place and has been signed and dated by the PCQI.",crit:true,ref:"21 CFR 117.126(a)",action:"Ensure the Food Safety Plan is a complete, signed, dated document encompassing all required elements per 21 CFR 117.126."}
+]},
+{id:"s2",title:"Prerequisite Programs (PRPs) & Good Manufacturing Practices",ref:"21 CFR 117 Subpart B",questions:[
+  {id:"2.1",text:"The facility maintains and implements written sanitation procedures covering equipment, contact surfaces, and environmental controls.",crit:false,ref:"21 CFR 117.35 / 117.137",action:"Document sanitation SOPs for all food contact surfaces. Establish daily cleaning schedules with verification records (swab results, log sheets)."},
+  {id:"2.2",text:"Pest control measures are implemented and documented with evidence of regular monitoring.",crit:false,ref:"21 CFR 117.35(c)",action:"Establish a pest control program (in-house or contracted). Document inspection logs, bait station records, and corrective actions."},
+  {id:"2.3",text:"Water used in food production or as an ingredient is of adequate sanitary quality with documented testing.",crit:false,ref:"21 CFR 117.37",action:"Test water at defined frequencies per local regulatory requirements. Document results and corrective actions for out-of-spec results."},
+  {id:"2.4",text:"Employee hygiene requirements (handwashing, illness policy, protective clothing) are documented and enforced.",crit:false,ref:"21 CFR 117.10",action:"Establish and enforce written personal hygiene policy. Include illness reporting, wound/bandage policy, and documented training."},
+  {id:"2.5",text:"Supplier and raw material controls are documented including approved supplier lists and incoming material verification.",crit:false,ref:"21 CFR 117.136 / 117.430",action:"Maintain an approved supplier list. Document supplier approval criteria and incoming material acceptance procedures."}
+]},
+{id:"s3",title:"Hazard Analysis & HARPC (Preventive Controls for Human Food)",ref:"21 CFR 117.130",questions:[
+  {id:"3.1",text:"A written hazard analysis has been conducted identifying known or reasonably foreseeable biological, chemical, physical, and radiological hazards.",crit:true,ref:"21 CFR 117.130(a)",action:"Conduct and document a complete hazard analysis for all products/product categories. Address biological (pathogens), chemical (allergens, pesticides, food additives), physical, and radiological hazards."},
+  {id:"3.2",text:"The hazard analysis evaluates the probability of occurrence and severity of identified hazards to determine which require a preventive control.",crit:true,ref:"21 CFR 117.130(b)(2)",action:"For each identified hazard, document a risk evaluation (likelihood x severity) and a written determination of whether a preventive control is required."},
+  {id:"3.3",text:"The hazard analysis has been reviewed and updated when significant changes occur (new product, new process, new supplier).",crit:false,ref:"21 CFR 117.170(a)",action:"Establish a trigger-based reanalysis procedure. Document the reanalysis when product, process, or supply chain changes occur."},
+  {id:"3.4",text:"Records of the hazard analysis are maintained and available for regulatory review.",crit:false,ref:"21 CFR 117.301(b)",action:"Retain hazard analysis records for a minimum of 2 years (human food) or 3 years (high-risk products). Ensure records are readily accessible."},
+  {id:"3.5",text:"Supply chain controls address hazards for raw materials and ingredients that require a supply chain applied control.",crit:false,ref:"21 CFR 117.136 / 117.415",action:"Identify raw materials where the hazard requires a supply chain preventive control. Document and implement appropriate supplier verification activities (audits, CoA review, product testing). Retain records."}
+]},
+{id:"s4",title:"Preventive Controls",ref:"21 CFR 117.135-117.165",questions:[
+  {id:"4.1",text:"Process preventive controls (time, temperature, pH, water activity) have been identified and implemented for all hazards requiring a process control.",crit:true,ref:"21 CFR 117.135(c)(1)",action:"Identify and document all process controls (CCPs or process PCs). Establish critical limits, monitoring procedures, and corrective action procedures for each."},
+  {id:"4.2",text:"Monitoring procedures for preventive controls are defined, implemented, and records are maintained.",crit:false,ref:"21 CFR 117.145",action:"Define monitoring frequency, method, and responsible personnel for each preventive control. Maintain dated monitoring records."},
+  {id:"4.3",text:"Corrective action procedures are in place for when preventive controls are not met, including disposition of affected product.",crit:false,ref:"21 CFR 117.150",action:"Document corrective action procedures for each preventive control. Include product hold/disposition steps, root cause evaluation, and reanalysis trigger criteria."},
+  {id:"4.4",text:"Preventive controls have been validated (or validation is documented as not applicable with justification).",crit:false,ref:"21 CFR 117.160",action:"Conduct or document validation for process preventive controls. For controls where validation is not feasible, document a written justification."},
+  {id:"4.5",text:"Records of preventive control monitoring, corrective actions, and verification activities are maintained.",crit:false,ref:"21 CFR 117.190",action:"Maintain complete records of monitoring (including continuous records where applicable), corrective actions, and verification activities for the required retention period."}
+]},
+{id:"s5",title:"Allergen Controls",ref:"21 CFR 117.135(c)(2) / FSMA",questions:[
+  {id:"5.1",text:"All allergens present in the facility are identified, and allergen controls are implemented to prevent cross-contact.",crit:true,ref:"21 CFR 117.135(c)(2)",action:"Conduct an allergen inventory for all ingredients and products. Implement physical segregation, scheduling controls, or other preventive measures to prevent cross-contact. Document all controls."},
+  {id:"5.2",text:"Finished product labeling is verified to ensure accurate declaration of all allergens present.",crit:false,ref:"21 CFR 117.135(c)(2) / FALCPA",action:"Establish a label verification procedure confirming accurate allergen declarations on finished product labels. Document verification records."},
+  {id:"5.3",text:"Allergen cleaning and changeover procedures are defined and verified when switching between allergen-containing and allergen-free products.",crit:false,ref:"21 CFR 117.135(c)(2)",action:"Establish written allergen changeover procedures with verification steps (ATP swabs, visual inspection, or first-product testing). Document verification results."},
+  {id:"5.4",text:"Employee training on allergen awareness and cross-contact prevention is conducted and documented.",crit:false,ref:"21 CFR 117.4 / 117.8",action:"Document allergen awareness training for all food handlers and relevant staff. Include training records with date, trainer, and employee sign-off. Refresh training when allergen controls change."},
+  {id:"5.5",text:"Rework containing allergens is controlled and clearly identified to prevent inadvertent incorporation into allergen-free products.",crit:false,ref:"21 CFR 117.135(c)(2)",action:"Establish rework identification and segregation controls. Document rework disposition decisions. Include allergen rework controls in sanitation and allergen changeover procedures."}
+]},
+{id:"s6",title:"Verification, Validation & Records",ref:"21 CFR 117.155-117.190",questions:[
+  {id:"6.1",text:"Verification activities (calibration, environmental monitoring, product testing, record review) are defined and implemented.",crit:false,ref:"21 CFR 117.155",action:"Establish a written verification schedule. Include instrument calibration, environmental monitoring program, product testing, and periodic record review with documented results."},
+  {id:"6.2",text:"An environmental monitoring program (EMP) is in place for pathogens of concern where appropriate.",crit:true,ref:"21 CFR 117.165(a)(3) / FDA EMP Guidance",action:"Establish a risk-based EMP for the facility. Define sampling sites (zones 1-4), frequency, indicator organisms and/or pathogens, and corrective action triggers. Document all EMP results."},
+  {id:"6.3",text:"All required food safety records are retained for the minimum required period and are readily retrievable.",crit:false,ref:"21 CFR 117.301",action:"Establish a records retention matrix. Human food: minimum 2 years; products with shelf life >2 years: 1 year past product shelf life. Ensure electronic or paper records are retrievable within a reasonable timeframe."},
+  {id:"6.4",text:"The food safety plan is reanalyzed at least every 3 years or when triggered by a significant change.",crit:false,ref:"21 CFR 117.170",action:"Establish a 3-year reanalysis schedule and a trigger-based reanalysis procedure. Document each reanalysis outcome and any plan changes made."},
+  {id:"6.5",text:"Supplier verification activities are conducted and documented for raw materials and ingredients.",crit:false,ref:"21 CFR 117.430-117.475",action:"Implement supplier verification procedures appropriate to the hazard risk: certificates of analysis, supplier audits, or product testing. Retain supplier verification records."}
+]},
+{id:"s7",title:"Recall & Crisis Readiness",ref:"21 CFR 117 / 21 CFR Part 7",questions:[
+  {id:"7.1",text:"A written product recall and withdrawal procedure is in place, tested, and personnel are trained on their roles.",crit:true,ref:"21 CFR 117.139 / 21 CFR Part 7",action:"Establish a written recall plan covering traceability, lot identification, customer notification, regulatory notification (FDA 24-hour requirement for Class I), and mock recall testing. Document most recent mock recall results."},
+  {id:"7.2",text:"Lot identification and traceability systems enable identification and location of all affected product within a defined timeframe.",crit:false,ref:"21 CFR 117.139",action:"Verify that lot codes are applied to all finished goods and raw materials. Test traceability by conducting a forward/backward trace exercise. Document time-to-complete."},
+  {id:"7.3",text:"A customer complaint handling procedure is in place with documented investigation and corrective action.",crit:false,ref:"FSMA intent / GFSI best practice",action:"Establish a written complaint procedure. Log all complaints, conduct root cause analysis for food safety complaints, and document corrective actions. Review complaint data in management review."},
+  {id:"7.4",text:"Contact information for regulatory authorities (FDA, USDA as applicable) is current and accessible for emergency notification.",crit:false,ref:"21 CFR 7.46 / FSMA 204",action:"Maintain current FDA district office contact information in the recall plan. For USDA-regulated products, include FSIS contact. Verify contacts annually."},
+  {id:"7.5",text:"Food defense and intentional adulteration vulnerability assessments have been considered and documented where applicable.",crit:false,ref:"21 CFR Part 121 (Subpart B)",action:"For facilities meeting the applicability threshold (> 1M USD annual sales), conduct and document an actionable process steps vulnerability assessment. Implement mitigation strategies for significant vulnerabilities."}
+]}
+];
+
+var CRIT_IDS=SECS.flatMap(function(s){return s.questions.filter(function(q){return q.crit;}).map(function(q){return q.id;});});
+var answers={};
+
+function render(){
+  var html="";
+  SECS.forEach(function(s){
+    html+='<div class="sec"><div class="sec-hdr"><div><div class="sec-title">'+s.title+'</div></div><div style="text-align:right"><div class="sec-ref">'+s.ref+'</div><div class="sec-score" id="ss-'+s.id+'"></div></div></div>';
+    s.questions.forEach(function(q){
+      var isCrit=q.crit;
+      html+='<div class="q-item" id="qi-'+q.id+'">';
+      html+='<div class="q-text">'+q.text+(isCrit?'<span class="q-crit">CRITICAL</span>':'')+'</div>';
+      html+='<div class="q-ref">'+q.ref+'</div>';
+      html+='<div class="btn-grp">';
+      html+='<button class="ans-btn" id="b0-'+q.id+'" onclick="setAns(\''+q.id+'\',0)">0 — Not Established</button>';
+      html+='<button class="ans-btn" id="b1-'+q.id+'" onclick="setAns(\''+q.id+'\',1)">1 — Partial</button>';
+      html+='<button class="ans-btn" id="b2-'+q.id+'" onclick="setAns(\''+q.id+'\',2)">2 — Established</button>';
+      html+='</div>';
+      html+='<div class="action-hint" id="ah-'+q.id+'">'+q.action+'</div>';
+      html+='</div>';
+    });
+    html+='</div>';
+  });
+  document.getElementById("questions").innerHTML=html;
+}
+
+function setAns(qid,val){
+  answers[qid]=val;
+  [0,1,2].forEach(function(v){
+    var b=document.getElementById("b"+v+"-"+qid);
+    if(b){b.className="ans-btn"+(v===val?" sel-"+v:"");}
+  });
+  var ah=document.getElementById("ah-"+qid);
+  if(ah){if(val<2){ah.classList.add("show");}else{ah.classList.remove("show");}}
+  updateProgress();
+  updateSecScore(findSec(qid));
+}
+
+function findSec(qid){
+  for(var i=0;i<SECS.length;i++){for(var j=0;j<SECS[i].questions.length;j++){if(SECS[i].questions[j].id===qid)return SECS[i];}}
+  return null;
+}
+
+function updateSecScore(sec){
+  if(!sec)return;
+  var el=document.getElementById("ss-"+sec.id);
+  if(!el)return;
+  var score=0,max=0,ans=0;
+  sec.questions.forEach(function(q){max+=2;if(answers[q.id]!==undefined){score+=answers[q.id];ans++;}});
+  el.textContent=ans+"/"+sec.questions.length+" answered ("+Math.round(score/max*100)+"%)";
+}
+
+function totalQ(){var n=0;SECS.forEach(function(s){n+=s.questions.length;});return n;}
+
+function updateProgress(){
+  var ans=Object.keys(answers).length;
+  var tot=totalQ();
+  document.getElementById("progText").textContent=ans+" / "+tot+" answered";
+  document.getElementById("progBar").style.width=Math.round(ans/tot*100)+"%";
+}
+
+function showResults(){
+  var score=0,maxScore=0,gaps=[],critFail=false;
+  SECS.forEach(function(s){s.questions.forEach(function(q){
+    maxScore+=2;
+    var val=answers[q.id]!==undefined?answers[q.id]:0;
+    score+=val;
+    var isCrit=q.crit;
+    if(isCrit&&val===0)critFail=true;
+    if(val<2){
+      var pri=val===0&&isCrit?"Critical":val===0?"Major":"Minor";
+      gaps.push({clause:q.id,text:q.text,ref:q.ref,val:val,pri:pri,action:q.action});
+    }
+  });});
+  gaps.sort(function(a,b){var o={Critical:0,Major:1,Minor:2};return o[a.pri]-o[b.pri];});
+  var pct=Math.round(score/maxScore*100);
+  var crits=gaps.filter(function(g){return g.pri==="Critical";}).length;
+  var majs=gaps.filter(function(g){return g.pri==="Major";}).length;
+  var mins=gaps.filter(function(g){return g.pri==="Minor";}).length;
+  document.getElementById("rScore").textContent=pct+"%";
+  document.getElementById("rCrit").textContent=crits;
+  document.getElementById("rMaj").textContent=majs;
+  document.getElementById("rMin").textContent=mins;
+  document.getElementById("rMeta").textContent="Generated: "+(new Date().toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}))+" | "+Object.keys(answers).length+" / "+totalQ()+" questions answered";
+  var verd="",vcls="";
+  if(critFail){verd="NOT READY — "+crits+" Critical gap"+(crits>1?"s":"")+" require immediate corrective action before FDA inspection readiness";vcls="v-not";}
+  else if(pct>=80&&majs<=2){verd="CONDITIONAL READY — Good foundation; address "+majs+" major gap"+(majs!==1?"s":"")+" to reach full readiness";vcls="v-cond";}
+  else if(pct>=90&&majs===0){verd="READY — Strong food safety system; maintain continuous improvement";vcls="v-ready";}
+  else{verd="NOT READY — Significant gaps require corrective action ("+pct+"% score, "+majs+" major gaps)";vcls="v-not";}
+  var vEl=document.getElementById("verdict");vEl.textContent=verd;vEl.className="verdict "+vcls;
+  var rows="";
+  gaps.forEach(function(g){var pc=g.pri==="Critical"?"p-c":g.pri==="Major"?"p-m":"p-n";var st=g.val===0?"Not Established":"Partial";rows+="<tr><td style='max-width:220px'>"+g.text+"</td><td style='font-size:10px;white-space:nowrap'>"+g.ref+"</td><td>"+st+"</td><td class='"+pc+"'>"+g.pri+"</td><td style='max-width:240px;font-size:11px'>"+g.action+"</td></tr>";});
+  document.getElementById("gapTable").innerHTML=rows||"<tr><td colspan='5' style='text-align:center;color:var(--ok)'>No gaps identified — all requirements established.</td></tr>";
+  var critStr=crits>0?crits+" critical gap"+(crits>1?"s":"")+" require immediate corrective action. ":"No critical gaps identified. ";
+  var majStr=majs>0?majs+" major gap"+(majs!==1?"s":"")+" identified. ":"";
+  var nar="Food Safety Readiness Self-Assessment Summary\nFSMA 21 CFR Part 117 / HACCP / GMP\n\nOverall readiness score: "+pct+"% ("+score+" / "+maxScore+" points)\n\n"+critStr+majStr+"\n\nAssessment verdict: "+verd+"\n\nSection breakdown:\n";
+  SECS.forEach(function(s){var sc=0,mx=0;s.questions.forEach(function(q){mx+=2;sc+=answers[q.id]!==undefined?answers[q.id]:0;});nar+="  "+s.title+": "+Math.round(sc/mx*100)+"%\n";});
+  nar+="\nThis assessment is a self-preparation aid only. It does not constitute PCQI certification, a guarantee of FDA inspection readiness, or a substitute for professional food safety consulting. Retain this record as evidence of gap analysis and corrective action planning for management review.";
+  document.getElementById("narrative").textContent=nar;
+  document.getElementById("results").style.display="block";
+  document.getElementById("resultsArea").scrollIntoView({behavior:"smooth"});
+  window._fsData={score:score,maxScore:maxScore,pct:pct,crits:crits,majs:majs,mins:mins,gaps:gaps,verdict:verd,nar:nar,answers:JSON.parse(JSON.stringify(answers))};
+}
+
+function copyNar(){navigator.clipboard.writeText(document.getElementById("narrative").textContent).then(function(){alert("Copied.");});}
+
+function expJSON(){
+  if(!window._fsData)return;
+  var d=window._fsData;
+  var data={tool:"FoodSafetyReadinessSelfAssessment",standard:"FSMA 21 CFR Part 117 / HACCP / GMP",generated:new Date().toISOString(),score:{pct:d.pct,raw:d.score,max:d.maxScore},summary:{criticalGaps:d.crits,majorGaps:d.majs,minorGaps:d.mins,verdict:d.verdict},gaps:d.gaps.map(function(g){return{id:g.clause,text:g.text,ref:g.ref,status:g.val===0?"not-established":"partial",priority:g.pri,correctiveAction:g.action};}),maiInterface:window.FOODSAFETY_MAI_INTERFACE?window.FOODSAFETY_MAI_INTERFACE.domain:"RESERVED_INTERFACE_PRESENT",narrative:d.nar};
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  var url=URL.createObjectURL(blob);var a=document.createElement("a");a.href=url;a.download="food-safety-assessment.json";a.click();URL.revokeObjectURL(url);
+}
+
+window.FOODSAFETY_MAI_INTERFACE={domain:"food-safety-readiness",version:"1.0",dims:["HACCPAdequacy","ComplianceRiskScore","RemediationPriority"],observe:function(d){return null;},advise:function(dim,ctx){return null;},generate:function(dim,d){return null;}};
+
+render();
+</script>
+</body>
+</html>

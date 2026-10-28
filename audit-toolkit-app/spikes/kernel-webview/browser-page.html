@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Kernel evaluate browser spike</title>
+<pre id="out">running...</pre>
+<script>
+// Loads ?sha=<tag> bundle (evaluate.browser.<tag>.js) + test-input.json and exposes results on window.__RESULT.
+const sha = new URLSearchParams(location.search).get('sha') || '5c976d1';
+const s = document.createElement('script');
+s.src = `evaluate.browser.${sha}.js`;
+s.onload = async () => {
+  try {
+    const input = await (await fetch('test-input.json')).json();
+    const r = MAIEvaluate.evaluate(JSON.parse(JSON.stringify(input)));
+    delete r.evaluationDurationMs;
+    const rev = v => Array.isArray(v) ? v.map(rev) : (v && typeof v === 'object') ? Object.fromEntries(Object.entries(v).reverse().map(([k, x]) => [k, rev(x)])) : v;
+    window.__RESULT = {
+      sha, ua: navigator.userAgent, lang: navigator.language,
+      globals: [typeof process, typeof require, typeof Buffer, typeof module].join(','),
+      json: JSON.stringify(r),
+      hash: r.determinationHash,
+      hashReversedKeys: MAIEvaluate.evaluate(rev(JSON.parse(JSON.stringify(input)))).determinationHash,
+      shimSelfTest: MAIEvaluate.createDeterminationHash({ tenantId: 't', domain: 'd', entityType: 'e', entityId: 'x' }, { facts: {} }, [])
+    };
+    document.getElementById('out').textContent = JSON.stringify(window.__RESULT, null, 2);
+  } catch (e) { window.__RESULT = { error: String(e && e.stack || e) }; document.getElementById('out').textContent = window.__RESULT.error; }
+};
+s.onerror = () => { window.__RESULT = { error: 'bundle load failed' }; };
+document.head.appendChild(s);
+</script>

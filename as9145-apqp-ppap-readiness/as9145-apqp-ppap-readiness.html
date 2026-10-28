@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AS9145 APQP & PPAP Readiness — Conform-Edge</title>
+<style>
+:root{--navy:#0b1f33;--panel:#12293f;--steel:#5b7488;--ink:#e8eef4;--good:#2e9e6b;--warn:#d8a12a;--bad:#c1493f;--line:#22405a}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif;background:var(--navy);color:var(--ink)}
+header{padding:20px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+h1{font-size:19px;margin:0;letter-spacing:.3px}.brand{color:var(--steel);font-size:12px;text-transform:uppercase;letter-spacing:2px}
+main{max-width:1000px;margin:0 auto;padding:22px}
+.pick{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.pick button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 14px;cursor:pointer}
+.pick button.on{border-color:var(--steel);box-shadow:0 0 0 2px rgba(91,116,136,.3)}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+.q h3{margin:0 0 4px;font-size:15px}.q p{margin:0 0 10px;color:#a9bccb;font-size:13px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}.opts label{border:1px solid var(--line);border-radius:7px;padding:6px 11px;cursor:pointer;font-size:13px}
+.opts input{margin-right:6px}
+.bar{position:sticky;bottom:0;background:var(--navy);border-top:1px solid var(--line);padding:14px 0;margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{background:var(--steel);color:#04121f;border:0;border-radius:8px;padding:11px 18px;font-weight:600;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+#out{margin-top:18px}.verdict{border-radius:10px;padding:16px 18px;margin:12px 0;border:1px solid var(--line)}
+.score{font-size:34px;font-weight:700}.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.t-good{background:rgba(46,158,107,.18);color:#7fe0b3}.t-warn{background:rgba(216,161,42,.18);color:#f0cf7f}.t-bad{background:rgba(193,73,63,.2);color:#f0a49c}
+.gap{border-left:3px solid var(--bad);padding:8px 12px;margin:8px 0;background:rgba(193,73,63,.07);border-radius:0 8px 8px 0}
+.gap.med{border-left-color:var(--warn);background:rgba(216,161,42,.07)}
+.muted{color:var(--steel);font-size:12px}
+.psw{margin-top:14px;border:1px dashed var(--line);border-radius:10px;padding:12px 16px}
+</style></head><body>
+<header><div><h1>AS9145 APQP &amp; PPAP Readiness</h1><div class="brand">Conform-Edge &middot; Deterministic Launch-Readiness Engine</div></div>
+<div class="muted">Self-contained. No data leaves this page.</div></header>
+<main>
+<p>Assess readiness of an aerospace new-product introduction against the <b>AS9145 five-phase APQP model</b> and the <b>PPAP</b> submission set (Boeing/Airbus flow-down context). Select the phases in scope, answer each element, then get a <b>per-phase readiness verdict</b>, a <b>PPAP element completeness view</b>, and a prioritized closure plan. Intent-based &mdash; evidence must be demonstrable, not just claimed.</p>
+<div class="pick" id="phases"></div>
+<div id="quiz"></div>
+<div class="bar">
+  <button class="btn" onclick="score()">Generate readiness verdict</button>
+  <button class="btn ghost" onclick="window.print()">Print / PDF</button>
+  <button class="btn ghost" onclick="exportJson()">Export findings (JSON)</button>
+  <span class="muted" id="prog"></span>
+</div>
+<div id="out"></div>
+<p class="muted" style="margin-top:24px">Reference: AS9145 (APQP/PPAP for aviation, space &amp; defense) by clause intent only. This tool does not reproduce standard text and is a self-preparation aid, not a certification or a customer approval.</p>
+</main>
+<script>
+// Deterministic KB: AS9145 APQP phases + PPAP set. weight: 3=major/blocker,2=minor,1=OFI.
+const KB={
+ "Phase 1 — Plan & Define":[
+  ["Voice-of-customer & contract/flow-down requirements captured, including customer PPAP level and special-characteristic definitions",3],
+  ["Cross-functional APQP team, timing plan, and program milestones established and owned",2],
+  ["Preliminary special characteristics and known key characteristics (KCs) identified from design inputs",3],
+  ["Feasibility / risk review completed with go decision recorded",2]],
+ "Phase 2 — Product Design & Development":[
+  ["Design FMEA (DFMEA) completed, ties failure modes to characteristics, and drives design actions",3],
+  ["Design outputs, drawings, and KC/special-characteristic flow to manufacturing defined and controlled",3],
+  ["Design verification / DVP&R planned with acceptance criteria",2],
+  ["Design reviews held at defined gates with actions closed",2]],
+ "Phase 3 — Process Design & Development":[
+  ["Process flow diagram covers all operations including rework, inspection, and handling",2],
+  ["Process FMEA (PFMEA) completed, linked to the flow and to control-plan controls",3],
+  ["Pre-launch control plan defines controls, reaction plans, and KC monitoring",3],
+  ["Measurement systems planned; gauges identified for each characteristic",2]],
+ "Phase 4 — Product & Process Validation":[
+  ["Significant production run performed under production conditions (rate, tooling, operators)",3],
+  ["MSA (Gage R&R / bias / stability) completed and acceptable for KC gauges",3],
+  ["Initial process capability (Ppk/Cpk) demonstrated on KCs against the customer threshold",3],
+  ["First Article Inspection (AS9102) complete with balloon/results reconciled",3],
+  ["PPAP package assembled and submitted at the required level with PSW",3]],
+ "Phase 5 — Ongoing Production, Use & Post-Delivery":[
+  ["Production control plan active; SPC/monitoring running on KCs",2],
+  ["Change control requires PPAP re-submission triggers per customer rules",3],
+  ["Lessons learned / continual-improvement loop feeds DFMEA/PFMEA updates",1],
+  ["Escape / nonconformance and corrective-action data reviewed for the part family",2]],
+ "PPAP Submission Set":[
+  ["Design records & authorized engineering change documents present and current",3],
+  ["DFMEA, PFMEA, and control plan included and mutually consistent",3],
+  ["Dimensional results (AS9102 FAI) and material/performance test results included",3],
+  ["MSA studies and initial process study (capability) results included",3],
+  ["Qualified laboratory documentation and appearance approval (if required) included",2],
+  ["Part Submission Warrant (PSW) completed, signed, at correct submission level",3]]
+};
+const sev={3:"Major / likely finding or hold",2:"Minor",1:"OFI"};
+const fam=Object.keys(KB);let picked=new Set();
+const fEl=document.getElementById('phases');
+fam.forEach(f=>{const b=document.createElement('button');b.textContent=f;b.onclick=()=>{b.classList.toggle('on');picked.has(f)?picked.delete(f):picked.add(f);render()};fEl.appendChild(b)});
+function render(){const q=document.getElementById('quiz');q.innerHTML='';let n=0;
+ [...picked].forEach(f=>{const h=document.createElement('div');h.innerHTML='<h2 style="color:#8fb0c8;font-size:14px;margin:16px 0 4px">'+f+'</h2>';q.appendChild(h);
+  KB[f].forEach((item,i)=>{n++;const d=document.createElement('div');d.className='q';const id=btoa(unescape(encodeURIComponent(f))).slice(0,6)+i;
+   d.innerHTML='<h3>'+item[0]+'</h3><p class="muted">Severity if not met: '+sev[item[1]]+'</p><div class="opts">'+
+   ['Complete &amp; evidenced','Partial / not evidenced','Not started','N/A'].map((o,k)=>
+   '<label><input type="radio" name="'+id+'" value="'+k+'">'+o+'</label>').join('')+'</div>';
+   d.dataset.fam=f;d.dataset.w=item[1];d.dataset.item=item[0];q.appendChild(d)})});
+ document.getElementById('prog').textContent=n?(n+' elements across '+picked.size+' phase(s)'):'Select at least one phase.';}
+function score(){const out=document.getElementById('out');out.innerHTML='';if(!picked.size){out.innerHTML='<p class="t-warn tag">Select a phase first.</p>';return;}
+ let byFam={};document.querySelectorAll('.q').forEach(q=>{const f=q.dataset.fam,w=+q.dataset.w;
+  const sel=q.querySelector('input:checked');const v=sel?+sel.value:1; // unanswered = gap
+  byFam[f]=byFam[f]||{max:0,got:0,gaps:[]};
+  if(v===3)return; // N/A excluded
+  byFam[f].max+=w; if(v===0){byFam[f].got+=w;} else {byFam[f].gaps.push({item:q.dataset.item,w:w,partial:v===1});}});
+ Object.keys(byFam).forEach(f=>{const b=byFam[f];const pct=b.max?Math.round(100*b.got/b.max):100;
+  const blockers=b.gaps.filter(g=>g.w===3).length;
+  let verdict,cls;if(blockers>0){verdict='NOT READY — open major(s) / PPAP hold';cls='bad';}else if(pct>=85){verdict='READY';cls='good';}else{verdict='CONDITIONAL — close minors first';cls='warn';}
+  let html='<div class="verdict"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'+
+   '<div><b>'+f+'</b><br><span class="tag t-'+cls+'">'+verdict+'</span></div><div class="score">'+pct+'%</div></div>';
+  if(b.gaps.length){html+='<p class="muted" style="margin-top:12px">Prioritized closure plan:</p>';
+   b.gaps.sort((a,c)=>c.w-a.w).forEach(g=>{html+='<div class="gap'+(g.w<3?' med':'')+'"><b>'+sev[g.w]+':</b> '+g.item+(g.partial?' <i>(evidence gap — done but not demonstrable)</i>':'')+'</div>';});}
+  else html+='<p class="t-good tag" style="margin-top:10px">No open gaps in this area.</p>';
+  html+='</div>';out.innerHTML+=html;});
+ // Overall PSW go/no-go: any blocker anywhere = no-go
+ const anyBlock=Object.values(byFam).some(b=>b.gaps.some(g=>g.w===3));
+ const allPct=Object.values(byFam).reduce((a,b)=>({got:a.got+b.got,max:a.max+b.max}),{got:0,max:0});
+ const op=allPct.max?Math.round(100*allPct.got/allPct.max):100;
+ out.innerHTML+='<div class="psw"><b>PSW submission gate:</b> '+
+  (anyBlock?'<span class="tag t-bad">NO-GO — resolve all majors before warranting</span>':(op>=85?'<span class="tag t-good">GO — package defensible</span>':'<span class="tag t-warn">CONDITIONAL — raise overall readiness to 85%+</span>'))+
+  ' &nbsp;<span class="muted">Overall '+op+'%.</span></div>';
+ window._findings=byFam;out.scrollIntoView({behavior:'smooth'});}
+function exportJson(){if(!window._findings){score();}const blob=new Blob([JSON.stringify(window._findings,null,2)],{type:'application/json'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='as9145-apqp-ppap-findings.json';a.click();}
+</script></body></html>

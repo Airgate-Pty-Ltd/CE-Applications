@@ -1,0 +1,34 @@
+{
+  "ruleId": "PMA-SUPP-004",
+  "dimId": "pma-application-assessment",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "PENDING-REVIEW",
+  "approvalRef": "Organization supplement development procedure \u2014 supplement number/date blank; basis statement wording",
+  "severity": "minor",
+  "gapClass": "WARNING",
+  "category": "completeness",
+  "riskClass": "C",
+  "basisType": "deterministic-record-completeness",
+  "description": "Approval-basis cell wording must follow the SOP statement template for the submission type, and Supplement No./Date must be left blank.",
+  "requiredFields": [
+    "basis_wording_matches_sop_template"
+  ],
+  "logicResult": "basis_wording_deviates_from_sop",
+  "findingText": "One or more Approval Basis cells do not use the SOP-851-12 prescribed wording (for an STC: 'STC No:' / 'DWG No:' / 'Rev:' / 'Date: ... or later FAA approved revisions.').",
+  "resolutionHint": "Apply the SOP-851-12 statement template for the submission type (TC, STC, or Drawing). SOP-851-12 directs: do not use wording different from the FAA Orders and sample supplement.",
+  "clauseRefs": [
+    "Organization supplement development procedure \u2014 approval-basis statement wording",
+    "AC 21.303-4 Appendix C"
+  ],
+  "condition": {
+    "field": "basis_wording_matches_sop_template",
+    "op": "eq",
+    "value": false
+  },
+  "limitations": [
+    "Compares the cell against the SOP template shape; it does not validate the underlying approval data."
+  ],
+  "citationScope": "generic",
+  "citationNote": "Cites the form/procedure by role; the tenant profile supplies its own controlled document number and revision when the finding is rendered."
+}

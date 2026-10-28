@@ -1,0 +1,54 @@
+{
+  "standard": {
+    "code": "IEC-62304",
+    "revision": "2006+A1:2015",
+    "title": "Medical device software \u2014 Software life cycle processes",
+    "authority": "IEC",
+    "citation_style": "page_line",
+    "parser_profile": "pdf_generic_v1",
+    "metadata": {
+      "domain": "Medical"
+    }
+  },
+  "clauses": [
+    {
+      "clause_id": "4",
+      "label": "General requirements",
+      "parent": null,
+      "order_index": 40
+    },
+    {
+      "clause_id": "5",
+      "label": "Software development process",
+      "parent": null,
+      "order_index": 50
+    },
+    {
+      "clause_id": "6",
+      "label": "Software maintenance process",
+      "parent": null,
+      "order_index": 60
+    },
+    {
+      "clause_id": "7",
+      "label": "Risk management (with ISO 14971)",
+      "parent": null,
+      "order_index": 70
+    },
+    {
+      "clause_id": "8",
+      "label": "Configuration management",
+      "parent": null,
+      "order_index": 80
+    },
+    {
+      "clause_id": "9",
+      "label": "Problem resolution",
+      "parent": null,
+      "order_index": 90
+    }
+  ],
+  "crosswalk_targets": [
+    "ISO-14971-2019"
+  ]
+}

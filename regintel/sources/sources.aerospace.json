@@ -1,0 +1,1244 @@
+{
+  "registry_version": "1.0.0",
+  "domain": "aerospace",
+  "identity_markers_needs_review": true,
+  "last_full_validation": null,
+  "sources": [
+    {
+      "id": "AER-040",
+      "authority": "ICAO standards-development overview",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "SARPs and PANS development process",
+      "url": "https://www.icao.int/how-icao-develops-standards",
+      "identity_markers": [
+        "ICAO",
+        "Sarps"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-041",
+      "authority": "ICAO publications store",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Annex, PANS, manual, circular edition metadata",
+      "url": "https://store.icao.int/",
+      "identity_markers": [
+        "ICAO",
+        "Annex"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-042",
+      "authority": "ICAO safety management",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Annex 19 and SMS guidance changes",
+      "url": "https://www.icao.int/safety-management",
+      "identity_markers": [
+        "ICAO",
+        "Annex"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-043",
+      "authority": "ICAO safety management SARPs",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Safety-management requirements",
+      "url": "https://www.icao.int/safety-management/standards-and-recommended-practices-sarps",
+      "identity_markers": [
+        "ICAO",
+        "Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-044",
+      "authority": "ICAO news",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Newly adopted standards, Council decisions",
+      "url": "https://www.icao.int/news",
+      "identity_markers": [
+        "ICAO",
+        "Newly"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-045",
+      "authority": "ICAO environmental protection",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "CORSIA, emissions, noise requirements",
+      "url": "https://www.icao.int/environmental-protection",
+      "identity_markers": [
+        "ICAO",
+        "Corsia"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-046",
+      "authority": "ICAO aviation security",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Annex 17 and security developments",
+      "url": "https://www.icao.int/security",
+      "identity_markers": [
+        "ICAO",
+        "Annex"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-047",
+      "authority": "ICAO USOAP",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "State oversight and implementation",
+      "url": "https://www.icao.int/safety/CMAForum/Pages/default.aspx",
+      "identity_markers": [
+        "ICAO",
+        "State"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-048",
+      "authority": "ICAO eLibrary",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Searchable ICAO document platform",
+      "url": "https://elibrary.icao.int/",
+      "identity_markers": [
+        "ICAO",
+        "Searchable"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-049",
+      "authority": "FAA regulations landing page",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Current and historical FAA regulations",
+      "url": "https://www.faa.gov/regulations_policies/faa_regulations",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Current"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-050",
+      "authority": "FAA rulemaking",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Proposed rules and rulemaking activity",
+      "url": "https://www.faa.gov/regulations_policies/rulemaking",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Proposed"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-051",
+      "authority": "Recently published FAA rules",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Publication date, title, comment deadline",
+      "url": "https://www.faa.gov/regulations_policies/rulemaking/recently_published",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Publication"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-052",
+      "authority": "FAA petitions",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Petitions for exemption and rulemaking",
+      "url": "https://www.faa.gov/regulations_policies/rulemaking/petition",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Petitions"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-053",
+      "authority": "FAA rulemaking committees",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "ARAC recommendations and committee material",
+      "url": "https://www.faa.gov/regulations_policies/rulemaking/committees",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Arac"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-054",
+      "authority": "FAA Dynamic Regulatory System",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "ADs, ACs, Orders, Notices, policy",
+      "url": "https://drs.faa.gov/",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Orders"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "AER-055",
+      "authority": "FAA Airworthiness Directives",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Current and historical ADs",
+      "url": "https://drs.faa.gov/browse/ADFRAWD/doctypeDetails",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Current"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "AER-056",
+      "authority": "FAA Advisory Circulars",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "New, revised, cancelled ACs",
+      "url": "https://www.faa.gov/regulations_policies/advisory_circulars",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Revised"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-057",
+      "authority": "FAA Orders and Notices",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "FAA internal regulatory policy",
+      "url": "https://www.faa.gov/regulations_policies/orders_notices",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Internal"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-058",
+      "authority": "FAA handbooks and manuals",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Technical and inspector guidance",
+      "url": "https://www.faa.gov/regulations_policies/handbooks_manuals",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Technical"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-059",
+      "authority": "FAA aircraft certification",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Part 21, certification, continued safety",
+      "url": "https://www.faa.gov/aircraft/air_cert",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Part"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-060",
+      "authority": "FAA draft certification documents",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Draft ACs, policy, orders",
+      "url": "https://www.faa.gov/aircraft/draft_docs",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Draft"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-061",
+      "authority": "FAA draft policy",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Draft Aircraft Certification Service policy",
+      "url": "https://www.faa.gov/aircraft/draft_docs/policy",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Draft"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-062",
+      "authority": "FAA Type Certificate Data Sheets",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "TCDS changes",
+      "url": "https://drs.faa.gov/browse/TCDSMODEL/doctypeDetails",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Tcds"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-063",
+      "authority": "FAA Supplemental Type Certificates",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "STC approvals and changes",
+      "url": "https://drs.faa.gov/browse/STC/doctypeDetails",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Approvals"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-064",
+      "authority": "FAA Technical Standard Orders",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "TSO issuance and revision",
+      "url": "https://drs.faa.gov/browse/TSO/doctypeDetails",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Issuance"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-065",
+      "authority": "FAA safety alerts for operators",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "SAFO notices",
+      "url": "https://www.faa.gov/other_visit/aviation_industry/airline_operators/airline_safety/safo",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Safo"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "AER-066",
+      "authority": "FAA Information for Operators",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "InFO notices",
+      "url": "https://www.faa.gov/other_visit/aviation_industry/airline_operators/airline_safety/info",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Info"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-067",
+      "authority": "FAA Service Difficulty Reports",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Service difficulty and failure reports",
+      "url": "https://av-info.faa.gov/sdrx/",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Service"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-068",
+      "authority": "FAA lessons learned",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Accident and design lessons",
+      "url": "https://lessonslearned.faa.gov/",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Accident"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-069",
+      "authority": "FAA regulatory dockets",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "FAA docket documents",
+      "url": "https://www.regulations.gov/search?filter=FAA",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Docket"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-070",
+      "authority": "Title 14 eCFR",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Current aviation regulations",
+      "url": "https://www.ecfr.gov/current/title-14",
+      "identity_markers": [
+        "Title",
+        "Current"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "AER-071",
+      "authority": "FAA Federal Register search",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "Official proposed and final FAA rules",
+      "url": "https://www.federalregister.gov/agencies/federal-aviation-administration",
+      "identity_markers": [
+        "FAA",
+        "Federal Aviation",
+        "Official"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "AER-072",
+      "authority": "EASA regulations",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Easy Access Rules and regulatory packages",
+      "url": "https://www.easa.europa.eu/en/regulations",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Easy"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-073",
+      "authority": "EASA document library",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Central searchable document collection",
+      "url": "https://www.easa.europa.eu/en/document-library",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Central"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "AER-074",
+      "authority": "EASA official publication",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Authenticated Agency decisions and publications",
+      "url": "https://www.easa.europa.eu/en/official-publication",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Authenticated"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-075",
+      "authority": "EASA NPAs",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Draft requirements and comment deadlines",
+      "url": "https://www.easa.europa.eu/en/document-library/notices-of-proposed-amendment",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Draft"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-076",
+      "authority": "EASA Opinions",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Proposals sent to the European Commission",
+      "url": "https://www.easa.europa.eu/en/document-library/opinions",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Proposals"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-077",
+      "authority": "EASA Agency Decisions",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "AMC, GM, CS, detailed specifications",
+      "url": "https://www.easa.europa.eu/en/document-library/agency-decisions",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Detailed"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-078",
+      "authority": "EASA Certification Specifications",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "CS revisions and amendments",
+      "url": "https://www.easa.europa.eu/en/document-library/certification-specifications",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Revisions"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-079",
+      "authority": "EASA Airworthiness Directives",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "ADs, emergency ADs, safety publications",
+      "url": "https://ad.easa.europa.eu/",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Emergency"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "AER-080",
+      "authority": "EASA Safety Information Bulletins",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Nonmandatory safety information",
+      "url": "https://ad.easa.europa.eu/sib-docs/page-1",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Nonmandatory"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-081",
+      "authority": "EASA Certification Memoranda",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Certification policy and interpretation",
+      "url": "https://www.easa.europa.eu/en/document-library/certification-memoranda",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Certification"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-082",
+      "authority": "EASA Safety Directives",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Mandatory organizational/operational actions",
+      "url": "https://www.easa.europa.eu/en/document-library/safety-directives",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Mandatory"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "AER-083",
+      "authority": "EASA Rulemaking Tasks",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Rulemaking projects and future deliverables",
+      "url": "https://www.easa.europa.eu/en/document-library/rulemaking-subjects",
+      "identity_markers": [
+        "EASA",
+        "Aviation Safety",
+        "Rulemaking"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-084",
+      "authority": "European Plan for Aviation Safety",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Planned rulemaking and safety actions",
+      "url": "https://www.easa.europa.eu/en/domains/safety-management/european-plan-aviation-safety",
+      "identity_markers": [
+        "European",
+        "Planned"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-085",
+      "authority": "EU aviation legislation",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "EU aviation laws and amendments",
+      "url": "https://eur-lex.europa.eu/summary/chapter/transport/3203.html",
+      "identity_markers": [
+        "aviation",
+        "Aviation"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-086",
+      "authority": "European Commission aviation consultations",
+      "tier": "primary",
+      "country": "European Union",
+      "purpose": "Proposed aviation policies and rules",
+      "url": "https://transport.ec.europa.eu/transport-modes/air/consultations_en",
+      "identity_markers": [
+        "European",
+        "Proposed"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-087",
+      "authority": "CAA publications",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "CAPs, directives, official publications",
+      "url": "https://www.caa.co.uk/data-and-publications/publications/",
+      "identity_markers": [
+        "CAA",
+        "Caps"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-088",
+      "authority": "CAA publication series",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "Filterable publication collections",
+      "url": "https://www.caa.co.uk/data-and-publications/publications/publication-series/",
+      "identity_markers": [
+        "CAA",
+        "Filterable"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-089",
+      "authority": "CAA consultations",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "Proposed regulatory and policy changes",
+      "url": "https://www.caa.co.uk/our-work/consultations/",
+      "identity_markers": [
+        "CAA",
+        "Proposed"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-090",
+      "authority": "CAA Airworthiness Directives",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "Applicable AD policy and sources",
+      "url": "https://www.caa.co.uk/commercial-industry/aircraft/airworthiness/continuing-airworthiness/airworthiness-directives/",
+      "identity_markers": [
+        "CAA",
+        "Applicable"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "AER-091",
+      "authority": "UK-issued AD collection",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "UK ADs",
+      "url": "https://www.caa.co.uk/data-and-publications/publications/publication-series/airworthiness-directives-uk-from-1-january-2021/",
+      "identity_markers": [
+        "issued"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-092",
+      "authority": "Emergency ADs",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "Emergency safety requirements",
+      "url": "https://www.caa.co.uk/data-and-publications/publications/publication-series/emergency-airworthiness-directives/",
+      "identity_markers": [
+        "Emergency",
+        "Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-093",
+      "authority": "CAP 747",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "Mandatory continuing-airworthiness requirements",
+      "url": "https://www.caa.co.uk/cap747",
+      "identity_markers": [
+        "CAP",
+        "Mandatory"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-094",
+      "authority": "CAA Official Record Series",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "Decisions, exemptions, schemes",
+      "url": "https://www.caa.co.uk/data-and-publications/publications/publication-series/official-record-series/",
+      "identity_markers": [
+        "CAA",
+        "Decisions"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-095",
+      "authority": "CAA safety notices",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "Safety notices",
+      "url": "https://www.caa.co.uk/data-and-publications/publications/publication-series/safety-notices/",
+      "identity_markers": [
+        "CAA",
+        "Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-096",
+      "authority": "CAA subscriptions",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "Email alert registration",
+      "url": "https://www.caa.co.uk/data-and-publications/publications/subscriptions/",
+      "identity_markers": [
+        "CAA",
+        "Email"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-097",
+      "authority": "UK Part 145 guidance",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "Maintenance-organization policy",
+      "url": "https://www.caa.co.uk/commercial-industry/aircraft/airworthiness/approval-information-and-guidance/guidance-for-part-145-approval-holders/",
+      "identity_markers": [
+        "Part",
+        "Maintenance"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-098",
+      "authority": "UK aviation legislation",
+      "tier": "primary",
+      "country": "United Kingdom",
+      "purpose": "Aviation Acts and statutory instruments",
+      "url": "https://www.legislation.gov.uk/aviation",
+      "identity_markers": [
+        "aviation",
+        "Aviation"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-099",
+      "authority": "CASA rules and regulations",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "Australian aviation rules",
+      "url": "https://www.casa.gov.au/rules",
+      "identity_markers": [
+        "CASA",
+        "Civil Aviation Safety",
+        "Australian"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-100",
+      "authority": "CASA legislation",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "Acts, regulations, standards",
+      "url": "https://www.casa.gov.au/rules/legislation",
+      "identity_markers": [
+        "CASA",
+        "Civil Aviation Safety",
+        "Acts"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-101",
+      "authority": "CASA consultation hub",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "Proposed rules and guidance",
+      "url": "https://consultation.casa.gov.au/",
+      "identity_markers": [
+        "CASA",
+        "Civil Aviation Safety",
+        "Proposed"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-102",
+      "authority": "CASA Airworthiness Directives",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "Australian AD search",
+      "url": "https://www.casa.gov.au/airworthiness-directives",
+      "identity_markers": [
+        "CASA",
+        "Civil Aviation Safety",
+        "Australian"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "AER-103",
+      "authority": "CASA advisory circulars",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "AC revisions",
+      "url": "https://www.casa.gov.au/rules-and-regulations/standard-page/advisory-circulars",
+      "identity_markers": [
+        "CASA",
+        "Civil Aviation Safety",
+        "Revisions"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-104",
+      "authority": "CASA Manuals of Standards",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "MOS revisions",
+      "url": "https://www.casa.gov.au/rules/legislation/manuals-standards",
+      "identity_markers": [
+        "CASA",
+        "Civil Aviation Safety",
+        "Revisions"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-105",
+      "authority": "CASA exemptions",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "Exemptions and instruments",
+      "url": "https://www.casa.gov.au/rules/legislation/exemptions",
+      "identity_markers": [
+        "CASA",
+        "Civil Aviation Safety",
+        "Exemptions"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-106",
+      "authority": "CASA airworthiness bulletins",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "Safety and technical bulletins",
+      "url": "https://www.casa.gov.au/aircraft/airworthiness/airworthiness-bulletins",
+      "identity_markers": [
+        "CASA",
+        "Civil Aviation Safety",
+        "Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-107",
+      "authority": "Australian aviation legislation search",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "Official legal cross-check",
+      "url": "https://www.legislation.gov.au/Search?query=aviation",
+      "identity_markers": [
+        "Australian",
+        "Official"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-108",
+      "authority": "Canadian Aviation Regulations",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "CAR requirements",
+      "url": "https://tc.canada.ca/en/corporate-services/acts-regulations/list-regulations/canadian-aviation-regulations-sor-96-433",
+      "identity_markers": [
+        "Canadian",
+        "Requirements"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-109",
+      "authority": "Transport Canada aviation regulations",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "Aviation regulatory portal",
+      "url": "https://tc.canada.ca/en/aviation/regulations",
+      "identity_markers": [
+        "Transport",
+        "Aviation"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-110",
+      "authority": "Civil Aviation Reference Centre",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "ACs, staff instructions, guidance",
+      "url": "https://tc.canada.ca/en/aviation/reference-centre",
+      "identity_markers": [
+        "Civil",
+        "Staff"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-111",
+      "authority": "Transport Canada AD search",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "Canadian ADs",
+      "url": "https://wwwapps.tc.gc.ca/Saf-Sec-Sur/2/cawis-swimn/awd-lv-cs1401.asp",
+      "identity_markers": [
+        "Transport",
+        "Canadian"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-112",
+      "authority": "Civil Aviation Safety Alerts",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "Safety alerts",
+      "url": "https://tc.canada.ca/en/aviation/reference-centre/civil-aviation-safety-alerts",
+      "identity_markers": [
+        "Civil",
+        "Safety"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "AER-113",
+      "authority": "CARAC notices",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "Proposed Canadian aviation changes",
+      "url": "https://tc.canada.ca/en/corporate-services/acts-regulations/canadian-aviation-regulation-advisory-council-carac",
+      "identity_markers": [
+        "CARAC",
+        "Proposed"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-114",
+      "authority": "Canada Gazette search",
+      "tier": "primary",
+      "country": "Canada",
+      "purpose": "Official proposed/final regulation cross-check",
+      "url": "https://gazette.gc.ca/rp-pr/publications-eng.html",
+      "identity_markers": [
+        "Canada",
+        "Official"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-115",
+      "authority": "ANAC regulations",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anac/pt-br/assuntos/legislacao",
+      "identity_markers": [
+        "ANAC"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-116",
+      "authority": "RBAC regulations",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.anac.gov.br/assuntos/legislacao/legislacao-1/rbha-e-rbac",
+      "identity_markers": [
+        "RBAC"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-117",
+      "authority": "ANAC supplementary instructions",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.anac.gov.br/assuntos/legislacao/legislacao-1/iac-e-is",
+      "identity_markers": [
+        "ANAC"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-118",
+      "authority": "ANAC public consultations",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anac/pt-br/acesso-a-informacao/participacao-social/audiencias-e-consultas-publicas",
+      "identity_markers": [
+        "ANAC"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-119",
+      "authority": "ANAC regulatory agenda",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anac/pt-br/acesso-a-informacao/acoes-e-programas/agenda-regulatoria",
+      "identity_markers": [
+        "ANAC"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-120",
+      "authority": "ANAC Airworthiness Directives",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://sistemas.anac.gov.br/certificacao/DA/DAE.asp",
+      "identity_markers": [
+        "ANAC"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "AER-121",
+      "authority": "AFAC portal",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/afac",
+      "identity_markers": [
+        "AFAC"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-122",
+      "authority": "AFAC documents",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/afac/documentos",
+      "identity_markers": [
+        "AFAC"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-123",
+      "authority": "AFAC aviation regulations",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/afac/acciones-y-programas/normatividad-185250",
+      "identity_markers": [
+        "AFAC"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-124",
+      "authority": "SICT aviation portal",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/sct/acciones-y-programas/aeronautica-civil",
+      "identity_markers": [
+        "SICT"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-125",
+      "authority": "NOM catalog",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.sinec.gob.mx/SINEC/Vista/Normalizacion/BusquedaNormas.xhtml",
+      "identity_markers": [
+        "NOM"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-126",
+      "authority": "CONAMER regulatory proposals",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.cofemersimir.gob.mx/portales",
+      "identity_markers": [
+        "CONAMER"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-127",
+      "authority": "CAAC official portal",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "http://www.caac.gov.cn/",
+      "identity_markers": [
+        "CAAC",
+        "Civil Aviation Administration"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-128",
+      "authority": "CAAC English portal",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "http://www.caac.gov.cn/en/",
+      "identity_markers": [
+        "CAAC",
+        "Civil Aviation Administration"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-129",
+      "authority": "CAAC policy and regulation section",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "http://www.caac.gov.cn/XXGK/XXGK/ZFGW/",
+      "identity_markers": [
+        "CAAC",
+        "Civil Aviation Administration"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-130",
+      "authority": "CAAC airworthiness section",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "http://www.caac.gov.cn/XXGK/XXGK/SHGL/",
+      "identity_markers": [
+        "CAAC",
+        "Civil Aviation Administration"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-131",
+      "authority": "State Council policies",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://www.gov.cn/zhengce/",
+      "identity_markers": [
+        "State"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AER-132",
+      "authority": "Chinese standards service platform",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://std.samr.gov.cn/",
+      "identity_markers": [
+        "Chinese"
+      ],
+      "criticality": "common"
+    }
+  ]
+}

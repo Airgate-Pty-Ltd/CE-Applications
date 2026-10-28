@@ -1,0 +1,33 @@
+{
+  "ruleId": "PMA-XDOC-001",
+  "dimId": "pma-application-assessment",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "PENDING-REVIEW",
+  "approvalRef": "Submission Checklist item 3.A.I (System Name)",
+  "severity": "major",
+  "gapClass": "BLOCKING",
+  "category": "linkage",
+  "riskClass": "A",
+  "basisType": "deterministic-record-completeness",
+  "description": "System Name must match across the assist letter/STC, the application letter, and the PMA supplement.",
+  "requiredFields": [
+    "system_name_matches_across_documents"
+  ],
+  "logicResult": "system_name_mismatch",
+  "findingText": "The System Name does not match across all three documents (assist letter or STC, application letter paragraph 1 or table, and PMA supplement).",
+  "resolutionHint": "Reconcile the System Name so the assist letter/STC, the application letter, and the supplement agree.",
+  "clauseRefs": [
+    "Submission Checklist item 3.A.I (System Name)"
+  ],
+  "condition": {
+    "field": "system_name_matches_across_documents",
+    "op": "eq",
+    "value": false
+  },
+  "limitations": [
+    "Compares recorded values only; it cannot determine which document holds the correct name."
+  ],
+  "citationScope": "generic",
+  "citationNote": "Cites the form/procedure by role; the tenant profile supplies its own controlled document number and revision when the finding is rendered."
+}

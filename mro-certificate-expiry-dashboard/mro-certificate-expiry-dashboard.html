@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRO Certificate Expiry Intelligence Dashboard | Conform-Edge</title>
+<style>
+  :root {
+    --navy: #1a2744;
+    --steel: #3a5a8c;
+    --ink: #1e1e2e;
+    --light: #f4f6fb;
+    --panel: #ffffff;
+    --border: #dce3f0;
+    --current: #1a7a4a;
+    --monitor: #2563eb;
+    --warning: #d97706;
+    --critical: #dc2626;
+    --expired: #7c1d1d;
+    --text: #1e2a3b;
+    --muted: #64748b;
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(26,39,68,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--light); color: var(--text); min-height: 100vh; }
+
+  header { background: var(--navy); color: #fff; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  header h1 { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.02em; }
+  header .brand { font-size: 0.78rem; color: #a0b4d6; margin-top: 2px; }
+
+  .notice { background: #1e3a5f; color: #b8d0f0; font-size: 0.78rem; padding: 8px 32px; border-bottom: 1px solid #2a4a7a; }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+
+  .posture-card { background: var(--panel); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); padding: 24px 28px; margin-bottom: 24px; display: flex; align-items: center; gap: 28px; }
+  .posture-badge { width: 88px; height: 88px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; letter-spacing: 0.06em; flex-shrink: 0; color: #fff; }
+  .posture-badge.current { background: var(--current); }
+  .posture-badge.monitor { background: var(--monitor); }
+  .posture-badge.warning { background: var(--warning); }
+  .posture-badge.critical { background: var(--critical); }
+  .posture-badge.expired { background: var(--expired); }
+  .posture-badge.none { background: #94a3b8; }
+  .posture-badge .tier-label { font-size: 0.65rem; margin-top: 2px; }
+  .posture-info h2 { font-size: 1.1rem; color: var(--navy); }
+  .posture-info p { color: var(--muted); font-size: 0.88rem; margin-top: 4px; }
+
+  .section { background: var(--panel); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 20px; }
+  .section-header { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .section-header h3 { font-size: 0.95rem; color: var(--navy); font-weight: 700; }
+  .section-body { padding: 20px; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+  .form-group { display: flex; flex-direction: column; gap: 4px; }
+  .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--navy); }
+  .form-group input, .form-group select { border: 1px solid var(--border); border-radius: 5px; padding: 7px 10px; font-size: 0.88rem; color: var(--text); background: #fff; }
+  .form-group input:focus, .form-group select:focus { outline: 2px solid var(--steel); border-color: var(--steel); }
+
+  .cert-row { display: grid; grid-template-columns: 2fr 2fr 1.5fr 1.5fr 1.5fr 120px 36px; gap: 8px; align-items: center; padding: 10px 12px; border-radius: 6px; margin-bottom: 6px; background: var(--light); border: 1px solid var(--border); }
+  @media (max-width: 800px) { .cert-row { grid-template-columns: 1fr 1fr; } }
+  .cert-row label { font-size: 0.72rem; color: var(--muted); display: block; margin-bottom: 2px; }
+  .cert-row input, .cert-row select { border: 1px solid #c9d4e8; border-radius: 4px; padding: 5px 7px; font-size: 0.83rem; width: 100%; background: #fff; }
+
+  .tier-badge { display: inline-flex; align-items: center; justify-content: center; padding: 4px 10px; border-radius: 20px; font-size: 0.73rem; font-weight: 700; letter-spacing: 0.05em; color: #fff; white-space: nowrap; }
+  .tier-badge.CURRENT  { background: var(--current); }
+  .tier-badge.MONITOR  { background: var(--monitor); }
+  .tier-badge.WARNING  { background: var(--warning); }
+  .tier-badge.CRITICAL { background: var(--critical); }
+  .tier-badge.EXPIRED  { background: var(--expired); }
+  .tier-badge.NONE     { background: #94a3b8; }
+
+  .btn { border: none; border-radius: 6px; padding: 9px 20px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
+  .btn:hover { opacity: 0.88; }
+  .btn-primary { background: var(--navy); color: #fff; }
+  .btn-secondary { background: var(--steel); color: #fff; }
+  .btn-sm { padding: 5px 12px; font-size: 0.8rem; }
+  .btn-danger { background: #e5e7eb; color: #dc2626; }
+  .btn-icon { background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--muted); }
+
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+  .results-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .results-table th { background: var(--navy); color: #fff; padding: 9px 12px; text-align: left; font-size: 0.78rem; font-weight: 600; }
+  .results-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .results-table tr:last-child td { border-bottom: none; }
+  .results-table tr.row-critical td { background: #fff5f5; }
+  .results-table tr.row-expired td { background: #fef2f2; }
+  .results-table tr.row-warning td { background: #fffbeb; }
+
+  .narrative-box { background: var(--light); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; font-size: 0.85rem; line-height: 1.65; color: var(--text); white-space: pre-wrap; font-family: Georgia, serif; }
+
+  .hidden { display: none; }
+  .empty-state { text-align: center; color: var(--muted); font-size: 0.88rem; padding: 28px; }
+
+  .caac-alert { background: #fef3c7; border: 1px solid #d97706; border-radius: 6px; padding: 10px 14px; font-size: 0.82rem; color: #92400e; margin-bottom: 12px; }
+
+  .mai-badge { font-size: 0.72rem; color: #4a6fa5; background: #eef2fb; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <h1>MRO Certificate Expiry Intelligence Dashboard</h1>
+      <span class="mai-badge">M-AI RESERVED</span>
+    </div>
+    <div class="brand">Conform-Edge Quality Consulting · Certificate Renewal Tracker for Multi-Authority Repair Stations</div>
+  </div>
+</header>
+
+<div class="notice">
+  ⚠ This tool tracks certificate renewal timelines and issues urgency alerts. It does not assert that any certificate is currently valid or that any authority has granted or renewed an approval. All renewal actions are the holder's responsibility.
+</div>
+
+<main>
+
+  <!-- Station Setup -->
+  <div class="section">
+    <div class="section-header">
+      <h3>Station Profile</h3>
+    </div>
+    <div class="section-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Repair Station Name</label>
+          <input type="text" id="stationName" placeholder="e.g. Acme Avionics Part 145 LLC">
+        </div>
+        <div class="form-group">
+          <label>Primary Authority</label>
+          <select id="primaryAuth">
+            <option value="">Select…</option>
+            <option value="FAA">FAA (14 CFR Part 145)</option>
+            <option value="EASA">EASA (Part-145)</option>
+            <option value="CAAC">CAAC (CCAR-145)</option>
+            <option value="UK CAA">UK CAA (CAP 562)</option>
+            <option value="CASA">CASA (CASR Part 145)</option>
+            <option value="TCCA">TCCA (CARs Part 573)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certificate Register -->
+  <div class="section">
+    <div class="section-header">
+      <h3>Certificate Register</h3>
+      <button class="btn btn-primary btn-sm" onclick="addCert()">+ Add Certificate</button>
+    </div>
+    <div class="section-body">
+      <div id="certList">
+        <div class="empty-state" id="emptyMsg">No certificates added yet. Click "+ Add Certificate" to begin.</div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="runAssessment()">Run Assessment</button>
+        <button class="btn btn-sm" style="background:#e5e7eb;color:#374151;" onclick="loadDemo()">Load Demo Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="resultsSection" class="hidden">
+
+    <div class="posture-card">
+      <div class="posture-badge none" id="postureBadge">
+        <div id="postureIcon">—</div>
+        <div class="tier-label" id="postureTierLabel">NONE</div>
+      </div>
+      <div class="posture-info">
+        <h2 id="postureHeading">Overall Station Posture</h2>
+        <p id="postureSub">Run an assessment to see results.</p>
+      </div>
+    </div>
+
+    <div id="caacAlert" class="caac-alert hidden">
+      🔴 CAAC ANNUAL DEADLINE: One or more CAAC certificates use the Dec 31 annual renewal cycle. Ensure CAAC inspection and renewal application are submitted before December 31.
+    </div>
+
+    <div class="section">
+      <div class="section-header"><h3>Certificate Urgency Table</h3></div>
+      <div class="section-body" style="padding:0;">
+        <table class="results-table" id="urgencyTable">
+          <thead>
+            <tr>
+              <th>Authority</th>
+              <th>Cert Type</th>
+              <th>Cert Number</th>
+              <th>Expiry Date</th>
+              <th>Days Remaining</th>
+              <th>Renewal Lead Time</th>
+              <th>Urgency Tier</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="urgencyBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><h3>Management Review Narrative</h3></div>
+      <div class="section-body">
+        <div class="narrative-box" id="narrativeBox"></div>
+        <div class="actions">
+          <button class="btn btn-primary btn-sm" onclick="copyNarrative()">Copy Narrative</button>
+          <button class="btn btn-sm" style="background:#e5e7eb;color:#374151;" onclick="exportJSON()">Export JSON</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+// ─── Data ──────────────────────────────────────────────────────────────────
+let certs = [];
+let certId = 0;
+
+const CERT_TYPES = {
+  FAA: ['Part 145 Certificate','Operations Specifications','Delegation Authorization'],
+  EASA: ['Part-145 Approval','Class/Rating Amendment','EASA Form 3-145'],
+  CAAC: ['CCAR-145 Certificate (Annual Dec 31)','CAAC Amendment'],
+  'UK CAA': ['UK CAA Part 145 Approval','CAA Amendment'],
+  CASA: ['CASR Part 145 AMO Certificate','CASA Amendment'],
+  TCCA: ['CARs Part 573 AMO Certificate','TCCA Amendment'],
+};
+
+const LEAD_TIMES = {
+  FAA: 90, EASA: 90, CAAC: 120, 'UK CAA': 90, CASA: 90, TCCA: 90,
+};
+
+// ─── Cert Row ───────────────────────────────────────────────────────────────
+function addCert(data = {}) {
+  const id = ++certId;
+  certs.push({ id, authority: data.authority||'', certType: data.certType||'', certNum: data.certNum||'', expiry: data.expiry||'', leadDays: data.leadDays||90 });
+  renderCertList();
+}
+
+function removeCert(id) {
+  certs = certs.filter(c => c.id !== id);
+  renderCertList();
+}
+
+function renderCertList() {
+  const el = document.getElementById('certList');
+  document.getElementById('emptyMsg').style.display = certs.length ? 'none' : 'block';
+
+  const existing = [...el.querySelectorAll('.cert-row')];
+  existing.forEach(e => e.remove());
+
+  certs.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'cert-row';
+    div.dataset.id = c.id;
+    div.innerHTML = `
+      <div>
+        <label>Authority</label>
+        <select onchange="updateCert(${c.id},'authority',this.value)">
+          <option value="">Select…</option>
+          ${['FAA','EASA','CAAC','UK CAA','CASA','TCCA'].map(a=>`<option value="${a}"${c.authority===a?' selected':''}>${a}</option>`).join('')}
+        </select>
+      </div>
+      <div>
+        <label>Certificate Type</label>
+        <select onchange="updateCert(${c.id},'certType',this.value)">
+          <option value="">Select…</option>
+          ${(CERT_TYPES[c.authority]||[]).map(t=>`<option${c.certType===t?' selected':''}>${t}</option>`).join('')}
+          <option value="Other"${c.certType==='Other'?' selected':''}>Other</option>
+        </select>
+      </div>
+      <div>
+        <label>Cert / Approval Number</label>
+        <input type="text" value="${c.certNum}" placeholder="e.g. VGFR147R" onchange="updateCert(${c.id},'certNum',this.value)">
+      </div>
+      <div>
+        <label>Expiry Date</label>
+        <input type="date" value="${c.expiry}" onchange="updateCert(${c.id},'expiry',this.value)">
+      </div>
+      <div>
+        <label>Renewal Lead (days)</label>
+        <input type="number" value="${c.leadDays}" min="1" max="365" onchange="updateCert(${c.id},'leadDays',+this.value)">
+      </div>
+      <div style="align-self:end;">
+        <span class="tier-badge NONE" id="rowTier${c.id}">—</span>
+      </div>
+      <div style="align-self:end;">
+        <button class="btn-icon" onclick="removeCert(${c.id})" title="Remove">✕</button>
+      </div>
+    `;
+    el.appendChild(div);
+  });
+}
+
+function updateCert(id, field, value) {
+  const c = certs.find(x => x.id === id);
+  if (!c) return;
+  c[field] = value;
+  if (field === 'authority') {
+    c.certType = '';
+    c.leadDays = LEAD_TIMES[value] || 90;
+    renderCertList();
+  }
+}
+
+// ─── Assessment Engine ──────────────────────────────────────────────────────
+function computeTier(cert, todayMs) {
+  if (!cert.expiry) return { tier: 'NONE', days: null };
+  let expiryDate = new Date(cert.expiry);
+  // CAAC hard rule: annual Dec 31
+  if (cert.authority === 'CAAC') {
+    const yr = new Date().getFullYear();
+    const dec31 = new Date(yr, 11, 31);
+    // If Dec 31 already passed, next year
+    expiryDate = dec31 < new Date(todayMs) ? new Date(yr+1, 11, 31) : dec31;
+  }
+  const diffMs = expiryDate - todayMs;
+  const days = Math.ceil(diffMs / 86400000);
+  let tier;
+  if (days <= 0)   tier = 'EXPIRED';
+  else if (days <= 30)  tier = 'CRITICAL';
+  else if (days <= 90)  tier = 'WARNING';
+  else if (days <= 180) tier = 'MONITOR';
+  else                  tier = 'CURRENT';
+  return { tier, days, expiryDate };
+}
+
+const TIER_RANK = { EXPIRED:5, CRITICAL:4, WARNING:3, MONITOR:2, CURRENT:1, NONE:0 };
+
+const TIER_ACTIONS = {
+  CURRENT:  'No immediate action — schedule review before 180-day mark',
+  MONITOR:  'Begin renewal preparation — collect documents, schedule authority contact',
+  WARNING:  'Submit renewal application now — most authorities require ≥60 days lead time',
+  CRITICAL: 'ESCALATE — renewal application must be submitted immediately; notify QD',
+  EXPIRED:  'STOP ALL WORK UNDER THIS AUTHORITY — immediate corrective action required; notify QD and counsel',
+  NONE:     'Enter expiry date to assess',
+};
+
+function runAssessment() {
+  const todayMs = Date.now();
+  const stationName = document.getElementById('stationName').value || 'This Repair Station';
+  let worstTier = 'NONE';
+  let worstRank = 0;
+  let hasCAAC = false;
+
+  const rows = [];
+  certs.forEach(c => {
+    const { tier, days, expiryDate } = computeTier(c, todayMs);
+    if (TIER_RANK[tier] > worstRank) { worstRank = TIER_RANK[tier]; worstTier = tier; }
+    if (c.authority === 'CAAC') hasCAAC = true;
+    // update inline badge
+    const badge = document.getElementById('rowTier' + c.id);
+    if (badge) { badge.className = `tier-badge ${tier}`; badge.textContent = tier; }
+    rows.push({ cert: c, tier, days, expiryDate });
+  });
+
+  // Sort by urgency (worst first)
+  rows.sort((a,b) => TIER_RANK[b.tier] - TIER_RANK[a.tier]);
+
+  // CAAC alert
+  const caacAlert = document.getElementById('caacAlert');
+  caacAlert.classList.toggle('hidden', !hasCAAC);
+
+  // Posture badge
+  const badge = document.getElementById('postureBadge');
+  badge.className = `posture-badge ${worstTier.toLowerCase()}`;
+  document.getElementById('postureIcon').textContent = worstTier === 'NONE' ? '—' : worstTier === 'CURRENT' ? '✓' : worstTier === 'EXPIRED' ? '✕' : '!';
+  document.getElementById('postureTierLabel').textContent = worstTier;
+  document.getElementById('postureHeading').textContent = stationName + ' — Overall Posture: ' + worstTier;
+  document.getElementById('postureSub').textContent = rows.length + ' certificate(s) assessed · Worst tier: ' + worstTier;
+
+  // Table
+  const tbody = document.getElementById('urgencyBody');
+  tbody.innerHTML = '';
+  rows.forEach(({ cert: c, tier, days, expiryDate }) => {
+    const tr = document.createElement('tr');
+    tr.className = tier === 'EXPIRED' ? 'row-expired' : tier === 'CRITICAL' ? 'row-critical' : tier === 'WARNING' ? 'row-warning' : '';
+    const expiryStr = expiryDate ? expiryDate.toISOString().split('T')[0] : '—';
+    const daysStr = days === null ? '—' : days <= 0 ? 'EXPIRED' : days + ' days';
+    tr.innerHTML = `
+      <td><strong>${c.authority}</strong></td>
+      <td>${c.certType||'—'}</td>
+      <td>${c.certNum||'—'}</td>
+      <td>${expiryStr}</td>
+      <td>${daysStr}</td>
+      <td>${c.leadDays} days</td>
+      <td><span class="tier-badge ${tier}">${tier}</span></td>
+      <td style="font-size:0.78rem;color:#374151;">${TIER_ACTIONS[tier]}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Narrative
+  const today = new Date().toISOString().split('T')[0];
+  let critCount = rows.filter(r => r.tier === 'CRITICAL' || r.tier === 'EXPIRED').length;
+  let warnCount = rows.filter(r => r.tier === 'WARNING').length;
+  let narrative = `MANAGEMENT REVIEW — CERTIFICATE EXPIRY STATUS\nStation: ${stationName}\nAssessment Date: ${today}\n\n`;
+  narrative += `Overall Posture: ${worstTier}\n`;
+  narrative += `Certificates Assessed: ${rows.length}\n`;
+  if (critCount) narrative += `Requires Immediate Action: ${critCount} certificate(s)\n`;
+  if (warnCount) narrative += `Renewal in Progress Required: ${warnCount} certificate(s)\n`;
+  narrative += '\nDETAIL:\n';
+  rows.forEach(({ cert: c, tier, days, expiryDate }) => {
+    const expiryStr = expiryDate ? expiryDate.toISOString().split('T')[0] : '—';
+    const daysStr = days === null ? 'no expiry date entered' : days <= 0 ? 'EXPIRED' : days + ' days remaining';
+    narrative += `  · ${c.authority} ${c.certType||'Certificate'} (${c.certNum||'—'}): ${tier} — expires ${expiryStr} (${daysStr}). ${TIER_ACTIONS[tier]}.\n`;
+  });
+  if (hasCAAC) narrative += '\nCANC NOTE: One or more CAAC certificates follow the Dec 31 annual renewal cycle. CAAC inspection and renewal must be completed before December 31 of the current year.\n';
+  narrative += '\nThis assessment is advisory. Certificate validity is determined solely by the issuing authority. All renewal actions are the certificate holder\'s responsibility.';
+  document.getElementById('narrativeBox').textContent = narrative;
+
+  document.getElementById('resultsSection').classList.remove('hidden');
+  document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ─── Demo Data ──────────────────────────────────────────────────────────────
+function loadDemo() {
+  const today = new Date();
+  const addDays = d => { const dt = new Date(today); dt.setDate(dt.getDate()+d); return dt.toISOString().split('T')[0]; };
+  certs = [];
+  certId = 0;
+  document.getElementById('stationName').value = 'Global Avionics MRO Inc.';
+  document.getElementById('primaryAuth').value = 'FAA';
+
+  addCert({ authority:'FAA', certType:'Part 145 Certificate', certNum:'VGFR147R', expiry: addDays(245), leadDays:90 });
+  addCert({ authority:'EASA', certType:'Part-145 Approval', certNum:'US.145.0023', expiry: addDays(72), leadDays:90 });
+  addCert({ authority:'CAAC', certType:'CCAR-145 Certificate (Annual Dec 31)', certNum:'CAAC-MRO-0047', expiry: addDays(126), leadDays:120 });
+  addCert({ authority:'UK CAA', certType:'UK CAA Part 145 Approval', certNum:'UK.145.01182', expiry: addDays(18), leadDays:90 });
+  addCert({ authority:'TCCA', certType:'CARs Part 573 AMO Certificate', certNum:'AM2-VGFR', expiry: addDays(-5), leadDays:90 });
+  renderCertList();
+}
+
+// ─── Utilities ──────────────────────────────────────────────────────────────
+function copyNarrative() {
+  const text = document.getElementById('narrativeBox').textContent;
+  navigator.clipboard.writeText(text).then(() => alert('Narrative copied to clipboard.'));
+}
+
+function exportJSON() {
+  const today = new Date().toISOString().split('T')[0];
+  const stationName = document.getElementById('stationName').value || 'Unknown';
+  const todayMs = Date.now();
+  const payload = {
+    _tool: 'MRO Certificate Expiry Intelligence Dashboard',
+    _version: '1.0',
+    _brand: 'Conform-Edge',
+    _mai_domain: 'mro-certificate-expiry',
+    _mai_kernel: 'RESERVED INTERFACE',
+    assessmentDate: today,
+    station: stationName,
+    certificates: certs.map(c => {
+      const { tier, days } = computeTier(c, todayMs);
+      return { ...c, urgencyTier: tier, daysToExpiry: days };
+    }),
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `cert-expiry-${today}-${stationName.replace(/\s+/g,'-').toLowerCase()}.json`;
+  a.click();
+}
+
+// ─── Init ───────────────────────────────────────────────────────────────────
+renderCertList();
+</script>
+</body>
+</html>

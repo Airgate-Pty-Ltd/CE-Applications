@@ -1,0 +1,119 @@
+# Copyright © 2026 Conform-Edge Quality Consulting LLC. All rights reserved.
+# This source code is proprietary and confidential. Unauthorized copying,
+# distribution, or use of this file, via any medium, is strictly prohibited
+# without prior written permission from Conform-Edge Quality Consulting LLC.
+# See LICENSE and NOTICE at the repository root.
+#
+# WP-5: two profiles for one codebase, per docs/03-architecture/DESIGN-NOTES.md §8.
+#
+#   onprem  (`docker compose --profile onprem up`)
+#     Single app container, SQLite file on a bind-mounted volume, no external DB, no
+#     internet assumed. This is the profile actually implemented and runnable end to end.
+#
+#   online  (`docker compose --profile online up`)
+#     App container + a real Postgres container, wired together. The dual-provider Postgres
+#     schema (prisma/postgresql/) was completed and verified in Phase 4 WP-1/WP-2 against a
+#     real (non-Docker) local instance — see DECISIONS.md D-040..D-047 — but this profile's
+#     own container wiring has not itself been executed; never claim it runs until it has
+#     actually been executed and the output pasted into the journal.
+#
+# Reclassified under the Standalone Packaging Directive (2026-08-06, DECISIONS.md D-048):
+# this file moved from the repo root to deploy/docker-optional/. Docker is an OPTIONAL
+# alternative packaging path, not required for the standalone product (see
+# docs/03-architecture/DEPENDENCY-FOOTPRINT.md). Run all `docker compose` commands from
+# THIS directory (deploy/docker-optional/) — build context below points back at the repo
+# root (`../..`) so the Dockerfile's `COPY . .` still sees the real application source.
+
+services:
+  app-onprem:
+    profiles: ["onprem"]
+    build:
+      context: ../..
+      dockerfile: deploy/docker-optional/Dockerfile
+      args:
+        PRISMA_SCHEMA: prisma/schema.prisma
+    ports:
+      - "3210:3000"
+    environment:
+      DEPLOYMENT_EDITION: onprem
+      DATABASE_MODE: sqlite
+      DATABASE_URL: "file:/app/data/prod.db"
+      AI_PROVIDER_MODE: none
+      AUTH_MODE: local
+      NEXTAUTH_URL: "http://localhost:3210"
+      JWT_SECRET: "${JWT_SECRET:?set JWT_SECRET in .env before starting}"
+      SESSION_SECRET: "${SESSION_SECRET:?set SESSION_SECRET in .env before starting}"
+      SESSION_TTL_SECONDS: "${SESSION_TTL_SECONDS:-43200}"
+      TRUST_PROXY_HEADERS: "false"
+      # Folder intake is opt-in after setup. Set HF_INGEST_CONTAINER_ROOT=/app/incoming and
+      # the actual organization ID; empty values keep the worker safely disabled.
+      HF_INGEST_ROOT: "${HF_INGEST_CONTAINER_ROOT:-}"
+      HF_INGEST_ORGANIZATION_ID: "${HF_INGEST_ORGANIZATION_ID:-}"
+      HF_AV_SCANNER: "clamav"
+    volumes:
+      - onprem-data:/app/data
+      - "${HF_INGEST_HOST_PATH:-./incoming}:/app/incoming:ro"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/health/status').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+  app-online:
+    profiles: ["online"]
+    build:
+      context: ../..
+      dockerfile: deploy/docker-optional/Dockerfile
+      args:
+        PRISMA_SCHEMA: prisma/postgresql/schema.prisma
+    ports:
+      - "3211:3000"
+    environment:
+      DEPLOYMENT_EDITION: online
+      DATABASE_MODE: postgresql
+      # NOTE: docker compose interpolates every service's environment block up front,
+      # regardless of which --profile is active (confirmed: `--profile onprem up` still
+      # evaluated this line and failed on a missing POSTGRES_PASSWORD). A soft default keeps
+      # `--profile onprem` usable without online-only secrets; set a REAL POSTGRES_PASSWORD
+      # in docker/.env.docker before actually using --profile online.
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-hfengine}:${POSTGRES_PASSWORD:-unset-set-a-real-password-for-online-profile}@postgres:5432/${POSTGRES_DB:-hfengine}"
+      AI_PROVIDER_MODE: "${AI_PROVIDER_MODE:-none}"
+      AUTH_MODE: "${AUTH_MODE:-local}"
+      NEXTAUTH_URL: "http://localhost:3211"
+      JWT_SECRET: "${JWT_SECRET:?set JWT_SECRET in .env before starting}"
+      SESSION_SECRET: "${SESSION_SECRET:?set SESSION_SECRET in .env before starting}"
+      SESSION_TTL_SECONDS: "${SESSION_TTL_SECONDS:-43200}"
+      TRUST_PROXY_HEADERS: "false"
+      HF_AV_SCANNER: "clamav"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/health/status').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+  postgres:
+    profiles: ["online"]
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER:-hfengine}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-unset-set-a-real-password-for-online-profile}"
+      POSTGRES_DB: "${POSTGRES_DB:-hfengine}"
+    volumes:
+      - online-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-hfengine}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  onprem-data:
+  online-postgres-data:

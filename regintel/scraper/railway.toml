@@ -1,0 +1,14 @@
+# Railway Cron service — daily regulatory ingestion.
+#
+# Schedule: 08:00 UTC = 01:00 MST (UTC-7).
+# NOTE: Railway cron is UTC-only and does not observe daylight saving. During
+# Mountain Daylight Time (Mar-Nov) this fires at 02:00 local, not 01:00. If the
+# run must stay at 01:00 local year-round, it needs two schedules or a
+# DST-aware scheduler.
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "python main.py"
+cronSchedule = "0 8 * * *"
+restartPolicyType = "never"

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IATF 16949 Core Tools Compliance Suite</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize.css/8.0.1/normalize.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            margin: 0 0 10px 0;
+            color: #0066cc;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 13px;
+        }
+        input[type="text"], select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        input[type="text"] { width: 250px; }
+        select { width: 200px; }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+        }
+        .btn-primary:hover { background: #0052a3; }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover { background: #545b62; }
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+        .tab-button {
+            flex: 1;
+            min-width: 120px;
+            padding: 15px 20px;
+            border: none;
+            background: #f5f5f5;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .tab-button.active {
+            background: white;
+            color: #0066cc;
+            border-bottom-color: #0066cc;
+        }
+        .tab-button:hover { background: #fff; }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .question-group {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #0066cc;
+            border-radius: 4px;
+        }
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .tooltip {
+            font-size: 12px;
+            color: #666;
+            background: #e8f0ff;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 5px;
+            border-left: 3px solid #0066cc;
+        }
+        .score-scale {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .score-scale label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        .score-scale input[type="radio"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .radar-container {
+            grid-column: 1;
+            grid-row: 1;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            min-height: 400px;
+        }
+        .summary-container {
+            grid-column: 2;
+            grid-row: 1;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .summary-item:last-child { border-bottom: none; }
+        .summary-score {
+            font-weight: 600;
+            font-size: 18px;
+            color: #0066cc;
+        }
+        .summary-label {
+            font-weight: 600;
+            color: #333;
+        }
+        @media (max-width: 900px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .radar-container, .summary-container {
+                grid-column: 1;
+            }
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .action-buttons button {
+            flex: 1;
+            min-width: 150px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 12px;
+        }
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IATF 16949 Core Tools Compliance Suite</h1>
+            <p class="subtitle">30-Minute Self-Assessment for Automotive Suppliers</p>
+        </header>
+
+        <div class="info-box">
+            <strong>How to use:</strong> Answer the 45 scored questions across all tabs. Your maturity score updates in real-time on the right. Generate a PDF report when complete.
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" placeholder="e.g., AccuSupply Inc." value="AccuSupply Inc.">
+            </div>
+            <div class="control-group">
+                <label for="assessmentDate">Assessment Date:</label>
+                <input type="text" id="assessmentDate" placeholder="e.g., 2026-07-06" value="2026-07-06">
+            </div>
+            <div class="control-group">
+                <label for="customerVariant">Customer Variant:</label>
+                <select id="customerVariant">
+                    <option value="generic">Generic IATF 16949</option>
+                    <option value="ford">Ford CSR</option>
+                    <option value="gm">GM CSR</option>
+                    <option value="stellantis">Stellantis CSR</option>
+                </select>
+            </div>
+            <button class="btn-secondary" onclick="resetAssessment()">Reset Assessment</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('apqp')">APQP</button>
+            <button class="tab-button" onclick="switchTab('ppap')">PPAP</button>
+            <button class="tab-button" onclick="switchTab('fmea')">FMEA</button>
+            <button class="tab-button" onclick="switchTab('msa')">MSA</button>
+            <button class="tab-button" onclick="switchTab('spc')">SPC</button>
+            <button class="tab-button" onclick="switchTab('iatf')">IATF Integration</button>
+        </div>
+
+        <!-- APQP Tab -->
+        <div id="apqp-tab" class="tab-content active">
+            <h2>APQP: Advanced Product Quality Planning</h2>
+            <div id="apqp-questions"></div>
+        </div>
+
+        <!-- PPAP Tab -->
+        <div id="ppap-tab" class="tab-content">
+            <h2>PPAP: Production Part Approval Process</h2>
+            <div id="ppap-questions"></div>
+        </div>
+
+        <!-- FMEA Tab -->
+        <div id="fmea-tab" class="tab-content">
+            <h2>FMEA: Failure Mode and Effects Analysis</h2>
+            <p class="subtitle">Includes AIAG-VDA FMEA Handbook (2019) methodology-currency questions (7-step approach, Action Priority, FMEA-MSR) alongside baseline FMEA discipline questions.</p>
+            <div id="fmea-questions"></div>
+        </div>
+
+        <!-- MSA Tab -->
+        <div id="msa-tab" class="tab-content">
+            <h2>MSA: Measurement System Analysis</h2>
+            <div id="msa-questions"></div>
+        </div>
+
+        <!-- SPC Tab -->
+        <div id="spc-tab" class="tab-content">
+            <h2>SPC: Statistical Process Control</h2>
+            <div id="spc-questions"></div>
+        </div>
+
+        <!-- IATF Integration Tab -->
+        <div id="iatf-tab" class="tab-content">
+            <h2>IATF Integration</h2>
+            <div id="iatf-questions"></div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <div class="radar-container">
+                <h3>Maturity Radar</h3>
+                <canvas id="radarChart" width="300" height="300"></canvas>
+            </div>
+            <div class="summary-container">
+                <h3>Score Summary</h3>
+                <div id="summary"></div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn-primary" onclick="generateReport()">Generate Report (PDF)</button>
+            <button class="btn-primary" onclick="exportCSV()">Export CSV</button>
+            <button class="btn-secondary" onclick="emailSummary()">Email Summary</button>
+        </div>
+
+        <footer>
+            <p><strong>Disclaimer:</strong> This tool is a self-assessment aid for audit preparation. Results do not guarantee IATF certification approval. Consult IATF-registered auditors for formal compliance verification.</p>
+            <p><strong>Reference editions (current as of this version):</strong> AIAG-VDA FMEA Handbook (2019); PPAP 4th edition; MSA 4th edition; SPC 2nd edition; APQP 3rd edition (2024 update). This tool references requirement intent only; no AIAG/VDA handbook content is reproduced verbatim.</p>
+            <p>&copy; 2026 Conform-Edge. IATF 16949 Core Tools Compliance Suite v1.0.1</p>
+        </footer>
+    </div>
+
+    <script>
+        // Question Database
+        const questions = {
+            apqp: [
+                { q: "1. Does your organization have a documented product lifecycle planning process (APQP phases 0-3)?", tool: "APQP" },
+                { q: "2. Is product/design FMEA integrated into your design control process?", tool: "APQP" },
+                { q: "3. Do you have cross-functional team participation in product planning (design, engineering, manufacturing, quality)?", tool: "APQP" },
+                { q: "4. Are design controls documented including design review records?", tool: "APQP" },
+                { q: "5. Do you conduct prototype validation testing with documented results?", tool: "APQP" },
+                { q: "6. Is run-at-rate production validation completed before full launch?", tool: "APQP" },
+                { q: "7. Are control plans finalized and approved before production release?", tool: "APQP" },
+                { q: "8. Do you have documented evidence of customer sign-off on product readiness?", tool: "APQP" }
+            ],
+            ppap: [
+                { q: "1. Does your organization understand which PPAP submission level (1-4) is required by each customer?", tool: "PPAP" },
+                { q: "2. Are all PPAP submission documents (drawings, specs, certs) current and complete?", tool: "PPAP" },
+                { q: "3. Do you have design FMEA documentation available for PPAP submissions?", tool: "PPAP" },
+                { q: "4. Is your control plan integrated with PPAP submission (not a separate document)?", tool: "PPAP" },
+                { q: "5. Do you maintain First Article Inspection (FAI) reports with dimensional/functional data?", tool: "PPAP" },
+                { q: "6. Is your measurement system (MSA) validation documented in PPAP submission?", tool: "PPAP" },
+                { q: "7. Are all PPAP submissions tracked to closure (approval, conditional approval, denial)?", tool: "PPAP" }
+            ],
+            fmea: [
+                { q: "1. Do you have design FMEA for all new or modified products?", tool: "FMEA" },
+                { q: "2. Do you have process FMEA for all manufacturing/assembly processes?", tool: "FMEA" },
+                { q: "3. Does your customer require their own FMEA? If yes, is it reviewed and approved?", tool: "FMEA" },
+                { q: "4. Are Severity, Occurrence, and Detection (S/O/D) ratings assigned independently using defined scales?", tool: "FMEA" },
+                { q: "5. Is every FMEA control verified with measurement data (not just assumed)?", tool: "FMEA" },
+                { q: "6. Are escape point analyses documented for failures that reach customer?", tool: "FMEA" },
+                { q: "7. Are all FMEA corrective actions closed with evidence (test data, audit proof)?", tool: "FMEA" },
+                { q: "8. Are FMEAs updated post-PPAP and whenever significant changes occur?", tool: "FMEA" },
+                { q: "9. Have new-program FMEAs transitioned to the AIAG-VDA harmonized methodology (7-step approach), where required by your customer?", tool: "FMEA" },
+                { q: "10. Do you prioritize actions using Action Priority (AP) tables rather than legacy RPN cutoffs, per AIAG-VDA?", tool: "FMEA" },
+                { q: "11. Where mechatronic/monitoring systems apply, has FMEA-MSR been evaluated?", tool: "FMEA" }
+            ],
+            msa: [
+                { q: "1. Is your measurement system capable? (Discrimination Ratio DR > 5, or R&R < 10%)?", tool: "MSA" },
+                { q: "2. Are periodic MSA studies conducted (at minimum annually for critical tools)?", tool: "MSA" },
+                { q: "3. Do you document and trend MSA results over time to detect degradation?", tool: "MSA" },
+                { q: "4. Are all operators/inspectors formally trained and certified on measurement procedures?", tool: "MSA" },
+                { q: "5. Is your measurement system uncertainty documented and < 10% of tolerance?", tool: "MSA" },
+                { q: "6. Are raw measurement data (not just results) retained for audit and traceability?", tool: "MSA" }
+            ],
+            spc: [
+                { q: "1. Do you use appropriate control charts (Xbar-R, Xbar-S, I-MR) for your processes?", tool: "SPC" },
+                { q: "2. Are control limits established from a stable baseline period (not from customer specs)?", tool: "SPC" },
+                { q: "3. Do you have documented action rules and a reaction plan for out-of-control conditions?", tool: "SPC" },
+                { q: "4. When a control chart shows out-of-control, do you execute the planned reaction (stop, adjust, investigate)?", tool: "SPC" },
+                { q: "5. Do you calculate capability studies (Cpk/Ppk) and target > 1.33 for critical characteristics?", tool: "SPC" },
+                { q: "6. Are control chart data linked to production batches/lots for traceability?", tool: "SPC" }
+            ],
+            iatf: [
+                { q: "1. Are customer-specific requirements (Ford CSR, GM CSR, etc.) documented and understood?", tool: "IATF Integration" },
+                { q: "2. Do you have a configuration management process to track and control changes?", tool: "IATF Integration" },
+                { q: "3. Are special processes (welding, heat treat, plating) validated and monitored per customer/standard requirements?", tool: "IATF Integration" },
+                { q: "4. Is product safety (critical characteristics, hazard identification) documented and controls verified?", tool: "IATF Integration" },
+                { q: "5. Do you have a documented supplier control hierarchy (Tier 1/2/3) with auditing strategy?", tool: "IATF Integration" },
+                { q: "6. Are engineering changes managed with impact assessment and re-FMEA triggers?", tool: "IATF Integration" },
+                { q: "7. Is management review conducted at least annually with QMS data?", tool: "IATF Integration" },
+                { q: "8. Do you have an internal audit program covering all processes per IATF 16949:2016?", tool: "IATF Integration" },
+                { q: "9. Are corrective actions tracked to effectiveness verification (not just closed)?", tool: "IATF Integration" },
+                { q: "10. Do you have evidence of senior management commitment to the QMS?", tool: "IATF Integration" }
+            ]
+        };
+
+        // Initialize
+        let scores = {};
+        let radarChart = null;
+
+        window.onload = function() {
+            loadQuestions('apqp');
+            loadFromLocalStorage();
+            updateRadar();
+        };
+
+        function loadQuestions(tool) {
+            const qList = questions[tool];
+            const container = document.getElementById(tool + '-questions');
+            container.innerHTML = '';
+            qList.forEach((qObj, idx) => {
+                const key = tool + '_' + idx;
+                const value = scores[key] || 0;
+                const html = `
+                    <div class="question-group">
+                        <div class="question-text">${qObj.q}</div>
+                        <div class="score-scale">
+                            ${[1, 2, 3, 4, 5].map(s => `
+                                <label>
+                                    <input type="radio" name="${key}" value="${s}" ${value == s ? 'checked' : ''} onchange="updateScore('${key}', ${s})">
+                                    ${s}
+                                </label>
+                            `).join('')}
+                        </div>
+                        <div class="tooltip">1 = Not Started, 2 = Initiated, 3 = Implemented, 4 = Managed, 5 = Sustained Excellence</div>
+                    </div>
+                `;
+                container.innerHTML += html;
+            });
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+            document.getElementById(tab + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function updateScore(key, value) {
+            scores[key] = value;
+            saveToLocalStorage();
+            updateRadar();
+        }
+
+        function updateRadar() {
+            const tools = ['apqp', 'ppap', 'fmea', 'msa', 'spc', 'iatf'];
+            const toolScores = {};
+            const toolCounts = {};
+
+            tools.forEach(tool => {
+                toolScores[tool] = 0;
+                toolCounts[tool] = 0;
+            });
+
+            Object.keys(scores).forEach(key => {
+                const tool = key.split('_')[0];
+                if (tool in toolScores) {
+                    toolScores[tool] += scores[key];
+                    toolCounts[tool]++;
+                }
+            });
+
+            const data = tools.map(tool => toolCounts[tool] > 0 ? toolScores[tool] / toolCounts[tool] : 0);
+
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            if (radarChart) radarChart.destroy();
+            radarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['APQP', 'PPAP', 'FMEA', 'MSA', 'SPC', 'IATF Int.'],
+                    datasets: [{
+                        label: 'Maturity Score',
+                        data: data,
+                        fill: true,
+                        backgroundColor: 'rgba(0, 102, 204, 0.2)',
+                        borderColor: 'rgb(0, 102, 204)',
+                        pointBackgroundColor: 'rgb(0, 102, 204)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(0, 102, 204)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
+
+            updateSummary(data, tools);
+        }
+
+        function updateSummary(scores, tools) {
+            let html = '';
+            scores.forEach((score, idx) => {
+                const toolName = tools[idx].toUpperCase();
+                const displayName = toolName === 'IATF' ? 'IATF Integ.' : toolName;
+                html += `<div class="summary-item"><span class="summary-label">${displayName}</span><span class="summary-score">${score.toFixed(1)}/5.0</span></div>`;
+            });
+            const avgScore = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
+            html += `<div class="summary-item" style="border-top: 2px solid #ccc; margin-top: 10px; padding-top: 10px;"><span class="summary-label" style="font-weight: 700;">Overall</span><span class="summary-score" style="font-size: 22px;">${avgScore}/5.0</span></div>`;
+            document.getElementById('summary').innerHTML = html;
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('iatf_scores', JSON.stringify(scores));
+            localStorage.setItem('iatf_company', document.getElementById('companyName').value);
+            localStorage.setItem('iatf_date', document.getElementById('assessmentDate').value);
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('iatf_scores');
+            if (saved) scores = JSON.parse(saved);
+            const company = localStorage.getItem('iatf_company');
+            if (company) document.getElementById('companyName').value = company;
+            const date = localStorage.getItem('iatf_date');
+            if (date) document.getElementById('assessmentDate').value = date;
+        }
+
+        function resetAssessment() {
+            if (confirm('Reset all answers?')) {
+                scores = {};
+                localStorage.clear();
+                loadQuestions('apqp');
+                updateRadar();
+            }
+        }
+
+        function generateReport() {
+            window.print();
+        }
+
+        function exportCSV() {
+            let csv = 'Company,Date,Tool,Question,Score\n';
+            const tools = ['apqp', 'ppap', 'fmea', 'msa', 'spc', 'iatf'];
+            tools.forEach(tool => {
+                questions[tool].forEach((qObj, idx) => {
+                    const key = tool + '_' + idx;
+                    const score = scores[key] || '';
+                    csv += `"${document.getElementById('companyName').value}","${document.getElementById('assessmentDate').value}","${tool.toUpperCase()}","${qObj.q.replace(/"/g, '""')}",${score}\n`;
+                });
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'iatf_assessment_' + new Date().toISOString().split('T')[0] + '.csv';
+            a.click();
+        }
+
+        function emailSummary() {
+            const summary = `
+IATF 16949 Core Tools Compliance Assessment
+
+Company: ${document.getElementById('companyName').value}
+Date: ${document.getElementById('assessmentDate').value}
+
+This is a placeholder for email functionality.
+In production, this would open your email client with the summary pre-populated.
+`;
+            alert(summary + '\n\nCopy & paste into email, or contact support for assistance.');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Normalise line endings. A record-integrity product should not have its
+# diffs polluted by CRLF churn between Windows and CI.
+* text=auto eol=lf
+
+# Windows-native tooling keeps CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Shell scripts must stay LF or they will not execute.
+*.sh text eol=lf
+
+# Binary assets — never diffed, never line-ending converted.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+
+# Generated files: collapse in diffs and exclude from language statistics.
+package-lock.json linguist-generated=true -diff

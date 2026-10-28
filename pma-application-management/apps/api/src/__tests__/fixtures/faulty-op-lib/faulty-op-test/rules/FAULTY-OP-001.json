@@ -1,0 +1,18 @@
+{
+  "ruleId": "FAULTY-OP-001",
+  "dimId": "faulty-op-test",
+  "revision": 1,
+  "effectiveDate": "2026-07-24",
+  "approvedBy": "Brian R. Olea",
+  "severity": "minor",
+  "gapClass": "INFO",
+  "category": "completeness",
+  "riskClass": "C",
+  "basisType": "deterministic-record-completeness",
+  "description": "Uses an unknown operator to exercise fault isolation (AT-15).",
+  "requiredFields": ["applicant_legal_name"],
+  "findingText": "should never produce an assessment",
+  "resolutionHint": "n/a",
+  "clauseRefs": ["n/a"],
+  "condition": { "field": "applicant_legal_name", "op": "bogus_operator" }
+}

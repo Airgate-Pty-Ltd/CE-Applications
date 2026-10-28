@@ -1,0 +1,473 @@
+{
+ "as_of_date": "2026-10-08",
+ "audit_id": "SYNTHETIC-COMBINED-001",
+ "blocking_issues": [],
+ "capture_ledger_head": "26557b25b32be2f8903a4ca462ef837e26a2f1f12b5c4f25ae95986d025215f8",
+ "capture_ledger_length": 10,
+ "capture_records": [
+  {
+   "entry_sha256": "cb8a28721f52c46a1219fa12d49b89030d1430a5f14be6a098840976f45709a1",
+   "id": "QSP-0001",
+   "prev_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+   "record": {
+    "captured_at": "2026-10-08T14:00:00",
+    "file": "qsa/published-v1.json",
+    "selected_count": 5,
+    "sha256": "a73a2091a38704d2f1849b487acc821221d393959bfe2ba66e53431eafcf7ad2",
+    "version": 1
+   },
+   "record_sha256": "7efeb32094a990a01a808bb25e727a9c0e434db3332027f7af44df5d77a0f68b",
+   "record_type": "qsa_publication",
+   "seq": 1
+  },
+  {
+   "entry_sha256": "8a37e0a8eac154082ebb29005833966fc376b2fd2c3c1151a9b043fb0babad05",
+   "id": "EVD-0002",
+   "prev_sha256": "cb8a28721f52c46a1219fa12d49b89030d1430a5f14be6a098840976f45709a1",
+   "record": {
+    "auditor": "SYNTHETIC Auditor B",
+    "captured_at": "2026-10-08T14:00:00",
+    "description": "SYNTHETIC certificate copy",
+    "evidence_type": "record_review",
+    "location": "SYNTHETIC office",
+    "source_ref": "SYN-CERT-001",
+    "timestamp": "2026-10-08T09:30"
+   },
+   "record_sha256": "937185df5859af1926a3b182e0977e5ecdd72b74056c29c0a31d2f591b8ce0db",
+   "record_type": "evidence",
+   "seq": 2
+  },
+  {
+   "entry_sha256": "a2c391fb72b4a2f9d664cfbd29c3fb0f729c7eac391468cab04058a0a48ebfeb",
+   "id": "EVD-0003",
+   "prev_sha256": "8a37e0a8eac154082ebb29005833966fc376b2fd2c3c1151a9b043fb0babad05",
+   "record": {
+    "auditor": "SYNTHETIC Auditor B",
+    "captured_at": "2026-10-08T14:00:00",
+    "description": "SYNTHETIC procedure revision",
+    "evidence_type": "document_review",
+    "location": "SYNTHETIC system",
+    "source_ref": "SYN-PROC-1",
+    "timestamp": "2026-10-08T09:40"
+   },
+   "record_sha256": "31f7c8020f3b0dfa24a8ca997970153b7e8f003bb95ca8fbf71219070daec77a",
+   "record_type": "evidence",
+   "seq": 3
+  },
+  {
+   "entry_sha256": "48f37d2bafca3c308383e767aca804655b82db547664b4f5307224a4cd3af630",
+   "id": "CAR-0004",
+   "prev_sha256": "a2c391fb72b4a2f9d664cfbd29c3fb0f729c7eac391468cab04058a0a48ebfeb",
+   "record": {
+    "captured_at": "2026-10-08T14:00:00",
+    "car_id": "CAR-SYN-201",
+    "due_date": "2026-12-01",
+    "linked_requirement": "STD:SAE AS9110C:8.5.1",
+    "owner": "SYNTHETIC lead",
+    "problem_statement": "SYNTHETIC: tag not applied at bench 2",
+    "source_system": "SYNTHETIC QMS",
+    "status": "open"
+   },
+   "record_sha256": "708768ae9f6f848207b171ccaa6a749761cb84065fd77349a0d2df2d80d90916",
+   "record_type": "car",
+   "seq": 4
+  },
+  {
+   "entry_sha256": "0e9a82b049f707cbfd4fdd74c12769d629c66c910cc66d26a6fd6466cdc9e53d",
+   "id": "QAS-0005",
+   "prev_sha256": "48f37d2bafca3c308383e767aca804655b82db547664b4f5307224a4cd3af630",
+   "record": {
+    "applicability": "APPLICABLE",
+    "assessed_at": "2026-10-08T14:00:00",
+    "assessment": "NONCONFORMING",
+    "assessor": "SYNTHETIC Auditor B",
+    "captured_at": "2026-10-08T14:00:00",
+    "criterion_id": "REG:FAA QSA 1.0:Organizational Management:101",
+    "evidence_ids": [
+     "EVD-0002"
+    ],
+    "publication_sha256": "a73a2091a38704d2f1849b487acc821221d393959bfe2ba66e53431eafcf7ad2",
+    "publication_version": 1
+   },
+   "record_sha256": "15cf9e717b6c6216d53245e915a6ba2f583113f13a083ba79771f7d549263813",
+   "record_type": "qsa_assessment",
+   "seq": 5
+  },
+  {
+   "entry_sha256": "8cf1c6771d2cca5f8b507899a610fd7fd65455e3a8eb6516792fd660051d6e5d",
+   "id": "QAS-0006",
+   "prev_sha256": "0e9a82b049f707cbfd4fdd74c12769d629c66c910cc66d26a6fd6466cdc9e53d",
+   "record": {
+    "applicability": "APPLICABLE",
+    "assessed_at": "2026-10-08T14:00:00",
+    "assessment": "NONCONFORMING",
+    "assessor": "SYNTHETIC Auditor B",
+    "captured_at": "2026-10-08T14:00:00",
+    "criterion_id": "STD:SAE AS9110C:8.5.1",
+    "evidence_ids": [
+     "EVD-0003"
+    ],
+    "publication_sha256": "a73a2091a38704d2f1849b487acc821221d393959bfe2ba66e53431eafcf7ad2",
+    "publication_version": 1
+   },
+   "record_sha256": "317adad159255cf528fde6177eedda228d4d9d7434759d50f3baaeb8ecb7f48a",
+   "record_type": "qsa_assessment",
+   "seq": 6
+  },
+  {
+   "entry_sha256": "11592d89fb4801fdaeb6622eb9a4a8402804005f1f3a9b94f056c6e54ac203ee",
+   "id": "QAS-0007",
+   "prev_sha256": "8cf1c6771d2cca5f8b507899a610fd7fd65455e3a8eb6516792fd660051d6e5d",
+   "record": {
+    "applicability": "APPLICABLE",
+    "assessed_at": "2026-10-08T14:00:00",
+    "assessment": "CONFORMING",
+    "assessor": "SYNTHETIC Auditor B",
+    "captured_at": "2026-10-08T14:00:00",
+    "criterion_id": "STD:SAE AS9100D:8.5.1",
+    "evidence_ids": [
+     "EVD-0003"
+    ],
+    "publication_sha256": "a73a2091a38704d2f1849b487acc821221d393959bfe2ba66e53431eafcf7ad2",
+    "publication_version": 1
+   },
+   "record_sha256": "fd3393cadfefdf4b5345f3e77e1d50bde06cffe5fbedb21cf67f4d4c747b816e",
+   "record_type": "qsa_assessment",
+   "seq": 7
+  },
+  {
+   "entry_sha256": "c22e3dc6a62b492eb38c22bce0a2016461010006bae5c4507fb30c9faa1ed4aa",
+   "id": "QAS-0008",
+   "prev_sha256": "11592d89fb4801fdaeb6622eb9a4a8402804005f1f3a9b94f056c6e54ac203ee",
+   "record": {
+    "applicability": "APPLICABLE",
+    "assessed_at": "2026-10-08T14:00:00",
+    "assessment": "CONFORMING",
+    "assessor": "SYNTHETIC Auditor B",
+    "captured_at": "2026-10-08T14:00:00",
+    "criterion_id": "REG:CUSTOMER SYNTHETIC-CUSTOMER-01:SYN-1",
+    "evidence_ids": [
+     "EVD-0002"
+    ],
+    "publication_sha256": "a73a2091a38704d2f1849b487acc821221d393959bfe2ba66e53431eafcf7ad2",
+    "publication_version": 1
+   },
+   "record_sha256": "a37a35088e5cfa3b2addbea8ee78e8c7441844357f6a7c53fc587541f01065cb",
+   "record_type": "qsa_assessment",
+   "seq": 8
+  },
+  {
+   "entry_sha256": "d8c19c34e46523e19b671b2ca1ef1e2cb4ff4dd2e745f0f5344451e4ac3cb80f",
+   "id": "QFN-0009",
+   "prev_sha256": "c22e3dc6a62b492eb38c22bce0a2016461010006bae5c4507fb30c9faa1ed4aa",
+   "record": {
+    "captured_at": "2026-10-08T14:00:00",
+    "car_id": "CAR-0004",
+    "criterion_id": "STD:SAE AS9110C:8.5.1",
+    "evidence_ids": [
+     "EVD-0002",
+     "EVD-0003"
+    ],
+    "proposed_by": "SYNTHETIC Auditor B",
+    "proposed_classification": "MINOR_NC",
+    "statement": "SYNTHETIC: tooling tag not applied at bench 2."
+   },
+   "record_sha256": "5a434decb455a17aff8ea2502a3e05c4abd73a2608fd856b586a6b9c7e55a941",
+   "record_type": "qsa_finding",
+   "seq": 9
+  },
+  {
+   "entry_sha256": "26557b25b32be2f8903a4ca462ef837e26a2f1f12b5c4f25ae95986d025215f8",
+   "id": "QCL-0010",
+   "prev_sha256": "d8c19c34e46523e19b671b2ca1ef1e2cb4ff4dd2e745f0f5344451e4ac3cb80f",
+   "record": {
+    "captured_at": "2026-10-08T14:00:00",
+    "classification": "MINOR_NC",
+    "classified_at": "2026-10-08T14:00:00",
+    "classified_by": "SYNTHETIC Lead L",
+    "finding_id": "QFN-0009",
+    "role": "LEAD_AUDITOR"
+   },
+   "record_sha256": "c6742aecd3f6f9c4d1a02f08af9ebbbcf8bc26d25b5572a536719f6fade34d52",
+   "record_type": "qsa_finding_classification",
+   "seq": 10
+  }
+ ],
+ "car_records": [
+  {
+   "captured_at": "2026-10-08T14:00:00",
+   "car_id": "CAR-SYN-201",
+   "due_date": "2026-12-01",
+   "flags": [],
+   "linked_requirement": "STD:SAE AS9110C:8.5.1",
+   "owner": "SYNTHETIC lead",
+   "problem_statement": "SYNTHETIC: tag not applied at bench 2",
+   "sampling_expansion_recommended": false,
+   "source_system": "SYNTHETIC QMS",
+   "state": "ACTIVE",
+   "status": "open"
+  }
+ ],
+ "car_state_counts": {
+  "ACTIVE": 1
+ },
+ "clauses_selected": [
+  "8.5.1"
+ ],
+ "created_at": "2026-10-08T19:31:07",
+ "licensed_source_sha256": "0af526813f6636639a37382a731e41e703ce23488882082d146d529fcbdd2c71",
+ "licensed_source_sha256_on_disk": "0af526813f6636639a37382a731e41e703ce23488882082d146d529fcbdd2c71",
+ "nonconformity_links": [],
+ "qsa_publication": {
+  "sha256": "a73a2091a38704d2f1849b487acc821221d393959bfe2ba66e53431eafcf7ad2",
+  "version": 1
+ },
+ "ready_for_export": true,
+ "reconciliation_status": "RECONCILED",
+ "record_type": "audit_snapshot_with_car",
+ "rows": [
+  {
+   "evidence": [
+    "Work order with current maintenance data",
+    "In-process inspection records",
+    "Operation completion record",
+    "Handover continuity record",
+    "Off-site work control record"
+   ],
+   "intent": "Work is controlled through: defined characteristics and results from current maintenance data, monitoring and measurement, suitable infrastructure, competent persons, validation of processes that cannot be fully verified, human error prevention, release, in-process inspection points, evidence that all operations were completed, foreign object control, continuity of information at work handover, utilities, compliance with reference standards and technical data, management of approved capabilities and ratings, and control of work done away from the fixed location.",
+   "locator": null,
+   "parent_ref": null,
+   "question": "Pick one maintenance job and show: current maintenance data, in-process inspection points, the record that every operation was completed, handover continuity, and control of any work done off site.",
+   "reconciliation": "MATCHED_TOC",
+   "ref": "8.5.1",
+   "title": "Control of Production and Service Provision",
+   "type": null
+  },
+  {
+   "evidence": [
+    "Work order or instruction with characteristics and results",
+    "Airworthiness directive assessment record"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (a)",
+   "parent_ref": "8.5.1",
+   "question": "For one maintenance job, show the documented information that defines the characteristics and the results to be achieved, including airworthiness directive assessment where it applies.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(a)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Measuring resource list for the job"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (b)",
+   "parent_ref": "8.5.1",
+   "question": "Show the monitoring and measuring resources available and used for one job.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(b)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Monitoring and measurement record at each stage"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (c)",
+   "parent_ref": "8.5.1",
+   "question": "At which stages are monitoring and measurement performed, to verify criteria and acceptance criteria are met? Show one job.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(c)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Tool and environment record for the job"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (d)",
+   "parent_ref": "8.5.1",
+   "question": "Show the infrastructure and environment used for one job, including any tools and software.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(d)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Appointment and qualification record"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (e)",
+   "parent_ref": "8.5.1",
+   "question": "Show the appointment of competent people for one job, including any required qualification.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(e)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Process validation record",
+    "Periodic revalidation record"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (f)",
+   "parent_ref": "8.5.1",
+   "question": "For a process whose output cannot be fully verified later, how is its ability to achieve planned results validated and periodically revalidated?",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(f)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Human error prevention measure"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (g)",
+   "parent_ref": "8.5.1",
+   "question": "What actions prevent human error in maintenance? Show one example.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(g)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Release, delivery and post-delivery records"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (h)",
+   "parent_ref": "8.5.1",
+   "question": "Show the release, delivery and post-delivery activities for one job.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(h)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "In-process inspection points with justification"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (i)",
+   "parent_ref": "8.5.1",
+   "question": "Where are the in-process inspection or verification points, and why are they needed where conformity cannot be verified later?",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(i)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Operation completion record against the technical data"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (j)",
+   "parent_ref": "8.5.1",
+   "question": "Show the evidence that all production and inspection operations were completed as planned or instructed by the customer, in accordance with the applicable technical data.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(j)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Foreign object control record"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (k)",
+   "parent_ref": "8.5.1",
+   "question": "How are foreign objects, including tools and hardware, prevented, detected and removed?",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(k)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Handover record"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (l)",
+   "parent_ref": "8.5.1",
+   "question": "How is continuity of information kept during work handover between staff? Show one handover.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(l)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Utility and supply control record"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (m)",
+   "parent_ref": "8.5.1",
+   "question": "How are utilities and supplies (water, compressed air, electricity, chemicals) controlled where they affect product conformity?",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(m)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Compliance check record for the job"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (n)",
+   "parent_ref": "8.5.1",
+   "question": "For one job, how do you show the work matches the applicable reference standards, quality plans, type certificate holder recommendations, customer specifications and documented procedures?",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(n)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Controlled capability and ratings list"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (o)",
+   "parent_ref": "8.5.1",
+   "question": "How is documented information of approved maintenance capabilities and ratings managed?",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(o)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Assurance record for work outside scope"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (p)",
+   "parent_ref": "8.5.1",
+   "question": "How do you show that work on one item cannot harm the airworthiness of parts outside the scope of the work order?",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(p)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  },
+  {
+   "evidence": [
+    "Off-site work control record"
+   ],
+   "intent": null,
+   "locator": "licensed-private/AS9110C.pdf, clause 8.5.1, item (q)",
+   "parent_ref": "8.5.1",
+   "question": "What controls apply to work done off site? Show one off-site job.",
+   "reconciliation": "LETTER_MATCHED_IN_LICENSED_BODY",
+   "ref": "8.5.1(q)",
+   "title": null,
+   "type": "lettered_subparagraph"
+  }
+ ],
+ "snapshot_version": 1,
+ "standard": "AS9110C",
+ "status": "IMMUTABLE_SNAPSHOT"
+}

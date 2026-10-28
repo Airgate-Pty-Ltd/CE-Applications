@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quality Event Classification & Escalation | Conform-Edge</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
+:root{--navy:#0d2137;--steel:#2a5a8c;--ink:#1a1a2e;--green:#1a7f4e;--amber:#b45309;--red:#b91c1c;--ofi:#4f46e5;--border:#d1d9e6;--card:#ffffff}
+header{background:var(--navy);color:#fff;padding:14px 28px;display:flex;align-items:center;gap:16px}
+.brand{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#7ab3d4;font-weight:600}
+header h1{font-size:17px;font-weight:700;flex:1}
+.urgency-tag{background:#b91c1c;color:#fff;font-size:10px;padding:3px 9px;border-radius:3px;letter-spacing:1px;text-transform:uppercase;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.7}}
+.container{max-width:940px;margin:0 auto;padding:20px 16px}
+/* INTRO */
+.intro-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;margin-bottom:18px}
+.intro-card h2{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.intro-card p{font-size:12px;color:#555;line-height:1.6}
+/* PHASE HEADER */
+.phase-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px;margin-bottom:14px}
+.phase-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.phase-badge{background:var(--steel);color:#fff;font-size:10px;padding:2px 8px;border-radius:3px;font-weight:700;letter-spacing:1px}
+/* STANDARD PILLS */
+.std-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.std-pill{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:2px solid var(--border);background:#f0f2f5;color:#555;transition:all .2s;user-select:none}
+.std-pill.selected{border-color:var(--steel);background:var(--steel);color:#fff}
+/* QUESTIONS */
+.q-block{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #f0f2f5}
+.q-block:last-of-type{border-bottom:none;margin-bottom:0}
+.q-label{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px;display:flex;align-items:flex-start;gap:8px}
+.q-critical-tag{font-size:10px;background:#fef2f2;color:var(--red);padding:2px 6px;border-radius:3px;font-weight:700;white-space:nowrap}
+.q-override-tag{font-size:10px;background:#fef2f2;color:var(--red);padding:2px 6px;border-radius:3px;font-weight:800;white-space:nowrap;border:1px solid #fca5a5}
+.radio-group{display:flex;gap:8px;flex-wrap:wrap}
+.radio-label{display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;padding:5px 12px;border-radius:4px;border:1px solid var(--border);transition:all .15s}
+.radio-label:hover{background:#f8faff}
+.radio-label.sel-yes{background:#fef2f2;border-color:#fca5a5;color:#991b1b;font-weight:600}
+.radio-label.sel-no{background:#dcfce7;border-color:#86efac;color:#166534;font-weight:600}
+.radio-label.sel-unknown{background:#fef9c3;border-color:#fde047;color:#854d0e;font-weight:600}
+.radio-label.sel-na{background:#f1f5f9;border-color:#cbd5e1;color:#475569}
+/* NAV */
+.nav-row{display:flex;justify-content:space-between;margin-top:20px}
+.btn{padding:9px 20px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--steel);color:#fff}
+.btn-primary:hover{background:#1e4a7a}
+.btn-primary.urgent{background:var(--red)}
+.btn-primary.urgent:hover{background:#991b1c}
+.btn-secondary{background:#e8edf3;color:#555}
+.btn-secondary:hover{background:#d1d9e6}
+/* VERDICT */
+#verdict-panel{display:none}
+.verdict-banner{border-radius:10px;padding:22px 28px;margin-bottom:20px;display:flex;align-items:center;gap:20px}
+.verdict-CRITICAL{background:#fef2f2;border:2px solid #b91c1c}
+.verdict-MAJOR{background:#fffbeb;border:2px solid #b45309}
+.verdict-MINOR{background:#eff6ff;border:2px solid #1d4ed8}
+.verdict-OFI{background:#f0fdf4;border:2px solid #1a7f4e}
+.verdict-icon{font-size:36px;flex-shrink:0}
+.verdict-text h2{font-size:22px;font-weight:900}
+.verdict-CRITICAL .verdict-text h2{color:var(--red)}
+.verdict-MAJOR .verdict-text h2{color:var(--amber)}
+.verdict-MINOR .verdict-text h2{color:#1d4ed8}
+.verdict-OFI .verdict-text h2{color:var(--green)}
+.verdict-text p{font-size:13px;color:#555;margin-top:4px}
+.override-alert{background:#fef2f2;border:2px solid #b91c1c;border-radius:8px;padding:12px 16px;font-size:13px;color:var(--red);font-weight:700;margin-bottom:16px;display:none}
+/* ACTION TABLE */
+.action-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px}
+.action-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:left;font-weight:600}
+.action-table td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+.action-table tr:nth-child(even) td{background:#f8faff}
+.req-YES{color:var(--red);font-weight:700}
+.req-NO{color:var(--green);font-weight:600}
+.req-ASSESS{color:var(--amber);font-weight:600}
+/* TIMELINE */
+.timeline-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:16px}
+.timeline-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center}
+.tl-period{font-size:20px;font-weight:800;color:var(--steel)}
+.tl-label{font-size:11px;color:#666;margin-top:2px}
+.tl-action{font-size:11px;color:#333;margin-top:6px;line-height:1.4}
+/* EVIDENCE */
+.evidence-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;line-height:1.7;margin-bottom:16px}
+.evidence-box ul{padding-left:16px}
+.evidence-box li{margin-bottom:4px}
+/* EXPORT */
+.output-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:14px}
+.output-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px}
+.export-row{display:flex;gap:10px;flex-wrap:wrap}
+.btn-export{padding:8px 16px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--navy)}
+.btn-export:hover{background:#e8edf3}
+.disclaimer{font-size:11px;color:#888;margin-top:10px}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">Conform-Edge</div>
+    <h1>Quality Event Classification &amp; Escalation Decision Tool</h1>
+  </div>
+  <div class="urgency-tag">Live Triage</div>
+</header>
+
+<div class="container">
+
+  <div class="intro-card">
+    <h2>What does this quality event require — right now?</h2>
+    <p>Answer the questions below. The tool applies your selected standards to classify severity and output required immediate actions, notification obligations, process pathway, and evidence you must capture within each timeline window. Complete this before deciding what to do.</p>
+  </div>
+
+  <!-- PHASE 1: CONTEXT -->
+  <div class="phase-card" id="phase-1">
+    <h3><span class="phase-badge">PHASE 1</span> Organization &amp; Standards Context</h3>
+
+    <div class="q-block">
+      <div class="q-label">1. What type of organization are you?</div>
+      <div class="radio-group">
+        <label class="radio-label" id="org-mfg"><input type="radio" name="org" value="mfg" onchange="recordOrg(this)"> Aerospace Manufacturer (AS9100D)</label>
+        <label class="radio-label" id="org-mro"><input type="radio" name="org" value="mro" onchange="recordOrg(this)"> MRO / Repair Station (AS9110C / Part 145)</label>
+        <label class="radio-label" id="org-med"><input type="radio" name="org" value="med" onchange="recordOrg(this)"> Medical Device (ISO 13485 / FDA QMSR)</label>
+        <label class="radio-label" id="org-auto"><input type="radio" name="org" value="auto" onchange="recordOrg(this)"> Automotive Supplier (IATF 16949)</label>
+        <label class="radio-label" id="org-iso"><input type="radio" name="org" value="iso" onchange="recordOrg(this)"> General ISO 9001 Organisation</label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">2. Select all applicable standards (can be multiple):</div>
+      <div class="std-grid" id="std-grid">
+        <div class="std-pill" data-std="AS9100D" onclick="toggleStd(this)">AS9100D</div>
+        <div class="std-pill" data-std="AS9110C" onclick="toggleStd(this)">AS9110C</div>
+        <div class="std-pill" data-std="FAA145" onclick="toggleStd(this)">FAA Part 145</div>
+        <div class="std-pill" data-std="EASA145" onclick="toggleStd(this)">EASA Part 145</div>
+        <div class="std-pill" data-std="ISO13485" onclick="toggleStd(this)">ISO 13485</div>
+        <div class="std-pill" data-std="QMSR" onclick="toggleStd(this)">FDA QMSR</div>
+        <div class="std-pill" data-std="IATF" onclick="toggleStd(this)">IATF 16949</div>
+        <div class="std-pill" data-std="ISO9001" onclick="toggleStd(this)">ISO 9001</div>
+      </div>
+    </div>
+
+    <div class="nav-row"><div></div><button class="btn btn-primary" onclick="goPhase(2)">Next: Event Characterisation →</button></div>
+  </div>
+
+  <!-- PHASE 2: EVENT CHARACTERISATION -->
+  <div class="phase-card" id="phase-2" style="display:none">
+    <h3><span class="phase-badge">PHASE 2</span> Event Characterisation</h3>
+
+    <div class="q-block">
+      <div class="q-label">3. What is the primary event type?</div>
+      <div class="radio-group">
+        <label class="radio-label" id="evt-product"><input type="radio" name="evt" value="product" onchange="recordEvt(this)"> Product nonconformance (part, assembly, material OOT)</label>
+        <label class="radio-label" id="evt-process"><input type="radio" name="evt" value="process" onchange="recordEvt(this)"> Process exceedance (procedure deviation, unauthorized change)</label>
+        <label class="radio-label" id="evt-supplier"><input type="radio" name="evt" value="supplier" onchange="recordEvt(this)"> Supplier nonconformance (inbound material/cert failure)</label>
+        <label class="radio-label" id="evt-field"><input type="radio" name="evt" value="field" onchange="recordEvt(this)"> Field failure / customer complaint (in-service or post-delivery)</label>
+        <label class="radio-label" id="evt-safety"><input type="radio" name="evt" value="safety" onchange="recordEvt(this)"> Safety event (injury, near-miss, airworthiness concern)</label>
+        <label class="radio-label" id="evt-audit"><input type="radio" name="evt" value="audit" onchange="recordEvt(this)"> Audit finding / regulatory observation</label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">4. <span class="q-override-tag">CRITICAL OVERRIDE</span> Has nonconforming product reached the customer?</div>
+      <div class="radio-group">
+        <label class="radio-label" id="escape-yes"><input type="radio" name="escape" value="yes" onchange="recordQ('escape',this,'yes')"> Yes — confirmed or probable</label>
+        <label class="radio-label" id="escape-no"><input type="radio" name="escape" value="no" onchange="recordQ('escape',this,'no')"> No — contained at supplier/in-process</label>
+        <label class="radio-label" id="escape-unknown"><input type="radio" name="escape" value="unknown" onchange="recordQ('escape',this,'unknown')"> Unknown — investigation underway</label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">5. Is the product in service / installed / implanted?</div>
+      <div class="radio-group">
+        <label class="radio-label" id="inservice-yes"><input type="radio" name="inservice" value="yes" onchange="recordQ('inservice',this,'yes')"> Yes</label>
+        <label class="radio-label" id="inservice-no"><input type="radio" name="inservice" value="no" onchange="recordQ('inservice',this,'no')"> No</label>
+        <label class="radio-label" id="inservice-unknown"><input type="radio" name="inservice" value="unknown" onchange="recordQ('inservice',this,'unknown')"> Unknown</label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">6. Does this event involve a safety or airworthiness concern? <span class="q-override-tag">CRITICAL OVERRIDE</span></div>
+      <div class="radio-group">
+        <label class="radio-label" id="safety-yes"><input type="radio" name="safetyconcern" value="yes" onchange="recordQ('safetyconcern',this,'yes')"> Yes — potential safety impact</label>
+        <label class="radio-label" id="safety-no"><input type="radio" name="safetyconcern" value="no" onchange="recordQ('safetyconcern',this,'no')"> No</label>
+        <label class="radio-label" id="safety-unknown"><input type="radio" name="safetyconcern" value="unknown" onchange="recordQ('safetyconcern',this,'unknown')"> Cannot determine yet</label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">7. How many units / how much product is affected?</div>
+      <div class="radio-group">
+        <label class="radio-label" id="qty-single"><input type="radio" name="qty" value="single" onchange="recordQ('qty',this,'single')"> Single unit</label>
+        <label class="radio-label" id="qty-lot"><input type="radio" name="qty" value="lot" onchange="recordQ('qty',this,'lot')"> Known lot / batch</label>
+        <label class="radio-label" id="qty-all"><input type="radio" name="qty" value="all" onchange="recordQ('qty',this,'all')"> All product from a process / supplier</label>
+        <label class="radio-label" id="qty-unknown"><input type="radio" name="qty" value="unknown" onchange="recordQ('qty',this,'unknown')"> Unknown — investigation needed</label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">8. Is this event a recurrence of a previously closed finding?</div>
+      <div class="radio-group">
+        <label class="radio-label" id="rec-yes"><input type="radio" name="recurrence" value="yes" onchange="recordQ('recurrence',this,'yes')"> Yes</label>
+        <label class="radio-label" id="rec-no"><input type="radio" name="recurrence" value="no" onchange="recordQ('recurrence',this,'no')"> No</label>
+        <label class="radio-label" id="rec-unknown"><input type="radio" name="recurrence" value="unknown" onchange="recordQ('recurrence',this,'unknown')"> Unknown</label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">9. Is product hold / quarantine already in place?</div>
+      <div class="radio-group">
+        <label class="radio-label" id="hold-yes"><input type="radio" name="hold" value="yes" onchange="recordQ('hold',this,'yes')"> Yes — quarantine established</label>
+        <label class="radio-label" id="hold-no"><input type="radio" name="hold" value="no" onchange="recordQ('hold',this,'no')"> No — not yet done</label>
+        <label class="radio-label" id="hold-na"><input type="radio" name="hold" value="na" onchange="recordQ('hold',this,'na')"> N/A — service event or no physical product</label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">10. Does the organisation have contractual customer notification requirements for this type of event?</div>
+      <div class="radio-group">
+        <label class="radio-label" id="cnotif-yes"><input type="radio" name="cnotif" value="yes" onchange="recordQ('cnotif',this,'yes')"> Yes</label>
+        <label class="radio-label" id="cnotif-no"><input type="radio" name="cnotif" value="no" onchange="recordQ('cnotif',this,'no')"> No</label>
+        <label class="radio-label" id="cnotif-unknown"><input type="radio" name="cnotif" value="unknown" onchange="recordQ('cnotif',this,'unknown')"> Need to check the contract</label>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goPhase(1)">← Back</button>
+      <button class="btn btn-primary urgent" onclick="classifyEvent()">Classify Event &amp; Get Required Actions →</button>
+    </div>
+  </div>
+
+  <!-- VERDICT PANEL -->
+  <div id="verdict-panel">
+    <div id="override-alert" class="override-alert"></div>
+
+    <div class="verdict-banner" id="verdict-banner">
+      <div class="verdict-icon" id="verdict-icon">—</div>
+      <div class="verdict-text">
+        <h2 id="verdict-sev">—</h2>
+        <p id="verdict-desc">—</p>
+      </div>
+    </div>
+
+    <div class="output-card">
+      <h3>Required Actions by Standard</h3>
+      <table class="action-table">
+        <thead><tr><th>Standard</th><th>Hold / Quarantine</th><th>CAPA Required</th><th>Customer Notification</th><th>Regulatory Notification</th><th>Process Pathway</th></tr></thead>
+        <tbody id="action-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="output-card">
+      <h3>Response Timeline Commitments</h3>
+      <div class="timeline-grid" id="timeline-grid"></div>
+    </div>
+
+    <div class="output-card">
+      <h3>Evidence to Capture NOW</h3>
+      <div class="evidence-box">
+        <ul id="evidence-list"></ul>
+      </div>
+    </div>
+
+    <div class="output-card">
+      <h3>Export</h3>
+      <div class="export-row">
+        <button class="btn-export" onclick="exportJSON()">⬇ Export JSON Record</button>
+        <button class="btn-export" onclick="window.print()">🖨 Print Triage Record</button>
+        <button class="btn-export" onclick="resetTool()">↩ New Event</button>
+      </div>
+      <p class="disclaimer">M-AI reserved interface: domain=quality-event-escalation v1.0</p>
+      <p class="disclaimer">Decision guidance only. Regulatory notification determinations are your organisation's legal responsibility. Verify customer notification requirements against your purchase orders and quality agreements. © Conform-Edge Quality Management Consulting LLC.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const state = { org:'', stds:[], evt:'', escape:'', inservice:'', safetyconcern:'', qty:'', recurrence:'', hold:'', cnotif:'' };
+
+function recordOrg(el) {
+  state.org = el.value;
+  ['org-mfg','org-mro','org-med','org-auto','org-iso'].forEach(id => {
+    document.getElementById(id).className = 'radio-label' + (id==='org-'+el.value ? ' sel-yes' : '');
+  });
+}
+
+function toggleStd(el) {
+  const std = el.dataset.std;
+  if(state.stds.includes(std)) { state.stds = state.stds.filter(s=>s!==std); el.classList.remove('selected'); }
+  else { state.stds.push(std); el.classList.add('selected'); }
+}
+
+function recordEvt(el) {
+  state.evt = el.value;
+  ['evt-product','evt-process','evt-supplier','evt-field','evt-safety','evt-audit'].forEach(id => {
+    document.getElementById(id).className = 'radio-label' + (id==='evt-'+el.value ? ' sel-yes' : '');
+  });
+}
+
+function recordQ(key, el, val) {
+  state[key] = val;
+  const prefix = { escape:'escape', inservice:'inservice', safetyconcern:'safety', qty:'qty', recurrence:'rec', hold:'hold', cnotif:'cnotif' };
+  const p = prefix[key];
+  ['yes','no','unknown','na','single','lot','all'].forEach(v => {
+    const lbl = document.getElementById(p+'-'+v);
+    if(lbl) lbl.className = 'radio-label' + (v===val ? (val==='yes'?' sel-yes':(val==='no'?' sel-no':' sel-unknown')) : '');
+  });
+}
+
+function goPhase(n) {
+  document.getElementById('phase-1').style.display = n===1 ? 'block' : 'none';
+  document.getElementById('phase-2').style.display = n===2 ? 'block' : 'none';
+  document.getElementById('verdict-panel').style.display = 'none';
+  window.scrollTo(0,0);
+}
+
+function classify(state) {
+  // Critical override conditions
+  const critOverrides = [];
+  if(state.escape === 'yes') critOverrides.push('Nonconforming product confirmed or probable at customer');
+  if(state.safetyconcern === 'yes') critOverrides.push('Safety or airworthiness concern identified');
+  if(state.inservice === 'yes' && state.escape === 'yes') critOverrides.push('Nonconforming product in service — potential field action required');
+  if(state.evt === 'safety') critOverrides.push('Event type is a safety event');
+
+  let severity;
+  if(critOverrides.length > 0) { severity = 'CRITICAL'; }
+  else {
+    const majorFactors = [
+      state.escape === 'unknown',
+      state.inservice === 'unknown',
+      state.qty === 'all',
+      state.recurrence === 'yes',
+      state.evt === 'field',
+    ].filter(Boolean).length;
+    if(majorFactors >= 2) severity = 'MAJOR';
+    else if(majorFactors === 1 || state.qty === 'lot' || state.escape === 'unknown') severity = 'MAJOR';
+    else if(state.evt === 'audit' && state.escape === 'no') severity = 'MINOR';
+    else if(state.qty === 'single' && state.escape === 'no') severity = 'MINOR';
+    else severity = 'OFI';
+  }
+  return { severity, critOverrides };
+}
+
+function buildActions(severity, stds) {
+  const holdReq = (severity === 'CRITICAL' || severity === 'MAJOR') ? 'YES' : 'ASSESS';
+  const capaReq = (severity === 'CRITICAL' || severity === 'MAJOR') ? 'YES' : (severity === 'MINOR' ? 'ASSESS' : 'NO');
+
+  const rules = {
+    AS9100D: { custNotif: severity==='CRITICAL'?'YES':'ASSESS', regNotif:'NO', pathway: severity==='CRITICAL'?'Immediate CAPA + 8D':'CAPA', clause:'8.7, 8.5.3' },
+    AS9110C: { custNotif: severity==='CRITICAL'?'YES':'ASSESS', regNotif: (severity==='CRITICAL'&&state.safetyconcern==='yes')?'YES':'ASSESS', pathway: severity==='CRITICAL'?'Airworthiness review + CAPA + possible ARS':'CAPA', clause:'8.7, 8.5.3, 8.8' },
+    FAA145: { custNotif:'ASSESS', regNotif: (state.safetyconcern==='yes'&&severity==='CRITICAL')?'YES':'NO', pathway: state.safetyconcern==='yes'?'SDR/MOR filing required':'NCR + CAPA', clause:'§145.221, §145.219' },
+    EASA145: { custNotif:'ASSESS', regNotif: (state.safetyconcern==='yes'||state.inservice==='yes')&&severity==='CRITICAL'?'YES':'ASSESS', pathway: state.safetyconcern==='yes'?'Mandatory Occurrence Report (MOR) + CAPA':'CAPA', clause:'M.A.202, Part-145.A.60' },
+    ISO13485: { custNotif: severity==='CRITICAL'?'YES':'ASSESS', regNotif: (severity==='CRITICAL'&&(state.inservice==='yes'||state.evt==='field'))?'YES':'ASSESS', pathway: severity==='CRITICAL'?'MDR evaluation + CAPA':'CAPA', clause:'8.5.3, 8.5.2' },
+    QMSR: { custNotif: severity==='CRITICAL'?'YES':'ASSESS', regNotif: (severity==='CRITICAL'&&state.inservice==='yes')?'YES':'ASSESS', pathway: severity==='CRITICAL'?'MDR (21 CFR 803) evaluation + CAPA':'CAPA', clause:'§820.162, §820.100' },
+    IATF: { custNotif: severity==='CRITICAL'?'YES':'ASSESS', regNotif:'NO', pathway: severity==='CRITICAL'?'Immediate containment + 8D within 24hr':'CAPA', clause:'10.2, 8.7' },
+    ISO9001: { custNotif:'ASSESS', regNotif:'NO', pathway:'CAPA', clause:'8.7, 10.2' },
+  };
+
+  return stds.map(std => {
+    const r = rules[std] || { custNotif:'ASSESS', regNotif:'NO', pathway:'CAPA', clause:'—' };
+    return { std, hold: holdReq, capa: capaReq, custNotif: r.custNotif, regNotif: r.regNotif, pathway: r.pathway, clause: r.clause };
+  });
+}
+
+function buildTimeline(severity) {
+  const items = [];
+  if(severity === 'CRITICAL') {
+    items.push({ period:'Immediately', label:'Now', action:'Stop production / quarantine product. Notify team lead and quality manager.' });
+    items.push({ period:'24 hours', label:'Day 1', action:'Customer notification (if required). Containment verified. NCR opened.' });
+    items.push({ period:'72 hours', label:'Day 3', action:'Preliminary root cause hypothesis. Containment evidence to customer.' });
+    items.push({ period:'30 days', label:'Day 30', action:'8D / CAPA complete with verified effectiveness plan.' });
+  } else if(severity === 'MAJOR') {
+    items.push({ period:'Same shift', label:'Today', action:'Quarantine affected product. Notify supervisor/quality.' });
+    items.push({ period:'48 hours', label:'Day 2', action:'Root cause investigation initiated. NCR documented.' });
+    items.push({ period:'30 days', label:'Day 30', action:'CAPA with effectiveness plan submitted.' });
+  } else if(severity === 'MINOR') {
+    items.push({ period:'Within 5 days', label:'Day 5', action:'NCR opened. Disposition decision documented.' });
+    items.push({ period:'60 days', label:'Day 60', action:'Corrective action completed and verified (if triggered).' });
+  } else {
+    items.push({ period:'Next review cycle', label:'Scheduled', action:'Log as OFI. Assess during next management review.' });
+  }
+  return items;
+}
+
+function buildEvidence(severity, stds) {
+  const items = [
+    'Event description: what, where, when, how many',
+    'Photographic / measurement evidence of the nonconformance',
+    'Product identification: part number, lot/serial, quantity',
+  ];
+  if(state.hold !== 'na') items.push('Hold tag / quarantine record with location');
+  if(severity === 'CRITICAL') {
+    items.push('Customer notification record (if applicable): who was notified, when, how');
+    items.push('Initial containment actions: what was done, by whom, when');
+  }
+  if(stds.includes('FAA145') || stds.includes('EASA145')) items.push('Work order / job card reference; authorized release status of affected maintenance');
+  if(stds.includes('ISO13485') || stds.includes('QMSR')) items.push('MDR evaluation record: is this a reportable event? Decision with rationale.');
+  if(state.evt === 'field' || state.inservice === 'yes') items.push('Customer complaint or field report reference number');
+  items.push('NCR / nonconformance record number (open it NOW if not already done)');
+  return items;
+}
+
+function classifyEvent() {
+  const { severity, critOverrides } = classify(state);
+  const stds = state.stds.length > 0 ? state.stds : ['ISO9001'];
+  const actions = buildActions(severity, stds);
+  const timeline = buildTimeline(severity);
+  const evidence = buildEvidence(severity, stds);
+
+  document.getElementById('phase-1').style.display = 'none';
+  document.getElementById('phase-2').style.display = 'none';
+  document.getElementById('verdict-panel').style.display = 'block';
+  window.scrollTo(0,0);
+
+  // Override alert
+  const oa = document.getElementById('override-alert');
+  if(critOverrides.length > 0) {
+    oa.style.display = 'block';
+    oa.innerHTML = '⚠ CRITICAL OVERRIDE TRIGGERED: ' + critOverrides.join(' | ');
+  }
+
+  // Verdict banner
+  const icons = { CRITICAL:'🔴', MAJOR:'🟡', MINOR:'🔵', OFI:'🟢' };
+  const descs = {
+    CRITICAL: 'Immediate action required. Stop, contain, notify. Do not wait for full investigation.',
+    MAJOR: 'Significant event. Quarantine and investigate promptly. Formal CAPA required.',
+    MINOR: 'Contained, limited-impact event. Document and disposition. Corrective action as appropriate.',
+    OFI: 'Opportunity for improvement. Log and review at next management review cycle.',
+  };
+  const banner = document.getElementById('verdict-banner');
+  banner.className = 'verdict-banner verdict-'+severity;
+  document.getElementById('verdict-icon').textContent = icons[severity];
+  document.getElementById('verdict-sev').textContent = severity + ' QUALITY EVENT';
+  document.getElementById('verdict-desc').textContent = descs[severity];
+
+  // Action table
+  const tbody = document.getElementById('action-tbody');
+  tbody.innerHTML = '';
+  actions.forEach(a => {
+    const tr = document.createElement('tr');
+    const reqCls = v => v==='YES'?'req-YES':v==='NO'?'req-NO':'req-ASSESS';
+    tr.innerHTML = `<td><strong>${a.std}</strong><br><span style="font-size:10px;color:#888">${a.clause}</span></td>
+      <td class="${reqCls(a.hold)}">${a.hold}</td>
+      <td class="${reqCls(a.capa)}">${a.capa}</td>
+      <td class="${reqCls(a.custNotif)}">${a.custNotif}</td>
+      <td class="${reqCls(a.regNotif)}">${a.regNotif}</td>
+      <td>${a.pathway}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  // Timeline
+  const tg = document.getElementById('timeline-grid');
+  tg.innerHTML = '';
+  timeline.forEach(t => {
+    const c = document.createElement('div');
+    c.className = 'timeline-card';
+    c.innerHTML = `<div class="tl-period">${t.period}</div><div class="tl-label">${t.label}</div><div class="tl-action">${t.action}</div>`;
+    tg.appendChild(c);
+  });
+
+  // Evidence
+  const el = document.getElementById('evidence-list');
+  el.innerHTML = evidence.map(e=>`<li>${e}</li>`).join('');
+
+  window._lastResult = { severity, stds, critOverrides, actions, timeline };
+}
+
+function exportJSON() {
+  const r = window._lastResult || {};
+  const data = {
+    tool: 'quality-event-escalation',
+    mai_interface: 'reserved',
+    domain: 'quality-event-escalation',
+    version: '1.0',
+    generated: new Date().toISOString(),
+    event_type: state.evt,
+    severity: r.severity || 'UNCLASSIFIED',
+    standards_applied: r.stds || [],
+    critical_override: (r.critOverrides||[]).length > 0,
+    override_reasons: r.critOverrides || [],
+    customer_notif_required: (r.actions||[]).some(a=>a.custNotif==='YES'),
+    regulatory_notif_required: (r.actions||[]).some(a=>a.regNotif==='YES'),
+    capa_required: (r.actions||[]).some(a=>a.capa==='YES'),
+    escape_to_customer: state.escape,
+    in_service: state.inservice,
+    safety_concern: state.safetyconcern,
+  };
+  const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='quality-event-'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetTool() {
+  Object.keys(state).forEach(k => { state[k] = Array.isArray(state[k]) ? [] : ''; });
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.radio-label').forEach(l=>l.className='radio-label');
+  document.querySelectorAll('.std-pill').forEach(p=>p.classList.remove('selected'));
+  document.getElementById('override-alert').style.display='none';
+  document.getElementById('verdict-panel').style.display='none';
+  goPhase(1);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Uploads
+uploads/
+temp/
+reports-archive/
+
+# Google Drive API credentials (sensitive)
+credentials.json
+token.json
+backend/src/scripts/credentials.json
+backend/src/scripts/token.json
+
+# Large binary files that cause Railway snapshot timeouts
+*.pdf
+*.PDF
+backend/EDCAT AIP/Requirements/**/*.pdf
+backend/EDCAT AIP/Requirements/**/*.PDF
+
+# Large data files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Database dumps (but allow migration files)
+*.sql
+!migrations/*.sql
+*.dump
+
+# Large media files
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+
+# Large archives
+*.7z
+*.gz
+*.bz2
+
+# Data directories with long filenames (causes git issues on Windows)
+data/google_drive_downloads/
+data/google_drive_my_drive_root/
+data/quality_docs_all/
+data/raw_google_drive_documents/
+mistral/

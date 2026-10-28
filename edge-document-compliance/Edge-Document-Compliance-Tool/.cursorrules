@@ -1,0 +1,24 @@
+# Cursor AI Rules for ComplianceGap MVP
+
+## Git Workflow
+- Always commit changes automatically after creating/modifying files
+- Use descriptive commit messages
+- Push to origin/main automatically after commits
+- No need to ask user before committing - just do it
+
+## Commit Message Format
+- Use format: "Add: [description]" for new features
+- Use format: "Update: [description]" for modifications
+- Use format: "Fix: [description]" for bug fixes
+
+## File Creation
+- Create files in appropriate directories
+- Add proper imports and exports
+- Include comments explaining functionality
+- Commit immediately after creation
+
+## Branch Management
+- Always work on main branch
+- Push changes immediately after commit
+- No need to create feature branches unless explicitly requested
+

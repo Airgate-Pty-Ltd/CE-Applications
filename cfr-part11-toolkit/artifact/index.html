@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>21 CFR Part 11 / ALCOA++ Data Integrity Toolkit v1.0 — Conform-Edge</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --navy: #1a2332;
+  --navy-light: #253349;
+  --navy-mid: #2e4066;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --green: #16a34a;
+  --yellow: #ca8a04;
+  --red: #dc2626;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --likert-bg: #f1f5f9;
+  --likert-hover: #dbeafe;
+  --likert-selected: #3b82f6;
+  --likert-text-selected: #ffffff;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+}
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: #334155;
+  --likert-bg: #1e293b;
+  --likert-hover: #1e3a5f;
+  --shadow: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); transition: background 0.2s, color 0.2s; }
+
+/* HEADER */
+.app-header { background: var(--navy); color: #fff; padding: 0; }
+.header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px 12px; }
+.header-brand { display: flex; align-items: center; gap: 12px; }
+.brand-logo { width: 38px; height: 38px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; color: #fff; letter-spacing: -1px; }
+.brand-name { font-size: 13px; font-weight: 600; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase; }
+.product-name { font-size: 11px; color: #64748b; margin-top: 1px; }
+.header-actions { display: flex; align-items: center; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.15s; text-decoration: none; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+.btn-secondary:hover { background: rgba(255,255,255,0.18); }
+.btn-sm { padding: 6px 12px; font-size: 13px; }
+.btn-dark { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+.btn-dark:hover { background: var(--likert-hover); }
+.header-inputs { background: var(--navy-light); padding: 12px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.06); }
+.header-inputs label { font-size: 13px; color: #94a3b8; font-weight: 500; }
+.header-inputs input { background: var(--navy); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 7px 12px; border-radius: 6px; font-size: 14px; outline: none; transition: border 0.15s; }
+.header-inputs input:focus { border-color: var(--accent); }
+.header-inputs input::placeholder { color: #4a5568; }
+
+/* LAYOUT */
+.app-body { display: flex; min-height: calc(100vh - 120px); }
+.sidebar { width: 240px; flex-shrink: 0; background: var(--card); border-right: 1px solid var(--border); padding: 20px 0; position: sticky; top: 0; height: calc(100vh - 120px); overflow-y: auto; }
+.main-content { flex: 1; padding: 24px; max-width: 900px; }
+.sidebar-section { padding: 4px 16px; }
+.sidebar-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; padding: 12px 16px 6px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; cursor: pointer; border-radius: 0; transition: all 0.15s; border-left: 3px solid transparent; font-size: 14px; color: var(--text-muted); }
+.nav-item:hover { background: var(--likert-hover); color: var(--text); }
+.nav-item.active { background: #eff6ff; color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+[data-theme="dark"] .nav-item.active { background: #1e3a5f; }
+.nav-num { font-size: 12px; font-weight: 700; width: 20px; height: 20px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--text-muted); }
+.nav-item.active .nav-num { background: var(--accent); color: #fff; }
+.section-score-badge { margin-left: auto; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+.score-high { background: #dcfce7; color: #166534; }
+.score-mid { background: #fef9c3; color: #713f12; }
+.score-low { background: #fee2e2; color: #991b1b; }
+[data-theme="dark"] .score-high { background: #14532d; color: #86efac; }
+[data-theme="dark"] .score-mid { background: #422006; color: #fde68a; }
+[data-theme="dark"] .score-low { background: #450a0a; color: #fca5a5; }
+
+/* DASHBOARD */
+.dashboard { background: var(--card); border-radius: 12px; border: 1px solid var(--border); padding: 20px; margin-bottom: 24px; box-shadow: var(--shadow); }
+.dashboard-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.dashboard-title { font-size: 16px; font-weight: 700; color: var(--text); }
+.overall-score { display: flex; align-items: center; gap: 16px; }
+.score-ring { position: relative; width: 80px; height: 80px; }
+.score-ring svg { transform: rotate(-90deg); }
+.score-ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.score-ring-num { font-size: 20px; font-weight: 800; color: var(--text); }
+.score-ring-label { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+.maturity-label { font-size: 14px; font-weight: 600; }
+.maturity-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.chart-container { position: relative; height: 220px; }
+.section-bars { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.section-bar-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.section-bar-label { width: 140px; flex-shrink: 0; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.section-bar-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.section-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+.section-bar-pct { width: 36px; text-align: right; font-weight: 600; font-size: 12px; }
+
+/* SECTIONS */
+.section-panel { display: none; }
+.section-panel.active { display: block; }
+.section-header { margin-bottom: 20px; }
+.section-header h2 { font-size: 20px; font-weight: 700; color: var(--text); }
+.section-header p { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+.section-progress { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+.section-progress span { color: var(--accent); font-weight: 600; }
+
+/* QUESTIONS */
+.question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow); transition: border-color 0.15s; }
+.question-card.answered { border-color: #bfdbfe; }
+[data-theme="dark"] .question-card.answered { border-color: #1e40af; }
+.question-card:hover { box-shadow: var(--shadow-md); }
+.question-top { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+.q-num { font-size: 12px; font-weight: 700; color: var(--text-muted); background: var(--bg); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border); flex-shrink: 0; margin-top: 2px; }
+.q-text { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.5; }
+.q-ref { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+.likert-scale { display: flex; gap: 6px; flex-wrap: wrap; }
+.likert-option { flex: 1; min-width: 80px; }
+.likert-option input[type="radio"] { display: none; }
+.likert-option label { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 6px; border-radius: 8px; border: 1px solid var(--border); background: var(--likert-bg); cursor: pointer; transition: all 0.15s; font-size: 13px; color: var(--text-muted); text-align: center; line-height: 1.3; }
+.likert-option label:hover { background: var(--likert-hover); border-color: var(--accent); color: var(--text); }
+.likert-option input:checked + label { background: var(--likert-selected); border-color: var(--likert-selected); color: var(--likert-text-selected); font-weight: 600; }
+.likert-num { font-size: 18px; font-weight: 800; }
+.likert-desc { font-size: 11px; line-height: 1.2; }
+.likert-scale-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 4px; padding: 0 2px; }
+
+/* NAV BUTTONS */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+
+/* PRINT */
+@media print {
+  .sidebar, .header-actions, .nav-buttons, .btn { display: none !important; }
+  .app-body { display: block; }
+  .main-content { padding: 0; max-width: 100%; }
+  .section-panel { display: block !important; }
+  .chart-container { height: 300px; }
+  body { color: #000; background: #fff; }
+  .question-card { break-inside: avoid; border: 1px solid #ccc; }
+  .app-header { background: #1a2332 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* REPORT TAB */
+.report-section { background: var(--card); border-radius: 12px; border: 1px solid var(--border); padding: 24px; margin-bottom: 20px; }
+.report-section h3 { font-size: 17px; font-weight: 700; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.gap-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.gap-table th { text-align: left; padding: 10px 12px; background: var(--bg); font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+.gap-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.gap-table tr:last-child td { border-bottom: none; }
+.status-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+.status-green { background: var(--green); }
+.status-yellow { background: #eab308; }
+.status-red { background: var(--red); }
+.priority-badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.priority-critical { background: #fee2e2; color: #991b1b; }
+.priority-high { background: #fef3c7; color: #92400e; }
+.priority-medium { background: #dbeafe; color: #1e40af; }
+[data-theme="dark"] .priority-critical { background: #450a0a; color: #fca5a5; }
+[data-theme="dark"] .priority-high { background: #422006; color: #fde68a; }
+[data-theme="dark"] .priority-medium { background: #1e3a5f; color: #93c5fd; }
+.footer-disclaimer { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-top: 24px; }
+.footer-disclaimer strong { color: var(--text); }
+.app-footer { background: var(--navy); color: #64748b; text-align: center; padding: 14px; font-size: 12px; }
+
+/* COMPLETION BAR */
+.completion-bar { background: var(--navy-light); height: 4px; }
+.completion-fill { height: 100%; background: var(--accent); transition: width 0.3s; }
+
+/* TABS */
+.tab-bar { display: flex; border-bottom: 1px solid var(--border); background: var(--card); overflow-x: auto; }
+.tab-item { padding: 12px 20px; font-size: 14px; font-weight: 500; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.15s; }
+.tab-item:hover { color: var(--text); }
+.tab-item.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="completion-bar"><div class="completion-fill" id="completionBar" style="width:0%"></div></div>
+<header class="app-header">
+  <div class="header-top">
+    <div class="header-brand">
+      <div class="brand-logo">CE</div>
+      <div>
+        <div class="brand-name">Conform-Edge Quality Consulting LLC</div>
+        <div class="product-name">21 CFR Part 11 / ALCOA++ Data Integrity Toolkit v1.0</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-sm btn-secondary" onclick="toggleDark()">&#9680; Dark Mode</button>
+      <button class="btn btn-sm btn-secondary" onclick="loadDemo()">&#9654; Load Demo</button>
+      <button class="btn btn-sm btn-secondary" onclick="exportCSV()">&#8659; CSV</button>
+      <button class="btn btn-sm btn-primary" onclick="window.print()">&#128438; Generate Report</button>
+    </div>
+  </div>
+  <div class="header-inputs">
+    <label>Organization:</label>
+    <input type="text" id="companyName" placeholder="Enter organization name" style="width:260px" oninput="updateHeader()">
+    <label style="margin-left:8px">Assessment Date:</label>
+    <input type="date" id="assessDate" oninput="updateHeader()">
+    <label style="margin-left:8px">Assessor:</label>
+    <input type="text" id="assessorName" placeholder="Name / Title" style="width:200px">
+  </div>
+</header>
+
+<div class="tab-bar">
+  <div class="tab-item active" onclick="showTab('assess')">Assessment</div>
+  <div class="tab-item" onclick="showTab('report')">Gap Report</div>
+</div>
+
+<div id="tab-assess">
+<div class="app-body">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Sections</div>
+    <div class="nav-item active" onclick="showSection(0)" id="nav-0">
+      <div class="nav-num">1</div>
+      <span>Culture &amp; Governance</span>
+      <span class="section-score-badge" id="badge-0">—</span>
+    </div>
+    <div class="nav-item" onclick="showSection(1)" id="nav-1">
+      <div class="nav-num">2</div>
+      <span>Record Creation &amp; ALCOA++</span>
+      <span class="section-score-badge" id="badge-1">—</span>
+    </div>
+    <div class="nav-item" onclick="showSection(2)" id="nav-2">
+      <div class="nav-num">3</div>
+      <span>Electronic Records</span>
+      <span class="section-score-badge" id="badge-2">—</span>
+    </div>
+    <div class="nav-item" onclick="showSection(3)" id="nav-3">
+      <div class="nav-num">4</div>
+      <span>Electronic Signatures</span>
+      <span class="section-score-badge" id="badge-3">—</span>
+    </div>
+    <div class="nav-item" onclick="showSection(4)" id="nav-4">
+      <div class="nav-num">5</div>
+      <span>Training &amp; Competence</span>
+      <span class="section-score-badge" id="badge-4">—</span>
+    </div>
+    <div class="nav-item" onclick="showSection(5)" id="nav-5">
+      <div class="nav-num">6</div>
+      <span>Supplier &amp; CSV Controls</span>
+      <span class="section-score-badge" id="badge-5">—</span>
+    </div>
+
+    <div class="sidebar-label" style="margin-top:8px">Overall Progress</div>
+    <div style="padding:0 16px 16px">
+      <div style="font-size:24px;font-weight:800;color:var(--accent)" id="sidebarPct">0%</div>
+      <div style="font-size:12px;color:var(--text-muted)"><span id="answeredCount">0</span> of 50 answered</div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <!-- DASHBOARD -->
+    <div class="dashboard" id="dashboard">
+      <div class="dashboard-header">
+        <div class="dashboard-title">Maturity Dashboard</div>
+        <div class="overall-score">
+          <div class="score-ring">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--border)" stroke-width="8"/>
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--accent)" stroke-width="8"
+                stroke-dasharray="201" stroke-dashoffset="201" id="scoreArc" stroke-linecap="round"/>
+            </svg>
+            <div class="score-ring-text">
+              <div class="score-ring-num" id="overallScoreNum">—</div>
+              <div class="score-ring-label">/ 5.0</div>
+            </div>
+          </div>
+          <div>
+            <div class="maturity-label" id="maturityLabel">Awaiting responses</div>
+            <div class="maturity-desc" id="maturityDesc">Complete questions to see your maturity level</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div class="chart-container"><canvas id="radarChart"></canvas></div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em">Section Scores</div>
+          <div class="section-bars" id="sectionBars"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: Culture & Governance (8 questions) -->
+    <div class="section-panel active" id="section-0">
+      <div class="section-header">
+        <h2>Section 1: Data Integrity Culture &amp; Governance</h2>
+        <p>Assesses leadership commitment, policy framework, and organizational accountability for data integrity.</p>
+        <div class="section-progress">Section score: <span id="sec-score-0">—</span> | Questions answered: <span id="sec-ans-0">0</span>/8</div>
+      </div>
+      <div id="questions-0"></div>
+      <div class="nav-buttons">
+        <div></div>
+        <button class="btn btn-primary" onclick="showSection(1)">Next: Record Creation &amp; ALCOA++ &#8594;</button>
+      </div>
+    </div>
+
+    <!-- SECTION 2: ALCOA++ (10 questions) -->
+    <div class="section-panel" id="section-1">
+      <div class="section-header">
+        <h2>Section 2: Record Creation &amp; ALCOA++</h2>
+        <p>Evaluates adherence to all nine ALCOA++ attributes: Attributable, Legible, Contemporaneous, Original, Accurate, Complete, Consistent, Enduring, Available.</p>
+        <div class="section-progress">Section score: <span id="sec-score-1">—</span> | Questions answered: <span id="sec-ans-1">0</span>/10</div>
+      </div>
+      <div id="questions-1"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-dark" onclick="showSection(0)">&#8592; Culture &amp; Governance</button>
+        <button class="btn btn-primary" onclick="showSection(2)">Next: Electronic Records &#8594;</button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Electronic Records (10 questions) -->
+    <div class="section-panel" id="section-2">
+      <div class="section-header">
+        <h2>Section 3: Electronic Records &amp; Audit Trails</h2>
+        <p>Covers 21 CFR Part 11 Subpart B requirements: system access controls, audit trail generation and review, record retention, backup/recovery, and system clock integrity.</p>
+        <div class="section-progress">Section score: <span id="sec-score-2">—</span> | Questions answered: <span id="sec-ans-2">0</span>/10</div>
+      </div>
+      <div id="questions-2"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-dark" onclick="showSection(1)">&#8592; Record Creation &amp; ALCOA++</button>
+        <button class="btn btn-primary" onclick="showSection(3)">Next: Electronic Signatures &#8594;</button>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Electronic Signatures (8 questions) -->
+    <div class="section-panel" id="section-3">
+      <div class="section-header">
+        <h2>Section 4: Electronic Signatures</h2>
+        <p>Assesses 21 CFR Part 11 Subpart C requirements: FDA certification, uniqueness, binding to records, component verification, and revocation procedures.</p>
+        <div class="section-progress">Section score: <span id="sec-score-3">—</span> | Questions answered: <span id="sec-ans-3">0</span>/8</div>
+      </div>
+      <div id="questions-3"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-dark" onclick="showSection(2)">&#8592; Electronic Records</button>
+        <button class="btn btn-primary" onclick="showSection(4)">Next: Training &amp; Competence &#8594;</button>
+      </div>
+    </div>
+
+    <!-- SECTION 5: Training (7 questions) -->
+    <div class="section-panel" id="section-4">
+      <div class="section-header">
+        <h2>Section 5: Training &amp; Competence</h2>
+        <p>Evaluates the depth, frequency, and effectiveness of data integrity training programs across all personnel levels.</p>
+        <div class="section-progress">Section score: <span id="sec-score-4">—</span> | Questions answered: <span id="sec-ans-4">0</span>/7</div>
+      </div>
+      <div id="questions-4"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-dark" onclick="showSection(3)">&#8592; Electronic Signatures</button>
+        <button class="btn btn-primary" onclick="showSection(5)">Next: Supplier &amp; CSV Controls &#8594;</button>
+      </div>
+    </div>
+
+    <!-- SECTION 6: Supplier/CSV (7 questions) -->
+    <div class="section-panel" id="section-5">
+      <div class="section-header">
+        <h2>Section 6: Supplier Controls &amp; Software Validation</h2>
+        <p>Covers computer system validation (CSV), supplier qualification, SaaS/cloud controls, and change management for validated systems.</p>
+        <div class="section-progress">Section score: <span id="sec-score-5">—</span> | Questions answered: <span id="sec-ans-5">0</span>/7</div>
+      </div>
+      <div id="questions-5"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-dark" onclick="showSection(4)">&#8592; Training &amp; Competence</button>
+        <button class="btn btn-primary" onclick="showTab('report')">View Gap Report &#8594;</button>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer">
+      <strong>Disclaimer:</strong> This tool is a self-assessment aid for audit preparation. Results do not guarantee FDA inspection approval. Consult qualified regulatory affairs professionals for formal compliance determinations. 21 CFR Part 11 cited by requirement intent only.<br>
+      <strong>References:</strong> 21 CFR Part 11 (Electronic Records; Electronic Signatures); FDA Guidance for Industry — Part 11, Electronic Records; Electronic Signatures — Scope and Application (August 2003); FDA ALCOA+ principles; 21 CFR Part 820 QMSR (effective Feb 2026)
+    </div>
+  </main>
+</div>
+</div>
+
+<!-- GAP REPORT TAB -->
+<div id="tab-report" style="display:none;padding:24px;max-width:1000px;margin:0 auto">
+  <div class="report-section">
+    <h3>Executive Summary</h3>
+    <div id="reportSummary" style="font-size:15px;line-height:1.7;color:var(--text-muted)">Complete the assessment to generate your gap report.</div>
+  </div>
+  <div class="report-section">
+    <h3>Section-by-Section Gap Analysis</h3>
+    <table class="gap-table" id="gapTable">
+      <thead><tr>
+        <th>Section</th><th>Score</th><th>Maturity</th><th>Status</th><th>Priority</th>
+      </tr></thead>
+      <tbody id="gapTableBody"></tbody>
+    </table>
+  </div>
+  <div class="report-section">
+    <h3>Unanswered / Gap Questions</h3>
+    <div id="gapDetails" style="font-size:14px;color:var(--text-muted)">Answer questions to see gap details here.</div>
+  </div>
+  <div style="display:flex;gap:12px;margin-top:16px">
+    <button class="btn btn-primary" onclick="window.print()">&#128438; Print Report</button>
+    <button class="btn btn-dark" onclick="exportCSV()">&#8659; Export CSV</button>
+    <button class="btn btn-dark" onclick="showTab('assess')">&#8592; Back to Assessment</button>
+  </div>
+  <div class="footer-disclaimer" style="margin-top:20px">
+    <strong>Disclaimer:</strong> This tool is a self-assessment aid for audit preparation. Results do not guarantee FDA inspection approval. Consult qualified regulatory affairs professionals for formal compliance determinations. 21 CFR Part 11 cited by requirement intent only.<br>
+    <strong>References:</strong> 21 CFR Part 11 (Electronic Records; Electronic Signatures); FDA Guidance for Industry — Part 11, Electronic Records; Electronic Signatures — Scope and Application (August 2003); FDA ALCOA+ principles; 21 CFR Part 820 QMSR (effective Feb 2026)
+  </div>
+</div>
+
+<footer class="app-footer">
+  © 2026 Conform-Edge Quality Consulting LLC. All rights reserved. | 21 CFR Part 11 / ALCOA++ Data Integrity Toolkit v1.0
+</footer>
+
+<script>
+// ============================================================
+// DATA: 50 QUESTIONS ACROSS 6 SECTIONS
+// ============================================================
+const SECTIONS = [
+  {
+    id: 0, title: "Data Integrity Culture & Governance", count: 8,
+    questions: [
+      { id: 1,  text: "Does your organization have a written Data Integrity (DI) policy endorsed by senior management?", ref: "FDA DI Guidance 2018; 21 CFR 820.20 (QMSR Management Responsibility)", alcoa: null },
+      { id: 2,  text: "Is there a designated Data Integrity Officer or equivalent role with clearly defined responsibilities and authority?", ref: "FDA Warning Letter citations; ICH Q10 Section 3.1", alcoa: null },
+      { id: 3,  text: "Are root cause investigations of data integrity failures documented and completed within defined timelines?", ref: "21 CFR 820.100 (CAPA); FDA DI Warning Letters 2020–2024", alcoa: null },
+      { id: 4,  text: "Is there a CAPA process that specifically addresses data integrity deviations, with effectiveness checks?", ref: "21 CFR 820.100; 21 CFR Part 11 §11.10(k)", alcoa: null },
+      { id: 5,  text: "Does management review include data integrity KPIs, trend analysis, and open DI CAPAs as standing agenda items?", ref: "21 CFR 820.20(c) (QMSR Management Review); ISO 13485:2016 §9.3", alcoa: null },
+      { id: 6,  text: "Is there an internal audit program with documented procedures that specifically tests data integrity controls?", ref: "21 CFR 820.22 (Quality Audits); 21 CFR Part 11 §11.10(d)", alcoa: null },
+      { id: 7,  text: "Do employees have a documented mechanism to report data integrity concerns without fear of retaliation (speak-up culture / whistleblower protection)?", ref: "FDA DI Guidance; FD&C Act §399d (whistleblower protections)", alcoa: null },
+      { id: 8,  text: "Is your organization's data integrity risk assessment reviewed and updated at least annually or following a significant change?", ref: "21 CFR 820.30(g); ICH Q9 Risk Management", alcoa: null },
+    ]
+  },
+  {
+    id: 1, title: "Record Creation & ALCOA++", count: 10,
+    questions: [
+      { id: 9,  text: "ATTRIBUTABLE — Is the person creating or modifying each record clearly identified through a unique login, handwritten signature, or initials linked to a controlled personnel list?", ref: "ALCOA++ Attributable; 21 CFR Part 11 §11.10(d); 21 CFR 820.184", alcoa: "Attributable" },
+      { id: 10, text: "LEGIBLE — Are all entries readable, permanent, and indelible — no pencil, no correction fluid, no uncontrolled erasure of electronic data?", ref: "ALCOA++ Legible; 21 CFR 820.181; FDA DI Guidance", alcoa: "Legible" },
+      { id: 11, text: "CONTEMPORANEOUS — Are data recorded at the time the action is performed, not reconstructed or backdated from memory?", ref: "ALCOA++ Contemporaneous; FDA DI Guidance 2018 Section IV", alcoa: "Contemporaneous" },
+      { id: 12, text: "ORIGINAL — Is the first capture of data used as the primary record, with transcription only allowed under controlled, documented procedures?", ref: "ALCOA++ Original; 21 CFR Part 11 §11.10(b); FDA DI Guidance", alcoa: "Original" },
+      { id: 13, text: "ACCURATE — Are data correct and truthful, with error corrections made transparently (single line-through, initialed, dated, reason given)?", ref: "ALCOA++ Accurate; 21 CFR 820.86; FDA data integrity warning letters", alcoa: "Accurate" },
+      { id: 14, text: "COMPLETE — Are all required fields captured, with no blank fields, unexplained gaps, or missing test results in batch or device history records?", ref: "ALCOA++ Complete; 21 CFR 820.184 (DHR); 21 CFR 820.186 (QSR)", alcoa: "Complete" },
+      { id: 15, text: "CONSISTENT — Are dates, times, lot numbers, and sequences internally consistent across all related records and systems for the same event?", ref: "ALCOA++ Consistent; 21 CFR Part 11 §11.10(e) (system time); FDA 483 citations", alcoa: "Consistent" },
+      { id: 16, text: "ENDURING — Are records stored on durable, stable media (paper, validated electronic system) and protected from loss, degradation, or unauthorized alteration?", ref: "ALCOA++ Enduring; 21 CFR 820.180 (Record retention); 21 CFR Part 11 §11.10(c)", alcoa: "Enduring" },
+      { id: 17, text: "AVAILABLE — Can records be promptly retrieved for review, quality oversight, or FDA inspection, in a human-readable format?", ref: "ALCOA++ Available; 21 CFR Part 11 §11.10(b); 21 CFR 820.180(b)", alcoa: "Available" },
+      { id: 18, text: "Are paper-based record controls enforced — controlled forms, sequential numbering, version control, and reconciliation of issued vs. returned forms?", ref: "21 CFR 820.40 (Document Controls); FDA DI Guidance paper records", alcoa: null },
+    ]
+  },
+  {
+    id: 2, title: "Electronic Records & Audit Trails (21 CFR Part 11 Subpart B)", count: 10,
+    questions: [
+      { id: 19, text: "Does your organization maintain a validated system inventory (computerized system register) listing all systems that create, modify, maintain, archive, retrieve, or transmit electronic records?", ref: "21 CFR Part 11 §11.10; FDA Guidance Aug 2003 Scope and Application", alcoa: null },
+      { id: 20, text: "Are electronic records protected from unauthorized alteration, deletion, or access through role-based access controls with documented user authorization?", ref: "21 CFR Part 11 §11.10(d)(g); ALCOA++ Enduring/Accurate", alcoa: null },
+      { id: 21, text: "Do computerized systems generate time-stamped, secure audit trails that capture who changed what data, when it was changed, and the reason for change?", ref: "21 CFR Part 11 §11.10(e); FDA DI Guidance Audit Trail", alcoa: null },
+      { id: 22, text: "Are audit trails reviewed routinely as part of batch record review, quality event investigation, or management oversight — not just during audits?", ref: "21 CFR Part 11 §11.10(e); FDA Warning Letters 2018–2024 (audit trail review deficiency)", alcoa: null },
+      { id: 23, text: "Is audit trail data protected from modification — is it technically impossible for standard users (including supervisors) to disable, delete, or alter the audit trail?", ref: "21 CFR Part 11 §11.10(e)(k)(2); FDA DI Guidance", alcoa: null },
+      { id: 24, text: "Are electronic records retained for the full FDA-required retention period (minimum 2 years beyond expected device life or product use, or as specified by 21 CFR 820)?", ref: "21 CFR Part 11 §11.10(c); 21 CFR 820.180 (minimum 2 years)", alcoa: null },
+      { id: 25, text: "Are backup and recovery procedures documented, validated, and tested at defined intervals — with records of each test and recovery time documented?", ref: "21 CFR Part 11 §11.10(c)(k); FDA Computer System Validation guidance", alcoa: null },
+      { id: 26, text: "Are electronic records readable in their original format, or is there a validated migration procedure ensuring data integrity when systems are retired or upgraded?", ref: "21 CFR Part 11 §11.10(b)(c); ALCOA++ Available/Enduring", alcoa: null },
+      { id: 27, text: "Are system clocks synchronized to a trusted, auditable time source (e.g., NTP server), and is clock manipulation technically prevented or detectably logged?", ref: "21 CFR Part 11 §11.10(e); ALCOA++ Contemporaneous; FDA 483 citations", alcoa: null },
+      { id: 28, text: "Are data migration and archival procedures documented, validated, and subject to change control before execution?", ref: "21 CFR Part 11 §11.10(k); FDA CSV Guidance; ALCOA++ Original/Accurate", alcoa: null },
+    ]
+  },
+  {
+    id: 3, title: "Electronic Signatures (21 CFR Part 11 Subpart C)", count: 8,
+    questions: [
+      { id: 29, text: "Has your organization submitted the required written certification to FDA (to the address noted in 21 CFR 11.100(c)) that electronic signatures are legally binding equivalents to handwritten signatures?", ref: "21 CFR Part 11 §11.100(b)(c); FDA Subpart C", alcoa: null },
+      { id: 30, text: "Are electronic signatures unique to one individual — are shared logins, group passwords, or 'supervisor override' accounts prohibited and technically prevented?", ref: "21 CFR Part 11 §11.100(a); FDA DI Guidance; ALCOA++ Attributable", alcoa: null },
+      { id: 31, text: "Are electronic signatures cryptographically or procedurally linked to their associated record so the signature cannot be copied, extracted, or applied to a different record?", ref: "21 CFR Part 11 §11.70; Subpart C §11.100(b)", alcoa: null },
+      { id: 32, text: "Are electronic signature components (at minimum: ID + password, or biometric equivalent) verified and authenticated at the time of signing — not pre-authorized or auto-populated?", ref: "21 CFR Part 11 §11.200(a)(1)(2); Subpart C", alcoa: null },
+      { id: 33, text: "Are electronic signature credentials (login ID, password, biometric enrollment) revoked or suspended immediately upon employee termination, role change, or prolonged leave?", ref: "21 CFR Part 11 §11.300(d); FDA DI Guidance user management", alcoa: null },
+      { id: 34, text: "Is there a defined re-authentication procedure (signature challenge after inactivity, failed attempts, or extended session) to prevent unauthorized use of an open session?", ref: "21 CFR Part 11 §11.200(a)(3); §11.300(b)(c)", alcoa: null },
+      { id: 35, text: "Do electronic signature records display the signer's printed name, date and time of signing, and the meaning of the signature (e.g., approved, reviewed, witnessed)?", ref: "21 CFR Part 11 §11.50(a); FDA Subpart C — signature manifestations", alcoa: null },
+      { id: 36, text: "Are biometric-based electronic signatures (if used) validated against false-acceptance and false-rejection rates, with periodic performance verification?", ref: "21 CFR Part 11 §11.200(b); §11.300(e) Biometric-based identification", alcoa: null },
+    ]
+  },
+  {
+    id: 4, title: "Training & Competence", count: 7,
+    questions: [
+      { id: 37, text: "Is data integrity training included as a mandatory element of onboarding for all personnel who create, review, or approve records in GxP activities?", ref: "21 CFR 820.25 (QMSR Personnel); 21 CFR Part 11 §11.10(i)", alcoa: null },
+      { id: 38, text: "Is data integrity training refreshed at defined intervals (at minimum annually), or triggered by a regulatory update, Warning Letter, or significant DI deviation?", ref: "21 CFR 820.25(b); ISO 13485:2016 §6.2", alcoa: null },
+      { id: 39, text: "Are training records themselves maintained as controlled records subject to the same data integrity controls (ALCOA++) as product records?", ref: "21 CFR 820.25(b); ALCOA++ Complete/Attributable/Enduring", alcoa: null },
+      { id: 40, text: "Does your training program include competency verification (test, practical demonstration, or observation) — not just completion confirmation?", ref: "21 CFR 820.25(b); FDA DI Guidance — training effectiveness", alcoa: null },
+      { id: 41, text: "Are supervisors and managers specifically trained on how to identify, escalate, and respond to data integrity failures — including data falsification indicators?", ref: "FDA DI Guidance Section III; FDA Warning Letters (management accountability)", alcoa: null },
+      { id: 42, text: "Is there documented training that addresses the regulatory, legal, and professional consequences of data falsification, including FDA debarment?", ref: "FD&C Act §306 (Debarment); FDA DI Guidance; 18 U.S.C. §1001 (false statements)", alcoa: null },
+      { id: 43, text: "Are contract, temporary, or agency workers subject to the same data integrity training requirements and competency verification as permanent employees?", ref: "21 CFR 820.25; FDA Guidance — contractor oversight; ALCOA++ Attributable", alcoa: null },
+    ]
+  },
+  {
+    id: 5, title: "Supplier Controls & Software Validation", count: 7,
+    questions: [
+      { id: 44, text: "Are critical computerized systems (QMS, LIMS, MES, ERP, eDHR, eLab Notebooks) subject to a formal Computer System Validation (CSV) process with documented validation plans?", ref: "21 CFR Part 11 §11.10(a); FDA General Principles of Software Validation (2002); GAMP 5", alcoa: null },
+      { id: 45, text: "Does your CSV process produce documented Installation Qualification (IQ), Operational Qualification (OQ), and Performance Qualification (PQ) protocols and executed reports?", ref: "21 CFR Part 11 §11.10(a); FDA Validation Guidance; GAMP 5 Chapter 6", alcoa: null },
+      { id: 46, text: "Are software and system vendors qualified through a documented supplier qualification process — including assessment of their data integrity controls — before use in GxP activities?", ref: "21 CFR 820.50 (QMSR Purchasing Controls); 21 CFR Part 11 §11.10(j)", alcoa: null },
+      { id: 47, text: "Are SaaS, cloud, or hosted software vendors assessed specifically for data integrity controls: data residency, backup frequency, audit trail availability, and access control segregation?", ref: "21 CFR Part 11 §11.10; FDA DI Guidance — cloud/hybrid systems; GAMP 5 Appendix D10", alcoa: null },
+      { id: 48, text: "Is a formal change control procedure required and applied before implementing software version upgrades, patches, or configuration changes in validated GxP systems?", ref: "21 CFR Part 11 §11.10(k)(2); 21 CFR 820.70(b); FDA CSV Guidance", alcoa: null },
+      { id: 49, text: "Is there a documented procedure for managing software anomalies (bugs, defects) discovered in validated systems, including impact assessment and deviation reporting?", ref: "21 CFR Part 11 §11.10(k); FDA General Principles of Software Validation §5.2.3", alcoa: null },
+      { id: 50, text: "Are periodic reviews (revalidation assessments) of validated computerized systems conducted at defined intervals to confirm continued validation status and fitness for intended use?", ref: "21 CFR Part 11 §11.10(a); FDA CSV Guidance; GAMP 5 Periodic Review", alcoa: null },
+    ]
+  }
+];
+
+const LIKERT_LABELS = [
+  { val: 1, short: "1", desc: "Not implemented" },
+  { val: 2, short: "2", desc: "Initial / Ad hoc" },
+  { val: 3, short: "3", desc: "Partial / Developing" },
+  { val: 4, short: "4", desc: "Mostly compliant" },
+  { val: 5, short: "5", desc: "Fully compliant" },
+];
+
+const DEMO_SCORES = [4,3,5,4,4,5,3,4, 5,4,4,5,4,4,3,5,4,3, 4,4,5,3,4,5,4,4,3,4, 3,4,4,5,4,3,4,2, 5,4,5,4,3,4,4, 4,4,3,3,5,4,4];
+
+// ============================================================
+// STATE
+// ============================================================
+let answers = {}; // {questionId: score}
+let radarChart = null;
+let currentSection = 0;
+
+// ============================================================
+// RENDER QUESTIONS
+// ============================================================
+function renderQuestions() {
+  SECTIONS.forEach(sec => {
+    const container = document.getElementById('questions-' + sec.id);
+    sec.questions.forEach(q => {
+      const div = document.createElement('div');
+      div.className = 'question-card';
+      div.id = 'qcard-' + q.id;
+      let alcoa = q.alcoa ? `<span style="background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px">${q.alcoa.toUpperCase()}</span>` : '';
+      div.innerHTML = `
+        <div class="question-top">
+          <div class="q-num">Q${q.id}</div>
+          <div>
+            <div class="q-text">${q.text} ${alcoa}</div>
+            <div class="q-ref">Ref: ${q.ref}</div>
+          </div>
+        </div>
+        <div class="likert-scale">
+          ${LIKERT_LABELS.map(l => `
+            <div class="likert-option">
+              <input type="radio" name="q${q.id}" id="q${q.id}v${l.val}" value="${l.val}" onchange="recordAnswer(${q.id}, ${l.val}, ${sec.id})">
+              <label for="q${q.id}v${l.val}">
+                <span class="likert-num">${l.short}</span>
+                <span class="likert-desc">${l.desc}</span>
+              </label>
+            </div>`).join('')}
+        </div>
+        <div class="likert-scale-labels"><span>&#9650; Not implemented</span><span>Fully compliant &#9650;</span></div>
+      `;
+      container.appendChild(div);
+    });
+  });
+}
+
+// ============================================================
+// SCORING
+// ============================================================
+function recordAnswer(qId, val, secId) {
+  answers[qId] = val;
+  document.getElementById('qcard-' + qId).classList.add('answered');
+  updateDashboard();
+}
+
+function getSectionScore(sec) {
+  const vals = sec.questions.map(q => answers[q.id]).filter(v => v !== undefined);
+  if (vals.length === 0) return null;
+  return vals.reduce((a, b) => a + b, 0) / vals.length;
+}
+
+function getSectionAnsweredCount(sec) {
+  return sec.questions.filter(q => answers[q.id] !== undefined).length;
+}
+
+function getOverallScore() {
+  const all = Object.values(answers);
+  if (all.length === 0) return null;
+  return all.reduce((a, b) => a + b, 0) / all.length;
+}
+
+function getMaturity(score) {
+  if (score === null) return { label: "No data", desc: "Answer questions to assess maturity", color: "#94a3b8" };
+  if (score >= 4.5) return { label: "Level 5 — Optimized", desc: "Best-in-class data integrity program. Sustain and benchmark.", color: "#16a34a" };
+  if (score >= 3.5) return { label: "Level 4 — Managed", desc: "Strong controls with measurable performance. Close remaining gaps.", color: "#2563eb" };
+  if (score >= 2.5) return { label: "Level 3 — Defined", desc: "Documented processes but inconsistent execution. Prioritize training and enforcement.", color: "#ca8a04" };
+  if (score >= 1.5) return { label: "Level 2 — Developing", desc: "Ad hoc controls. Significant compliance risk. Immediate action required.", color: "#ea580c" };
+  return { label: "Level 1 — Initial", desc: "Critical gaps. High FDA inspection risk. Urgent remediation needed.", color: "#dc2626" };
+}
+
+function getBarColor(score) {
+  if (score === null) return "#94a3b8";
+  if (score >= 4.0) return "#16a34a";
+  if (score >= 3.0) return "#3b82f6";
+  if (score >= 2.0) return "#ca8a04";
+  return "#dc2626";
+}
+
+function getBadgeClass(score) {
+  if (score === null) return "";
+  if (score >= 4.0) return "score-high";
+  if (score >= 3.0) return "score-mid";
+  return "score-low";
+}
+
+function updateDashboard() {
+  const overall = getOverallScore();
+  const maturity = getMaturity(overall);
+  const totalAnswered = Object.keys(answers).length;
+  const pct = Math.round((totalAnswered / 50) * 100);
+
+  // Completion bar
+  document.getElementById('completionBar').style.width = pct + '%';
+  document.getElementById('sidebarPct').textContent = pct + '%';
+  document.getElementById('answeredCount').textContent = totalAnswered;
+
+  // Score ring
+  const arcEl = document.getElementById('scoreArc');
+  const scoreNum = document.getElementById('overallScoreNum');
+  if (overall !== null) {
+    const pctScore = (overall - 1) / 4;
+    const circumference = 201;
+    arcEl.style.strokeDashoffset = circumference - (pctScore * circumference);
+    arcEl.style.stroke = maturity.color;
+    scoreNum.textContent = overall.toFixed(1);
+  } else {
+    arcEl.style.strokeDashoffset = 201;
+    scoreNum.textContent = '—';
+  }
+  document.getElementById('maturityLabel').textContent = maturity.label;
+  document.getElementById('maturityDesc').textContent = maturity.desc;
+
+  // Section bars and badges
+  const barsContainer = document.getElementById('sectionBars');
+  barsContainer.innerHTML = '';
+  const sectionScores = SECTIONS.map(sec => getSectionScore(sec));
+
+  SECTIONS.forEach((sec, i) => {
+    const score = sectionScores[i];
+    const answered = getSectionAnsweredCount(sec);
+    const pctFill = score !== null ? ((score - 1) / 4 * 100) : 0;
+    const color = getBarColor(score);
+    const label = score !== null ? score.toFixed(1) : '—';
+
+    // Bar
+    const row = document.createElement('div');
+    row.className = 'section-bar-row';
+    const shortNames = ["Culture & Gov.", "ALCOA++", "Elec. Records", "E-Signatures", "Training", "Supplier/CSV"];
+    row.innerHTML = `
+      <div class="section-bar-label">${shortNames[i]}</div>
+      <div class="section-bar-track"><div class="section-bar-fill" style="width:${pctFill}%;background:${color}"></div></div>
+      <div class="section-bar-pct" style="color:${color}">${label}</div>
+    `;
+    barsContainer.appendChild(row);
+
+    // Badge
+    const badge = document.getElementById('badge-' + i);
+    badge.textContent = label;
+    badge.className = 'section-score-badge ' + getBadgeClass(score);
+
+    // Section progress
+    const secScore = document.getElementById('sec-score-' + i);
+    const secAns = document.getElementById('sec-ans-' + i);
+    if (secScore) secScore.textContent = label;
+    if (secAns) secAns.textContent = answered;
+  });
+
+  // Radar chart
+  updateRadarChart(sectionScores);
+
+  // Update gap report if open
+  updateGapReport(sectionScores, overall);
+}
+
+// ============================================================
+// RADAR CHART
+// ============================================================
+function updateRadarChart(sectionScores) {
+  const labels = ["Culture & Gov.", "ALCOA++", "Elec. Records", "E-Signatures", "Training", "Supplier/CSV"];
+  const data = sectionScores.map(s => s !== null ? parseFloat(s.toFixed(2)) : 0);
+  const isDark = document.body.getAttribute('data-theme') === 'dark';
+  const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)';
+  const labelColor = isDark ? '#94a3b8' : '#64748b';
+
+  if (!radarChart) {
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    radarChart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Maturity Score',
+          data,
+          backgroundColor: 'rgba(59, 130, 246, 0.15)',
+          borderColor: '#3b82f6',
+          borderWidth: 2,
+          pointBackgroundColor: '#3b82f6',
+          pointRadius: 4,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        scales: { r: {
+          min: 0, max: 5,
+          ticks: { stepSize: 1, color: labelColor, font: { size: 10 }, backdropColor: 'transparent' },
+          grid: { color: gridColor },
+          angleLines: { color: gridColor },
+          pointLabels: { color: labelColor, font: { size: 11 } }
+        }},
+        plugins: { legend: { display: false } }
+      }
+    });
+  } else {
+    radarChart.data.datasets[0].data = data;
+    radarChart.update();
+  }
+}
+
+// ============================================================
+// GAP REPORT
+// ============================================================
+function updateGapReport(sectionScores, overall) {
+  const summaryEl = document.getElementById('reportSummary');
+  const tbody = document.getElementById('gapTableBody');
+  const detailsEl = document.getElementById('gapDetails');
+  const totalAnswered = Object.keys(answers).length;
+  const company = document.getElementById('companyName').value || '[Organization]';
+  const date = document.getElementById('assessDate').value || new Date().toLocaleDateString();
+  const maturity = getMaturity(overall);
+
+  if (totalAnswered === 0) {
+    summaryEl.textContent = 'Complete the assessment to generate your gap report.';
+    tbody.innerHTML = '';
+    detailsEl.textContent = 'Answer questions to see gap details here.';
+    return;
+  }
+
+  const pct = Math.round((totalAnswered / 50) * 100);
+  summaryEl.innerHTML = `
+    <strong>${company}</strong> — Assessment Date: ${date}<br><br>
+    This assessment is <strong>${pct}% complete</strong> (${totalAnswered}/50 questions answered).
+    Overall maturity score: <strong style="color:${maturity.color}">${overall ? overall.toFixed(2) : '—'} / 5.0 — ${maturity.label}</strong><br><br>
+    ${maturity.desc}. Review the section analysis below to prioritize remediation activity.
+  `;
+
+  const sectionNames = ["Data Integrity Culture & Governance", "Record Creation & ALCOA++", "Electronic Records & Audit Trails", "Electronic Signatures", "Training & Competence", "Supplier Controls & Software Validation"];
+  tbody.innerHTML = '';
+  sectionScores.forEach((score, i) => {
+    const m = getMaturity(score);
+    const priority = score === null ? '—' : score < 2.5 ? '<span class="priority-badge priority-critical">Critical</span>' : score < 3.5 ? '<span class="priority-badge priority-high">High</span>' : score < 4.0 ? '<span class="priority-badge priority-medium">Medium</span>' : '<span class="priority-badge" style="background:#dcfce7;color:#166534">Low</span>';
+    const dot = score === null ? '' : score >= 4.0 ? '<span class="status-dot status-green"></span>' : score >= 3.0 ? '<span class="status-dot status-yellow"></span>' : '<span class="status-dot status-red"></span>';
+    tbody.innerHTML += `<tr>
+      <td>${sectionNames[i]}</td>
+      <td><strong>${score !== null ? score.toFixed(2) : '—'}</strong>/5.0</td>
+      <td>${m.label}</td>
+      <td>${dot}${score !== null ? (score >= 4.0 ? 'Compliant' : score >= 3.0 ? 'Partial Gap' : 'Critical Gap') : 'Not assessed'}</td>
+      <td>${priority}</td>
+    </tr>`;
+  });
+
+  // Gap details: questions scored 1-2
+  const gapQs = [];
+  SECTIONS.forEach(sec => {
+    sec.questions.forEach(q => {
+      if (answers[q.id] !== undefined && answers[q.id] <= 2) {
+        gapQs.push({ q, score: answers[q.id], sec });
+      }
+    });
+  });
+
+  if (gapQs.length === 0) {
+    detailsEl.innerHTML = totalAnswered > 0 ? '<span style="color:var(--green)">&#10003; No critical gaps identified (score ≤ 2) in answered questions. Review any unanswered questions.</span>' : 'Answer questions to see gap details.';
+  } else {
+    detailsEl.innerHTML = `<p style="margin-bottom:12px;color:var(--red);font-weight:600">&#9888; ${gapQs.length} question(s) scored 1–2 (Critical / Developing gaps):</p>` +
+      gapQs.map(item => `
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;border-left:4px solid var(--red)">
+          <div style="font-weight:600;margin-bottom:4px">Q${item.q.id} — Score: ${item.score}/5 <span style="color:var(--red);font-size:12px">(${item.score === 1 ? 'Not implemented' : 'Initial / Ad hoc'})</span></div>
+          <div style="font-size:14px;margin-bottom:6px">${item.q.text}</div>
+          <div style="font-size:12px;color:var(--text-muted)">Section: ${item.sec.title} | Ref: ${item.q.ref}</div>
+        </div>
+      `).join('');
+  }
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showSection(idx) {
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('section-' + idx).classList.add('active');
+  document.getElementById('nav-' + idx).classList.add('active');
+  currentSection = idx;
+  window.scrollTo(0, 0);
+}
+
+function showTab(tab) {
+  document.getElementById('tab-assess').style.display = tab === 'assess' ? '' : 'none';
+  document.getElementById('tab-report').style.display = tab === 'report' ? '' : 'none';
+  document.querySelectorAll('.tab-item').forEach((t, i) => {
+    t.classList.toggle('active', (tab === 'assess' && i === 0) || (tab === 'report' && i === 1));
+  });
+  if (tab === 'report') {
+    const sectionScores = SECTIONS.map(sec => getSectionScore(sec));
+    updateGapReport(sectionScores, getOverallScore());
+  }
+}
+
+// ============================================================
+// DARK MODE
+// ============================================================
+function toggleDark() {
+  const isDark = document.body.getAttribute('data-theme') === 'dark';
+  document.body.setAttribute('data-theme', isDark ? '' : 'dark');
+  if (radarChart) {
+    radarChart.destroy();
+    radarChart = null;
+    updateDashboard();
+  }
+}
+
+// ============================================================
+// DEMO MODE
+// ============================================================
+function loadDemo() {
+  document.getElementById('companyName').value = 'MediCore Devices, Inc.';
+  document.getElementById('assessDate').value = '2026-07-12';
+  document.getElementById('assessorName').value = 'Quality Systems Manager';
+  let qIdx = 0;
+  SECTIONS.forEach(sec => {
+    sec.questions.forEach(q => {
+      const score = DEMO_SCORES[qIdx++];
+      answers[q.id] = score;
+      const radio = document.getElementById(`q${q.id}v${score}`);
+      if (radio) radio.checked = true;
+      document.getElementById('qcard-' + q.id).classList.add('answered');
+    });
+  });
+  updateDashboard();
+  alert('Demo data loaded — MediCore Devices, Inc. Assessment. Review the Gap Report tab for analysis.');
+}
+
+// ============================================================
+// CSV EXPORT
+// ============================================================
+function exportCSV() {
+  const company = document.getElementById('companyName').value || 'Unknown';
+  const date = document.getElementById('assessDate').value || new Date().toISOString().slice(0, 10);
+  const assessor = document.getElementById('assessorName').value || '';
+  const rows = [
+    ['21 CFR Part 11 / ALCOA++ Data Integrity Toolkit v1.0 — Conform-Edge Quality Consulting LLC'],
+    ['Organization', company, 'Date', date, 'Assessor', assessor],
+    [],
+    ['Question ID', 'Section', 'Question Text', 'ALCOA++ Attribute', 'Score (1-5)', 'Score Label', 'Regulatory Reference'],
+  ];
+  SECTIONS.forEach(sec => {
+    sec.questions.forEach(q => {
+      const score = answers[q.id];
+      const label = score ? LIKERT_LABELS.find(l => l.val === score)?.desc : 'Not answered';
+      rows.push([`Q${q.id}`, sec.title, `"${q.text.replace(/"/g, '""')}"`, q.alcoa || '', score || '', label, `"${q.ref}"`]);
+    });
+  });
+  rows.push([]);
+  SECTIONS.forEach((sec, i) => {
+    const score = getSectionScore(sec);
+    rows.push([`Section ${i+1} Score`, sec.title, score ? score.toFixed(2) : 'N/A']);
+  });
+  const overall = getOverallScore();
+  rows.push(['Overall Score', overall ? overall.toFixed(2) : 'N/A', getMaturity(overall).label]);
+
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `CFR-Part11-Assessment-${company.replace(/\s+/g, '-')}-${date}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function updateHeader() {
+  const company = document.getElementById('companyName').value;
+  const date = document.getElementById('assessDate').value;
+  // Update gap report if open
+  const sectionScores = SECTIONS.map(sec => getSectionScore(sec));
+  updateGapReport(sectionScores, getOverallScore());
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  renderQuestions();
+  document.getElementById('assessDate').value = new Date().toISOString().slice(0, 10);
+  updateDashboard();
+});
+</script>
+</body>
+</html>

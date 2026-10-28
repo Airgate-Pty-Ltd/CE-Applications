@@ -1,0 +1,77 @@
+{
+ "generated_by": "content/qa/reconcile_checklists.py",
+ "summary": {
+  "checks_run": 8185,
+  "BLOCK": 0,
+  "WARN": 4,
+  "OWNER_DECISION": 0
+ },
+ "checks": {
+  "extract: page footers present in licensed text": 795,
+  "AS9100D: clause universe refs exist in licensed text": 100,
+  "AS9100D: licensed clauses 4-10 covered by the universe": 102,
+  "AS9100D: clause rows reference exists in licensed text": 100,
+  "AS9100D: group headings": 7,
+  "AS9100D: clause rows have a parent row": 93,
+  "AS9100D: clause rows have a locator naming the clause": 93,
+  "AS9100D: rows have a question and evidence": 387,
+  "AS9100D: rows free of verbatim licensed wording": 387,
+  "AS9100D: lettered rows present in licensed text": 294,
+  "AS9100D: lettered rows have a parent clause row": 294,
+  "AS9100D: lettered locators name clause and item": 294,
+  "AS9100D: lettered sequences are complete": 60,
+  "AS9100D: questions are unique across rows": 387,
+  "AS9110C: clause universe refs exist in licensed text": 106,
+  "AS9110C: licensed clauses 4-10 covered by the universe": 108,
+  "AS9110C: clause rows reference exists in licensed text": 106,
+  "AS9110C: group headings": 7,
+  "AS9110C: clause rows have a parent row": 99,
+  "AS9110C: clause rows have a locator naming the clause": 99,
+  "AS9110C: rows have a question and evidence": 408,
+  "AS9110C: rows free of verbatim licensed wording": 408,
+  "AS9110C: lettered rows present in licensed text": 309,
+  "AS9110C: lettered rows have a parent clause row": 309,
+  "AS9110C: lettered locators name clause and item": 309,
+  "AS9110C: lettered sequences are complete": 60,
+  "AS9110C: questions are unique across rows": 408,
+  "FAA QSA 1.0: imported rows checked against the workbook": 126,
+  "FAA QSA 1.0: workbook hash equals the recorded import hash": 1,
+  "FAA QSA 1.0: imported rows exist in the workbook": 126,
+  "FAA QSA 1.0: question text equals the workbook": 126,
+  "FAA QSA 1.0: condition text found in the workbook": 606,
+  "FAA QSA 1.0: workbook rows reconciled": 126,
+  "FAA QSA 1.0: owned workbook text is inside the imported row": 125,
+  "FAA QSA 1.0: workbook cells accounted for": 820
+ },
+ "exceptions": [
+  {
+   "check": "extract: page footers in licensed text",
+   "severity": "WARN",
+   "standard": "AS9100D",
+   "ref": "50 items",
+   "detail": "Licensed extract contains page footers; they are removed for comparison only. The extract itself is unchanged."
+  },
+  {
+   "check": "extract: encoding junk in licensed text",
+   "severity": "WARN",
+   "standard": "AS9100D",
+   "ref": "50 items",
+   "detail": "Licensed extract contains replacement characters; removed for comparison only."
+  },
+  {
+   "check": "extract: page footers in licensed text",
+   "severity": "WARN",
+   "standard": "AS9110C",
+   "ref": "54 items",
+   "detail": "Licensed extract contains page footers; they are removed for comparison only. The extract itself is unchanged."
+  },
+  {
+   "check": "extract: encoding junk in licensed text",
+   "severity": "WARN",
+   "standard": "AS9110C",
+   "ref": "54 items",
+   "detail": "Licensed extract contains replacement characters; removed for comparison only."
+  }
+ ],
+ "workbook_text_outside_criteria": []
+}

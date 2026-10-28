@@ -1,0 +1,679 @@
+{
+  "registry_version": "1.0.0",
+  "domain": "mining",
+  "identity_markers_needs_review": true,
+  "last_full_validation": null,
+  "sources": [
+    {
+      "id": "MIN-243",
+      "authority": "MSHA regulations",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.msha.gov/regulations",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-244",
+      "authority": "MSHA rulemaking",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.msha.gov/regulations/rulemaking",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-245",
+      "authority": "MSHA policy and procedures",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.msha.gov/regulations/policy-and-procedures",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-246",
+      "authority": "MSHA safety alerts",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.msha.gov/news-media/alerts-hazards",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "MIN-247",
+      "authority": "MSHA fatality reports",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.msha.gov/data-reports/fatality-reports",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-248",
+      "authority": "MSHA accident investigations",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.msha.gov/data-reports/accident-investigations",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-249",
+      "authority": "MSHA data",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.msha.gov/data-and-reports",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-250",
+      "authority": "MSHA equipment approvals",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.msha.gov/tech-support/approval-and-certification-center",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-251",
+      "authority": "MSHA petitions for modification",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.msha.gov/regulations/petitions-modification",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-252",
+      "authority": "MSHA Federal Register",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.federalregister.gov/agencies/mine-safety-and-health-administration",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "MIN-253",
+      "authority": "30 CFR",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.ecfr.gov/current/title-30",
+      "identity_markers": [
+        "CFR"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-254",
+      "authority": "OSHA–MSHA jurisdiction memorandum",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.msha.gov/msha-and-osha-memorandum",
+      "identity_markers": [
+        "MSHA",
+        "Mine Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-255",
+      "authority": "NIOSH Mining Program",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.cdc.gov/niosh/mining/",
+      "identity_markers": [
+        "NIOSH"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-256",
+      "authority": "Office of Surface Mining",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.osmre.gov/",
+      "identity_markers": [
+        "Office"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-257",
+      "authority": "Bureau of Land Management mining",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.blm.gov/programs/energy-and-minerals/mining-and-minerals",
+      "identity_markers": [
+        "Bureau"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-258",
+      "authority": "Safe Work Australia mining",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.safeworkaustralia.gov.au/safety-topic/industry-and-business/mining",
+      "identity_markers": [
+        "Safe"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-259",
+      "authority": "Safe Work Australia model WHS laws",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.safeworkaustralia.gov.au/law-and-regulation/model-whs-laws",
+      "identity_markers": [
+        "Safe"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-260",
+      "authority": "Western Australia mining safety",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.worksafe.wa.gov.au/mining",
+      "identity_markers": [
+        "Western"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-261",
+      "authority": "WA legislation",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.legislation.wa.gov.au/",
+      "identity_markers": [
+        "legislation"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-262",
+      "authority": "Queensland Resources Safety and Health",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.rshq.qld.gov.au/",
+      "identity_markers": [
+        "Queensland"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-263",
+      "authority": "Queensland mining safety alerts",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.rshq.qld.gov.au/safety-notices",
+      "identity_markers": [
+        "Queensland"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "MIN-264",
+      "authority": "Queensland legislation",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.legislation.qld.gov.au/",
+      "identity_markers": [
+        "Queensland"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-265",
+      "authority": "NSW Resources Regulator",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.resourcesregulator.nsw.gov.au/",
+      "identity_markers": [
+        "NSW"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-266",
+      "authority": "NSW safety alerts",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.resourcesregulator.nsw.gov.au/safety-and-health/safety-alerts-and-bulletins",
+      "identity_markers": [
+        "NSW"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "MIN-267",
+      "authority": "NSW legislation",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://legislation.nsw.gov.au/",
+      "identity_markers": [
+        "NSW"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-268",
+      "authority": "South Australia mining",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.energymining.sa.gov.au/industry/minerals-and-mining",
+      "identity_markers": [
+        "South"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-269",
+      "authority": "Victoria Earth Resources",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://resources.vic.gov.au/",
+      "identity_markers": [
+        "Victoria"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-270",
+      "authority": "Tasmania Mineral Resources",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://www.mrt.tas.gov.au/",
+      "identity_markers": [
+        "Tasmania"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-271",
+      "authority": "Northern Territory mining",
+      "tier": "primary",
+      "country": "Australia",
+      "purpose": "",
+      "url": "https://industry.nt.gov.au/industries/mining-and-energy",
+      "identity_markers": [
+        "Northern"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-272",
+      "authority": "National Mining Agency",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anm/pt-br",
+      "identity_markers": [
+        "National"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-273",
+      "authority": "ANM legislation",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anm/pt-br/assuntos/legislacao",
+      "identity_markers": [
+        "ANM"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-274",
+      "authority": "ANM public consultations",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anm/pt-br/acesso-a-informacao/participacao-social",
+      "identity_markers": [
+        "ANM"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-275",
+      "authority": "ANM mining-dam safety",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/anm/pt-br/assuntos/barragens",
+      "identity_markers": [
+        "ANM"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-276",
+      "authority": "Brazilian labour regulations",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/normas-regulamentadoras",
+      "identity_markers": [
+        "Brazilian"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-277",
+      "authority": "IBAMA",
+      "tier": "primary",
+      "country": "Brazil",
+      "purpose": "",
+      "url": "https://www.gov.br/ibama/pt-br",
+      "identity_markers": [
+        "IBAMA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-278",
+      "authority": "National Mine Safety Administration",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://www.chinamine-safety.gov.cn/",
+      "identity_markers": [
+        "National"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-279",
+      "authority": "Ministry of Emergency Management",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://www.mem.gov.cn/",
+      "identity_markers": [
+        "Ministry"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-280",
+      "authority": "Ministry of Natural Resources",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://www.mnr.gov.cn/",
+      "identity_markers": [
+        "Ministry"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-281",
+      "authority": "Ministry of Ecology and Environment",
+      "tier": "primary",
+      "country": "China",
+      "purpose": "",
+      "url": "https://www.mee.gov.cn/",
+      "identity_markers": [
+        "Ministry"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-282",
+      "authority": "Mexican mining authority",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/se/acciones-y-programas/mineria",
+      "identity_markers": [
+        "Mexican"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-283",
+      "authority": "Ministry of Economy mining documents",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/se/documentos?state=published&tags=mineria",
+      "identity_markers": [
+        "Ministry"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-284",
+      "authority": "STPS safety standards",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/stps/acciones-y-programas/normas-oficiales-mexicanas-de-seguridad-y-salud-en-el-trabajo",
+      "identity_markers": [
+        "STPS"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-285",
+      "authority": "SEMARNAT laws and standards",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/semarnat/acciones-y-programas/leyes-y-normas-del-sector-medio-ambiente",
+      "identity_markers": [
+        "SEMARNAT"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-286",
+      "authority": "CONAGUA",
+      "tier": "primary",
+      "country": "Mexico",
+      "purpose": "",
+      "url": "https://www.gob.mx/conagua",
+      "identity_markers": [
+        "CONAGUA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-287",
+      "authority": "ILO mining safety",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.ilo.org/topics-and-sectors/safety-and-health-work/mining",
+      "identity_markers": [
+        "ILO"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-288",
+      "authority": "ILO standards database (NORMLEX)",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://normlex.ilo.org/",
+      "identity_markers": [
+        "ILO"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-289",
+      "authority": "ICMM",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.icmm.com/",
+      "identity_markers": [
+        "ICMM"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-290",
+      "authority": "ICMM guidance",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.icmm.com/en-gb/guidance",
+      "identity_markers": [
+        "ICMM"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-291",
+      "authority": "Global Tailings Standard",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://globaltailingsreview.org/global-industry-standard/",
+      "identity_markers": [
+        "Global"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-292",
+      "authority": "UNEP extractives",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.unep.org/explore-topics/extractives",
+      "identity_markers": [
+        "UNEP"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-293",
+      "authority": "IFC mining EHS guidelines",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.ifc.org/en/insights-reports/2000/general-environmental-health-and-safety-guidelines",
+      "identity_markers": [
+        "IFC"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-294",
+      "authority": "OECD minerals due diligence",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.oecd.org/corporate/mne/mining.htm",
+      "identity_markers": [
+        "OECD"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-295",
+      "authority": "Extractive Industries Transparency Initiative",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://eiti.org/",
+      "identity_markers": [
+        "Extractive"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-296",
+      "authority": "International Seabed Authority",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.isa.org.jm/",
+      "identity_markers": [
+        "International"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "MIN-297",
+      "authority": "ISO/TC 82 Mining",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://www.iso.org/committee/50344.html",
+      "identity_markers": [
+        "ISO"
+      ],
+      "criticality": "common"
+    }
+  ]
+}

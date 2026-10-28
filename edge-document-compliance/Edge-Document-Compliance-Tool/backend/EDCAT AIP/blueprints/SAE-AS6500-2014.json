@@ -1,0 +1,30 @@
+{
+  "standard": {
+    "code": "AS6500",
+    "revision": "2014",
+    "title": "Manufacturing Management Program",
+    "authority": "SAE",
+    "citation_style": "page_line",
+    "parser_profile": "pdf_generic_v1",
+    "metadata": {
+      "domain": "Aerospace"
+    }
+  },
+  "clauses": [
+    {
+      "clause_id": "1",
+      "label": "Scope",
+      "parent": null,
+      "order_index": 1
+    },
+    {
+      "clause_id": "6",
+      "label": "Requirements (planning, risk, control, KC)",
+      "parent": null,
+      "order_index": 60
+    }
+  ],
+  "crosswalk_targets": [
+    "AS9100"
+  ]
+}

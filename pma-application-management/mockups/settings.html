@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings · PMA Autopilot</title>
+  <link rel="stylesheet" href="assets/vera.css" />
+</head>
+<body data-page="settings">
+  <div class="layout">
+    <main class="content">
+      <h1>Organization Settings</h1>
+
+      <div class="panel">
+        <div class="label">Submission Office Profile</div>
+        <p class="small muted">Tenant-specific. Never defaulted from another organization, and never auto-assumed on a case.</p>
+        <div class="grid-2" style="margin-top:8px">
+          <div><label class="mfi">FAA office name</label><input class="minp" value="ACO Los Angeles" /></div>
+          <div><label class="mfi">Office address</label><input class="minp" value="3960 Paramount Blvd, Lakewood CA" /></div>
+          <div><label class="mfi">Office contact</label><input class="minp" value="AIR-LAX@faa.gov" /></div>
+          <div><label class="mfi">Submission method</label><input class="minp" value="Electronic (eSubmission)" /></div>
+        </div>
+        <button class="btn btn-primary">Save</button>
+      </div>
+
+      <div class="panel">
+        <div class="label">Users &amp; roles</div>
+        <table class="grid" style="margin-top:10px">
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td>Ada Admin</td><td class="muted">ada@acme-aero.com</td><td><span class="stag signal">Admin</span></td></tr>
+            <tr><td>Quinn Engineer</td><td class="muted">quinn@acme-aero.com</td><td><span class="stag neutral">Reviewer</span></td></tr>
+            <tr><td>Pat Preparer</td><td class="muted">pat@acme-aero.com</td><td><span class="stag neutral">Preparer</span></td></tr>
+          </tbody>
+        </table>
+        <button class="btn btn-ghost" style="margin-top:12px">＋ Invite user</button>
+      </div>
+
+      <div class="panel">
+        <div class="label">Appearance</div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn btn-cancel" onclick="setFont('compact')">A− Compact</button>
+          <button class="btn btn-cancel" onclick="setFont('default')">A Default</button>
+          <button class="btn btn-cancel" onclick="setFont('large')">A+ Large</button>
+          <button class="btn btn-ghost" onclick="toggleTheme()">◑ Toggle theme</button>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

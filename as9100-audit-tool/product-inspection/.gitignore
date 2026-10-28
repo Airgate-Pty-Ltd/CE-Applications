@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.apk
+*.aab
+*.keystore
+.env
+android/
+ios/
+audits/

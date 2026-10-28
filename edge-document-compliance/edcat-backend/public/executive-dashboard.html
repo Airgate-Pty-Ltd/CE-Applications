@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>EDCAT Executive Dashboard</title>
+  <style>
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #0f172a; color: #f8fafc; }
+    header { padding: 2rem; text-align: center; background: rgba(15, 23, 42, 0.8); }
+    main { max-width: 1000px; margin: 0 auto; padding: 2rem; display: grid; gap: 1.5rem; }
+    section { background: rgba(30, 41, 59, 0.9); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(148, 163, 184, 0.2); }
+    h2 { margin: 0 0 0.75rem 0; font-size: 1.25rem; }
+    ul { margin: 0; padding-left: 1.25rem; }
+    .metrics { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .metric { flex: 1; min-width: 140px; background: rgba(15, 118, 110, 0.2); border-radius: 12px; padding: 1rem; text-align: center; }
+    .metric span { display: block; font-size: 2rem; font-weight: 700; margin-bottom: 0.35rem; }
+    button { padding: 0.75rem 1.5rem; border: none; border-radius: 999px; background: #14b8a6; color: #0f172a; font-weight: 700; cursor: pointer; }
+    button:hover { background: #0f766e; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EDCAT Executive Intelligence</h1>
+    <p id="scoreLabel">Loading dashboard…</p>
+  </header>
+  <main>
+    <section>
+      <h2>Key Metrics</h2>
+      <div class="metrics" id="metrics"></div>
+    </section>
+    <section>
+      <h2>Executive Summary</h2>
+      <p id="summary">Generating report…</p>
+      <button onclick="downloadReport()">Download Board Report</button>
+    </section>
+    <section>
+      <h2>Recommendations</h2>
+      <ul id="recommendations"></ul>
+    </section>
+    <section>
+      <h2>Alerts</h2>
+      <ul id="alerts"></ul>
+    </section>
+  </main>
+
+  <script>
+    async function loadDashboard() {
+      const customerId = localStorage.getItem('customerId') || '';
+      const res = await fetch(`/api/executive/dashboard?customerId=${encodeURIComponent(customerId)}`);
+      const json = await res.json();
+      const data = json.data || {};
+
+      document.getElementById('scoreLabel').textContent = `Overall score: ${data.overallCompliancePosture?.score || '--'}% (${data.overallCompliancePosture?.rating || 'n/a'})`;
+
+      const metrics = data.keyMetrics || {};
+      document.getElementById('metrics').innerHTML = `
+        <div class="metric"><span>${metrics.totalAssessments || 0}</span>Assessments</div>
+        <div class="metric"><span>${metrics.completedAssessments || 0}</span>Completed</div>
+        <div class="metric"><span>${metrics.documentsParsed || 0}</span>Parsed Docs</div>
+        <div class="metric"><span>${metrics.reportsGenerated || 0}</span>Reports</div>
+      `;
+
+      document.getElementById('recommendations').innerHTML = (data.recommendations || [])
+        .map((item) => `<li><strong>${item.title}</strong> – ${item.description}</li>`)
+        .join('') || '<li>No recommendations.</li>';
+
+      document.getElementById('alerts').innerHTML = (data.criticalAlerts || [])
+        .map((alert) => `<li>${alert.message} (${alert.timestamp})</li>`)
+        .join('') || '<li>No critical alerts.</li>';
+
+      const boardRes = await fetch(`/api/executive/board-report?customerId=${encodeURIComponent(customerId)}`);
+      const boardJson = await boardRes.json();
+      document.getElementById('summary').textContent = boardJson.data?.executiveSummary || 'No summary available.';
+    }
+
+    async function downloadReport() {
+      const customerId = localStorage.getItem('customerId') || '';
+      const res = await fetch(`/api/executive/board-report?customerId=${encodeURIComponent(customerId)}`);
+      const json = await res.json();
+      const blob = new Blob([JSON.stringify(json.data, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'edcat-board-report.json';
+      link.click();
+    }
+
+    loadDashboard();
+  </script>
+</body>
+</html>

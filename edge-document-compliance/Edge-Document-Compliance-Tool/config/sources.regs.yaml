@@ -1,0 +1,67 @@
+net_enabled_env_var: "ENABLE_NET"   # must be "true" to go online
+
+user_agent: "Conform-Edge-RegCrawler/1.0 (+https://conform-edge.example)"
+request_timeout_sec: 45
+max_concurrent_requests: 3
+retry:
+  attempts: 3
+  backoff_ms: 800
+
+authorities:
+  - id: "faa"
+    name: "Federal Aviation Administration"
+    domains: ["www.ecfr.gov"]
+    adapters:
+      - type: "ecfr"
+        items:
+          - reg_id: "14-CFR-21.137"
+            label: "FAA 14 CFR 21.137"
+            url: "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-C/part-21#p-21.137"
+          - reg_id: "14-CFR-145"
+            label: "FAA 14 CFR Part 145"
+            url: "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-H/part-145"
+
+  - id: "easa"
+    name: "European Union Aviation Safety Agency"
+    domains: ["www.easa.europa.eu"]
+    adapters:
+      - type: "easa_pdf"
+        items:
+          - reg_id: "EASA-Part-145"
+            label: "EASA Part-145 (Easy Access Rules)"
+            url: "https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-part-145"
+
+  - id: "ukcaa"
+    name: "UK Civil Aviation Authority"
+    domains: ["publicapps.caa.co.uk", "www.caa.co.uk"]
+    adapters:
+      - type: "ukcaa_html"
+        items:
+          - reg_id: "UKCAA-Part-145"
+            label: "UK CAA Part-145"
+            url: "https://publicapps.caa.co.uk/modalapplication.aspx?appid=11&mode=detail&id=10470"
+
+  - id: "caac"
+    name: "Civil Aviation Administration of China"
+    domains: ["www.caac.gov.cn"]
+    adapters:
+      - type: "caac_html"
+        items:
+          - reg_id: "CCAR-145"
+            label: "CCAR-145"
+            url: "http://www.caac.gov.cn/"
+
+  - id: "afac"
+    name: "Agencia Federal de Aviación Civil (Mexico)"
+    domains: ["www.gob.mx"]
+    adapters:
+      - type: "afac_html"
+        items:
+          - reg_id: "AFAC-145"
+            label: "AFAC Part 145"
+            url: "https://www.gob.mx/"
+
+legal:
+  respect_robots_txt: true
+  note: "Use for internal compliance. Verify site ToS; store only clauses necessary for compliance."
+

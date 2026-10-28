@@ -1,0 +1,109 @@
+{
+  "enrichments": [
+    {
+      "enrichment_id": "enr_001",
+      "requirement_id": null,
+      "context_type": "business_context",
+      "context_description": "Configuration management is critical in aerospace because incorrect parts or outdated designs can cause aircraft failures leading to loss of life. The business impact of configuration errors includes product liability, regulatory enforcement actions, loss of customer trust, and financial losses from recalls or rework.",
+      "requirement_purpose": "Configuration management ensures that products are built, maintained, and modified according to approved designs. It prevents use of incorrect parts, outdated procedures, or unauthorized changes that could compromise safety.",
+      "affects_which_roles": ["Design Engineers", "Production Managers", "Quality Engineers", "Configuration Managers", "Supply Chain Personnel", "Maintenance Personnel"],
+      "if_not_met_consequences": [
+        "Use of incorrect parts in production causing nonconformities",
+        "Aircraft maintenance using outdated procedures",
+        "Inability to trace product configuration history",
+        "Regulatory findings and potential certificate suspension",
+        "Product liability exposure",
+        "Safety incidents or accidents"
+      ],
+      "prerequisite_requirements": [],
+      "dependent_requirements": [],
+      "real_world_examples": [
+        "Aircraft parts installed that don't match approved configuration, requiring extensive inspection and potential rework",
+        "Software version mismatch between aircraft systems causing integration issues",
+        "Maintenance performed using outdated technical data leading to improper repairs"
+      ],
+      "audit_failure_frequency": 0.75,
+      "customer_complaint_frequency": 0.45
+    },
+    {
+      "enrichment_id": "enr_002",
+      "requirement_id": null,
+      "context_type": "regulatory_context",
+      "context_description": "FAA, EASA, and other aviation authorities require configuration management as part of their oversight. Regulatory inspections focus on whether organizations can demonstrate current approved configuration, control changes, and maintain traceability. Noncompliance can result in certificate suspension or revocation.",
+      "requirement_purpose": "Regulatory authorities need assurance that organizations maintain control over product configurations to ensure aviation safety. Configuration management provides the framework for this control.",
+      "affects_which_roles": ["Quality Managers", "Regulatory Affairs", "Configuration Managers", "Management"],
+      "if_not_met_consequences": [
+        "Regulatory inspection findings",
+        "Certificate suspension or revocation",
+        "Loss of ability to produce certificated products",
+        "Required corrective action plans",
+        "Increased regulatory scrutiny"
+      ],
+      "prerequisite_requirements": [],
+      "dependent_requirements": [],
+      "real_world_examples": [
+        "FAA inspection finding: Unable to demonstrate current approved configuration for production aircraft",
+        "EASA finding: Changes made without proper configuration control board approval",
+        "Certificate suspended until configuration management system corrected"
+      ],
+      "audit_failure_frequency": 0.70,
+      "customer_complaint_frequency": 0.30
+    },
+    {
+      "enrichment_id": "enr_003",
+      "requirement_id": null,
+      "context_type": "process_context",
+      "context_description": "Corrective action is most effective when integrated into the organization's problem-solving culture. When corrective action is treated as paperwork compliance rather than real problem-solving, it fails to prevent recurrence. Effective corrective action requires resources, management support, and systematic root cause analysis.",
+      "requirement_purpose": "Corrective action eliminates the cause of nonconformities to prevent recurrence. It transforms problems into improvement opportunities and builds organizational learning.",
+      "affects_which_roles": ["Quality Engineers", "Process Owners", "Management", "Operations Personnel", "Engineering"],
+      "if_not_met_consequences": [
+        "Recurring nonconformities wasting resources",
+        "Customer dissatisfaction from repeated issues",
+        "Increased costs from repeated failures",
+        "Loss of competitive advantage",
+        "Regulatory enforcement for persistent problems",
+        "Organizational culture of firefighting rather than prevention"
+      ],
+      "prerequisite_requirements": [],
+      "dependent_requirements": [],
+      "real_world_examples": [
+        "Same nonconformity found in three consecutive audits despite corrective actions",
+        "Customer complaints continue for known issues that were 'fixed' previously",
+        "Production line stops repeatedly for same root cause"
+      ],
+      "audit_failure_frequency": 0.85,
+      "customer_complaint_frequency": 0.65
+    },
+    {
+      "enrichment_id": "enr_004",
+      "requirement_id": null,
+      "context_type": "technical_context",
+      "context_description": "Special processes like welding, heat treatment, and coatings cannot be fully verified by final inspection. The metallurgical properties, internal stresses, or surface characteristics are determined by process parameters during the process itself. Therefore, these processes must be validated and tightly controlled during execution.",
+      "requirement_purpose": "Special process validation ensures that processes consistently produce output meeting requirements when that output cannot be verified by inspection. This is critical for processes where defects are hidden or only apparent in use.",
+      "affects_which_roles": ["Process Engineers", "Production Personnel", "Quality Engineers", "Metallurgists", "Heat Treat Operators"],
+      "if_not_met_consequences": [
+        "Product failures in service due to undetected process defects",
+        "Batches of product with hidden defects released to customers",
+        "Safety incidents from process failures",
+        "Costly recalls and liability exposure",
+        "Loss of customer trust"
+      ],
+      "prerequisite_requirements": [],
+      "dependent_requirements": [],
+      "real_world_examples": [
+        "Welded joints fail in service due to improper heat treatment not detectable by visual inspection",
+        "Coating adhesion failures discovered only after products are in use",
+        "Material properties not meeting specifications due to uncontrolled process parameters"
+      ],
+      "audit_failure_frequency": 0.65,
+      "customer_complaint_frequency": 0.55
+    }
+  ]
+}
+
+
+
+
+
+
+

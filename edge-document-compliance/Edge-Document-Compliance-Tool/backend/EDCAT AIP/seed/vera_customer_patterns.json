@@ -1,0 +1,548 @@
+{
+  "version": "1.0",
+  "type": "customer_patterns",
+  "description": "Training patterns for customer request intents with broken/partial variations",
+  "examples": [
+    {
+      "broken": "what do i need",
+      "correct": "gap_analysis",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_pattern"
+    },
+    {
+      "broken": "what do i need ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "what do i need ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "what do i need ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "what do i need ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "what do i need ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "what do i need ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "what do i need ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "what do i need ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "what am i missing",
+      "correct": "gap_analysis",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_pattern"
+    },
+    {
+      "broken": "what am i missing ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "what am i missing ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "what am i missing ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "what am i missing ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "what am i missing ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "what am i missing ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "what am i missing ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "what am i missing ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "show gaps",
+      "correct": "gap_analysis",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_pattern"
+    },
+    {
+      "broken": "show gaps ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "show gaps ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "show gaps ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "show gaps ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "show gaps ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "show gaps ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "show gaps ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "show gaps ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "check compliance",
+      "correct": "gap_analysis",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_pattern"
+    },
+    {
+      "broken": "check compliance ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "check compliance ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "check compliance ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "check compliance ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "check compliance ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "check compliance ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "check compliance ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "check compliance ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "gap_analysis",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "draft procedure",
+      "correct": "create_procedure",
+      "intent": "create_procedure",
+      "pattern_type": "intent_pattern"
+    },
+    {
+      "broken": "draft procedure ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "draft procedure ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "draft procedure ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "draft procedure ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "draft procedure ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "draft procedure ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "draft procedure ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "draft procedure ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "write procedure",
+      "correct": "create_procedure",
+      "intent": "create_procedure",
+      "pattern_type": "intent_pattern"
+    },
+    {
+      "broken": "write procedure ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "write procedure ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "write procedure ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "write procedure ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "write procedure ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "write procedure ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "write procedure ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "write procedure ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "create doc",
+      "correct": "create_procedure",
+      "intent": "create_procedure",
+      "pattern_type": "intent_pattern"
+    },
+    {
+      "broken": "create doc ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "create doc ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "create doc ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "create doc ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "create doc ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "create doc ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "create doc ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "create doc ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "create_procedure",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "help with",
+      "correct": "general_query",
+      "intent": "general_query",
+      "pattern_type": "intent_pattern"
+    },
+    {
+      "broken": "help with ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "help with ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "help with ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "help with ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "help with ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "help with ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "general_query",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "help with ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "general_query",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "help with ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "general_query",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "tell me about",
+      "correct": "general_query",
+      "intent": "general_query",
+      "pattern_type": "intent_pattern"
+    },
+    {
+      "broken": "tell me about ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "tell me about ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "tell me about ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "tell me about ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "tell me about ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "tell me about ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "general_query",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "tell me about ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "general_query",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "tell me about ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "general_query",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "explain",
+      "correct": "general_query",
+      "intent": "general_query",
+      "pattern_type": "intent_pattern"
+    },
+    {
+      "broken": "explain ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "explain ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "explain ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "explain ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "explain ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "general_query",
+      "pattern_type": "intent_with_standard"
+    },
+    {
+      "broken": "explain ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "general_query",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "explain ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "general_query",
+      "pattern_type": "intent_with_broken_standard"
+    },
+    {
+      "broken": "explain ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "general_query",
+      "pattern_type": "intent_with_broken_standard"
+    }
+  ],
+  "total_examples": 90
+}

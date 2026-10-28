@@ -1,0 +1,24 @@
+{
+  "standard_code": "FDA_21CFR_PART11",
+  "title": "21 CFR Part 11 - Electronic Records; Electronic Signatures",
+  "authority": "FDA",
+  "jurisdiction": "United_States",
+  "classification": "data_integrity_and_records",
+  "source_reference": {
+    "regulation": "21 CFR Part 11",
+    "official_document_path_hint": "Requirements/Regulatory/21 CFR Part 11.pdf"
+  },
+  "topic_clusters": [
+    {
+      "cluster_code": "Subpart_B_Records",
+      "summary": "Electronic records controls: validation, audit trails, record retention and retrieval.",
+      "priority_for_vera": "high"
+    },
+    {
+      "cluster_code": "Subpart_C_Signatures",
+      "summary": "Electronic signature requirements including identity verification and linking to records.",
+      "priority_for_vera": "high"
+    }
+  ]
+}
+

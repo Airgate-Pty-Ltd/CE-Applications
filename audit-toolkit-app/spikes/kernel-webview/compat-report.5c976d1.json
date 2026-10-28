@@ -1,0 +1,203 @@
+{
+  "report": {
+    "tag": "5c976d1",
+    "vm_typeof_process_require_Buffer_module_crypto_setTimeout": "undefined,undefined,undefined,undefined,undefined,undefined",
+    "node_determinationHash": "02525393fe7fd389676c3fcbf13a7e764f6936951ddb482b353186a4842b07c3",
+    "browserlike_determinationHash": "02525393fe7fd389676c3fcbf13a7e764f6936951ddb482b353186a4842b07c3",
+    "evaluate_result_byte_equal": true,
+    "createDeterminationHash_equal": true,
+    "evaluateRules_equal": true,
+    "governedDecisions": 3,
+    "conditionMet": [
+      "CAR-010:true",
+      "CAR-011:true",
+      "car-012:false",
+      "ÄCAR-013:true"
+    ],
+    "same_input_twice_node": true,
+    "same_input_twice_browserlike": true,
+    "keyorder_reversed_hash_equal_node": true,
+    "keyorder_reversed_hash_equal_browserlike": true,
+    "rule_array_reversed_hash_equal": true,
+    "hash_with_clock_forced_to_2001_equal": true,
+    "shim_vs_node_crypto_sha256": "26/26 match",
+    "SIMULATED_sv_collation_hash": "89bd01008c3f48c481355eb62da0b2cc005acf30423d4862a4fdfabf5cda504a",
+    "SIMULATED_sv_collation_hash_equal": false,
+    "node_default_locale": "en-US"
+  },
+  "nodeResult": {
+    "determinationId": "det-02525393fe7fd389676c3fcb",
+    "determinationHash": "02525393fe7fd389676c3fcbf13a7e764f6936951ddb482b353186a4842b07c3",
+    "subject": {
+      "tenantId": "t1",
+      "domain": "qms",
+      "entityType": "qms.car",
+      "entityId": "CAR-0042",
+      "revision": "B"
+    },
+    "event": {
+      "eventId": "ev-1",
+      "eventType": "car.closure_requested",
+      "tenantId": "t1",
+      "occurredAt": "2026-10-01T10:00:00.000Z",
+      "observedAt": "2026-10-01T10:00:05.000Z",
+      "subject": {
+        "tenantId": "t1",
+        "domain": "qms",
+        "entityType": "qms.car",
+        "entityId": "CAR-0042"
+      },
+      "payload": {
+        "requestedBy": "u-9",
+        "Zeta": 1,
+        "alpha": 2,
+        "Äpfel": 3,
+        "_under": 4
+      },
+      "source": {
+        "sourceId": "s1",
+        "sourceType": "system"
+      }
+    },
+    "evaluations": [
+      {
+        "ruleId": "CAR-010",
+        "ruleRevision": 1,
+        "conditionMet": true,
+        "confidence": 0.8,
+        "evidenceRefs": [
+          "E-2",
+          "E-1"
+        ]
+      },
+      {
+        "ruleId": "CAR-011",
+        "ruleRevision": 2,
+        "conditionMet": true,
+        "confidence": 0.8,
+        "evidenceRefs": [
+          "E-2",
+          "E-1"
+        ]
+      },
+      {
+        "ruleId": "car-012",
+        "ruleRevision": 1,
+        "conditionMet": false,
+        "confidence": 0,
+        "evidenceRefs": []
+      },
+      {
+        "ruleId": "ÄCAR-013",
+        "ruleRevision": 1,
+        "conditionMet": true,
+        "confidence": 0.75,
+        "evidenceRefs": [
+          "E-2",
+          "E-1"
+        ]
+      }
+    ],
+    "governedDecisions": [
+      {
+        "decisionId": "dec-6d56ff70a38a82c49679fdbe",
+        "tenant": "t1",
+        "domain": "qms",
+        "authorityScope": "qms:qms.car",
+        "ruleId": "CAR-010",
+        "ruleRevision": 1,
+        "evidenceState": "VERIFIED",
+        "confidence": 0.8,
+        "rationale": "Root cause missing. Record root cause.",
+        "decisionState": "ESCALATE",
+        "permittedHostAction": "route:quality-manager",
+        "humanReviewRequired": true,
+        "overrideAuthority": [
+          "authorized-human-reviewer"
+        ],
+        "authorityProfileId": "AP-1",
+        "authorityProfileRevision": 2,
+        "authorityProfileHash": "abc123",
+        "authorityEffectiveFrom": "2026-01-01T00:00:00.000Z",
+        "autonomousExecutionPermitted": false,
+        "immutableAuditReference": "determination:02525393fe7fd389676c3fcbf13a7e764f6936951ddb482b353186a4842b07c3",
+        "timestamp": "2026-10-01T10:00:05.000Z"
+      },
+      {
+        "decisionId": "dec-8953f3ffd9abc79141e98599",
+        "tenant": "t1",
+        "domain": "qms",
+        "authorityScope": "qms:qms.car",
+        "ruleId": "CAR-011",
+        "ruleRevision": 2,
+        "evidenceState": "VERIFIED",
+        "confidence": 0.8,
+        "rationale": "Severity gate. Review.",
+        "decisionState": "ADVISE",
+        "permittedHostAction": "none",
+        "humanReviewRequired": true,
+        "overrideAuthority": [
+          "authorized-human-reviewer"
+        ],
+        "authorityProfileId": "AP-1",
+        "authorityProfileRevision": 2,
+        "authorityProfileHash": "abc123",
+        "authorityEffectiveFrom": "2026-01-01T00:00:00.000Z",
+        "autonomousExecutionPermitted": false,
+        "immutableAuditReference": "determination:02525393fe7fd389676c3fcbf13a7e764f6936951ddb482b353186a4842b07c3",
+        "timestamp": "2026-10-01T10:00:05.000Z"
+      },
+      {
+        "decisionId": "dec-ebb16145c0974b181ea1a7d9",
+        "tenant": "t1",
+        "domain": "qms",
+        "authorityScope": "qms:qms.car",
+        "ruleId": "ÄCAR-013",
+        "ruleRevision": 1,
+        "evidenceState": "PARTIAL",
+        "confidence": 0.75,
+        "rationale": "Unconditional rule (non-ASCII id). Always.",
+        "decisionState": "ADVISE",
+        "permittedHostAction": "none",
+        "humanReviewRequired": true,
+        "overrideAuthority": [
+          "authorized-human-reviewer"
+        ],
+        "authorityProfileId": "AP-1",
+        "authorityProfileRevision": 2,
+        "authorityProfileHash": "abc123",
+        "authorityEffectiveFrom": "2026-01-01T00:00:00.000Z",
+        "autonomousExecutionPermitted": false,
+        "immutableAuditReference": "determination:02525393fe7fd389676c3fcbf13a7e764f6936951ddb482b353186a4842b07c3",
+        "timestamp": "2026-10-01T10:00:05.000Z"
+      }
+    ],
+    "evidenceRefs": [
+      {
+        "evidenceId": "E-2",
+        "sourceRef": {
+          "sourceId": "s1",
+          "sourceType": "system"
+        },
+        "capturedAt": "2026-10-01T09:00:00.000Z"
+      },
+      {
+        "evidenceId": "E-1",
+        "sourceRef": {
+          "sourceId": "s2",
+          "sourceType": "user"
+        },
+        "capturedAt": "2026-10-01T09:30:00.000Z"
+      }
+    ],
+    "authorityBindings": [
+      {
+        "profileId": "AP-1",
+        "profileRevision": 2,
+        "effectiveFrom": "2026-01-01T00:00:00.000Z",
+        "profileHash": "abc123"
+      }
+    ],
+    "timestamp": "2026-10-01T10:00:05.000Z"
+  }
+}

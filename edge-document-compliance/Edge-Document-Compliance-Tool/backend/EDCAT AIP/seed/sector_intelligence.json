@@ -1,0 +1,54 @@
+{
+  "sector_profiles": [
+    {
+      "code": "aerospace",
+      "standards": ["AS9100D", "AS9110C", "FAA Part 21", "FAA Part 145"],
+      "criticality_factors": {
+        "traceability": 1.8,
+        "configuration_control": 1.7,
+        "FOD": 1.6
+      },
+      "common_pitfalls": [
+        {
+          "clause": "AS9100 8.5.3",
+          "common_gap": "Change boards exist but no risk assessment for cascade effects",
+          "vera_tip": "Look for evidence of 'impact analysis' — not just 'approval'."
+        }
+      ],
+      "regulatory_latency": "Audits every 18-36 months; findings escalate quickly"
+    },
+    {
+      "code": "medical",
+      "standards": ["ISO 13485", "FDA 21 CFR Part 11", "MDSAP"],
+      "criticality_factors": {
+        "traceability": 1.9,
+        "risk_management": 1.8,
+        "change_control": 1.7
+      },
+      "common_pitfalls": [
+        {
+          "clause": "ISO 13485 8.2.4",
+          "common_gap": "Design FMEA performed but risk control verification incomplete",
+          "vera_tip": "Verify closure of high-risk items; partial completion is failure."
+        }
+      ]
+    },
+    {
+      "code": "automotive",
+      "standards": ["IATF 16949", "ISO 9001"],
+      "criticality_factors": {
+        "traceability": 1.6,
+        "risk_management": 1.5,
+        "change_control": 1.4
+      },
+      "common_pitfalls": [
+        {
+          "clause": "IATF 16949 8.5.6.1.1",
+          "common_gap": "Change management process exists but customer notification missing",
+          "vera_tip": "Verify customer communication protocol for all changes."
+        }
+      ]
+    }
+  ]
+}
+

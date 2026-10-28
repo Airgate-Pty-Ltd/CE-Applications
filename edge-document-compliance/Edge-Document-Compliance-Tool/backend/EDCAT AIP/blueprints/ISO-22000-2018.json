@@ -1,0 +1,61 @@
+{
+  "standard": {
+    "code": "ISO-22000",
+    "revision": "2018",
+    "title": "Food safety management systems \u2014 Requirements",
+    "authority": "ISO",
+    "citation_style": "page_line",
+    "parser_profile": "pdf_generic_v1",
+    "metadata": {
+      "family": "HLS",
+      "domain": "Food"
+    }
+  },
+  "clauses": [
+    {
+      "clause_id": "4",
+      "label": "Context of the organization",
+      "parent": null,
+      "order_index": 10
+    },
+    {
+      "clause_id": "5",
+      "label": "Leadership",
+      "parent": null,
+      "order_index": 20
+    },
+    {
+      "clause_id": "6",
+      "label": "Planning",
+      "parent": null,
+      "order_index": 30
+    },
+    {
+      "clause_id": "7",
+      "label": "Support",
+      "parent": null,
+      "order_index": 40
+    },
+    {
+      "clause_id": "8",
+      "label": "Operation (PRPs, hazard control, OPRPs/HACCP)",
+      "parent": null,
+      "order_index": 50
+    },
+    {
+      "clause_id": "9",
+      "label": "Performance evaluation",
+      "parent": null,
+      "order_index": 100
+    },
+    {
+      "clause_id": "10",
+      "label": "Improvement",
+      "parent": null,
+      "order_index": 110
+    }
+  ],
+  "crosswalk_targets": [
+    "ISO9001"
+  ]
+}

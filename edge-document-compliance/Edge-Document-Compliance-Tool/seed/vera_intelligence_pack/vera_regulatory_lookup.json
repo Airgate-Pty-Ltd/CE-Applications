@@ -1,0 +1,398 @@
+{
+  "regulations": [
+    {
+      "lookup_id": "reg_001",
+      "country": "USA",
+      "region": null,
+      "sub_region": null,
+      "industry": "aerospace",
+      "product_type": "aircraft and components",
+      "regulation_name": "FAA 14 CFR Part 21",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "FAA",
+      "description": "Federal Aviation Administration regulations governing the certification procedures for products and parts, approval of materials, parts, processes, and appliances.",
+      "requirements": [
+        "Product certification procedures",
+        "Type certification requirements",
+        "Production certification",
+        "Parts manufacturer approval (PMA)",
+        "Technical standard order authorization (TSO)"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": true,
+      "certification_bodies": ["FAA", "Authorized FAA Designees"],
+      "effective_date": "1962-01-01",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-C/part-21",
+      "guidance_documents": [
+        "FAA Order 8110.4C - Type Certification",
+        "FAA AC 21-43 - Production Under 14 CFR Part 21"
+      ],
+      "related_standards": ["AS9100D", "AS9102"],
+      "related_regulations": ["FAA 14 CFR Part 145", "FAA 14 CFR Part 135"]
+    },
+    {
+      "lookup_id": "reg_002",
+      "country": "USA",
+      "region": null,
+      "sub_region": null,
+      "industry": "aerospace",
+      "product_type": "repair stations",
+      "regulation_name": "FAA 14 CFR Part 145",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "FAA",
+      "description": "Federal Aviation Administration regulations establishing requirements for the issuance of repair station certificates and associated ratings, and governing the operations of certificated repair stations.",
+      "requirements": [
+        "Repair station certification",
+        "Quality control system",
+        "Personnel training and qualifications",
+        "Equipment and facilities",
+        "Inspection and maintenance procedures"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": true,
+      "certification_bodies": ["FAA", "FAA Aviation Safety Inspectors"],
+      "effective_date": "1962-01-01",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "https://www.ecfr.gov/current/title-14/chapter-I/subchapter-C/part-145",
+      "guidance_documents": [
+        "FAA Order 8900.1 - Flight Standards Information Management System",
+        "FAA AC 145-9 - Guide for Developing and Evaluating Repair Station and Quality Control Manuals"
+      ],
+      "related_standards": ["AS9110", "AS9100D"],
+      "related_regulations": ["FAA 14 CFR Part 21", "FAA 14 CFR Part 43"]
+    },
+    {
+      "lookup_id": "reg_003",
+      "country": "USA",
+      "region": null,
+      "sub_region": null,
+      "industry": "medical_device",
+      "product_type": "medical devices",
+      "regulation_name": "FDA 21 CFR Part 820",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "FDA",
+      "description": "Food and Drug Administration Quality System Regulation establishing current good manufacturing practice (CGMP) requirements for medical devices. Ensures devices are safe and effective.",
+      "requirements": [
+        "Quality system requirements",
+        "Design controls",
+        "Document controls",
+        "Production and process controls",
+        "Corrective and preventive action",
+        "Labeling and packaging controls",
+        "Handling, storage, distribution, and installation",
+        "Records",
+        "Servicing"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": false,
+      "certification_bodies": ["FDA"],
+      "effective_date": "1997-06-01",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
+      "guidance_documents": [
+        "FDA QSIT Guide - Quality System Inspection Technique",
+        "FDA Guidance: Medical Device Quality Systems Manual"
+      ],
+      "related_standards": ["ISO13485", "ISO14971"],
+      "related_regulations": ["FDA 21 CFR Part 11", "EU MDR"]
+    },
+    {
+      "lookup_id": "reg_004",
+      "country": "USA",
+      "region": null,
+      "sub_region": null,
+      "industry": "medical_device",
+      "product_type": "electronic records and signatures",
+      "regulation_name": "FDA 21 CFR Part 11",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "FDA",
+      "description": "Electronic Records; Electronic Signatures regulation establishing criteria for acceptance of electronic records and electronic signatures as equivalent to paper records and handwritten signatures.",
+      "requirements": [
+        "Electronic record controls",
+        "Electronic signature controls",
+        "System validation",
+        "Audit trails",
+        "Access controls",
+        "Record retention"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": false,
+      "certification_bodies": ["FDA"],
+      "effective_date": "1997-08-20",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11",
+      "guidance_documents": [
+        "FDA Guidance for Industry: Part 11, Electronic Records; Electronic Signatures - Scope and Application"
+      ],
+      "related_standards": ["ISO13485", "IEC62304"],
+      "related_regulations": ["FDA 21 CFR Part 820"]
+    },
+    {
+      "lookup_id": "reg_005",
+      "country": "European Union",
+      "region": "EU",
+      "sub_region": null,
+      "industry": "aerospace",
+      "product_type": "aircraft and components",
+      "regulation_name": "EASA Part-21",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "EASA",
+      "description": "European Aviation Safety Agency regulations for the certification of aircraft and related products, parts and appliances, and of design and production organisations.",
+      "requirements": [
+        "Type certification",
+        "Production organization approval",
+        "Design organization approval",
+        "Parts and appliances approval",
+        "Technical specifications"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": true,
+      "certification_bodies": ["EASA", "National Aviation Authorities"],
+      "effective_date": "2003-09-28",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-part-21",
+      "guidance_documents": [
+        "EASA AMC and GM to Part-21",
+        "EASA Certification Specifications"
+      ],
+      "related_standards": ["AS9100D", "EN9100"],
+      "related_regulations": ["EASA Part-145", "EASA Part-M"]
+    },
+    {
+      "lookup_id": "reg_006",
+      "country": "European Union",
+      "region": "EU",
+      "sub_region": null,
+      "industry": "aerospace",
+      "product_type": "maintenance organizations",
+      "regulation_name": "EASA Part-145",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "EASA",
+      "description": "European Aviation Safety Agency regulations for the approval of maintenance organizations that perform maintenance on aircraft and components.",
+      "requirements": [
+        "Maintenance organization approval",
+        "Quality system",
+        "Personnel requirements",
+        "Facilities and equipment",
+        "Maintenance procedures"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": true,
+      "certification_bodies": ["EASA", "National Aviation Authorities"],
+      "effective_date": "2003-09-28",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "https://www.easa.europa.eu/en/document-library/easy-access-rules/easy-access-rules-part-145",
+      "guidance_documents": [
+        "EASA AMC and GM to Part-145"
+      ],
+      "related_standards": ["AS9110", "EN9110"],
+      "related_regulations": ["EASA Part-21", "EASA Part-M"]
+    },
+    {
+      "lookup_id": "reg_007",
+      "country": "Australia",
+      "region": null,
+      "sub_region": null,
+      "industry": "aerospace",
+      "product_type": "aircraft and components",
+      "regulation_name": "CASA Part 21",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "CASA",
+      "description": "Civil Aviation Safety Authority regulations for certification of aircraft, aircraft engines, propellers, and appliances. Based on EASA Part-21.",
+      "requirements": [
+        "Type certification",
+        "Production certification",
+        "Design organization approval",
+        "Parts manufacturer approval"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": true,
+      "certification_bodies": ["CASA"],
+      "effective_date": "2021-12-02",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "https://www.casa.gov.au/rules-and-regulations/part-21",
+      "guidance_documents": [
+        "CASA Manual of Standards Part 21"
+      ],
+      "related_standards": ["AS9100D"],
+      "related_regulations": ["CASA Part 145", "CASA Part 42"]
+    },
+    {
+      "lookup_id": "reg_008",
+      "country": "USA",
+      "region": null,
+      "sub_region": null,
+      "industry": "general",
+      "product_type": "workplace safety",
+      "regulation_name": "OSHA General Industry Standards",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "OSHA",
+      "description": "Occupational Safety and Health Administration standards for workplace safety and health. Includes requirements for hazard communication, machine guarding, electrical safety, and personal protective equipment.",
+      "requirements": [
+        "Hazard identification and assessment",
+        "Hazard communication",
+        "Machine guarding",
+        "Electrical safety",
+        "Personal protective equipment",
+        "Emergency action plans",
+        "Recordkeeping"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": false,
+      "certification_bodies": ["OSHA"],
+      "effective_date": "1970-12-29",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "https://www.osha.gov/laws-regs/regulations/standardnumber",
+      "guidance_documents": [
+        "OSHA Compliance Assistance Quick Start",
+        "OSHA Standards and Technical Resources"
+      ],
+      "related_standards": ["ISO45001"],
+      "related_regulations": []
+    },
+    {
+      "lookup_id": "reg_009",
+      "country": "USA",
+      "region": null,
+      "sub_region": null,
+      "industry": "general",
+      "product_type": "environmental protection",
+      "regulation_name": "EPA Environmental Regulations",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "EPA",
+      "description": "Environmental Protection Agency regulations covering air quality, water quality, waste management, chemical safety, and environmental reporting requirements.",
+      "requirements": [
+        "Air emission controls",
+        "Water discharge permits",
+        "Waste management",
+        "Hazardous material handling",
+        "Environmental reporting",
+        "Pollution prevention"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": false,
+      "certification_bodies": ["EPA", "State Environmental Agencies"],
+      "effective_date": "1970-12-02",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "https://www.epa.gov/laws-regulations",
+      "guidance_documents": [
+        "EPA Compliance Assistance Centers",
+        "EPA Regulations by Topic"
+      ],
+      "related_standards": ["ISO14001"],
+      "related_regulations": []
+    },
+    {
+      "lookup_id": "reg_010",
+      "country": "USA",
+      "region": null,
+      "sub_region": null,
+      "industry": "general",
+      "product_type": "information security",
+      "regulation_name": "NIST Cybersecurity Framework",
+      "regulation_type": "recommended_practice",
+      "regulatory_body": "NIST",
+      "description": "National Institute of Standards and Technology Cybersecurity Framework providing voluntary guidance for organizations to manage and reduce cybersecurity risk. Widely adopted as best practice.",
+      "requirements": [
+        "Identify cybersecurity risks",
+        "Protect critical infrastructure",
+        "Detect cybersecurity events",
+        "Respond to cybersecurity incidents",
+        "Recover from cybersecurity events"
+      ],
+      "compliance_mandatory": false,
+      "certification_required": false,
+      "certification_bodies": [],
+      "effective_date": "2014-02-12",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "https://www.nist.gov/cyberframework",
+      "guidance_documents": [
+        "NIST Cybersecurity Framework 2.0",
+        "NIST SP 800-53 - Security and Privacy Controls"
+      ],
+      "related_standards": ["ISO27001", "SOC2"],
+      "related_regulations": []
+    },
+    {
+      "lookup_id": "reg_011",
+      "country": "China",
+      "region": null,
+      "sub_region": null,
+      "industry": "aerospace",
+      "product_type": "aircraft and components",
+      "regulation_name": "CAAC Part 21",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "CAAC",
+      "description": "Civil Aviation Administration of China regulations for type certification, production certification, and parts approval. Based on EASA Part-21.",
+      "requirements": [
+        "Type certification procedures",
+        "Production organization approval",
+        "Design organization approval",
+        "Parts and components approval"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": true,
+      "certification_bodies": ["CAAC"],
+      "effective_date": "2017-04-01",
+      "compliance_deadline": null,
+      "enforcement_date": null,
+      "official_source_url": "http://www.caac.gov.cn",
+      "guidance_documents": [
+        "CAAC Advisory Circulars"
+      ],
+      "related_standards": ["AS9100D"],
+      "related_regulations": ["CAAC Part 145", "CAAC Part 145"]
+    },
+    {
+      "lookup_id": "reg_012",
+      "country": "European Union",
+      "region": "EU",
+      "sub_region": null,
+      "industry": "medical_device",
+      "product_type": "medical devices",
+      "regulation_name": "EU MDR 2017/745",
+      "regulation_type": "mandatory_requirement",
+      "regulatory_body": "European Commission",
+      "description": "European Union Medical Device Regulation establishing requirements for medical devices placed on the EU market. Replaces the Medical Device Directive (MDD).",
+      "requirements": [
+        "Quality management system",
+        "Clinical evaluation",
+        "Post-market surveillance",
+        "Unique Device Identification (UDI)",
+        "Technical documentation",
+        "Notified body oversight"
+      ],
+      "compliance_mandatory": true,
+      "certification_required": true,
+      "certification_bodies": ["Notified Bodies"],
+      "effective_date": "2021-05-26",
+      "compliance_deadline": "2021-05-26",
+      "enforcement_date": "2021-05-26",
+      "official_source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32017R0745",
+      "guidance_documents": [
+        "MDCG Guidance Documents",
+        "EU MDR Implementation Guidance"
+      ],
+      "related_standards": ["ISO13485", "ISO14971"],
+      "related_regulations": ["FDA 21 CFR Part 820", "MDSAP"]
+    }
+  ]
+}
+
+
+
+
+
+
+

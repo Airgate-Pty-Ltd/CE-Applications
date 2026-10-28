@@ -1,0 +1,155 @@
+{
+  "questions": [
+    {
+      "question_id": "q_001",
+      "question_text": "What factors cause organizations to misinterpret nonconforming output controls as just inspection processes?",
+      "question_category": "concept_understanding",
+      "triggered_by_event": "pattern_noticed",
+      "learning_potential_score": 0.88,
+      "hypothesis": "Organizations confuse inspection (verification) with nonconforming output control (management of nonconformities). The control aspect includes identification, segregation, disposition, and corrective action - not just finding defects.",
+      "hypothesis_confidence": 0.85,
+      "validation_method": "Analyze gap analysis results and audit findings to identify cases where nonconforming output control is misunderstood. Review how organizations implement clause 8.7 vs clause 8.5.1.",
+      "is_answered": false,
+      "cross_standard_applicability": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "question_id": "q_002",
+      "question_text": "How does inadequate supplier delegation oversight lead to systemic failures across the supply chain?",
+      "question_category": "pattern_validation",
+      "triggered_by_event": "pattern_noticed",
+      "learning_potential_score": 0.92,
+      "hypothesis": "When organizations delegate critical work to suppliers without maintaining oversight, supplier performance degrades gradually. Early warning indicators are missed, and problems aren't detected until product failures occur in the field. This creates systemic risk.",
+      "hypothesis_confidence": 0.87,
+      "validation_method": "Analyze supplier-related nonconformities and product failures. Track correlation between reduced supplier oversight and later quality issues. Review supplier performance data trends.",
+      "is_answered": false,
+      "cross_standard_applicability": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "question_id": "q_003",
+      "question_text": "When is risk-based thinking insufficient without historical data to inform risk assessment?",
+      "question_category": "requirement_interpretation",
+      "triggered_by_event": "user_clarification",
+      "learning_potential_score": 0.85,
+      "hypothesis": "Risk-based thinking requires both forward-looking assessment (what could go wrong) and backward-looking analysis (what has gone wrong). Without historical data from nonconformities, complaints, and failures, risk assessment lacks empirical foundation and becomes theoretical.",
+      "hypothesis_confidence": 0.82,
+      "validation_method": "Compare organizations with robust nonconformity tracking vs those without. Assess whether risk assessments are more accurate when informed by historical data.",
+      "is_answered": false,
+      "cross_standard_applicability": ["ISO9001", "AS9100D", "ISO13485"]
+    },
+    {
+      "question_id": "q_004",
+      "question_text": "What indicators predict calibration drift risk before equipment goes out of tolerance?",
+      "question_category": "pattern_validation",
+      "triggered_by_event": "pattern_noticed",
+      "learning_potential_score": 0.90,
+      "hypothesis": "Calibration drift can be predicted by analyzing historical calibration data, equipment age, usage frequency, environmental conditions, and interim verification results. Early indicators include trends toward tolerance limits, increasing variability, and manufacturer reliability data.",
+      "hypothesis_confidence": 0.88,
+      "validation_method": "Analyze calibration records to identify patterns before out-of-tolerance events. Develop predictive models using calibration history, equipment characteristics, and usage patterns.",
+      "is_answered": false,
+      "cross_standard_applicability": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "question_id": "q_005",
+      "question_text": "What does a regulator look for when inspecting configuration management systems?",
+      "question_category": "regulatory_understanding",
+      "triggered_by_event": "user_clarification",
+      "learning_potential_score": 0.93,
+      "hypothesis": "Regulators focus on: (1) Can you demonstrate current approved configuration? (2) Are changes controlled and approved? (3) Does physical configuration match documentation? (4) Can you trace configuration throughout lifecycle? (5) Is configuration status accounting maintained? They look for evidence, not just procedures.",
+      "hypothesis_confidence": 0.90,
+      "validation_method": "Review FAA, EASA, and other regulatory inspection findings related to configuration management. Analyze common inspection focus areas and evidence requirements.",
+      "is_answered": false,
+      "cross_standard_applicability": ["AS9100D", "FAA", "EASA"]
+    },
+    {
+      "question_id": "q_006",
+      "question_text": "Why do corrective actions fail repeatedly in some industries more than others?",
+      "question_category": "pattern_validation",
+      "triggered_by_event": "pattern_noticed",
+      "learning_potential_score": 0.89,
+      "hypothesis": "Corrective actions fail more in industries with: (1) Complex supply chains where root causes span multiple organizations, (2) Long product lifecycles where feedback loops are slow, (3) Highly regulated environments where quick fixes are prioritized over systemic solutions, (4) Resource constraints that prevent adequate root cause analysis.",
+      "hypothesis_confidence": 0.84,
+      "validation_method": "Compare corrective action effectiveness across industries. Analyze factors that correlate with recurring nonconformities. Review industry-specific challenges to effective corrective action.",
+      "is_answered": false,
+      "cross_standard_applicability": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "question_id": "q_007",
+      "question_text": "How does document control breakdown correlate with organizational size and maturity?",
+      "question_category": "pattern_validation",
+      "triggered_by_event": "pattern_noticed",
+      "learning_potential_score": 0.86,
+      "hypothesis": "Document control breaks down differently based on organization size: Small organizations lack resources for systematic control. Medium organizations struggle with scaling manual processes. Large organizations face coordination challenges across departments. Very large organizations need sophisticated systems to maintain control. Maturity matters more than size.",
+      "hypothesis_confidence": 0.83,
+      "validation_method": "Analyze document control findings across organizations of different sizes and maturity levels. Identify size-specific failure modes and effective approaches for each.",
+      "is_answered": false,
+      "cross_standard_applicability": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "question_id": "q_008",
+      "question_text": "What role does leadership visibility play in quality management system effectiveness?",
+      "question_category": "concept_understanding",
+      "triggered_by_event": "pattern_noticed",
+      "learning_potential_score": 0.87,
+      "hypothesis": "Leadership visibility in quality activities (attending audits, reviewing metrics, making quality decisions visible) correlates strongly with QMS effectiveness. When leadership is invisible, quality becomes a quality department responsibility rather than organizational priority.",
+      "hypothesis_confidence": 0.85,
+      "validation_method": "Correlate leadership involvement indicators (management review attendance, quality objective ownership, visible quality decisions) with QMS performance metrics and audit results.",
+      "is_answered": false,
+      "cross_standard_applicability": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "question_id": "q_009",
+      "question_text": "How can process capability (Cp/Cpk) be used proactively to prevent nonconformities rather than reactively after problems occur?",
+      "question_category": "concept_understanding",
+      "triggered_by_event": "user_clarification",
+      "learning_potential_score": 0.91,
+      "hypothesis": "Process capability analysis should drive process design, not just assess existing processes. Design processes with Cp>1.33 from the start. Monitor capability trends to predict when processes will produce nonconforming output. Use capability data to optimize processes before problems occur.",
+      "hypothesis_confidence": 0.88,
+      "validation_method": "Compare organizations using process capability proactively vs reactively. Analyze correlation between proactive capability management and nonconformity rates.",
+      "is_answered": false,
+      "cross_standard_applicability": ["IATF16949", "AS9100D", "ISO9001"]
+    },
+    {
+      "question_id": "q_010",
+      "question_text": "What distinguishes effective special process validation from validation that satisfies auditors but doesn't ensure process capability?",
+      "question_category": "requirement_interpretation",
+      "triggered_by_event": "pattern_noticed",
+      "learning_potential_score": 0.90,
+      "hypothesis": "Effective validation includes: (1) Statistical evidence of capability, (2) Understanding of process variables and their effects, (3) Validated process parameter windows, (4) Ongoing monitoring plan, (5) Revalidation triggers. Validation that just satisfies auditors often lacks statistical rigor and process understanding.",
+      "hypothesis_confidence": 0.86,
+      "validation_method": "Compare validation approaches in organizations with consistent process performance vs those with process-related nonconformities. Analyze what distinguishes effective validations.",
+      "is_answered": false,
+      "cross_standard_applicability": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    },
+    {
+      "question_id": "q_011",
+      "question_text": "How do human factors engineering principles apply to quality management system processes beyond product design?",
+      "question_category": "transfer_learning",
+      "triggered_by_event": "pattern_noticed",
+      "learning_potential_score": 0.88,
+      "hypothesis": "Human factors principles (error-proofing, clear procedures, workload management, training design) apply to QMS processes. Process design should account for human capabilities and limitations. This reduces human error in quality activities, not just in product use.",
+      "hypothesis_confidence": 0.84,
+      "validation_method": "Analyze quality system errors and identify human factors contributions. Compare error rates in processes designed with human factors principles vs those without.",
+      "is_answered": false,
+      "cross_standard_applicability": ["ISO9001", "AS9100D", "ISO13485"]
+    },
+    {
+      "question_id": "q_012",
+      "question_text": "What makes some organizations effective at continuous improvement while others stagnate despite having improvement processes?",
+      "question_category": "pattern_validation",
+      "triggered_by_event": "pattern_noticed",
+      "learning_potential_score": 0.92,
+      "hypothesis": "Effective continuous improvement requires: (1) Culture that values improvement over compliance, (2) Resources allocated to improvements, (3) Clear improvement priorities, (4) Measurement of improvement results, (5) Recognition of improvement efforts. Organizations with only processes but not culture/resources don't improve.",
+      "hypothesis_confidence": 0.89,
+      "validation_method": "Compare improvement metrics (objective achievement, innovation, process optimization) across organizations with similar processes but different cultures and resource allocation.",
+      "is_answered": false,
+      "cross_standard_applicability": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"]
+    }
+  ]
+}
+
+
+
+
+
+
+

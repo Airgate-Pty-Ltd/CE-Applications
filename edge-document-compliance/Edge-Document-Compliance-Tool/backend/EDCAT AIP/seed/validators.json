@@ -1,0 +1,37 @@
+{
+  "validators": [
+    {
+      "name": "citations.required",
+      "type": "regex",
+      "pattern": "\\\\[Source: [^\\\\]]+ p\\\\d+ L\\\\d+\u2013L\\\\d+\\\\]",
+      "fail_action": "repair_or_refuse"
+    },
+    {
+      "name": "style.procedure.no_howto",
+      "type": "negative_phrases",
+      "phrases": [
+        "step-by-step",
+        "click",
+        "press the button",
+        "navigate to",
+        "fill out the form"
+      ],
+      "fail_action": "repair"
+    },
+    {
+      "name": "format.single_spacing",
+      "type": "line_height_check",
+      "max_double_spaced_ratio": 0.05,
+      "fail_action": "repair"
+    },
+    {
+      "name": "qms.rules.procedure_vs_wi",
+      "type": "classifier",
+      "model": "light-rule-based",
+      "rules": [
+        "If output_type == 'Procedure' and text contains imperative how-to verbs \u2192 fail"
+      ],
+      "fail_action": "repair"
+    }
+  ]
+}

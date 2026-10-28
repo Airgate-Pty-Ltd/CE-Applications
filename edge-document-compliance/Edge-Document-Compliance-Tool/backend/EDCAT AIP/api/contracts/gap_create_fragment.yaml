@@ -1,0 +1,36 @@
+
+post:
+  summary: Create GAP analysis table
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [tenant_id, session_id, persona_code, clauses, documents]
+          properties:
+            tenant_id: { type: string, format: uuid }
+            session_id: { type: string, format: uuid }
+            persona_code: { type: string }
+            clauses: { type: array, items: { type: string } }
+            documents: { type: array, items: { type: string } }
+  responses:
+    '200':
+      description: GAP table
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              rows:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    clause: { type: string }
+                    requirement: { type: string }
+                    coverage: { type: string }
+                    gap_class: { type: string }
+                    evidence_location: { type: string }
+                    recommendation: { type: string }
+                    sources: { type: array, items: { type: string } }

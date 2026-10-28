@@ -1,0 +1,16 @@
+{
+  "ruleId": "BAD-001",
+  "dimId": "bad-config-test",
+  "revision": 1,
+  "severity": "major",
+  "gapClass": "WARNING",
+  "category": "completeness",
+  "riskClass": "B",
+  "basisType": "deterministic-record-completeness",
+  "description": "Intentionally missing effectiveDate and approvedBy to trigger registry validation failure.",
+  "requiredFields": ["applicant_legal_name"],
+  "findingText": "should never load",
+  "resolutionHint": "n/a",
+  "clauseRefs": ["n/a"],
+  "condition": { "field": "applicant_legal_name", "op": "is_null" }
+}

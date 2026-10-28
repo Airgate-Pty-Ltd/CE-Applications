@@ -1,0 +1,17 @@
+{
+ "additions": [
+  {
+   "added_at": "2026-10-08T09:00:00",
+   "criterion_id": "REG:FAA QSA 1.0 ADDITIONAL:ADD-0001",
+   "label": "ADD-0001",
+   "question": "SYNTHETIC: is the bench calibration label current?",
+   "source_citation": "SYNTHETIC source citation for the sample"
+  }
+ ],
+ "selected": [
+  "REG:FAA QSA 1.0 ADDITIONAL:ADD-0001",
+  "REG:FAA QSA 1.0:Manufacturing Processes:401",
+  "REG:FAA QSA 1.0:Organizational Management:101",
+  "REG:FAA QSA 1.0:Supplier Control:601"
+ ]
+}

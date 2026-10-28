@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NADCAP Special Process Readiness Self-Assessment | Conform-Edge</title>
+<style>
+  :root {
+    --ce-navy: #1a2744;
+    --ce-steel: #3a5a8c;
+    --ce-accent: #4e8bbf;
+    --ce-gold: #c8922a;
+    --ce-bg: #f4f6fb;
+    --ce-card: #ffffff;
+    --ce-border: #d0d8e8;
+    --ce-text: #1e2a3a;
+    --ce-muted: #6b7a90;
+    --pass: #166534;
+    --pass-bg: #dcfce7;
+    --warn: #854d0e;
+    --warn-bg: #fef9c3;
+    --fail: #991b1b;
+    --fail-bg: #fee2e2;
+    --crit-badge: #dc2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--ce-bg); color: var(--ce-text); min-height: 100vh; }
+  header { background: var(--ce-navy); color: white; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  header .brand { font-size: 13px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; }
+  header h1 { font-size: 20px; font-weight: 700; }
+  header .subtitle { font-size: 12px; opacity: 0.65; margin-top: 3px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 28px 16px; }
+  .card { background: var(--ce-card); border: 1px solid var(--ce-border); border-radius: 8px; padding: 24px; margin-bottom: 20px; }
+  .card h2 { font-size: 16px; font-weight: 700; color: var(--ce-navy); margin-bottom: 16px; border-bottom: 2px solid var(--ce-accent); padding-bottom: 8px; }
+  .card h3 { font-size: 14px; font-weight: 700; color: var(--ce-steel); margin: 16px 0 10px; }
+  .intro { background: linear-gradient(135deg, var(--ce-navy) 0%, var(--ce-steel) 100%); color: white; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; }
+  .intro h2 { color: white; border-color: rgba(255,255,255,0.3); }
+  .intro p { font-size: 13px; line-height: 1.7; opacity: 0.9; margin-top: 8px; }
+  .process-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .tab-btn { padding: 8px 16px; border: 2px solid var(--ce-border); background: var(--ce-card); border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ce-muted); transition: all 0.2s; }
+  .tab-btn:hover { border-color: var(--ce-accent); color: var(--ce-accent); }
+  .tab-btn.active { background: var(--ce-navy); border-color: var(--ce-navy); color: white; }
+  .question-row { border: 1px solid var(--ce-border); border-radius: 6px; padding: 14px; margin-bottom: 10px; background: white; }
+  .question-row.critical { border-left: 4px solid var(--crit-badge); }
+  .question-header { display: flex; align-items: flex-start; gap: 10px; }
+  .q-num { font-size: 11px; font-weight: 700; color: var(--ce-muted); min-width: 28px; padding-top: 2px; }
+  .q-text { font-size: 13px; line-height: 1.5; flex: 1; }
+  .crit-badge { background: var(--crit-badge); color: white; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; white-space: nowrap; }
+  .q-ref { font-size: 11px; color: var(--ce-muted); margin-top: 4px; font-style: italic; }
+  .response-row { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+  .response-row label { font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 4px 12px; border: 1px solid var(--ce-border); border-radius: 4px; }
+  .response-row input[type="radio"] { accent-color: var(--ce-accent); }
+  .response-row label.sel-yes { background: var(--pass-bg); border-color: var(--pass); color: var(--pass); }
+  .response-row label.sel-partial { background: var(--warn-bg); border-color: var(--warn); color: var(--warn); }
+  .response-row label.sel-no { background: var(--fail-bg); border-color: var(--fail); color: var(--fail); }
+  .verdict-bar { border-radius: 8px; padding: 20px 24px; margin: 20px 0; text-align: center; }
+  .verdict-bar.ready { background: var(--pass-bg); border: 2px solid var(--pass); color: var(--pass); }
+  .verdict-bar.conditional { background: var(--warn-bg); border: 2px solid var(--warn); color: var(--warn); }
+  .verdict-bar.not-ready { background: var(--fail-bg); border: 2px solid var(--fail); color: var(--fail); }
+  .verdict-bar h3 { font-size: 22px; font-weight: 800; letter-spacing: 0.5px; }
+  .verdict-bar p { font-size: 14px; margin-top: 6px; }
+  .score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 16px 0; }
+  .score-box { background: var(--ce-bg); border: 1px solid var(--ce-border); border-radius: 6px; padding: 14px; text-align: center; }
+  .score-box .val { font-size: 26px; font-weight: 800; color: var(--ce-navy); }
+  .score-box .lbl { font-size: 11px; color: var(--ce-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .gap-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .gap-table th { background: var(--ce-navy); color: white; padding: 8px 10px; text-align: left; }
+  .gap-table td { padding: 8px 10px; border-bottom: 1px solid var(--ce-border); vertical-align: top; }
+  .gap-table tr:nth-child(even) td { background: var(--ce-bg); }
+  .gap-table .crit-row td { background: #fff5f5; }
+  .btn { padding: 10px 22px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; }
+  .btn-primary { background: var(--ce-navy); color: white; }
+  .btn-primary:hover { background: var(--ce-steel); }
+  .btn-secondary { background: var(--ce-accent); color: white; }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .mai-badge { background: var(--ce-bg); border: 1px solid var(--ce-border); border-radius: 6px; padding: 10px 14px; font-size: 11px; color: var(--ce-muted); display: flex; align-items: center; gap: 8px; }
+  .mai-badge span { font-weight: 700; color: var(--ce-steel); }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; font-size: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+  select { padding: 7px 12px; border: 1px solid var(--ce-border); border-radius: 5px; font-size: 13px; color: var(--ce-text); background: white; }
+  .process-selector { margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .process-selector label { font-weight: 700; font-size: 13px; }
+  .hidden { display: none; }
+  .section-header { background: var(--ce-navy); color: white; padding: 8px 14px; border-radius: 5px; font-size: 13px; font-weight: 700; margin: 18px 0 10px; }
+  .process-desc { font-size: 12px; color: var(--ce-muted); background: var(--ce-bg); border-radius: 5px; padding: 10px 14px; margin-bottom: 14px; border-left: 3px solid var(--ce-accent); }
+  .nadcap-ref { font-size: 10px; background: var(--ce-steel); color: white; padding: 1px 6px; border-radius: 3px; }
+  footer { text-align: center; font-size: 11px; color: var(--ce-muted); padding: 24px; border-top: 1px solid var(--ce-border); margin-top: 24px; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Conform-Edge Quality Consulting</div>
+    <h1>NADCAP Special Process Readiness Self-Assessment</h1>
+    <div class="subtitle">Pre-Audit Preparation Tool — AS9100D + NADCAP Audit Criteria Integration</div>
+  </div>
+  <div style="text-align:right;font-size:11px;opacity:0.65;">
+    M-AI ARCHITECTURE DEFINED<br>Domain: nadcap-special-process-readiness
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="intro card">
+    <h2>About This Tool</h2>
+    <p>NADCAP (National Aerospace and Defense Contractors Accreditation Program) accreditation is a mandatory requirement from most major aerospace OEMs (Boeing, Airbus, Lockheed Martin, Raytheon, and others). This self-assessment helps manufacturers identify gaps before a NADCAP audit across the most common special process categories: Heat Treatment, Non-Destructive Testing (NDT/NDE), Chemical Processing, Welding, and Composites.</p>
+    <p style="margin-top:8px;">Each process section maps to the applicable NADCAP audit criteria (AC7xxx series). Critical items marked <span style="background:#dc2626;color:white;padding:1px 5px;border-radius:3px;font-size:11px;font-weight:700;">CRITICAL</span> represent findings likely to trigger a NADCAP audit NCR or process audit delay. A single critical NO triggers a <strong>NOT READY</strong> verdict regardless of overall score.</p>
+  </div>
+
+  <div class="card">
+    <h2>Process Selection</h2>
+    <div class="process-selector">
+      <label>Select Special Process:</label>
+      <select id="processSelect" onchange="showProcess()">
+        <option value="">— Choose a process —</option>
+        <option value="ht">Heat Treatment (AC7102)</option>
+        <option value="ndt">Non-Destructive Testing / NDE (AC7114)</option>
+        <option value="chem">Chemical Processing (AC7108)</option>
+        <option value="weld">Welding (AC7110)</option>
+        <option value="comp">Composites (AC7118)</option>
+      </select>
+    </div>
+    <div class="process-tabs">
+      <button class="tab-btn" onclick="selectProcess('ht')">Heat Treatment</button>
+      <button class="tab-btn" onclick="selectProcess('ndt')">NDT / NDE</button>
+      <button class="tab-btn" onclick="selectProcess('chem')">Chemical Processing</button>
+      <button class="tab-btn" onclick="selectProcess('weld')">Welding</button>
+      <button class="tab-btn" onclick="selectProcess('comp')">Composites</button>
+    </div>
+    <p style="font-size:12px;color:var(--ce-muted);">Select a process to load its specific NADCAP audit checklist. Complete all questions, then generate your readiness verdict.</p>
+  </div>
+
+  <!-- Process sections -->
+  <div id="section-ht" class="hidden">
+    <div class="card">
+      <h2>Heat Treatment Readiness — AC7102</h2>
+      <div class="process-desc">Applies to solution heat treatment, aging, annealing, normalizing, quenching, and stress relieving of metals. Covers aerospace alloy specifications (AMS, MIL), furnace qualification, and process control. NADCAP audit criteria: AC7102/1–AC7102/9 series.</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#dc2626;"></div><span>Critical — single NO = NOT READY</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--ce-accent);"></div><span>Standard</span></div>
+      </div>
+
+      <div class="section-header">Section 1 — Specifications &amp; Process Procedures</div>
+      <div id="ht-q1" class="question-row critical" data-process="ht" data-crit="1">
+        <div class="question-header"><span class="q-num">HT-1</span><span class="q-text">Are all applicable material and process specifications (AMS, MIL-H, customer-specific) listed in a controlled document and currently revision-controlled?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7102 §2.1 / AS9100D Cl. 8.5.1 / Customer engineering drawing requirement</div>
+        <div class="response-row" data-q="ht-q1"></div>
+      </div>
+      <div id="ht-q2" class="question-row critical" data-process="ht" data-crit="1">
+        <div class="question-header"><span class="q-num">HT-2</span><span class="q-text">Is there a written Heat Treatment Process Procedure (HTPP) or shop traveler for each process type performed, cross-referencing the governing specification?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7102 §3.1 / AMS2750 §5 / AS9100D Cl. 8.5.1</div>
+        <div class="response-row" data-q="ht-q2"></div>
+      </div>
+      <div id="ht-q3" class="question-row" data-process="ht" data-crit="0">
+        <div class="question-header"><span class="q-num">HT-3</span><span class="q-text">Are process procedures reviewed and approved by qualified personnel before use, and re-reviewed when process parameters or specifications change?</span></div>
+        <div class="q-ref">Ref: AC7102 §3.2 / AS9100D Cl. 7.5</div>
+        <div class="response-row" data-q="ht-q3"></div>
+      </div>
+
+      <div class="section-header">Section 2 — Furnace Qualification (AMS2750)</div>
+      <div id="ht-q4" class="question-row critical" data-process="ht" data-crit="1">
+        <div class="question-header"><span class="q-num">HT-4</span><span class="q-text">Are all furnaces used for aerospace heat treatment classified (Type, Class) per AMS2750 and are current Temperature Uniformity Survey (TUS) records on file and within expiry?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7102 §4.1 / AMS2750F §3.4 TUS requirements</div>
+        <div class="response-row" data-q="ht-q4"></div>
+      </div>
+      <div id="ht-q5" class="question-row critical" data-process="ht" data-crit="1">
+        <div class="question-header"><span class="q-num">HT-5</span><span class="q-text">Are System Accuracy Tests (SATs) performed at the required frequency per AMS2750 and are SAT records current with no expired sensors in use?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AMS2750F §3.3 SAT requirements / AC7102 §4.2</div>
+        <div class="response-row" data-q="ht-q5"></div>
+      </div>
+      <div id="ht-q6" class="question-row" data-process="ht" data-crit="0">
+        <div class="question-header"><span class="q-num">HT-6</span><span class="q-text">Are thermocouples calibrated, lot-tested, and replaced per AMS2750 requirements, with calibration records traceable to NIST/NPL?</span></div>
+        <div class="q-ref">Ref: AMS2750F §3.2 / AC7102 §4.3</div>
+        <div class="response-row" data-q="ht-q6"></div>
+      </div>
+      <div id="ht-q7" class="question-row" data-process="ht" data-crit="0">
+        <div class="question-header"><span class="q-num">HT-7</span><span class="q-text">Are furnace instrumentation and controllers (recorders, controllers) calibrated per AMS2750 and are calibration records maintained?</span></div>
+        <div class="q-ref">Ref: AMS2750F §3.1 / AS9100D Cl. 7.1.5</div>
+        <div class="response-row" data-q="ht-q7"></div>
+      </div>
+
+      <div class="section-header">Section 3 — Personnel Qualification</div>
+      <div id="ht-q8" class="question-row critical" data-process="ht" data-crit="1">
+        <div class="question-header"><span class="q-num">HT-8</span><span class="q-text">Are heat treatment operators trained and authorized for each process type, with training records on file showing task-specific authorization?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7102 §5.1 / AS9100D Cl. 7.2 / Customer flow-down requirements</div>
+        <div class="response-row" data-q="ht-q8"></div>
+      </div>
+      <div id="ht-q9" class="question-row" data-process="ht" data-crit="0">
+        <div class="question-header"><span class="q-num">HT-9</span><span class="q-text">Is there a designated responsible individual (process supervisor or metallurgist) accountable for heat treatment process compliance?</span></div>
+        <div class="q-ref">Ref: AC7102 §5.2 / AS9100D Cl. 5.3</div>
+        <div class="response-row" data-q="ht-q9"></div>
+      </div>
+
+      <div class="section-header">Section 4 — Load Documentation &amp; Records</div>
+      <div id="ht-q10" class="question-row critical" data-process="ht" data-crit="1">
+        <div class="question-header"><span class="q-num">HT-10</span><span class="q-text">Is a load record (furnace log or shop traveler) completed for every heat treatment run, capturing: part numbers, alloy/specification, set-point vs. actual temperatures, time-at-temperature, operator ID, and furnace ID?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7102 §6.1 / AMS2750 data recording requirements / AS9100D Cl. 8.5.2</div>
+        <div class="response-row" data-q="ht-q10"></div>
+      </div>
+      <div id="ht-q11" class="question-row" data-process="ht" data-crit="0">
+        <div class="question-header"><span class="q-num">HT-11</span><span class="q-text">Are heat treatment records retained per the applicable record retention requirement (typically 10+ years for aerospace) and are records readily retrievable by part number and lot?</span></div>
+        <div class="q-ref">Ref: AC7102 §6.2 / AS9100D Cl. 7.5.3 / Customer PO requirements</div>
+        <div class="response-row" data-q="ht-q11"></div>
+      </div>
+
+      <div class="section-header">Section 5 — Nonconforming Material &amp; Corrective Action</div>
+      <div id="ht-q12" class="question-row" data-process="ht" data-crit="0">
+        <div class="question-header"><span class="q-num">HT-12</span><span class="q-text">Is there a documented process for identifying and segregating nonconforming heat-treated parts, including notification to customer when specification deviations occur?</span></div>
+        <div class="q-ref">Ref: AC7102 §7 / AS9100D Cl. 8.7 / Customer notification requirements</div>
+        <div class="response-row" data-q="ht-q12"></div>
+      </div>
+      <div id="ht-q13" class="question-row" data-process="ht" data-crit="0">
+        <div class="question-header"><span class="q-num">HT-13</span><span class="q-text">Are process deviations and equipment anomalies investigated with root cause and corrective action, and are findings tracked to closure?</span></div>
+        <div class="q-ref">Ref: AC7102 §7.2 / AS9100D Cl. 10.2</div>
+        <div class="response-row" data-q="ht-q13"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="section-ndt" class="hidden">
+    <div class="card">
+      <h2>Non-Destructive Testing / NDE Readiness — AC7114</h2>
+      <div class="process-desc">Applies to penetrant testing (PT), magnetic particle testing (MT), ultrasonic testing (UT), radiographic testing (RT), and eddy current testing (ET). Personnel qualification per NAS 410 / EN 4179. NADCAP criteria: AC7114/1–AC7114/9 series.</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#dc2626;"></div><span>Critical — single NO = NOT READY</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--ce-accent);"></div><span>Standard</span></div>
+      </div>
+
+      <div class="section-header">Section 1 — Personnel Qualification (NAS 410 / EN 4179)</div>
+      <div id="ndt-q1" class="question-row critical" data-process="ndt" data-crit="1">
+        <div class="question-header"><span class="q-num">NDT-1</span><span class="q-text">Are all NDT/NDE personnel qualified and certified to NAS 410 or EN 4179 (or customer-specified alternative) at the required level (Level I/II/III) for each method and technique performed?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7114 §3.1 / NAS 410 Rev 5 / Customer NDT qualification requirements</div>
+        <div class="response-row" data-q="ndt-q1"></div>
+      </div>
+      <div id="ndt-q2" class="question-row critical" data-process="ndt" data-crit="1">
+        <div class="question-header"><span class="q-num">NDT-2</span><span class="q-text">Is there a written and approved NDT Written Practice covering: methods used, qualification requirements, training requirements, experience requirements, examination requirements, and certification/recertification cycle?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: NAS 410 §6.1 Written Practice / AC7114 §3.2</div>
+        <div class="response-row" data-q="ndt-q2"></div>
+      </div>
+      <div id="ndt-q3" class="question-row" data-process="ndt" data-crit="0">
+        <div class="question-header"><span class="q-num">NDT-3</span><span class="q-text">Are current certification records maintained for each NDT technician showing: method, technique, level, initial cert date, expiry date, and employer/certifying entity?</span></div>
+        <div class="q-ref">Ref: NAS 410 §6.4 / AC7114 §3.3</div>
+        <div class="response-row" data-q="ndt-q3"></div>
+      </div>
+
+      <div class="section-header">Section 2 — Procedures &amp; Specifications</div>
+      <div id="ndt-q4" class="question-row critical" data-process="ndt" data-crit="1">
+        <div class="question-header"><span class="q-num">NDT-4</span><span class="q-text">Is each NDT method performed per a written, approved procedure (per ASTM, AMS, or customer process spec) that has been reviewed by a Level III and is currently revision-controlled?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7114 §4.1 / ASTM E1444 / AMS2647 / Customer flow-down</div>
+        <div class="response-row" data-q="ndt-q4"></div>
+      </div>
+      <div id="ndt-q5" class="question-row" data-process="ndt" data-crit="0">
+        <div class="question-header"><span class="q-num">NDT-5</span><span class="q-text">Are NDT procedures qualified/demonstrated before first use on production parts, with qualification records retained?</span></div>
+        <div class="q-ref">Ref: AC7114 §4.2 / AS9100D Cl. 8.5.1</div>
+        <div class="response-row" data-q="ndt-q5"></div>
+      </div>
+
+      <div class="section-header">Section 3 — Equipment &amp; Reference Standards</div>
+      <div id="ndt-q6" class="question-row critical" data-process="ndt" data-crit="1">
+        <div class="question-header"><span class="q-num">NDT-6</span><span class="q-text">Are NDT equipment and reference standards (penetrant test panels, mag particle reference bars, UT reference blocks, RT penetrameters) calibrated/verified per procedure requirements and within calibration intervals?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7114 §5.1 / AS9100D Cl. 7.1.5 / ASTM method-specific calibration requirements</div>
+        <div class="response-row" data-q="ndt-q6"></div>
+      </div>
+      <div id="ndt-q7" class="question-row" data-process="ndt" data-crit="0">
+        <div class="question-header"><span class="q-num">NDT-7</span><span class="q-text">Is NDT equipment (UV lights, ammeters, ultrasonic instruments) qualified for each applicable technique before use, with qualification records maintained?</span></div>
+        <div class="q-ref">Ref: AC7114 §5.2 / ASTM E709 / ASTM E1444</div>
+        <div class="response-row" data-q="ndt-q7"></div>
+      </div>
+
+      <div class="section-header">Section 4 — Process Control &amp; Records</div>
+      <div id="ndt-q8" class="question-row critical" data-process="ndt" data-crit="1">
+        <div class="question-header"><span class="q-num">NDT-8</span><span class="q-text">Is an NDT inspection record (report/traveler) generated for each part/lot inspected, capturing: date, part ID, method, technique, procedure revision, acceptance criteria, result (accept/reject), and Level II/III certifier signature?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7114 §6.1 / AS9100D Cl. 8.6 / Customer CoC and record requirements</div>
+        <div class="response-row" data-q="ndt-q8"></div>
+      </div>
+      <div id="ndt-q9" class="question-row" data-process="ndt" data-crit="0">
+        <div class="question-header"><span class="q-num">NDT-9</span><span class="q-text">Are penetrant and magnetic particle processing chemicals controlled (concentration/bath monitoring, concentration logs, contamination checks) per procedure requirements?</span></div>
+        <div class="q-ref">Ref: AC7114 §4.3 (PT/MT chemistry control) / AMS2647 / ASTM E1444</div>
+        <div class="response-row" data-q="ndt-q9"></div>
+      </div>
+      <div id="ndt-q10" class="question-row" data-process="ndt" data-crit="0">
+        <div class="question-header"><span class="q-num">NDT-10</span><span class="q-text">Is NDT work environment (lighting, temperature, cleanliness) verified before each inspection session with verification records retained?</span></div>
+        <div class="q-ref">Ref: AC7114 §5.3 / ASTM E1444 lighting requirements</div>
+        <div class="response-row" data-q="ndt-q10"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="section-chem" class="hidden">
+    <div class="card">
+      <h2>Chemical Processing Readiness — AC7108</h2>
+      <div class="process-desc">Applies to anodizing, plating, chemical conversion coating, etching, cleaning, and passivation of aerospace parts. NADCAP criteria: AC7108 series. Environmental and worker safety controls are audited alongside process controls.</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#dc2626;"></div><span>Critical — single NO = NOT READY</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--ce-accent);"></div><span>Standard</span></div>
+      </div>
+
+      <div class="section-header">Section 1 — Specification &amp; Process Control</div>
+      <div id="chem-q1" class="question-row critical" data-process="chem" data-crit="1">
+        <div class="question-header"><span class="q-num">CH-1</span><span class="q-text">Is each chemical process performed to a current, controlled process specification (AMS, MIL, customer spec) and are all applicable flow-down requirements identified and traceable to the part/process record?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7108 §2.1 / AMS2488 / MIL-A-8625 / Customer PO engineering requirements</div>
+        <div class="response-row" data-q="chem-q1"></div>
+      </div>
+      <div id="chem-q2" class="question-row critical" data-process="chem" data-crit="1">
+        <div class="question-header"><span class="q-num">CH-2</span><span class="q-text">Are bath or solution concentrations (chemical tank chemistry) monitored at the required frequency, with bath analysis records maintained and out-of-range actions documented?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7108 §3.1 / Process specification bath control requirements</div>
+        <div class="response-row" data-q="chem-q2"></div>
+      </div>
+      <div id="chem-q3" class="question-row" data-process="chem" data-crit="0">
+        <div class="question-header"><span class="q-num">CH-3</span><span class="q-text">Are process parameters (temperature, voltage/current, time, pH) monitored and recorded for each production run, with parameter ranges defined and deviations managed?</span></div>
+        <div class="q-ref">Ref: AC7108 §3.2 / AMS process specification parameter ranges</div>
+        <div class="response-row" data-q="chem-q3"></div>
+      </div>
+
+      <div class="section-header">Section 2 — Personnel &amp; Environmental Controls</div>
+      <div id="chem-q4" class="question-row critical" data-process="chem" data-crit="1">
+        <div class="question-header"><span class="q-num">CH-4</span><span class="q-text">Are chemical processing personnel trained for each process they perform, with task-specific training authorization on record?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7108 §4.1 / AS9100D Cl. 7.2</div>
+        <div class="response-row" data-q="chem-q4"></div>
+      </div>
+      <div id="chem-q5" class="question-row" data-process="chem" data-crit="0">
+        <div class="question-header"><span class="q-num">CH-5</span><span class="q-text">Are environmental and safety requirements (waste treatment, discharge limits, PPE, HazMat management) documented, controlled, and compliant with applicable permits?</span></div>
+        <div class="q-ref">Ref: AC7108 §4.2 / EPA / Customer environmental requirements</div>
+        <div class="response-row" data-q="chem-q5"></div>
+      </div>
+      <div id="chem-q6" class="question-row" data-process="chem" data-crit="0">
+        <div class="question-header"><span class="q-num">CH-6</span><span class="q-text">Are masking materials and methods controlled and approved, with masking records showing which areas were masked for each part?</span></div>
+        <div class="q-ref">Ref: AC7108 §3.3 / Customer masking approval requirements</div>
+        <div class="response-row" data-q="chem-q6"></div>
+      </div>
+
+      <div class="section-header">Section 3 — Testing &amp; Inspection</div>
+      <div id="chem-q7" class="question-row critical" data-process="chem" data-crit="1">
+        <div class="question-header"><span class="q-num">CH-7</span><span class="q-text">Is coating thickness, adhesion, or other process verification testing performed as required by specification, with test results recorded per part/lot and instruments calibrated?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7108 §5.1 / AMS specification acceptance test requirements / AS9100D Cl. 7.1.5</div>
+        <div class="response-row" data-q="chem-q7"></div>
+      </div>
+      <div id="chem-q8" class="question-row" data-process="chem" data-crit="0">
+        <div class="question-header"><span class="q-num">CH-8</span><span class="q-text">Are process records (traveler/log) completed for each batch or part showing: part numbers, specification, tank/bath ID, parameters, results, and operator/inspector ID?</span></div>
+        <div class="q-ref">Ref: AC7108 §5.2 / AS9100D Cl. 8.5.2</div>
+        <div class="response-row" data-q="chem-q8"></div>
+      </div>
+      <div id="chem-q9" class="question-row" data-process="chem" data-crit="0">
+        <div class="question-header"><span class="q-num">CH-9</span><span class="q-text">Is test panel / witness coupon testing performed as required by specification, with results meeting acceptance criteria and records retained?</span></div>
+        <div class="q-ref">Ref: AC7108 §5.3 / MIL-A-8625 test panel requirements</div>
+        <div class="response-row" data-q="chem-q9"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="section-weld" class="hidden">
+    <div class="card">
+      <h2>Welding Readiness — AC7110</h2>
+      <div class="process-desc">Applies to fusion welding, resistance welding, and brazing on aerospace structural components. Welder qualification per AWS D17.1 / AMS2680 / customer specification. NADCAP criteria: AC7110 series.</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#dc2626;"></div><span>Critical — single NO = NOT READY</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--ce-accent);"></div><span>Standard</span></div>
+      </div>
+
+      <div class="section-header">Section 1 — Welder / Operator Qualification</div>
+      <div id="weld-q1" class="question-row critical" data-process="weld" data-crit="1">
+        <div class="question-header"><span class="q-num">W-1</span><span class="q-text">Are all welders and welding operators qualified and currently certified to the applicable welding standard (AWS D17.1, AMS2680, customer spec) for each process, position, and base metal they weld?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7110 §3.1 / AWS D17.1 / Customer welding qualification requirements</div>
+        <div class="response-row" data-q="weld-q1"></div>
+      </div>
+      <div id="weld-q2" class="question-row critical" data-process="weld" data-crit="1">
+        <div class="question-header"><span class="q-num">W-2</span><span class="q-text">Are current welder qualification records maintained showing: process, position, base metal group, filler metal, effective date, expiry, and continuity evidence (recent production welds)?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7110 §3.2 / AWS D17.1 §5 qualification record requirements</div>
+        <div class="response-row" data-q="weld-q2"></div>
+      </div>
+
+      <div class="section-header">Section 2 — Welding Procedure Specifications (WPS)</div>
+      <div id="weld-q3" class="question-row critical" data-process="weld" data-crit="1">
+        <div class="question-header"><span class="q-num">W-3</span><span class="q-text">Is each weld joint type performed per a written, approved Welding Procedure Specification (WPS) that has been qualified with a Procedure Qualification Record (PQR) and is currently revision-controlled?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7110 §4.1 / AWS D17.1 §4 WPS/PQR requirements</div>
+        <div class="response-row" data-q="weld-q3"></div>
+      </div>
+      <div id="weld-q4" class="question-row" data-process="weld" data-crit="0">
+        <div class="question-header"><span class="q-num">W-4</span><span class="q-text">Are welding procedure specification changes controlled so that essential variable changes trigger re-qualification?</span></div>
+        <div class="q-ref">Ref: AC7110 §4.2 / AWS D17.1 essential variable requirements</div>
+        <div class="response-row" data-q="weld-q4"></div>
+      </div>
+
+      <div class="section-header">Section 3 — Filler Metals &amp; Consumables</div>
+      <div id="weld-q5" class="question-row critical" data-process="weld" data-crit="1">
+        <div class="question-header"><span class="q-num">W-5</span><span class="q-text">Are filler metals and welding consumables procured to AMS or AWS specification, received with certified test reports (C of C + chemical/mechanical test data), and stored per specification requirements (temperature, humidity)?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7110 §5.1 / AMS filler metal specifications / AWS consumable requirements</div>
+        <div class="response-row" data-q="weld-q5"></div>
+      </div>
+      <div id="weld-q6" class="question-row" data-process="weld" data-crit="0">
+        <div class="question-header"><span class="q-num">W-6</span><span class="q-text">Is filler metal traceability maintained from receipt through to the weld joint (heat/lot number recorded on weld traveler)?</span></div>
+        <div class="q-ref">Ref: AC7110 §5.2 / AS9100D Cl. 8.5.2 traceability</div>
+        <div class="response-row" data-q="weld-q6"></div>
+      </div>
+
+      <div class="section-header">Section 4 — Inspection &amp; NDT</div>
+      <div id="weld-q7" class="question-row" data-process="weld" data-crit="0">
+        <div class="question-header"><span class="q-num">W-7</span><span class="q-text">Is weld inspection performed per documented criteria (visual inspection to AWS D17.1 Class A/B/C or customer acceptance criteria) with qualified inspectors and inspection records per joint?</span></div>
+        <div class="q-ref">Ref: AC7110 §6.1 / AWS D17.1 §8 acceptance criteria</div>
+        <div class="response-row" data-q="weld-q7"></div>
+      </div>
+      <div id="weld-q8" class="question-row" data-process="weld" data-crit="0">
+        <div class="question-header"><span class="q-num">W-8</span><span class="q-text">Are weld repair procedures documented and controlled, with repair requirements satisfied (qualified welder, re-inspection, customer notification if required)?</span></div>
+        <div class="q-ref">Ref: AC7110 §6.2 / AS9100D Cl. 8.7 nonconforming output</div>
+        <div class="response-row" data-q="weld-q8"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="section-comp" class="hidden">
+    <div class="card">
+      <h2>Composites Readiness — AC7118</h2>
+      <div class="process-desc">Applies to lay-up and cure of thermoset composite structures (carbon fibre/epoxy, fibreglass) for aerospace applications. Material control, autoclave/oven qualification, and cure documentation are the primary audit focus. NADCAP criteria: AC7118 series.</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#dc2626;"></div><span>Critical — single NO = NOT READY</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--ce-accent);"></div><span>Standard</span></div>
+      </div>
+
+      <div class="section-header">Section 1 — Prepreg Material Control</div>
+      <div id="comp-q1" class="question-row critical" data-process="comp" data-crit="1">
+        <div class="question-header"><span class="q-num">CO-1</span><span class="q-text">Are prepreg materials procured to a qualified material specification (AMS, customer QPL), stored at the required temperature, and tracked for cumulative out-time and freezer-time against expiry limits?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7118 §3.1 / Customer material control requirements / AMS specification storage requirements</div>
+        <div class="response-row" data-q="comp-q1"></div>
+      </div>
+      <div id="comp-q2" class="question-row critical" data-process="comp" data-crit="1">
+        <div class="question-header"><span class="q-num">CO-2</span><span class="q-text">Is material traceability maintained from prepreg roll receipt through layup and cure, with lot/roll numbers recorded on the traveler so finished-part traceability to raw material is possible?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7118 §3.2 / AS9100D Cl. 8.5.2 traceability</div>
+        <div class="response-row" data-q="comp-q2"></div>
+      </div>
+
+      <div class="section-header">Section 2 — Autoclave / Oven Qualification</div>
+      <div id="comp-q3" class="question-row critical" data-process="comp" data-crit="1">
+        <div class="question-header"><span class="q-num">CO-3</span><span class="q-text">Are autoclaves and ovens used for composite cure qualified per AMS2750 (temperature uniformity) requirements applicable to composites cure equipment, with current TUS/SAT records on file?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7118 §4.1 / AMS2750 cure equipment applicability / Customer equipment qualification requirements</div>
+        <div class="response-row" data-q="comp-q3"></div>
+      </div>
+      <div id="comp-q4" class="question-row" data-process="comp" data-crit="0">
+        <div class="question-header"><span class="q-num">CO-4</span><span class="q-text">Are autoclave pressure gauges, thermocouples, and control/recording instruments calibrated per AMS2750 requirements with calibration records maintained?</span></div>
+        <div class="q-ref">Ref: AC7118 §4.2 / AMS2750 instrumentation requirements</div>
+        <div class="response-row" data-q="comp-q4"></div>
+      </div>
+
+      <div class="section-header">Section 3 — Layup &amp; Cure Process Controls</div>
+      <div id="comp-q5" class="question-row critical" data-process="comp" data-crit="1">
+        <div class="question-header"><span class="q-num">CO-5</span><span class="q-text">Is each composite part produced per a controlled layup and cure procedure that specifies: ply sequence, fibre orientation, cure cycle (time, temperature, pressure ramp rates), vacuum requirements, and acceptance criteria?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7118 §5.1 / Drawing/manufacturing planning requirements / AS9100D Cl. 8.5.1</div>
+        <div class="response-row" data-q="comp-q5"></div>
+      </div>
+      <div id="comp-q6" class="question-row" data-process="comp" data-crit="0">
+        <div class="question-header"><span class="q-num">CO-6</span><span class="q-text">Are layup operators trained and authorized for composite layup tasks with task-specific training records on file?</span></div>
+        <div class="q-ref">Ref: AC7118 §5.2 / AS9100D Cl. 7.2</div>
+        <div class="response-row" data-q="comp-q6"></div>
+      </div>
+      <div id="comp-q7" class="question-row critical" data-process="comp" data-crit="1">
+        <div class="question-header"><span class="q-num">CO-7</span><span class="q-text">Is a cure cycle traveler completed for every autoclave/oven run capturing: part numbers, lay-up operator, cure cycle set-points vs. actuals (temp, pressure, vacuum, time), thermocouple data, and cure completion sign-off?</span><span class="crit-badge">CRITICAL</span></div>
+        <div class="q-ref">Ref: AC7118 §5.3 / Customer cure record requirements</div>
+        <div class="response-row" data-q="comp-q7"></div>
+      </div>
+      <div id="comp-q8" class="question-row" data-process="comp" data-crit="0">
+        <div class="question-header"><span class="q-num">CO-8</span><span class="q-text">Are test panels / witness coupons cured with each production lot per specification requirements, with mechanical/NDT test results recorded and meeting acceptance criteria?</span></div>
+        <div class="q-ref">Ref: AC7118 §5.4 / Customer test coupon specification requirements</div>
+        <div class="response-row" data-q="comp-q8"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results panel -->
+  <div id="results-panel" class="hidden">
+    <div class="card">
+      <h2>Readiness Assessment Results</h2>
+      <div id="verdict-display"></div>
+      <div class="score-grid">
+        <div class="score-box"><div class="val" id="score-pct">—</div><div class="lbl">Overall Score</div></div>
+        <div class="score-box"><div class="val" id="score-yes">—</div><div class="lbl">Yes (Conforming)</div></div>
+        <div class="score-box"><div class="val" id="score-partial">—</div><div class="lbl">Partial</div></div>
+        <div class="score-box"><div class="val" id="score-no">—</div><div class="lbl">No (Gap)</div></div>
+        <div class="score-box"><div class="val" id="score-crit">—</div><div class="lbl">Critical Gaps</div></div>
+      </div>
+      <div id="mai-obs" style="margin:12px 0;"></div>
+      <div id="gap-section" class="hidden">
+        <h3>Priority Gap Register</h3>
+        <table class="gap-table">
+          <thead><tr><th>#</th><th>Question</th><th>Process Section</th><th>Response</th><th>Priority</th></tr></thead>
+          <tbody id="gap-tbody"></tbody>
+        </table>
+      </div>
+      <div id="mr-narrative" style="margin:14px 0;"></div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="exportJSON()">Export JSON</button>
+        <button class="btn btn-secondary" onclick="window.print()">Print Report</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="assess-btn-card">
+    <div class="mai-badge">
+      <span>M-AI</span> Domain: nadcap-special-process-readiness | Architecture: DEFINED | DIMs: 4 (process-procedure-evidence, personnel-qualification, equipment-calibration, process-record)
+    </div>
+    <div class="btn-group" style="margin-top:14px;">
+      <button class="btn btn-primary" onclick="computeResults()">Generate Readiness Assessment</button>
+      <button class="btn btn-secondary" onclick="resetAll()">Reset All</button>
+    </div>
+  </div>
+
+  <footer>
+    Conform-Edge Quality Consulting | NADCAP Special Process Readiness Self-Assessment<br>
+    For pre-audit preparation only. This tool does not substitute for the actual NADCAP audit.
+    Audit criteria: AC7102 (HT), AC7114 (NDT), AC7108 (Chem), AC7110 (Welding), AC7118 (Composites).
+  </footer>
+</div>
+
+<script>
+const QUESTIONS = {
+  ht: [
+    {id:'ht-q1',text:'Applicable specifications listed and revision-controlled',crit:true,section:'Specifications & Procedures'},
+    {id:'ht-q2',text:'Written HTPP or shop traveler for each process type',crit:true,section:'Specifications & Procedures'},
+    {id:'ht-q3',text:'Procedures reviewed/approved before use',crit:false,section:'Specifications & Procedures'},
+    {id:'ht-q4',text:'Furnace TUS classification records current (AMS2750)',crit:true,section:'Furnace Qualification'},
+    {id:'ht-q5',text:'SATs performed per frequency; records current',crit:true,section:'Furnace Qualification'},
+    {id:'ht-q6',text:'Thermocouples calibrated and lot-tested per AMS2750',crit:false,section:'Furnace Qualification'},
+    {id:'ht-q7',text:'Furnace instrumentation calibrated per AMS2750',crit:false,section:'Furnace Qualification'},
+    {id:'ht-q8',text:'Operators trained and authorized per process type',crit:true,section:'Personnel Qualification'},
+    {id:'ht-q9',text:'Designated responsible individual for HT compliance',crit:false,section:'Personnel Qualification'},
+    {id:'ht-q10',text:'Load record completed per run (all required fields)',crit:true,section:'Load Documentation & Records'},
+    {id:'ht-q11',text:'Records retained per retention requirement, readily retrievable',crit:false,section:'Load Documentation & Records'},
+    {id:'ht-q12',text:'Nonconforming part ID, segregation, and customer notification process',crit:false,section:'Nonconforming Material & CA'},
+    {id:'ht-q13',text:'Process deviations investigated with RCA/CA tracked to closure',crit:false,section:'Nonconforming Material & CA'},
+  ],
+  ndt: [
+    {id:'ndt-q1',text:'NDT personnel qualified/certified per NAS 410 or EN 4179',crit:true,section:'Personnel Qualification'},
+    {id:'ndt-q2',text:'Written Practice per NAS 410 §6 on file and current',crit:true,section:'Personnel Qualification'},
+    {id:'ndt-q3',text:'Technician certification records complete and current',crit:false,section:'Personnel Qualification'},
+    {id:'ndt-q4',text:'Each method performed per approved procedure (Level III reviewed)',crit:true,section:'Procedures & Specifications'},
+    {id:'ndt-q5',text:'Procedures qualified/demonstrated before production use',crit:false,section:'Procedures & Specifications'},
+    {id:'ndt-q6',text:'NDT equipment and reference standards calibrated/verified',crit:true,section:'Equipment & Reference Standards'},
+    {id:'ndt-q7',text:'NDT instruments qualified for each technique',crit:false,section:'Equipment & Reference Standards'},
+    {id:'ndt-q8',text:'NDT inspection record completed per part/lot (all required fields)',crit:true,section:'Process Control & Records'},
+    {id:'ndt-q9',text:'PT/MT chemistry (bath concentrations) monitored and logged',crit:false,section:'Process Control & Records'},
+    {id:'ndt-q10',text:'Work environment (lighting, temp) verified before each session',crit:false,section:'Process Control & Records'},
+  ],
+  chem: [
+    {id:'chem-q1',text:'Process performed to controlled spec; flow-down requirements identified',crit:true,section:'Specification & Process Control'},
+    {id:'chem-q2',text:'Bath chemistry monitored at required frequency; records maintained',crit:true,section:'Specification & Process Control'},
+    {id:'chem-q3',text:'Process parameters monitored and recorded per run',crit:false,section:'Specification & Process Control'},
+    {id:'chem-q4',text:'Personnel trained and authorized per process type',crit:true,section:'Personnel & Environmental Controls'},
+    {id:'chem-q5',text:'Environmental and safety requirements documented and compliant',crit:false,section:'Personnel & Environmental Controls'},
+    {id:'chem-q6',text:'Masking materials/methods controlled and approved',crit:false,section:'Personnel & Environmental Controls'},
+    {id:'chem-q7',text:'Coating verification testing per spec; instruments calibrated',crit:true,section:'Testing & Inspection'},
+    {id:'chem-q8',text:'Process records (traveler/log) completed per batch/part',crit:false,section:'Testing & Inspection'},
+    {id:'chem-q9',text:'Test panel/witness coupon testing per specification',crit:false,section:'Testing & Inspection'},
+  ],
+  weld: [
+    {id:'weld-q1',text:'Welders qualified/certified per AWS D17.1 or applicable spec',crit:true,section:'Welder Qualification'},
+    {id:'weld-q2',text:'Certification records complete (process/position/metal/expiry/continuity)',crit:true,section:'Welder Qualification'},
+    {id:'weld-q3',text:'WPS qualified with PQR; current and revision-controlled',crit:true,section:'Welding Procedure Specifications'},
+    {id:'weld-q4',text:'Essential variable changes trigger re-qualification',crit:false,section:'Welding Procedure Specifications'},
+    {id:'weld-q5',text:'Filler metals per AMS/AWS spec; CTRs on file; storage controlled',crit:true,section:'Filler Metals & Consumables'},
+    {id:'weld-q6',text:'Filler metal traceability maintained to weld joint',crit:false,section:'Filler Metals & Consumables'},
+    {id:'weld-q7',text:'Weld inspection per documented criteria with qualified inspectors',crit:false,section:'Inspection & NDT'},
+    {id:'weld-q8',text:'Repair procedures documented and controlled',crit:false,section:'Inspection & NDT'},
+  ],
+  comp: [
+    {id:'comp-q1',text:'Prepreg per QPL spec; stored at temp; out-time/freezer-time tracked',crit:true,section:'Prepreg Material Control'},
+    {id:'comp-q2',text:'Material traceability: roll to finished part',crit:true,section:'Prepreg Material Control'},
+    {id:'comp-q3',text:'Autoclave/oven qualified per AMS2750; TUS/SAT records current',crit:true,section:'Autoclave / Oven Qualification'},
+    {id:'comp-q4',text:'Autoclave instruments calibrated per AMS2750',crit:false,section:'Autoclave / Oven Qualification'},
+    {id:'comp-q5',text:'Layup/cure procedure specifies ply sequence, cure cycle, acceptance criteria',crit:true,section:'Layup & Cure Process Controls'},
+    {id:'comp-q6',text:'Layup operators trained and task-authorized',crit:false,section:'Layup & Cure Process Controls'},
+    {id:'comp-q7',text:'Cure cycle traveler completed per run (all required fields)',crit:true,section:'Layup & Cure Process Controls'},
+    {id:'comp-q8',text:'Test coupons cured per lot; results meet acceptance criteria',crit:false,section:'Layup & Cure Process Controls'},
+  ]
+};
+
+const PROCESS_LABELS = {ht:'Heat Treatment (AC7102)',ndt:'NDT/NDE (AC7114)',chem:'Chemical Processing (AC7108)',weld:'Welding (AC7110)',comp:'Composites (AC7118)'};
+let currentProcess = null;
+
+function buildResponseRows(process) {
+  const qs = QUESTIONS[process] || [];
+  qs.forEach(q => {
+    const row = document.querySelector('.response-row[data-q="'+q.id+'"]');
+    if (!row || row.childNodes.length > 0) return;
+    ['yes','partial','no'].forEach(v => {
+      const lbl = document.createElement('label');
+      const inp = document.createElement('input');
+      inp.type = 'radio'; inp.name = q.id; inp.value = v;
+      inp.addEventListener('change', () => styleLabel(q.id));
+      lbl.appendChild(inp);
+      lbl.appendChild(document.createTextNode(v === 'yes' ? '✓ Yes' : v === 'partial' ? '~ Partial' : '✗ No'));
+      row.appendChild(lbl);
+    });
+  });
+}
+
+function styleLabel(qid) {
+  const row = document.querySelector('.response-row[data-q="'+qid+'"]');
+  if (!row) return;
+  row.querySelectorAll('label').forEach(l => {
+    l.className = '';
+    const v = l.querySelector('input').value;
+    if (l.querySelector('input').checked) {
+      l.className = v === 'yes' ? 'sel-yes' : v === 'partial' ? 'sel-partial' : 'sel-no';
+    }
+  });
+}
+
+function selectProcess(p) {
+  currentProcess = p;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const map = {ht:0,ndt:1,chem:2,weld:3,comp:4};
+  const btns = document.querySelectorAll('.tab-btn');
+  if (btns[map[p]]) btns[map[p]].classList.add('active');
+  document.getElementById('processSelect').value = p;
+  ['ht','ndt','chem','weld','comp'].forEach(x => {
+    const sec = document.getElementById('section-'+x);
+    if (sec) sec.classList.toggle('hidden', x !== p);
+  });
+  buildResponseRows(p);
+  document.getElementById('results-panel').classList.add('hidden');
+}
+
+function showProcess() {
+  const v = document.getElementById('processSelect').value;
+  if (v) selectProcess(v);
+}
+
+function computeResults() {
+  if (!currentProcess) { alert('Please select a special process first.'); return; }
+  const qs = QUESTIONS[currentProcess];
+  let yes=0,partial=0,no=0,critNo=0,total=qs.length;
+  const gaps = [];
+  qs.forEach(q => {
+    const sel = document.querySelector('input[name="'+q.id+'"]:checked');
+    const val = sel ? sel.value : null;
+    if (val === 'yes') yes++;
+    else if (val === 'partial') { partial++; gaps.push({q,val:'Partial'}); }
+    else { no++; if(q.crit) critNo++; gaps.push({q,val:'No'}); }
+  });
+  const score = Math.round((yes + partial*0.5) / total * 100);
+  let vClass, vTitle, vMsg;
+  if (critNo > 0) { vClass='not-ready'; vTitle='⛔ NOT READY'; vMsg='One or more CRITICAL gaps detected. NADCAP audit outcome: likely Major NCR(s). Address all critical items before audit.'; }
+  else if (score >= 85) { vClass='ready'; vTitle='✓ AUDIT READY'; vMsg='No critical gaps. Score ≥85%. Continue with evidence verification, pre-audit table-top, and NADCAP supplier portal preparation.'; }
+  else if (score >= 60) { vClass='conditional'; vTitle='⚠ CONDITIONAL'; vMsg='No critical gaps but score <85%. Address all identified gaps before audit to reduce NCR risk.'; }
+  else { vClass='not-ready'; vTitle='⛔ NOT READY'; vMsg='Score <60% with multiple gaps. Significant pre-audit work required.'; }
+
+  document.getElementById('verdict-display').innerHTML = `<div class="verdict-bar ${vClass}"><h3>${vTitle}</h3><p>${vMsg}</p></div>`;
+  document.getElementById('score-pct').textContent = score+'%';
+  document.getElementById('score-yes').textContent = yes;
+  document.getElementById('score-partial').textContent = partial;
+  document.getElementById('score-no').textContent = no;
+  document.getElementById('score-crit').textContent = critNo;
+
+  const maiTxt = `<div class="mai-badge"><span>M-AI Observation</span> Process: ${PROCESS_LABELS[currentProcess]} | Score: ${score}% | Critical gaps: ${critNo} | Verdict: ${vTitle.replace(/[✓⛔⚠]\s*/,'')} | DIMs evaluated: process-procedure-evidence, personnel-qualification, equipment-calibration, process-record</div>`;
+  document.getElementById('mai-obs').innerHTML = maiTxt;
+
+  const tbody = document.getElementById('gap-tbody');
+  tbody.innerHTML = '';
+  if (gaps.length) {
+    document.getElementById('gap-section').classList.remove('hidden');
+    gaps.forEach((g,i) => {
+      const tr = document.createElement('tr');
+      if(g.q.crit && g.val==='No') tr.className='crit-row';
+      tr.innerHTML = `<td>${i+1}</td><td>${g.q.text}${g.q.crit?'<br><span style="color:#dc2626;font-size:11px;font-weight:700;">⚡ CRITICAL</span>':''}</td><td>${g.q.section}</td><td>${g.val}</td><td>${g.q.crit && g.val==='No'?'<strong style="color:#dc2626">CRITICAL — RESOLVE FIRST</strong>':g.val==='No'?'High':'Medium'}</td>`;
+      tbody.appendChild(tr);
+    });
+  } else {
+    document.getElementById('gap-section').classList.add('hidden');
+  }
+
+  const ansCount = qs.filter(q => document.querySelector('input[name="'+q.id+'"]:checked')).length;
+  document.getElementById('mr-narrative').innerHTML = `<div style="background:#f4f6fb;border:1px solid #d0d8e8;border-radius:6px;padding:14px;font-size:12px;color:#3a5a8c;margin-top:10px;"><strong>Management Review Narrative (Cl. 9.3):</strong><br>NADCAP ${PROCESS_LABELS[currentProcess]} pre-audit self-assessment completed ${new Date().toISOString().split('T')[0]} — ${ansCount} of ${total} questions answered. Score: ${score}%. Critical gaps: ${critNo}. Verdict: ${vTitle.replace(/[✓⛔⚠]\s*/,'')}. ${gaps.length} gap(s) identified for corrective action prior to NADCAP audit.</div>`;
+
+  document.getElementById('results-panel').classList.remove('hidden');
+  document.getElementById('results-panel').scrollIntoView({behavior:'smooth'});
+}
+
+function exportJSON() {
+  if (!currentProcess) return;
+  const qs = QUESTIONS[currentProcess];
+  const data = {
+    tool:'NADCAP Special Process Readiness Self-Assessment',
+    vendor:'Conform-Edge Quality Consulting',
+    process:PROCESS_LABELS[currentProcess],
+    auditCriteria: currentProcess==='ht'?'AC7102':currentProcess==='ndt'?'AC7114':currentProcess==='chem'?'AC7108':currentProcess==='weld'?'AC7110':'AC7118',
+    date:new Date().toISOString().split('T')[0],
+    responses:{},
+    mai:{domain:'nadcap-special-process-readiness',architecture:'DEFINED',dims:['process-procedure-evidence','personnel-qualification','equipment-calibration','process-record']}
+  };
+  qs.forEach(q => {
+    const sel = document.querySelector('input[name="'+q.id+'"]:checked');
+    data.responses[q.id] = {text:q.text,critical:q.crit,response:sel?sel.value:'unanswered',section:q.section};
+  });
+  const a = document.createElement('a');
+  a.href = 'data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));
+  a.download = 'nadcap-readiness-'+currentProcess+'-'+data.date+'.json';
+  a.click();
+}
+
+function resetAll() {
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+  document.querySelectorAll('.response-row label').forEach(l => l.className = '');
+  document.getElementById('results-panel').classList.add('hidden');
+}
+</script>
+</body>
+</html>

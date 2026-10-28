@@ -1,0 +1,409 @@
+{
+ "standard": "AS9100D",
+ "batch": "01",
+ "covers": "clauses 4.2 to 6.2.2 (as far as the extract at lines 1-70)",
+ "authored_from": "licensed-private/lettered-AS9100D.md (private licensed text)",
+ "rows": [
+  {
+   "ref": "4.2(a)",
+   "question": "Show me the list of interested parties you determined as relevant to the QMS. How did you decide which ones are relevant?",
+   "evidence": [
+    "Interested party list with the reason each was judged relevant",
+    "Date of the last review of the list"
+   ]
+  },
+  {
+   "ref": "4.2(b)",
+   "question": "For each relevant interested party, what requirements have you determined, and how do you monitor and review them?",
+   "evidence": [
+    "Requirements register per interested party",
+    "Monitoring records such as customer or regulator correspondence"
+   ]
+  },
+  {
+   "ref": "4.3(a)",
+   "question": "Show how the external and internal issues from 4.1 were taken into account when you set the QMS scope.",
+   "evidence": [
+    "Scope document that cross-references the context analysis"
+   ]
+  },
+  {
+   "ref": "4.3(b)",
+   "question": "Show how the requirements of relevant interested parties from 4.2 were taken into account when you set the QMS scope.",
+   "evidence": [
+    "Scope document that cross-references the interested party requirements"
+   ]
+  },
+  {
+   "ref": "4.3(c)",
+   "question": "Does the scope state the products and services covered, and where a requirement is judged not applicable, what is the justification?",
+   "evidence": [
+    "Scope statement with products and services",
+    "Justification for each non-applicable requirement, linked to the quality manual"
+   ]
+  },
+  {
+   "ref": "4.4.1(a)",
+   "question": "For one QMS process, what are its inputs and outputs, and where are they defined?",
+   "evidence": [
+    "Process definition with inputs and outputs"
+   ]
+  },
+  {
+   "ref": "4.4.1(b)",
+   "question": "Show the sequence and interaction of your QMS processes.",
+   "evidence": [
+    "Process map or interaction diagram"
+   ]
+  },
+  {
+   "ref": "4.4.1(c)",
+   "question": "For one process, what criteria and methods (monitoring, measurement, indicators) keep it under effective control?",
+   "evidence": [
+    "Process criteria",
+    "Performance indicator and its latest result"
+   ]
+  },
+  {
+   "ref": "4.4.1(d)",
+   "question": "How do you determine the resources each process needs, and how do you ensure they are available when needed?",
+   "evidence": [
+    "Resource determination for a process",
+    "Evidence the resource was available when used"
+   ]
+  },
+  {
+   "ref": "4.4.1(e)",
+   "question": "Who is responsible and who holds the authority for each QMS process?",
+   "evidence": [
+    "Responsibility and authority assignment per process"
+   ]
+  },
+  {
+   "ref": "4.4.1(f)",
+   "question": "How are the risks and opportunities from 6.1 addressed within each process?",
+   "evidence": [
+    "Link between the risk register and process records"
+   ]
+  },
+  {
+   "ref": "4.4.1(g)",
+   "question": "How are processes evaluated, and what changes were made because they did not achieve their intended results?",
+   "evidence": [
+    "Process evaluation record",
+    "Change record from an evaluation"
+   ]
+  },
+  {
+   "ref": "4.4.1(h)",
+   "question": "Give an example of a process improvement made to the QMS, and how you confirmed it worked.",
+   "evidence": [
+    "Improvement record",
+    "Evidence of effect"
+   ]
+  },
+  {
+   "ref": "4.4.2(a)",
+   "question": "What documented information supports the operation of your processes, and how is it kept current?",
+   "evidence": [
+    "Process documents in document control",
+    "Revision history"
+   ]
+  },
+  {
+   "ref": "4.4.2(b)",
+   "question": "How do you know your processes are being carried out as planned? Show the records and the required documented description elements.",
+   "evidence": [
+    "Quality manual or equivalent with the required elements",
+    "Records showing processes run as planned"
+   ]
+  },
+  {
+   "ref": "5.1.1(a)",
+   "question": "How does top management take accountability for the effectiveness of the QMS? Show an example.",
+   "evidence": [
+    "Management review minutes with accountability for QMS effectiveness"
+   ]
+  },
+  {
+   "ref": "5.1.1(b)",
+   "question": "What quality policy and quality objectives do you hold, and how do they fit your organization's context and strategy?",
+   "evidence": [
+    "Quality policy",
+    "Quality objectives linked to the strategy"
+   ]
+  },
+  {
+   "ref": "5.1.1(c)",
+   "question": "How have QMS requirements been integrated into the business processes? Show an example.",
+   "evidence": [
+    "Business process document that references QMS requirements"
+   ]
+  },
+  {
+   "ref": "5.1.1(d)",
+   "question": "How does top management promote the process approach and risk-based thinking?",
+   "evidence": [
+    "Communication or training on process approach and risk-based thinking"
+   ]
+  },
+  {
+   "ref": "5.1.1(e)",
+   "question": "What resources has top management made available to the QMS in the last year?",
+   "evidence": [
+    "Resource decisions and budget records"
+   ]
+  },
+  {
+   "ref": "5.1.1(f)",
+   "question": "How does top management explain why effective quality management and conformity to QMS requirements matter to the people doing the work?",
+   "evidence": [
+    "Communications from top management"
+   ]
+  },
+  {
+   "ref": "5.1.1(g)",
+   "question": "How does top management confirm the QMS achieves its intended results?",
+   "evidence": [
+    "Review of QMS results in management review"
+   ]
+  },
+  {
+   "ref": "5.1.1(h)",
+   "question": "How does top management engage and support people to contribute to QMS effectiveness?",
+   "evidence": [
+    "Engagement records such as suggestion schemes or staff meetings"
+   ]
+  },
+  {
+   "ref": "5.1.1(i)",
+   "question": "What improvement has top management promoted, and how?",
+   "evidence": [
+    "Improvement programme records"
+   ]
+  },
+  {
+   "ref": "5.1.1(j)",
+   "question": "How do top management support other managers to demonstrate leadership in their areas?",
+   "evidence": [
+    "Manager objectives or leadership records"
+   ]
+  },
+  {
+   "ref": "5.1.2(a)",
+   "question": "How are customer and regulatory requirements determined, understood, and consistently met? Show the register.",
+   "evidence": [
+    "Customer and regulatory requirement register",
+    "Evidence requirements were met"
+   ]
+  },
+  {
+   "ref": "5.1.2(b)",
+   "question": "How are risks and opportunities affecting conformity and customer satisfaction determined and addressed?",
+   "evidence": [
+    "Risk and opportunity records linked to customer satisfaction"
+   ]
+  },
+  {
+   "ref": "5.1.2(c)",
+   "question": "How is the focus on enhancing customer satisfaction maintained? Show an example.",
+   "evidence": [
+    "Customer satisfaction measures and actions"
+   ]
+  },
+  {
+   "ref": "5.1.2(d)",
+   "question": "What measures track product conformity and on-time delivery, and what action was taken when a target was missed?",
+   "evidence": [
+    "Conformity and on-time delivery measures",
+    "Action record for a missed target"
+   ]
+  },
+  {
+   "ref": "5.2.1(a)",
+   "question": "Show that the quality policy is appropriate to the organization's purpose and context and supports its strategic direction.",
+   "evidence": [
+    "Quality policy with its link to the strategy"
+   ]
+  },
+  {
+   "ref": "5.2.1(b)",
+   "question": "Show how the quality policy provides a framework for setting quality objectives.",
+   "evidence": [
+    "Quality objectives traced to the policy"
+   ]
+  },
+  {
+   "ref": "5.2.1(c)",
+   "question": "Show where the policy commits to satisfying applicable requirements.",
+   "evidence": [
+    "Policy wording on meeting applicable requirements"
+   ]
+  },
+  {
+   "ref": "5.2.1(d)",
+   "question": "Show where the policy commits to continual improvement of the QMS.",
+   "evidence": [
+    "Policy wording on continual improvement"
+   ]
+  },
+  {
+   "ref": "5.2.2(a)",
+   "question": "Is the quality policy available and maintained as documented information? Show the controlled copy.",
+   "evidence": [
+    "Controlled copy of the policy with its revision"
+   ]
+  },
+  {
+   "ref": "5.2.2(b)",
+   "question": "How is the policy communicated, understood, and applied? Ask a staff member to describe it.",
+   "evidence": [
+    "Briefing records",
+    "Staff description of the policy"
+   ]
+  },
+  {
+   "ref": "5.2.2(c)",
+   "question": "How is the policy made available to relevant interested parties where appropriate?",
+   "evidence": [
+    "Publication or availability record for external parties"
+   ]
+  },
+  {
+   "ref": "5.3(a)",
+   "question": "Who is responsible for ensuring the QMS conforms to the standard, and what authority do they hold?",
+   "evidence": [
+    "Responsibility and authority record"
+   ]
+  },
+  {
+   "ref": "5.3(b)",
+   "question": "Who is responsible for ensuring processes deliver their intended outputs?",
+   "evidence": [
+    "Responsibility record per process"
+   ]
+  },
+  {
+   "ref": "5.3(c)",
+   "question": "Who reports QMS performance and improvement opportunities to top management, and how often?",
+   "evidence": [
+    "Performance reports to top management"
+   ]
+  },
+  {
+   "ref": "5.3(d)",
+   "question": "Who is responsible for promoting customer focus across the organization?",
+   "evidence": [
+    "Responsibility record for customer focus"
+   ]
+  },
+  {
+   "ref": "5.3(e)",
+   "question": "How is the integrity of the QMS maintained when changes are planned and implemented? Who is the management representative and what access do they have?",
+   "evidence": [
+    "Change control record for a QMS change",
+    "Appointment of the management representative",
+    "Evidence of access to top management"
+   ]
+  },
+  {
+   "ref": "6.1.1(a)",
+   "question": "How does your risk planning give assurance that the QMS can achieve its intended results?",
+   "evidence": [
+    "Risk planning record"
+   ]
+  },
+  {
+   "ref": "6.1.1(b)",
+   "question": "Show a risk or opportunity you identified to enhance a desirable effect.",
+   "evidence": [
+    "Opportunity record"
+   ]
+  },
+  {
+   "ref": "6.1.1(c)",
+   "question": "Show a risk you identified to prevent or reduce an undesired effect.",
+   "evidence": [
+    "Risk record with a preventive action"
+   ]
+  },
+  {
+   "ref": "6.1.1(d)",
+   "question": "Show an improvement that came from your risk and opportunity planning.",
+   "evidence": [
+    "Improvement record linked to a risk or opportunity"
+   ]
+  },
+  {
+   "ref": "6.1.2(a)",
+   "question": "Show the actions planned to address one of your risks or opportunities.",
+   "evidence": [
+    "Action plan for the risk or opportunity"
+   ]
+  },
+  {
+   "ref": "6.1.2(b)",
+   "question": "For one planned action, how was it integrated into a process, and how was its effectiveness evaluated?",
+   "evidence": [
+    "Process change record",
+    "Effectiveness evaluation"
+   ]
+  },
+  {
+   "ref": "6.2.1(a)",
+   "question": "Show that a quality objective is consistent with the quality policy.",
+   "evidence": [
+    "Objective traced to the policy"
+   ]
+  },
+  {
+   "ref": "6.2.1(b)",
+   "question": "Show that a quality objective is measurable, with its measure and target.",
+   "evidence": [
+    "Objective with measure and target"
+   ]
+  },
+  {
+   "ref": "6.2.1(c)",
+   "question": "Show that a quality objective takes into account applicable requirements.",
+   "evidence": [
+    "Objective linked to requirements"
+   ]
+  },
+  {
+   "ref": "6.2.1(d)",
+   "question": "Show that a quality objective is relevant to product conformity or customer satisfaction.",
+   "evidence": [
+    "Objective linked to conformity or customer satisfaction"
+   ]
+  },
+  {
+   "ref": "6.2.1(e)",
+   "question": "How is progress against each quality objective monitored?",
+   "evidence": [
+    "Monitoring records against objectives"
+   ]
+  },
+  {
+   "ref": "6.2.1(f)",
+   "question": "How are quality objectives communicated to the people who work to them?",
+   "evidence": [
+    "Communication record for objectives"
+   ]
+  },
+  {
+   "ref": "6.2.1(g)",
+   "question": "When were the quality objectives last updated, and where are they documented?",
+   "evidence": [
+    "Documented objectives with review and update dates"
+   ]
+  },
+  {
+   "ref": "6.2.2(a)",
+   "question": "For one quality objective, what will be done to achieve it?",
+   "evidence": [
+    "Objective action plan"
+   ]
+  }
+ ]
+}

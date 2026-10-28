@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conform-edge.com/schema/clause-map/1.0.0",
+  "title": "Conform-Edge Clause Map Pack",
+  "description": "A versioned, signed content pack of intent-based audit items for one standard or regulation. Contains Conform-Edge authored content only. Requirement text from copyrighted standards is never a field in this schema.",
+  "type": "object",
+  "required": ["schemaVersion", "packId", "source", "mapVersion", "effectiveDate", "license", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "packId": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Stable identifier, e.g. as9100d, iso9001-2015, faa-part145" },
+    "source": {
+      "type": "object",
+      "required": ["designation", "revision", "publisher", "sourceType"],
+      "additionalProperties": false,
+      "properties": {
+        "designation": { "type": "string", "description": "Descriptive designation of the external document, e.g. AS9100D, 14 CFR Part 145" },
+        "revision": { "type": "string", "description": "Edition or revision identifier, e.g. 2016, Rev D, current eCFR" },
+        "publisher": { "type": "string" },
+        "sourceType": { "type": "string", "enum": ["standard", "regulation", "customer-requirement", "internal"] },
+        "publicDomain": { "type": "boolean", "default": false, "description": "True only for public law such as US federal regulations. Controls whether requirementText is permitted on items." }
+      }
+    },
+    "mapVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "effectiveDate": { "type": "string", "format": "date" },
+    "supersedes": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "changelog": { "type": "array", "items": { "type": "string" } },
+    "license": {
+      "type": "object",
+      "required": ["owner", "statement"],
+      "additionalProperties": false,
+      "properties": {
+        "owner": { "type": "string" },
+        "statement": { "type": "string" },
+        "externalDocumentNotice": { "type": "string", "description": "Notice that the user must hold their own licensed copy of the referenced standard." }
+      }
+    },
+    "appliesWhen": { "$ref": "#/$defs/applicability" },
+    "groups": {
+      "type": "array",
+      "description": "Conform-Edge authored grouping labels. Not the standard's table of contents.",
+      "items": {
+        "type": "object",
+        "required": ["groupId", "label"],
+        "additionalProperties": false,
+        "properties": {
+          "groupId": { "type": "string" },
+          "label": { "type": "string", "maxLength": 60 },
+          "order": { "type": "integer" }
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/item" }
+    }
+  },
+  "$defs": {
+    "applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "All listed conditions must hold (AND). Within a condition, any listed value matches (OR). Absent = always applies.",
+      "properties": {
+        "activitiesAny": { "type": "array", "items": { "type": "string", "enum": ["design", "manufacture", "distribute", "maintain", "special-process", "software", "service"] } },
+        "regulatorsAny": { "type": "array", "items": { "type": "string", "enum": ["FAA", "EASA", "UK-CAA", "CAAC", "TCCA", "CASA", "FDA", "none"] } },
+        "certificationsAny": { "type": "array", "items": { "type": "string" } },
+        "flagsAll": { "type": "array", "items": { "type": "string" } },
+        "excludeIfFlagsAny": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": ["itemId", "clauseRef", "label", "intent", "question", "evidence", "ncPattern", "findingStem"],
+      "additionalProperties": false,
+      "properties": {
+        "itemId": { "type": "string", "pattern": "^[A-Z0-9]+-[A-Za-z0-9.]+-\\d{2}$", "description": "e.g. AS9100D-8.4.1-01" },
+        "clauseRef": { "type": "string", "maxLength": 20, "description": "Clause or section number only. A fact, not protected content." },
+        "groupId": { "type": "string" },
+        "label": { "type": "string", "maxLength": 60, "description": "Conform-Edge short label. Must not reproduce the source heading verbatim." },
+        "intent": { "type": "string", "minLength": 40, "maxLength": 400, "description": "What outcome the requirement intends, in Conform-Edge language." },
+        "question": { "type": "string", "minLength": 20, "maxLength": 400, "description": "The audit question the auditor asks to test intent." },
+        "evidence": { "type": "array", "minItems": 1, "maxItems": 8, "items": { "type": "string", "maxLength": 160 } },
+        "ncPattern": { "type": "string", "minLength": 20, "maxLength": 300, "description": "What a typical failure looks like in practice." },
+        "findingStem": { "type": "string", "minLength": 20, "maxLength": 300, "description": "Opening of a nonconformity statement. Uses {evidence} placeholder. Cites clause and intent, never requirement text." },
+        "severityGuidance": { "type": "string", "maxLength": 300 },
+        "quotedFragment": { "type": "string", "maxLength": 80, "description": "Optional. A minimal operative fragment, a few words, where the exact term changes meaning. Validator enforces a word budget and a per-pack ratio." },
+        "requirementText": { "type": "string", "description": "Permitted ONLY when source.publicDomain is true (public law). Validator rejects otherwise." },
+        "appliesWhen": { "$ref": "#/$defs/applicability" },
+        "relatedItems": { "type": "array", "items": { "type": "string" } },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

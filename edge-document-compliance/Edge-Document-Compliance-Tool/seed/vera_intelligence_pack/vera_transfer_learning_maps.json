@@ -1,0 +1,179 @@
+{
+  "transfer_maps": [
+    {
+      "map_id": "tlm_001",
+      "source_standard": "ISO9001",
+      "source_concept_id": "risk_based_thinking",
+      "source_requirement_id": null,
+      "target_standard": "AS9100D",
+      "target_concept_id": "risk_based_thinking",
+      "target_requirement_id": null,
+      "transfer_rule": "ISO9001 risk-based thinking principles apply to AS9100D with additional aerospace context. AS9100D adds specific risk considerations for aviation safety, product safety, and operational risks unique to aerospace.",
+      "transfer_confidence": 0.95,
+      "validated": true,
+      "validation_count": 15,
+      "validation_accuracy": 0.93
+    },
+    {
+      "map_id": "tlm_002",
+      "source_standard": "ISO9001",
+      "source_concept_id": "risk_based_thinking",
+      "source_requirement_id": null,
+      "target_standard": "ISO13485",
+      "target_concept_id": "risk_management",
+      "target_requirement_id": null,
+      "transfer_rule": "ISO9001 risk-based thinking maps to ISO13485 risk management, but medical devices require more formal risk management processes including risk management files per ISO14971. Medical device risks focus on patient safety.",
+      "transfer_confidence": 0.90,
+      "validated": true,
+      "validation_count": 12,
+      "validation_accuracy": 0.88
+    },
+    {
+      "map_id": "tlm_003",
+      "source_standard": "AS9100D",
+      "source_concept_id": "traceability",
+      "source_requirement_id": null,
+      "target_standard": "ISO13485",
+      "target_concept_id": "traceability",
+      "target_requirement_id": null,
+      "transfer_rule": "AS9100D traceability concepts (lot/batch control, serialization) transfer to ISO13485 traceability, but medical devices add UDI (Unique Device Identification) requirements and tracking through distribution to patient.",
+      "transfer_confidence": 0.92,
+      "validated": true,
+      "validation_count": 10,
+      "validation_accuracy": 0.90
+    },
+    {
+      "map_id": "tlm_004",
+      "source_standard": "IATF16949",
+      "source_concept_id": "process_capability",
+      "source_requirement_id": null,
+      "target_standard": "AS9100D",
+      "target_concept_id": "production_control",
+      "target_requirement_id": null,
+      "transfer_rule": "IATF16949 process capability (Cp/Cpk) concepts can enhance AS9100D production planning. While AS9100D doesn't mandate statistical capability, the principles of understanding process variation and capability improve production control.",
+      "transfer_confidence": 0.85,
+      "validated": true,
+      "validation_count": 8,
+      "validation_accuracy": 0.82
+    },
+    {
+      "map_id": "tlm_005",
+      "source_standard": "ISO9001",
+      "source_concept_id": "document_control",
+      "source_requirement_id": null,
+      "target_standard": "NIST",
+      "target_concept_id": "documentation_control",
+      "target_requirement_id": null,
+      "transfer_rule": "ISO9001 document control principles (approval, review, revision control, distribution) transfer to cybersecurity documentation control. NIST frameworks require controlled documentation of security controls, policies, and procedures with similar lifecycle management.",
+      "transfer_confidence": 0.88,
+      "validated": true,
+      "validation_count": 6,
+      "validation_accuracy": 0.85
+    },
+    {
+      "map_id": "tlm_006",
+      "source_standard": "AS9100D",
+      "source_concept_id": "configuration_management",
+      "source_requirement_id": null,
+      "target_standard": "ISO13485",
+      "target_concept_id": "design_control",
+      "target_requirement_id": null,
+      "transfer_rule": "AS9100D configuration management principles (baseline control, change management, status accounting) enhance ISO13485 design control. Configuration management provides structure for design change control and design transfer.",
+      "transfer_confidence": 0.87,
+      "validated": true,
+      "validation_count": 9,
+      "validation_accuracy": 0.84
+    },
+    {
+      "map_id": "tlm_007",
+      "source_standard": "ISO9001",
+      "source_concept_id": "supplier_control",
+      "source_requirement_id": null,
+      "target_standard": "IATF16949",
+      "target_concept_id": "supplier_development",
+      "target_requirement_id": null,
+      "transfer_rule": "ISO9001 supplier control concepts transfer to IATF16949 but with enhanced focus on supplier development and improvement. IATF16949 adds requirements for supplier development activities beyond evaluation.",
+      "transfer_confidence": 0.90,
+      "validated": true,
+      "validation_count": 11,
+      "validation_accuracy": 0.87
+    },
+    {
+      "map_id": "tlm_008",
+      "source_standard": "ISO13485",
+      "source_concept_id": "risk_management",
+      "source_requirement_id": null,
+      "target_standard": "AS9100D",
+      "target_concept_id": "product_safety",
+      "target_requirement_id": null,
+      "transfer_rule": "ISO13485 risk management approaches (hazard analysis, risk control measures) transfer to AS9100D product safety considerations. Both focus on preventing harm, though aerospace emphasizes operational safety and medical devices emphasize patient safety.",
+      "transfer_confidence": 0.86,
+      "validated": true,
+      "validation_count": 7,
+      "validation_accuracy": 0.83
+    },
+    {
+      "map_id": "tlm_009",
+      "source_standard": "AS9100D",
+      "source_concept_id": "special_processes",
+      "source_requirement_id": null,
+      "target_standard": "ISO13485",
+      "target_concept_id": "special_processes",
+      "target_requirement_id": null,
+      "transfer_rule": "AS9100D special process validation concepts directly transfer to ISO13485. Both require validation when output cannot be verified by subsequent inspection. Medical devices add sterilization process validation requirements.",
+      "transfer_confidence": 0.94,
+      "validated": true,
+      "validation_count": 13,
+      "validation_accuracy": 0.91
+    },
+    {
+      "map_id": "tlm_010",
+      "source_standard": "ISO9001",
+      "source_concept_id": "corrective_action",
+      "source_requirement_id": null,
+      "target_standard": "FDA21CFR820",
+      "target_concept_id": "corrective_preventive_action",
+      "target_requirement_id": null,
+      "transfer_rule": "ISO9001 corrective action concepts transfer to FDA 21 CFR Part 820 CAPA (Corrective and Preventive Action) requirements. FDA requires more formal CAPA procedures including investigation procedures, action plans, and effectiveness verification.",
+      "transfer_confidence": 0.89,
+      "validated": true,
+      "validation_count": 10,
+      "validation_accuracy": 0.86
+    },
+    {
+      "map_id": "tlm_011",
+      "source_standard": "IATF16949",
+      "source_concept_id": "production_planning",
+      "source_requirement_id": null,
+      "target_standard": "AS9100D",
+      "target_concept_id": "production_control",
+      "target_requirement_id": null,
+      "transfer_rule": "IATF16949 production planning concepts (capacity planning, production scheduling, material flow) transfer to AS9100D production control. Both require planning, but AS9100D adds aerospace-specific considerations like FOD prevention and special process controls.",
+      "transfer_confidence": 0.84,
+      "validated": true,
+      "validation_count": 8,
+      "validation_accuracy": 0.81
+    },
+    {
+      "map_id": "tlm_012",
+      "source_standard": "ISO9001",
+      "source_concept_id": "quality_objectives",
+      "source_requirement_id": null,
+      "target_standard": "NIST",
+      "target_concept_id": "security_objectives",
+      "target_requirement_id": null,
+      "transfer_rule": "ISO9001 quality objectives principles (SMART objectives, monitoring, updating) transfer to NIST cybersecurity security objectives. Both require measurable objectives that are monitored and updated, though cybersecurity objectives focus on security outcomes.",
+      "transfer_confidence": 0.82,
+      "validated": true,
+      "validation_count": 5,
+      "validation_accuracy": 0.79
+    }
+  ]
+}
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+{
+  "source_document": "C:\\Users\\oleab\\OneDrive - Burrana\\Standards\\AS9110C vs AS9100D Differences with BOLD.docx",
+  "source_sha256": "da7008db3ba8f3b27f043baf11189a99b2d0ca3135d551a68448a24a31ff7ad7",
+  "outputs": [
+    "E:\\Conform-Edge\\ClaudeCowork\\04 Product Portfolio\\_Opportunity-Scans\\Builds\\2026-09-27-pocket-auditor\\content\\burrana-as9100d-checklist-clauses-4-10.json",
+    "E:\\Conform-Edge\\ClaudeCowork\\04 Product Portfolio\\_Opportunity-Scans\\Builds\\2026-09-27-pocket-auditor\\content\\burrana-as9110c-checklist-clauses-4-10.json"
+  ],
+  "counts": {
+    "AS9100D": 734,
+    "AS9110C": 734
+  },
+  "generated_at": "2026-10-08"
+}

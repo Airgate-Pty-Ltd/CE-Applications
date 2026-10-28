@@ -1,0 +1,267 @@
+{
+  "relationships": [
+    {
+      "concept_id_1": "risk_based_thinking",
+      "concept_id_2": "preventive_action",
+      "relationship_type": "enables",
+      "relationship_strength": 0.90,
+      "relationship_reason": "Risk-based thinking helps identify potential issues before they occur, which directly enables preventive actions to be taken.",
+      "supporting_requirements": ["ISO9001_6.1", "ISO9001_10.2"]
+    },
+    {
+      "concept_id_1": "risk_based_thinking",
+      "concept_id_2": "corrective_action",
+      "relationship_type": "informs",
+      "relationship_strength": 0.85,
+      "relationship_reason": "Risk assessment during corrective action helps determine the appropriate level of action needed and prevents recurrence.",
+      "supporting_requirements": ["ISO9001_10.2"]
+    },
+    {
+      "concept_id_1": "configuration_management",
+      "concept_id_2": "revision_control",
+      "relationship_type": "requires",
+      "relationship_strength": 0.95,
+      "relationship_reason": "Configuration management fundamentally requires revision control to track changes to configuration items.",
+      "supporting_requirements": ["AS9100D_8.1.1"]
+    },
+    {
+      "concept_id_1": "configuration_management",
+      "concept_id_2": "traceability",
+      "relationship_type": "enables",
+      "relationship_strength": 0.90,
+      "relationship_reason": "Configuration management provides the framework for maintaining traceability of products and their configurations.",
+      "supporting_requirements": ["AS9100D_8.5.1"]
+    },
+    {
+      "concept_id_1": "configuration_management",
+      "concept_id_2": "change_management",
+      "relationship_type": "includes",
+      "relationship_strength": 0.92,
+      "relationship_reason": "Configuration management includes the change management process for controlling changes to configuration items.",
+      "supporting_requirements": ["AS9100D_8.1.1"]
+    },
+    {
+      "concept_id_1": "document_control",
+      "concept_id_2": "revision_control",
+      "relationship_type": "includes",
+      "relationship_strength": 0.88,
+      "relationship_reason": "Document control includes revision control as a core component to ensure current documents are used.",
+      "supporting_requirements": ["ISO9001_7.5"]
+    },
+    {
+      "concept_id_1": "document_control",
+      "concept_id_2": "record_management",
+      "relationship_type": "related_to",
+      "relationship_strength": 0.75,
+      "relationship_reason": "Both document control and record management deal with managing documented information, though records have retention requirements.",
+      "supporting_requirements": ["ISO9001_7.5"]
+    },
+    {
+      "concept_id_1": "corrective_action",
+      "concept_id_2": "nonconforming_output_control",
+      "relationship_type": "follows",
+      "relationship_strength": 0.88,
+      "relationship_reason": "Corrective action is typically taken in response to nonconforming products or processes.",
+      "supporting_requirements": ["ISO9001_8.7", "ISO9001_10.2"]
+    },
+    {
+      "concept_id_1": "corrective_action",
+      "concept_id_2": "root_cause_analysis",
+      "relationship_type": "requires",
+      "relationship_strength": 0.90,
+      "relationship_reason": "Effective corrective action requires root cause analysis to address the underlying cause, not just symptoms.",
+      "supporting_requirements": ["ISO9001_10.2"]
+    },
+    {
+      "concept_id_1": "calibration",
+      "concept_id_2": "measurement_traceability",
+      "relationship_type": "enables",
+      "relationship_strength": 0.92,
+      "relationship_reason": "Calibration provides the traceability chain linking measurements to national or international standards.",
+      "supporting_requirements": ["ISO9001_7.1.5"]
+    },
+    {
+      "concept_id_1": "calibration",
+      "concept_id_2": "monitoring_measurement",
+      "relationship_type": "supports",
+      "relationship_strength": 0.85,
+      "relationship_reason": "Calibration ensures that monitoring and measurement equipment provides accurate and reliable results.",
+      "supporting_requirements": ["ISO9001_7.1.5"]
+    },
+    {
+      "concept_id_1": "supplier_control",
+      "concept_id_2": "approved_supplier_list",
+      "relationship_type": "requires",
+      "relationship_strength": 0.88,
+      "relationship_reason": "Effective supplier control requires maintaining an approved supplier list based on evaluation criteria.",
+      "supporting_requirements": ["ISO9001_8.4"]
+    },
+    {
+      "concept_id_1": "supplier_control",
+      "concept_id_2": "risk_assessment",
+      "relationship_type": "based_on",
+      "relationship_strength": 0.80,
+      "relationship_reason": "The level of supplier control should be based on risk assessment - critical suppliers need more control.",
+      "supporting_requirements": ["ISO9001_8.4"]
+    },
+    {
+      "concept_id_1": "traceability",
+      "concept_id_2": "product_identification",
+      "relationship_type": "requires",
+      "relationship_strength": 0.95,
+      "relationship_reason": "Traceability requires unique product identification to track products through the production and supply chain.",
+      "supporting_requirements": ["AS9100D_8.5.1", "ISO13485_7.5.9"]
+    },
+    {
+      "concept_id_1": "traceability",
+      "concept_id_2": "lot_control",
+      "relationship_type": "uses",
+      "relationship_strength": 0.85,
+      "relationship_reason": "Traceability often uses lot or batch control to group products for tracking purposes.",
+      "supporting_requirements": ["AS9100D_8.5.1"]
+    },
+    {
+      "concept_id_1": "management_review",
+      "concept_id_2": "leadership_commitment",
+      "relationship_type": "demonstrates",
+      "relationship_strength": 0.90,
+      "relationship_reason": "Management review is a key mechanism for demonstrating leadership commitment to the quality management system.",
+      "supporting_requirements": ["ISO9001_9.3", "ISO9001_5.1"]
+    },
+    {
+      "concept_id_1": "management_review",
+      "concept_id_2": "continuous_improvement",
+      "relationship_type": "drives",
+      "relationship_strength": 0.85,
+      "relationship_reason": "Management review drives continuous improvement by identifying opportunities and allocating resources.",
+      "supporting_requirements": ["ISO9001_9.3", "ISO9001_10.3"]
+    },
+    {
+      "concept_id_1": "internal_audit",
+      "concept_id_2": "management_review",
+      "relationship_type": "feeds_into",
+      "relationship_strength": 0.88,
+      "relationship_reason": "Internal audit results are an input to management review for decision-making.",
+      "supporting_requirements": ["ISO9001_9.2", "ISO9001_9.3"]
+    },
+    {
+      "concept_id_1": "internal_audit",
+      "concept_id_2": "corrective_action",
+      "relationship_type": "triggers",
+      "relationship_strength": 0.90,
+      "relationship_reason": "Internal audits identify nonconformities that trigger corrective action requirements.",
+      "supporting_requirements": ["ISO9001_9.2", "ISO9001_10.2"]
+    },
+    {
+      "concept_id_1": "competence",
+      "concept_id_2": "training",
+      "relationship_type": "achieved_through",
+      "relationship_strength": 0.85,
+      "relationship_reason": "Competence is often achieved through training, though experience and education also contribute.",
+      "supporting_requirements": ["ISO9001_7.2"]
+    },
+    {
+      "concept_id_1": "special_processes",
+      "concept_id_2": "process_validation",
+      "relationship_type": "requires",
+      "relationship_strength": 0.95,
+      "relationship_reason": "Special processes require validation before use since output cannot be verified by inspection.",
+      "supporting_requirements": ["ISO9001_8.5.1", "AS9100D_8.5.1"]
+    },
+    {
+      "concept_id_1": "design_control",
+      "concept_id_2": "design_verification",
+      "relationship_type": "includes",
+      "relationship_strength": 0.92,
+      "relationship_reason": "Design control includes design verification to confirm design outputs meet design input requirements.",
+      "supporting_requirements": ["AS9100D_8.3", "ISO13485_7.3"]
+    },
+    {
+      "concept_id_1": "design_control",
+      "concept_id_2": "design_validation",
+      "relationship_type": "includes",
+      "relationship_strength": 0.92,
+      "relationship_reason": "Design control includes design validation to confirm the resulting product meets user needs and intended use.",
+      "supporting_requirements": ["AS9100D_8.3", "ISO13485_7.3"]
+    },
+    {
+      "concept_id_1": "design_control",
+      "concept_id_2": "risk_management",
+      "relationship_type": "integrates",
+      "relationship_strength": 0.88,
+      "relationship_reason": "Design control integrates risk management throughout the design process to identify and mitigate risks.",
+      "supporting_requirements": ["ISO13485_7.3", "AS9100D_8.1.1"]
+    },
+    {
+      "concept_id_1": "counterfeit_parts_prevention",
+      "concept_id_2": "supplier_control",
+      "relationship_type": "enhances",
+      "relationship_strength": 0.90,
+      "relationship_reason": "Counterfeit parts prevention enhances supplier control by requiring verification of authorized sources.",
+      "supporting_requirements": ["AS9100D_8.4"]
+    },
+    {
+      "concept_id_1": "counterfeit_parts_prevention",
+      "concept_id_2": "part_verification",
+      "relationship_type": "includes",
+      "relationship_strength": 0.85,
+      "relationship_reason": "Counterfeit parts prevention includes part verification and authentication processes.",
+      "supporting_requirements": ["AS9100D_8.4"]
+    },
+    {
+      "concept_id_1": "fod_prevention",
+      "concept_id_2": "tool_control",
+      "relationship_type": "requires",
+      "relationship_strength": 0.88,
+      "relationship_reason": "FOD prevention requires tool control to ensure tools are accounted for and not left in products.",
+      "supporting_requirements": ["AS9100D_8.5.1"]
+    },
+    {
+      "concept_id_1": "fod_prevention",
+      "concept_id_2": "cleanliness_control",
+      "relationship_type": "includes",
+      "relationship_strength": 0.85,
+      "relationship_reason": "FOD prevention includes cleanliness control of work areas to prevent foreign objects.",
+      "supporting_requirements": ["AS9100D_8.5.1"]
+    },
+    {
+      "concept_id_1": "change_management",
+      "concept_id_2": "risk_assessment",
+      "relationship_type": "includes",
+      "relationship_strength": 0.90,
+      "relationship_reason": "Change management includes risk assessment to evaluate the impact of proposed changes.",
+      "supporting_requirements": ["ISO9001_8.5.6"]
+    },
+    {
+      "concept_id_1": "change_management",
+      "concept_id_2": "document_control",
+      "relationship_type": "requires",
+      "relationship_strength": 0.85,
+      "relationship_reason": "Change management requires document control to ensure changes are properly documented and approved.",
+      "supporting_requirements": ["ISO9001_7.5", "ISO9001_8.5.6"]
+    },
+    {
+      "concept_id_1": "quality_objectives",
+      "concept_id_2": "quality_policy",
+      "relationship_type": "aligned_with",
+      "relationship_strength": 0.92,
+      "relationship_reason": "Quality objectives must be consistent with and aligned to the quality policy.",
+      "supporting_requirements": ["ISO9001_6.2"]
+    },
+    {
+      "concept_id_1": "quality_objectives",
+      "concept_id_2": "performance_monitoring",
+      "relationship_type": "monitored_through",
+      "relationship_strength": 0.88,
+      "relationship_reason": "Quality objectives are monitored through performance monitoring and measurement activities.",
+      "supporting_requirements": ["ISO9001_6.2", "ISO9001_9.1"]
+    }
+  ]
+}
+
+
+
+
+
+
+

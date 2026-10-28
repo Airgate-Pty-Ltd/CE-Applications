@@ -1,0 +1,67 @@
+{
+  "standard": {
+    "code": "ISO-9001",
+    "revision": "2015",
+    "title": "Quality management systems \u2014 Requirements",
+    "authority": "ISO",
+    "citation_style": "page_line",
+    "parser_profile": "pdf_generic_v1",
+    "metadata": {
+      "family": "HLS",
+      "domain": "Cross-Industry"
+    }
+  },
+  "clauses": [
+    {
+      "clause_id": "4",
+      "label": "Context of the organization",
+      "parent": null,
+      "order_index": 10
+    },
+    {
+      "clause_id": "5",
+      "label": "Leadership",
+      "parent": null,
+      "order_index": 20
+    },
+    {
+      "clause_id": "6",
+      "label": "Planning",
+      "parent": null,
+      "order_index": 30
+    },
+    {
+      "clause_id": "7",
+      "label": "Support",
+      "parent": null,
+      "order_index": 40
+    },
+    {
+      "clause_id": "8",
+      "label": "Operation",
+      "parent": null,
+      "order_index": 50
+    },
+    {
+      "clause_id": "8.7",
+      "label": "Control of nonconforming outputs",
+      "parent": "8",
+      "order_index": 90
+    },
+    {
+      "clause_id": "9",
+      "label": "Performance evaluation",
+      "parent": null,
+      "order_index": 100
+    },
+    {
+      "clause_id": "10",
+      "label": "Improvement",
+      "parent": null,
+      "order_index": 110
+    }
+  ],
+  "crosswalk_targets": [
+    "AS9100"
+  ]
+}

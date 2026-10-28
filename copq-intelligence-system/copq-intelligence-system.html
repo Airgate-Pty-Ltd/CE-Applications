@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COPQ Intelligence System - Conform-Edge</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0f1e;--panel:rgba(15,25,60,0.85);--border:#1e3a6e;--accent:#4a9eff;--text:#e2e8f0;--muted:#94a3b8;--P:#22c55e;--A:#3b82f6;--I:#f59e0b;--E:#ef4444}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;font-size:14px;min-height:100vh}
+.topbar{background:rgba(10,15,30,0.95);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;position:sticky;top:0;z-index:100}
+.brand{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.bn{font-size:16px;font-weight:700}
+.ct{max-width:1100px;margin:0 auto;padding:20px}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:18px}
+.pt{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:7px}
+.dz{border:2px dashed var(--border);border-radius:6px;padding:26px;text-align:center;cursor:pointer;transition:border-color .2s}
+.dz:hover,.dz.over{border-color:var(--accent)}
+.dz input{display:none}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.btn:hover{opacity:.85}.bsm{padding:3px 9px;font-size:12px}
+.bo{background:transparent;border:1px solid var(--border);color:var(--text)}
+.bo:hover{border-color:var(--accent);color:var(--accent)}
+.bdg{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.bg{background:rgba(34,197,94,.15);color:#22c55e}.bi{background:rgba(74,158,255,.15);color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:rgba(30,58,110,.4);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:7px 9px;text-align:left;border-bottom:1px solid var(--border)}
+td{padding:6px 9px;border-bottom:1px solid rgba(30,58,110,.3);vertical-align:middle}
+tr:hover td{background:rgba(74,158,255,.04)}
+.pg{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:18px}
+.pc{background:rgba(15,25,60,.6);border:1px solid var(--border);border-radius:6px;padding:14px;text-align:center}
+.pc .lb{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:3px}
+.pc .vl{font-size:20px;font-weight:700;margin-bottom:2px}
+.pc .pp{font-size:13px;color:var(--muted)}.pc .dl{font-size:12px;margin-top:3px}
+.du{color:#ef4444}.dd{color:#22c55e}.df{color:var(--muted)}
+.pP .vl{color:var(--P)}.pA .vl{color:var(--A)}.pI .vl{color:var(--I)}.pE .vl{color:var(--E)}
+.il{list-style:none}
+.il li{padding:9px 13px;border-left:3px solid var(--accent);background:rgba(74,158,255,.06);border-radius:0 4px 4px 0;margin-bottom:7px;font-size:13px;line-height:1.5}
+.il li.w{border-left-color:#f59e0b;background:rgba(245,158,11,.06)}
+.il li.d{border-left-color:#ef4444;background:rgba(239,68,68,.06)}
+.nb{background:rgba(10,15,30,.8);border:1px solid var(--border);border-radius:4px;padding:13px;font-size:13px;line-height:1.7;white-space:pre-wrap}
+.mg{display:grid;grid-template-columns:140px auto 1fr;align-items:center;gap:9px;margin-bottom:7px}
+.mg label{font-size:12px;color:var(--muted)}
+select{background:rgba(15,25,60,.8);border:1px solid var(--border);color:var(--text);padding:4px 7px;border-radius:4px;font-size:12px;width:100%}
+.hidden{display:none}.flex{display:flex;gap:10px;align-items:center}.fsb{display:flex;justify-content:space-between;align-items:center}
+.stp{display:flex}.sp{padding:7px 14px;background:rgba(30,58,110,.2);border:1px solid var(--border);font-size:12px;color:var(--muted)}
+.sp:first-child{border-radius:4px 0 0 4px}.sp:last-child{border-radius:0 4px 4px 0}
+.sp.active{background:rgba(74,158,255,.15);color:var(--accent);border-color:var(--accent)}
+.sp.done{background:rgba(34,197,94,.1);color:#22c55e;border-color:#22c55e}
+.ctag{display:inline-block;padding:1px 5px;border-radius:3px;font-size:11px;font-weight:600}
+.cP{background:rgba(34,197,94,.15);color:var(--P)}.cA{background:rgba(59,130,246,.15);color:var(--A)}
+.cI{background:rgba(245,158,11,.15);color:var(--I)}.cE{background:rgba(239,68,68,.15);color:var(--E)}
+.cU{background:rgba(148,163,184,.15);color:var(--muted)}
+.tr{font-weight:700;background:rgba(74,158,255,.08)}
+.disc{font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;padding-top:10px;line-height:1.5}
+canvas{display:block;margin:0 auto}
+@media print{.topbar{position:relative}.btn,.dz,.stp{display:none}body{background:#fff;color:#000}.panel{border:1px solid #ccc;background:#fff}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div><div class="brand">Conform-Edge</div><div class="bn">COPQ Intelligence System</div></div>
+  <div style="margin-left:auto;font-size:13px;color:var(--muted)">Cost of Poor Quality - Import and Analyze</div>
+</div>
+<div class="ct">
+
+<div class="panel" style="padding:11px 18px;margin-bottom:18px">
+  <div class="stp" id="steps">
+    <div class="sp active" id="si1">1 - Import</div>
+    <div class="sp" id="si2">2 - Map Columns</div>
+    <div class="sp" id="si3">3 - Classify</div>
+    <div class="sp" id="si4">4 - Results</div>
+  </div>
+</div>
+
+<div id="s1">
+  <div class="panel">
+    <div class="pt">Step 1 - Import Current Period Data</div>
+    <div class="dz" id="dz1" onclick="document.getElementById('f1').click()">
+      <div style="font-size:22px;margin-bottom:7px">&#128193;</div>
+      <div style="font-weight:600">Drop CSV file here or click to browse</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:5px">NCR export, ERP scrap report, rework log, or warranty register (.csv)</div>
+      <input type="file" id="f1" accept=".csv,.txt">
+    </div>
+    <div id="fi1" class="hidden" style="margin-top:11px">
+      <div class="flex"><span id="fn1" style="flex:1;font-size:13px"></span><span class="bdg bg" id="fb1"></span><button class="btn bo bsm" onclick="resetF(1)">Remove</button></div>
+    </div>
+    <div style="margin-top:18px;border-top:1px solid var(--border);padding-top:14px">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:9px">Prior Period - optional, enables trend analysis</div>
+      <div class="dz" id="dz2" onclick="document.getElementById('f2').click()" style="padding:14px">
+        <div style="font-size:13px;color:var(--muted)">+ Add prior period CSV for trend comparison</div>
+        <input type="file" id="f2" accept=".csv,.txt">
+      </div>
+      <div id="fi2" class="hidden" style="margin-top:9px">
+        <div class="flex"><span id="fn2" style="flex:1;font-size:13px"></span><span class="bdg bi" id="fb2"></span><button class="btn bo bsm" onclick="resetF(2)">Remove</button></div>
+      </div>
+    </div>
+    <div style="margin-top:14px;display:flex;justify-content:flex-end">
+      <button class="btn" id="btn12" onclick="toStep2()" disabled>Continue to Column Mapping</button>
+    </div>
+  </div>
+</div>
+
+<div id="s2" class="hidden">
+  <div class="panel">
+    <div class="pt">Step 2 - Map Columns</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:11px">Select which column maps to each field. Click Auto-Detect first.</p>
+    <div style="margin-bottom:11px"><button class="btn bo bsm" onclick="autoD()">Auto-Detect</button></div>
+    <div style="overflow-x:auto;max-height:170px;overflow-y:auto;margin-bottom:14px">
+      <table id="pvTbl"><thead><tr></tr></thead><tbody></tbody></table>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px">
+      <div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:9px;color:var(--accent)">Current Period</div>
+        <div class="mg"><label>Description *</label><span style="color:var(--muted)">&#8594;</span><select id="m1d"></select></div>
+        <div class="mg"><label>Amount *</label><span style="color:var(--muted)">&#8594;</span><select id="m1a"></select></div>
+        <div class="mg"><label>PAF Category (opt)</label><span style="color:var(--muted)">&#8594;</span><select id="m1c"><option value="">(keyword match)</option></select></div>
+        <div class="mg"><label>Date (opt)</label><span style="color:var(--muted)">&#8594;</span><select id="m1dt"><option value="">(none)</option></select></div>
+      </div>
+      <div id="pm2" class="hidden">
+        <div style="font-size:12px;font-weight:600;margin-bottom:9px;color:var(--accent)">Prior Period</div>
+        <div class="mg"><label>Description *</label><span style="color:var(--muted)">&#8594;</span><select id="m2d"></select></div>
+        <div class="mg"><label>Amount *</label><span style="color:var(--muted)">&#8594;</span><select id="m2a"></select></div>
+        <div class="mg"><label>PAF Category (opt)</label><span style="color:var(--muted)">&#8594;</span><select id="m2c"><option value="">(keyword match)</option></select></div>
+      </div>
+    </div>
+    <div class="fsb" style="margin-top:14px">
+      <button class="btn bo" onclick="goS(1)">Back</button>
+      <button class="btn" onclick="toStep3()">Classify Records</button>
+    </div>
+  </div>
+</div>
+
+<div id="s3" class="hidden">
+  <div class="panel">
+    <div class="pt">Step 3 - Review and Correct Classifications</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:7px">Override any incorrect category assignments before computing results.</p>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:11px" id="clSt"></div>
+    <div style="overflow-x:auto;max-height:380px;overflow-y:auto">
+      <table id="clT"><thead><tr><th>#</th><th>Description</th><th>Amount</th><th>Category</th><th>Method</th></tr></thead><tbody id="clB"></tbody></table>
+    </div>
+    <div class="fsb" style="margin-top:14px">
+      <button class="btn bo" onclick="goS(2)">Back</button>
+      <button class="btn" onclick="compute()">Compute Results</button>
+    </div>
+  </div>
+</div>
+
+<div id="s4" class="hidden">
+  <div class="panel"><div class="pt">PAF Breakdown</div>
+    <div class="pg" id="pg"></div>
+    <canvas id="dn" width="320" height="310"></canvas>
+  </div>
+  <div class="panel"><div class="pt">Top Cost Drivers</div>
+    <div style="overflow-x:auto"><table><thead><tr><th>Description</th><th>Category</th><th>Amount</th><th>% of Total</th></tr></thead><tbody id="drb"></tbody></table></div>
+  </div>
+  <div class="panel"><div class="pt">Intelligence Insights</div><ul class="il" id="ins"></ul></div>
+  <div class="panel"><div class="pt">Management Review Narrative</div>
+    <div class="nb" id="nar"></div>
+    <div style="margin-top:11px"><button class="btn bo bsm" onclick="cpyN()">Copy Narrative</button></div>
+  </div>
+  <div class="panel"><div class="pt">Export</div>
+    <div class="flex">
+      <button class="btn" onclick="expJ()">Download JSON (MRA-Compatible)</button>
+      <button class="btn bo" onclick="window.print()">Print / PDF</button>
+      <button class="btn bo" onclick="restart()">New Analysis</button>
+    </div>
+  </div>
+  <div class="disc">COPQ Intelligence System v1.0 - Conform-Edge Quality Consulting LLC - Generated: <span id="gts"></span><br>Analytical output only. Results depend on data completeness and classification accuracy. Not audited financials. Not a substitute for professional accounting or certified cost analysis.</div>
+</div>
+
+</div>
+<script>
+var S={f1:null,f2:null,h1:[],h2:[],r1:[],r2:[],cl:[],res:null};
+var KW=[
+  {c:'P',kw:['training','audit','spc','calibration','validation','prevention','planning','fmea','quality plan','preventive']},
+  {c:'A',kw:['inspection','test','testing','first article','fai','incoming','receiving','measurement','gauge','sampling','check','verification']},
+  {c:'I',kw:['scrap','rework','repair','retest','material review','mrb','reject','ncr','quarantine','sort','downgrade','yield loss']},
+  {c:'E',kw:['warranty','return','field failure','customer complaint','recall','concession','deviation','escape','rma','field service','retrofit']}
+];
+var PM={'PREVENTION':'P','P':'P','PREV':'P','APPRAISAL':'A','A':'A','APP':'A','INTERNAL':'I','I':'I','INT':'I','INTERNAL FAILURE':'I','EXTERNAL':'E','E':'E','EXT':'E','EXTERNAL FAILURE':'E'};
+var CL={P:'Prevention',A:'Appraisal',I:'Internal Failure',E:'External Failure'};
+var CO={P:'#22c55e',A:'#3b82f6',I:'#f59e0b',E:'#ef4444'};
+function klass(d){if(!d)return 'U';var x=d.toLowerCase();for(var i=0;i<KW.length;i++){var r=KW[i];for(var j=0;j<r.kw.length;j++){if(x.indexOf(r.kw[j])>=0)return r.c;}}return 'U';}
+function mc(r){if(!r)return null;return PM[r.toUpperCase().trim()]||null;}
+function csv(t){
+  var ls=t.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(function(l){return l.trim();});
+  if(!ls.length)return{h:[],r:[]};
+  function p(l){var res=[],cur='',inq=false;for(var i=0;i<l.length;i++){var c=l[i];if(c==='"'){inq=!inq;}else if((c===','||c===';')&&!inq){res.push(cur.trim());cur='';}else cur+=c;}res.push(cur.trim());return res;}
+  return{h:p(ls[0]),r:ls.slice(1).map(function(l){return p(l);})};
+}
+function dz(zid,fid,n){
+  var el=document.getElementById(zid);
+  el.addEventListener('dragover',function(e){e.preventDefault();el.classList.add('over');});
+  el.addEventListener('dragleave',function(){el.classList.remove('over');});
+  el.addEventListener('drop',function(e){e.preventDefault();el.classList.remove('over');lf(e.dataTransfer.files[0],n);});
+  document.getElementById(fid).addEventListener('change',function(e){lf(e.target.files[0],n);});
+}
+function lf(file,n){
+  if(!file)return;
+  var fr=new FileReader();
+  fr.onload=function(e){
+    var d=csv(e.target.result);
+    if(n===1){S.f1=file;S.h1=d.h;S.r1=d.r;}else{S.f2=file;S.h2=d.h;S.r2=d.r;}
+    document.getElementById('fi'+n).classList.remove('hidden');
+    document.getElementById('fn'+n).textContent=file.name;
+    document.getElementById('fb'+n).textContent=d.r.length+' records';
+    if(n===1)document.getElementById('btn12').disabled=false;
+  };
+  fr.readAsText(file);
+}
+function resetF(n){if(n===1){S.f1=null;S.h1=[];S.r1=[];}else{S.f2=null;S.h2=[];S.r2=[];}document.getElementById('fi'+n).classList.add('hidden');document.getElementById('f'+n).value='';if(n===1)document.getElementById('btn12').disabled=true;}
+function goS(n){for(var i=1;i<=4;i++){document.getElementById('s'+i).classList.toggle('hidden',i!==n);var el=document.getElementById('si'+i);el.classList.remove('active','done');if(i<n)el.classList.add('done');else if(i===n)el.classList.add('active');}}
+function toStep2(){
+  var pt=document.getElementById('pvTbl');
+  pt.querySelector('thead tr').innerHTML=S.h1.map(function(h){return '<th>'+h+'</th>';}).join('');
+  pt.querySelector('tbody').innerHTML=S.r1.slice(0,5).map(function(r){return '<tr>'+r.map(function(c){return '<td>'+(c||'')+'</td>';}).join('')+'</tr>';}).join('');
+  var no='<option value="">(none)</option>';
+  var op=S.h1.map(function(h,i){return '<option value="'+i+'">'+h+'</option>';}).join('');
+  ['m1d','m1a','m1c','m1dt'].forEach(function(id){document.getElementById(id).innerHTML=no+op;});
+  if(S.f2){document.getElementById('pm2').classList.remove('hidden');var o2=S.h2.map(function(h,i){return '<option value="'+i+'">'+h+'</option>';}).join('');['m2d','m2a','m2c'].forEach(function(id){document.getElementById(id).innerHTML=no+o2;});}
+  else{document.getElementById('pm2').classList.add('hidden');}
+  goS(2);
+}
+function autoD(){
+  function mx(id,h,ks){var f=null;for(var i=0;i<h.length;i++){var s=h[i].toLowerCase();for(var j=0;j<ks.length;j++){if(s.indexOf(ks[j])>=0){f=i;break;}}if(f!==null)break;}if(f!==null)document.getElementById(id).value=f;}
+  mx('m1d',S.h1,['desc','name','item','title','note','subject']);mx('m1a',S.h1,['amount','cost','value','total','usd','expense']);mx('m1c',S.h1,['cat','type','paf','code']);mx('m1dt',S.h1,['date','period','month','week','year']);
+  if(S.f2){mx('m2d',S.h2,['desc','name','item']);mx('m2a',S.h2,['amount','cost','value','total']);}
+}
+function gi(id){var v=document.getElementById(id).value;return v===''?-1:parseInt(v);}
+function toStep3(){
+  var di=gi('m1d'),ai=gi('m1a'),ci=gi('m1c');
+  if(di<0||ai<0){alert('Map Description and Amount columns first.');return;}
+  S.cl=S.r1.filter(function(r){return r.length>0&&(r[ai]||'').trim()!=='';}).map(function(r,i){
+    var desc=di>=0?(r[di]||''):'';
+    var amt=parseFloat((r[ai]||'').replace(/[$,\s]/g,''))||0;
+    var rawCat=ci>=0?(r[ci]||''):'';
+    var ec=mc(rawCat);var ac=klass(desc);
+    var cat=ec||ac;var src=ec?'column':(ac!=='U'?'keyword':'unclassified');
+    return{i:i+1,desc:desc,amt:amt,cat:cat,src:src};
+  });
+  var copts=['P-Prevention','A-Appraisal','I-Internal Failure','E-External Failure','U-Unclassified'].map(function(s){var v=s[0];return '<option value="'+v+'">'+s+'</option>';}).join('');
+  document.getElementById('clB').innerHTML=S.cl.map(function(r){
+    var sel=copts.replace('value="'+r.cat+'"','value="'+r.cat+'" selected');
+    return '<tr><td style="color:var(--muted)">'+r.i+'</td><td>'+(r.desc||'-')+'</td><td style="text-align:right">$'+r.amt.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})+'</td><td><select style="width:105px;font-size:11px;padding:2px 4px" data-i="'+(r.i-1)+'" onchange="ov(this)">'+sel+'</select> <span class="ctag c'+r.cat+'" id="ct'+(r.i-1)+'">'+r.cat+'</span></td><td style="color:var(--muted);font-size:11px">'+r.src+'</td></tr>';
+  }).join('');
+  var cnt={column:0,keyword:0,unclassified:0};S.cl.forEach(function(r){cnt[r.src]=(cnt[r.src]||0)+1;});
+  document.getElementById('clSt').textContent=S.cl.length+' records: '+cnt.column+' from column, '+(cnt.keyword||0)+' keyword, '+(cnt.unclassified||0)+' unclassified';
+  goS(3);
+}
+function ov(sel){var i=parseInt(sel.dataset.i);S.cl[i].cat=sel.value;S.cl[i].src='override';var sp=document.getElementById('ct'+i);sp.className='ctag c'+sel.value;sp.textContent=sel.value;}
+function compute(){
+  var tot={P:0,A:0,I:0,E:0,U:0};
+  S.cl.forEach(function(r){tot[r.cat]=(tot[r.cat]||0)+r.amt;});
+  var g=tot.P+tot.A+tot.I+tot.E+tot.U;
+  function pct(c){return g>0?tot[c]/g*100:0;}
+  var pr=null;
+  if(S.f2&&S.r2.length){var d2=gi('m2d'),a2=gi('m2a'),c2=gi('m2c');if(a2>=0){pr={P:0,A:0,I:0,E:0,U:0,total:0};S.r2.filter(function(r){return r.length>0&&(r[a2]||'').trim()!=='';}).forEach(function(r){var amt=parseFloat((r[a2]||'').replace(/[$,\s]/g,''))||0;var desc=d2>=0?(r[d2]||''):'';var rc=c2>=0?(r[c2]||''):'';var cat=mc(rc)||klass(desc);pr[cat]=(pr[cat]||0)+amt;pr.total+=amt;});}}
+  S.res={tot:tot,g:g,pct:pct,pr:pr};render(S.res);goS(4);
+}
+function fm(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});}
+function pf(n){return n.toFixed(1)+'%';}
+function render(R){
+  var tot=R.tot,g=R.g,pct=R.pct,pr=R.pr;
+  var cats=['P','A','I','E'];
+  document.getElementById('pg').innerHTML=cats.map(function(c){
+    var d='';if(pr){var dv=tot[c]-(pr[c]||0);var pc=pr[c]>0?dv/pr[c]*100:0;var dir=Math.abs(pc)<5?'f':pc>0?'u':'d';var arr=dir==='u'?'&#8593; ':dir==='d'?'&#8595; ':'';d='<div class="dl d'+dir+'">'+arr+Math.abs(pc).toFixed(1)+'% vs prior</div>';}
+    return '<div class="pc p'+c+'"><div class="lb">'+CL[c]+'</div><div class="vl">'+fm(tot[c])+'</div><div class="pp">'+pf(pct(c))+'</div>'+d+'</div>';
+  }).join('')+'<div class="pc" style="grid-column:span 4;background:rgba(74,158,255,.08);border-color:var(--accent)"><div class="lb">Total COPQ</div><div class="vl" style="color:var(--accent)">'+fm(g)+'</div>'+(pr&&pr.total>0?'<div class="pp">prior: '+fm(pr.total)+'</div>':'')+'</div>';
+  drawDn(tot,g);
+  var sd=[].concat(S.cl).filter(function(r){return r.cat!=='U';}).sort(function(a,b){return b.amt-a.amt;}).slice(0,10);
+  document.getElementById('drb').innerHTML=sd.map(function(r){return '<tr><td>'+(r.desc||'-')+'</td><td><span class="ctag c'+r.cat+'">'+CL[r.cat]+'</span></td><td style="text-align:right">'+fm(r.amt)+'</td><td style="text-align:right">'+(g>0?pf(r.amt/g*100):'-')+'</td></tr>';}).join('')+'<tr class="tr"><td colspan="2">TOTAL COPQ</td><td style="text-align:right">'+fm(g)+'</td><td style="text-align:right">100%</td></tr>';
+  var ins=[];
+  var mx=cats.reduce(function(a,b){return tot[b]>tot[a]?b:a;},'P');
+  ins.push({t:'Largest category: <strong>'+CL[mx]+'</strong> at '+pf(pct(mx))+' ('+fm(tot[mx])+'). '+(mx==='E'?'External failure dominance signals systematic escape — nonconforming product is reaching customers.':mx==='I'?'High internal failure costs indicate process instability or inadequate controls.':mx==='A'?'High appraisal costs may mask insufficient prevention investment.':'High prevention investment is intentional cost that reduces downstream failures.'),l:mx==='E'?'d':mx==='I'?'w':'n'});
+  if(tot.E>0&&tot.I>0){var ratio=tot.E/tot.I;ins.push(ratio>1?{t:'<strong>Escape rate signal:</strong> External failure ('+fm(tot.E)+') exceeds internal failure ('+fm(tot.I)+'), ratio '+ratio.toFixed(2)+':1. The quality system is not containing failures before customer impact. Investigate detection effectiveness immediately.',l:'d'}:{t:'Internal failure ('+fm(tot.I)+') exceeds external failure ('+fm(tot.E)+'). Failures are being contained before customer impact. Continue monitoring this ratio.',l:'n'});}
+  var pp=pct('P');ins.push(pp<10?{t:'<strong>Prevention underinvestment:</strong> Prevention is '+pf(pp)+' of COPQ. Benchmark is 10-15%. Consider redirecting appraisal resources to upstream prevention activities.',l:'w'}:{t:'Prevention investment ('+pf(pp)+') meets or exceeds the 10-15% benchmark. Verify prevention activities are targeted at actual risk.',l:'n'});
+  document.getElementById('ins').innerHTML=ins.map(function(x){return '<li class="'+(x.l==='d'?'d':x.l==='w'?'w':'')+'">'+ x.t+'</li>';}).join('');
+  var tt='No prior period data provided.';if(pr&&pr.total>0){var dv=g-pr.total;var pc2=dv/pr.total*100;tt=dv>0?'COPQ increased '+pf(pc2)+' versus prior period ('+fm(pr.total)+' to '+fm(g)+').':'COPQ decreased '+pf(Math.abs(pc2))+' versus prior period ('+fm(pr.total)+' to '+fm(g)+'), an improvement of '+fm(Math.abs(dv))+'.';}
+  var nr='COPQ Intelligence Report - Current Period\n\nTotal COPQ: '+fm(g)+' | '+S.cl.length+' classified records\n\nPAF Breakdown\nPrevention:       '+pf(pct('P'))+' ('+fm(tot.P)+')\nAppraisal:        '+pf(pct('A'))+' ('+fm(tot.A)+')\nInternal Failure: '+pf(pct('I'))+' ('+fm(tot.I)+')\nExternal Failure: '+pf(pct('E'))+' ('+fm(tot.E)+')\n\nTrend\n'+tt+'\n\nIntelligence Summary\n'+ins.map(function(x){return x.t.replace(/<[^>]+>/g,'');}).join('\n\n')+'\n\nPrepared for management review per QMS performance reporting requirements.';
+  document.getElementById('nar').textContent=nr;document.getElementById('gts').textContent=new Date().toLocaleString();
+}
+function drawDn(tot,g){
+  var cv=document.getElementById('dn'),ctx=cv.getContext('2d');ctx.clearRect(0,0,320,310);
+  var cx=160,cy=145,R=115,ri=60;
+  if(!g){ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.fillStyle='rgba(30,58,110,.3)';ctx.fill();return;}
+  var a=-Math.PI/2;
+  ['P','A','I','E'].forEach(function(c){if(!tot[c])return;var s=tot[c]/g*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,R,a,a+s);ctx.closePath();ctx.fillStyle=CO[c];ctx.fill();a+=s;});
+  ctx.beginPath();ctx.arc(cx,cy,ri,0,Math.PI*2);ctx.fillStyle='#0a0f1e';ctx.fill();
+  ctx.textAlign='center';ctx.fillStyle='#e2e8f0';ctx.font='bold 13px system-ui';ctx.fillText('COPQ',cx,cy-5);ctx.font='11px system-ui';ctx.fillStyle='#94a3b8';ctx.fillText(fm(g),cx,cy+11);
+  var lx=12;['P','A','I','E'].forEach(function(c){ctx.fillStyle=CO[c];ctx.fillRect(lx,285,9,9);ctx.fillStyle='#94a3b8';ctx.font='10px system-ui';ctx.textAlign='left';ctx.fillText({P:'Prev.',A:'Appr.',I:'Int.',E:'Ext.'}[c],lx+12,294);lx+=78;});
+}
+function cpyN(){if(navigator.clipboard){navigator.clipboard.writeText(document.getElementById('nar').textContent).then(function(){alert('Copied to clipboard.');});}else{var el=document.getElementById('nar');var range=document.createRange();range.selectNode(el);window.getSelection().removeAllRanges();window.getSelection().addRange(range);document.execCommand('copy');alert('Copied.');}}
+function expJ(){
+  if(!S.res)return;var tot=S.res.tot,g=S.res.g,pct=S.res.pct,pr=S.res.pr;
+  function f2(n){return parseFloat(n.toFixed(2));}
+  var top=[].concat(S.cl).filter(function(x){return x.cat!=='U';}).sort(function(a,b){return b.amt-a.amt;}).slice(0,10).map(function(x){return{description:x.desc,category:x.cat,amount:f2(x.amt)};});
+  var trend={direction:'unavailable',delta_pct:null};if(pr&&pr.total>0){var d=g-pr.total;var p=d/pr.total*100;trend={direction:Math.abs(p)<5?'stable':p>0?'degrading':'improving',delta_pct:f2(p)};}
+  var payload={copq_period:'Current Period',copq_total:f2(g),prevention:{amount:f2(tot.P),pct:f2(pct('P'))},appraisal:{amount:f2(tot.A),pct:f2(pct('A'))},internal_failure:{amount:f2(tot.I),pct:f2(pct('I'))},external_failure:{amount:f2(tot.E),pct:f2(pct('E'))},trend:trend,top_drivers:top,insights:Array.from(document.querySelectorAll('#ins li')).map(function(l){return l.textContent;}),mr_narrative:document.getElementById('nar').textContent,generated:new Date().toISOString()};
+  var b=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});var u=URL.createObjectURL(b);var el=document.createElement('a');el.href=u;el.download='copq-intelligence-'+new Date().toISOString().slice(0,10)+'.json';el.click();URL.revokeObjectURL(u);
+}
+function restart(){S.f1=S.f2=null;S.h1=[];S.h2=[];S.r1=[];S.r2=[];S.cl=[];S.res=null;['fi1','fi2'].forEach(function(id){document.getElementById(id).classList.add('hidden');});['f1','f2'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('btn12').disabled=true;goS(1);}
+dz('dz1','f1',1);dz('dz2','f2',2);
+window.COPQ_MAI={version:'1.0',domain:'copq-intelligence',getResults:function(){return S.res;}};
+</script>
+</body>
+</html>

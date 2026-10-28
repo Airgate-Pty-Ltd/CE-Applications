@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authorized Release Document Decision Tool | Conform-Edge</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: rgba(255,255,255,0.04); --surface2: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.10); --text: #e6edf3; --muted: #8b949e;
+  --accent: #58a6ff; --green: #3fb950; --yellow: #d29922; --red: #f85149;
+  --orange: #f0883e; --purple: #bc8cff; --teal: #39d353;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font: 14px/1.6 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+header { background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.logo { font-size: 18px; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; }
+.logo span { color: var(--muted); font-weight: 400; }
+.badge { background: rgba(88,166,255,0.12); color: var(--accent); border: 1px solid rgba(88,166,255,0.25); border-radius: 4px; font-size: 11px; font-weight: 600; padding: 2px 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.subtitle { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+.auth-ref { display: inline-block; background: rgba(248,131,14,0.10); color: var(--orange); border: 1px solid rgba(248,131,14,0.25); border-radius: 4px; font-size: 11px; font-weight: 600; padding: 2px 8px; margin-right: 4px; }
+.progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 28px; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--orange), var(--accent)); border-radius: 2px; transition: width 0.3s ease; }
+.gate-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+.gate-header { background: var(--surface2); padding: 14px 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); }
+.gate-num { width: 26px; height: 26px; border-radius: 50%; background: rgba(248,131,14,0.15); border: 1px solid rgba(248,131,14,0.3); color: var(--orange); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.gate-title { font-weight: 600; font-size: 14px; }
+.gate-ref { color: var(--muted); font-size: 12px; margin-left: auto; }
+.gate-body { padding: 18px 20px; }
+.question { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+.question:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.q-text { font-size: 13px; margin-bottom: 10px; line-height: 1.5; }
+.q-note { font-size: 11px; color: var(--muted); margin-top: 5px; font-style: italic; }
+.critical-badge { display: inline-block; background: rgba(248,81,73,0.12); color: var(--red); border: 1px solid rgba(248,81,73,0.25); border-radius: 3px; font-size: 10px; font-weight: 700; padding: 1px 6px; margin-left: 6px; text-transform: uppercase; }
+.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-opt { padding: 7px 18px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.15s; }
+.btn-opt:hover { border-color: var(--accent); color: var(--accent); }
+.btn-opt.sel-yes { background: rgba(63,185,80,0.12); border-color: var(--green); color: var(--green); }
+.btn-opt.sel-no { background: rgba(248,81,73,0.08); border-color: rgba(248,81,73,0.4); color: var(--red); }
+.btn-opt.sel-na { background: rgba(139,148,158,0.10); border-color: rgba(139,148,158,0.3); color: var(--muted); }
+.btn-opt.sel-both { background: rgba(88,166,255,0.10); border-color: rgba(88,166,255,0.35); color: var(--accent); }
+.result-panel { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 28px; margin-top: 28px; display: none; }
+.result-panel.show { display: block; }
+.doc-verdict { display: flex; align-items: center; gap: 16px; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+.doc-form8130 { background: rgba(63,185,80,0.06); border: 2px solid var(--green); }
+.doc-form1 { background: rgba(88,166,255,0.06); border: 2px solid var(--accent); }
+.doc-dual { background: rgba(188,140,255,0.06); border: 2px solid var(--purple); }
+.doc-coc { background: rgba(210,153,34,0.06); border: 2px solid var(--yellow); }
+.doc-blocked { background: rgba(248,81,73,0.06); border: 2px solid var(--red); }
+.doc-icon { font-size: 36px; flex-shrink: 0; }
+.doc-name { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+.doc-name.green { color: var(--green); }
+.doc-name.blue { color: var(--accent); }
+.doc-name.purple { color: var(--purple); }
+.doc-name.yellow { color: var(--yellow); }
+.doc-name.red { color: var(--red); }
+.doc-desc { font-size: 13px; color: var(--muted); }
+.section-title { font-size: 13px; font-weight: 600; color: var(--orange); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; margin-top: 22px; }
+.req-list { list-style: none; }
+.req-list li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.req-list li:last-child { border-bottom: none; }
+.comparison-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+.comparison-table th { background: var(--surface); padding: 9px 10px; text-align: left; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+.comparison-table td { padding: 9px 10px; border-bottom: 1px solid var(--border); }
+.comparison-table tr:last-child td { border-bottom: none; }
+.check { color: var(--green); font-weight: 700; }
+.cross { color: var(--red); font-weight: 700; }
+.cond { color: var(--yellow); font-weight: 700; }
+.narrative-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-size: 12px; color: var(--muted); line-height: 1.8; white-space: pre-wrap; margin-top: 8px; }
+.warn-box { background: rgba(210,153,34,0.06); border: 1px solid rgba(210,153,34,0.2); border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; font-size: 12px; color: var(--yellow); }
+.btn-action { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; }
+.btn-primary { background: var(--orange); color: #0d1117; }
+.btn-primary:hover { opacity: 0.85; }
+.btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+.btn-row { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+footer { text-align: center; color: var(--muted); font-size: 11px; padding: 32px; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Conform<span>-Edge</span></div>
+  <div class="badge">FAA Part 43 / Part 21</div>
+  <div class="badge" style="background:rgba(88,166,255,0.10);color:var(--accent);border-color:rgba(88,166,255,0.25);">EASA Part-145 / Part-21</div>
+  <div class="badge" style="background:rgba(248,131,14,0.10);color:var(--orange);border-color:rgba(248,131,14,0.25);">BASA US-EU</div>
+</header>
+
+<div class="container">
+  <h1>Authorized Release Document Decision Tool</h1>
+  <p class="subtitle">
+    <span class="auth-ref">FAA 8130-3</span>
+    <span class="auth-ref">EASA Form 1</span>
+    <span class="auth-ref">CoC</span>
+    <span class="auth-ref">Dual Release</span>
+    Determine the correct authorized release document for your article — repair station, production, or distribution
+  </p>
+
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+  <!-- GATE 1: Article Origin -->
+  <div class="gate-section">
+    <div class="gate-header">
+      <div class="gate-num">1</div>
+      <div class="gate-title">Article Origin & Work Type</div>
+      <div class="gate-ref">14 CFR §43.9 / §21.321</div>
+    </div>
+    <div class="gate-body">
+
+      <div class="question" data-id="q1">
+        <div class="q-text">What best describes the article being released?<span class="critical-badge">Critical</span></div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q1" data-val="new" onclick="setAnswer('q1','new',this)">New manufactured part / appliance</button>
+          <button class="btn-opt" data-q="q1" data-val="maint" onclick="setAnswer('q1','maint',this)">Maintained / inspected / repaired / overhauled article</button>
+          <button class="btn-opt" data-q="q1" data-val="raw" onclick="setAnswer('q1','raw',this)">Raw material / bulk commodity</button>
+        </div>
+        <div class="q-note">New parts come from PAHs; maintained articles from repair stations / maintenance organizations. Raw materials use CoC only.</div>
+      </div>
+
+      <div class="question" data-id="q2">
+        <div class="q-text">What is your organization's authorization?<span class="critical-badge">Critical</span></div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q2" data-val="pah" onclick="setAnswer('q2','pah',this)">FAA Production Approval Holder (PAH) — PMA, PC, or TC holder</button>
+          <button class="btn-opt" data-q="q2" data-val="rs" onclick="setAnswer('q2','rs',this)">FAA Part 145 Certificated Repair Station</button>
+          <button class="btn-opt" data-q="q2" data-val="both" onclick="setAnswer('q2','both',this)">Both — PAH and repair station</button>
+          <button class="btn-opt" data-q="q2" data-val="dist" onclick="setAnswer('q2','dist',this)">Distributor / broker only (no production or maintenance approval)</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GATE 2: Customer / Destination Authority -->
+  <div class="gate-section">
+    <div class="gate-header">
+      <div class="gate-num">2</div>
+      <div class="gate-title">Customer Requirement & Destination Authority</div>
+      <div class="gate-ref">BASA TIP / MAG</div>
+    </div>
+    <div class="gate-body">
+
+      <div class="question" data-id="q3">
+        <div class="q-text">What regulatory authority does the customer / end operator require release for?<span class="critical-badge">Critical</span></div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q3" data-val="faa" onclick="setAnswer('q3','faa',this)">FAA only (US domestic)</button>
+          <button class="btn-opt" data-q="q3" data-val="easa" onclick="setAnswer('q3','easa',this)">EASA only (EU / EASA member state)</button>
+          <button class="btn-opt" data-q="q3" data-val="both" onclick="setAnswer('q3','both',this)">Both FAA and EASA (dual release requested)</button>
+          <button class="btn-opt" data-q="q3" data-val="other" onclick="setAnswer('q3','other',this)">Other authority (UK CAA, CAAC, TCCA, CASA, etc.)</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q4">
+        <div class="q-text">Does your organization hold a bilateral approval that enables release under the destination authority?</div>
+        <div class="q-note">FAA Part 145 repair stations may hold EASA bilateral approval (US-EU BASA / MAG). PAHs may have bilateral production recognition. Without bilateral authorization, you cannot sign an EASA Form 1 as the approving organization.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q4" data-val="yes" onclick="setAnswer('q4','yes',this)">Yes — bilateral approval confirmed</button>
+          <button class="btn-opt" data-q="q4" data-val="no" onclick="setAnswer('q4','no',this)">No bilateral approval</button>
+          <button class="btn-opt" data-q="q4" data-val="na" onclick="setAnswer('q4','na',this)">N/A — FAA release only</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GATE 3: Article Eligibility -->
+  <div class="gate-section">
+    <div class="gate-header">
+      <div class="gate-num">3</div>
+      <div class="gate-title">Article Eligibility & Limitations</div>
+      <div class="gate-ref">Order 8130.21 / AMC 145.A.50</div>
+    </div>
+    <div class="gate-body">
+
+      <div class="question" data-id="q5">
+        <div class="q-text">Is the article an eligible aircraft article (airframe, engine, propeller, appliance, part, or component of a civil aircraft)?</div>
+        <div class="q-note">FAA 8130-3 and EASA Form 1 are for aircraft articles only. Ground support equipment, tooling, and test equipment do not receive airworthiness releases — they use CoC or calibration certificates.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q5" data-val="yes" onclick="setAnswer('q5','yes',this)">Yes — aircraft article</button>
+          <button class="btn-opt" data-q="q5" data-val="no" onclick="setAnswer('q5','no',this)">No — GSE, tooling, or non-aircraft item</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q6">
+        <div class="q-text">Are there any known airworthiness limitations, mandatory replacement life limits, or open ADs that affect this article?<span class="critical-badge">Critical</span></div>
+        <div class="q-note">Life-limited parts (LLPs), time-controlled components, and articles subject to unresolved ADs cannot be released as airworthy without resolving or disclosing the limitation on the tag.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q6" data-val="no" onclick="setAnswer('q6','no',this)">No open limitations or unresolved ADs</button>
+          <button class="btn-opt" data-q="q6" data-val="yes" onclick="setAnswer('q6','yes',this)">Yes — life limit, AD, or limitation exists</button>
+          <button class="btn-opt" data-q="q6" data-val="unknown" onclick="setAnswer('q6','unknown',this)">Unknown — not yet verified</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q7">
+        <div class="q-text">Has the maintenance / repair / overhaul work been completed and inspected in accordance with approved data?</div>
+        <div class="q-note">For repair stations: "approved data" means manufacturer CMM/AMM, FAA-approved repair specification, ATA standards, or other data accepted under 14 CFR Part 43. Work performed to unapproved data cannot receive an 8130-3.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q7" data-val="yes" onclick="setAnswer('q7','yes',this)">Yes — completed per approved data</button>
+          <button class="btn-opt" data-q="q7" data-val="no" onclick="setAnswer('q7','no',this)">No — unapproved data or incomplete</button>
+          <button class="btn-opt" data-q="q7" data-val="na" onclick="setAnswer('q7','na',this)">N/A — new manufactured part (not maintenance)</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GATE 4: Certifying Staff -->
+  <div class="gate-section">
+    <div class="gate-header">
+      <div class="gate-num">4</div>
+      <div class="gate-title">Certifying Authority</div>
+      <div class="gate-ref">14 CFR §145.211 / EASA Part-145.A.50</div>
+    </div>
+    <div class="gate-body">
+
+      <div class="question" data-id="q8">
+        <div class="q-text">Is the individual approving the release authorized by your organization's RSM/QCM to sign the release document for this article type and rating?<span class="critical-badge">Critical</span></div>
+        <div class="q-note">FAA 8130-3: must be an authorized representative per §145.211 for the specific work performed within the repair station's ratings. EASA Form 1: must be EASA certifying staff with appropriate Part-66 authorization (where required) or organization authorization scheme entry.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q8" data-val="yes" onclick="setAnswer('q8','yes',this)">Yes — authorized certifying staff identified</button>
+          <button class="btn-opt" data-q="q8" data-val="no" onclick="setAnswer('q8','no',this)">No — authorization not confirmed</button>
+        </div>
+      </div>
+
+      <div class="question" data-id="q9">
+        <div class="q-text">Will a return-to-service (RTS) statement be required on the document in addition to the approval block?</div>
+        <div class="q-note">FAA 8130-3 Block 12 for maintenance work includes the RTS statement. EASA Form 1 Box 14 is the certification statement. New parts from PAHs do not include an RTS statement — they certify conformity.</div>
+        <div class="btn-group">
+          <button class="btn-opt" data-q="q9" data-val="yes" onclick="setAnswer('q9','yes',this)">Yes — maintenance, repair, or overhaul RTS</button>
+          <button class="btn-opt" data-q="q9" data-val="no" onclick="setAnswer('q9','no',this)">No — new part / conformity statement only</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="btn-action btn-primary" onclick="computeResult()" style="margin-top:16px;">Determine Release Document</button>
+
+  <!-- RESULT PANEL -->
+  <div class="result-panel" id="resultPanel">
+
+    <div id="docVerdictArea"></div>
+
+    <div id="warnArea"></div>
+
+    <div class="section-title">Release Document Requirements</div>
+    <ul class="req-list" id="reqList"></ul>
+
+    <div class="section-title">Quick Comparison — When Each Document Applies</div>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Criterion</th>
+          <th>FAA 8130-3</th>
+          <th>EASA Form 1</th>
+          <th>Dual Release</th>
+          <th>CoC Only</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>New manufactured part</td>
+          <td><span class="check">✓ PAH</span></td>
+          <td><span class="cond">~ Bilateral</span></td>
+          <td><span class="cond">~ Bilateral PAH</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Maintained / repaired article</td>
+          <td><span class="check">✓ Part 145</span></td>
+          <td><span class="cond">~ Bilateral RS</span></td>
+          <td><span class="cond">~ Both approvals</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Non-aircraft / GSE / tooling</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Distributor (no approval)</td>
+          <td><span class="cross">✗ Cannot originate</span></td>
+          <td><span class="cross">✗ Cannot originate</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓ Pass-through only</span></td>
+        </tr>
+        <tr>
+          <td>FAA customer only</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗ Unnecessary</span></td>
+          <td><span class="cond">~ Non-aircraft</span></td>
+        </tr>
+        <tr>
+          <td>EASA customer only</td>
+          <td><span class="cross">✗ Not accepted</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗ Unnecessary</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Both FAA & EASA customers</td>
+          <td><span class="cond">~ Partial</span></td>
+          <td><span class="cond">~ Partial</span></td>
+          <td><span class="check">✓ Under BASA</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Unresolved AD / life limit</td>
+          <td><span class="cross">✗ Cannot release</span></td>
+          <td><span class="cross">✗ Cannot release</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-title">Release Record Narrative</div>
+    <div class="narrative-box" id="narrativeBox"></div>
+
+    <div class="btn-row">
+      <button class="btn-action btn-secondary" onclick="exportJSON()">Export JSON Record</button>
+      <button class="btn-action btn-secondary" onclick="resetTool()">New Assessment</button>
+    </div>
+  </div>
+</div>
+
+<footer>Conform-Edge Quality Consulting LLC &nbsp;·&nbsp; Authorized Release Document Decision Tool &nbsp;·&nbsp; 14 CFR Parts 21 & 43 / FAA Order 8130.21 / EASA Part-145.A.50 / AMC 145.A.50 / US-EU BASA / MAG &nbsp;·&nbsp; For informational use only. Always confirm requirements with your FSDO, DAR, or EASA NAA before issuing release documents.</footer>
+
+<script>
+const QUESTIONS = ['q1','q2','q3','q4','q5','q6','q7','q8','q9'];
+const answers = {};
+
+function setAnswer(qid, val, btn) {
+  answers[qid] = val;
+  const group = btn.closest('.btn-group');
+  group.querySelectorAll('.btn-opt').forEach(b => {
+    b.classList.remove('sel-yes','sel-no','sel-na','sel-both');
+  });
+  const cls = val === 'yes' ? 'sel-yes' : val === 'no' ? 'sel-no' : val === 'na' ? 'sel-na' : val === 'both' ? 'sel-both' : 'sel-yes';
+  btn.classList.add(cls);
+  updateProgress();
+}
+
+function updateProgress() {
+  const answered = Object.keys(answers).length;
+  document.getElementById('progressFill').style.width = Math.round((answered / QUESTIONS.length) * 100) + '%';
+}
+
+function computeResult() {
+  const a = answers;
+
+  // === DETERMINE VERDICT ===
+  let verdict = null;
+  let verdictIcon = '📄';
+  let verdictClass = '';
+  let verdictName = '';
+  let verdictDesc = '';
+  const warnings = [];
+  const requirements = [];
+
+  // Blocker: non-aircraft article
+  if (a.q5 === 'no') {
+    verdict = 'COC';
+    verdictIcon = '📋';
+    verdictClass = 'doc-coc';
+    verdictName = 'Certificate of Conformance (CoC)';
+    verdictDesc = 'Non-aircraft articles (GSE, tooling, test equipment) are not eligible for airworthiness release documents. A CoC or calibration certificate is appropriate.';
+  }
+  // Blocker: distributor
+  else if (a.q2 === 'dist') {
+    verdict = 'COC_PASSTHROUGH';
+    verdictIcon = '📋';
+    verdictClass = 'doc-coc';
+    verdictName = 'CoC (Pass-Through Only)';
+    verdictDesc = 'Distributors without a production or maintenance approval cannot originate an 8130-3 or EASA Form 1. You may pass through the original release document from the PAH or repair station, and issue a CoC for your distribution records.';
+    warnings.push('Warning: A distributor CoC is not an airworthiness release. The customer must receive the original 8130-3 / EASA Form 1 from the originating approved organization.');
+  }
+  // Blocker: work not per approved data
+  else if (a.q7 === 'no') {
+    verdict = 'BLOCKED';
+    verdictIcon = '⛔';
+    verdictClass = 'doc-blocked';
+    verdictName = 'BLOCKED — Release Not Permitted';
+    verdictDesc = 'Work performed to unapproved data cannot be released on an 8130-3 or EASA Form 1. The work must be re-performed or approved data must be identified before release.';
+  }
+  // Blocker: open AD / life limit / unknown
+  else if (a.q6 === 'yes') {
+    verdict = 'BLOCKED_AD';
+    verdictIcon = '⛔';
+    verdictClass = 'doc-blocked';
+    verdictName = 'BLOCKED — Airworthiness Limitation';
+    verdictDesc = 'An unresolved airworthiness directive, life limit, or mandatory replacement interval prevents release in an airworthy condition. Resolve the AD compliance or life limit before issuing the release document.';
+    warnings.push('If the article is being released in a non-airworthy state (e.g., for parts only, scrap, display), it must be clearly marked unairworthy and must not be released on an 8130-3.');
+  }
+  else if (a.q6 === 'unknown') {
+    warnings.push('Airworthiness limitations not yet verified. Confirm AD compliance and life limit status before issuing the release document.');
+  }
+
+  // Blocker: certifying staff not confirmed
+  if (!verdict && a.q8 === 'no') {
+    verdict = 'BLOCKED_AUTH';
+    verdictIcon = '⛔';
+    verdictClass = 'doc-blocked';
+    verdictName = 'BLOCKED — No Authorized Signatory';
+    verdictDesc = 'An authorized certifying staff member must be identified and confirmed before the release document can be issued. Check your Repair Station Manual / QCM for the authorization listing.';
+  }
+
+  // Main decision tree
+  if (!verdict) {
+    const needsEASA = a.q3 === 'easa' || a.q3 === 'both';
+    const needsFAA = a.q3 === 'faa' || a.q3 === 'both';
+    const hasBilateral = a.q4 === 'yes';
+    const isNewPart = a.q1 === 'new';
+    const isMaint = a.q1 === 'maint';
+    const isRaw = a.q1 === 'raw';
+    const isOtherAuth = a.q3 === 'other';
+
+    if (isRaw) {
+      verdict = 'COC';
+      verdictIcon = '📋';
+      verdictClass = 'doc-coc';
+      verdictName = 'Certificate of Conformance (CoC)';
+      verdictDesc = 'Raw materials and bulk commodities use a CoC (material certifications, mill certs, etc.) — not airworthiness release documents.';
+    }
+    else if (isOtherAuth) {
+      verdict = 'OTHER';
+      verdictIcon = '📋';
+      verdictClass = 'doc-coc';
+      verdictName = 'Authority-Specific Release Document';
+      verdictDesc = 'For non-FAA/EASA authorities: UK CAA uses EASA Form 1 (via bilateral) or CAA Form 1; CAAC uses CAAC Airworthiness Tag; TCCA uses Transport Canada Form 24-0078; CASA uses CASA Form 1. Determine the applicable bilateral or unilateral release requirement with your NAA.';
+      warnings.push('Confirm specific release document requirements with the destination authority and applicable bilateral agreement. Not all bilateral agreements accept 8130-3 or EASA Form 1 directly.');
+    }
+    else if (needsFAA && !needsEASA) {
+      verdict = 'FAA_8130';
+      verdictIcon = '✈️';
+      verdictClass = 'doc-form8130';
+      verdictName = 'FAA Form 8130-3';
+      verdictDesc = isNewPart
+        ? 'New manufactured part: 8130-3 issued by the PAH (PMA/PC/TC holder) as an airworthiness approval tag. Block 13 (new part) applies.'
+        : 'Maintained article: 8130-3 issued by the FAA Part 145 certificated repair station per §145.211. Block 14b (return to service) and Block 12 description required.';
+    }
+    else if (needsEASA && !needsFAA) {
+      if (hasBilateral) {
+        verdict = 'EASA_FORM1';
+        verdictIcon = '🇪🇺';
+        verdictClass = 'doc-form1';
+        verdictName = 'EASA Form 1';
+        verdictDesc = 'EASA Form 1 issued by your organization under EASA Part-145 bilateral approval (US-EU BASA / MAG). Your EASA certifying staff signs Box 14 per your Exposition.';
+      } else {
+        verdict = 'EASA_NO_BILATERAL';
+        verdictIcon = '⚠️';
+        verdictClass = 'doc-blocked';
+        verdictName = 'BLOCKED — No EASA Bilateral Authorization';
+        verdictDesc = 'You cannot issue an EASA Form 1 without EASA Part-145 bilateral approval. Options: (1) obtain EASA bilateral approval, (2) subcontract to an EASA-approved organization for release, or (3) advise the customer of the limitation.';
+      }
+    }
+    else if (needsFAA && needsEASA) {
+      if (hasBilateral) {
+        verdict = 'DUAL';
+        verdictIcon = '🌐';
+        verdictClass = 'doc-dual';
+        verdictName = 'Dual Release — 8130-3 + EASA Form 1';
+        verdictDesc = 'Both documents may be issued: FAA 8130-3 under your Part 21/145 approval, and EASA Form 1 under your bilateral EASA Part-145 authorization. The two documents must describe the same work/conformity. Review MAG requirements for dual-release procedures in your Exposition.';
+        warnings.push('Dual release requires your EASA Exposition to describe dual-release procedures per the US-EU BASA Maintenance Annex Guidance (MAG). Confirm MAG compliance before issuing.');
+      } else {
+        verdict = 'FAA_ONLY_ADVISORY';
+        verdictIcon = '✈️';
+        verdictClass = 'doc-form8130';
+        verdictName = 'FAA Form 8130-3 (EASA bilateral not available)';
+        verdictDesc = 'Without bilateral approval, only the FAA 8130-3 can be issued. Advise the customer that EASA Form 1 is not available from your organization. Customer may need an EASA-approved organization to perform or accept the work.';
+        warnings.push('Customer requires EASA release but you lack bilateral approval. Consider referencing the work to an EASA-bilateral-approved organization, or obtaining EASA approval per the US-EU BASA.');
+      }
+    }
+  }
+
+  // Build requirements list
+  const q1map = { new: 'New manufactured part', maint: 'Maintained/repaired article', raw: 'Raw material', unknown: 'Not specified' };
+  const q2map = { pah: 'FAA PAH (PMA/PC/TC)', rs: 'FAA Part 145 Repair Station', both: 'PAH + Repair Station', dist: 'Distributor only' };
+  const q3map = { faa: 'FAA (US domestic)', easa: 'EASA (EU)', both: 'FAA + EASA (dual)', other: 'Other authority' };
+
+  if (verdict === 'FAA_8130' || verdict === 'DUAL' || verdict === 'FAA_ONLY_ADVISORY') {
+    requirements.push({ icon: '✅', text: 'Confirm authorized representative is listed in your RSM/QCM (§145.211) for the specific rating applicable to this work.' });
+    requirements.push({ icon: '✅', text: 'Complete Block 12 (description of work), Block 13 or 14b (approval type), and all required blocks per FAA Order 8130.21.' });
+    requirements.push({ icon: '✅', text: 'Verify AD compliance and document any applicable ADs in the release record.' });
+    if (a.q1 === 'new') requirements.push({ icon: '✅', text: 'Retain conformity records (inspection records, test data, material certs) per §21.303/21.605.' });
+    if (a.q1 === 'maint') requirements.push({ icon: '✅', text: 'Retain maintenance records per §43.9 and §145.221 for minimum 2 years.' });
+  }
+  if (verdict === 'EASA_FORM1' || verdict === 'DUAL') {
+    requirements.push({ icon: '✅', text: 'Confirm certifying staff has valid EASA authorization entry per your Exposition (Box 11 organization approval number).' });
+    requirements.push({ icon: '✅', text: 'Complete EASA Form 1 Boxes 1–14 per AMC 145.A.50 and your Exposition.' });
+    requirements.push({ icon: '✅', text: 'Retain Form 1 copies per Part-145.A.55(c) requirements.' });
+  }
+  if (a.q6 === 'unknown') {
+    requirements.push({ icon: '⚠️', text: 'VERIFY: AD compliance and life limit status must be confirmed before the release document is signed.' });
+  }
+  if (a.q8 === 'yes') {
+    requirements.push({ icon: '✅', text: 'Document the certifying staff name, authorization number, and date in the release record.' });
+  }
+
+  // Build HTML
+  document.getElementById('docVerdictArea').innerHTML = `
+    <div class="doc-verdict ${verdict ? verdictClass : ''}">
+      <div class="doc-icon">${verdictIcon}</div>
+      <div>
+        <div class="doc-name ${verdictClass.includes('form8130') ? 'green' : verdictClass.includes('form1') ? 'blue' : verdictClass.includes('dual') ? 'purple' : verdictClass.includes('blocked') ? 'red' : 'yellow'}">${verdictName}</div>
+        <div class="doc-desc">${verdictDesc}</div>
+      </div>
+    </div>`;
+
+  document.getElementById('warnArea').innerHTML = warnings.map(w =>
+    `<div class="warn-box">⚠ ${w}</div>`).join('');
+
+  document.getElementById('reqList').innerHTML = requirements.length > 0
+    ? requirements.map(r => `<li><span>${r.icon}</span><span>${r.text}</span></li>`).join('')
+    : '<li><span>ℹ️</span><span>No additional requirements applicable — complete the assessment to generate requirements.</span></li>';
+
+  // Narrative
+  const narrative = `AUTHORIZED RELEASE DOCUMENT ASSESSMENT — ${new Date().toLocaleDateString()}
+
+Article type: ${q1map[answers.q1] || 'Not specified'}
+Organization type: ${q2map[answers.q2] || 'Not specified'}
+Customer authority requirement: ${q3map[answers.q3] || 'Not specified'}
+Bilateral approval: ${answers.q4 === 'yes' ? 'Confirmed' : answers.q4 === 'no' ? 'Not held' : 'N/A'}
+Aircraft article: ${answers.q5 === 'yes' ? 'Yes' : answers.q5 === 'no' ? 'No — non-aircraft item' : 'Not specified'}
+AD / life limit status: ${answers.q6 === 'no' ? 'No open items' : answers.q6 === 'yes' ? 'OPEN — blocks release' : 'Not verified'}
+Work per approved data: ${answers.q7 === 'yes' ? 'Yes' : answers.q7 === 'no' ? 'No — blocks release' : 'N/A (new part)'}
+Certifying staff confirmed: ${answers.q8 === 'yes' ? 'Yes' : 'Not confirmed'}
+RTS statement required: ${answers.q9 === 'yes' ? 'Yes (maintenance/repair)' : 'No (new part conformity)'}
+
+DETERMINATION: ${verdictName}
+
+${verdictDesc}
+
+${warnings.length > 0 ? 'ADVISORY NOTES:\n' + warnings.map(w => '• ' + w).join('\n') : ''}
+
+This determination is for informational use only. Confirm release document requirements with your Principal Maintenance Inspector (PMI), Flight Standards District Office (FSDO), or applicable NAA before issuing. Requirements may vary by aircraft type, article class, specific bilateral agreement version, and customer contract.`;
+
+  document.getElementById('narrativeBox').textContent = narrative;
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function exportJSON() {
+  const data = {
+    tool: 'Authorized Release Document Decision Tool',
+    version: '1.0',
+    brand: 'Conform-Edge',
+    timestamp: new Date().toISOString(),
+    answers,
+    verdict: document.querySelector('.doc-name')?.textContent || 'Unknown',
+    maiInterface: { domain: 'authorized-release-decision', reserved: true }
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url;
+  a.download = 'authorized-release-' + new Date().toISOString().split('T')[0] + '.json';
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function resetTool() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.querySelectorAll('.btn-opt').forEach(b => b.classList.remove('sel-yes','sel-no','sel-na','sel-both'));
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('resultPanel').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "rewrites": [
+    {
+      "name": "procedure.howto.remover",
+      "classifier": {
+        "match_phrases": [
+          "click",
+          "press the",
+          "navigate to",
+          "select the menu",
+          "enter your password",
+          "step-by-step"
+        ]
+      },
+      "fix_prompt": "Rewrite the following text so it belongs in a Procedure (WHAT/WHY only). Remove HOW/steps and replace with references to the appropriate Work Instruction. Maintain single spacing and paragraph headers. Text:\\n{snippet}"
+    },
+    {
+      "name": "citation.inserter",
+      "classifier": {
+        "missing_citation_regex": "\\\\[Source: [^\\]]+ p\\d+ L\\d+\u2013L\\d+\\]"
+      },
+      "fix_prompt": "Add precise page/line citations to every requirement statement below. Use the provided authoritative snippets only. Text:\\n{snippet}\\nCONTEXT:\\n{snippets}"
+    },
+    {
+      "name": "mdL.linkage.enforcer",
+      "fix_prompt": "Insert an MDL linkage sentence at the end of the section: \"This section is maintained under the MDL and cross-referenced to related procedures, work instructions, and forms.\""
+    }
+  ]
+}

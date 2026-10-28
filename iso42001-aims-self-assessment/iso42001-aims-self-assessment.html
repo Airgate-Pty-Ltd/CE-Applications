@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 42001 AIMS Self-Assessment | Conform-Edge</title>
+<style>
+  :root{--ce-navy:#1a2b4a;--ce-steel:#3d6b8f;--ce-light:#e8f0f7;--ce-accent:#2ecc71;--ce-warn:#e67e22;--ce-danger:#e74c3c;--ce-neutral:#95a5a6;--ce-text:#1c2733;--ce-border:#c8d8e8;--ce-white:#ffffff;--radius:6px;--shadow:0 2px 8px rgba(0,0,0,.10)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:var(--ce-text);font-size:14px;line-height:1.5}
+  .header{background:var(--ce-navy);color:var(--ce-white);padding:18px 32px;display:flex;align-items:center;justify-content:space-between}
+  .header-title{font-size:18px;font-weight:700}
+  .header-sub{font-size:12px;opacity:.75;margin-top:2px}
+  .header-badge{background:var(--ce-steel);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.5px}
+  .container{max-width:900px;margin:0 auto;padding:24px 16px 60px}
+  .intro-card{background:var(--ce-white);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 24px;margin-bottom:24px;border-left:4px solid var(--ce-steel)}
+  .intro-card h2{font-size:15px;color:var(--ce-navy);margin-bottom:8px}
+  .intro-card p{font-size:13px;color:#4a5568;line-height:1.6}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:12px}
+  .legend-dot{width:10px;height:10px;border-radius:50%}
+  .section-card{background:var(--ce-white);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden}
+  .section-header{background:var(--ce-navy);color:var(--ce-white);padding:12px 20px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .section-num{background:var(--ce-steel);border-radius:4px;padding:2px 8px;font-size:11px}
+  .question-row{padding:14px 20px;border-bottom:1px solid var(--ce-border);display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+  .question-row:last-child{border-bottom:none}
+  .question-row:hover{background:var(--ce-light)}
+  .q-text{font-size:13px;line-height:1.5}
+  .q-clause{font-size:11px;color:var(--ce-steel);margin-top:3px;font-style:italic}
+  .critical-flag{display:inline-block;background:#fef3f2;color:var(--ce-danger);border:1px solid #fca5a5;border-radius:3px;font-size:10px;font-weight:700;padding:1px 5px;margin-left:6px;vertical-align:middle}
+  .response-group{display:flex;gap:6px;flex-shrink:0}
+  .response-btn{padding:5px 12px;border-radius:4px;border:1.5px solid var(--ce-border);background:var(--ce-white);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+  .response-btn:hover{border-color:var(--ce-steel);background:var(--ce-light)}
+  .response-btn.yes.active{background:#d1fae5;border-color:#059669;color:#065f46}
+  .response-btn.partial.active{background:#fef3c7;border-color:#d97706;color:#92400e}
+  .response-btn.no.active{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+  .response-btn.na.active{background:#f1f5f9;border-color:#94a3b8;color:#475569}
+  .results-panel{background:var(--ce-white);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-top:24px;display:none}
+  .results-panel.visible{display:block}
+  .verdict-banner{border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;text-align:center}
+  .verdict-banner.ready{background:#d1fae5;border:2px solid #059669;color:#065f46}
+  .verdict-banner.conditional{background:#fef3c7;border:2px solid #d97706;color:#92400e}
+  .verdict-banner.not-ready{background:#fee2e2;border:2px solid #dc2626;color:#7f1d1d}
+  .verdict-title{font-size:22px;font-weight:800}
+  .verdict-sub{font-size:13px;margin-top:4px}
+  .score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .score-box{background:var(--ce-light);border-radius:var(--radius);padding:12px;text-align:center}
+  .score-box .num{font-size:26px;font-weight:800;color:var(--ce-navy)}
+  .score-box .lbl{font-size:11px;color:#64748b;margin-top:2px}
+  .gap-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
+  .gap-table th{background:var(--ce-navy);color:var(--ce-white);padding:8px 12px;text-align:left}
+  .gap-table td{padding:8px 12px;border-bottom:1px solid var(--ce-border)}
+  .gap-table tr:hover td{background:var(--ce-light)}
+  .gap-sev{font-weight:700;padding:2px 6px;border-radius:3px;font-size:11px}
+  .gap-sev.critical{background:#fee2e2;color:#7f1d1d}
+  .gap-sev.major{background:#fef3c7;color:#92400e}
+  .gap-sev.minor{background:#dbeafe;color:#1e3a5f}
+  .mr-narrative{background:var(--ce-light);border-radius:var(--radius);padding:16px;margin-bottom:20px;font-size:13px;line-height:1.7;border-left:3px solid var(--ce-steel)}
+  .mr-narrative h3{font-size:12px;font-weight:700;color:var(--ce-navy);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+  .action-bar{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{padding:10px 20px;border-radius:4px;border:none;font-size:13px;font-weight:600;cursor:pointer}
+  .btn-primary{background:var(--ce-navy);color:var(--ce-white)}
+  .btn-primary:hover{background:var(--ce-steel)}
+  .btn-secondary{background:var(--ce-light);color:var(--ce-navy);border:1px solid var(--ce-border)}
+  .mai-interface{display:none}
+  .footer{text-align:center;font-size:11px;color:var(--ce-neutral);margin-top:32px}
+  @media(max-width:600px){.question-row{grid-template-columns:1fr}.score-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <div class="header-title">Conform-Edge Quality Consulting</div>
+    <div class="header-sub">ISO 42001 AI Management System (AIMS) Self-Assessment Tool</div>
+  </div>
+  <div class="header-badge">ISO 42001:2023</div>
+</div>
+<div class="container">
+  <div class="intro-card">
+    <h2>ISO 42001:2023 Artificial Intelligence Management System Readiness Assessment</h2>
+    <p>This tool helps organizations evaluate their readiness to implement or certify an AI Management System (AIMS) aligned to ISO 42001:2023. Answer all 30 questions to generate a scored gap report, priority action list, and management review narrative. Items marked <strong>CRITICAL</strong> carry an automatic override — any critical item unanswered, partial, or not implemented results in a NOT READY verdict regardless of overall score.</p>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#059669"></div>Yes — fully implemented</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div>Partial — in progress</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div>No — not implemented</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#94a3b8"></div>N/A — not applicable</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Context & Scope -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 1</span> Context &amp; Organizational Scope (Cl. 4)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q1. Has the organization determined the external and internal issues relevant to its AI activities that affect the AIMS scope? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">Cl. 4.1</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(1,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(1,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(1,'no',this)">No</button><button class="response-btn na" onclick="sr(1,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q2. Have interested parties with needs and expectations relevant to AI been identified (including those affected by AI systems)?</div><div class="q-clause">Cl. 4.2</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(2,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(2,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(2,'no',this)">No</button><button class="response-btn na" onclick="sr(2,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q3. Is the AIMS scope defined, documented, and covering all AI systems and activities the organization develops or deploys? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">Cl. 4.3</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(3,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(3,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(3,'no',this)">No</button><button class="response-btn na" onclick="sr(3,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q4. Is an AI policy established, approved by top management, and communicated across the organization? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">Cl. 5.2</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(4,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(4,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(4,'no',this)">No</button><button class="response-btn na" onclick="sr(4,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <!-- Section 2: Leadership & AI Policy -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 2</span> Leadership &amp; AI Objectives (Cl. 5–6)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q5. Has top management demonstrated leadership by assigning AIMS roles, providing resources, and integrating AI governance into the business management system?</div><div class="q-clause">Cl. 5.1</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(5,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(5,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(5,'no',this)">No</button><button class="response-btn na" onclick="sr(5,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q6. Are AI objectives established, measurable, communicated, and monitored at relevant functions?</div><div class="q-clause">Cl. 6.2</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(6,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(6,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(6,'no',this)">No</button><button class="response-btn na" onclick="sr(6,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q7. Have AI-specific risks and opportunities been assessed and documented, including risks arising from AI systems impacting people or society?</div><div class="q-clause">Cl. 6.1</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(7,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(7,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(7,'no',this)">No</button><button class="response-btn na" onclick="sr(7,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q8. Is an AI risk treatment plan in place with selected controls from Annex A (or equivalent), risk acceptance decisions, and residual risk assessment?</div><div class="q-clause">Cl. 6.1.3 / Annex A</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(8,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(8,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(8,'no',this)">No</button><button class="response-btn na" onclick="sr(8,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <!-- Section 3: AI System Lifecycle Controls -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 3</span> AI System Lifecycle Controls (Cl. 8 / Annex A)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q9. Is there a documented process for planning, designing, and developing AI systems including data requirements, model selection, and performance criteria? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">Cl. 8.3 / A.6</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(9,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(9,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(9,'no',this)">No</button><button class="response-btn na" onclick="sr(9,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q10. Are data governance controls in place for AI training and test data, including data quality, bias assessment, provenance, and data protection requirements?</div><div class="q-clause">Cl. 8.4 / A.7</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(10,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(10,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(10,'no',this)">No</button><button class="response-btn na" onclick="sr(10,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q11. Is AI model validation and testing conducted before deployment, with acceptance criteria defined and documented evidence retained?</div><div class="q-clause">Cl. 8.5 / A.6.5</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(11,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(11,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(11,'no',this)">No</button><button class="response-btn na" onclick="sr(11,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q12. Is AI system monitoring in production defined, including performance degradation detection, drift monitoring, and anomaly response?</div><div class="q-clause">Cl. 8.6 / A.6.7</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(12,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(12,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(12,'no',this)">No</button><button class="response-btn na" onclick="sr(12,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q13. Is there a defined process for AI system decommissioning, including data retention, model archiving, and stakeholder notification?</div><div class="q-clause">Cl. 8.7 / A.6.8</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(13,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(13,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(13,'no',this)">No</button><button class="response-btn na" onclick="sr(13,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q14. Are third-party and supply chain AI components (pre-trained models, APIs, data suppliers) subject to evaluation and controls before use?</div><div class="q-clause">Cl. 8.4 / A.10</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(14,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(14,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(14,'no',this)">No</button><button class="response-btn na" onclick="sr(14,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <!-- Section 4: Responsible AI – Fairness, Transparency & Human Oversight -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 4</span> Responsible AI — Fairness, Transparency &amp; Human Oversight (Annex A)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q15. Have AI impacts on individuals and groups been assessed, including potential for unfair bias or discriminatory outcomes? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">A.8 / A.9</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(15,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(15,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(15,'no',this)">No</button><button class="response-btn na" onclick="sr(15,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q16. Is AI system transparency maintained — can the organization explain AI decisions or recommendations to affected individuals to the degree required?</div><div class="q-clause">A.8.4</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(16,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(16,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(16,'no',this)">No</button><button class="response-btn na" onclick="sr(16,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q17. Are human oversight and intervention mechanisms defined for AI systems, particularly where AI decisions have significant impact on individuals?</div><div class="q-clause">A.6.6 / A.9.3</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(17,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(17,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(17,'no',this)">No</button><button class="response-btn na" onclick="sr(17,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q18. Are privacy and personal data protection requirements integrated into AI system design and operation (privacy by design)?</div><div class="q-clause">A.8.5</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(18,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(18,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(18,'no',this)">No</button><button class="response-btn na" onclick="sr(18,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q19. Is there a defined mechanism for affected individuals or stakeholders to raise concerns or contest AI system outputs?</div><div class="q-clause">A.9.4</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(19,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(19,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(19,'no',this)">No</button><button class="response-btn na" onclick="sr(19,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <!-- Section 5: Support -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 5</span> Resources, Competence &amp; Communication (Cl. 7)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q20. Are AI competence requirements defined for roles involved in AI development, deployment, and governance, with competence records maintained?</div><div class="q-clause">Cl. 7.2</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(20,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(20,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(20,'no',this)">No</button><button class="response-btn na" onclick="sr(20,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q21. Is AI awareness established across the organization — do staff understand the AI policy, their role in responsible AI, and the implications of AI system failures?</div><div class="q-clause">Cl. 7.3</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(21,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(21,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(21,'no',this)">No</button><button class="response-btn na" onclick="sr(21,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q22. Is AIMS documentation controlled, including AI system records, risk assessment records, and objective evidence of controls?</div><div class="q-clause">Cl. 7.5</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(22,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(22,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(22,'no',this)">No</button><button class="response-btn na" onclick="sr(22,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <!-- Section 6: Performance Evaluation & Improvement -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 6</span> Performance Evaluation &amp; Improvement (Cl. 9–10)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q23. Is AIMS performance monitored against AI objectives using defined metrics, with results analyzed and reviewed?</div><div class="q-clause">Cl. 9.1</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(23,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(23,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(23,'no',this)">No</button><button class="response-btn na" onclick="sr(23,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q24. Is an internal AIMS audit program in place and being executed at planned intervals?</div><div class="q-clause">Cl. 9.2</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(24,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(24,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(24,'no',this)">No</button><button class="response-btn na" onclick="sr(24,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q25. Is a management review of the AIMS conducted at planned intervals, including AI performance, audit results, risk changes, and objective achievement?</div><div class="q-clause">Cl. 9.3</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(25,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(25,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(25,'no',this)">No</button><button class="response-btn na" onclick="sr(25,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q26. Are nonconformities in the AIMS investigated, with root cause analysis, corrective actions documented, and effectiveness verified?</div><div class="q-clause">Cl. 10.1</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(26,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(26,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(26,'no',this)">No</button><button class="response-btn na" onclick="sr(26,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q27. Is there a process for identifying and responding to AI incidents (adverse outcomes, unintended behaviours, safety events), including internal escalation and post-incident review?</div><div class="q-clause">Cl. 10.1 / A.6.7</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(27,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(27,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(27,'no',this)">No</button><button class="response-btn na" onclick="sr(27,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q28. Is there a continual improvement process for the AIMS, including lessons learned from AI incidents, audits, and changing AI risk landscapes?</div><div class="q-clause">Cl. 10.2</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(28,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(28,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(28,'no',this)">No</button><button class="response-btn na" onclick="sr(28,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q29. Has the organization assessed applicable AI-related regulatory requirements (EU AI Act, GDPR, sectoral AI regulations) and reflected them in AIMS controls?</div><div class="q-clause">Cl. 4.2 / 6.1</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(29,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(29,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(29,'no',this)">No</button><button class="response-btn na" onclick="sr(29,'na',this)">N/A</button></div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q30. Does the AIMS address AI system use throughout the supply chain — are expectations for responsible AI communicated to relevant suppliers and partners?</div><div class="q-clause">Cl. 8.4 / A.10</div></div>
+      <div class="response-group"><button class="response-btn yes" onclick="sr(30,'yes',this)">Yes</button><button class="response-btn partial" onclick="sr(30,'partial',this)">Partial</button><button class="response-btn no" onclick="sr(30,'no',this)">No</button><button class="response-btn na" onclick="sr(30,'na',this)">N/A</button></div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:20px 0">
+    <button class="btn btn-primary" onclick="generateResults()" style="padding:12px 32px;font-size:15px">Generate Assessment Report</button>
+  </div>
+
+  <div class="results-panel" id="resultsPanel">
+    <div class="verdict-banner" id="verdictBanner">
+      <div class="verdict-title" id="verdictTitle"></div>
+      <div class="verdict-sub" id="verdictSub"></div>
+    </div>
+    <div class="score-grid">
+      <div class="score-box"><div class="num" id="scoreYes">0</div><div class="lbl">Implemented</div></div>
+      <div class="score-box"><div class="num" id="scorePartial">0</div><div class="lbl">Partial</div></div>
+      <div class="score-box"><div class="num" id="scoreNo">0</div><div class="lbl">Not Implemented</div></div>
+      <div class="score-box"><div class="num" id="scorePercent">0%</div><div class="lbl">Score</div></div>
+    </div>
+    <div id="criticalAlert" style="display:none;background:#fee2e2;border:1px solid #dc2626;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#7f1d1d"></div>
+    <h3 style="font-size:13px;font-weight:700;color:var(--ce-navy);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">Priority Gap Register</h3>
+    <table class="gap-table" id="gapTable">
+      <thead><tr><th>Q#</th><th>Gap</th><th>Clause</th><th>Sev.</th><th>Recommended Action</th></tr></thead>
+      <tbody id="gapBody"></tbody>
+    </table>
+    <div class="mr-narrative" id="mrNarrative"></div>
+    <div class="action-bar">
+      <button class="btn btn-primary" onclick="exportJSON()">Export JSON Record</button>
+      <button class="btn btn-secondary" onclick="window.print()">Print Report</button>
+      <button class="btn btn-secondary" onclick="resetAssessment()">Reset</button>
+    </div>
+  </div>
+  <div class="footer">Conform-Edge Quality Consulting LLC &nbsp;|&nbsp; ISO 42001:2023 AIMS Self-Assessment Tool v1.0 &nbsp;|&nbsp; For self-assessment use only. &nbsp;|&nbsp; © 2026</div>
+</div>
+
+<div class="mai-interface" id="mai-kernel-interface"
+  data-product="iso42001-aims-self-assessment"
+  data-domain="iso42001-aims-readiness"
+  data-version="1.0.0"
+  data-dims='["aims-context-scope","aims-risk-treatment","aims-lifecycle-controls","aims-responsible-ai","aims-performance-improvement"]'
+  data-authority-charter="ISO-42001-2023"
+  data-mai-status="ARCHITECTURE_DEFINED">
+</div>
+
+<script>
+const responses={};
+const criticals=[1,3,4,9,15];
+const questions={
+  1:{t:"External/internal issues relevant to AI determined",c:"Cl. 4.1",crit:true},
+  2:{t:"Interested parties affected by AI identified",c:"Cl. 4.2",crit:false},
+  3:{t:"AIMS scope defined and documented",c:"Cl. 4.3",crit:true},
+  4:{t:"AI policy established and approved by top management",c:"Cl. 5.2",crit:true},
+  5:{t:"Top management leadership on AIMS demonstrated",c:"Cl. 5.1",crit:false},
+  6:{t:"AI objectives established and monitored",c:"Cl. 6.2",crit:false},
+  7:{t:"AI-specific risks and opportunities assessed",c:"Cl. 6.1",crit:false},
+  8:{t:"AI risk treatment plan with Annex A controls",c:"Cl. 6.1.3",crit:false},
+  9:{t:"AI system design/development process defined",c:"Cl. 8.3/A.6",crit:true},
+  10:{t:"Data governance for AI training/test data",c:"Cl. 8.4/A.7",crit:false},
+  11:{t:"AI model validation and testing before deployment",c:"Cl. 8.5",crit:false},
+  12:{t:"AI monitoring in production defined",c:"Cl. 8.6",crit:false},
+  13:{t:"AI decommissioning process defined",c:"Cl. 8.7",crit:false},
+  14:{t:"Third-party AI components evaluated before use",c:"Cl. 8.4/A.10",crit:false},
+  15:{t:"AI bias/fairness impact assessment conducted",c:"A.8/A.9",crit:true},
+  16:{t:"AI transparency / explainability maintained",c:"A.8.4",crit:false},
+  17:{t:"Human oversight mechanisms defined for impactful AI",c:"A.6.6",crit:false},
+  18:{t:"Privacy by design in AI systems",c:"A.8.5",crit:false},
+  19:{t:"Mechanism for affected parties to raise AI concerns",c:"A.9.4",crit:false},
+  20:{t:"AI competence requirements defined and recorded",c:"Cl. 7.2",crit:false},
+  21:{t:"AI awareness established across organization",c:"Cl. 7.3",crit:false},
+  22:{t:"AIMS documentation controlled",c:"Cl. 7.5",crit:false},
+  23:{t:"AIMS performance monitored against objectives",c:"Cl. 9.1",crit:false},
+  24:{t:"Internal AIMS audit program executed",c:"Cl. 9.2",crit:false},
+  25:{t:"AIMS management review conducted",c:"Cl. 9.3",crit:false},
+  26:{t:"AIMS nonconformities investigated with RCA and CA",c:"Cl. 10.1",crit:false},
+  27:{t:"AI incident management process in place",c:"Cl. 10.1/A.6.7",crit:false},
+  28:{t:"Continual improvement process for AIMS",c:"Cl. 10.2",crit:false},
+  29:{t:"AI regulatory requirements assessed (EU AI Act, etc.)",c:"Cl. 4.2/6.1",crit:false},
+  30:{t:"Responsible AI expectations communicated to supply chain",c:"Cl. 8.4/A.10",crit:false}
+};
+const remediation={
+  1:"Conduct structured analysis of external/internal AI context per Cl. 4.1. Document issues relevant to AI activities.",
+  3:"Define and document the AIMS scope, specifying which AI systems and activities are included.",
+  4:"Establish and approve an AI policy addressing responsible AI principles; distribute to organization.",
+  9:"Define and document an AI system lifecycle process covering design, development, validation, and deployment.",
+  15:"Conduct an AI impact assessment covering potential bias, fairness, and discriminatory outcomes for affected groups."
+};
+
+function sr(q,v,btn){
+  responses[q]=v;
+  btn.parentElement.querySelectorAll('.response-btn').forEach(b=>b.classList.remove('active','yes','partial','no','na'));
+  btn.classList.add('active',v);
+}
+
+function generateResults(){
+  let yes=0,partial=0,no=0,na=0,critFail=[],gaps=[];
+  for(let q=1;q<=30;q++){
+    const r=responses[q]||'no';
+    const info=questions[q];
+    if(r==='yes') yes++;
+    else if(r==='partial'){partial++;if(info.crit)critFail.push(q);gaps.push({q,info,r,sev:info.crit?'critical':'minor'});}
+    else if(r==='no'){no++;if(info.crit)critFail.push(q);gaps.push({q,info,r,sev:info.crit?'critical':'major'});}
+    else if(r==='na') na++;
+  }
+  gaps.sort((a,b)=>({critical:0,major:1,minor:2}[a.sev]-{critical:0,major:1,minor:2}[b.sev]));
+  const scored=yes+partial*0.5,total=30-na,pct=total>0?Math.round(scored/total*100):0;
+  document.getElementById('scoreYes').textContent=yes;
+  document.getElementById('scorePartial').textContent=partial;
+  document.getElementById('scoreNo').textContent=no;
+  document.getElementById('scorePercent').textContent=pct+'%';
+  const banner=document.getElementById('verdictBanner');
+  banner.className='verdict-banner';
+  if(critFail.length>0){banner.classList.add('not-ready');document.getElementById('verdictTitle').textContent='⚠ NOT READY — Critical Gaps Present';document.getElementById('verdictSub').textContent=critFail.length+' critical item(s) unresolved. ISO 42001 AIMS implementation not certifiable without resolution.';}
+  else if(pct>=80){banner.classList.add('ready');document.getElementById('verdictTitle').textContent='✓ READY — AIMS Certification Supportable';document.getElementById('verdictSub').textContent='Score: '+pct+'%. All critical items addressed. AIMS is positioned for certification assessment.';}
+  else{banner.classList.add('conditional');document.getElementById('verdictTitle').textContent='△ CONDITIONAL — Gaps Require Remediation';document.getElementById('verdictSub').textContent='Score: '+pct+'%. Address prioritized gaps before proceeding to certification.';}
+  const alert=document.getElementById('criticalAlert');
+  if(critFail.length>0){alert.style.display='block';alert.innerHTML='<strong>Critical Gap Alert:</strong> Items Q'+critFail.join(', Q')+' must be fully implemented.';}
+  else alert.style.display='none';
+  const tbody=document.getElementById('gapBody');tbody.innerHTML='';
+  if(!gaps.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:#059669;font-weight:600">No gaps identified.</td></tr>';}
+  else gaps.forEach(g=>{const tr=document.createElement('tr');tr.innerHTML='<td>Q'+g.q+'</td><td>'+g.info.t+'</td><td>'+g.info.c+'</td><td><span class="gap-sev '+g.sev+'">'+g.sev.toUpperCase()+'</span></td><td>'+(remediation[g.q]||'Review and implement '+g.info.t+' per '+g.info.c+'.')+'</td>';tbody.appendChild(tr);});
+  const critGaps=gaps.filter(g=>g.sev==='critical').length;
+  document.getElementById('mrNarrative').innerHTML='<h3>Management Review Narrative — ISO 42001 AIMS Readiness</h3><p>Self-assessment against ISO 42001:2023 (AI Management System). Score: <strong>'+pct+'%</strong> ('+yes+' implemented, '+partial+' partial, '+no+' not implemented, '+na+' N/A — of 30 questions).</p><p style="margin-top:8px">Verdict: <strong>'+(critFail.length>0?'NOT READY':pct>=80?'READY':'CONDITIONAL')+'</strong>. '+gaps.length+' gap(s), '+critGaps+' critical. '+(critFail.length>0?'Critical items Q'+critFail.join(', Q')+' must be resolved before proceeding to certification.':pct>=80?'All critical items addressed. AIMS is positioned for certification assessment.':'Remediation required before certification body engagement.')+'</p><p style="margin-top:8px;font-size:12px;color:#64748b">Generated: '+new Date().toISOString().split('T')[0]+' | Conform-Edge ISO 42001 AIMS Self-Assessment v1.0</p>';
+  document.getElementById('resultsPanel').classList.add('visible');
+  document.getElementById('resultsPanel').scrollIntoView({behavior:'smooth'});
+}
+
+function exportJSON(){
+  const data={tool:"Conform-Edge ISO 42001 AIMS Self-Assessment",version:"1.0.0",standard:"ISO 42001:2023",domain:"iso42001-aims-readiness",exportDate:new Date().toISOString(),responses,maiInterface:{status:"ARCHITECTURE_DEFINED",domain:"iso42001-aims-readiness"}};
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download='iso42001-aims-assessment-'+new Date().toISOString().split('T')[0]+'.json';a.click();
+}
+
+function resetAssessment(){
+  Object.keys(responses).forEach(k=>delete responses[k]);
+  document.querySelectorAll('.response-btn').forEach(b=>b.classList.remove('active','yes','partial','no','na'));
+  document.getElementById('resultsPanel').classList.remove('visible');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

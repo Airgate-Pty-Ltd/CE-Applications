@@ -1,0 +1,87 @@
+{
+  "templateId": "application-letter",
+  "title": "PMA Application Letter",
+  "scope": "GOLDEN",
+  "note": "Organization-agnostic. Every {{token}} is supplied by the tenant profile or the case. No tenant data is embedded here.",
+  "source": "F-851-45 Rev C — letter templates, pages 2-5. Variant selected by item 1.A (Source x Count).",
+
+  "variantSelector": {
+    "dimensions": ["source", "count"],
+    "source": ["TC_HOLDER", "STC"],
+    "count": ["SINGLE", "MULTIPLE"],
+    "note": "F-851-45 item 1.A: Single source -> page 2 (TC Holder) or page 3 (STC); Multiple source -> page 4 (TC Holder) or page 5 (STC)."
+  },
+
+  "skeleton": [
+    { "block": "faa_office_block", "lines": "{{tenant.faaOffice.lines}}" },
+    { "block": "date", "text": "{{case.letterDate}}", "format": "DD Month YYYY" },
+    { "block": "subject", "text": "Subject: Request for PMA" },
+    {
+      "block": "paragraph_1",
+      "text": "{{tenant.legalName}} is submitting an application for Parts Manufacturing Approval (PMA) for {{case.systemName}}. We request your review of the enclosed data being submitted in support of this application. The {{case.systemShortName}} consists of the components listed in the unnumbered PMA Supplement and can be installed in {{case.modelEligibility}}, {{case.airworthinessPart}} aircraft."
+    },
+    { "block": "paragraph_2_basis", "variantSpecific": true },
+    { "block": "multi_stc_table", "variantSpecific": true, "optional": true },
+    {
+      "block": "paragraph_3_manufacturing",
+      "text": "The system components will be manufactured at {{tenant.legalName}}, {{tenant.manufacturingAddress}}. The items listed in the unnumbered PMA Supplement will be manufactured in accordance with our FAA approved quality system."
+    },
+    { "block": "paragraph_4_closing", "text": "We appreciate your effort in support of this request." },
+    {
+      "block": "signature",
+      "lines": ["Yours sincerely", "", "{{case.signatoryName}}", "{{case.signatoryTitle}}", "{{tenant.legalName}}"]
+    },
+    { "block": "enclosures", "variantSpecific": true },
+    { "block": "footer", "lines": ["{{tenant.manufacturingAddress}}", "Ph: {{tenant.phone}}, FAX: {{tenant.fax}}"] }
+  ],
+
+  "variants": {
+    "TC_HOLDER__SINGLE": {
+      "sourceRef": "F-851-45 Rev C page 2",
+      "paragraph_2_basis": "Approval is requested based on identicality to the approved design data of TC {{case.tcNumber}} and are evidenced by the FAA PMA Supporting Data Letters, reference {{case.supportingDataLetterRef}}, dated {{case.supportingDataLetterDate}} under 14 CFR 21.303.",
+      "enclosures": [
+        "Copy unnumbered PMA Supplement",
+        "Copy {{case.tcHolderShort}} Supporting data for PMA Letter."
+      ]
+    },
+    "STC__SINGLE": {
+      "sourceRef": "F-851-45 Rev C page 3",
+      "paragraph_2_basis": "Approval is requested based on identicality to the approved design data of STC {{case.stcNumber}} and is evidenced by the STC Authorizations under 14 CFR 21.303(a)(4).",
+      "enclosures": [
+        "Copy unnumbered PMA Supplement",
+        "Copy STC {{case.stcNumber}}",
+        "Copy {{case.indexListLabel}} {{case.indexListNumber}}, Rev. {{case.indexListRev}}"
+      ]
+    },
+    "TC_HOLDER__MULTIPLE": {
+      "sourceRef": "F-851-45 Rev C page 4",
+      "paragraph_2_basis": "Approval is requested based on identicality to the approved design data of TCs {{case.tcNumberList}} and are evidenced by the Supporting Data for PMA Letters dated {{case.supportingDataLetterDates}} under 14 CFR 21.303.",
+      "enclosures": [
+        "Copy unnumbered PMA Supplement.",
+        "Copy Supplier Licensing Agreement.",
+        "Copy {{case.tcHolderShort}} Supporting data for PMA Letters"
+      ]
+    },
+    "STC__MULTIPLE": {
+      "sourceRef": "F-851-45 Rev C page 5",
+      "paragraph_1_override": "{{tenant.legalName}} is submitting an application for Parts Manufacturing Approval (PMA) for the {{tenant.systemFamilyName}} as showed on the below table. We request your review of the enclosed data being submitted in support of this application. The {{case.systemShortName}} consists of the components listed in the unnumbered PMA Supplement and can be installed on {{case.aircraftFamilyPhrase}}, {{case.airworthinessPart}} aircraft.",
+      "paragraph_2_basis": "Approval is requested based on identicality to the approved design data of different STCs and is evidenced by the STC Authorizations under 14 CFR 21.303(a)(4).",
+      "multi_stc_table": {
+        "columns": ["System Name", "STC Number", "Article Number / Rev", "TC Holder", "Model Eligibility"],
+        "rows": "{{case.stcTableRows}}"
+      },
+      "enclosures": [
+        "Copy unnumbered PMA Supplement",
+        "Copy of STCs",
+        "Copy of Index Lists"
+      ]
+    }
+  },
+
+  "formattingRules": [
+    {
+      "rule": "Model eligibility uses 'B' before Boeing models and 'A' before Airbus models; use the word 'Series' or 'Models' as the assist letter or STC does; add special notes or exceptions as applicable.",
+      "source": "F-851-45 Rev C item 3.A.IV"
+    }
+  ]
+}

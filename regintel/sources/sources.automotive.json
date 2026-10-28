@@ -1,0 +1,426 @@
+{
+  "registry_version": "1.0.0",
+  "domain": "automotive",
+  "identity_markers_needs_review": true,
+  "last_full_validation": null,
+  "sources": [
+    {
+      "id": "AUT-133",
+      "authority": "UNECE vehicle regulations",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://unece.org/transport/vehicle-regulations",
+      "identity_markers": [
+        "UNECE"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-134",
+      "authority": "WP.29 introduction",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://unece.org/wp29-introduction",
+      "identity_markers": [
+        "introduction"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-135",
+      "authority": "WP.29 meeting documents",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://unece.org/info/Transport/Vehicle-Regulations/events",
+      "identity_markers": [
+        "meeting"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-136",
+      "authority": "UN Regulations — 1958 Agreement",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://unece.org/un-regulations-addenda-1958-agreement",
+      "identity_markers": [
+        "Regulations"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-137",
+      "authority": "UN Global Technical Regulations",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://unece.org/un-global-technical-regulations",
+      "identity_markers": [
+        "Global"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-138",
+      "authority": "UN Rules — 1997 Agreement",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://unece.org/un-rules",
+      "identity_markers": [
+        "Rules"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-139",
+      "authority": "Working Party GRVA",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://unece.org/transport/vehicle-regulations/working-party-automatedautonomous-and-connected-vehicles-introduction",
+      "identity_markers": [
+        "Working"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-140",
+      "authority": "UNECE document search",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "",
+      "url": "https://documents.un.org/",
+      "identity_markers": [
+        "UNECE"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-141",
+      "authority": "NHTSA laws and regulations",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.nhtsa.gov/laws-regulations",
+      "identity_markers": [
+        "NHTSA",
+        "Highway Traffic Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-142",
+      "authority": "NHTSA rulemaking",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.nhtsa.gov/laws-regulations/rulemaking",
+      "identity_markers": [
+        "NHTSA",
+        "Highway Traffic Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-143",
+      "authority": "NHTSA interpretations",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.nhtsa.gov/nhtsa-interpretation-file-search",
+      "identity_markers": [
+        "NHTSA",
+        "Highway Traffic Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-144",
+      "authority": "NHTSA recalls",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.nhtsa.gov/recalls",
+      "identity_markers": [
+        "NHTSA",
+        "Highway Traffic Safety"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "AUT-145",
+      "authority": "NHTSA recall API",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://api.nhtsa.gov/",
+      "identity_markers": [
+        "NHTSA",
+        "Highway Traffic Safety"
+      ],
+      "criticality": "sentinel"
+    },
+    {
+      "id": "AUT-146",
+      "authority": "NHTSA investigations",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.nhtsa.gov/vehicle-safety/vehicle-related-investigations",
+      "identity_markers": [
+        "NHTSA",
+        "Highway Traffic Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-147",
+      "authority": "NHTSA manufacturer communications",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.nhtsa.gov/vehicle-safety/manufacturer-communications",
+      "identity_markers": [
+        "NHTSA",
+        "Highway Traffic Safety"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-148",
+      "authority": "NHTSA Federal Register",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.federalregister.gov/agencies/national-highway-traffic-safety-administration",
+      "identity_markers": [
+        "NHTSA",
+        "Highway Traffic Safety"
+      ],
+      "criticality": "required"
+    },
+    {
+      "id": "AUT-149",
+      "authority": "49 CFR vehicle regulations",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-V",
+      "identity_markers": [
+        "CFR"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-150",
+      "authority": "EPA vehicle regulations",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.epa.gov/regulations-emissions-vehicles-and-engines",
+      "identity_markers": [
+        "EPA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-151",
+      "authority": "EPA regulations",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.epa.gov/laws-regulations/regulations",
+      "identity_markers": [
+        "EPA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-152",
+      "authority": "EPA mobile-source compliance",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://www.epa.gov/vehicle-and-engine-certification",
+      "identity_markers": [
+        "EPA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-153",
+      "authority": "CARB regulations",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://ww2.arb.ca.gov/rulemaking",
+      "identity_markers": [
+        "CARB"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-154",
+      "authority": "CARB vehicle programs",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://ww2.arb.ca.gov/our-work/programs",
+      "identity_markers": [
+        "CARB"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-155",
+      "authority": "CARB enforcement",
+      "tier": "primary",
+      "country": "United States",
+      "purpose": "",
+      "url": "https://ww2.arb.ca.gov/our-work/programs/enforcement-policy-and-resources",
+      "identity_markers": [
+        "CARB"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-156",
+      "authority": "IATF publications",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "SIs, FAQs, publications",
+      "url": "https://www.iatfglobaloversight.org/iatf-169492016/iatf-169492016-publications/",
+      "identity_markers": [
+        "IATF",
+        "16949",
+        "Faqs"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-157",
+      "authority": "IATF sanctioned interpretations",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Binding interpretations",
+      "url": "https://www.iatfglobaloversight.org/iatf-169492016/iatf-169492016-sanctioned-interpretations/",
+      "identity_markers": [
+        "IATF",
+        "16949",
+        "Binding"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-158",
+      "authority": "IATF FAQs",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Official clarification",
+      "url": "https://www.iatfglobaloversight.org/iatf-169492016/iatf-169492016-faqs/",
+      "identity_markers": [
+        "IATF",
+        "16949",
+        "Official"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-159",
+      "authority": "IATF OEM requirements",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Customer-specific requirements",
+      "url": "https://www.iatfglobaloversight.org/oem-requirements/customer-specific-requirements/",
+      "identity_markers": [
+        "IATF",
+        "16949",
+        "Customer"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-160",
+      "authority": "AIAG publications",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Core-tool edition status",
+      "url": "https://www.aiag.org/store/publications",
+      "identity_markers": [
+        "AIAG",
+        "Core"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-161",
+      "authority": "AIAG manuals",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Current manual directory",
+      "url": "https://www.aiag.org/training-and-resources/manuals",
+      "identity_markers": [
+        "AIAG",
+        "Current"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-162",
+      "authority": "VDA QMC publications",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "VDA standards and manuals",
+      "url": "https://vda-qmc.de/en/publications/",
+      "identity_markers": [
+        "VDA",
+        "Standards"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-163",
+      "authority": "SAE standards",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Automotive and aerospace standards",
+      "url": "https://www.sae.org/standards",
+      "identity_markers": [
+        "SAE",
+        "Automotive"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-164",
+      "authority": "ISO/TC 22",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Road-vehicle standards work",
+      "url": "https://www.iso.org/committee/46706.html",
+      "identity_markers": [
+        "ISO",
+        "Road"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "AUT-165",
+      "authority": "ISO road-vehicle standards",
+      "tier": "primary",
+      "country": "International",
+      "purpose": "Published and revised automotive standards",
+      "url": "https://www.iso.org/ics/43.040/x/",
+      "identity_markers": [
+        "ISO",
+        "Published"
+      ],
+      "criticality": "common"
+    }
+  ]
+}

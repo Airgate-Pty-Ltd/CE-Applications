@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ISO 17025:2017 Calibration Lab Accreditation Readiness | Conform-Edge</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
+:root{--navy:#0d2137;--steel:#2a5a8c;--ink:#1a1a2e;--light:#f0f2f5;--white:#ffffff;--green:#1a7f4e;--amber:#b45309;--red:#b91c1c;--blue:#1d4ed8;--card:#ffffff;--border:#d1d9e6}
+/* HEADER */
+header{background:var(--navy);color:#fff;padding:16px 32px;display:flex;align-items:center;gap:16px}
+.brand{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#7ab3d4;font-weight:600}
+header h1{font-size:18px;font-weight:700;flex:1}
+header .tag{background:#1d4ed8;color:#fff;font-size:10px;padding:3px 8px;border-radius:3px;letter-spacing:1px;text-transform:uppercase}
+/* LAYOUT */
+.container{max-width:980px;margin:0 auto;padding:24px 16px}
+/* INTRO */
+.intro-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-bottom:20px}
+.intro-card p{font-size:13px;color:#555;line-height:1.6;margin-bottom:8px}
+.intro-card p:last-child{margin:0}
+.disclaimer{font-size:11px;color:#888;border-top:1px solid var(--border);padding-top:10px;margin-top:10px}
+/* PROGRESS */
+.progress-bar{background:#e2e8f0;border-radius:4px;height:8px;margin:12px 0}
+.progress-fill{background:var(--steel);height:8px;border-radius:4px;transition:width .3s}
+/* SECTION TABS */
+.tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:8px 16px;border-radius:6px 6px 0 0;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:#e8edf3;color:#555;transition:all .2s}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tab.done{background:var(--green);color:#fff;border-color:var(--green)}
+/* SECTION CARD */
+.section-card{background:var(--card);border:1px solid var(--border);border-radius:0 8px 8px 8px;padding:24px;margin-bottom:20px;display:none}
+.section-card.active{display:block}
+.section-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:20px}
+.section-num{background:var(--navy);color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.section-title h2{font-size:16px;font-weight:700;color:var(--navy)}
+.section-title p{font-size:12px;color:#666;margin-top:2px}
+/* QUESTION */
+.question{border-bottom:1px solid #f0f2f5;padding:14px 0}
+.question:last-of-type{border-bottom:none}
+.q-header{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
+.q-clause{font-size:10px;background:#e8edf3;color:#555;padding:2px 6px;border-radius:3px;white-space:nowrap;margin-top:2px}
+.q-critical{font-size:10px;background:#fef2f2;color:var(--red);padding:2px 6px;border-radius:3px;white-space:nowrap;margin-top:2px;font-weight:600}
+.q-text{font-size:13px;color:var(--ink);line-height:1.5;flex:1}
+.q-controls{display:flex;gap:8px;flex-wrap:wrap}
+.q-controls label{display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;padding:5px 10px;border-radius:4px;border:1px solid var(--border);transition:all .15s}
+.q-controls label:hover{background:#f8faff}
+.q-controls input[type=radio]{cursor:pointer}
+.q-controls label.sel-met{background:#dcfce7;border-color:#86efac;color:#166534}
+.q-controls label.sel-partial{background:#fef9c3;border-color:#fde047;color:#854d0e}
+.q-controls label.sel-not{background:#fef2f2;border-color:#fca5a5;color:#991b1b}
+.q-controls label.sel-na{background:#f1f5f9;border-color:#cbd5e1;color:#475569}
+/* NAV BUTTONS */
+.nav-row{display:flex;justify-content:space-between;margin-top:20px}
+.btn{padding:9px 20px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--steel);color:#fff}
+.btn-primary:hover{background:#1e4a7a}
+.btn-secondary{background:#e8edf3;color:#555}
+.btn-secondary:hover{background:#d1d9e6}
+.btn-red{background:var(--red);color:#fff}
+/* RESULTS */
+#results-panel{display:none}
+.verdict-box{border-radius:10px;padding:24px;text-align:center;margin-bottom:24px}
+.verdict-ready{background:#dcfce7;border:2px solid #86efac}
+.verdict-conditional{background:#fef9c3;border:2px solid #fde047}
+.verdict-not{background:#fef2f2;border:2px solid #fca5a5}
+.verdict-label{font-size:22px;font-weight:800;margin-bottom:6px}
+.verdict-sub{font-size:13px;color:#555}
+.score-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:24px}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.score-card .s-num{font-size:26px;font-weight:800;color:var(--steel)}
+.score-card .s-label{font-size:11px;color:#666;margin-top:2px}
+.score-card .s-bar{background:#e2e8f0;height:5px;border-radius:3px;margin-top:8px}
+.score-card .s-fill{height:5px;border-radius:3px;background:var(--steel)}
+/* GAP TABLE */
+.gap-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
+.gap-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:left;font-weight:600}
+.gap-table td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+.gap-table tr:nth-child(even) td{background:#f8faff}
+.gap-critical-row td{background:#fff5f5 !important}
+.pri-high{color:var(--red);font-weight:700}
+.pri-med{color:var(--amber);font-weight:600}
+.pri-low{color:#555}
+/* NARRATIVE */
+.narrative-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:16px;font-size:12px;line-height:1.7;color:#333;white-space:pre-wrap;margin-bottom:20px}
+/* EXPORT */
+.export-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn-export{padding:8px 16px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--navy)}
+.btn-export:hover{background:#e8edf3}
+/* UTIL */
+.hidden{display:none}
+.mt16{margin-top:16px}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">Conform-Edge</div>
+    <h1>ISO 17025:2017 Calibration Lab Accreditation Readiness</h1>
+  </div>
+  <div class="tag">Self-Assessment</div>
+</header>
+
+<div class="container">
+
+  <div class="intro-card">
+    <p>This tool assesses your calibration laboratory's readiness for accreditation against ISO/IEC 17025:2017 across all five major sections. Answer each question based on your current documented state. <strong>Critical items</strong> are flagged — a gap in any critical item results in a NOT READY verdict regardless of overall score.</p>
+    <p>Progress: <span id="q-count">0</span> of <span id="q-total">32</span> questions answered.</p>
+    <div class="progress-bar"><div class="progress-fill" id="main-progress" style="width:0%"></div></div>
+    <p class="disclaimer">Self-preparation aid only. Accreditation determinations are made by your accreditation body (A2LA, ILAC-member body, UKAS, NATA, etc.), not this tool. Standards referenced by clause number and intent; no standard text reproduced. © Conform-Edge Quality Management Consulting LLC.</p>
+  </div>
+
+  <!-- SECTION TABS -->
+  <div class="tabs" id="section-tabs">
+    <div class="tab active" onclick="showSection(0)">1. General Req.</div>
+    <div class="tab" onclick="showSection(1)">2. Structural Req.</div>
+    <div class="tab" onclick="showSection(2)">3. Resource Req.</div>
+    <div class="tab" onclick="showSection(3)">4. Process Req.</div>
+    <div class="tab" onclick="showSection(4)">5. Management System</div>
+  </div>
+
+  <!-- SECTION 1: GENERAL REQUIREMENTS -->
+  <div class="section-card active" id="sec-0">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">
+        <h2>General Requirements (Cl. 4)</h2>
+        <p>Impartiality, confidentiality, and management commitment</p>
+      </div>
+    </div>
+
+    <div id="questions-sec0"></div>
+
+    <div class="nav-row">
+      <div></div>
+      <button class="btn btn-primary" onclick="nextSection(0)">Next: Structural Requirements →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 2: STRUCTURAL REQUIREMENTS -->
+  <div class="section-card" id="sec-1">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">
+        <h2>Structural Requirements (Cl. 5)</h2>
+        <p>Legal status, scope definition, and organizational structure</p>
+      </div>
+    </div>
+    <div id="questions-sec1"></div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="showSection(0)">← Back</button>
+      <button class="btn btn-primary" onclick="nextSection(1)">Next: Resource Requirements →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 3: RESOURCE REQUIREMENTS -->
+  <div class="section-card" id="sec-2">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">
+        <h2>Resource Requirements (Cl. 6)</h2>
+        <p>Personnel, facilities, equipment, and metrological traceability</p>
+      </div>
+    </div>
+    <div id="questions-sec2"></div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="showSection(1)">← Back</button>
+      <button class="btn btn-primary" onclick="nextSection(2)">Next: Process Requirements →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 4: PROCESS REQUIREMENTS -->
+  <div class="section-card" id="sec-3">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">
+        <h2>Process Requirements (Cl. 7)</h2>
+        <p>Method validation, uncertainty, reporting, and data integrity</p>
+      </div>
+    </div>
+    <div id="questions-sec3"></div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="showSection(2)">← Back</button>
+      <button class="btn btn-primary" onclick="nextSection(3)">Next: Management System →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 5: MANAGEMENT SYSTEM -->
+  <div class="section-card" id="sec-4">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">
+        <h2>Management System Requirements (Cl. 8)</h2>
+        <p>Documentation, document control, CAPA, internal audit, and management review</p>
+      </div>
+    </div>
+    <div id="questions-sec4"></div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="showSection(3)">← Back</button>
+      <button class="btn btn-primary" onclick="generateResults()">Generate Readiness Report →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-panel">
+    <div id="verdict-box" class="verdict-box">
+      <div class="verdict-label" id="verdict-label">—</div>
+      <div class="verdict-sub" id="verdict-sub">—</div>
+    </div>
+
+    <div class="score-grid" id="score-grid"></div>
+
+    <div class="section-card active" style="margin-bottom:20px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px">Gap Analysis — Prioritized Actions</h3>
+      <table class="gap-table" id="gap-table">
+        <thead><tr><th>Clause</th><th>Requirement</th><th>Status</th><th>Priority Action</th></tr></thead>
+        <tbody id="gap-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="section-card active" style="margin-bottom:20px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px">Management Review Narrative</h3>
+      <div class="narrative-box" id="narrative-box"></div>
+    </div>
+
+    <div class="section-card active" style="margin-bottom:20px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px">Export</h3>
+      <div class="export-row">
+        <button class="btn-export" onclick="exportJSON()">⬇ Export JSON</button>
+        <button class="btn-export" onclick="window.print()">🖨 Print Report</button>
+        <button class="btn-export" onclick="resetTool()">↩ Start Over</button>
+      </div>
+      <p style="font-size:11px;color:#888;margin-top:10px">M-AI reserved interface: domain=iso17025-readiness v1.0</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const SECTIONS = [
+  {
+    id: 's0', title: 'General Requirements', clause: 'Cl. 4',
+    questions: [
+      { id:'s0q0', clause:'4.1', text:'The laboratory has identified risks to its impartiality, has documented policies/procedures to prevent conflicts of interest, and management is not subject to commercial or financial pressure that would compromise technical judgments.', critical:true },
+      { id:'s0q1', clause:'4.2', text:'Customer and third-party information is treated as confidential. The laboratory has documented commitments and controls protecting proprietary information.' },
+      { id:'s0q2', clause:'4.1.3', text:'Management commitment to impartiality is demonstrated — there is no organizational structure or incentive that rewards altering results.' },
+      { id:'s0q3', clause:'4.1.4', text:'A technically competent person with authority is identifiable and responsible for each area of laboratory activity.' },
+      { id:'s0q4', clause:'4.1.5', text:'Laboratory calibration/testing activities are clearly delineated from any other business functions that could create a conflict of interest.' },
+      { id:'s0q5', clause:'4.2.1', text:'Procedures are in place to manage confidentiality obligations when information must be shared with third parties (e.g., accreditation body, regulator, parent company).' },
+    ]
+  },
+  {
+    id: 's1', title: 'Structural Requirements', clause: 'Cl. 5',
+    questions: [
+      { id:'s1q0', clause:'5.1', text:'The laboratory is a legal entity or a clearly defined part of a legal entity (e.g., a division with its own scope and policies).' },
+      { id:'s1q1', clause:'5.2', text:'The scope of laboratory activities for which accreditation is sought is formally defined in writing, including measurement types, ranges, measurement methods, and equipment.', critical:true },
+      { id:'s1q2', clause:'5.3', text:'The laboratory has reviewed all applicable ISO 17025:2017 requirements and confirmed it meets or has plans to meet each requirement within the defined scope.' },
+      { id:'s1q3', clause:'5.4', text:'The organizational structure, management hierarchy, and reporting relationships affecting laboratory quality are documented.' },
+      { id:'s1q4', clause:'5.5', text:'All personnel performing or affecting laboratory activities know their specific duties, responsibilities, and authorities in writing.' },
+      { id:'s1q5', clause:'5.6', text:'Communication mechanisms are in place to ensure effective operation of the management system across all relevant personnel.' },
+    ]
+  },
+  {
+    id: 's2', title: 'Resource Requirements', clause: 'Cl. 6',
+    questions: [
+      { id:'s2q0', clause:'6.2.2', text:'All personnel performing calibration, sampling, testing, or operating equipment have demonstrated competence through documented education, training, and/or experience records.', critical:true },
+      { id:'s2q1', clause:'6.2.3', text:'Personnel are formally authorized to perform specific laboratory activities (calibration, equipment operation, results evaluation, technical review, report sign-off).' },
+      { id:'s2q2', clause:'6.3.1', text:'Facilities (space, environment, utilities) are appropriate for the intended laboratory activities. Environmental conditions (temperature, humidity, cleanliness) are monitored and controlled where they affect results.' },
+      { id:'s2q3', clause:'6.4.1', text:'All equipment affecting measurement results is calibrated or verified before use and is within calibration interval. Out-of-calibration equipment is quarantined.', critical:true },
+      { id:'s2q4', clause:'6.4.5', text:'Equipment records include: unique identification, manufacturer/model/serial, calibration dates and intervals, calibration status, condition on receipt, and current location.' },
+      { id:'s2q5', clause:'6.5', text:'All calibration measurements are traceable to SI units through an unbroken chain of calibrations, each with stated measurement uncertainty, to a national or international measurement institute.' },
+      { id:'s2q6', clause:'6.6', text:'Externally provided calibration services, reference standards, and consumables are evaluated, approved, and documented before use.' },
+    ]
+  },
+  {
+    id: 's3', title: 'Process Requirements', clause: 'Cl. 7',
+    questions: [
+      { id:'s3q0', clause:'7.2', text:'Calibration/test methods are selected, validated (for non-standard methods) or verified (for standard methods), and documented. Method performance characteristics are established before use.', critical:true },
+      { id:'s3q1', clause:'7.6', text:'Measurement uncertainty is evaluated for all calibration results and reported in certificates. Uncertainty budgets or reference to validated methods are maintained.', critical:true },
+      { id:'s3q2', clause:'7.3', text:'If sampling is part of the laboratory\'s scope, sampling plans are documented, referenced to a statistical or standard method, and deviations are recorded.' },
+      { id:'s3q3', clause:'7.4', text:'Procedures govern pre- and post-calibration handling, transport, storage, and preparation of items to protect integrity and avoid contamination or damage.' },
+      { id:'s3q4', clause:'7.7', text:'The validity of results is monitored using quality control measures: control charts, check standards, replicate measurements, inter-laboratory comparisons, or proficiency testing.' },
+      { id:'s3q5', clause:'7.8', text:'Calibration certificates contain all required information: laboratory identity, unique ID, date, customer/item details, method reference, results with units, measurement uncertainty, traceability statement, and authorized signature.' },
+      { id:'s3q6', clause:'7.11', text:'Where laboratory information management systems (LIMS) or computer systems are used, data integrity, access controls, and backup/recovery procedures are documented and validated.' },
+    ]
+  },
+  {
+    id: 's4', title: 'Management System Requirements', clause: 'Cl. 8',
+    questions: [
+      { id:'s4q0', clause:'8.2', text:'The laboratory maintains a documented quality management system (quality manual or equivalent) appropriate to the scope of activities, with current policies and objectives.', critical:true },
+      { id:'s4q1', clause:'8.4', text:'Documents are controlled: versioned, approved before issue, reviewed at defined intervals, and obsolete documents are prevented from unintended use.' },
+      { id:'s4q2', clause:'8.5', text:'Risks and opportunities related to laboratory activities are identified and documented. Actions are taken to address significant risks.' },
+      { id:'s4q3', clause:'8.7', text:'Nonconforming work is identified, documented, investigated, and corrective actions are taken. Effectiveness of corrections is verified.' },
+      { id:'s4q4', clause:'8.8', text:'Internal audits against all ISO 17025:2017 requirements are conducted at planned intervals (at minimum annually). Auditors are independent of the area being audited. Findings are documented and addressed.', critical:true },
+      { id:'s4q5', clause:'8.9', text:'Management review meetings are conducted at planned intervals covering QMS performance, customer feedback, resource adequacy, risk controls, and outputs are action items with owners and timelines.' },
+    ]
+  }
+];
+
+const STATUS_OPTIONS = [
+  { val:'met', label:'Met', cls:'sel-met' },
+  { val:'partial', label:'Partial', cls:'sel-partial' },
+  { val:'not', label:'Not Met', cls:'sel-not' },
+  { val:'na', label:'N/A', cls:'sel-na' },
+];
+
+const answers = {};
+
+function buildQuestions() {
+  let total = 0;
+  SECTIONS.forEach((sec, si) => {
+    const container = document.getElementById('questions-sec'+si);
+    sec.questions.forEach((q, qi) => {
+      total++;
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `
+        <div class="q-header">
+          <span class="q-clause">Cl. ${q.clause}</span>
+          ${q.critical ? '<span class="q-critical">CRITICAL</span>' : ''}
+          <span class="q-text">${q.text}</span>
+        </div>
+        <div class="q-controls" id="ctrl-${q.id}">
+          ${STATUS_OPTIONS.map(o => `
+            <label id="lbl-${q.id}-${o.val}">
+              <input type="radio" name="${q.id}" value="${o.val}" onchange="recordAnswer('${q.id}','${o.val}')"> ${o.label}
+            </label>
+          `).join('')}
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  });
+  document.getElementById('q-total').textContent = total;
+}
+
+function recordAnswer(qid, val) {
+  answers[qid] = val;
+  // Update label styling
+  STATUS_OPTIONS.forEach(o => {
+    const lbl = document.getElementById('lbl-'+qid+'-'+o.val);
+    if(lbl) lbl.className = (o.val === val) ? o.cls : '';
+  });
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = SECTIONS.reduce((a,s)=>a+s.questions.length,0);
+  const answered = Object.keys(answers).length;
+  document.getElementById('q-count').textContent = answered;
+  document.getElementById('main-progress').style.width = Math.round(answered/total*100)+'%';
+}
+
+function showSection(idx) {
+  document.querySelectorAll('.section-card').forEach((c,i) => {
+    c.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    t.classList.toggle('active', i === idx);
+  });
+  document.getElementById('results-panel').style.display = 'none';
+  document.querySelectorAll('.section-card').forEach(c => c.style.display = 'none');
+  document.getElementById('sec-'+idx).style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function nextSection(idx) {
+  if(idx < 4) showSection(idx+1);
+}
+
+function score() {
+  const results = [];
+  let totalMet=0, totalApplicable=0;
+  let criticalFail = false;
+
+  SECTIONS.forEach(sec => {
+    let secMet=0, secApplicable=0;
+    const gaps = [];
+    sec.questions.forEach(q => {
+      const ans = answers[q.id] || 'not';
+      if(ans === 'na') return;
+      secApplicable++;
+      if(ans === 'met') { secMet += 1; }
+      else if(ans === 'partial') { secMet += 0.5; gaps.push({...q, status:'partial'}); }
+      else { gaps.push({...q, status:'not'}); }
+      if(q.critical && (ans === 'not' || ans === 'partial')) criticalFail = true;
+    });
+    totalMet += secMet;
+    totalApplicable += secApplicable;
+    results.push({ title: sec.title, clause: sec.clause, score: secApplicable>0 ? Math.round(secMet/secApplicable*100) : 100, gaps });
+  });
+
+  const overall = totalApplicable > 0 ? Math.round(totalMet/totalApplicable*100) : 0;
+  let verdict, vClass, vSub;
+  if(criticalFail) { verdict='NOT READY'; vClass='verdict-not'; vSub='One or more critical requirements have a gap. Address critical items before pursuing accreditation.'; }
+  else if(overall >= 80) { verdict='ACCREDITATION READY'; vClass='verdict-ready'; vSub='Overall score ≥ 80% with no critical gaps. Proceed to pre-assessment or submit application.'; }
+  else if(overall >= 55) { verdict='CONDITIONAL'; vClass='verdict-conditional'; vSub='Overall score '+overall+'%. Close identified gaps before applying for accreditation.'; }
+  else { verdict='NOT READY'; vClass='verdict-not'; vSub='Significant gaps across multiple sections. Structured remediation required.'; }
+
+  return { overall, results, criticalFail, verdict, vClass, vSub };
+}
+
+function generateResults() {
+  const r = score();
+
+  // Hide section cards, show results
+  document.querySelectorAll('.section-card').forEach(c => c.style.display='none');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('results-panel').style.display='block';
+  window.scrollTo(0,0);
+
+  // Verdict
+  const vb = document.getElementById('verdict-box');
+  vb.className = 'verdict-box '+r.vClass;
+  document.getElementById('verdict-label').textContent = r.verdict;
+  document.getElementById('verdict-sub').textContent = r.vSub;
+
+  // Score cards
+  const sg = document.getElementById('score-grid');
+  sg.innerHTML = '';
+  const overCard = document.createElement('div');
+  overCard.className = 'score-card';
+  overCard.innerHTML = `<div class="s-num">${r.overall}%</div><div class="s-label">Overall Score</div><div class="s-bar"><div class="s-fill" style="width:${r.overall}%"></div></div>`;
+  sg.appendChild(overCard);
+  r.results.forEach(s => {
+    const c = document.createElement('div');
+    c.className = 'score-card';
+    c.innerHTML = `<div class="s-num">${s.score}%</div><div class="s-label">${s.title}</div><div class="s-bar"><div class="s-fill" style="width:${s.score}%"></div></div>`;
+    sg.appendChild(c);
+  });
+
+  // Gap table
+  const tbody = document.getElementById('gap-tbody');
+  tbody.innerHTML = '';
+  let gapCount = 0;
+  SECTIONS.forEach((sec, si) => {
+    r.results[si].gaps.forEach(g => {
+      gapCount++;
+      const isCritical = g.critical;
+      const isMajor = g.status === 'not';
+      const pri = isCritical ? 'IMMEDIATE' : isMajor ? 'HIGH' : 'MEDIUM';
+      const priCls = isCritical || isMajor ? 'pri-high' : 'pri-med';
+      const tr = document.createElement('tr');
+      if(isCritical) tr.className = 'gap-critical-row';
+      tr.innerHTML = `
+        <td>Cl. ${g.clause}${isCritical ? '<br><span style="color:var(--red);font-size:10px;font-weight:700">CRITICAL</span>':''}</td>
+        <td>${g.text.substring(0,120)}...</td>
+        <td>${g.status === 'not' ? 'Not Met' : 'Partial'}</td>
+        <td><span class="${priCls}">[${pri}]</span> Document evidence of ${g.clause} compliance; implement if not in place.</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  });
+  if(gapCount === 0) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td colspan="4" style="text-align:center;color:var(--green);font-weight:600;padding:20px">No gaps identified. All applicable requirements scored as Met.</td>';
+    tbody.appendChild(tr);
+  }
+
+  // Narrative
+  const totalGaps = SECTIONS.reduce((a,_,i) => a + r.results[i].gaps.length, 0);
+  const critGaps = SECTIONS.reduce((a,s,i) => a + r.results[i].gaps.filter(g=>g.critical).length, 0);
+  const now = new Date().toLocaleDateString('en-AU',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('narrative-box').textContent =
+`ISO 17025:2017 Calibration Lab Accreditation Readiness — Management Review Summary
+Assessment date: ${now}
+
+Overall readiness score: ${r.overall}% (${totalGaps} gap${totalGaps!==1?'s':''} identified, ${critGaps} critical).
+
+Verdict: ${r.verdict}
+${r.vSub}
+
+Section scores:
+${r.results.map(s => `  ${s.title} (${s.clause}): ${s.score}%`).join('\n')}
+
+${critGaps > 0 ? `CRITICAL GAPS (${critGaps}): The following critical requirements have identified gaps and must be resolved before accreditation application:\n${SECTIONS.reduce((a,s,i)=>[...a,...r.results[i].gaps.filter(g=>g.critical).map(g=>`  - Clause ${g.clause}: ${g.text.substring(0,90)}...`)],[]).join('\n')}\n` : ''}
+${totalGaps > critGaps ? `Additional gaps (${totalGaps - critGaps}): Partial or not-met non-critical requirements identified across the assessment. These should be addressed in the pre-assessment remediation plan.\n` : ''}
+Next steps:
+  1. Resolve all critical gaps before submitting an accreditation application.
+  2. Develop a remediation plan for non-critical gaps with owners and target dates.
+  3. Conduct an internal pre-assessment audit against ISO 17025:2017 to verify corrective actions.
+  4. Contact your accreditation body (A2LA, ILAC-member body, UKAS, NATA, etc.) to initiate the application.
+
+This assessment is a self-preparation aid. The accreditation body makes the final determination.`;
+
+  window._lastResult = r;
+}
+
+function exportJSON() {
+  const r = window._lastResult || score();
+  const data = {
+    tool: 'iso17025-lab-readiness',
+    mai_interface: 'reserved',
+    domain: 'iso17025-readiness',
+    version: '1.0',
+    generated: new Date().toISOString(),
+    overall_score: r.overall,
+    verdict: r.verdict,
+    critical_zero: r.criticalFail,
+    sections: r.results.map(s => ({ title: s.title, score: s.score, gap_count: s.gaps.length })),
+    gap_count: r.results.reduce((a,s) => a+s.gaps.length, 0)
+  };
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='iso17025-readiness-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetTool() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.querySelectorAll('input[type=radio]').forEach(r => r.checked=false);
+  document.querySelectorAll('.q-controls label').forEach(l => l.className='');
+  updateProgress();
+  document.getElementById('results-panel').style.display='none';
+  showSection(0);
+}
+
+// Init
+buildQuestions();
+showSection(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AS9102B FAI Documentation Self-Scoring Toolkit | Conform-Edge</title>
+<style>
+  :root {
+    --navy: #1a2744;
+    --steel: #3a5a8c;
+    --ink: #1c2233;
+    --white: #f8f9fb;
+    --gap-red: #c0392b;
+    --warn-amber: #d68910;
+    --pass-green: #1e7e34;
+    --border: #d0d8e8;
+    --card-bg: #ffffff;
+    --panel-bg: #f2f5fb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--panel-bg); color: var(--ink); font-size: 14px; }
+  header { background: var(--navy); color: #fff; padding: 14px 24px; display: flex; align-items: center; gap: 16px; }
+  header h1 { font-size: 17px; font-weight: 700; letter-spacing: 0.3px; }
+  header span { font-size: 12px; color: #a0b8d8; }
+  .topbar { background: var(--steel); color: #fff; padding: 8px 24px; font-size: 12px; display: flex; gap: 24px; align-items: center; }
+  .topbar strong { font-size: 13px; }
+  main { max-width: 960px; margin: 24px auto; padding: 0 16px; }
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+  .card-header { background: var(--navy); color: #fff; padding: 12px 18px; font-size: 13px; font-weight: 700; letter-spacing: 0.3px; display: flex; align-items: center; justify-content: space-between; }
+  .card-header .badge { background: var(--steel); color: #fff; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .card-body { padding: 18px; }
+  .section-intro { font-size: 12px; color: #5a6a8a; margin-bottom: 14px; border-left: 3px solid var(--steel); padding-left: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--panel-bg); color: var(--navy); font-weight: 700; padding: 8px 10px; border-bottom: 2px solid var(--steel); text-align: left; }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f7f9fd; }
+  td.critical { font-weight: 700; color: var(--gap-red); font-size: 11px; }
+  td.label { font-weight: 600; color: var(--ink); max-width: 260px; }
+  td.ref { font-size: 11px; color: #6a7a9a; }
+  select { font-size: 13px; border: 1px solid var(--border); border-radius: 4px; padding: 4px 8px; background: #fff; color: var(--ink); width: 100%; }
+  select:focus { outline: none; border-color: var(--steel); }
+  .verdict-panel { display: none; background: var(--card-bg); border: 2px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+  .verdict-panel.show { display: block; }
+  .verdict-badge { font-size: 22px; font-weight: 900; padding: 10px 22px; border-radius: 6px; display: inline-block; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .COMPLETE { background: #d4edda; color: var(--pass-green); border: 2px solid var(--pass-green); }
+  .GAPS { background: #fff3cd; color: var(--warn-amber); border: 2px solid var(--warn-amber); }
+  .INCOMPLETE { background: #f8d7da; color: var(--gap-red); border: 2px solid var(--gap-red); }
+  .score-bar-wrap { background: #e0e8f4; border-radius: 6px; height: 16px; margin: 8px 0 4px; overflow: hidden; }
+  .score-bar { height: 16px; border-radius: 6px; transition: width 0.4s; }
+  .gap-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 12px; }
+  .gap-table th { background: #f0f3fa; color: var(--navy); padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .gap-table td { padding: 6px 8px; border-bottom: 1px solid #e8ecf4; }
+  .gap-crit { color: var(--gap-red); font-weight: 700; }
+  .gap-major { color: var(--warn-amber); font-weight: 600; }
+  .gap-minor { color: #5a6a8a; }
+  .mr-narrative { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 6px; padding: 14px; font-size: 12px; color: #4a5a7a; margin-top: 14px; white-space: pre-line; }
+  .btn { background: var(--steel); color: #fff; border: none; border-radius: 5px; padding: 10px 22px; font-size: 14px; font-weight: 700; cursor: pointer; margin-right: 10px; margin-top: 12px; }
+  .btn:hover { background: var(--navy); }
+  .btn-secondary { background: #6a7a9a; }
+  .btn-secondary:hover { background: #4a5a7a; }
+  .mode-tabs { display: flex; gap: 0; margin-bottom: 0; }
+  .mode-tab { flex: 1; text-align: center; padding: 10px; border: 1px solid var(--border); background: var(--panel-bg); cursor: pointer; font-weight: 700; font-size: 13px; color: #5a6a8a; border-bottom: none; }
+  .mode-tab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .mode-content { display: none; }
+  .mode-content.active { display: block; }
+  .delta-verdict { font-size: 15px; font-weight: 800; padding: 8px 16px; border-radius: 5px; display: inline-block; margin-top: 8px; }
+  .FULL { background: #f8d7da; color: var(--gap-red); }
+  .PARTIAL { background: #fff3cd; color: var(--warn-amber); }
+  .NOFAI { background: #d4edda; color: var(--pass-green); }
+  footer { text-align: center; color: #8a9ab8; font-size: 11px; padding: 24px 16px 32px; }
+  .disclaimer { font-size: 11px; color: #8a9ab8; margin-top: 8px; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>AS9102B First Article Inspection — Documentation Self-Scoring Toolkit</h1>
+    <span>Conform-Edge Quality Consulting · FAI Documentation Readiness · AS9102 Rev B</span>
+  </div>
+</header>
+<div class="topbar">
+  <strong>Mode:</strong>
+  <span id="modeLabel">Select a mode below</span>
+  <span style="margin-left:auto;font-size:11px;opacity:0.8;">Self-assessment only · Not a substitute for customer or CB review</span>
+</div>
+
+<main>
+
+  <!-- Mode Selector -->
+  <div class="mode-tabs">
+    <div class="mode-tab active" id="tabFAIR" onclick="switchMode('fair')">📋 FAIR Completeness Check</div>
+    <div class="mode-tab" id="tabDelta" onclick="switchMode('delta')">🔄 Delta / Partial FAI Trigger Analysis</div>
+  </div>
+
+  <!-- MODE 1: FAIR Completeness -->
+  <div class="mode-content active card" id="modeFair">
+    <div class="card-header">
+      FAIR Documentation Completeness Assessment
+      <span class="badge">AS9102 Rev B · §5 Documentation Requirements</span>
+    </div>
+    <div class="card-body">
+      <p class="section-intro">Score each documentation element of your First Article Inspection Report (FAIR) package. Critical items (★) must be COMPLETE — any critical absence overrides the aggregate score to FAI-DOCUMENTATION-INCOMPLETE regardless of other results.</p>
+
+      <table id="fairTable">
+        <thead>
+          <tr>
+            <th style="width:30px;">#</th>
+            <th>Documentation Element</th>
+            <th style="width:60px;">Crit.</th>
+            <th style="width:80px;">Ref.</th>
+            <th style="width:180px;">Status</th>
+          </tr>
+        </thead>
+        <tbody id="fairBody"></tbody>
+      </table>
+
+      <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn" onclick="scoreFAIR()">Score FAIR Documentation</button>
+        <button class="btn btn-secondary" onclick="resetFAIR()">Reset</button>
+        <button class="btn btn-secondary" onclick="exportJSON('fair')">Export JSON</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODE 2: Delta FAI Trigger -->
+  <div class="mode-content card" id="modeDelta">
+    <div class="card-header">
+      Delta / Partial FAI Trigger Analysis
+      <span class="badge">AS9102 Rev B · §4 Change Triggers</span>
+    </div>
+    <div class="card-body">
+      <p class="section-intro">Answer each change-event question to determine whether a new full FAI, partial FAI, or no new FAI is required for this change. Critical triggers (★) force a full FAI regardless of other factors.</p>
+
+      <table id="deltaTable">
+        <thead>
+          <tr>
+            <th style="width:30px;">#</th>
+            <th>Change Event</th>
+            <th style="width:60px;">Crit.</th>
+            <th style="width:80px;">Ref.</th>
+            <th style="width:180px;">Answer</th>
+          </tr>
+        </thead>
+        <tbody id="deltaBody"></tbody>
+      </table>
+
+      <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn" onclick="scoreDelta()">Analyze FAI Trigger</button>
+        <button class="btn btn-secondary" onclick="resetDelta()">Reset</button>
+        <button class="btn btn-secondary" onclick="exportJSON('delta')">Export JSON</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAIR Results -->
+  <div class="verdict-panel" id="fairResults">
+    <h2 style="font-size:15px; color:var(--navy); margin-bottom:8px;">FAIR Documentation Completeness Result</h2>
+    <div id="fairVerdictBadge"></div>
+    <div id="fairScoreText" style="font-size:13px; color:#5a6a8a; margin-bottom:6px;"></div>
+    <div class="score-bar-wrap"><div class="score-bar" id="fairBar"></div></div>
+    <h3 style="font-size:13px; color:var(--navy); margin-top:16px; margin-bottom:6px;">Gap Table</h3>
+    <table class="gap-table">
+      <thead><tr><th>Element</th><th>Status</th><th>Priority</th><th>Action Required</th></tr></thead>
+      <tbody id="fairGapBody"></tbody>
+    </table>
+    <div id="fairNarrative" class="mr-narrative"></div>
+  </div>
+
+  <!-- Delta Results -->
+  <div class="verdict-panel" id="deltaResults">
+    <h2 style="font-size:15px; color:var(--navy); margin-bottom:8px;">FAI Trigger Classification Result</h2>
+    <div id="deltaVerdictBadge"></div>
+    <div id="deltaDetail" style="font-size:13px; color:#4a5a7a; margin-top:10px;"></div>
+    <div id="deltaNarrative" class="mr-narrative"></div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Conform-Edge Quality Consulting · AS9102B First Article Inspection Self-Scoring Toolkit</p>
+  <p class="disclaimer">Self-assessment tool only. References AS9102 Rev B by section number and intent. No standard text is reproduced.<br>
+  This tool identifies documentation gaps; the accountable Design Engineer, Quality Engineer, and customer DER own the FAI acceptance determination.<br>
+  Not a substitute for the AS9102B standard, customer-specific FAI requirements, or regulatory review.</p>
+</footer>
+
+<script>
+// M-AI RESERVED INTERFACE
+window._mai_kernel = 'RESERVED INTERFACE';
+// Domain: fai-documentation-readiness
+// Governed decisions: FAICompletenessVerdict, CriticalElementBlock, DeltaFAITriggerClassification
+// Wiring: pending platform host
+
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+
+const FAIR_ELEMENTS = [
+  { id:'f1',  label:'Design Documentation (drawings, models, specs) — current revision applicable to this FAI',                         critical:true,  ref:'§5.2' },
+  { id:'f2',  label:'Engineering Change Documentation — all design changes since last FAI accounted for',                              critical:true,  ref:'§5.2' },
+  { id:'f3',  label:'Material / Raw Material Certifications — certified to drawing-specified material specification',                  critical:true,  ref:'§5.3' },
+  { id:'f4',  label:'Special Process Certifications — Nadcap or approved source for each special process applied',                    critical:false, ref:'§5.4' },
+  { id:'f5',  label:'Dimensional Results — 100% of drawing dimensions ballooned and measured (no open items)',                        critical:true,  ref:'§5.6' },
+  { id:'f6',  label:'Dimensional Results — deviations (if any) dispositioned with approved deviation/concession',                    critical:false, ref:'§5.6' },
+  { id:'f7',  label:'Functional Test Results — performance test report covering all drawing-specified functional requirements',        critical:true,  ref:'§5.5' },
+  { id:'f8',  label:'Appearance Approval — completed Appearance Approval Report (AAR) if appearance is specified',                    critical:false, ref:'§5.9' },
+  { id:'f9',  label:'FAI Report — completed and signed by accountable Design or Quality Engineer',                                   critical:true,  ref:'§5.7' },
+  { id:'f10', label:'Customer Notification / Approval — customer-specific FAI submission or approval obtained if required by PO/flow-down', critical:false, ref:'§4.2' },
+  { id:'f11', label:'Statistical Process Studies (SPC) — if required by drawing/customer, process capability data included',          critical:false, ref:'§5.10' },
+  { id:'f12', label:'Subsystem / Component / Material FAI Delegation — sub-tier FAI records or delegation documented if applicable', critical:false, ref:'§5.11' },
+  { id:'f13', label:'Key Characteristics (KC) — if KCs designated on drawing, all KCs measured and process capability addressed',    critical:false, ref:'§5.6 / AS9100D §8.1.3' },
+  { id:'f14', label:'Test Equipment Calibration — all measurement equipment used has valid calibration records on file',              critical:false, ref:'§5.6' },
+];
+
+const DELTA_TRIGGERS = [
+  { id:'d1',  label:'New part number or new revision level of drawing — first-time production of this configuration',                critical:true,  ref:'§4.2' },
+  { id:'d2',  label:'Design change affecting form, fit, or function (not purely cosmetic)',                                          critical:true,  ref:'§4.2' },
+  { id:'d3',  label:'Change to material specification or material supplier',                                                          critical:true,  ref:'§4.2' },
+  { id:'d4',  label:'Change to manufacturing method or process that affects final part characteristics',                             critical:true,  ref:'§4.2' },
+  { id:'d5',  label:'Change to manufacturing location (production transferred to different facility)',                                critical:true,  ref:'§4.2' },
+  { id:'d6',  label:'Lapse in production — production gap exceeding customer-specified or contractual period',                        critical:false, ref:'§4.2' },
+  { id:'d7',  label:'Failure of a previous FAI found at customer / CB review requiring re-FAI',                                      critical:false, ref:'§4.2' },
+  { id:'d8',  label:'Customer or contract specifically requires a new FAI for this delivery',                                         critical:false, ref:'§4.2' },
+];
+
+// ─── BUILD TABLES ─────────────────────────────────────────────────────────────
+
+function buildTable(tbodyId, items, mode) {
+  const tbody = document.getElementById(tbodyId);
+  tbody.innerHTML = '';
+  items.forEach((item, i) => {
+    const opts = mode === 'fair'
+      ? ['','COMPLETE','PARTIAL','ABSENT','N/A']
+      : ['','YES — APPLIES','NO — DOES NOT APPLY','UNKNOWN'];
+    const optHTML = opts.map(o => `<option value="${o}">${o || '— select —'}</option>`).join('');
+    tbody.innerHTML += `
+      <tr>
+        <td style="color:#8a9ab8;font-size:12px;">${i+1}</td>
+        <td class="label">${item.label}</td>
+        <td class="critical">${item.critical ? '★' : ''}</td>
+        <td class="ref">${item.ref}</td>
+        <td><select id="${item.id}">${optHTML}</select></td>
+      </tr>`;
+  });
+}
+
+function switchMode(m) {
+  document.getElementById('modeFair').classList.toggle('active', m === 'fair');
+  document.getElementById('modeDelta').classList.toggle('active', m === 'delta');
+  document.getElementById('tabFAIR').classList.toggle('active', m === 'fair');
+  document.getElementById('tabDelta').classList.toggle('active', m === 'delta');
+  document.getElementById('modeLabel').textContent = m === 'fair' ? 'FAIR Completeness Check' : 'Delta / Partial FAI Trigger Analysis';
+  document.getElementById('fairResults').classList.remove('show');
+  document.getElementById('deltaResults').classList.remove('show');
+}
+
+// ─── SCORING ENGINE ───────────────────────────────────────────────────────────
+
+function scoreFAIR() {
+  let total = 0, answered = 0, critGaps = [], gaps = [];
+  FAIR_ELEMENTS.forEach(item => {
+    const val = document.getElementById(item.id).value;
+    if (val === 'N/A') return;
+    total++;
+    if (val === 'COMPLETE') { answered++; }
+    else if (val === '') { gaps.push({ label: item.label, status: 'Not answered', critical: item.critical, ref: item.ref }); }
+    else if (val === 'PARTIAL') { gaps.push({ label: item.label, status: 'PARTIAL', critical: item.critical, ref: item.ref }); if (item.critical) critGaps.push(item.label); }
+    else if (val === 'ABSENT') { gaps.push({ label: item.label, status: 'ABSENT', critical: item.critical, ref: item.ref }); if (item.critical) critGaps.push(item.label); }
+  });
+
+  const pct = total > 0 ? Math.round((answered / total) * 100) : 0;
+  let verdict, color;
+  if (critGaps.length > 0) {
+    verdict = 'FAI-DOCUMENTATION-INCOMPLETE'; color = '#c0392b';
+  } else if (pct >= 90 && gaps.length === 0) {
+    verdict = 'FAI-DOCUMENTATION-COMPLETE'; color = '#1e7e34';
+  } else if (pct >= 70) {
+    verdict = 'FAI-DOCUMENTATION-GAPS'; color = '#d68910';
+  } else {
+    verdict = 'FAI-DOCUMENTATION-INCOMPLETE'; color = '#c0392b';
+  }
+
+  const short = verdict === 'FAI-DOCUMENTATION-COMPLETE' ? 'COMPLETE' : verdict === 'FAI-DOCUMENTATION-GAPS' ? 'GAPS' : 'INCOMPLETE';
+  document.getElementById('fairVerdictBadge').innerHTML = `<span class="verdict-badge ${short}">${verdict}</span>`;
+  document.getElementById('fairScoreText').textContent = `${answered} of ${total} applicable elements COMPLETE — ${pct}% documentation completeness`;
+  const bar = document.getElementById('fairBar');
+  bar.style.width = pct + '%';
+  bar.style.background = color;
+
+  const tbody = document.getElementById('fairGapBody');
+  tbody.innerHTML = '';
+  if (gaps.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="color:var(--pass-green);font-weight:700;text-align:center;">No gaps identified — all applicable elements COMPLETE</td></tr>';
+  } else {
+    gaps.forEach(g => {
+      const priority = g.critical ? 'CRITICAL' : g.status === 'PARTIAL' ? 'MAJOR' : 'MINOR';
+      const cls = g.critical ? 'gap-crit' : g.status === 'PARTIAL' ? 'gap-major' : 'gap-minor';
+      const action = g.critical ? 'Complete before FAIR submission — blocks FAI acceptance' :
+                     g.status === 'PARTIAL' ? 'Finalize before FAIR submission' : 'Complete or document N/A justification';
+      tbody.innerHTML += `<tr><td>${g.label}</td><td>${g.status}</td><td class="${cls}">${priority}</td><td>${action}</td></tr>`;
+    });
+  }
+
+  const now = new Date().toLocaleDateString();
+  let narrative = `FAI Documentation Readiness — Self-Assessment Summary (${now})\n\n`;
+  narrative += `Overall completeness: ${pct}% (${answered}/${total} applicable elements)\n`;
+  narrative += `Verdict: ${verdict}\n`;
+  if (critGaps.length > 0) narrative += `Critical gaps blocking FAI: ${critGaps.join('; ')}\n`;
+  narrative += `\nThis self-assessment identified ${gaps.length} documentation gap(s) requiring action before FAIR submission or customer/CB review.`;
+  narrative += `\n\nNote: Self-assessment only. The accountable engineer and customer DER own the FAI acceptance determination. Not a substitute for review against AS9102 Rev B and applicable customer-specific requirements.`;
+  document.getElementById('fairNarrative').textContent = narrative;
+
+  document.getElementById('fairResults').classList.add('show');
+  document.getElementById('fairResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function scoreDelta() {
+  let critTriggers = [], majorTriggers = [], minorTriggers = [], unknown = [];
+  DELTA_TRIGGERS.forEach(item => {
+    const val = document.getElementById(item.id).value;
+    if (val === 'YES — APPLIES') {
+      if (item.critical) critTriggers.push(item.label);
+      else majorTriggers.push(item.label);
+    } else if (val === 'UNKNOWN') {
+      unknown.push(item.label);
+    }
+  });
+
+  let verdict, label, cls, detail;
+  if (critTriggers.length > 0) {
+    verdict = 'FULL'; label = 'FULL FAI REQUIRED';
+    detail = `${critTriggers.length} critical trigger(s) identified. A complete new First Article Inspection is required covering all documentation elements per AS9102 Rev B §5.`;
+  } else if (majorTriggers.length > 0 || unknown.length > 0) {
+    verdict = 'PARTIAL'; label = 'PARTIAL FAI MAY APPLY';
+    detail = `${majorTriggers.length} non-critical trigger(s) identified${unknown.length ? ` + ${unknown.length} unknown trigger(s)` : ''}. Review customer contract and AS9102 Rev B §4.2 for partial FAI scope. Consult your customer or DQR before proceeding.`;
+  } else {
+    verdict = 'NOFAI'; label = 'NO NEW FAI REQUIRED';
+    detail = 'No qualifying FAI triggers identified. Confirm with customer contract requirements; customer-specific flow-down may impose additional FAI triggers not captured here.';
+  }
+
+  document.getElementById('deltaVerdictBadge').innerHTML = `<span class="delta-verdict ${verdict}">${label}</span>`;
+  document.getElementById('deltaDetail').textContent = detail;
+
+  let narrative = `FAI Trigger Analysis — ${label}\n\n`;
+  if (critTriggers.length) narrative += `Critical triggers present: ${critTriggers.join('; ')}\n`;
+  if (majorTriggers.length) narrative += `Non-critical triggers: ${majorTriggers.join('; ')}\n`;
+  if (unknown.length) narrative += `Unknown / needs investigation: ${unknown.join('; ')}\n`;
+  narrative += `\n${detail}\n\nSelf-assessment only. AS9102 Rev B §4.2 and customer-specific requirements govern FAI trigger obligations.`;
+  document.getElementById('deltaNarrative').textContent = narrative;
+
+  document.getElementById('deltaResults').classList.add('show');
+  document.getElementById('deltaResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─── UTILITIES ────────────────────────────────────────────────────────────────
+
+function resetFAIR() {
+  FAIR_ELEMENTS.forEach(item => { document.getElementById(item.id).value = ''; });
+  document.getElementById('fairResults').classList.remove('show');
+}
+function resetDelta() {
+  DELTA_TRIGGERS.forEach(item => { document.getElementById(item.id).value = ''; });
+  document.getElementById('deltaResults').classList.remove('show');
+}
+
+function exportJSON(mode) {
+  const items = mode === 'fair' ? FAIR_ELEMENTS : DELTA_TRIGGERS;
+  const data = {
+    tool: 'AS9102B FAI Self-Scoring Toolkit',
+    mode: mode,
+    date: new Date().toISOString(),
+    _mai_kernel: 'RESERVED INTERFACE',
+    domain: 'fai-documentation-readiness',
+    responses: {}
+  };
+  items.forEach(item => { data.responses[item.id] = { label: item.label, value: document.getElementById(item.id).value, critical: item.critical, ref: item.ref }; });
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `fai-self-scoring-${mode}-${new Date().toISOString().slice(0,10)}.json`; a.click();
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+buildTable('fairBody', FAIR_ELEMENTS, 'fair');
+buildTable('deltaBody', DELTA_TRIGGERS, 'delta');
+</script>
+</body>
+</html>

@@ -1,0 +1,1336 @@
+{
+  "version": "1.0",
+  "type": "standard_patterns",
+  "description": "Training patterns for ISO, AS, IATF standards with broken/partial variations",
+  "examples": [
+    {
+      "broken": "ISO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "ISO9001",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO 9001",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "iso9001",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO9001-2015",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "iso 9001",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "I-S-O 9001",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "SO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "IO 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "IS 9001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 001:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 901:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 900:2015",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 9001:015",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 9001:215",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 9001:205",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 9001:201",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 4.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001 clause 4.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2015clause4.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 4",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 5.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001 clause 5.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2015clause5.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 5",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 6.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001 clause 6.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2015clause6.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 6",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 7.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001 clause 7.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2015clause7.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 7",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 8.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001 clause 8.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2015clause8.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 8",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 9.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001 clause 9.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2015clause9.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 9",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 9.2",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001 clause 9.2",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2015clause9.2",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 9",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 10.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001 clause 10.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2015clause10.1",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2015 clause 10",
+      "correct": "ISO 9001:2015",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "ISO9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO 9001 2023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "iso9001-2023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "SO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "IO 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "IS 9001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 001:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 901:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 900:2023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 9001:023",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 9001:223",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 9001:203",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 9001:202",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 4.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001:2023 clause 4.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2023clause4.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 4",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 5.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001:2023 clause 5.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2023clause5.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 5",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 6.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001:2023 clause 6.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2023clause6.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 6",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 7.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001:2023 clause 7.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2023clause7.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 7",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 8.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001:2023 clause 8.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2023clause8.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 8",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 9.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001:2023 clause 9.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2023clause9.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 9",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 9.2",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001:2023 clause 9.2",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2023clause9.2",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 9",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 10.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO9001:2023 clause 10.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO9001:2023clause10.1",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 9001:2023 clause 10",
+      "correct": "ISO 9001:2023",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "ISO13485",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO 13485",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "iso13485",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO 13485 2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "SO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "IO 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "IS 13485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 3485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 1485:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 1385:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 1345:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 1348:2016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 13485:016",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 13485:216",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 4.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO13485 clause 4.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO13485:2016clause4.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 4",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 5.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO13485 clause 5.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO13485:2016clause5.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 5",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 6.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO13485 clause 6.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO13485:2016clause6.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 6",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 7.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO13485 clause 7.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO13485:2016clause7.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 7",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 8.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO13485 clause 8.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO13485:2016clause8.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 8",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 9.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO13485 clause 9.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO13485:2016clause9.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 9",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 9.2",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO13485 clause 9.2",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO13485:2016clause9.2",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 9",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 10.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO13485 clause 10.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO13485:2016clause10.1",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 13485:2016 clause 10",
+      "correct": "ISO 13485:2016",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "ISO27001",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO 27001",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "iso27001",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "SO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "IO 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "IS 27001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 7001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 2001:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 2701:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 2700:2022",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 27001:022",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 27001:222",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 27001:202",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 4.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO27001 clause 4.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO27001:2022clause4.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 4",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "4.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 5.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO27001 clause 5.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO27001:2022clause5.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 5",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "5.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 6.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO27001 clause 6.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO27001:2022clause6.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 6",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "6.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 7.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO27001 clause 7.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO27001:2022clause7.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 7",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "7.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 8.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO27001 clause 8.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO27001:2022clause8.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 8",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "8.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 9.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO27001 clause 9.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO27001:2022clause9.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 9",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "9.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 9.2",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO27001 clause 9.2",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO27001:2022clause9.2",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 9",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "9.2",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 10.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "clause_query"
+    },
+    {
+      "broken": "ISO27001 clause 10.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "broken_standard_clause"
+    },
+    {
+      "broken": "ISO27001:2022clause10.1",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "missing_spaces"
+    },
+    {
+      "broken": "ISO 27001:2022 clause 10",
+      "correct": "ISO 27001:2022",
+      "intent": "query_clause",
+      "clause": "10.1",
+      "pattern_type": "partial_clause"
+    },
+    {
+      "broken": "ISO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "query_clause",
+      "pattern_type": "exact_match"
+    },
+    {
+      "broken": "ISO45001",
+      "correct": "ISO 45001:2018",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO 45001",
+      "correct": "ISO 45001:2018",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "iso45001",
+      "correct": "ISO 45001:2018",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "ISO45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "query_clause",
+      "pattern_type": "variation"
+    },
+    {
+      "broken": "SO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "IO 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "IS 45001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    },
+    {
+      "broken": "ISO 5001:2018",
+      "correct": "ISO 45001:2018",
+      "intent": "query_clause",
+      "pattern_type": "typo_or_missing"
+    }
+  ],
+  "total_examples": 200
+}

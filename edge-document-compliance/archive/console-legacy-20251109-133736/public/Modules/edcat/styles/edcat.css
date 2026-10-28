@@ -1,0 +1,53 @@
+/* EDCAT shared styles placeholder. */
+/* Import this stylesheet in runtime/deployer pages if shared styling is consolidated. */
+
+body {
+  padding-bottom: 56px;
+}
+
+#edcat-ip-note {
+  position: fixed;
+  bottom: 38px;
+  left: 18px;
+  font-size: 0.65rem;
+  color: #6b7280;
+  z-index: 81;
+}
+
+#edcat-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 18px;
+  background: #050608;
+  border-top: 1px solid #1f2933;
+  font-size: 0.75rem;
+  color: #a3a3a3;
+  z-index: 80;
+}
+
+.edcat-footer-left,
+.edcat-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+#edcat-footer a {
+  color: #9fc5ff;
+  text-decoration: none;
+  font-size: 0.75rem;
+}
+
+#edcat-footer a:hover {
+  text-decoration: underline;
+}
+
+#edcat-footer .sep {
+  color: #4b5563;
+}

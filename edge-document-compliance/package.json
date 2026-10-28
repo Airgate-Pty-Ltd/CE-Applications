@@ -1,0 +1,9 @@
+{
+  "name": "edcat-platform",
+  "private": true,
+  "workspaces": ["edcat-backend"],
+  "scripts": {
+    "start": "npm run start --workspace edcat-backend"
+  }
+}
+

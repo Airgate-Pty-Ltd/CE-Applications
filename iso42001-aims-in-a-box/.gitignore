@@ -1,0 +1,33 @@
+# .gitignore — ISO/IEC 42001 AIMS-in-a-Box
+# This is a static HTML + Markdown product: no node_modules, no build output, no env files exist
+# in this folder today. Keep this list short and accurate to what's actually here rather than
+# pasting in a generic Node/Python/whatever template with rules that don't apply.
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE swap and backup files
+*.swp
+*.swo
+*~
+.vscode/
+
+# Office/Word lock files (created when a .docx in Documents/ is open)
+~$*.docx
+~$*.doc
+~$*.xlsx
+
+# Local scratch/drafts not meant to ship as part of the kit
+*.scratch.md
+/local-notes/
+
+# Never commit a licensed copy of the standard itself (reference only, not for distribution)
+ISO-IEC-42001*.pdf
+iso42001-2023*.pdf
+
+# Conform-Edge Quality Consulting LLC. All rights reserved.
+# ISO/IEC 42001 AIMS-in-a-Box is proprietary software of Conform-Edge Quality Consulting LLC
+# (Idaho LLC No. 6463380), Pocatello, Idaho, USA. "Conform-Edge" and the Conform-Edge mark are
+# trademarks of Conform-Edge Quality Consulting LLC.

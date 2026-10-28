@@ -1,0 +1,8 @@
+{
+  "dimId": "faulty-op-test",
+  "description": "Fixture: one rule with an unknown operator (must be fault-isolated) and one valid rule (must still fire).",
+  "subscribesTo": ["pma_case.created", "pma_case.updated"],
+  "readsFields": { "pma_case": ["applicant_legal_name"] },
+  "version": "1.0",
+  "publishedAt": "2026-07-24"
+}

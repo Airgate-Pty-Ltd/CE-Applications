@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Supplier SCAR Response Builder | Conform-Edge</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
+:root{--navy:#0d2137;--steel:#2a5a8c;--ink:#1a1a2e;--light:#f0f2f5;--green:#1a7f4e;--amber:#b45309;--red:#b91c1c;--border:#d1d9e6;--card:#ffffff}
+header{background:var(--navy);color:#fff;padding:14px 28px;display:flex;align-items:center;gap:16px}
+.brand{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#7ab3d4;font-weight:600}
+header h1{font-size:17px;font-weight:700;flex:1}
+.tag{background:#b91c1c;color:#fff;font-size:10px;padding:3px 8px;border-radius:3px;letter-spacing:1px;text-transform:uppercase}
+/* SCAR HEADER */
+.scar-info{background:var(--card);border-bottom:3px solid var(--steel);padding:16px 28px;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.scar-field{display:flex;flex-direction:column;gap:4px;min-width:160px}
+.scar-field label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#888;font-weight:600}
+.scar-field input{font-size:13px;border:1px solid var(--border);border-radius:4px;padding:6px 8px;color:var(--ink);width:100%}
+.deadline-display{background:#fef2f2;border:1px solid #fca5a5;border-radius:6px;padding:8px 14px;font-size:13px;font-weight:700;color:var(--red);white-space:nowrap;align-self:center}
+.container{max-width:980px;margin:0 auto;padding:20px 16px}
+/* D1-D8 progress */
+.d-progress{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.d-badge{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;cursor:pointer;border:2px solid var(--border);background:#e8edf3;color:#666;transition:all .2s;flex-shrink:0}
+.d-badge.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.d-badge.complete{background:var(--green);color:#fff;border-color:var(--green)}
+.d-badge.partial{background:var(--amber);color:#fff;border-color:var(--amber)}
+.d-label{font-size:11px;color:#666;text-align:center;margin-top:2px;width:36px;word-break:break-word;line-height:1.2}
+.d-item{display:flex;flex-direction:column;align-items:center;cursor:pointer}
+/* DISCIPLINE CARD */
+.disc-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:16px;display:none}
+.disc-card.active{display:block}
+.disc-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.d-num{background:var(--navy);color:#fff;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex-shrink:0}
+.d-title h2{font-size:15px;font-weight:700;color:var(--navy)}
+.d-title p{font-size:12px;color:#666;margin-top:2px}
+/* FORM ELEMENTS */
+.field-group{margin-bottom:16px}
+.field-group label{display:block;font-size:12px;font-weight:700;color:#333;margin-bottom:5px}
+.field-group label .req{color:var(--red)}
+.field-group input,.field-group textarea,.field-group select{width:100%;font-size:13px;border:1px solid var(--border);border-radius:5px;padding:8px 10px;color:var(--ink);font-family:inherit;transition:border .15s}
+.field-group textarea{resize:vertical;min-height:80px}
+.field-group input:focus,.field-group textarea:focus,.field-group select:focus{outline:none;border-color:var(--steel)}
+/* TABLES */
+.editable-table{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:12px}
+.editable-table th{background:var(--navy);color:#fff;padding:7px 10px;text-align:left;font-weight:600}
+.editable-table td{border:1px solid var(--border);padding:4px}
+.editable-table td input,.editable-table td textarea,.editable-table td select{width:100%;border:none;background:transparent;font-size:12px;font-family:inherit;padding:4px;resize:none}
+.editable-table td textarea{min-height:48px}
+.add-row-btn{font-size:11px;color:var(--steel);cursor:pointer;border:none;background:none;padding:4px 0;text-decoration:underline}
+/* 5-WHY */
+.five-why{counter-reset:why-counter}
+.why-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;counter-increment:why-counter}
+.why-row::before{content:counter(why-counter)". Why?";font-size:11px;font-weight:700;color:var(--steel);min-width:50px;padding-top:8px}
+.why-row textarea{flex:1;min-height:52px;font-size:12px;border:1px solid var(--border);border-radius:4px;padding:6px 8px;font-family:inherit;resize:vertical}
+/* FISHBONE */
+.fishbone-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.fishbone-cat{background:#f8faff;border:1px solid var(--border);border-radius:6px;padding:10px}
+.fishbone-cat label{font-size:10px;font-weight:700;color:var(--steel);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:5px}
+.fishbone-cat textarea{width:100%;font-size:12px;border:1px solid var(--border);border-radius:4px;padding:6px;font-family:inherit;min-height:60px;resize:vertical}
+/* HINT */
+.hint{font-size:11px;color:#888;margin-top:4px;font-style:italic}
+/* NAV */
+.nav-row{display:flex;justify-content:space-between;margin-top:20px;gap:10px}
+.btn{padding:9px 20px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--steel);color:#fff}
+.btn-primary:hover{background:#1e4a7a}
+.btn-secondary{background:#e8edf3;color:#555}
+.btn-secondary:hover{background:#d1d9e6}
+/* OUTPUT */
+#output-panel{display:none}
+.output-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:16px}
+.output-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:10px}
+.doc-output{font-size:12px;line-height:1.8;white-space:pre-wrap;color:#333;font-family:'Courier New',monospace;background:#f8faff;padding:16px;border-radius:6px;border:1px solid var(--border)}
+.export-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn-export{padding:8px 16px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--navy)}
+.btn-export:hover{background:#e8edf3}
+.completion-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-bottom:16px}
+.comp-item{text-align:center;padding:10px;background:#f8faff;border-radius:6px;border:1px solid var(--border)}
+.comp-icon{font-size:20px}
+.comp-label{font-size:10px;color:#666;margin-top:4px}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">Conform-Edge</div>
+    <h1>Supplier SCAR Response Builder — 8D Format</h1>
+  </div>
+  <div class="tag">Reactive Tool</div>
+</header>
+
+<!-- SCAR INFO BAR -->
+<div class="scar-info">
+  <div class="scar-field">
+    <label>SCAR Reference #</label>
+    <input type="text" id="scar-ref" placeholder="e.g. SCAR-2026-0042" oninput="updateHeader()">
+  </div>
+  <div class="scar-field">
+    <label>Customer / Issuing Org</label>
+    <input type="text" id="scar-customer" placeholder="e.g. Boeing, Honeywell" oninput="updateHeader()">
+  </div>
+  <div class="scar-field">
+    <label>Date Received</label>
+    <input type="date" id="scar-received" oninput="updateDeadline()">
+  </div>
+  <div class="scar-field">
+    <label>Customer Response Due</label>
+    <input type="date" id="scar-due" oninput="updateDeadline()">
+  </div>
+  <div class="deadline-display" id="deadline-display" style="display:none">⏱ — days remaining</div>
+</div>
+
+<div class="container">
+
+  <div class="d-progress" id="d-progress">
+    <!-- built by JS -->
+  </div>
+
+  <!-- D1: Team -->
+  <div class="disc-card active" id="disc-0">
+    <div class="disc-header">
+      <div class="d-num">D1</div>
+      <div class="d-title">
+        <h2>D1 — Team Formation</h2>
+        <p>Identify the cross-functional team responsible for this SCAR response</p>
+      </div>
+    </div>
+    <table class="editable-table" id="d1-table">
+      <thead><tr><th>Name</th><th>Title / Role</th><th>Responsibility in 8D</th><th>Contact</th></tr></thead>
+      <tbody id="d1-tbody">
+        <tr><td><input type="text" placeholder="Team Champion"></td><td><input type="text" placeholder="Quality Manager"></td><td><input type="text" placeholder="Overall 8D owner"></td><td><input type="text" placeholder="email / ext."></td></tr>
+        <tr><td><input type="text" placeholder="Subject Matter Expert"></td><td><input type="text" placeholder="Process Engineer"></td><td><input type="text" placeholder="Root cause analysis"></td><td><input type="text"></td></tr>
+        <tr><td><input type="text" placeholder="Production Representative"></td><td><input type="text"></td><td><input type="text" placeholder="Containment implementation"></td><td><input type="text"></td></tr>
+      </tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('d1-tbody',4)">+ Add team member</button>
+    <div class="nav-row"><div></div><button class="btn btn-primary" onclick="goDisc(1)">Next: Problem Description →</button></div>
+  </div>
+
+  <!-- D2: Problem Description -->
+  <div class="disc-card" id="disc-1">
+    <div class="disc-header">
+      <div class="d-num">D2</div>
+      <div class="d-title">
+        <h2>D2 — Problem Description</h2>
+        <p>Define the problem using IS / IS-NOT analysis — be specific and quantifiable</p>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Problem Statement <span class="req">*</span></label>
+      <textarea id="d2-statement" placeholder="In one sentence: what is wrong, with what part/process, at what quantity, discovered when/where?"></textarea>
+    </div>
+    <table class="editable-table">
+      <thead><tr><th>Dimension</th><th>IS (confirmed)</th><th>IS NOT (not observed)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>What</strong> — what exactly is wrong?</td><td><textarea placeholder="e.g. Dimensional OOT on feature X"></textarea></td><td><textarea placeholder="e.g. Not a cosmetic issue"></textarea></td></tr>
+        <tr><td><strong>Where</strong> — where on the part/process?</td><td><textarea placeholder="e.g. Bore diameter on P/N 1234-A"></textarea></td><td><textarea placeholder="e.g. Not on adjacent features"></textarea></td></tr>
+        <tr><td><strong>When</strong> — when was it first seen?</td><td><textarea placeholder="e.g. First observed at customer receiving inspection 12 Aug 2026"></textarea></td><td><textarea placeholder="e.g. Not observed in prior 3 lots"></textarea></td></tr>
+        <tr><td><strong>How many</strong> — extent of the problem?</td><td><textarea placeholder="e.g. 14 of 200 parts in Lot 2026-08-B"></textarea></td><td><textarea placeholder="e.g. Not observed in Lots 2026-07-A or 2026-07-B"></textarea></td></tr>
+      </tbody>
+    </table>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goDisc(0)">← Back</button>
+      <button class="btn btn-primary" onclick="goDisc(2)">Next: Containment →</button>
+    </div>
+  </div>
+
+  <!-- D3: Containment -->
+  <div class="disc-card" id="disc-2">
+    <div class="disc-header">
+      <div class="d-num">D3</div>
+      <div class="d-title">
+        <h2>D3 — Immediate Containment Actions</h2>
+        <p>Actions taken NOW to protect the customer from further impact</p>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Containment Date <span class="req">*</span></label>
+      <input type="date" id="d3-date">
+    </div>
+    <table class="editable-table" id="d3-table">
+      <thead><tr><th>Containment Action</th><th>Owner</th><th>Date Completed</th><th>Evidence / Verification</th></tr></thead>
+      <tbody id="d3-tbody">
+        <tr><td><textarea placeholder="e.g. 100% inspection of in-process inventory at supplier"></textarea></td><td><input type="text" placeholder="Name"></td><td><input type="date"></td><td><input type="text" placeholder="e.g. Inspection report #IR-2026-45"></td></tr>
+        <tr><td><textarea placeholder="e.g. Customer notified; hold placed on shipped lots pending 100% sort"></textarea></td><td><input type="text"></td><td><input type="date"></td><td><input type="text"></td></tr>
+        <tr><td><textarea placeholder="e.g. Non-conforming material quarantined and tagged"></textarea></td><td><input type="text"></td><td><input type="date"></td><td><input type="text"></td></tr>
+      </tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('d3-tbody',4)">+ Add containment action</button>
+    <div class="field-group" style="margin-top:14px">
+      <label>Escape Point — Where did this leave undetected? <span class="req">*</span></label>
+      <textarea id="d3-escape" placeholder="Identify the point in the process where this nonconformance escaped without detection. e.g. Final inspection did not include a dimensional check for this feature because it was not called out on the inspection plan."></textarea>
+      <div class="hint">Escape point analysis is required for D4. Identifying it here prevents a common 8D weakness.</div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goDisc(1)">← Back</button>
+      <button class="btn btn-primary" onclick="goDisc(3)">Next: Root Cause →</button>
+    </div>
+  </div>
+
+  <!-- D4: Root Cause -->
+  <div class="disc-card" id="disc-3">
+    <div class="disc-header">
+      <div class="d-num">D4</div>
+      <div class="d-title">
+        <h2>D4 — Root Cause Analysis</h2>
+        <p>5-Why analysis + Fishbone categories. Address both occurrence cause and escape cause.</p>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#666;margin-bottom:14px;font-weight:600">A. OCCURRENCE ROOT CAUSE — Why did the defect occur?</p>
+    <div class="five-why" id="why-occurrence">
+      <div class="why-row"><textarea placeholder="Why #1 — describe the first-level cause..."></textarea></div>
+      <div class="why-row"><textarea placeholder="Why #2 — why did that cause exist?"></textarea></div>
+      <div class="why-row"><textarea placeholder="Why #3 — why did that condition exist?"></textarea></div>
+      <div class="why-row"><textarea placeholder="Why #4 — deeper systemic cause..."></textarea></div>
+      <div class="why-row"><textarea placeholder="Why #5 — root cause (address this to prevent recurrence)"></textarea></div>
+    </div>
+    <div class="field-group" style="margin-top:14px">
+      <label>Confirmed Root Cause Statement (Occurrence)</label>
+      <textarea id="d4-root-occ" placeholder="State the root cause in one sentence from the 5-Why above."></textarea>
+    </div>
+    <hr style="margin:16px 0;border-color:var(--border)">
+    <p style="font-size:12px;color:#666;margin-bottom:14px;font-weight:600">B. ESCAPE ROOT CAUSE — Why did this escape detection?</p>
+    <div class="field-group">
+      <label>Escape Root Cause Statement</label>
+      <textarea id="d4-root-esc" placeholder="Based on the D3 escape point: why did the system allow this to exit without being caught? e.g. Inspection plan did not include a check for this dimension; sampling plan was insufficient for this defect type."></textarea>
+    </div>
+    <hr style="margin:16px 0;border-color:var(--border)">
+    <p style="font-size:12px;color:#666;margin-bottom:10px;font-weight:600">C. FISHBONE (Ishikawa) — Contributing factors by category</p>
+    <div class="fishbone-grid">
+      <div class="fishbone-cat"><label>Man / People</label><textarea placeholder="Training gap, error, skill level..."></textarea></div>
+      <div class="fishbone-cat"><label>Machine / Equipment</label><textarea placeholder="Tooling wear, setup issue, calibration..."></textarea></div>
+      <div class="fishbone-cat"><label>Method / Process</label><textarea placeholder="Procedure unclear, step missing, routing error..."></textarea></div>
+      <div class="fishbone-cat"><label>Material</label><textarea placeholder="Raw material issue, spec deviation, supplier..."></textarea></div>
+      <div class="fishbone-cat"><label>Environment</label><textarea placeholder="Temperature, humidity, vibration, cleanliness..."></textarea></div>
+      <div class="fishbone-cat"><label>Measurement</label><textarea placeholder="Gauge error, sampling frequency, spec interpretation..."></textarea></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goDisc(2)">← Back</button>
+      <button class="btn btn-primary" onclick="goDisc(4)">Next: Corrective Actions →</button>
+    </div>
+  </div>
+
+  <!-- D5: Corrective Actions -->
+  <div class="disc-card" id="disc-4">
+    <div class="disc-header">
+      <div class="d-num">D5</div>
+      <div class="d-title">
+        <h2>D5 — Permanent Corrective Actions</h2>
+        <p>Actions that address the root cause — both occurrence and escape</p>
+      </div>
+    </div>
+    <table class="editable-table" id="d5-table">
+      <thead><tr><th>Corrective Action</th><th>Addresses</th><th>Owner</th><th>Target Date</th></tr></thead>
+      <tbody id="d5-tbody">
+        <tr>
+          <td><textarea placeholder="e.g. Update machining SOP to include fixture torque verification step before each run"></textarea></td>
+          <td><select><option value="occurrence">Occurrence RC</option><option value="escape">Escape RC</option><option value="both">Both</option></select></td>
+          <td><input type="text" placeholder="Name"></td>
+          <td><input type="date"></td>
+        </tr>
+        <tr>
+          <td><textarea placeholder="e.g. Add dimensional check for Feature X to inspection plan and retrain inspectors"></textarea></td>
+          <td><select><option value="occurrence">Occurrence RC</option><option value="escape" selected>Escape RC</option><option value="both">Both</option></select></td>
+          <td><input type="text"></td>
+          <td><input type="date"></td>
+        </tr>
+        <tr>
+          <td><textarea placeholder="e.g. Update PFMEA to reflect identified failure mode and detection method"></textarea></td>
+          <td><select><option value="occurrence">Occurrence RC</option><option value="escape">Escape RC</option><option value="both" selected>Both</option></select></td>
+          <td><input type="text"></td>
+          <td><input type="date"></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="add-row-btn" onclick="addActionRow()">+ Add corrective action</button>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goDisc(3)">← Back</button>
+      <button class="btn btn-primary" onclick="goDisc(5)">Next: Verification →</button>
+    </div>
+  </div>
+
+  <!-- D6: Verification -->
+  <div class="disc-card" id="disc-5">
+    <div class="disc-header">
+      <div class="d-num">D6</div>
+      <div class="d-title">
+        <h2>D6 — Implementation &amp; Verification</h2>
+        <p>Confirm each corrective action was implemented and is effective</p>
+      </div>
+    </div>
+    <table class="editable-table">
+      <thead><tr><th>Corrective Action (brief)</th><th>Implementation Date</th><th>Verification Method</th><th>Verified By</th><th>Evidence Reference</th></tr></thead>
+      <tbody id="d6-tbody">
+        <tr><td><input type="text" placeholder="SOP updated"></td><td><input type="date"></td><td><input type="text" placeholder="Document review"></td><td><input type="text"></td><td><input type="text" placeholder="SOP Rev. 4, eff. date"></td></tr>
+        <tr><td><input type="text" placeholder="Inspection plan updated"></td><td><input type="date"></td><td><input type="text" placeholder="First article / FAI"></td><td><input type="text"></td><td><input type="text" placeholder="FAI report #"></td></tr>
+        <tr><td><input type="text" placeholder="Training records"></td><td><input type="date"></td><td><input type="text" placeholder="Training records reviewed"></td><td><input type="text"></td><td><input type="text" placeholder="Training log ref."></td></tr>
+      </tbody>
+    </table>
+    <div class="field-group" style="margin-top:14px">
+      <label>Effectiveness Verification Plan</label>
+      <textarea id="d6-effectiveness" placeholder="How will you confirm the corrective action eliminated the root cause over time? e.g. Monitor next 3 production lots for dimensional compliance on Feature X. Report results to customer by [date]. Zero recurrence = closure."></textarea>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goDisc(4)">← Back</button>
+      <button class="btn btn-primary" onclick="goDisc(6)">Next: Systemic Prevention →</button>
+    </div>
+  </div>
+
+  <!-- D7: Systemic Prevention -->
+  <div class="disc-card" id="disc-6">
+    <div class="disc-header">
+      <div class="d-num">D7</div>
+      <div class="d-title">
+        <h2>D7 — Systemic Prevention</h2>
+        <p>Prevent recurrence on similar products, processes, or systems</p>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Similar Products or Processes Reviewed</label>
+      <textarea id="d7-similar" placeholder="List other part numbers, processes, or production lines reviewed for the same failure mode. State outcome of review."></textarea>
+    </div>
+    <div class="field-group">
+      <label>Management System Updates</label>
+      <textarea id="d7-system" placeholder="What QMS documents, procedures, control plans, PFMEAs, or training programs are being updated as a result of this SCAR to prevent the failure mode from occurring in other areas?"></textarea>
+    </div>
+    <div class="field-group">
+      <label>Lessons Learned</label>
+      <textarea id="d7-lessons" placeholder="What should other programs or products know about this failure mode and the controls put in place?"></textarea>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goDisc(5)">← Back</button>
+      <button class="btn btn-primary" onclick="goDisc(7)">Next: Team Recognition →</button>
+    </div>
+  </div>
+
+  <!-- D8: Closure -->
+  <div class="disc-card" id="disc-7">
+    <div class="disc-header">
+      <div class="d-num">D8</div>
+      <div class="d-title">
+        <h2>D8 — Team Recognition &amp; Closure</h2>
+        <p>Acknowledge team contributions and confirm closure conditions</p>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Team Recognition Statement</label>
+      <textarea id="d8-recognition" placeholder="Acknowledge the cross-functional team for their contributions to resolving this SCAR. Note any particularly significant contributions."></textarea>
+    </div>
+    <div class="field-group">
+      <label>Customer Closure Evidence Checklist</label>
+      <div style="font-size:13px;display:grid;gap:6px;margin-top:6px">
+        <label style="display:flex;gap:8px;align-items:center;font-weight:normal"><input type="checkbox" id="cl1"> All 8 disciplines completed with evidence</label>
+        <label style="display:flex;gap:8px;align-items:center;font-weight:normal"><input type="checkbox" id="cl2"> Root cause verified (occurrence + escape)</label>
+        <label style="display:flex;gap:8px;align-items:center;font-weight:normal"><input type="checkbox" id="cl3"> Corrective actions implemented and verified</label>
+        <label style="display:flex;gap:8px;align-items:center;font-weight:normal"><input type="checkbox" id="cl4"> Effectiveness verification method defined</label>
+        <label style="display:flex;gap:8px;align-items:center;font-weight:normal"><input type="checkbox" id="cl5"> Similar processes reviewed</label>
+        <label style="display:flex;gap:8px;align-items:center;font-weight:normal"><input type="checkbox" id="cl6"> QMS documents updated</label>
+        <label style="display:flex;gap:8px;align-items:center;font-weight:normal"><input type="checkbox" id="cl7"> Evidence package assembled for customer</label>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Submitted By / Authorized Signature</label>
+      <input type="text" id="d8-submitted" placeholder="Name, Title, Company">
+    </div>
+    <div class="field-group">
+      <label>Submission Date</label>
+      <input type="date" id="d8-date">
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goDisc(6)">← Back</button>
+      <button class="btn btn-primary" onclick="generateOutput()">Generate SCAR Response Document →</button>
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div id="output-panel">
+    <div class="output-card">
+      <h3>Discipline Completion Status</h3>
+      <div class="completion-grid" id="completion-grid"></div>
+    </div>
+    <div class="output-card">
+      <h3>8D SCAR Response — Customer-Ready Document</h3>
+      <div class="doc-output" id="doc-output"></div>
+    </div>
+    <div class="output-card">
+      <h3>Export</h3>
+      <div class="export-row">
+        <button class="btn-export" onclick="exportJSON()">⬇ Export JSON Record</button>
+        <button class="btn-export" onclick="window.print()">🖨 Print / Save PDF</button>
+        <button class="btn-export" onclick="resetTool()">↩ New SCAR</button>
+      </div>
+      <p style="font-size:11px;color:#888;margin-top:10px">M-AI reserved interface: domain=scar-response v1.0</p>
+      <p style="font-size:11px;color:#888;margin-top:4px">Self-preparation tool only. Verify response requirements with your customer before submission. © Conform-Edge Quality Management Consulting LLC.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const DISCIPLINES = [
+  { id:'D1', label:'Team' },
+  { id:'D2', label:'Problem' },
+  { id:'D3', label:'Contain' },
+  { id:'D4', label:'Root Cause' },
+  { id:'D5', label:'Fix' },
+  { id:'D6', label:'Verify' },
+  { id:'D7', label:'Prevent' },
+  { id:'D8', label:'Close' },
+];
+
+let currentDisc = 0;
+
+function buildProgress() {
+  const container = document.getElementById('d-progress');
+  DISCIPLINES.forEach((d, i) => {
+    const item = document.createElement('div');
+    item.className = 'd-item';
+    item.innerHTML = `<div class="d-badge ${i===0?'active':''}" id="badge-${i}" onclick="goDisc(${i})">${d.id}</div><div class="d-label">${d.label}</div>`;
+    container.appendChild(item);
+  });
+}
+
+function goDisc(idx) {
+  // Mark current as partial/complete
+  document.querySelectorAll('.disc-card').forEach((c,i) => c.classList.toggle('active', i===idx));
+  document.querySelectorAll('.d-badge').forEach((b,i) => {
+    b.className = 'd-badge' + (i===idx ? ' active' : (i < idx ? ' complete' : ''));
+  });
+  document.getElementById('output-panel').style.display = 'none';
+  currentDisc = idx;
+  window.scrollTo(0,0);
+}
+
+function addRow(tbodyId, cols) {
+  const tbody = document.getElementById(tbodyId);
+  const tr = document.createElement('tr');
+  for(let i=0;i<cols;i++) tr.innerHTML += `<td><input type="text"></td>`;
+  tbody.appendChild(tr);
+}
+
+function addActionRow() {
+  const tbody = document.getElementById('d5-tbody');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><textarea placeholder="Describe corrective action..."></textarea></td><td><select><option>Occurrence RC</option><option>Escape RC</option><option>Both</option></select></td><td><input type="text"></td><td><input type="date"></td>`;
+  tbody.appendChild(tr);
+}
+
+function updateDeadline() {
+  const due = document.getElementById('scar-due').value;
+  const box = document.getElementById('deadline-display');
+  if(due) {
+    const days = Math.ceil((new Date(due) - new Date()) / 86400000);
+    box.style.display = 'block';
+    box.textContent = days >= 0 ? `⏱ ${days} day${days!==1?'s':''} remaining` : `⚠ OVERDUE by ${Math.abs(days)} day${Math.abs(days)!==1?'s':''}`;
+    box.style.background = days < 3 ? '#fef2f2' : days < 7 ? '#fef9c3' : '#f0fdf4';
+  }
+}
+
+function updateHeader() {}
+
+function getVal(id) { const el=document.getElementById(id); return el ? el.value.trim() : ''; }
+
+function getTableData(tbodyId) {
+  const rows = [];
+  document.querySelectorAll('#'+tbodyId+' tr').forEach(tr => {
+    const cells = [];
+    tr.querySelectorAll('input,textarea,select').forEach(el => cells.push(el.value.trim()));
+    if(cells.some(c=>c)) rows.push(cells);
+  });
+  return rows;
+}
+
+function getWhyRows() {
+  const rows = [];
+  document.querySelectorAll('#why-occurrence textarea').forEach((ta,i) => { if(ta.value.trim()) rows.push(`Why ${i+1}: ${ta.value.trim()}`); });
+  return rows;
+}
+
+function getFishbone() {
+  const cats = ['Man/People','Machine/Equipment','Method/Process','Material','Environment','Measurement'];
+  const rows = [];
+  document.querySelectorAll('.fishbone-cat textarea').forEach((ta,i) => { if(ta.value.trim()) rows.push(`${cats[i]}: ${ta.value.trim()}`); });
+  return rows;
+}
+
+function generateOutput() {
+  // Hide discipline cards
+  document.querySelectorAll('.disc-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('output-panel').style.display = 'block';
+  window.scrollTo(0,0);
+
+  const ref = getVal('scar-ref') || 'SCAR-[REF]';
+  const customer = getVal('scar-customer') || '[Customer]';
+  const received = getVal('scar-received') || '[date received]';
+  const due = getVal('scar-due') || '[due date]';
+  const now = new Date().toLocaleDateString('en-AU',{year:'numeric',month:'long',day:'numeric'});
+
+  // Completion
+  const grid = document.getElementById('completion-grid');
+  grid.innerHTML = '';
+  DISCIPLINES.forEach((d,i) => {
+    const item = document.createElement('div');
+    item.className = 'comp-item';
+    item.innerHTML = `<div class="comp-icon">✅</div><div class="comp-label">${d.id}: ${d.label}</div>`;
+    grid.appendChild(item);
+  });
+
+  // Build document text
+  const d1 = getTableData('d1-tbody');
+  const d3 = getTableData('d3-tbody');
+  const d5 = getTableData('d5-tbody');
+  const whys = getWhyRows();
+  const fishbone = getFishbone();
+
+  const doc = `SUPPLIER CORRECTIVE ACTION REQUEST (SCAR) — 8D RESPONSE
+${'='.repeat(62)}
+SCAR Reference: ${ref}
+Issuing Customer: ${customer}
+Date Received: ${received}
+Customer Due Date: ${due}
+Response Prepared: ${now}
+Submitted By: ${getVal('d8-submitted') || '[Name, Title, Company]'}
+
+${'─'.repeat(62)}
+D1 — TEAM FORMATION
+${'─'.repeat(62)}
+${d1.map(r => `  ${r[0] || '[Name]'} | ${r[1] || '[Role]'} | ${r[2] || '[Responsibility]'}`).join('\n') || '  [Team members not entered]'}
+
+${'─'.repeat(62)}
+D2 — PROBLEM DESCRIPTION
+${'─'.repeat(62)}
+Problem Statement:
+  ${getVal('d2-statement') || '[Not entered]'}
+
+IS / IS-NOT Analysis:
+  [What IS wrong]: See assessment inputs
+  [Where IS the problem]: See assessment inputs
+  [When WAS it first seen]: See assessment inputs
+  [How many ARE affected]: See assessment inputs
+
+${'─'.repeat(62)}
+D3 — IMMEDIATE CONTAINMENT ACTIONS
+${'─'.repeat(62)}
+Containment Date: ${getVal('d3-date') || '[Not entered]'}
+
+${d3.map((r,i) => `Action ${i+1}: ${r[0] || '[Action]'}\n  Owner: ${r[1] || '[TBD]'} | Completed: ${r[2] || '[TBD]'} | Evidence: ${r[3] || '[TBD]'}`).join('\n\n') || '  [Containment actions not entered]'}
+
+Escape Point Identified:
+  ${getVal('d3-escape') || '[Not entered — complete escape point analysis in D3]'}
+
+${'─'.repeat(62)}
+D4 — ROOT CAUSE ANALYSIS
+${'─'.repeat(62)}
+5-Why Analysis (Occurrence):
+${whys.length > 0 ? whys.map(w=>'  '+w).join('\n') : '  [5-Why analysis not entered]'}
+
+Confirmed Occurrence Root Cause:
+  ${getVal('d4-root-occ') || '[Not entered]'}
+
+Escape Root Cause:
+  ${getVal('d4-root-esc') || '[Not entered]'}
+
+${fishbone.length > 0 ? 'Fishbone Contributing Factors:\n' + fishbone.map(f=>'  '+f).join('\n') : ''}
+
+${'─'.repeat(62)}
+D5 — PERMANENT CORRECTIVE ACTIONS
+${'─'.repeat(62)}
+${d5.map((r,i) => `CA-${i+1}: ${r[0] || '[Action]'}\n  Addresses: ${r[1] || '[RC type]'} | Owner: ${r[2] || '[TBD]'} | Target: ${r[3] || '[TBD]'}`).join('\n\n') || '  [Corrective actions not entered]'}
+
+${'─'.repeat(62)}
+D6 — IMPLEMENTATION & VERIFICATION
+${'─'.repeat(62)}
+Effectiveness Verification Plan:
+  ${getVal('d6-effectiveness') || '[Not entered]'}
+
+${'─'.repeat(62)}
+D7 — SYSTEMIC PREVENTION
+${'─'.repeat(62)}
+Similar Products/Processes Reviewed:
+  ${getVal('d7-similar') || '[Not entered]'}
+
+Management System Updates:
+  ${getVal('d7-system') || '[Not entered]'}
+
+Lessons Learned:
+  ${getVal('d7-lessons') || '[Not entered]'}
+
+${'─'.repeat(62)}
+D8 — TEAM RECOGNITION & CLOSURE
+${'─'.repeat(62)}
+${getVal('d8-recognition') || '[Team recognition statement not entered]'}
+
+Closure Checklist: Confirm before submission to ${customer}.
+  Submitted By: ${getVal('d8-submitted') || '[Name, Title, Company]'}
+  Submission Date: ${getVal('d8-date') || now}
+
+${'='.repeat(62)}
+This response was prepared using the Conform-Edge Supplier SCAR
+Response Builder. Verify all content before customer submission.
+Self-preparation tool — not a regulatory or certification determination.
+© Conform-Edge Quality Management Consulting LLC
+`;
+
+  document.getElementById('doc-output').textContent = doc;
+  window._scarData = { ref, customer, received, due, generated: new Date().toISOString() };
+}
+
+function exportJSON() {
+  const data = {
+    tool: 'scar-response-builder',
+    mai_interface: 'reserved',
+    domain: 'scar-response',
+    version: '1.0',
+    generated: new Date().toISOString(),
+    scar_ref: getVal('scar-ref'),
+    customer: getVal('scar-customer'),
+    date_received: getVal('scar-received'),
+    due_date: getVal('scar-due'),
+    disciplines_complete: 8,
+    root_cause_occurrence: getVal('d4-root-occ'),
+    root_cause_escape: getVal('d4-root-esc'),
+    escape_point_identified: getVal('d3-escape').length > 0,
+    systemic_prevention: getVal('d7-system').length > 0,
+    submitted_by: getVal('d8-submitted')
+  };
+  const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='scar-response-'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetTool() {
+  document.querySelectorAll('input,textarea').forEach(el => el.value='');
+  document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked=false);
+  document.getElementById('output-panel').style.display='none';
+  document.getElementById('deadline-display').style.display='none';
+  goDisc(0);
+}
+
+buildProgress();
+</script>
+</body>
+</html>

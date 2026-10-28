@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AS9120B Aerospace Distributor Self-Assessment | Conform-Edge</title>
+<style>
+  :root {
+    --ce-navy: #1a2b4a;
+    --ce-steel: #3d6b8f;
+    --ce-light: #e8f0f7;
+    --ce-accent: #2ecc71;
+    --ce-warn: #e67e22;
+    --ce-danger: #e74c3c;
+    --ce-neutral: #95a5a6;
+    --ce-text: #1c2733;
+    --ce-border: #c8d8e8;
+    --ce-white: #ffffff;
+    --radius: 6px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: var(--ce-text); font-size: 14px; line-height: 1.5; }
+  .header { background: var(--ce-navy); color: var(--ce-white); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .header-title { font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
+  .header-sub { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+  .header-badge { background: var(--ce-steel); border-radius: 20px; padding: 4px 14px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
+  .intro-card { background: var(--ce-white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 24px; margin-bottom: 24px; border-left: 4px solid var(--ce-steel); }
+  .intro-card h2 { font-size: 15px; color: var(--ce-navy); margin-bottom: 8px; }
+  .intro-card p { font-size: 13px; color: #4a5568; line-height: 1.6; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .section-card { background: var(--ce-white); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 20px; overflow: hidden; }
+  .section-header { background: var(--ce-navy); color: var(--ce-white); padding: 12px 20px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .section-num { background: var(--ce-steel); border-radius: 4px; padding: 2px 8px; font-size: 11px; }
+  .question-row { padding: 14px 20px; border-bottom: 1px solid var(--ce-border); display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; }
+  .question-row:last-child { border-bottom: none; }
+  .question-row:hover { background: var(--ce-light); }
+  .q-text { font-size: 13px; line-height: 1.5; }
+  .q-clause { font-size: 11px; color: var(--ce-steel); margin-top: 3px; font-style: italic; }
+  .critical-flag { display: inline-block; background: #fef3f2; color: var(--ce-danger); border: 1px solid #fca5a5; border-radius: 3px; font-size: 10px; font-weight: 700; padding: 1px 5px; margin-left: 6px; vertical-align: middle; }
+  .response-group { display: flex; gap: 6px; flex-shrink: 0; }
+  .response-btn { padding: 5px 12px; border-radius: 4px; border: 1.5px solid var(--ce-border); background: var(--ce-white); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .response-btn:hover { border-color: var(--ce-steel); background: var(--ce-light); }
+  .response-btn.yes.active { background: #d1fae5; border-color: #059669; color: #065f46; }
+  .response-btn.partial.active { background: #fef3c7; border-color: #d97706; color: #92400e; }
+  .response-btn.no.active { background: #fee2e2; border-color: #dc2626; color: #7f1d1d; }
+  .response-btn.na.active { background: #f1f5f9; border-color: #94a3b8; color: #475569; }
+  .results-panel { background: var(--ce-white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; margin-top: 24px; display: none; }
+  .results-panel.visible { display: block; }
+  .verdict-banner { border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px; text-align: center; }
+  .verdict-banner.ready { background: #d1fae5; border: 2px solid #059669; color: #065f46; }
+  .verdict-banner.conditional { background: #fef3c7; border: 2px solid #d97706; color: #92400e; }
+  .verdict-banner.not-ready { background: #fee2e2; border: 2px solid #dc2626; color: #7f1d1d; }
+  .verdict-title { font-size: 22px; font-weight: 800; }
+  .verdict-sub { font-size: 13px; margin-top: 4px; }
+  .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .score-box { background: var(--ce-light); border-radius: var(--radius); padding: 12px; text-align: center; }
+  .score-box .num { font-size: 26px; font-weight: 800; color: var(--ce-navy); }
+  .score-box .lbl { font-size: 11px; color: #64748b; margin-top: 2px; }
+  .gap-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 20px; }
+  .gap-table th { background: var(--ce-navy); color: var(--ce-white); padding: 8px 12px; text-align: left; }
+  .gap-table td { padding: 8px 12px; border-bottom: 1px solid var(--ce-border); }
+  .gap-table tr:hover td { background: var(--ce-light); }
+  .gap-sev { font-weight: 700; padding: 2px 6px; border-radius: 3px; font-size: 11px; }
+  .gap-sev.critical { background: #fee2e2; color: #7f1d1d; }
+  .gap-sev.major { background: #fef3c7; color: #92400e; }
+  .gap-sev.minor { background: #dbeafe; color: #1e3a5f; }
+  .mr-narrative { background: var(--ce-light); border-radius: var(--radius); padding: 16px; margin-bottom: 20px; font-size: 13px; line-height: 1.7; border-left: 3px solid var(--ce-steel); }
+  .mr-narrative h3 { font-size: 12px; font-weight: 700; color: var(--ce-navy); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .action-bar { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 4px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-primary { background: var(--ce-navy); color: var(--ce-white); }
+  .btn-primary:hover { background: var(--ce-steel); }
+  .btn-secondary { background: var(--ce-light); color: var(--ce-navy); border: 1px solid var(--ce-border); }
+  .btn-secondary:hover { background: var(--ce-border); }
+  .mai-interface { display: none; }
+  .footer { text-align: center; font-size: 11px; color: var(--ce-neutral); margin-top: 32px; }
+  @media (max-width: 600px) {
+    .question-row { grid-template-columns: 1fr; }
+    .score-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <div class="header-title">Conform-Edge Quality Consulting</div>
+    <div class="header-sub">AS9120B Aerospace Distributor Self-Assessment Tool</div>
+  </div>
+  <div class="header-badge">AS9120B Rev B</div>
+</div>
+
+<div class="container">
+  <div class="intro-card">
+    <h2>AS9120B Aerospace Distributor Compliance Self-Assessment</h2>
+    <p>This tool provides aerospace distributors and stockists with a structured self-assessment against AS9120B Rev B requirements. Complete all 30 questions to generate a scored gap report, management review narrative, and export-ready JSON record. Items marked <strong>CRITICAL</strong> carry automatic override — any unanswered critical item results in a NOT READY verdict.</p>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#059669"></div>Yes — fully implemented</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div>Partial — in progress or gaps exist</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div>No — not implemented</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#94a3b8"></div>N/A — not applicable</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: QMS Foundations -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 1</span> QMS Foundations &amp; Context (Clauses 4–6)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q1. Has the organization determined the scope of its QMS specific to aerospace distribution activities, including product types, customers, and applicable standards?</div><div class="q-clause">AS9120B Cl. 4.3</div></div>
+      <div class="response-group" data-q="1" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(1,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(1,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(1,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(1,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q2. Are quality objectives established, documented, and communicated for distribution operations (e.g., on-time delivery, product conformity rate, customer complaint targets)?</div><div class="q-clause">AS9120B Cl. 6.2</div></div>
+      <div class="response-group" data-q="2" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(2,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(2,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(2,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(2,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q3. Has the organization conducted a risk and opportunity assessment for its distribution activities, including counterfeit risk, supply chain disruption, and regulatory change?</div><div class="q-clause">AS9120B Cl. 6.1</div></div>
+      <div class="response-group" data-q="3" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(3,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(3,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(3,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(3,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q4. Are roles, responsibilities, and authorities defined for personnel involved in product control, conformity assessment, and counterfeit prevention?</div><div class="q-clause">AS9120B Cl. 5.3</div></div>
+      <div class="response-group" data-q="4" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(4,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(4,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(4,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(4,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q5. Is a documented counterfeit parts prevention procedure established, implemented, and maintained, covering detection, reporting, and quarantine? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">AS9120B Cl. 8.1.4 / AS5553 / AS6174</div></div>
+      <div class="response-group" data-q="5" data-critical="true">
+        <button class="response-btn yes" onclick="setResponse(5,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(5,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(5,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(5,'na',this)">N/A</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Counterfeit Parts Prevention -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 2</span> Counterfeit Parts Prevention (Cl. 8.1.4 / AS5553 / AS6174)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q6. Is all product sourced exclusively from the OEM, authorized distributors, or suppliers with an unbroken chain of custody traceable to the OEM? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">AS9120B Cl. 8.1.4 / AS5553 §5.3</div></div>
+      <div class="response-group" data-q="6" data-critical="true">
+        <button class="response-btn yes" onclick="setResponse(6,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(6,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(6,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(6,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q7. Are physical detection methods for counterfeit parts employed at receiving (e.g., visual inspection, dimensional verification, documentation review, testing per test reports)?</div><div class="q-clause">AS9120B Cl. 8.4.3 / AS5553 §5.5</div></div>
+      <div class="response-group" data-q="7" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(7,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(7,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(7,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(7,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q8. Does the organization maintain a suspect/UCTS quarantine area and procedure, including notification to the customer, GIDEP, and/or regulatory authorities where required?</div><div class="q-clause">AS9120B Cl. 8.7 / AS5553 §5.7</div></div>
+      <div class="response-group" data-q="8" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(8,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(8,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(8,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(8,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q9. Are personnel responsible for counterfeit detection trained and competency-assessed specifically for counterfeit risk in aerospace distribution?</div><div class="q-clause">AS9120B Cl. 7.2 / AS5553 §5.2</div></div>
+      <div class="response-group" data-q="9" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(9,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(9,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(9,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(9,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q10. Are excess/surplus material acquisition controls in place, including elevated risk designation and specific verification requirements for non-OEM-direct product? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">AS9120B Cl. 8.1.4 / AS6174</div></div>
+      <div class="response-group" data-q="10" data-critical="true">
+        <button class="response-btn yes" onclick="setResponse(10,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(10,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(10,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(10,'na',this)">N/A</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Traceability & CoC Management -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 3</span> Traceability &amp; Certificate of Conformance Management (Cl. 8.4 / 8.5.2)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q11. Is product traceability maintained throughout the distribution process, including batch/lot number, manufacturer, date code, shelf life, and original certification documentation? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">AS9120B Cl. 8.5.2</div></div>
+      <div class="response-group" data-q="11" data-critical="true">
+        <button class="response-btn yes" onclick="setResponse(11,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(11,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(11,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(11,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q12. Are Certificates of Conformance (CoC) reviewed for completeness, accuracy, and chain-of-custody integrity at receiving, and retained for the required period?</div><div class="q-clause">AS9120B Cl. 8.4.3 / 7.5</div></div>
+      <div class="response-group" data-q="12" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(12,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(12,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(12,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(12,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q13. Does the organization issue its own Certificate of Conformance to customers, and does it accurately reflect the source, OEM CoC reference, and any re-inspection performed?</div><div class="q-clause">AS9120B Cl. 8.6</div></div>
+      <div class="response-group" data-q="13" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(13,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(13,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(13,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(13,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q14. Are partial shipments and split-batch controls managed to ensure traceability continuity, including documentation of remaining stock and original certification?</div><div class="q-clause">AS9120B Cl. 8.5.2</div></div>
+      <div class="response-group" data-q="14" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(14,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(14,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(14,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(14,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q15. Is shelf-life and date-coded product controlled using a documented FIFO or FEFO system, with expiry review at pick/pack and quarantine of expired product?</div><div class="q-clause">AS9120B Cl. 8.5.4</div></div>
+      <div class="response-group" data-q="15" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(15,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(15,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(15,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(15,'na',this)">N/A</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: Supplier Qualification -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 4</span> Supplier Qualification &amp; External Provider Control (Cl. 8.4)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q16. Is a documented approved supplier/source list (ASL) maintained and used as the mandatory procurement control, with criteria for approval, monitoring, and removal?</div><div class="q-clause">AS9120B Cl. 8.4.1</div></div>
+      <div class="response-group" data-q="16" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(16,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(16,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(16,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(16,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q17. Are supplier performance records maintained (delivery, quality, escapes, counterfeit events) and used as a basis for re-evaluation and continued approval?</div><div class="q-clause">AS9120B Cl. 8.4.1</div></div>
+      <div class="response-group" data-q="17" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(17,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(17,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(17,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(17,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q18. Are purchasing documents (POs) specific enough to include product designation, part number, OEM name, standard/spec references, and applicable quality requirements?</div><div class="q-clause">AS9120B Cl. 8.4.3</div></div>
+      <div class="response-group" data-q="18" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(18,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(18,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(18,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(18,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q19. Where the organization uses sub-tier distributors, are the same counterfeit prevention, traceability, and CoC requirements flowed down to those sub-tier providers?</div><div class="q-clause">AS9120B Cl. 8.4.3 / 8.1.4</div></div>
+      <div class="response-group" data-q="19" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(19,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(19,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(19,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(19,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q20. Is the organization's right to conduct supplier audits and inspections contractually established, and have audits or verification activities been performed where risk warrants?</div><div class="q-clause">AS9120B Cl. 8.4.2</div></div>
+      <div class="response-group" data-q="20" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(20,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(20,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(20,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(20,'na',this)">N/A</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: Storage, Handling & Preservation -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 5</span> Storage, Handling &amp; Preservation (Cl. 8.5.4)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q21. Are storage environments controlled and monitored to product requirements (temperature, humidity, ESD, cleanliness) with documented environmental monitoring records?</div><div class="q-clause">AS9120B Cl. 8.5.4</div></div>
+      <div class="response-group" data-q="21" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(21,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(21,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(21,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(21,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q22. Are ESD-sensitive components identified, segregated, and handled in accordance with applicable requirements (e.g., ESD packaging intact at all stages)?</div><div class="q-clause">AS9120B Cl. 8.5.4</div></div>
+      <div class="response-group" data-q="22" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(22,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(22,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(22,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(22,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q23. Is nonconforming and suspect product physically segregated (quarantine area), clearly identified, and prevented from unintentional use or release?</div><div class="q-clause">AS9120B Cl. 8.7</div></div>
+      <div class="response-group" data-q="23" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(23,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(23,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(23,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(23,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q24. Is packaging of outgoing product controlled to protect product conformity during transportation, including identification, protection from damage, moisture, and ESD?</div><div class="q-clause">AS9120B Cl. 8.5.4</div></div>
+      <div class="response-group" data-q="24" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(24,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(24,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(24,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(24,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q25. Are periodic stock condition checks performed to detect deterioration, damage, or expiry, with records maintained and corrective action taken where deficiencies are found?</div><div class="q-clause">AS9120B Cl. 8.5.4</div></div>
+      <div class="response-group" data-q="25" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(25,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(25,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(25,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(25,'na',this)">N/A</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: Documentation, Records & Customer Requirements -->
+  <div class="section-card">
+    <div class="section-header"><span class="section-num">Section 6</span> Documentation, Records &amp; Customer Requirements (Cl. 7.5 / 8.2 / 9)</div>
+    <div class="question-row">
+      <div><div class="q-text">Q26. Are required quality records (receiving inspection, CoC, traceability, supplier performance, calibration, internal audit, corrective action) retained per documented retention periods?</div><div class="q-clause">AS9120B Cl. 7.5.3</div></div>
+      <div class="response-group" data-q="26" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(26,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(26,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(26,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(26,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q27. Are customer-specific quality requirements (e.g., NADCAP flow-down, Boeing D1-4426, customer-approved sources) identified and implemented for applicable orders? <span class="critical-flag">CRITICAL</span></div><div class="q-clause">AS9120B Cl. 8.2.2</div></div>
+      <div class="response-group" data-q="27" data-critical="true">
+        <button class="response-btn yes" onclick="setResponse(27,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(27,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(27,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(27,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q28. Is a documented internal audit program in place and being executed at planned intervals, with findings and corrective actions tracked to closure?</div><div class="q-clause">AS9120B Cl. 9.2</div></div>
+      <div class="response-group" data-q="28" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(28,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(28,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(28,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(28,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q29. Are customer complaints and product escapes investigated using a documented process with root cause analysis, corrective action, and effectiveness verification?</div><div class="q-clause">AS9120B Cl. 8.7 / 10.2</div></div>
+      <div class="response-group" data-q="29" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(29,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(29,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(29,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(29,'na',this)">N/A</button>
+      </div>
+    </div>
+    <div class="question-row">
+      <div><div class="q-text">Q30. Does the organization conduct management review at planned intervals covering quality performance, audit results, customer feedback, corrective action status, and QMS effectiveness?</div><div class="q-clause">AS9120B Cl. 9.3</div></div>
+      <div class="response-group" data-q="30" data-critical="false">
+        <button class="response-btn yes" onclick="setResponse(30,'yes',this)">Yes</button>
+        <button class="response-btn partial" onclick="setResponse(30,'partial',this)">Partial</button>
+        <button class="response-btn no" onclick="setResponse(30,'no',this)">No</button>
+        <button class="response-btn na" onclick="setResponse(30,'na',this)">N/A</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin: 20px 0;">
+    <button class="btn btn-primary" onclick="generateResults()" style="padding:12px 32px; font-size:15px;">Generate Assessment Report</button>
+  </div>
+
+  <!-- Results Panel -->
+  <div class="results-panel" id="resultsPanel">
+    <div class="verdict-banner" id="verdictBanner">
+      <div class="verdict-title" id="verdictTitle"></div>
+      <div class="verdict-sub" id="verdictSub"></div>
+    </div>
+    <div class="score-grid">
+      <div class="score-box"><div class="num" id="scoreYes">0</div><div class="lbl">Implemented</div></div>
+      <div class="score-box"><div class="num" id="scorePartial">0</div><div class="lbl">Partial</div></div>
+      <div class="score-box"><div class="num" id="scoreNo">0</div><div class="lbl">Not Implemented</div></div>
+      <div class="score-box"><div class="num" id="scorePercent">0%</div><div class="lbl">Score</div></div>
+    </div>
+    <div id="criticalAlert" style="display:none; background:#fee2e2; border:1px solid #dc2626; border-radius:6px; padding:12px 16px; margin-bottom:16px; font-size:13px; color:#7f1d1d;"></div>
+    <h3 style="font-size:13px; font-weight:700; color:var(--ce-navy); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Priority Gap Register</h3>
+    <table class="gap-table" id="gapTable">
+      <thead><tr><th>Q#</th><th>Gap Description</th><th>Clause</th><th>Severity</th><th>Recommended Action</th></tr></thead>
+      <tbody id="gapBody"></tbody>
+    </table>
+    <div class="mr-narrative" id="mrNarrative"></div>
+    <div class="action-bar">
+      <button class="btn btn-primary" onclick="exportJSON()">Export JSON Record</button>
+      <button class="btn btn-secondary" onclick="window.print()">Print Report</button>
+      <button class="btn btn-secondary" onclick="resetAssessment()">Reset</button>
+    </div>
+  </div>
+
+  <div class="footer">Conform-Edge Quality Consulting LLC &nbsp;|&nbsp; AS9120B Distributor Self-Assessment Tool v1.0 &nbsp;|&nbsp; For self-assessment use only. Not a substitute for third-party certification audit. &nbsp;|&nbsp; © 2026</div>
+</div>
+
+<!-- M-AI Reserved Interface -->
+<div class="mai-interface" id="mai-kernel-interface"
+  data-product="as9120b-distributor-self-assessment"
+  data-domain="as9120b-distributor-readiness"
+  data-version="1.0.0"
+  data-dims='["qms-foundations","counterfeit-prevention","traceability-coc","supplier-control","storage-handling","documentation-records"]'
+  data-authority-charter="AS9120B-Rev-B"
+  data-mai-status="ARCHITECTURE_DEFINED">
+</div>
+
+<script>
+const responses = {};
+const criticalItems = [5, 6, 10, 11, 27];
+
+const questions = {
+  1: { text: "QMS scope defined for aerospace distribution", clause: "Cl. 4.3", critical: false },
+  2: { text: "Quality objectives established and communicated", clause: "Cl. 6.2", critical: false },
+  3: { text: "Risk and opportunity assessment conducted", clause: "Cl. 6.1", critical: false },
+  4: { text: "Roles and responsibilities defined for product control", clause: "Cl. 5.3", critical: false },
+  5: { text: "Documented counterfeit parts prevention procedure", clause: "Cl. 8.1.4", critical: true },
+  6: { text: "Product sourced from OEM/authorized distributors only", clause: "Cl. 8.1.4 / AS5553 §5.3", critical: true },
+  7: { text: "Physical counterfeit detection methods at receiving", clause: "Cl. 8.4.3 / AS5553 §5.5", critical: false },
+  8: { text: "Suspect/UCTS quarantine area and reporting procedure", clause: "Cl. 8.7 / AS5553 §5.7", critical: false },
+  9: { text: "Counterfeit detection training for personnel", clause: "Cl. 7.2 / AS5553 §5.2", critical: false },
+  10: { text: "Excess/surplus material acquisition controls", clause: "Cl. 8.1.4 / AS6174", critical: true },
+  11: { text: "Batch/lot traceability maintained throughout distribution", clause: "Cl. 8.5.2", critical: true },
+  12: { text: "CoC review and retention at receiving", clause: "Cl. 8.4.3 / 7.5", critical: false },
+  13: { text: "Organization-issued CoC is accurate and referenced", clause: "Cl. 8.6", critical: false },
+  14: { text: "Partial shipment and split-batch traceability controls", clause: "Cl. 8.5.2", critical: false },
+  15: { text: "Shelf-life / date-code FIFO control", clause: "Cl. 8.5.4", critical: false },
+  16: { text: "Approved Supplier/Source List (ASL) maintained", clause: "Cl. 8.4.1", critical: false },
+  17: { text: "Supplier performance records maintained and used", clause: "Cl. 8.4.1", critical: false },
+  18: { text: "Purchasing documents include required product designations", clause: "Cl. 8.4.3", critical: false },
+  19: { text: "Quality requirements flowed down to sub-tier distributors", clause: "Cl. 8.4.3 / 8.1.4", critical: false },
+  20: { text: "Supplier audit rights established and exercised", clause: "Cl. 8.4.2", critical: false },
+  21: { text: "Storage environments controlled and monitored", clause: "Cl. 8.5.4", critical: false },
+  22: { text: "ESD-sensitive component handling controlled", clause: "Cl. 8.5.4", critical: false },
+  23: { text: "Nonconforming/suspect product physically segregated", clause: "Cl. 8.7", critical: false },
+  24: { text: "Outgoing packaging controls protect product conformity", clause: "Cl. 8.5.4", critical: false },
+  25: { text: "Periodic stock condition checks performed", clause: "Cl. 8.5.4", critical: false },
+  26: { text: "Quality records retained per documented periods", clause: "Cl. 7.5.3", critical: false },
+  27: { text: "Customer-specific requirements identified and implemented", clause: "Cl. 8.2.2", critical: true },
+  28: { text: "Internal audit program executed at planned intervals", clause: "Cl. 9.2", critical: false },
+  29: { text: "Customer complaints investigated with RCA and CA", clause: "Cl. 8.7 / 10.2", critical: false },
+  30: { text: "Management review conducted at planned intervals", clause: "Cl. 9.3", critical: false }
+};
+
+const actions = {
+  5: "Establish and implement a documented counterfeit parts prevention procedure per AS5553/AS6174 covering detection, quarantine, and GIDEP reporting.",
+  6: "Restrict procurement to OEM/authorized distributor-only channels; document chain of custody; prohibit open-market purchasing without elevated verification.",
+  10: "Implement excess/surplus material acquisition controls with elevated risk classification and mandatory test/verification requirements per AS6174.",
+  11: "Deploy batch/lot traceability system linking every product unit to receiving CoC, date code, manufacturer, and distributor chain.",
+  27: "Map customer-specific requirements per order; implement CSR review at order acceptance; maintain CSR register with evidence of implementation."
+};
+
+function setResponse(qNum, value, btn) {
+  responses[qNum] = value;
+  const group = btn.parentElement;
+  group.querySelectorAll('.response-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active', value);
+}
+
+function generateResults() {
+  let yes = 0, partial = 0, no = 0, na = 0, critFail = [];
+  const gapRows = [];
+
+  for (let q = 1; q <= 30; q++) {
+    const r = responses[q] || null;
+    const info = questions[q];
+    if (r === 'yes') yes++;
+    else if (r === 'partial') partial++;
+    else if (r === 'no' || r === null) {
+      if (r === null && !responses[q]) no++;
+      else if (r === 'no') no++;
+      if (info.critical) critFail.push(q);
+      const sev = info.critical ? 'critical' : (r === 'partial' ? 'minor' : 'major');
+      gapRows.push({ q, info, r: r || 'no', sev });
+    } else if (r === 'partial') {
+      // partial already counted above; add to gaps as minor
+    } else if (r === 'na') na++;
+  }
+
+  // Re-scan for partials in gaps
+  for (let q = 1; q <= 30; q++) {
+    const r = responses[q];
+    if (r === 'partial') {
+      const info = questions[q];
+      gapRows.push({ q, info, r: 'partial', sev: info.critical ? 'critical' : 'minor' });
+      if (info.critical) critFail.push(q);
+    }
+  }
+
+  gapRows.sort((a,b) => {
+    const ord = { critical: 0, major: 1, minor: 2 };
+    return ord[a.sev] - ord[b.sev];
+  });
+
+  const scored = yes + partial * 0.5;
+  const total = 30 - na;
+  const pct = total > 0 ? Math.round((scored / total) * 100) : 0;
+
+  document.getElementById('scoreYes').textContent = yes;
+  document.getElementById('scorePartial').textContent = partial;
+  document.getElementById('scoreNo').textContent = no;
+  document.getElementById('scorePercent').textContent = pct + '%';
+
+  const banner = document.getElementById('verdictBanner');
+  const title = document.getElementById('verdictTitle');
+  const sub = document.getElementById('verdictSub');
+  banner.className = 'verdict-banner';
+
+  if (critFail.length > 0) {
+    banner.classList.add('not-ready');
+    title.textContent = '⚠ NOT READY — Critical Gaps Present';
+    sub.textContent = `${critFail.length} critical item(s) unanswered or partial. Certification not achievable without resolution.`;
+    const alert = document.getElementById('criticalAlert');
+    alert.style.display = 'block';
+    alert.innerHTML = '<strong>Critical Gap Alert:</strong> The following critical items must be fully implemented before AS9120B certification can be pursued: Q' + critFail.join(', Q') + '.';
+  } else if (pct >= 80) {
+    banner.classList.add('ready');
+    title.textContent = '✓ READY — Certification Audit Supportable';
+    sub.textContent = `Score: ${pct}%. All critical items addressed. Proceed to CB pre-audit or Stage 1 audit.`;
+  } else {
+    banner.classList.add('conditional');
+    title.textContent = '△ CONDITIONAL — Gaps Require Remediation';
+    sub.textContent = `Score: ${pct}%. Address prioritized gaps before scheduling certification audit.`;
+  }
+
+  const tbody = document.getElementById('gapBody');
+  tbody.innerHTML = '';
+  if (gapRows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#059669; font-weight:600;">No gaps identified — all items implemented.</td></tr>';
+  } else {
+    gapRows.forEach(g => {
+      const tr = document.createElement('tr');
+      const recAction = actions[g.q] || `Review and implement ${g.info.text} per ${g.info.clause}.`;
+      tr.innerHTML = `<td>Q${g.q}</td><td>${g.info.text}</td><td>${g.info.clause}</td><td><span class="gap-sev ${g.sev}">${g.sev.toUpperCase()}</span></td><td>${recAction}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  const mrDiv = document.getElementById('mrNarrative');
+  const totalGaps = gapRows.length;
+  const critGaps = gapRows.filter(g => g.sev === 'critical').length;
+  mrDiv.innerHTML = `<h3>Management Review Narrative — AS9120B Readiness</h3>
+    <p>Self-assessment completed against AS9120B Rev B. Overall score: <strong>${pct}%</strong> (${yes} fully implemented, ${partial} partial, ${no} not implemented, ${na} not applicable — of 30 questions).</p>
+    <p style="margin-top:8px;">Verdict: <strong>${critFail.length > 0 ? 'NOT READY' : pct >= 80 ? 'READY' : 'CONDITIONAL'}</strong>. ${totalGaps} gap(s) identified, of which ${critGaps} are critical. ${critFail.length > 0 ? 'Critical items Q' + critFail.join(', Q') + ' must be resolved before certification audit scheduling.' : critGaps === 0 && pct >= 80 ? 'All critical items are fully implemented. The organization is positioned for AS9120B CB pre-audit.' : 'Remediation of prioritized gaps is required prior to certification audit.'}</p>
+    <p style="margin-top:8px; font-size:12px; color:#64748b;">Generated: ${new Date().toISOString().split('T')[0]} | Tool: Conform-Edge AS9120B Self-Assessment v1.0 | For internal management review use only.</p>`;
+
+  document.getElementById('resultsPanel').classList.add('visible');
+  document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth' });
+}
+
+function exportJSON() {
+  const data = {
+    tool: "Conform-Edge AS9120B Aerospace Distributor Self-Assessment",
+    version: "1.0.0",
+    standard: "AS9120B Rev B",
+    domain: "as9120b-distributor-readiness",
+    exportDate: new Date().toISOString(),
+    responses: responses,
+    maiInterface: { status: "ARCHITECTURE_DEFINED", domain: "as9120b-distributor-readiness" }
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url;
+  a.download = `as9120b-self-assessment-${new Date().toISOString().split('T')[0]}.json`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function resetAssessment() {
+  Object.keys(responses).forEach(k => delete responses[k]);
+  document.querySelectorAll('.response-btn').forEach(b => b.classList.remove('active','yes','partial','no','na'));
+  document.getElementById('resultsPanel').classList.remove('visible');
+  document.getElementById('criticalAlert').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

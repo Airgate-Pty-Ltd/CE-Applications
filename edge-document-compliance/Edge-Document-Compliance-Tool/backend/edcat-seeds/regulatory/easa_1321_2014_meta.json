@@ -1,0 +1,24 @@
+{
+  "standard_code": "EASA_1321_2014",
+  "title": "Regulation (EU) No 1321/2014 - Continuing Airworthiness",
+  "authority": "EASA",
+  "jurisdiction": "European_Union",
+  "classification": "continuing_airworthiness",
+  "source_reference": {
+    "regulation": "EU 1321/2014",
+    "official_document_path_hint": "Requirements/Regulatory/EASA_2025-09-02_1321_2014_Continuing_Airworthiness.pdf"
+  },
+  "key_subparts": [
+    {
+      "code": "Part-M",
+      "focus": "Continuing airworthiness of aircraft and components",
+      "example_obligations_summary": "Sets responsibilities for aircraft owners/operators and CAMOs for ongoing airworthiness."
+    },
+    {
+      "code": "Part-145",
+      "focus": "Maintenance organisations approval",
+      "example_obligations_summary": "Defines approval requirements and quality systems for maintenance organisations."
+    }
+  ]
+}
+

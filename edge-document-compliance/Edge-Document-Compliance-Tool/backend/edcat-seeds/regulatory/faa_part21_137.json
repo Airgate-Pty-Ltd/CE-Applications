@@ -1,0 +1,294 @@
+{
+  "standard_code": "FAA_14CFR_PART21",
+  "section": "21.137",
+  "section_title": "Quality System",
+  "applicability": [
+    "Production Approval Holder",
+    "PMA",
+    "PC",
+    "TSOA"
+  ],
+  "classification": "PAH_QUALITY_SYSTEM_CORE",
+  "source_reference": {
+    "regulation": "14 CFR 21.137",
+    "authority": "FAA",
+    "jurisdiction": "United States"
+  },
+  "clauses": [
+    {
+      "reference": "21.137(a)",
+      "short_label": "Design Data Control",
+      "requirement_type": "process_control",
+      "requirement_text": "The PAH must have procedures for controlling design data and subsequent changes so that only current, correct, and approved design data is used.",
+      "key_concepts": [
+        "design_data_control",
+        "configuration_management",
+        "change_control",
+        "approved_data_only"
+      ],
+      "typical_evidence": [
+        "design data release procedure",
+        "engineering change notices",
+        "configuration baselines",
+        "design data approval records"
+      ]
+    },
+    {
+      "reference": "21.137(b)",
+      "short_label": "Document Control",
+      "requirement_type": "document_control",
+      "requirement_text": "The PAH must have procedures for controlling quality system documents and data, and their changes, ensuring that only current, correct, and approved documents are used.",
+      "key_concepts": [
+        "quality_system_documents",
+        "document_control",
+        "revision_control",
+        "document_approval"
+      ],
+      "typical_evidence": [
+        "document control procedure",
+        "master document list",
+        "change history and approvals",
+        "access control to current revisions"
+      ]
+    },
+    {
+      "reference": "21.137(c)",
+      "short_label": "Supplier Control",
+      "requirement_type": "supplier_control",
+      "requirement_text": "The PAH must have procedures that ensure each supplier-provided product, article, or service conforms to PAH requirements and that establish a supplier-reporting process for released items later found nonconforming.",
+      "key_concepts": [
+        "supplier_control",
+        "purchased_product_conformity",
+        "supplier_reporting",
+        "nonconforming_supplier_product"
+      ],
+      "typical_evidence": [
+        "approved supplier list",
+        "supplier evaluation and surveillance",
+        "supplier quality agreement",
+        "SCAR process and records"
+      ]
+    },
+    {
+      "reference": "21.137(d)",
+      "short_label": "Manufacturing Process Control",
+      "requirement_type": "process_control",
+      "requirement_text": "The PAH must have procedures for controlling manufacturing processes to ensure every product and article conforms to its approved design.",
+      "key_concepts": [
+        "process_control",
+        "work_instructions",
+        "process_validation",
+        "control_of_special_processes"
+      ],
+      "typical_evidence": [
+        "manufacturing process instructions",
+        "process control plans",
+        "special process qualifications",
+        "first article and in-process inspection plans"
+      ]
+    },
+    {
+      "reference": "21.137(e)",
+      "short_label": "Inspecting and Testing",
+      "requirement_type": "inspection_and_test",
+      "requirement_text": "The PAH must have procedures for inspections and tests used to ensure that each product and article conforms to its approved design, including a flight test of each aircraft produced unless exported unassembled and a functional test of each aircraft engine and each propeller produced, as applicable.",
+      "key_concepts": [
+        "inspection",
+        "testing",
+        "flight_test",
+        "functional_test_engine",
+        "functional_test_propeller"
+      ],
+      "typical_evidence": [
+        "inspection and test procedures",
+        "test plans and acceptance criteria",
+        "flight test reports",
+        "engine/propeller functional test records"
+      ]
+    },
+    {
+      "reference": "21.137(f)",
+      "short_label": "Inspection, Measuring, and Test Equipment",
+      "requirement_type": "measurement_control",
+      "requirement_text": "The PAH must have procedures to ensure calibration and control of all inspection, measuring, and test equipment used to determine conformity, with calibration standards traceable to a standard acceptable to the FAA.",
+      "key_concepts": [
+        "calibration_control",
+        "measurement_traceability",
+        "IMTE_control",
+        "metrology"
+      ],
+      "typical_evidence": [
+        "calibration procedure",
+        "equipment master list with calibration status",
+        "calibration certificates showing traceability",
+        "out-of-tolerance impact assessments"
+      ]
+    },
+    {
+      "reference": "21.137(g)",
+      "short_label": "Inspection and Test Status",
+      "requirement_type": "status_identification",
+      "requirement_text": "The PAH must have procedures for documenting the inspection and test status of products and articles supplied or manufactured to the approved design.",
+      "key_concepts": [
+        "status_identification",
+        "inspection_status",
+        "test_status",
+        "traceability_to_acceptance"
+      ],
+      "typical_evidence": [
+        "routing/traveler with inspection stamps",
+        "system fields showing status (e.g., Epicor/QMS)",
+        "inspection status labels or tags",
+        "release records linked to status"
+      ]
+    },
+    {
+      "reference": "21.137(h)",
+      "short_label": "Nonconforming Product and Article Control",
+      "requirement_type": "nonconformance_control",
+      "requirement_text": "The PAH must have procedures to ensure that only conforming products and articles are installed on type-certificated products. Procedures must provide for identification, documentation, evaluation, segregation, and disposition of nonconforming items, with disposition determinations made only by authorized individuals, and must ensure discarded articles are rendered unusable.",
+      "key_concepts": [
+        "nonconforming_product",
+        "segregation",
+        "disposition_authority",
+        "scrap_control",
+        "use-as-is_rework_repair"
+      ],
+      "typical_evidence": [
+        "nonconformance control procedure",
+        "NCR records with dispositions",
+        "MRB/authorized disposition logs",
+        "evidence that scrapped articles are made unusable"
+      ]
+    },
+    {
+      "reference": "21.137(i)",
+      "short_label": "Corrective and Preventive Actions",
+      "requirement_type": "corrective_preventive_action",
+      "requirement_text": "The PAH must have procedures for implementing corrective and preventive actions to eliminate causes of actual or potential nonconformities to the approved design or noncompliance with the approved quality system.",
+      "key_concepts": [
+        "corrective_action",
+        "preventive_action",
+        "root_cause_analysis",
+        "systemic_improvement"
+      ],
+      "typical_evidence": [
+        "CAPA procedure",
+        "corrective action records with root cause",
+        "trend analysis feeding preventive actions",
+        "verification of effectiveness records"
+      ]
+    },
+    {
+      "reference": "21.137(j)",
+      "short_label": "Handling and Storage",
+      "requirement_type": "product_preservation",
+      "requirement_text": "The PAH must have procedures to prevent damage and deterioration of each product and article during handling, storage, preservation, and packaging.",
+      "key_concepts": [
+        "handling",
+        "storage",
+        "preservation",
+        "packaging",
+        "FOD_protection",
+        "ESD_protection"
+      ],
+      "typical_evidence": [
+        "handling and storage procedure",
+        "warehouse work instructions",
+        "environmental controls and logs",
+        "packaging specifications and records"
+      ]
+    },
+    {
+      "reference": "21.137(k)",
+      "short_label": "Control of Quality Records",
+      "requirement_type": "record_control",
+      "requirement_text": "The PAH must have procedures for identifying, storing, protecting, retrieving, and retaining quality records, retaining them for at least 5 years for products and articles and at least 10 years for critical components identified under §45.15(c).",
+      "key_concepts": [
+        "record_retention",
+        "record_protection",
+        "retrievability",
+        "critical_component_records"
+      ],
+      "typical_evidence": [
+        "quality records control procedure",
+        "retention matrix with 5- and 10-year requirements",
+        "backup and protection controls",
+        "record retrieval demonstrations"
+      ]
+    },
+    {
+      "reference": "21.137(l)",
+      "short_label": "Internal Audits",
+      "requirement_type": "internal_audit",
+      "requirement_text": "The PAH must have procedures for planning, conducting, and documenting internal audits to ensure compliance with the approved quality system, including reporting audit results to the manager responsible for implementing corrective and preventive actions.",
+      "key_concepts": [
+        "internal_audits",
+        "audit_program",
+        "management_review_of_audits",
+        "feedback_into_CAPA"
+      ],
+      "typical_evidence": [
+        "internal audit procedure",
+        "annual audit plan",
+        "audit reports and checklists",
+        "management review inputs and CAPAs from audits"
+      ]
+    },
+    {
+      "reference": "21.137(m)",
+      "short_label": "In-Service Feedback",
+      "requirement_type": "in_service_feedback",
+      "requirement_text": "The PAH must have procedures for receiving and processing feedback on in-service failures, malfunctions, and defects, including a process to assist the design approval holder in addressing in-service problems and determining if changes to the Instructions for Continued Airworthiness are needed.",
+      "key_concepts": [
+        "in_service_data",
+        "field_failure_feedback",
+        "coordination_with_DAH",
+        "ICA_updates"
+      ],
+      "typical_evidence": [
+        "in-service feedback procedure",
+        "service difficulty reports",
+        "communication records with DAH",
+        "ICA revision records driven by in-service data"
+      ]
+    },
+    {
+      "reference": "21.137(n)",
+      "short_label": "Quality Escapes",
+      "requirement_type": "escape_management",
+      "requirement_text": "The PAH must have procedures for identifying, analyzing, and initiating appropriate corrective action for products or articles released from the quality system that do not conform to applicable design data or quality system requirements.",
+      "key_concepts": [
+        "quality_escape",
+        "field_containment",
+        "escape_investigation",
+        "recall_or_field_action"
+      ],
+      "typical_evidence": [
+        "quality escape management procedure",
+        "escape investigation reports",
+        "customer notification and containment records",
+        "linkage between escapes and CAPA system"
+      ]
+    },
+    {
+      "reference": "21.137(o)",
+      "short_label": "Issuing Authorized Release Documents",
+      "requirement_type": "authorized_release",
+      "requirement_text": "The PAH must have procedures for issuing authorized release documents for aircraft engines, propellers, and articles, covering selection, appointment, training, management, and removal of authorized individuals, and for complying with applicable export procedures and exporter responsibilities when release documents are issued for export.",
+      "key_concepts": [
+        "authorized_release_document",
+        "8130_3",
+        "authorized_signatories",
+        "export_compliance"
+      ],
+      "typical_evidence": [
+        "authorized release / 8130-3 procedure",
+        "list of authorized signatories with training records",
+        "examples of correctly completed release documents",
+        "export documentation showing alignment with §§21.331 and 21.335"
+      ]
+    }
+  ]
+}
+

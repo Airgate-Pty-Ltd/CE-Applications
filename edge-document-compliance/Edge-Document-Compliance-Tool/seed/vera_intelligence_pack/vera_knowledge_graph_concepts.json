@@ -1,0 +1,765 @@
+{
+  "concepts": [
+    {
+      "concept_id": "gen_001",
+      "concept_name": "risk_based_thinking",
+      "concept_description": "A fundamental approach where organizations identify, assess, and address risks and opportunities that could affect their ability to achieve quality objectives. It requires proactive consideration of what could go wrong and what opportunities exist, rather than reactive problem-solving.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949", "ISO14971"],
+      "related_concepts": ["preventive_action", "corrective_action", "management_review", "context_analysis"],
+      "importance_score": 0.95,
+      "complexity_score": 0.70,
+      "implementation_examples": [
+        "Using risk registers to document identified risks with severity and probability assessments",
+        "Incorporating risk discussions into management review meetings",
+        "Applying risk criteria to process design and control measures",
+        "Reviewing risks when changes occur to products, processes, or organization"
+      ],
+      "common_misconceptions": [
+        "Risk-based thinking requires formal risk management systems or software",
+        "All risks must be eliminated - misunderstanding that some risks are acceptable with controls",
+        "Risk assessment is a one-time activity rather than ongoing",
+        "Only negative risks matter - missing opportunities"
+      ],
+      "typical_audit_pitfalls": [
+        "No evidence of systematic risk identification process",
+        "Risks documented but not used to drive decisions or controls",
+        "Risk assessments not updated when changes occur",
+        "No linkage between identified risks and preventive measures"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "high",
+        "general_industry": "high"
+      }
+    },
+    {
+      "concept_id": "gen_002",
+      "concept_name": "configuration_management",
+      "concept_description": "A discipline that ensures the integrity of products and services throughout their lifecycle by controlling changes to their configuration. It involves identifying configuration items, establishing baselines, controlling changes, and maintaining traceability between requirements, design, production, and support.",
+      "is_universal_concept": false,
+      "appears_in_standards": ["AS9100D", "AS9110", "AS9120", "ISO9001", "DO254", "DO178C"],
+      "related_concepts": ["revision_control", "change_management", "traceability", "design_control", "product_identification"],
+      "importance_score": 0.98,
+      "complexity_score": 0.80,
+      "implementation_examples": [
+        "Configuration identification numbering system for all parts and documents",
+        "Configuration control boards to review and approve changes",
+        "Configuration status accounting records showing current approved configuration",
+        "Configuration audits to verify physical configuration matches documentation",
+        "Part marking and serialization systems"
+      ],
+      "common_misconceptions": [
+        "Configuration management only applies to hardware, not software or documentation",
+        "Configuration control begins at production - missing design phase",
+        "Any engineer can make configuration changes without formal approval",
+        "Configuration management is optional for service organizations"
+      ],
+      "typical_audit_pitfalls": [
+        "Changes made without proper configuration control board review",
+        "No clear configuration baselines established",
+        "Configuration records not maintained or not current",
+        "Parts issued to production don't match approved configuration",
+        "Software versions not tracked or controlled"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "high",
+        "general_industry": "medium"
+      }
+    },
+    {
+      "concept_id": "gen_003",
+      "concept_name": "document_control",
+      "concept_description": "The systematic management of documented information to ensure that only current, approved, and accessible documents are used throughout the organization. It includes approval, review, distribution, revision control, and retention of documents.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949", "FDA21CFR820"],
+      "related_concepts": ["revision_control", "record_management", "information_governance", "change_management"],
+      "importance_score": 0.90,
+      "complexity_score": 0.55,
+      "implementation_examples": [
+        "Document control system with approval workflows and revision tracking",
+        "Centralized document repository with access controls",
+        "Document review schedules to ensure currency",
+        "Obsolete document removal from use points",
+        "Document templates and standardized formats"
+      ],
+      "common_misconceptions": [
+        "All documents need formal approval - misunderstanding of 'documented information'",
+        "External documents don't need control",
+        "Informal work instructions don't need document control",
+        "Electronic systems eliminate need for document control procedures"
+      ],
+      "typical_audit_pitfalls": [
+        "Obsolete documents found in use areas",
+        "Documents changed without revision control",
+        "No clear approval process or approval signatures missing",
+        "External standards not controlled or current versions unknown",
+        "Documents not reviewed periodically"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "high",
+        "general_industry": "high"
+      }
+    },
+    {
+      "concept_id": "gen_004",
+      "concept_name": "corrective_action",
+      "concept_description": "Actions taken to eliminate the cause of a nonconformity and prevent recurrence. It goes beyond simply fixing the immediate problem to address root causes through systematic investigation, analysis, and implementation of effective solutions.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949", "FDA21CFR820"],
+      "related_concepts": ["nonconforming_output", "preventive_action", "root_cause_analysis", "continuous_improvement"],
+      "importance_score": 0.92,
+      "complexity_score": 0.65,
+      "implementation_examples": [
+        "8D problem-solving methodology for systematic root cause analysis",
+        "5 Why analysis to drill down to root causes",
+        "Corrective action request (CAR) system with tracking and closure verification",
+        "Effectiveness verification after corrective action implementation",
+        "Management review of corrective action trends"
+      ],
+      "common_misconceptions": [
+        "Corrective action is just fixing the immediate problem",
+        "All nonconformities require formal corrective action",
+        "Corrective action completion means the problem is solved",
+        "Corrective action can be closed without effectiveness verification"
+      ],
+      "typical_audit_pitfalls": [
+        "Root cause analysis not performed or superficial",
+        "Corrective actions don't address root causes",
+        "No effectiveness verification after implementation",
+        "Recurring nonconformities indicate ineffective corrective actions",
+        "Corrective action records incomplete or missing"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "critical",
+        "general_industry": "high"
+      }
+    },
+    {
+      "concept_id": "gen_005",
+      "concept_name": "preventive_action",
+      "concept_description": "Actions taken to eliminate the cause of potential nonconformities or other potential undesirable situations. It focuses on preventing problems before they occur through proactive identification and mitigation of risks.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485"],
+      "related_concepts": ["risk_based_thinking", "corrective_action", "risk_assessment", "fmea"],
+      "importance_score": 0.88,
+      "complexity_score": 0.60,
+      "implementation_examples": [
+        "FMEA (Failure Mode and Effects Analysis) to identify potential failures",
+        "Risk registers used to trigger preventive actions",
+        "Trend analysis of data to identify potential issues before they become problems",
+        "Preventive maintenance programs",
+        "Supplier risk assessments and mitigation plans"
+      ],
+      "common_misconceptions": [
+        "Preventive action is the same as risk-based thinking",
+        "All risks require preventive actions",
+        "Preventive actions must be formal documented processes",
+        "Preventive action records must be maintained like corrective actions"
+      ],
+      "typical_audit_pitfalls": [
+        "No evidence of preventive action activities",
+        "Confusion between preventive and corrective actions",
+        "Risk identification not leading to preventive measures",
+        "Trend analysis not used proactively"
+      ],
+      "industry_relevance": {
+        "aerospace": "high",
+        "medical_device": "high",
+        "automotive": "high",
+        "general_industry": "medium"
+      }
+    },
+    {
+      "concept_id": "gen_006",
+      "concept_name": "management_review",
+      "concept_description": "A periodic evaluation by top management of the organization's quality management system to ensure its continuing suitability, adequacy, and effectiveness. It involves reviewing performance data, trends, opportunities for improvement, and resource needs.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["leadership", "continuous_improvement", "performance_monitoring", "risk_based_thinking"],
+      "importance_score": 0.93,
+      "complexity_score": 0.58,
+      "implementation_examples": [
+        "Regular management review meetings with agenda and minutes",
+        "Review of quality objectives achievement",
+        "Analysis of customer feedback and complaints",
+        "Review of process performance and product conformity",
+        "Decisions on resource allocation and improvement opportunities"
+      ],
+      "common_misconceptions": [
+        "Management review can be done by quality manager alone",
+        "Management review is just a meeting - missing actions and decisions",
+        "Review frequency is flexible - not understanding minimum requirements",
+        "Review inputs are optional - not mandatory"
+      ],
+      "typical_audit_pitfalls": [
+        "Management review not attended by top management",
+        "Review inputs incomplete or missing",
+        "No outputs or decisions from management review",
+        "Actions from review not tracked or completed",
+        "Review frequency not maintained"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "high",
+        "general_industry": "high"
+      }
+    },
+    {
+      "concept_id": "gen_007",
+      "concept_name": "internal_audit",
+      "concept_description": "A systematic, independent, and documented process for obtaining audit evidence and evaluating it objectively to determine the extent to which audit criteria are fulfilled. It provides confidence in the effectiveness of the quality management system.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["audit_planning", "auditor_competence", "corrective_action", "management_review"],
+      "importance_score": 0.91,
+      "complexity_score": 0.65,
+      "implementation_examples": [
+        "Annual audit program with schedule and scope",
+        "Trained internal auditors with demonstrated competence",
+        "Audit checklists and procedures",
+        "Nonconformity reporting and corrective action tracking",
+        "Audit reports and management review of audit results"
+      ],
+      "common_misconceptions": [
+        "Anyone can perform internal audits without training",
+        "Internal auditors can audit their own work",
+        "Audits are optional or can be skipped",
+        "Nonconformities from internal audits don't require corrective action"
+      ],
+      "typical_audit_pitfalls": [
+        "Internal auditors not independent of audited areas",
+        "Audit program not executed as planned",
+        "Audit findings not properly documented",
+        "No follow-up on audit findings",
+        "Auditor competence not demonstrated"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "high",
+        "general_industry": "high"
+      }
+    },
+    {
+      "concept_id": "gen_008",
+      "concept_name": "supplier_control",
+      "concept_description": "The process of ensuring that external providers (suppliers) meet requirements through evaluation, selection, monitoring, and re-evaluation. It includes approval processes, performance monitoring, and control based on risk.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["supplier_evaluation", "approved_supplier_list", "purchasing_control", "risk_assessment"],
+      "importance_score": 0.90,
+      "complexity_score": 0.70,
+      "implementation_examples": [
+        "Supplier evaluation criteria and approval process",
+        "Approved supplier list with status and performance ratings",
+        "Supplier audits and assessments",
+        "Incoming inspection and verification",
+        "Supplier performance monitoring and corrective action processes"
+      ],
+      "common_misconceptions": [
+        "All suppliers need the same level of control",
+        "Supplier approval is a one-time event",
+        "Approved supplier list is optional",
+        "Self-declaration from suppliers is sufficient"
+      ],
+      "typical_audit_pitfalls": [
+        "Suppliers used that are not on approved list",
+        "Supplier evaluation criteria not applied consistently",
+        "No supplier performance monitoring",
+        "Suppliers not re-evaluated periodically",
+        "Critical suppliers not given appropriate control"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "critical",
+        "general_industry": "high"
+      }
+    },
+    {
+      "concept_id": "gen_009",
+      "concept_name": "nonconforming_output_control",
+      "concept_description": "The process for identifying, documenting, segregating, and disposing of products or services that do not conform to requirements. It prevents unintended use or delivery of nonconforming products.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["corrective_action", "product_identification", "traceability", "risk_assessment"],
+      "importance_score": 0.94,
+      "complexity_score": 0.60,
+      "implementation_examples": [
+        "Nonconforming material tags and segregation areas",
+        "Nonconformance reporting system",
+        "Disposition procedures (scrap, rework, use-as-is, return to supplier)",
+        "Authority for disposition decisions",
+        "Records of nonconforming product and disposition"
+      ],
+      "common_misconceptions": [
+        "Nonconforming product can be used without formal disposition",
+        "Anyone can make disposition decisions",
+        "Segregation is optional for minor nonconformities",
+        "Records are not needed if product is scrapped"
+      ],
+      "typical_audit_pitfalls": [
+        "Nonconforming product not properly identified or segregated",
+        "Disposition made by unauthorized personnel",
+        "No records of nonconformity or disposition",
+        "Use-as-is disposition not properly justified",
+        "Nonconformities not triggering corrective action"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "critical",
+        "general_industry": "high"
+      }
+    },
+    {
+      "concept_id": "gen_010",
+      "concept_name": "calibration",
+      "concept_description": "The set of operations that establish, under specified conditions, the relationship between values indicated by a measuring instrument and corresponding known values of a measurement standard. It ensures measurement equipment provides accurate and reliable results.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["measurement_traceability", "monitoring_measurement", "equipment_control", "metrology"],
+      "importance_score": 0.87,
+      "complexity_score": 0.65,
+      "implementation_examples": [
+        "Calibration schedule and recall system",
+        "Calibration certificates with traceability to national standards",
+        "Calibration status labeling on equipment",
+        "Use of equipment outside calibration interval control",
+        "Calibration procedures and acceptance criteria"
+      ],
+      "common_misconceptions": [
+        "Calibration and verification are the same thing",
+        "All measurement equipment needs calibration",
+        "Calibration certificates don't need review",
+        "Equipment can be used beyond calibration due date"
+      ],
+      "typical_audit_pitfalls": [
+        "Equipment used beyond calibration due date",
+        "Calibration certificates not traceable to standards",
+        "No calibration schedule or recall system",
+        "Calibration status not visible on equipment",
+        "Out-of-calibration equipment used on product"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "high",
+        "general_industry": "medium"
+      }
+    },
+    {
+      "concept_id": "gen_011",
+      "concept_name": "traceability",
+      "concept_description": "The ability to trace the history, application, or location of an item by means of recorded identifications. It enables tracking of products and materials from receipt through production to delivery, and in some cases, through the supply chain.",
+      "is_universal_concept": false,
+      "appears_in_standards": ["AS9100D", "ISO13485", "IATF16949", "FDA21CFR820"],
+      "related_concepts": ["product_identification", "configuration_management", "lot_control", "batch_tracking"],
+      "importance_score": 0.96,
+      "complexity_score": 0.75,
+      "implementation_examples": [
+        "Unique identification of products, components, and materials",
+        "Lot or batch numbering systems",
+        "Traceability records linking materials to finished products",
+        "Forward and backward traceability capabilities",
+        "Retention of traceability records per requirements"
+      ],
+      "common_misconceptions": [
+        "Traceability only applies to final products",
+        "Traceability records can be destroyed after shipment",
+        "Traceability is only needed for recalls",
+        "Serial numbers are always required"
+      ],
+      "typical_audit_pitfalls": [
+        "Traceability records incomplete or missing",
+        "Cannot trace finished product back to materials",
+        "Traceability requirements not defined",
+        "Records not retained for required period",
+        "Lost traceability during rework or repair"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "high",
+        "general_industry": "medium"
+      }
+    },
+    {
+      "concept_id": "gen_012",
+      "concept_name": "competence",
+      "concept_description": "The ability to apply knowledge and skills to achieve intended results. Organizations must determine necessary competence for personnel performing work affecting quality, and ensure personnel are competent through education, training, or experience.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["training", "awareness", "qualification", "personnel_management"],
+      "importance_score": 0.89,
+      "complexity_score": 0.55,
+      "implementation_examples": [
+        "Job descriptions defining required competence",
+        "Competence matrix showing required vs. demonstrated competence",
+        "Training plans and records",
+        "Competence evaluation methods",
+        "Competence records for all personnel"
+      ],
+      "common_misconceptions": [
+        "Competence means only formal training",
+        "Competence records are optional",
+        "Competence is determined once at hiring",
+        "Competence requirements don't need to be defined"
+      ],
+      "typical_audit_pitfalls": [
+        "No defined competence requirements for positions",
+        "Competence not evaluated or demonstrated",
+        "Training records incomplete or missing",
+        "Personnel performing work without required competence",
+        "Competence not maintained or updated"
+      ],
+      "industry_relevance": {
+        "aerospace": "high",
+        "medical_device": "high",
+        "automotive": "high",
+        "general_industry": "high"
+      }
+    },
+    {
+      "concept_id": "gen_013",
+      "concept_name": "leadership_commitment",
+      "concept_description": "Top management's active involvement and demonstration of leadership in establishing, implementing, and maintaining the quality management system. It involves setting direction, establishing quality policy and objectives, and ensuring resources are provided.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["quality_policy", "quality_objectives", "management_review", "resource_management"],
+      "importance_score": 0.96,
+      "complexity_score": 0.50,
+      "implementation_examples": [
+        "Top management signs quality policy and objectives",
+        "Management review meetings attended by top management",
+        "Quality objectives established and monitored by leadership",
+        "Resources allocated based on quality priorities",
+        "Leadership communicates importance of quality to organization"
+      ],
+      "common_misconceptions": [
+        "Leadership commitment is just signing documents",
+        "Quality manager can demonstrate leadership commitment alone",
+        "Leadership involvement is optional for small organizations",
+        "Commitment is shown once at certification"
+      ],
+      "typical_audit_pitfalls": [
+        "Top management not attending management review",
+        "Quality policy not understood by personnel",
+        "Objectives not established by top management",
+        "Resources not provided for quality activities",
+        "Leadership not visible in quality activities"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "critical",
+        "general_industry": "critical"
+      }
+    },
+    {
+      "concept_id": "gen_014",
+      "concept_name": "quality_objectives",
+      "concept_description": "Measurable goals established at relevant functions, levels, and processes that are consistent with the quality policy. They must be monitored, communicated, and updated as appropriate.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["quality_policy", "leadership_commitment", "performance_monitoring", "continuous_improvement"],
+      "importance_score": 0.91,
+      "complexity_score": 0.55,
+      "implementation_examples": [
+        "SMART objectives (Specific, Measurable, Achievable, Relevant, Time-bound)",
+        "Objectives at organizational and departmental levels",
+        "Objectives aligned with quality policy",
+        "Regular monitoring and review of objective achievement",
+        "Objectives updated based on performance and changes"
+      ],
+      "common_misconceptions": [
+        "Objectives can be vague or unmeasurable",
+        "Objectives set once and never updated",
+        "Only top-level objectives needed",
+        "Objectives don't need to be communicated"
+      ],
+      "typical_audit_pitfalls": [
+        "Objectives not measurable or not SMART",
+        "Objectives not monitored or reviewed",
+        "Objectives not aligned with quality policy",
+        "No evidence of objective achievement",
+        "Objectives not communicated to relevant personnel"
+      ],
+      "industry_relevance": {
+        "aerospace": "high",
+        "medical_device": "high",
+        "automotive": "high",
+        "general_industry": "high"
+      }
+    },
+    {
+      "concept_id": "gen_015",
+      "concept_name": "change_management",
+      "concept_description": "The systematic approach to transitioning individuals, teams, and organizations from a current state to a desired future state. In quality management, it includes planning, evaluating, approving, implementing, and verifying changes to products, processes, or the QMS.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["configuration_management", "design_control", "risk_assessment", "document_control"],
+      "importance_score": 0.93,
+      "complexity_score": 0.70,
+      "implementation_examples": [
+        "Change request forms and approval workflows",
+        "Impact assessment before change implementation",
+        "Change review boards or approval authorities",
+        "Verification and validation of changes",
+        "Change notification and training of affected personnel"
+      ],
+      "common_misconceptions": [
+        "All changes require the same level of control",
+        "Emergency changes don't need formal control",
+        "Change management only applies to products",
+        "Changes can be made without impact assessment"
+      ],
+      "typical_audit_pitfalls": [
+        "Changes made without formal approval",
+        "No impact assessment performed",
+        "Changes not verified or validated",
+        "Affected personnel not notified of changes",
+        "Change records incomplete or missing"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "high",
+        "general_industry": "high"
+      }
+    },
+    {
+      "concept_id": "gen_016",
+      "concept_name": "design_control",
+      "concept_description": "The systematic process of planning, executing, and verifying the design and development of products to ensure they meet specified requirements. It includes design planning, inputs, outputs, review, verification, validation, and transfer.",
+      "is_universal_concept": false,
+      "appears_in_standards": ["AS9100D", "ISO13485", "IATF16949", "FDA21CFR820"],
+      "related_concepts": ["design_verification", "design_validation", "design_review", "design_transfer", "risk_management"],
+      "importance_score": 0.97,
+      "complexity_score": 0.85,
+      "implementation_examples": [
+        "Design and development planning with stages and reviews",
+        "Design inputs including requirements and regulatory needs",
+        "Design outputs including specifications and drawings",
+        "Design reviews at planned stages",
+        "Design verification to confirm outputs meet inputs",
+        "Design validation to confirm product meets user needs",
+        "Design transfer to production processes"
+      ],
+      "common_misconceptions": [
+        "Design control only applies to new products",
+        "Design changes don't need design control",
+        "Verification and validation are the same",
+        "Design control is optional for service organizations"
+      ],
+      "typical_audit_pitfalls": [
+        "Design activities not planned",
+        "Design inputs not defined or incomplete",
+        "Design reviews not conducted or not documented",
+        "Design verification not performed",
+        "Design validation missing or incomplete",
+        "Design transfer not planned or executed"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "critical",
+        "general_industry": "medium"
+      }
+    },
+    {
+      "concept_id": "gen_017",
+      "concept_name": "first_article_inspection",
+      "concept_description": "A comprehensive inspection performed on the first production part or batch to verify that manufacturing processes are capable of producing products that meet all specified requirements. It provides evidence that the production process is ready.",
+      "is_universal_concept": false,
+      "appears_in_standards": ["AS9100D", "AS9102", "IATF16949"],
+      "related_concepts": ["production_control", "process_validation", "product_verification", "approval_for_production"],
+      "importance_score": 0.95,
+      "complexity_score": 0.70,
+      "implementation_examples": [
+        "FAI performed on first production part or batch",
+        "All characteristics measured and documented",
+        "FAI report includes all drawings, specifications, and results",
+        "FAI approved before full production release",
+        "FAI repeated when changes affect product characteristics"
+      ],
+      "common_misconceptions": [
+        "FAI is only needed once per product",
+        "FAI can be skipped for simple products",
+        "FAI is the same as regular inspection",
+        "FAI approval is not required"
+      ],
+      "typical_audit_pitfalls": [
+        "FAI not performed before production",
+        "FAI incomplete - not all characteristics inspected",
+        "FAI reports incomplete or missing",
+        "FAI not repeated after process changes",
+        "FAI approval authority unclear"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "high",
+        "automotive": "high",
+        "general_industry": "low"
+      }
+    },
+    {
+      "concept_id": "gen_018",
+      "concept_name": "counterfeit_parts_prevention",
+      "concept_description": "A comprehensive program to detect, avoid, prevent, and mitigate the risk of counterfeit or suspect unapproved parts entering the supply chain. It includes supplier controls, part verification, and reporting mechanisms.",
+      "is_universal_concept": false,
+      "appears_in_standards": ["AS9100D", "AS9120"],
+      "related_concepts": ["supplier_control", "part_verification", "traceability", "risk_assessment"],
+      "importance_score": 0.98,
+      "complexity_score": 0.75,
+      "implementation_examples": [
+        "Counterfeit parts prevention policy and procedures",
+        "Supplier approval with focus on authorized sources",
+        "Part verification and authentication processes",
+        "Suspicious parts reporting and quarantine procedures",
+        "Training on counterfeit part detection",
+        "Records of parts received and sources"
+      ],
+      "common_misconceptions": [
+        "Counterfeit prevention is only for expensive parts",
+        "Authorized distributors always prevent counterfeits",
+        "Visual inspection is sufficient",
+        "Counterfeit prevention is optional"
+      ],
+      "typical_audit_pitfalls": [
+        "No counterfeit prevention program",
+        "Suppliers not verified as authorized sources",
+        "Parts received without verification",
+        "No suspicious parts reporting process",
+        "Personnel not trained on counterfeit detection"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "high",
+        "automotive": "medium",
+        "general_industry": "low"
+      }
+    },
+    {
+      "concept_id": "gen_019",
+      "concept_name": "fod_prevention",
+      "concept_description": "Foreign Object Debris/Damage (FOD) prevention programs designed to prevent introduction of foreign objects into products that could cause damage or failure. Critical in aerospace manufacturing and maintenance.",
+      "is_universal_concept": false,
+      "appears_in_standards": ["AS9100D", "AS9110"],
+      "related_concepts": ["cleanliness_control", "tool_control", "workplace_organization", "safety_management"],
+      "importance_score": 0.96,
+      "complexity_score": 0.65,
+      "implementation_examples": [
+        "FOD prevention procedures and training",
+        "Clean work areas and FOD awareness zones",
+        "Tool accountability and control systems",
+        "Personal item restrictions in work areas",
+        "FOD walk-downs and inspections",
+        "FOD reporting and corrective action"
+      ],
+      "common_misconceptions": [
+        "FOD is only relevant in final assembly",
+        "Small objects can't cause significant damage",
+        "FOD prevention is just cleaning",
+        "FOD prevention doesn't apply to service organizations"
+      ],
+      "typical_audit_pitfalls": [
+        "No FOD prevention program",
+        "Work areas not controlled for FOD",
+        "Tools not accounted for",
+        "Personnel not trained on FOD prevention",
+        "FOD incidents not investigated"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "high",
+        "automotive": "medium",
+        "general_industry": "low"
+      }
+    },
+    {
+      "concept_id": "gen_020",
+      "concept_name": "special_processes",
+      "concept_description": "Processes where the resulting output cannot be verified by subsequent monitoring or measurement, so deficiencies become apparent only after the product is in use or the service has been delivered. These require validation.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["process_validation", "process_control", "qualification", "monitoring_measurement"],
+      "importance_score": 0.92,
+      "complexity_score": 0.75,
+      "implementation_examples": [
+        "Identification of special processes (welding, heat treatment, coating, etc.)",
+        "Process validation including equipment, personnel, and parameters",
+        "Process qualification and certification",
+        "Ongoing monitoring of process parameters",
+        "Personnel qualification for special processes",
+        "Revalidation when changes occur"
+      ],
+      "common_misconceptions": [
+        "All manufacturing processes are special processes",
+        "Special process validation is one-time",
+        "Process monitoring is not needed after validation",
+        "Personnel training is sufficient without validation"
+      ],
+      "typical_audit_pitfalls": [
+        "Special processes not identified",
+        "Special processes not validated",
+        "Process parameters not monitored",
+        "Personnel not qualified",
+        "Validation not repeated after changes"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "high",
+        "general_industry": "medium"
+      }
+    },
+    {
+      "concept_id": "gen_021",
+      "concept_name": "process_validation",
+      "concept_description": "Confirmation through objective evidence that processes consistently produce results meeting predetermined requirements. For special processes, validation is mandatory before use.",
+      "is_universal_concept": true,
+      "appears_in_standards": ["ISO9001", "AS9100D", "ISO13485", "IATF16949"],
+      "related_concepts": ["special_processes", "process_control", "qualification", "statistical_process_control"],
+      "importance_score": 0.94,
+      "complexity_score": 0.80,
+      "implementation_examples": [
+        "Installation Qualification (IQ) - equipment properly installed",
+        "Operational Qualification (OQ) - process operates as designed",
+        "Performance Qualification (PQ) - process produces acceptable product",
+        "Process validation protocols and reports",
+        "Statistical analysis of process capability",
+        "Revalidation triggers and schedules"
+      ],
+      "common_misconceptions": [
+        "Validation and verification are the same",
+        "One successful run is sufficient validation",
+        "Validation is permanent",
+        "Process parameters can be changed without revalidation"
+      ],
+      "typical_audit_pitfalls": [
+        "Processes requiring validation not identified",
+        "Validation protocols incomplete",
+        "Statistical evidence not provided",
+        "Validation not documented",
+        "Revalidation not performed after changes"
+      ],
+      "industry_relevance": {
+        "aerospace": "critical",
+        "medical_device": "critical",
+        "automotive": "high",
+        "general_industry": "medium"
+      }
+    }
+  ]
+}
+

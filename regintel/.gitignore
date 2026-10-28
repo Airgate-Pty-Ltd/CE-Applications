@@ -1,0 +1,21 @@
+node_modules/
+.env
+.env.local
+
+# Build output
+.next/
+dist/
+next-env.d.ts
+
+# Logs
+*.log
+npm-debug.log*
+sources/rediscovery-report.md
+__pycache__/
+*.pyc
+sources/SOURCE-CHANGELOG.jsonl
+sources/health-report.md
+.venv/
+venv/
+.cache/
+.logs/

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EDCAT AI Bus Message",
+  "type": "object",
+  "required": [
+    "source",
+    "target",
+    "task",
+    "payload",
+    "timestamp"
+  ],
+  "properties": {
+    "source": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "task": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signature": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8D Corrective Action Workflow Tool</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.2em; margin-bottom: 8px; }
+        .header p { font-size: 1.1em; opacity: 0.95; }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 40px;
+        }
+        .section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            border-left: 4px solid #667eea;
+        }
+        .section h2 {
+            font-size: 1.3em;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section h2:before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95em;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3); }
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #ddd;
+        }
+        .btn-secondary:hover { background: #e8e8e8; }
+        .results-section {
+            grid-column: 1 / -1;
+            display: none;
+        }
+        .results-section.active {
+            display: block;
+        }
+        .d-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .d-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .d-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        .d-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+        .d-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .d-title {
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        .d-content {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            margin-bottom: 25px;
+        }
+        .d-content textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .validation-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        .validation-box.pass {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        .validation-box.fail {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        .maturity-score {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .maturity-score .score {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+        .maturity-score .label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.95em;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+        }
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .export-buttons button {
+            flex: 1;
+        }
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .evidence-item {
+            padding: 10px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.85em;
+        }
+        .evidence-item input {
+            margin-right: 8px;
+        }
+        .evidence-item label {
+            margin-bottom: 0;
+        }
+        .print-friendly {
+            display: none;
+        }
+        @media print {
+            .print-friendly { display: block; }
+            body { background: white; }
+            .container { box-shadow: none; }
+            button, .button-group { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 8D Corrective Action Workflow</h1>
+            <p>Transform audit findings into disciplined root-cause investigations</p>
+        </div>
+
+        <div class="content">
+            <!-- INPUT SECTION -->
+            <div class="section" id="inputSection">
+                <h2>Finding Input</h2>
+                <div class="form-group">
+                    <label>Audit Finding / Nonconformance</label>
+                    <textarea id="findingText" placeholder="Paste your audit finding or NC description here. Example: 'During audit, control plan for critical machining step (turning) did not include monitoring frequency or acceptance criteria. Process FMEA was dated 2022 with no evidence of annual review.'"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Standard / Framework</label>
+                    <select id="standard">
+                        <option>-- Select Standard --</option>
+                        <option value="iso9001">ISO 9001:2015</option>
+                        <option value="as9100d">AS9100D (Aerospace)</option>
+                        <option value="as9110c">AS9110C (MRO)</option>
+                        <option value="iatf16949">IATF 16949:2016 (Automotive)</option>
+                        <option value="iso13485">ISO 13485:2016 (Medical Device)</option>
+                        <option value="iso14001">ISO 14001:2015 (Environmental)</option>
+                        <option value="other">Other / Custom</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Finding Category</label>
+                    <select id="category">
+                        <option value="documentation">Documentation Gap</option>
+                        <option value="procedure">Procedure Not Followed</option>
+                        <option value="process">Process Control Missing</option>
+                        <option value="training">Training / Competence</option>
+                        <option value="system">System Design Flaw</option>
+                        <option value="culture">Culture / Awareness</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Severity (1=Low, 5=Critical)</label>
+                    <select id="severity">
+                        <option value="1">1 - Low (Future prevention)</option>
+                        <option value="2">2 - Minor (Limited scope)</option>
+                        <option value="3">3 - Moderate (Widespread)</option>
+                        <option value="4">4 - Major (Significant risk)</option>
+                        <option value="5">5 - Critical (Immediate danger)</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button class="btn-primary" onclick="startWorkflow()">Begin 8D Workflow</button>
+                    <button class="btn-secondary" onclick="clearForm()">Clear</button>
+                </div>
+            </div>
+
+            <!-- WORKFLOW SECTION -->
+            <div class="section results-section" id="workflowSection">
+                <h2>8D Navigation</h2>
+                <div class="d-grid" id="dGrid"></div>
+            </div>
+
+            <!-- 8D DETAIL SECTION -->
+            <div class="section results-section" id="detailSection">
+                <h2 id="detailTitle">8D1: Team Formation</h2>
+                <div id="detailContent"></div>
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="previousD()">← Previous</button>
+                    <button class="btn-primary" onclick="nextD()">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MATURITY & EXPORT (full width) -->
+        <div id="resultsPanel" class="results-section" style="grid-column: 1/-1; padding: 0;">
+            <div style="padding: 40px; display: none;" id="maturityPanel">
+                <h2 style="color: #667eea; margin-bottom: 20px;">8D Maturity Assessment</h2>
+                <div class="maturity-score">
+                    <div class="label">8D Maturity Level</div>
+                    <div class="score" id="maturityScore">—</div>
+                    <div class="label" id="maturityLevel">Awaiting completion...</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="maturityChart"></canvas>
+                </div>
+                <div id="validationSummary" style="margin-top: 20px;"></div>
+                <div class="export-buttons">
+                    <button class="btn-primary" onclick="exportToWord()">📄 Export as Word</button>
+                    <button class="btn-primary" onclick="window.print()">🖨️ Print / PDF</button>
+                    <button class="btn-secondary" onclick="resetAll()">↺ Start Over</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentD = 1;
+        let findings = {
+            d1: { team: '', roles: '' },
+            d2: { problem: '', impact: '' },
+            d3: { containment: '', timing: '' },
+            d4: { fishbone: '', why1: '', why2: '', why3: '', rootCause: '' },
+            d5: { action: '', preventive: '', responsible: '' },
+            d6: { implementation: '', verification: '' },
+            d7: { preventRecurrence: '', training: '' },
+            d8: { effectiveness: '', closeout: '' }
+        };
+
+        const dDetails = [
+            { title: '8D1: Team Formation', desc: 'Assemble cross-functional team' },
+            { title: '8D2: Problem Statement', desc: 'Define the problem & impact' },
+            { title: '8D3: Interim Containment', desc: 'Protect customer from recurrence' },
+            { title: '8D4: Root Cause Analysis', desc: 'Determine true root cause' },
+            { title: '8D5: Permanent Corrective Action', desc: 'Fix the root cause' },
+            { title: '8D6: Implementation & Verification', desc: 'Verify effectiveness' },
+            { title: '8D7: Prevent Recurrence', desc: 'Prevent on similar products/processes' },
+            { title: '8D8: Effectiveness & Closure', desc: 'Validate & close' }
+        ];
+
+        function startWorkflow() {
+            const finding = document.getElementById('findingText').value.trim();
+            const standard = document.getElementById('standard').value;
+            const severity = document.getElementById('severity').value;
+
+            if (!finding || standard === '-- Select Standard --') {
+                alert('Please provide a finding and select a standard.');
+                return;
+            }
+
+            // Initialize findings[d2].problem
+            findings.d2.problem = finding;
+            findings.severity = severity;
+            findings.standard = standard;
+
+            // Show workflow
+            document.getElementById('inputSection').style.display = 'none';
+            document.getElementById('workflowSection').classList.add('active');
+            document.getElementById('detailSection').classList.add('active');
+            document.getElementById('resultsPanel').style.display = 'block';
+
+            // Build D grid
+            renderDGrid();
+            showD(1);
+            saveState();
+        }
+
+        // --- Persistence (localStorage) ---
+        // Fixes a false claim in USER-GUIDE.md / README.md: prior to this fix, `findings`
+        // was an in-memory JS variable only. A page refresh silently discarded the entire
+        // investigation with no warning, contradicting the documented "your data is still
+        // there" behavior. This now actually persists and restores state.
+        function saveState() {
+            try {
+                localStorage.setItem('conformEdge8DState', JSON.stringify({ findings, currentD }));
+            } catch (e) {
+                // localStorage unavailable (private browsing, quota, etc.) - fail silently,
+                // in-memory state still works for the current session.
+            }
+        }
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem('conformEdge8DState');
+                if (!raw) return false;
+                const saved = JSON.parse(raw);
+                if (saved && saved.findings && saved.findings.d2) {
+                    findings = saved.findings;
+                    currentD = saved.currentD || 1;
+                    return true;
+                }
+            } catch (e) {
+                // Corrupt/legacy saved state - ignore and start fresh.
+            }
+            return false;
+        }
+
+        function resumeIfSaved() {
+            if (loadState() && findings.d2.problem) {
+                document.getElementById('inputSection').style.display = 'none';
+                document.getElementById('workflowSection').classList.add('active');
+                document.getElementById('detailSection').classList.add('active');
+                document.getElementById('resultsPanel').style.display = 'block';
+                renderDGrid();
+                showD(currentD);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', resumeIfSaved);
+
+        function renderDGrid() {
+            const grid = document.getElementById('dGrid');
+            grid.innerHTML = '';
+            dDetails.forEach((d, idx) => {
+                const item = document.createElement('div');
+                item.className = 'd-item' + (idx + 1 === currentD ? ' active' : '');
+                item.onclick = () => showD(idx + 1);
+                item.innerHTML = `<div class="d-number">D${idx + 1}</div><div class="d-title">${d.desc}</div>`;
+                grid.appendChild(item);
+            });
+        }
+
+        // Reads whatever is currently in the DOM for the step being LEFT and writes it into
+        // `findings`, before that step's markup is replaced. Uses `??` (not `||`) so a
+        // not-yet-rendered field never overwrites a previously captured value with ''.
+        //
+        // FIX (2026-07-11 governance run): the original implementation ran this capture
+        // inside each step's own `if (n === X)` render branch, AFTER `content` was already
+        // built but BEFORE that step's form elements existed in the DOM (they're created by
+        // the `innerHTML =` assignment that runs afterward). Two consequences, both silent:
+        //   1. On a step's first-ever render, `getElementById(...)` returned null, so the
+        //      capture line wrote '' into `findings` for that step — even for D2, which is
+        //      pre-populated from the pasted finding text. The textarea still SHOWED the
+        //      correct text (content was built before the wipe), but the underlying model
+        //      used for the maturity score and the exported report was already blanked.
+        //   2. A step's capture only ever ran again when the user navigated back TO that
+        //      step. In the natural "fill D1, Next, fill D2, Next, ... fill D8" flow, no
+        //      step is ever revisited, so typed data for D1-D7 was silently dropped from
+        //      the maturity score and the export — confirmed with a jsdom repro of the
+        //      original logic before this fix.
+        function captureStepFields(d) {
+            if (d === 1) {
+                findings.d1.team = document.getElementById('d1Team')?.value ?? findings.d1.team;
+                findings.d1.roles = document.getElementById('d1Roles')?.value ?? findings.d1.roles;
+            } else if (d === 2) {
+                findings.d2.problem = document.getElementById('d2Problem')?.value ?? findings.d2.problem;
+                findings.d2.impact = document.getElementById('d2Impact')?.value ?? findings.d2.impact;
+            } else if (d === 3) {
+                findings.d3.containment = document.getElementById('d3Containment')?.value ?? findings.d3.containment;
+                findings.d3.timing = document.getElementById('d3Timing')?.value ?? findings.d3.timing;
+            } else if (d === 4) {
+                findings.d4.fishbone = document.getElementById('d4Fishbone')?.value ?? findings.d4.fishbone;
+                findings.d4.why1 = document.getElementById('d4Why1')?.value ?? findings.d4.why1;
+                findings.d4.why2 = document.getElementById('d4Why2')?.value ?? findings.d4.why2;
+                findings.d4.why3 = document.getElementById('d4Why3')?.value ?? findings.d4.why3;
+                findings.d4.rootCause = document.getElementById('d4RootCause')?.value ?? findings.d4.rootCause;
+            } else if (d === 5) {
+                findings.d5.action = document.getElementById('d5Action')?.value ?? findings.d5.action;
+                findings.d5.preventive = document.getElementById('d5Preventive')?.value ?? findings.d5.preventive;
+                findings.d5.responsible = document.getElementById('d5Responsible')?.value ?? findings.d5.responsible;
+            } else if (d === 6) {
+                findings.d6.implementation = document.getElementById('d6Implementation')?.value ?? findings.d6.implementation;
+                findings.d6.verification = document.getElementById('d6Verification')?.value ?? findings.d6.verification;
+            } else if (d === 7) {
+                findings.d7.preventRecurrence = document.getElementById('d7Prevent')?.value ?? findings.d7.preventRecurrence;
+                findings.d7.training = document.getElementById('d7Training')?.value ?? findings.d7.training;
+            } else if (d === 8) {
+                findings.d8.effectiveness = document.getElementById('d8Effectiveness')?.value ?? findings.d8.effectiveness;
+                findings.d8.closeout = document.getElementById('d8Closeout')?.value ?? findings.d8.closeout;
+            }
+        }
+
+        function showD(n) {
+            // Capture the OUTGOING step's live field values before we switch away from it.
+            captureStepFields(currentD);
+
+            currentD = n;
+            renderDGrid();
+
+            const detail = document.getElementById('detailSection');
+            const title = document.getElementById('detailTitle');
+            title.textContent = dDetails[n-1].title;
+
+            let content = '';
+
+            if (n === 1) {
+                content = `
+                    <div class="form-group">
+                        <label>Team Members (names, roles)</label>
+                        <textarea id="d1Team" placeholder="E.g., John (Engineering), Sarah (Quality), Mike (Operations)...">${findings.d1.team}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Roles & Responsibilities</label>
+                        <textarea id="d1Roles" placeholder="Team lead, subject matter experts, documentation lead...">${findings.d1.roles}</textarea>
+                    </div>
+                    <div class="validation-box">8D discipline requires a structured team. Quality outcomes improve when functional silos are bridged.</div>
+                `;
+            } else if (n === 2) {
+                content = `
+                    <div class="form-group">
+                        <label>Problem Statement (from finding)</label>
+                        <textarea id="d2Problem" placeholder="What is the defect / nonconformance?">${findings.d2.problem}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Impact Assessment</label>
+                        <textarea id="d2Impact" placeholder="How many parts? Customer impact? Safety risk? Cost?">${findings.d2.impact}</textarea>
+                    </div>
+                    <div class="validation-box">A clear problem statement includes WHO/WHAT/WHEN/WHERE/HOW MANY. Vague statements lead to weak root causes.</div>
+                `;
+            } else if (n === 3) {
+                content = `
+                    <div class="form-group">
+                        <label>Interim Containment Action</label>
+                        <textarea id="d3Containment" placeholder="Sort/inspect affected inventory. Quarantine. Rework. 100% inspection. Etc.">${findings.d3.containment}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Timeline for Implementation</label>
+                        <input type="text" id="d3Timing" placeholder="E.g., 24 hours (immediate), 1 week, etc." value="${findings.d3.timing}">
+                    </div>
+                    <div class="validation-box pass">Containment protects the customer BEFORE root cause is known. Speed matters here.</div>
+                `;
+            } else if (n === 4) {
+                content = `
+                    <div class="form-group">
+                        <label>Fishbone / Cause-and-Effect</label>
+                        <textarea id="d4Fishbone" placeholder="Materials, Methods, Machine, Manpower, Environment, Measurement">${findings.d4.fishbone}</textarea>
+                    </div>
+                    <div style="margin: 20px 0;">
+                        <strong>5-Why Analysis (3x5 Framework)</strong>
+                    </div>
+                    <div class="evidence-grid">
+                        <div class="evidence-item">
+                            <strong>People Layer</strong><br>
+                            <textarea style="width: 100%; height: 80px; font-size: 0.85em;" id="d4Why1">${findings.d4.why1}</textarea>
+                        </div>
+                        <div class="evidence-item">
+                            <strong>Tools / System Layer</strong><br>
+                            <textarea style="width: 100%; height: 80px; font-size: 0.85em;" id="d4Why2">${findings.d4.why2}</textarea>
+                        </div>
+                        <div class="evidence-item" style="grid-column: 1/-1;">
+                            <strong>Process / Design Layer</strong><br>
+                            <textarea style="width: 100%; height: 80px; font-size: 0.85em;" id="d4Why3">${findings.d4.why3}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>ROOT CAUSE (Must address all 3 layers)</strong></label>
+                        <textarea id="d4RootCause" placeholder="The fundamental reason this problem exists. Not a symptom. Verified & defensible.">${findings.d4.rootCause}</textarea>
+                    </div>
+                    <div class="validation-box fail">⚠ Root cause is the most critical step. Do not accept 'operator error' or 'lack of attention' without proof.</div>
+                `;
+            } else if (n === 5) {
+                content = `
+                    <div class="form-group">
+                        <label>Permanent Corrective Action (addresses root cause)</label>
+                        <textarea id="d5Action" placeholder="What will you CHANGE in the system/process/tool/training to prevent recurrence?">${findings.d5.action}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Preventive Measures (if applicable)</label>
+                        <textarea id="d5Preventive" placeholder="Updated procedures, training, poka-yoke, inspection...">${findings.d5.preventive}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Responsible Party & Timeline</label>
+                        <input type="text" id="d5Responsible" placeholder="E.g., John (Engineering), due 2026-08-15" value="${findings.d5.responsible}">
+                    </div>
+                    <div class="validation-box">CA must be proportional to root cause severity. A major root cause requires a major fix, not a memo.</div>
+                `;
+            } else if (n === 6) {
+                content = `
+                    <div class="form-group">
+                        <label>Implementation Plan</label>
+                        <textarea id="d6Implementation" placeholder="How will the CA be rolled out? Pilot? Full deployment? Timeline?">${findings.d6.implementation}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Verification Method</label>
+                        <textarea id="d6Verification" placeholder="How will you verify the fix works? Audits? Data review? Process metrics?">${findings.d6.verification}</textarea>
+                    </div>
+                    <div class="validation-box pass">✓ Verification proves CA reduces defects. Measure before & after.</div>
+                `;
+            } else if (n === 7) {
+                content = `
+                    <div class="form-group">
+                        <label>Prevent Recurrence on Similar Products / Processes</label>
+                        <textarea id="d7Prevent" placeholder="Apply this fix elsewhere. Audit control plans on similar products. Update FMEA.">${findings.d7.preventRecurrence}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Training & Communication</label>
+                        <textarea id="d7Training" placeholder="Who needs to be trained? How will the change be communicated?">${findings.d7.training}</textarea>
+                    </div>
+                    <div class="validation-box">Organizations that skip D7 see repeat NCs. Prevention requires systemic thinking, not one-off fixes.</div>
+                `;
+            } else if (n === 8) {
+                content = `
+                    <div class="form-group">
+                        <label>Effectiveness Verification (30/60/90 day check)</label>
+                        <textarea id="d8Effectiveness" placeholder="Evidence the CA is working. Metrics. Audit results. Customer feedback.">${findings.d8.effectiveness}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Closeout Documentation</label>
+                        <textarea id="d8Closeout" placeholder="Signed-off verification report. Record for audit trail.">${findings.d8.closeout}</textarea>
+                    </div>
+                    <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="showMaturity()">Calculate 8D Maturity Score</button>
+                `;
+            }
+
+            document.getElementById('detailContent').innerHTML = content;
+            saveState();
+        }
+
+        function nextD() {
+            if (currentD < 8) showD(currentD + 1);
+            else { captureStepFields(currentD); showMaturity(); }
+        }
+
+        function previousD() {
+            if (currentD > 1) showD(currentD - 1);
+        }
+
+        function showMaturity() {
+            // The "Calculate 8D Maturity Score" button on D8 calls this directly (not via
+            // nextD()), so capture D8's live fields here too or the closeout data typed on
+            // the current screen would be excluded from its own score.
+            captureStepFields(currentD);
+
+            const maturityPanel = document.getElementById('maturityPanel');
+            maturityPanel.style.display = 'block';
+
+            // Simple maturity scoring
+            let completeness = 0;
+            const maxPoints = 8;
+            if (findings.d1.team && findings.d1.team.length > 5) completeness++;
+            if (findings.d2.problem && findings.d2.problem.length > 20) completeness++;
+            if (findings.d3.containment && findings.d3.containment.length > 10) completeness++;
+            if (findings.d4.rootCause && findings.d4.rootCause.length > 20 && findings.d4.fishbone && findings.d4.why1) completeness++;
+            if (findings.d5.action && findings.d5.action.length > 20) completeness++;
+            if (findings.d6.implementation && findings.d6.verification) completeness++;
+            if (findings.d7.preventRecurrence && findings.d7.training) completeness++;
+            if (findings.d8.effectiveness && findings.d8.closeout) completeness++;
+
+            const maturityScore = Math.round((completeness / maxPoints) * 5);
+            const levels = ['Incomplete', 'Foundational', 'Repeatable', 'Managed', 'Optimized', 'Leading'];
+            const levelText = levels[maturityScore] || 'Incomplete';
+
+            document.getElementById('maturityScore').textContent = `${maturityScore}/5`;
+            document.getElementById('maturityLevel').textContent = levelText;
+
+            // Render chart
+            const ctx = document.getElementById('maturityChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Team', 'Problem', 'Containment', 'Root Cause', 'Action', 'Implementation', 'Prevention', 'Closeout'],
+                    datasets: [{
+                        label: 'Completeness',
+                        data: [
+                            findings.d1.team ? 5 : 0,
+                            findings.d2.problem ? 5 : 0,
+                            findings.d3.containment ? 5 : 0,
+                            findings.d4.rootCause ? 5 : 0,
+                            findings.d5.action ? 5 : 0,
+                            findings.d6.implementation ? 5 : 0,
+                            findings.d7.preventRecurrence ? 5 : 0,
+                            findings.d8.effectiveness ? 5 : 0
+                        ],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                        pointBackgroundColor: '#667eea',
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: { min: 0, max: 5, beginAtZero: true }
+                    }
+                }
+            });
+
+            // Validation summary
+            let validations = '';
+            if (!findings.d4.rootCause || findings.d4.rootCause.length < 20) {
+                validations += '<div class="validation-box fail">⚠ Root cause not detailed enough. Strengthen D4 analysis.</div>';
+            } else {
+                validations += '<div class="validation-box pass">✓ Root cause appears well-defined.</div>';
+            }
+
+            if (!findings.d5.action) {
+                validations += '<div class="validation-box fail">⚠ No permanent corrective action defined. Address in D5.</div>';
+            } else {
+                validations += '<div class="validation-box pass">✓ Corrective action defined.</div>';
+            }
+
+            if (!findings.d6.verification) {
+                validations += '<div class="validation-box fail">⚠ No verification method specified. Add measurable proof in D6.</div>';
+            } else {
+                validations += '<div class="validation-box pass">✓ Verification method specified.</div>';
+            }
+
+            document.getElementById('validationSummary').innerHTML = validations;
+        }
+
+        // Escapes text for safe embedding in the HTML-based Word export below.
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\n/g, '<br>');
+        }
+
+        function exportToWord() {
+            // FIX (2026-07-11 governance run): the button is labeled "Export as Word" but
+            // previously produced a plain .txt file (Blob type text/plain, .txt extension) -
+            // a customer clicking it did not get a Word document. This now emits an
+            // HTML-formatted document served with the Word MIME type and a .doc extension,
+            // which Microsoft Word natively opens and renders with real headings/formatting
+            // (documented Word behavior for HTML content saved with a .doc extension).
+            captureStepFields(currentD);
+
+            const dateStr = new Date().toLocaleDateString();
+            const html = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head><meta charset="utf-8"><title>8D Corrective Action Report</title></head>
+<body style="font-family:Calibri,Arial,sans-serif;">
+<h1>8D Corrective Action Report</h1>
+<p><b>Generated:</b> ${escapeHtml(dateStr)}</p>
+<p><b>Standard:</b> ${escapeHtml(findings.standard || 'Not specified')} &nbsp; <b>Severity:</b> ${escapeHtml(findings.severity || 'Not specified')}</p>
+<h2>Finding</h2><p>${escapeHtml(findings.d2.problem)}</p>
+<h2>D1 - Team Formation</h2><p>${escapeHtml(findings.d1.team)}</p><p><b>Roles:</b> ${escapeHtml(findings.d1.roles)}</p>
+<h2>D2 - Problem Statement</h2><p>${escapeHtml(findings.d2.problem)}</p><p><b>Impact:</b> ${escapeHtml(findings.d2.impact)}</p>
+<h2>D3 - Interim Containment</h2><p>${escapeHtml(findings.d3.containment)}</p><p><b>Timing:</b> ${escapeHtml(findings.d3.timing)}</p>
+<h2>D4 - Root Cause Analysis</h2><p><b>Fishbone:</b> ${escapeHtml(findings.d4.fishbone)}</p><p><b>Root Cause:</b> ${escapeHtml(findings.d4.rootCause)}</p>
+<h2>D5 - Permanent Corrective Action</h2><p>${escapeHtml(findings.d5.action)}</p><p><b>Preventive Measures:</b> ${escapeHtml(findings.d5.preventive)}</p><p><b>Responsible:</b> ${escapeHtml(findings.d5.responsible)}</p>
+<h2>D6 - Implementation &amp; Verification</h2><p>${escapeHtml(findings.d6.implementation)}</p><p><b>Verification:</b> ${escapeHtml(findings.d6.verification)}</p>
+<h2>D7 - Prevent Recurrence</h2><p>${escapeHtml(findings.d7.preventRecurrence)}</p><p><b>Training:</b> ${escapeHtml(findings.d7.training)}</p>
+<h2>D8 - Effectiveness &amp; Closure</h2><p><b>Effectiveness:</b> ${escapeHtml(findings.d8.effectiveness)}</p><p><b>Closeout:</b> ${escapeHtml(findings.d8.closeout)}</p>
+</body></html>`;
+
+            const blob = new Blob(['﻿', html], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `8D-Report-${new Date().toISOString().split('T')[0]}.doc`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function clearForm() {
+            document.getElementById('findingText').value = '';
+            document.getElementById('standard').value = '-- Select Standard --';
+            document.getElementById('severity').value = '1';
+        }
+
+        function resetAll() {
+            clearForm();
+            document.getElementById('inputSection').style.display = 'block';
+            document.getElementById('workflowSection').classList.remove('active');
+            document.getElementById('detailSection').classList.remove('active');
+            document.getElementById('resultsPanel').style.display = 'none';
+            document.getElementById('maturityPanel').style.display = 'none';
+            findings = {
+                d1: { team: '', roles: '' },
+                d2: { problem: '', impact: '' },
+                d3: { containment: '', timing: '' },
+                d4: { fishbone: '', why1: '', why2: '', why3: '', rootCause: '' },
+                d5: { action: '', preventive: '', responsible: '' },
+                d6: { implementation: '', verification: '' },
+                d7: { preventRecurrence: '', training: '' },
+                d8: { effectiveness: '', closeout: '' }
+            };
+            currentD = 1;
+            try { localStorage.removeItem('conformEdge8DState'); } catch (e) {}
+        }
+    </script>
+</body>
+</html>

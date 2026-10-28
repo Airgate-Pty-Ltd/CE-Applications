@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Part 145 Training Records Compliance Audit — Conform-Edge</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0f1e;--panel:rgba(15,25,60,0.85);--border:#1e3a6e;--accent:#4a9eff;--text:#e2e8f0;--muted:#94a3b8;--crit:#ef4444;--maj:#f59e0b;--min:#22c55e;--ok:#22c55e}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;font-size:14px;min-height:100vh}
+.topbar{background:rgba(10,15,30,0.95);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;position:sticky;top:0;z-index:100}
+.brand{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.bn{font-size:16px;font-weight:700}
+.sub{font-size:12px;color:var(--muted)}
+.ct{max-width:960px;margin:0 auto;padding:20px}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:16px}
+.pt{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:7px}
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:18px}
+.tab{padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;color:var(--muted);transition:color .15s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+.qblock{padding:12px 15px;border-left:3px solid var(--border);margin-bottom:9px;background:rgba(10,15,30,0.4);border-radius:0 4px 4px 0}
+.qblock.crit-q{border-left-color:rgba(239,68,68,0.45)}
+.qnum{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:3px}
+.qlabel{font-size:13px;line-height:1.5;margin-bottom:4px}
+.qbasis{font-size:11px;color:var(--muted);margin-bottom:8px;font-style:italic}
+.crit-mark{font-size:10px;color:var(--crit);margin-left:5px;font-weight:700;background:rgba(239,68,68,.15);padding:1px 5px;border-radius:3px}
+.opts{display:flex;gap:8px}
+.opt{display:flex;align-items:center;gap:5px;padding:4px 11px;border:1px solid var(--border);border-radius:4px;cursor:pointer;font-size:12px;transition:background .15s;white-space:nowrap}
+.opt:hover{border-color:var(--accent)}
+.opt input{display:none}
+.opt.sel-0{background:rgba(239,68,68,.15);border-color:#ef4444;color:#ef4444}
+.opt.sel-1{background:rgba(245,158,11,.15);border-color:#f59e0b;color:#f59e0b}
+.opt.sel-2{background:rgba(34,197,94,.15);border-color:#22c55e;color:#22c55e}
+.meter-bar{height:7px;background:rgba(30,58,110,.4);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.meter-fill{height:100%;border-radius:4px;transition:width .35s;background:linear-gradient(90deg,#ef4444,#f59e0b 50%,#22c55e)}
+.meter-label{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:12px}
+/* Mode 2 — Technician worksheet */
+.tech-add{display:flex;gap:8px;margin-bottom:14px}
+.inp{background:rgba(10,15,30,.6);border:1px solid var(--border);border-radius:4px;padding:6px 10px;color:var(--text);font-size:13px;flex:1}
+.inp:focus{outline:none;border-color:var(--accent)}
+.tech-table{width:100%;border-collapse:collapse;font-size:12px}
+.tech-table th{background:rgba(30,58,110,.4);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:6px 8px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+.tech-table td{padding:6px 8px;border-bottom:1px solid rgba(30,58,110,.3);vertical-align:middle}
+.chk{width:16px;height:16px;cursor:pointer;accent-color:var(--accent)}
+.na-chk{accent-color:var(--muted)}
+.tech-pct{font-weight:700;font-size:12px}
+.tech-del{background:none;border:none;color:var(--crit);cursor:pointer;font-size:14px;padding:0 4px;opacity:.6}
+.tech-del:hover{opacity:1}
+/* Results */
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.sg{background:rgba(15,25,60,.6);border:1px solid var(--border);border-radius:6px;padding:12px;text-align:center}
+.sg .v{font-size:22px;font-weight:700;margin-bottom:2px}
+.sg .l{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.verdict{padding:13px;border-radius:6px;font-size:13px;font-weight:600;text-align:center;margin-bottom:16px}
+.v-ready{background:rgba(34,197,94,.12);border:1px solid #22c55e;color:#22c55e}
+.v-partial{background:rgba(245,158,11,.12);border:1px solid #f59e0b;color:#f59e0b}
+.v-not-ready{background:rgba(239,68,68,.12);border:1px solid #ef4444;color:#ef4444}
+table.gap-tbl{width:100%;border-collapse:collapse;font-size:12px}
+table.gap-tbl th{background:rgba(30,58,110,.4);color:var(--muted);font-size:11px;text-transform:uppercase;padding:6px 8px;text-align:left;border-bottom:1px solid var(--border)}
+table.gap-tbl td{padding:6px 8px;border-bottom:1px solid rgba(30,58,110,.3);vertical-align:top}
+.p-c{color:var(--crit);font-weight:700}.p-m{color:var(--maj)}.p-n{color:var(--min)}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.btn:hover{opacity:.85}.bsm{padding:4px 10px;font-size:12px}
+.bo{background:transparent;border:1px solid var(--border);color:var(--text)}
+.bo:hover{border-color:var(--accent);color:var(--accent)}
+.flex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.nb{background:rgba(10,15,30,.8);border:1px solid var(--border);border-radius:4px;padding:13px;font-size:12px;line-height:1.7;white-space:pre-wrap}
+.disc{font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;padding-top:10px;line-height:1.5}
+@media print{.topbar{position:relative}.btn,.opts,.tabs,.tech-add,.tech-del{pointer-events:none}body{background:#fff;color:#000}.panel{border:1px solid #ccc;background:#fff}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div>
+    <div class="brand">Conform-Edge</div>
+    <div class="bn">Part 145 Training Records Compliance Audit</div>
+    <div class="sub">14 CFR §145.163 · AC 145-10 · FAA Repair Station Training Program</div>
+  </div>
+  <div style="margin-left:auto" class="flex">
+    <button class="btn bo bsm" onclick="showResults()">View Results</button>
+    <button class="btn bsm" onclick="window.print()">Print / PDF</button>
+  </div>
+</div>
+
+<div class="ct">
+
+<div class="panel">
+  <div class="pt">Audit Progress</div>
+  <div class="meter-bar"><div class="meter-fill" id="meterFill" style="width:0%"></div></div>
+  <div class="meter-label"><span>Not Compliant</span><span id="meterPct">0%</span><span>Compliant</span></div>
+  <div style="font-size:12px;color:var(--muted);text-align:center" id="progress">0 of 20 program requirements assessed</div>
+</div>
+
+<div class="panel">
+  <div class="tabs">
+    <div class="tab active" id="tab1" onclick="switchTab(1)">Mode 1 — Training Program Audit</div>
+    <div class="tab" id="tab2" onclick="switchTab(2)">Mode 2 — Technician Record Spot-Check</div>
+  </div>
+  <div class="tab-pane active" id="pane1">
+    <div id="programQuestions"></div>
+  </div>
+  <div class="tab-pane" id="pane2">
+    <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Enter technician names below and mark the completion status of each record type. Check ✓ = complete, leave unchecked = gap, check N/A where not applicable (e.g., Hazmat training for non-hazmat roles). Use this to mirror how FAA inspectors audit individual technician records.</div>
+    <div class="tech-add">
+      <input class="inp" id="techName" placeholder="Technician name / ID..." onkeydown="if(event.key==='Enter')addTech()">
+      <button class="btn bsm" onclick="addTech()">+ Add Technician</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="tech-table" id="techTable">
+        <thead><tr>
+          <th>Technician</th>
+          <th title="145.163(a) Initial training completed before job assignment">Initial<br>Training</th>
+          <th title="On-the-Job Training with supervisor sign-off">OJT<br>Sign-Off</th>
+          <th title="Recurrent training current within 24 months">Recurrent<br>(Current)</th>
+          <th title="Required for supervisory / inspector roles">Supervisor<br>Competence</th>
+          <th title="Human factors awareness training">Human<br>Factors</th>
+          <th title="Foreign Object Debris/Damage awareness">FOD<br>Awareness</th>
+          <th title="General safety / OSHA awareness">Safety<br>Training</th>
+          <th title="Required where hazardous materials are handled">Hazmat<br>(N/A ok)</th>
+          <th>Complete</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="techBody"></tbody>
+      </table>
+    </div>
+    <div id="techEmpty" style="text-align:center;color:var(--muted);padding:20px;font-size:12px">No technicians added. Add technicians above to begin spot-check.</div>
+  </div>
+</div>
+
+<div class="panel" id="resultsPanel" style="display:none">
+  <div class="pt">Audit Results</div>
+  <div class="summary-grid">
+    <div class="sg"><div class="v" id="rScore" style="color:var(--accent)">0%</div><div class="l">Program Score</div></div>
+    <div class="sg"><div class="v" id="rCrit" style="color:var(--crit)">0</div><div class="l">Critical Gaps</div></div>
+    <div class="sg"><div class="v" id="rMaj" style="color:var(--maj)">0</div><div class="l">Major Gaps</div></div>
+  </div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="pt" style="margin-top:16px">Program Gap Report</div>
+  <div style="overflow-x:auto">
+    <table class="gap-tbl"><thead><tr><th>#</th><th>Requirement</th><th>Status</th><th>Priority</th><th>Recommended Action</th></tr></thead>
+    <tbody id="gapTable"></tbody></table>
+  </div>
+
+  <div id="techResultsBlock"></div>
+
+  <div class="pt" style="margin-top:16px">Management Review Narrative</div>
+  <div class="nb" id="mrNarrative"></div>
+  <div style="margin-top:12px" class="flex">
+    <button class="btn bo bsm" onclick="expJ()">Download JSON</button>
+    <button class="btn bo bsm" onclick="copyNar()">Copy Narrative</button>
+  </div>
+</div>
+
+<div class="disc">
+  Part 145 Training Records Compliance Audit Tool v1.0 · Conform-Edge Quality Consulting LLC<br>
+  This tool is a self-audit aid. It does not constitute an FAA inspection finding or regulatory compliance determination. Requirements are based on 14 CFR Part 145 and FAA AC 145-10. Verify current AC revision before use. Regulatory requirements may vary based on your specific approval scope, applicable operations specifications, and any customer or EASA bilateral requirements.
+</div>
+</div>
+
+<script>
+var PROG=[
+  {id:'1',text:'A written training program exists, is current, and has been approved by the Quality Manager or Accountable Manager.',basis:'14 CFR §145.163(a); AC 145-10 §3',crit:true,action:'Create or update the written training program. Obtain QM/AM signature and approval. Document revision history. Training program must be a controlled document.'},
+  {id:'2',text:'The training program scope matches the current approved repair station scope of work (ratings, capabilities, article types).',basis:'14 CFR §145.163(a); AC 145-10 §3.b',crit:true,action:'Compare training program curriculum to the current Repair Station Certificate and Operations Specifications. Update training requirements for any capabilities added or removed. Retain evidence of scope review.'},
+  {id:'3',text:'Initial training is completed before technicians are assigned to perform maintenance functions on their own.',basis:'14 CFR §145.163(a)(1); AC 145-10 §3.c',crit:true,action:'Audit employee records for all staff performing maintenance functions. Verify initial training was completed and documented BEFORE independent assignment date. Remediate any technicians found performing work without documented initial training.'},
+  {id:'4',text:'On-the-Job Training (OJT) is documented with a supervisor or designated trainer sign-off for each task area.',basis:'AC 145-10 §3.c; §3.d',crit:false,action:'Verify OJT records include: task description, date, supervisor/trainer name, and sign-off. Audit a sample of technician records across job functions. Address any OJT tasks signed off retroactively without contemporaneous records.'},
+  {id:'5',text:'Recurrent training is scheduled at defined intervals and all current employees are within the recurrent training cycle.',basis:'14 CFR §145.163(a)(2); AC 145-10 §3.e',crit:true,action:'Define recurrent training interval (commonly 24 months). Audit all employee records against recurrence due dates. Schedule overdue technicians immediately. Update training matrix with due dates.'},
+  {id:'6',text:'Human factors awareness training is included in the training program and records are current for all maintenance personnel.',basis:'AC 145-10 §3.f; FAA Human Factors Maintenance guidance',crit:false,action:'Add human factors module to training program if absent. Document human factors training completion for all maintenance personnel. Include topics: dirty dozen, error chains, situational awareness, effective communication.'},
+  {id:'7',text:'Foreign Object Debris/Damage (FOD) awareness training is included and documented.',basis:'AC 145-10 §3; general repair station best practice',crit:false,action:'Add FOD awareness module to training program. Document FOD training completion for all staff with access to maintenance areas. Include: FOD causes, detection, prevention, reporting procedures.'},
+  {id:'8',text:'General safety training (hazard awareness, emergency procedures, personal protective equipment) is included and documented.',basis:'AC 145-10 §3; OSHA 29 CFR 1910 (where applicable)',crit:false,action:'Document safety training in the training program. Retain records of safety training completion for all employees. Include facility-specific emergency procedures, PPE requirements, and hazard identification.'},
+  {id:'9',text:'Hazardous materials / dangerous goods training is provided and documented for all employees who handle, identify, or ship hazmat (where applicable to the station scope).',basis:'49 CFR Part 172 Subpart H; IATA DGR where applicable; AC 145-10',crit:false,action:'Identify all roles with hazmat handling responsibility. Verify current hazmat/DG training (commonly required every 2 or 3 years per mode of transport). Document training records including expiry dates.'},
+  {id:'10',text:'Training records are retained for a minimum of 2 years after the employee is no longer employed or after the training date, whichever is later.',basis:'14 CFR §145.163(c); AC 145-10 §4',crit:true,action:'Audit record retention policy and practice. Confirm 2-year minimum retention for all former employees. Verify records system (electronic or paper) supports this retention period. Retain departure dates to trigger retention clock.'},
+  {id:'11',text:'Training records are accessible and can be produced for FAA inspection on request.',basis:'14 CFR §145.163(c); §145.209',crit:false,action:'Test record retrieval: select a random sample of 5 current and 5 former employees and retrieve training records within 10 minutes. Identify any records not immediately accessible. Centralize or index records to support rapid retrieval.'},
+  {id:'12',text:'Supervisor and inspector competence is documented separately, including the basis for their designation (experience, training, examination).',basis:'14 CFR §145.153; AC 145-10 §3.g',crit:false,action:'Verify a supervisor/inspector authorization list exists. Confirm each designee has documented basis: years of experience, type training, written examination, or other qualification evidence. Retain qualification records with authorization list.'},
+  {id:'13',text:'The training program is reviewed at least annually or whenever the scope of work changes, and revision history is documented.',basis:'AC 145-10 §3.b; §145.163(a)',crit:false,action:'Establish annual training program review as a QMS calendar item. Document each review: date, reviewer, changes made or no-change determination. Tie training program revision to scope change notifications.'},
+  {id:'14',text:'A training curriculum, matrix, or plan exists that maps required training to each job function / role.',basis:'AC 145-10 §3.a; best practice',crit:false,action:'Develop a training matrix mapping each role to required training modules (initial, recurrent, job-specific, regulatory). Use the matrix to identify gaps by role rather than only by individual. Include completion status per employee.'},
+  {id:'15',text:'The new hire training and onboarding process is defined in the training program and consistently followed.',basis:'14 CFR §145.163(a); AC 145-10 §3.c',crit:false,action:'Document the new hire training sequence: initial program training, OJT, sign-off, supervisor qualification check before independent work assignment. Verify recent new hires followed the documented process.'},
+  {id:'16',text:'Contract employee training is addressed in the training program (own training records, or training administered by the station).',basis:'14 CFR §145.163; AC 145-10 §3.h; §145.217',crit:false,action:'Define how contract employee training is handled: either require proof of equivalent training from contractor employer, or administer training at the station. Retain evidence for all contract employees performing maintenance functions.'},
+  {id:'17',text:'Training effectiveness is evaluated (examination, demonstration, supervisor sign-off, or equivalent) and results are documented.',basis:'AC 145-10 §3.d; §3.e',crit:false,action:'Add effectiveness evaluation to each training module: written test, practical demonstration, or observed performance. Document evaluation results (pass/fail, score). Establish a remediation path for training not passed.'},
+  {id:'18',text:'Training records include the minimum required elements: trainee name, date, subject/topic, instructor name, and result/sign-off.',basis:'14 CFR §145.163(c); AC 145-10 §4',crit:false,action:'Audit a sample of 10 training records for required elements. Identify any records missing name, date, subject, instructor, or result. Remediate records with missing elements where contemporaneous evidence supports the training occurred.'},
+  {id:'19',text:'The training program is approved by the Quality Manager or Accountable Manager and the approval is documented.',basis:'14 CFR §145.163(a); AC 145-10 §3.a',crit:false,action:'Obtain QM or AM signature on the current training program revision. Retain approval records with the controlled copy of the training program. Include approval date and next review date.'},
+  {id:'20',text:'Training deficiencies identified through internal audit, inspection, or incident investigation are tracked to corrective action and closure.',basis:'14 CFR §145.163; §145.211 (quality system); AC 145-10',crit:false,action:'Establish a process for routing training deficiencies to the corrective action system. Review open CAR/NCR items for training-related root causes. Verify training program was updated where deficiency indicated a systemic gap.'}
+];
+var CRIT_IDS=['1','2','3','5','10'];
+var answers={};
+
+// Technician records state
+var techs=[];
+var REC_TYPES=['initial','ojt','recurrent','supervisor','hf','fod','safety','hazmat'];
+var REC_LABELS=['Initial','OJT','Recurrent','Supv.','HF','FOD','Safety','Hazmat'];
+
+function renderProgram(){
+  var html='';
+  PROG.forEach(function(q){
+    var isCrit=CRIT_IDS.indexOf(q.id)>=0;
+    html+='<div class="qblock'+(isCrit?' crit-q':'')+'">';
+    html+='<div class="qnum">'+q.id+(isCrit?'<span class="crit-mark">CRITICAL</span>':'')+'</div>';
+    html+='<div class="qlabel">'+q.text+'</div>';
+    html+='<div class="qbasis">'+q.basis+'</div>';
+    html+='<div class="opts">';
+    [{v:0,l:'0 — Not Compliant'},{v:1,l:'1 — Partial'},{v:2,l:'2 — Compliant'}].forEach(function(o){
+      html+='<label class="opt" id="opt-'+q.id+'-'+o.v+'" onclick="setAns(\''+q.id+'\','+o.v+')"><input type="radio" name="r'+q.id+'" value="'+o.v+'">'+o.l+'</label>';
+    });
+    html+='</div></div>';
+  });
+  document.getElementById('programQuestions').innerHTML=html;
+}
+
+function switchTab(n){
+  document.getElementById('tab1').classList.toggle('active',n===1);
+  document.getElementById('tab2').classList.toggle('active',n===2);
+  document.getElementById('pane1').classList.toggle('active',n===1);
+  document.getElementById('pane2').classList.toggle('active',n===2);
+}
+
+function setAns(qid,val){
+  answers[qid]=val;
+  for(var v=0;v<=2;v++){var el=document.getElementById('opt-'+qid+'-'+v);if(el){el.classList.remove('sel-0','sel-1','sel-2');}}
+  var sel=document.getElementById('opt-'+qid+'-'+val);if(sel)sel.classList.add('sel-'+val);
+  updateMeter();
+}
+
+function updateMeter(){
+  var answered=Object.keys(answers).length;
+  var score=0,max=PROG.length*2;
+  PROG.forEach(function(q){if(answers[q.id]!==undefined)score+=answers[q.id];});
+  var pct=max>0?Math.round(score/max*100):0;
+  document.getElementById('meterFill').style.width=pct+'%';
+  document.getElementById('meterPct').textContent=pct+'%';
+  document.getElementById('progress').textContent=answered+' of '+PROG.length+' program requirements assessed';
+}
+
+function addTech(){
+  var nm=document.getElementById('techName').value.trim();
+  if(!nm)return;
+  var id='t'+Date.now();
+  var rec={};REC_TYPES.forEach(function(r){rec[r]=false;rec[r+'_na']=false;});
+  techs.push({id:id,name:nm,rec:rec});
+  document.getElementById('techName').value='';
+  renderTechTable();
+}
+
+function toggleRec(tid,rtype,isNa){
+  var t=techs.find(function(x){return x.id===tid;});
+  if(!t)return;
+  if(isNa){t.rec[rtype+'_na']=!t.rec[rtype+'_na'];if(t.rec[rtype+'_na'])t.rec[rtype]=false;}
+  else{t.rec[rtype]=!t.rec[rtype];if(t.rec[rtype])t.rec[rtype+'_na']=false;}
+  renderTechTable();
+}
+
+function delTech(tid){techs=techs.filter(function(t){return t.id!==tid;});renderTechTable();}
+
+function techPct(t){
+  var done=0,applicable=0;
+  REC_TYPES.forEach(function(r){if(!t.rec[r+'_na']){applicable++;if(t.rec[r])done++;}});
+  return applicable===0?100:Math.round(done/applicable*100);
+}
+
+function renderTechTable(){
+  var empty=document.getElementById('techEmpty');
+  var tbl=document.getElementById('techTable');
+  if(techs.length===0){empty.style.display='';tbl.style.display='none';return;}
+  empty.style.display='none';tbl.style.display='';
+  var rows='';
+  techs.forEach(function(t){
+    var pct=techPct(t);
+    var pctColor=pct===100?'var(--ok)':pct>=75?'var(--maj)':'var(--crit)';
+    rows+='<tr>';
+    rows+='<td style="font-weight:600;min-width:120px">'+t.name+'</td>';
+    REC_TYPES.forEach(function(r){
+      var chkd=t.rec[r]?' checked':'';
+      var nad=t.rec[r+'_na']?' checked':'';
+      rows+='<td style="text-align:center">';
+      if(r==='hazmat'){
+        rows+='<input type="checkbox" class="chk" title="Complete"'+chkd+' onchange="toggleRec(\''+t.id+'\',\''+r+'\',false)"> ';
+        rows+='<input type="checkbox" class="na-chk" title="N/A"'+nad+' onchange="toggleRec(\''+t.id+'\',\''+r+'\',true)"><span style="font-size:9px;color:var(--muted)">n/a</span>';
+      } else {
+        rows+='<input type="checkbox" class="chk"'+chkd+' onchange="toggleRec(\''+t.id+'\',\''+r+'\',false)">';
+      }
+      rows+='</td>';
+    });
+    rows+='<td class="tech-pct" style="color:'+pctColor+'">'+pct+'%</td>';
+    rows+='<td><button class="tech-del" onclick="delTech(\''+t.id+'\')" title="Remove">✕</button></td>';
+    rows+='</tr>';
+  });
+  document.getElementById('techBody').innerHTML=rows;
+}
+
+function showResults(){
+  var score=0,max=PROG.length*2;
+  PROG.forEach(function(q){if(answers[q.id]!==undefined)score+=answers[q.id];});
+  var pct=max>0?Math.round(score/max*100):0;
+  var gaps=[];
+  PROG.forEach(function(q){
+    var val=answers[q.id]!==undefined?answers[q.id]:0;
+    if(val<2){var isCrit=CRIT_IDS.indexOf(q.id)>=0;var pri=val===0&&isCrit?'Critical':val===0?'Major':'Minor';gaps.push({id:q.id,text:q.text,val:val,pri:pri,action:q.action});}
+  });
+  gaps.sort(function(a,b){var o={Critical:0,Major:1,Minor:2};return o[a.pri]-o[b.pri];});
+  var crits=gaps.filter(function(g){return g.pri==='Critical';}).length;
+  var majs=gaps.filter(function(g){return g.pri==='Major';}).length;
+  document.getElementById('rScore').textContent=pct+'%';
+  document.getElementById('rCrit').textContent=crits;
+  document.getElementById('rMaj').textContent=majs;
+  var verd='',vcls='';
+  if(crits>0){verd='NOT COMPLIANT — '+crits+' critical gap'+(crits>1?'s':'')+' require immediate corrective action.';vcls='v-not-ready';}
+  else if(pct>=80&&majs<=2){verd='COMPLIANT — Training program meets §145.163 requirements. Maintain record currency.';vcls='v-ready';}
+  else if(pct>=65&&majs<=4){verd='CONDITIONAL — Address '+majs+' major gap'+(majs!==1?'s':'')+' to achieve full compliance.';vcls='v-partial';}
+  else{verd='IN PROGRESS — Score '+pct+'%. Significant corrective action needed.';vcls='v-partial';}
+  var vEl=document.getElementById('verdict');vEl.textContent=verd;vEl.className='verdict '+vcls;
+  var rows='';
+  gaps.forEach(function(g){var pcls=g.pri==='Critical'?'p-c':g.pri==='Major'?'p-m':'p-n';var status=g.val===0?'Not Compliant':'Partial';rows+='<tr><td>'+g.id+'</td><td style="max-width:200px;font-size:12px">'+g.text+'</td><td>'+status+'</td><td class="'+pcls+'">'+g.pri+'</td><td style="max-width:260px;font-size:11px">'+g.action+'</td></tr>';});
+  document.getElementById('gapTable').innerHTML=rows||'<tr><td colspan="5" style="text-align:center;color:var(--ok)">No program gaps identified.</td></tr>';
+
+  // Technician results block
+  var techHtml='';
+  if(techs.length>0){
+    techHtml='<div class="pt" style="margin-top:16px">Technician Record Spot-Check Results</div>';
+    var techGaps=[];
+    techs.forEach(function(t){
+      var p=techPct(t);
+      if(p<100){
+        var missing=[];
+        REC_TYPES.forEach(function(r,i){if(!t.rec[r]&&!t.rec[r+'_na'])missing.push(REC_LABELS[i]);});
+        techGaps.push({name:t.name,pct:p,missing:missing});
+      }
+    });
+    if(techGaps.length===0){techHtml+='<div style="color:var(--ok);font-size:12px;padding:8px 0">All '+techs.length+' technician record'+(techs.length>1?'s':'')+' complete.</div>';}
+    else{
+      techHtml+='<table class="gap-tbl"><thead><tr><th>Technician</th><th>Complete</th><th>Missing Records</th><th>Action</th></tr></thead><tbody>';
+      techGaps.forEach(function(g){var c=g.pct<75?'var(--crit)':g.pct<90?'var(--maj)':'var(--min)';techHtml+='<tr><td>'+g.name+'</td><td style="color:'+c+';font-weight:700">'+g.pct+'%</td><td style="font-size:11px">'+g.missing.join(', ')+'</td><td style="font-size:11px">Obtain or complete the missing records before FAA inspection. Initial training and OJT gaps may constitute a §145.163 finding.</td></tr>';});
+      techHtml+='</tbody></table>';
+    }
+  }
+  document.getElementById('techResultsBlock').innerHTML=techHtml;
+
+  var techSummary=techs.length>0?('\nTechnician spot-check: '+techs.length+' reviewed; '+techs.filter(function(t){return techPct(t)<100;}).length+' with incomplete records.'):'';
+  var nar='Part 145 Training Records Compliance Audit\n14 CFR §145.163 / AC 145-10\n\nProgram compliance score: '+pct+'% ('+score+'/'+max+' points)\n'+techSummary+'\n\nAudit verdict: '+verd+'\n\nTop priority corrective actions:\n'+gaps.slice(0,5).map(function(g,i){return (i+1)+'. ['+g.pri+'] Req. '+g.id+': '+g.text.substring(0,80)+'...';}).join('\n')+'\n\nKey actions before FAA inspection:\n1. Resolve all Critical gaps (§145.163 non-compliance risk)\n2. Ensure initial training records pre-date first work assignment for all technicians\n3. Audit recurrent training due dates — schedule overdue technicians immediately\n4. Verify 2-year record retention for all former employees\n5. Produce training records for random sample within 10 minutes as readiness test\n\nPrepared: '+new Date().toLocaleDateString()+' | Conform-Edge Quality Consulting';
+  document.getElementById('mrNarrative').textContent=nar;
+  document.getElementById('resultsPanel').style.display='block';
+  document.getElementById('resultsPanel').scrollIntoView({behavior:'smooth'});
+  window.PART145TR_MAI_INTERFACE.lastResults={programScore:pct,crits:crits,majs:majs,techCount:techs.length,techGapCount:techs.filter(function(t){return techPct(t)<100;}).length,verdict:verd};
+}
+
+function copyNar(){var t=document.getElementById('mrNarrative').textContent;if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){alert('Copied.');});}else{alert('Please copy manually.');}}
+
+function expJ(){
+  var score=0,max=PROG.length*2;
+  var qScores={};
+  PROG.forEach(function(q){var v=answers[q.id]!==undefined?answers[q.id]:0;score+=v;qScores['req'+q.id]=v;});
+  var pct=max>0?Math.round(score/max*100):0;
+  var techData=techs.map(function(t){return {name:t.name,complete_pct:techPct(t),records:t.rec};});
+  var payload={tool:'Part 145 Training Records Compliance Audit',version:'1.0',basis:'14 CFR §145.163 / AC 145-10',date:new Date().toISOString(),program_score_pct:pct,raw_score:score,max_score:max,requirement_scores:qScores,technicians_reviewed:techs.length,technicians_with_gaps:techs.filter(function(t){return techPct(t)<100;}).length,technician_records:techData,verdict:document.getElementById('verdict').textContent,generated_by:'Conform-Edge Quality Consulting'};
+  var b=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='part145-training-audit-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u);
+}
+
+window.PART145TR_MAI_INTERFACE={version:'1.0',domain:'part145-training-records',getAnswers:function(){return answers;},getTechs:function(){return techs;},lastResults:null};
+renderProgram();
+renderTechTable();
+</script>
+</body>
+</html>

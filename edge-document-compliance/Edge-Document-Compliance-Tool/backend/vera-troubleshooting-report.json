@@ -1,0 +1,313 @@
+{
+  "timestamp": "2025-12-04T04:09:54.359Z",
+  "checks": [
+    {
+      "name": "PostgreSQL Connection",
+      "status": "ERROR",
+      "message": "Customer Data DB connection failed: ",
+      "details": null
+    },
+    {
+      "name": "EDCAT AI Connection",
+      "status": "ERROR",
+      "message": "EDCAT AI DB connection failed: ",
+      "details": null
+    },
+    {
+      "name": "edcat.terms_and_definitions",
+      "status": "ERROR",
+      "message": "Error checking Terminology database: ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_query_response_bank",
+      "status": "ERROR",
+      "message": "Error checking Q&A response bank: ",
+      "details": null
+    },
+    {
+      "name": "edcat.document_content_for_learning",
+      "status": "ERROR",
+      "message": "Error checking Learning documents: ",
+      "details": null
+    },
+    {
+      "name": "edcat.conversation_memory",
+      "status": "ERROR",
+      "message": "Error checking Conversation memory: ",
+      "details": null
+    },
+    {
+      "name": "edcat.ai_conversation_history",
+      "status": "ERROR",
+      "message": "Error checking Conversation history: ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_debug_sessions",
+      "status": "ERROR",
+      "message": "Error checking Debug sessions: ",
+      "details": null
+    },
+    {
+      "name": "public.compliance_requirements",
+      "status": "ERROR",
+      "message": "Error checking Compliance requirements: ",
+      "details": null
+    },
+    {
+      "name": "public.standards",
+      "status": "ERROR",
+      "message": "Error checking Standards: ",
+      "details": null
+    },
+    {
+      "name": "edcat.conversation_memory.role",
+      "status": "ERROR",
+      "message": "Error checking Role column for loop avoidance: ",
+      "details": null
+    },
+    {
+      "name": "edcat.conversation_memory.message_text",
+      "status": "ERROR",
+      "message": "Error checking Message text column: ",
+      "details": null
+    },
+    {
+      "name": "edcat.ai_conversation_history.message_text",
+      "status": "ERROR",
+      "message": "Error checking Message text column: ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_query_response_bank.question_text",
+      "status": "ERROR",
+      "message": "Error checking Question text column: ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_query_response_bank.response_text",
+      "status": "ERROR",
+      "message": "Error checking Response text column: ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_debug_sessions.user_id",
+      "status": "ERROR",
+      "message": "Error checking User ID column (should be nullable): ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_debug_sessions.issue_code",
+      "status": "ERROR",
+      "message": "Error checking Issue code column: ",
+      "details": null
+    },
+    {
+      "name": "Q&A Response Bank",
+      "status": "ERROR",
+      "message": "Error checking Q&A bank: ",
+      "details": null
+    },
+    {
+      "name": "Vera Health Service",
+      "status": "OK",
+      "message": "No active issues detected",
+      "details": null
+    },
+    {
+      "name": "pgvector Extension",
+      "status": "WARNING",
+      "message": "Could not check pgvector: ",
+      "details": null
+    },
+    {
+      "name": "Learning Documents Embeddings",
+      "status": "WARNING",
+      "message": "Could not check embedding column: ",
+      "details": null
+    },
+    {
+      "name": "Terms and Definitions Data",
+      "status": "ERROR",
+      "message": "Error checking Terms and Definitions: ",
+      "details": null
+    },
+    {
+      "name": "Learning Documents Data",
+      "status": "ERROR",
+      "message": "Error checking Learning Documents: ",
+      "details": null
+    },
+    {
+      "name": "Example Documents Data",
+      "status": "ERROR",
+      "message": "Error checking Example Documents: ",
+      "details": null
+    },
+    {
+      "name": "Q&A Responses Data",
+      "status": "ERROR",
+      "message": "Error checking Q&A Responses: ",
+      "details": null
+    },
+    {
+      "name": "Standards Data",
+      "status": "ERROR",
+      "message": "Error checking Standards: ",
+      "details": null
+    },
+    {
+      "name": "Compliance Requirements Data",
+      "status": "ERROR",
+      "message": "Error checking Compliance Requirements: ",
+      "details": null
+    }
+  ],
+  "errors": [
+    {
+      "name": "PostgreSQL Connection",
+      "message": "Customer Data DB connection failed: ",
+      "details": null
+    },
+    {
+      "name": "EDCAT AI Connection",
+      "message": "EDCAT AI DB connection failed: ",
+      "details": null
+    },
+    {
+      "name": "edcat.terms_and_definitions",
+      "message": "Error checking Terminology database: ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_query_response_bank",
+      "message": "Error checking Q&A response bank: ",
+      "details": null
+    },
+    {
+      "name": "edcat.document_content_for_learning",
+      "message": "Error checking Learning documents: ",
+      "details": null
+    },
+    {
+      "name": "edcat.conversation_memory",
+      "message": "Error checking Conversation memory: ",
+      "details": null
+    },
+    {
+      "name": "edcat.ai_conversation_history",
+      "message": "Error checking Conversation history: ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_debug_sessions",
+      "message": "Error checking Debug sessions: ",
+      "details": null
+    },
+    {
+      "name": "public.compliance_requirements",
+      "message": "Error checking Compliance requirements: ",
+      "details": null
+    },
+    {
+      "name": "public.standards",
+      "message": "Error checking Standards: ",
+      "details": null
+    },
+    {
+      "name": "edcat.conversation_memory.role",
+      "message": "Error checking Role column for loop avoidance: ",
+      "details": null
+    },
+    {
+      "name": "edcat.conversation_memory.message_text",
+      "message": "Error checking Message text column: ",
+      "details": null
+    },
+    {
+      "name": "edcat.ai_conversation_history.message_text",
+      "message": "Error checking Message text column: ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_query_response_bank.question_text",
+      "message": "Error checking Question text column: ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_query_response_bank.response_text",
+      "message": "Error checking Response text column: ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_debug_sessions.user_id",
+      "message": "Error checking User ID column (should be nullable): ",
+      "details": null
+    },
+    {
+      "name": "edcat.vera_debug_sessions.issue_code",
+      "message": "Error checking Issue code column: ",
+      "details": null
+    },
+    {
+      "name": "Q&A Response Bank",
+      "message": "Error checking Q&A bank: ",
+      "details": null
+    },
+    {
+      "name": "Terms and Definitions Data",
+      "message": "Error checking Terms and Definitions: ",
+      "details": null
+    },
+    {
+      "name": "Learning Documents Data",
+      "message": "Error checking Learning Documents: ",
+      "details": null
+    },
+    {
+      "name": "Example Documents Data",
+      "message": "Error checking Example Documents: ",
+      "details": null
+    },
+    {
+      "name": "Q&A Responses Data",
+      "message": "Error checking Q&A Responses: ",
+      "details": null
+    },
+    {
+      "name": "Standards Data",
+      "message": "Error checking Standards: ",
+      "details": null
+    },
+    {
+      "name": "Compliance Requirements Data",
+      "message": "Error checking Compliance Requirements: ",
+      "details": null
+    }
+  ],
+  "warnings": [
+    {
+      "name": "pgvector Extension",
+      "message": "Could not check pgvector: ",
+      "details": null
+    },
+    {
+      "name": "Learning Documents Embeddings",
+      "message": "Could not check embedding column: ",
+      "details": null
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "action": "Fix DATABASE_URL environment variable",
+      "reason": "Cannot connect to Customer Data DB"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Fix EDCAT_AI_DATABASE_URL environment variable",
+      "reason": "Cannot connect to EDCAT AI DB"
+    }
+  ]
+}

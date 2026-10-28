@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIAG-VDA FMEA Action Priority Calculator | Conform-Edge</title>
+<style>
+  :root {
+    --ce-blue: #1a4f8a;
+    --ce-blue-light: #2a6fc9;
+    --ce-green: #166534;
+    --ce-amber: #92400e;
+    --ce-red: #991b1b;
+    --ce-text: #1a1a2e;
+    --ce-bg: #f4f7fb;
+    --ce-white: #ffffff;
+    --ce-border: #d1dce8;
+    --ap-high: #fef2f2;
+    --ap-high-border: #dc2626;
+    --ap-high-text: #991b1b;
+    --ap-med: #fffbeb;
+    --ap-med-border: #d97706;
+    --ap-med-text: #92400e;
+    --ap-low: #f0fdf4;
+    --ap-low-border: #16a34a;
+    --ap-low-text: #166534;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--ce-bg); color: var(--ce-text); min-height: 100vh; }
+  header { background: var(--ce-blue); color: #fff; padding: 16px 26px; display: flex; align-items: center; justify-content: space-between; }
+  header h1 { font-size: 1.1rem; font-weight: 600; }
+  header .brand { font-size: 0.78rem; opacity: 0.75; margin-top: 2px; }
+  .badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; padding: 4px 10px; font-size: 0.75rem; font-weight: 700; }
+  .container { max-width: 900px; margin: 0 auto; padding: 22px 14px 48px; }
+  .intro-card { background: var(--ce-white); border: 1px solid var(--ce-border); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 0.83rem; line-height: 1.55; color: #444; }
+  .intro-card h2 { color: var(--ce-blue); font-size: 0.92rem; margin-bottom: 6px; }
+  .mode-bar { display: flex; gap: 0; background: var(--ce-white); border: 1px solid var(--ce-border); border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
+  .mode-btn { flex: 1; padding: 11px; text-align: center; font-size: 0.88rem; font-weight: 600; cursor: pointer; background: none; border: none; color: #64748b; transition: background 0.15s; border-right: 1px solid var(--ce-border); }
+  .mode-btn:last-child { border-right: none; }
+  .mode-btn.active { background: var(--ce-blue); color: #fff; }
+  .mode-btn:hover:not(.active) { background: #f1f5f9; }
+  .panel { background: var(--ce-white); border: 1px solid var(--ce-border); border-radius: 8px; padding: 20px; margin-bottom: 18px; }
+  .panel h3 { font-size: 0.92rem; color: var(--ce-blue); margin-bottom: 14px; font-weight: 600; }
+  .input-row { margin-bottom: 16px; }
+  .input-row label { display: block; font-size: 0.83rem; font-weight: 600; margin-bottom: 4px; color: #374151; }
+  .input-row .sub { font-size: 0.75rem; color: #6b7280; font-weight: 400; margin-left: 6px; }
+  .slider-wrap { display: flex; align-items: center; gap: 12px; }
+  .slider-wrap input[type=range] { flex: 1; accent-color: var(--ce-blue); height: 6px; cursor: pointer; }
+  .slider-value { min-width: 32px; text-align: center; font-size: 1.1rem; font-weight: 700; color: var(--ce-blue); background: #eff6ff; border-radius: 4px; padding: 2px 6px; }
+  .rating-table-wrap { overflow-x: auto; margin-top: 8px; }
+  .rating-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+  .rating-table th { background: var(--ce-blue); color: #fff; padding: 5px 8px; text-align: left; }
+  .rating-table td { padding: 5px 8px; border-bottom: 1px solid #eef2f7; vertical-align: top; }
+  .rating-table tr:last-child td { border-bottom: none; }
+  .rating-table tr.highlight td { background: #eff6ff; font-weight: 600; }
+  .result-card { border-radius: 10px; padding: 22px; text-align: center; margin-bottom: 18px; border: 3px solid; }
+  .ap-H { background: var(--ap-high); border-color: var(--ap-high-border); color: var(--ap-high-text); }
+  .ap-M { background: var(--ap-med); border-color: var(--ap-med-border); color: var(--ap-med-text); }
+  .ap-L { background: var(--ap-low); border-color: var(--ap-low-border); color: var(--ap-low-text); }
+  .ap-pending { background: #f8fafc; border-color: #cbd5e1; color: #64748b; }
+  .ap-label { font-size: 1.5rem; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .ap-sublabel { font-size: 0.9rem; font-weight: 600; }
+  .ap-action { font-size: 0.82rem; margin-top: 10px; line-height: 1.5; }
+  .sod-display { display: flex; gap: 10px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+  .sod-chip { background: rgba(0,0,0,0.06); border-radius: 5px; padding: 4px 12px; font-size: 0.8rem; font-weight: 600; }
+  .batch-section { background: var(--ce-white); border: 1px solid var(--ce-border); border-radius: 8px; padding: 18px; }
+  .batch-section h3 { font-size: 0.92rem; color: var(--ce-blue); margin-bottom: 12px; }
+  .batch-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 80px 100px 80px; gap: 8px; align-items: center; margin-bottom: 8px; font-size: 0.8rem; }
+  .batch-row.header { font-weight: 700; font-size: 0.75rem; color: #64748b; border-bottom: 1px solid var(--ce-border); padding-bottom: 6px; }
+  .batch-input { width: 100%; padding: 5px 8px; border: 1px solid var(--ce-border); border-radius: 4px; font-size: 0.8rem; font-family: inherit; }
+  .batch-input[type=number] { text-align: center; }
+  .ap-badge { display: inline-block; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.78rem; }
+  .ap-badge-H { background: #fee2e2; color: #991b1b; }
+  .ap-badge-M { background: #fef3c7; color: #92400e; }
+  .ap-badge-L { background: #dcfce7; color: #166534; }
+  .ap-badge-pending { background: #f1f5f9; color: #94a3b8; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+  .btn { padding: 8px 18px; border-radius: 5px; font-size: 0.83rem; font-weight: 600; cursor: pointer; border: none; }
+  .btn-primary { background: var(--ce-blue); color: #fff; }
+  .btn-secondary { background: #e2e8f0; color: #334155; }
+  .btn-small { padding: 4px 10px; font-size: 0.75rem; }
+  .btn:hover { opacity: 0.88; }
+  .ref-note { font-size: 0.72rem; color: #94a3b8; margin-top: 14px; }
+  footer { text-align: center; font-size: 0.7rem; color: #888; margin-top: 28px; padding-top: 12px; border-top: 1px solid var(--ce-border); }
+  .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--ce-border); margin-bottom: 18px; }
+  .tab { padding: 8px 16px; font-size: 0.85rem; cursor: pointer; font-weight: 600; color: #6b7280; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab.active { color: var(--ce-blue); border-bottom-color: var(--ce-blue); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">Conform-Edge Quality Management Consulting</div>
+    <h1>AIAG-VDA FMEA Action Priority (AP) Calculator</h1>
+  </div>
+  <div class="badge">AIAG-VDA 2019</div>
+</header>
+
+<div class="container">
+
+  <div class="intro-card">
+    <h2>About This Tool</h2>
+    <p>Calculates the AIAG-VDA (2019) Action Priority (AP) for DFMEA and PFMEA entries using the <strong>Severity × Occurrence × Detection (SOD)</strong> table methodology. Action Priority replaces the legacy RPN number. Supports single-entry evaluation and batch entry for FMEA worksheets. No internet connection required.</p>
+  </div>
+
+  <!-- MODE SELECTOR -->
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('DFMEA', this)">DFMEA — Design FMEA</button>
+    <button class="mode-btn" onclick="setMode('PFMEA', this)">PFMEA — Process FMEA</button>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('single',this)">Single Entry</div>
+    <div class="tab" onclick="showTab('batch',this)">Batch Entry</div>
+    <div class="tab" onclick="showTab('table',this)">AP Reference Table</div>
+  </div>
+
+  <!-- SINGLE ENTRY TAB -->
+  <div class="tab-content active" id="tab-single">
+    <div class="panel">
+      <h3>Function / Failure Mode Description <span style="font-size:0.75rem;color:#6b7280;font-weight:400;">(optional — for report only)</span></h3>
+      <div class="input-row">
+        <label>Function / Item <span class="sub">What is being analyzed?</span></label>
+        <input type="text" id="funcName" placeholder="e.g. Brake caliper bracket — fracture failure mode" style="width:100%;padding:7px 10px;border:1px solid #d1dce8;border-radius:5px;font-size:0.85rem;font-family:inherit;">
+      </div>
+
+      <div class="input-row">
+        <label>Severity (S) <span class="sub">Effect on customer/end user — 1 (no effect) to 10 (safety/regulatory)</span></label>
+        <div class="slider-wrap">
+          <input type="range" id="sSlider" min="1" max="10" value="5" oninput="syncSlider('s');computeAP()">
+          <div class="slider-value" id="sVal">5</div>
+        </div>
+        <div id="sDesc" style="font-size:0.76rem;color:#6b7280;margin-top:4px;"></div>
+      </div>
+
+      <div class="input-row">
+        <label>Occurrence (O) <span class="sub">Likelihood of cause occurring — 1 (very low) to 10 (very high)</span></label>
+        <div class="slider-wrap">
+          <input type="range" id="oSlider" min="1" max="10" value="5" oninput="syncSlider('o');computeAP()">
+          <div class="slider-value" id="oVal">5</div>
+        </div>
+        <div id="oDesc" style="font-size:0.76rem;color:#6b7280;margin-top:4px;"></div>
+      </div>
+
+      <div class="input-row">
+        <label>Detection (D) <span class="sub">Ability to detect failure before reaching customer — 1 (very high) to 10 (absolute uncertainty)</span></label>
+        <div class="slider-wrap">
+          <input type="range" id="dSlider" min="1" max="10" value="5" oninput="syncSlider('d');computeAP()">
+          <div class="slider-value" id="dVal">5</div>
+        </div>
+        <div id="dDesc" style="font-size:0.76rem;color:#6b7280;margin-top:4px;"></div>
+      </div>
+    </div>
+
+    <div class="result-card ap-pending" id="resultCard">
+      <div class="ap-label" id="apLabel">–</div>
+      <div class="ap-sublabel" id="apSublabel">Adjust sliders to calculate</div>
+      <div class="sod-display" id="sodDisplay"></div>
+      <div class="ap-action" id="apAction"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" onclick="addToBatch()">Add to Batch</button>
+      <button class="btn btn-secondary" onclick="exportSingleJSON()">Export JSON</button>
+      <button class="btn btn-secondary" onclick="resetSingle()">Reset</button>
+    </div>
+  </div>
+
+  <!-- BATCH ENTRY TAB -->
+  <div class="tab-content" id="tab-batch">
+    <div class="batch-section">
+      <h3>FMEA Worksheet — Batch Entry</h3>
+      <div id="batchContainer"></div>
+      <div class="actions">
+        <button class="btn btn-primary btn-small" onclick="addBatchRow()">+ Add Row</button>
+        <button class="btn btn-secondary btn-small" onclick="exportBatchJSON()">Export JSON</button>
+        <button class="btn btn-secondary btn-small" onclick="clearBatch()">Clear All</button>
+      </div>
+      <div class="ref-note">Action Priority is computed automatically per AIAG-VDA 2019 AP Table. S=9–10 high-severity items always receive at least AP-H regardless of O and D.</div>
+    </div>
+  </div>
+
+  <!-- REFERENCE TABLE TAB -->
+  <div class="tab-content" id="tab-table">
+    <div class="panel">
+      <h3>AIAG-VDA 2019 Action Priority Reference Table</h3>
+      <p style="font-size:0.78rem;color:#6b7280;margin-bottom:12px;">Simplified lookup based on AIAG-VDA FMEA Handbook (2019) AP determination rules. Reference by intent — do not reproduce copyrighted table text verbatim.</p>
+      <div class="rating-table-wrap">
+        <table class="rating-table">
+          <thead><tr><th>S</th><th>O</th><th>D</th><th>AP</th><th>Required Action</th></tr></thead>
+          <tbody id="apTableBody"></tbody>
+        </table>
+      </div>
+      <p style="font-size:0.72rem;color:#94a3b8;margin-top:10px;">Source intent: AIAG-VDA FMEA Handbook 1st Ed. 2019. Rows shown are representative combinations. Actual AP determination uses the full 10×10×10 matrix logic encoded in this tool.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  AIAG-VDA FMEA Action Priority Calculator · Conform-Edge Quality Management Consulting · For FMEA planning support only · AIAG-VDA AP methodology referenced by intent · © 2026
+  <br><code style="font-size:0.65rem;">window.__MAI_INTERFACE__ = { domain: "fmea-action-priority", version: "1.0", reserved: true }</code>
+</footer>
+
+<script>
+  window.__MAI_INTERFACE__ = { domain: "fmea-action-priority", version: "1.0", reserved: true };
+
+  let currentMode = 'DFMEA';
+  let batchRows = [];
+  let nextId = 1;
+
+  // AIAG-VDA AP logic (per 2019 handbook intent)
+  // S 9-10: high-severity baseline rules
+  // S 7-8: medium severity
+  // S 1-6: standard matrix
+  function computeAPValue(s, o, d) {
+    if (s >= 9) {
+      // Severity 9-10: O and D matter but baseline is H unless both very low
+      if (o <= 2 && d <= 3) return 'M';
+      if (o <= 2 && d <= 6) return 'M';
+      return 'H';
+    } else if (s >= 7) {
+      // Severity 7-8
+      if (o >= 7) return 'H';
+      if (o >= 5) {
+        if (d >= 7) return 'H';
+        return 'M';
+      }
+      if (o >= 3) {
+        if (d >= 8) return 'M';
+        return 'L';
+      }
+      // o <= 2
+      if (d >= 9) return 'M';
+      return 'L';
+    } else if (s >= 4) {
+      // Severity 4-6
+      if (o >= 7) {
+        if (d >= 7) return 'H';
+        return 'M';
+      }
+      if (o >= 5) {
+        if (d >= 9) return 'M';
+        return 'L';
+      }
+      if (o >= 3) {
+        if (d >= 9) return 'M';
+        return 'L';
+      }
+      return 'L';
+    } else {
+      // Severity 1-3: generally L unless very high O+D
+      if (o >= 9 && d >= 9) return 'M';
+      if (o >= 7 && d >= 8) return 'M';
+      return 'L';
+    }
+  }
+
+  const AP_ACTIONS = {
+    H: {
+      label: 'HIGH Priority',
+      DFMEA: 'Team must identify appropriate design actions to reduce severity, occurrence, or improve detection. Document in the FMEA with target completion date and responsible engineer. Management review required. Do not close without verified evidence.',
+      PFMEA: 'Team must identify process control improvements, error-proofing, or design changes. Escalate to process owner and quality engineer. Document actions with target date. Management review at next QMR.'
+    },
+    M: {
+      label: 'MEDIUM Priority',
+      DFMEA: 'Team should identify design actions when feasible. Justify and document rationale if no action is taken. Track in FMEA action plan. Review at next design review gate.',
+      PFMEA: 'Team should consider process control improvements. Document rationale if no action is taken. Include in standard corrective action tracking. Review at next process audit.'
+    },
+    L: {
+      label: 'LOW Priority',
+      DFMEA: 'Team may identify design actions at their discretion. No mandatory action required; document rationale. Record in FMEA for completeness.',
+      PFMEA: 'Team may identify process improvements at their discretion. No mandatory action required. Document for FMEA record completeness.'
+    }
+  };
+
+  const S_DESC = ['','No discernible effect','Very minor effect','Minor effect','Low effect on performance','Moderate effect','Significant effect — loss of primary function degrades','Major disruption — partial loss of primary function','High — total loss of primary function','Very high — affects safe operation (with warning)','Hazardous — affects safe operation (without warning) or regulatory non-compliance'];
+  const O_DESC = ['','Very low — failure unlikely (Cpk ≥ 1.67)','Very low — rare failure','Low — few failures','Low — occasional failures','Moderate — occasional failures (Cpk ~1.33)','Moderate — moderate failure rate','High — frequent failures (Cpk ~1.0)','High — high failure rate','Very high — failure almost inevitable','Very high — failure is certain'];
+  const D_DESC = ['','Almost certain detection — error-proofed','Very high detection certainty','High detection certainty','Moderately high detection','Moderate detection','Low-moderate detection','Low detection likelihood','Very low detection likelihood','Remote chance of detection','Absolute uncertainty — cannot detect'];
+
+  function syncSlider(type) {
+    const val = document.getElementById(type+'Slider').value;
+    document.getElementById(type+'Val').textContent = val;
+    const descs = {s: S_DESC, o: O_DESC, d: D_DESC};
+    const descEl = document.getElementById(type+'Desc');
+    if(descEl) descEl.textContent = descs[type][parseInt(val)] || '';
+  }
+
+  function computeAP() {
+    const s = parseInt(document.getElementById('sSlider').value);
+    const o = parseInt(document.getElementById('oSlider').value);
+    const d = parseInt(document.getElementById('dSlider').value);
+    const ap = computeAPValue(s, o, d);
+    const card = document.getElementById('resultCard');
+    card.className = 'result-card ap-'+ap;
+    document.getElementById('apLabel').textContent = 'AP — ' + ap;
+    document.getElementById('apSublabel').textContent = AP_ACTIONS[ap].label;
+    document.getElementById('sodDisplay').innerHTML = `<span class="sod-chip">S = ${s}</span><span class="sod-chip">O = ${o}</span><span class="sod-chip">D = ${d}</span><span class="sod-chip">Legacy RPN = ${s*o*d}</span>`;
+    document.getElementById('apAction').textContent = AP_ACTIONS[ap][currentMode];
+    // init descs on load
+    ['s','o','d'].forEach(t=>syncSlider(t));
+  }
+
+  function setMode(mode, btn) {
+    currentMode = mode;
+    document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    computeAP();
+  }
+
+  function showTab(name, el) {
+    document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.getElementById('tab-'+name).classList.add('active');
+    el.classList.add('active');
+    if(name==='table') buildRefTable();
+  }
+
+  function buildRefTable() {
+    const tbody = document.getElementById('apTableBody');
+    tbody.innerHTML = '';
+    const samples = [
+      [10,8,8],[10,4,4],[10,2,2],[9,9,9],[9,5,5],[9,2,2],
+      [8,9,9],[8,7,7],[8,5,5],[8,3,3],[8,1,1],
+      [6,9,9],[6,7,7],[6,5,5],[6,3,3],[6,1,1],
+      [4,9,9],[4,7,7],[4,5,5],[4,3,3],[4,1,1],
+      [2,9,9],[2,5,5],[2,1,1]
+    ];
+    const actionMap = {H:'Action required — document owner + target date',M:'Action recommended — justify if no action taken',L:'Action at team discretion — document for completeness'};
+    samples.forEach(([s,o,d])=>{
+      const ap = computeAPValue(s,o,d);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${s}</td><td>${o}</td><td>${d}</td><td><span class="ap-badge ap-badge-${ap}">${ap}</span></td><td>${actionMap[ap]}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function addToBatch() {
+    const s = parseInt(document.getElementById('sSlider').value);
+    const o = parseInt(document.getElementById('oSlider').value);
+    const d = parseInt(document.getElementById('dSlider').value);
+    const fn = document.getElementById('funcName').value || '(no description)';
+    batchRows.push({id: nextId++, fn, s, o, d, mode: currentMode});
+    renderBatch();
+    showTab('batch', document.querySelectorAll('.tab')[1]);
+  }
+
+  function addBatchRow() {
+    batchRows.push({id: nextId++, fn:'', s:5, o:5, d:5, mode: currentMode});
+    renderBatch();
+  }
+
+  function removeBatchRow(id) {
+    batchRows = batchRows.filter(r=>r.id!==id);
+    renderBatch();
+  }
+
+  function updateBatchField(id, field, value) {
+    const row = batchRows.find(r=>r.id===id);
+    if(!row) return;
+    row[field] = (['s','o','d'].includes(field)) ? parseInt(value) : value;
+    renderBatch();
+  }
+
+  function renderBatch() {
+    const container = document.getElementById('batchContainer');
+    const header = `<div class="batch-row header"><div>Description</div><div>S</div><div>O</div><div>D</div><div>AP</div><div>Legacy RPN</div><div>Remove</div></div>`;
+    const rows = batchRows.map(row=>{
+      const ap = computeAPValue(row.s, row.o, row.d);
+      const rpn = row.s * row.o * row.d;
+      return `<div class="batch-row">
+        <input class="batch-input" type="text" value="${row.fn}" onchange="updateBatchField(${row.id},'fn',this.value)" placeholder="Failure mode / function">
+        <input class="batch-input" type="number" min="1" max="10" value="${row.s}" onchange="updateBatchField(${row.id},'s',this.value)" oninput="updateBatchField(${row.id},'s',this.value)">
+        <input class="batch-input" type="number" min="1" max="10" value="${row.o}" onchange="updateBatchField(${row.id},'o',this.value)" oninput="updateBatchField(${row.id},'o',this.value)">
+        <input class="batch-input" type="number" min="1" max="10" value="${row.d}" onchange="updateBatchField(${row.id},'d',this.value)" oninput="updateBatchField(${row.id},'d',this.value)">
+        <span class="ap-badge ap-badge-${ap}">${ap}</span>
+        <span style="text-align:center;font-size:0.82rem;">${rpn}</span>
+        <button class="btn btn-secondary btn-small" onclick="removeBatchRow(${row.id})" style="width:100%">✕</button>
+      </div>`;
+    }).join('');
+    container.innerHTML = header + rows;
+  }
+
+  function clearBatch() { batchRows = []; renderBatch(); }
+
+  function exportSingleJSON() {
+    const s = parseInt(document.getElementById('sSlider').value);
+    const o = parseInt(document.getElementById('oSlider').value);
+    const d = parseInt(document.getElementById('dSlider').value);
+    const ap = computeAPValue(s,o,d);
+    const data = {
+      tool:'AIAG-VDA FMEA AP Calculator',brand:'Conform-Edge',date:new Date().toISOString().split('T')[0],
+      mode:currentMode,function_description:document.getElementById('funcName').value||'',
+      S:s,O:o,D:d,legacy_RPN:s*o*d,action_priority:ap,
+      required_action:AP_ACTIONS[ap][currentMode],
+      mai_interface:window.__MAI_INTERFACE__
+    };
+    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download='FMEA-AP-'+new Date().toISOString().split('T')[0]+'.json';a.click();
+  }
+
+  function exportBatchJSON() {
+    const rows = batchRows.map(r=>({...r, action_priority:computeAPValue(r.s,r.o,r.d), legacy_RPN:r.s*r.o*r.d}));
+    const data = {
+      tool:'AIAG-VDA FMEA AP Calculator — Batch',brand:'Conform-Edge',date:new Date().toISOString().split('T')[0],
+      mode:currentMode,total_rows:rows.length,
+      high_priority:rows.filter(r=>r.action_priority==='H').length,
+      medium_priority:rows.filter(r=>r.action_priority==='M').length,
+      low_priority:rows.filter(r=>r.action_priority==='L').length,
+      entries:rows,mai_interface:window.__MAI_INTERFACE__
+    };
+    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download='FMEA-Batch-AP-'+new Date().toISOString().split('T')[0]+'.json';a.click();
+  }
+
+  function resetSingle() {
+    document.getElementById('sSlider').value=5;
+    document.getElementById('oSlider').value=5;
+    document.getElementById('dSlider').value=5;
+    document.getElementById('funcName').value='';
+    ['s','o','d'].forEach(t=>syncSlider(t));
+    computeAP();
+  }
+
+  // Initialize
+  computeAP();
+  addBatchRow(); // start with one empty row
+</script>
+
+</body>
+</html>

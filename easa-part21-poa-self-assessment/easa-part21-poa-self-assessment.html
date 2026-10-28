@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EASA Part 21 POA Compliance Self-Assessment | Conform-Edge</title>
+<style>
+  :root {
+    --ce-navy: #1a2744;
+    --ce-steel: #3a5a8c;
+    --ce-accent: #4e8bbf;
+    --easa-yellow: #f9a800;
+    --easa-blue: #003580;
+    --ce-bg: #f4f6fb;
+    --ce-card: #ffffff;
+    --ce-border: #d0d8e8;
+    --ce-text: #1e2a3a;
+    --ce-muted: #6b7a90;
+    --pass: #166534;
+    --pass-bg: #dcfce7;
+    --warn: #854d0e;
+    --warn-bg: #fef9c3;
+    --fail: #991b1b;
+    --fail-bg: #fee2e2;
+    --crit-badge: #dc2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--ce-bg); color: var(--ce-text); }
+  header { background: var(--easa-blue); color: white; padding: 18px 32px; }
+  header .brand { font-size: 12px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; }
+  header h1 { font-size: 19px; font-weight: 700; margin: 4px 0; }
+  header .subtitle { font-size: 12px; opacity: 0.65; }
+  header .reg-strip { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+  header .reg-badge { background: var(--easa-yellow); color: #1a1a1a; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 3px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 28px 16px; }
+  .card { background: var(--ce-card); border: 1px solid var(--ce-border); border-radius: 8px; padding: 24px; margin-bottom: 20px; }
+  .card h2 { font-size: 16px; font-weight: 700; color: var(--easa-blue); margin-bottom: 16px; border-bottom: 2px solid var(--easa-yellow); padding-bottom: 8px; }
+  .intro { background: linear-gradient(135deg, var(--easa-blue) 0%, var(--ce-steel) 100%); color: white; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; }
+  .intro h2 { color: white; border-color: rgba(255,255,255,0.3); }
+  .intro p { font-size: 13px; line-height: 1.7; opacity: 0.9; margin-top: 8px; }
+  .section-header { background: var(--easa-blue); color: white; padding: 9px 14px; border-radius: 5px; font-size: 13px; font-weight: 700; margin: 18px 0 10px; }
+  .question-row { border: 1px solid var(--ce-border); border-radius: 6px; padding: 14px; margin-bottom: 10px; background: white; }
+  .question-row.critical { border-left: 4px solid var(--crit-badge); }
+  .question-header { display: flex; align-items: flex-start; gap: 10px; }
+  .q-num { font-size: 11px; font-weight: 700; color: var(--ce-muted); min-width: 36px; padding-top: 2px; }
+  .q-text { font-size: 13px; line-height: 1.5; flex: 1; }
+  .crit-badge { background: var(--crit-badge); color: white; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; white-space: nowrap; }
+  .q-ref { font-size: 11px; color: var(--ce-muted); margin-top: 4px; font-style: italic; }
+  .response-row { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+  .response-row label { font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 4px 12px; border: 1px solid var(--ce-border); border-radius: 4px; }
+  .response-row input[type="radio"] { accent-color: var(--easa-blue); }
+  .response-row label.sel-yes { background: var(--pass-bg); border-color: var(--pass); color: var(--pass); }
+  .response-row label.sel-partial { background: var(--warn-bg); border-color: var(--warn); color: var(--warn); }
+  .response-row label.sel-no { background: var(--fail-bg); border-color: var(--fail); color: var(--fail); }
+  .verdict-bar { border-radius: 8px; padding: 20px 24px; margin: 20px 0; text-align: center; }
+  .verdict-bar.ready { background: var(--pass-bg); border: 2px solid var(--pass); color: var(--pass); }
+  .verdict-bar.conditional { background: var(--warn-bg); border: 2px solid var(--warn); color: var(--warn); }
+  .verdict-bar.not-ready { background: var(--fail-bg); border: 2px solid var(--fail); color: var(--fail); }
+  .verdict-bar h3 { font-size: 22px; font-weight: 800; }
+  .verdict-bar p { font-size: 14px; margin-top: 6px; }
+  .score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 12px; margin: 16px 0; }
+  .score-box { background: var(--ce-bg); border: 1px solid var(--ce-border); border-radius: 6px; padding: 14px; text-align: center; }
+  .score-box .val { font-size: 26px; font-weight: 800; color: var(--easa-blue); }
+  .score-box .lbl { font-size: 11px; color: var(--ce-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .gap-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .gap-table th { background: var(--easa-blue); color: white; padding: 8px 10px; text-align: left; }
+  .gap-table td { padding: 8px 10px; border-bottom: 1px solid var(--ce-border); vertical-align: top; }
+  .gap-table tr:nth-child(even) td { background: var(--ce-bg); }
+  .gap-table .crit-row td { background: #fff5f5; }
+  .btn { padding: 10px 22px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; }
+  .btn-primary { background: var(--easa-blue); color: white; }
+  .btn-secondary { background: var(--ce-accent); color: white; }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .mai-badge { background: var(--ce-bg); border: 1px solid var(--ce-border); border-radius: 6px; padding: 10px 14px; font-size: 11px; color: var(--ce-muted); display: flex; align-items: center; gap: 8px; }
+  .mai-badge span { font-weight: 700; color: var(--ce-steel); }
+  .hidden { display: none; }
+  .poa-desc { font-size: 12px; color: var(--ce-muted); background: var(--ce-bg); border-radius: 5px; padding: 10px 14px; margin-bottom: 14px; border-left: 3px solid var(--easa-yellow); }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; font-size: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+  footer { text-align: center; font-size: 11px; color: var(--ce-muted); padding: 24px; border-top: 1px solid var(--ce-border); margin-top: 24px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Conform-Edge Quality Consulting</div>
+  <h1>EASA Part 21 Production Organisation Approval (POA) Self-Assessment</h1>
+  <div class="subtitle">Commission Regulation (EU) No 748/2012 — Part 21 Subpart G — Pre-EASA Audit Preparation</div>
+  <div class="reg-strip">
+    <div class="reg-badge">Part 21 Subpart G</div>
+    <div class="reg-badge">21.A.133–21.A.174</div>
+    <div class="reg-badge">AMC/GM to Part 21</div>
+    <div class="reg-badge">POE/QMS/PA Compliance</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="intro card">
+    <h2>About This Tool</h2>
+    <p>An EASA Production Organisation Approval (POA) under Part 21 Subpart G is required for manufacturers who wish to produce and release aircraft, engines, propellers, or parts to EASA airworthiness standards. The POA requires approval of the Production Organisation Exposition (POE), a Production Assurance System (PAS), and documented conformity inspection arrangements. This self-assessment covers the core POA requirements an EASA Production Organisation Inspector (POI) evaluates during initial approval, continued surveillance, and POA renewal visits.</p>
+    <p style="margin-top:8px;">Critical items (<span style="background:#dc2626;color:white;padding:1px 5px;border-radius:3px;font-size:11px;font-weight:700;">CRITICAL</span>) represent Level 1 findings under EASA Part 21 — findings that constitute a significant non-compliance with requirements that jeopardise safety or invalidates the POA. A single CRITICAL NO forces a NOT READY verdict regardless of overall score.</p>
+    <p style="margin-top:8px;font-size:11px;opacity:0.8;">Note: This tool covers the EASA-side requirements under Part 21 Subpart G. It is complementary to, but distinct from, FAA Part 21 PAH requirements. Organisations holding both EASA POA and FAA PC/PMA should use both tools.</p>
+  </div>
+
+  <div class="card">
+    <h2>Section 1 — Production Organisation Exposition (POE)</h2>
+    <div class="poa-desc">The POE (Production Organisation Exposition) is the cornerstone document of the EASA POA. It must describe the organisation's structure, management system, quality assurance, and procedures. The POE must be approved by the Competent Authority (EASA or NAA) and kept current. Reference: Part 21 21.A.143, AMC 21.A.143.</div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#dc2626;"></div><span>Critical — single NO = NOT READY (Level 1 finding basis)</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--ce-accent);"></div><span>Standard (Level 2 / OFI finding basis)</span></div>
+    </div>
+
+    <div id="poe-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">POE-1</span><span class="q-text">Does the organisation maintain a current, approved Production Organisation Exposition (POE) that has been accepted by the Competent Authority, and is the POE revision status controlled and accessible to relevant personnel?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.143 / AMC 21.A.143 POE content requirements / Level 1 finding basis</div>
+      <div class="response-row" data-q="poe-q1"></div>
+    </div>
+    <div id="poe-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">POE-2</span><span class="q-text">Does the POE describe: scope of work and products/parts covered; the Accountable Manager and their statement of commitment; the organisation chart; the production assurance system; quality procedures; and conformity inspection arrangements?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.143(a) / AMC 21.A.143 required elements / Level 1 if POE is absent or does not cover all required areas</div>
+      <div class="response-row" data-q="poe-q2"></div>
+    </div>
+    <div id="poe-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">POE-3</span><span class="q-text">Is there a documented process for amending the POE, including Competent Authority notification/approval requirements for significant changes, with amendment records showing CA acceptance?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.143(b) POE amendment / AMC 21.A.143 change management</div>
+      <div class="response-row" data-q="poe-q3"></div>
+    </div>
+    <div id="poe-q4" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">POE-4</span><span class="q-text">Are there up-to-date procedures in the POE for each significant production activity, and are these procedures used by personnel in daily operations (not shelfware)?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.143(a)(6) / AMC 21.A.143 procedures list</div>
+      <div class="response-row" data-q="poe-q4"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Section 2 — Accountable Manager &amp; Personnel</h2>
+    <div class="poa-desc">The Accountable Manager (AM) is personally accountable to the Competent Authority for the organisation's compliance with Part 21 Subpart G. The AM must be empowered to commit resources and has specific Part 21 responsibilities that cannot be fully delegated. Key personnel must be identified and meet qualification requirements.</div>
+
+    <div id="am-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">AM-1</span><span class="q-text">Is an Accountable Manager formally appointed (named in the POE), directly accessible to the Competent Authority, and empowered to ensure the organisation can finance and carry out production to applicable standards?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.145(c) / AMC 21.A.145 Accountable Manager requirements / Level 1 if AM not identified or not empowered</div>
+      <div class="response-row" data-q="am-q1"></div>
+    </div>
+    <div id="am-q2" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">AM-2</span><span class="q-text">Are nominated managers (Quality Manager, Production Manager, etc.) identified in the POE with their qualifications, responsibilities, and lines of authority documented?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.145(b) / AMC 21.A.145 management structure</div>
+      <div class="response-row" data-q="am-q2"></div>
+    </div>
+    <div id="am-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">AM-3</span><span class="q-text">Is the Quality function independent from production with authority to halt production and reject conformity releases when non-compliance is identified?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.145(d) QA independence / AMC 21.A.145</div>
+      <div class="response-row" data-q="am-q3"></div>
+    </div>
+    <div id="am-q4" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">AM-4</span><span class="q-text">Are all production and inspection personnel trained and competent for their tasks, with training records on file and a competency assessment process in place?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.145(b)(4) / AMC 21.A.145 personnel qualification</div>
+      <div class="response-row" data-q="am-q4"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Section 3 — Conformity Inspection &amp; Design Data</h2>
+    <div class="poa-desc">The POA holder must have approved design data (from the TC/STC/ETSO holder or own approved data) and must inspect all production to confirm conformity. Conformity inspection arrangements are a primary EASA POI audit focus.</div>
+
+    <div id="ci-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">CI-1</span><span class="q-text">Is current approved design data (TC, STC, ETSO, or design organisation approved data) identified, controlled, and accessible at points of production and inspection? Is the current revision status confirmed before use?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.133(b) / 21.A.143(a)(2) design data access / Level 1 if approved data not controlled or not available</div>
+      <div class="response-row" data-q="ci-q1"></div>
+    </div>
+    <div id="ci-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">CI-2</span><span class="q-text">Is a conformity inspection performed for each product/part produced, confirming conformance to the approved design data, with a conformity record (manufacturing order, traveler, or equivalent) generated and retained?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.163(b) / AMC 21.A.163 conformity inspection records / Level 1 if no conformity records</div>
+      <div class="response-row" data-q="ci-q2"></div>
+    </div>
+    <div id="ci-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">CI-3</span><span class="q-text">Are design changes (including production deviations and repairs) evaluated to determine whether they require design organisation or Competent Authority approval before implementation?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.133(c) / 21.A.163 configuration control / AMC to Part 21 Subpart G change management</div>
+      <div class="response-row" data-q="ci-q3"></div>
+    </div>
+    <div id="ci-q4" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">CI-4</span><span class="q-text">Is there a documented process for managing concessions (production deviations/permits) requiring design organisation approval, with records of approved concessions retained?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.133(c) / POE deviation/concession management requirement</div>
+      <div class="response-row" data-q="ci-q4"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Section 4 — Airworthiness Release (EASA Form 1)</h2>
+    <div class="poa-desc">POA holders issue EASA Form 1 (Authorised Release Certificate) for parts, appliances, and components produced under the POA. Incorrect, incomplete, or unauthorised EASA Form 1 issuance is a Level 1 finding that can trigger POA suspension.</div>
+
+    <div id="ef1-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">EF1-1</span><span class="q-text">Is there a documented, controlled process for issuing EASA Form 1 (Authorised Release Certificate), with authorised signatories identified and their authorisation documented, and signatories trained on EASA Form 1 completion requirements?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.163(b) / Appendix I EASA Form 1 completion instructions / Level 1 if unauthorised signatories or Form 1 issued incorrectly</div>
+      <div class="response-row" data-q="ef1-q1"></div>
+    </div>
+    <div id="ef1-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">EF1-2</span><span class="q-text">Does each EASA Form 1 issued correctly complete: blocks 12 (status/work performed), 13a (remarks including conformity statement), 14a (EASA Form 1 statement), 14b (regulation), 14c (signature/stamp), 14d (certificate number), 14e (POA number), 14f (date)?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 Appendix I EASA Form 1 / AMC to Part 21 Appendix I Form 1 completion / Level 1 if blocks 14a-f incorrect</div>
+      <div class="response-row" data-q="ef1-q2"></div>
+    </div>
+    <div id="ef1-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">EF1-3</span><span class="q-text">Are copies of issued EASA Form 1 certificates retained and linked to the conformity records for the corresponding product/part lot, and are records accessible for Competent Authority review?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.163(a) record retention / AMC 21.A.163</div>
+      <div class="response-row" data-q="ef1-q3"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Section 5 — Production Assurance System (PAS) &amp; Internal Audit</h2>
+    <div class="poa-desc">The Production Assurance System (PAS) is the POA's equivalent of a QMS — it must demonstrate systematic control over all production processes. Internal independent monitoring (audit) is a mandatory POA element. Reference: Part 21 21.A.139.</div>
+
+    <div id="pas-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">PAS-1</span><span class="q-text">Does the organisation maintain a Production Assurance System (PAS) that monitors conformity with applicable requirements, identifies non-compliance findings, and ensures corrective action is taken and verified effective?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.139 / AMC 21.A.139 PAS requirements / Level 1 if PAS absent or not functional</div>
+      <div class="response-row" data-q="pas-q1"></div>
+    </div>
+    <div id="pas-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">PAS-2</span><span class="q-text">Does the PAS include an independent monitoring (audit) function that audits all areas of the POA's production activities, with findings reported to the Accountable Manager and records of audits and corrective actions maintained?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.139(e) independent monitoring / AMC 21.A.139 monitoring function / Level 1 if monitoring function absent</div>
+      <div class="response-row" data-q="pas-q2"></div>
+    </div>
+    <div id="pas-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">PAS-3</span><span class="q-text">Is there a procedure for reporting safety-significant findings (airworthiness-relevant non-conformances) to the Competent Authority, the design organisation, and/or EASA, with records of notifications made?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.3A occurrence reporting / AMC 21.A.3A / AMC 21.A.139</div>
+      <div class="response-row" data-q="pas-q3"></div>
+    </div>
+    <div id="pas-q4" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">PAS-4</span><span class="q-text">Are non-conformities identified in the PAS tracked through to root cause and corrective action closure, with the Accountable Manager briefed on systemic issues?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.139(d) corrective action / AMC 21.A.139</div>
+      <div class="response-row" data-q="pas-q4"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Section 6 — Suppliers &amp; Subcontractors</h2>
+    <div class="poa-desc">The POA holder is responsible for the airworthiness of all parts produced under the POA, including those manufactured by subcontractors. Subcontractor oversight is a common EASA POI finding area. Reference: Part 21 21.A.133(a), 21.A.143(a)(7).</div>
+
+    <div id="sub-q1" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">SUB-1</span><span class="q-text">Are subcontractors/suppliers who manufacture parts or perform processes for the POA holder listed in the POE (or an approved procedure/list), with their scope of work and control mechanism documented?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.133(a) / 21.A.143(a)(7) supplier listing / AMC 21.A.143 subcontractor approval process</div>
+      <div class="response-row" data-q="sub-q1"></div>
+    </div>
+    <div id="sub-q2" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">SUB-2</span><span class="q-text">Are flow-down requirements (applicable design data, inspection requirements, airworthiness release/C of C requirements) included in purchase orders or contractual agreements with subcontractors?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.133(a) / AMC 21.A.139 supplier oversight flow-down</div>
+      <div class="response-row" data-q="sub-q2"></div>
+    </div>
+    <div id="sub-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">SUB-3</span><span class="q-text">Is receiving inspection performed on subcontractor-supplied items before release to production, with inspection records demonstrating the check was performed?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.163(b) / AMC 21.A.163 receiving inspection as part of conformity inspection</div>
+      <div class="response-row" data-q="sub-q3"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Section 7 — Facilities, Equipment &amp; Materials</h2>
+    <div class="poa-desc">The POA holder must have adequate facilities, equipment, tools, and materials to ensure conformity with applicable requirements. Reference: Part 21 21.A.145(a).</div>
+
+    <div id="fac-q1" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">FAC-1</span><span class="q-text">Are production facilities adequate for the scope of work (covered by the POA), and is the facility description in the POE current and accurate including any additional/satellite locations?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.145(a)(1) / AMC 21.A.145 facility requirements</div>
+      <div class="response-row" data-q="fac-q1"></div>
+    </div>
+    <div id="fac-q2" class="question-row critical" data-crit="1">
+      <div class="question-header"><span class="q-num">FAC-2</span><span class="q-text">Are measuring and test equipment used in conformity inspection calibrated, with calibration records traceable to national or international measurement standards, and are out-of-calibration instruments removed from service?</span><span class="crit-badge">CRITICAL</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.145(a)(3) / AMC 21.A.145 calibration requirements / Level 1 basis if uncalibrated equipment used in release</div>
+      <div class="response-row" data-q="fac-q2"></div>
+    </div>
+    <div id="fac-q3" class="question-row" data-crit="0">
+      <div class="question-header"><span class="q-num">FAC-3</span><span class="q-text">Are raw materials and bought-out parts received and stored to prevent deterioration, with shelf-life and storage condition requirements controlled?</span></div>
+      <div class="q-ref">Ref: Part 21 21.A.145(a)(2) / AMC 21.A.145 material control</div>
+      <div class="response-row" data-q="fac-q3"></div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results-panel" class="hidden">
+    <div class="card">
+      <h2>POA Compliance Assessment Results</h2>
+      <div id="verdict-display"></div>
+      <div class="score-grid">
+        <div class="score-box"><div class="val" id="score-pct">—</div><div class="lbl">Overall Score</div></div>
+        <div class="score-box"><div class="val" id="score-yes">—</div><div class="lbl">Yes / Conforming</div></div>
+        <div class="score-box"><div class="val" id="score-partial">—</div><div class="lbl">Partial</div></div>
+        <div class="score-box"><div class="val" id="score-no">—</div><div class="lbl">No / Gap</div></div>
+        <div class="score-box"><div class="val" id="score-crit">—</div><div class="lbl">Critical Gaps</div></div>
+      </div>
+      <div id="mai-obs" style="margin:12px 0;"></div>
+      <div id="gap-section" class="hidden">
+        <h3 style="margin:14px 0 10px;font-size:14px;color:var(--easa-blue);">Priority Gap Register — Potential Level 1 &amp; Level 2 Findings</h3>
+        <table class="gap-table">
+          <thead><tr><th>#</th><th>Question</th><th>Section</th><th>Response</th><th>Finding Level</th></tr></thead>
+          <tbody id="gap-tbody"></tbody>
+        </table>
+      </div>
+      <div id="mr-narrative" style="margin:14px 0;"></div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="exportJSON()">Export JSON</button>
+        <button class="btn btn-secondary" onclick="window.print()">Print Report</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="mai-badge">
+      <span>M-AI</span> Domain: easa-part21-poa-compliance | Architecture: DEFINED | DIMs: 5 (poe-document-control, accountable-manager-authority, conformity-inspection-records, airworthiness-release-form1, production-assurance-system)
+    </div>
+    <div class="btn-group" style="margin-top:14px;">
+      <button class="btn btn-primary" onclick="computeResults()">Generate POA Assessment</button>
+      <button class="btn btn-secondary" onclick="resetAll()">Reset All</button>
+    </div>
+  </div>
+
+  <footer>
+    Conform-Edge Quality Consulting | EASA Part 21 POA Compliance Self-Assessment<br>
+    For pre-audit preparation only. Reference: Commission Regulation (EU) No 748/2012, Part 21 Subpart G (21.A.133–21.A.174); AMC &amp; GM to Part 21.
+  </footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  {id:'poe-q1',text:'Current approved POE exists, CA-accepted, revision-controlled, accessible',crit:true,section:'Production Organisation Exposition (POE)'},
+  {id:'poe-q2',text:'POE covers all required elements (scope, AM, org chart, PAS, quality procedures, conformity)',crit:true,section:'Production Organisation Exposition (POE)'},
+  {id:'poe-q3',text:'POE amendment process documented with CA notification/approval controls',crit:false,section:'Production Organisation Exposition (POE)'},
+  {id:'poe-q4',text:'POE procedures current and used in daily operations (not shelfware)',crit:false,section:'Production Organisation Exposition (POE)'},
+  {id:'am-q1',text:'Accountable Manager formally appointed, CA-accessible, empowered to commit resources',crit:true,section:'Accountable Manager & Personnel'},
+  {id:'am-q2',text:'Nominated managers identified in POE with qualifications, responsibilities, authority',crit:false,section:'Accountable Manager & Personnel'},
+  {id:'am-q3',text:'Quality function independent of production with authority to halt production/reject releases',crit:false,section:'Accountable Manager & Personnel'},
+  {id:'am-q4',text:'Personnel trained and competent; training records on file; competency assessment process',crit:false,section:'Accountable Manager & Personnel'},
+  {id:'ci-q1',text:'Current approved design data controlled, accessible at production/inspection points',crit:true,section:'Conformity Inspection & Design Data'},
+  {id:'ci-q2',text:'Conformity inspection performed per product/part; conformity record generated and retained',crit:true,section:'Conformity Inspection & Design Data'},
+  {id:'ci-q3',text:'Design changes evaluated for CA/DO approval requirement before implementation',crit:false,section:'Conformity Inspection & Design Data'},
+  {id:'ci-q4',text:'Concession/deviation management procedure with records of approved deviations',crit:false,section:'Conformity Inspection & Design Data'},
+  {id:'ef1-q1',text:'EASA Form 1 issuance process documented; authorised signatories identified and trained',crit:true,section:'Airworthiness Release (EASA Form 1)'},
+  {id:'ef1-q2',text:'EASA Form 1 blocks correctly completed (14a-f, 12, 13a per Appendix I)',crit:true,section:'Airworthiness Release (EASA Form 1)'},
+  {id:'ef1-q3',text:'Form 1 copies retained and linked to conformity records; accessible for CA review',crit:false,section:'Airworthiness Release (EASA Form 1)'},
+  {id:'pas-q1',text:'Production Assurance System functional — monitors conformity, identifies NCs, CA actions verified',crit:true,section:'Production Assurance System (PAS) & Audit'},
+  {id:'pas-q2',text:'Independent monitoring function audits all POA areas; findings reported to AM; records maintained',crit:true,section:'Production Assurance System (PAS) & Audit'},
+  {id:'pas-q3',text:'Safety-significant finding reporting process (to CA, DO, EASA) with notification records',crit:false,section:'Production Assurance System (PAS) & Audit'},
+  {id:'pas-q4',text:'NC findings tracked to RCA and CA closure; AM briefed on systemic issues',crit:false,section:'Production Assurance System (PAS) & Audit'},
+  {id:'sub-q1',text:'Subcontractors/suppliers listed in POE or approved list with scope and control mechanism',crit:true,section:'Suppliers & Subcontractors'},
+  {id:'sub-q2',text:'Flow-down requirements in POs/contracts (design data, inspection, airworthiness release)',crit:false,section:'Suppliers & Subcontractors'},
+  {id:'sub-q3',text:'Receiving inspection performed on supplier items before release to production',crit:false,section:'Suppliers & Subcontractors'},
+  {id:'fac-q1',text:'Facilities adequate for scope; facility description in POE current (incl. additional locations)',crit:false,section:'Facilities, Equipment & Materials'},
+  {id:'fac-q2',text:'M&TE calibrated with NIST/NPL-traceable records; out-of-calibration instruments removed',crit:true,section:'Facilities, Equipment & Materials'},
+  {id:'fac-q3',text:'Raw materials/bought-out parts storage controls (shelf life, conditions, deterioration prevention)',crit:false,section:'Facilities, Equipment & Materials'},
+];
+
+function buildResponseRows() {
+  QUESTIONS.forEach(q => {
+    const row = document.querySelector('.response-row[data-q="'+q.id+'"]');
+    if (!row || row.childNodes.length > 0) return;
+    ['yes','partial','no'].forEach(v => {
+      const lbl = document.createElement('label');
+      const inp = document.createElement('input');
+      inp.type = 'radio'; inp.name = q.id; inp.value = v;
+      inp.addEventListener('change', () => styleLabel(q.id));
+      lbl.appendChild(inp);
+      lbl.appendChild(document.createTextNode(v==='yes'?'✓ Yes':v==='partial'?'~ Partial':'✗ No'));
+      row.appendChild(lbl);
+    });
+  });
+}
+
+function styleLabel(qid) {
+  const row = document.querySelector('.response-row[data-q="'+qid+'"]');
+  if(!row) return;
+  row.querySelectorAll('label').forEach(l => {
+    l.className='';
+    if(l.querySelector('input').checked) {
+      const v=l.querySelector('input').value;
+      l.className = v==='yes'?'sel-yes':v==='partial'?'sel-partial':'sel-no';
+    }
+  });
+}
+
+function computeResults() {
+  let yes=0,partial=0,no=0,critNo=0,total=QUESTIONS.length;
+  const gaps=[];
+  QUESTIONS.forEach(q => {
+    const sel=document.querySelector('input[name="'+q.id+'"]:checked');
+    const val=sel?sel.value:null;
+    if(val==='yes') yes++;
+    else if(val==='partial'){partial++;gaps.push({q,val:'Partial'});}
+    else{no++;if(q.crit)critNo++;gaps.push({q,val:'No'});}
+  });
+  const score=Math.round((yes+partial*0.5)/total*100);
+  let vClass,vTitle,vMsg;
+  if(critNo>0){vClass='not-ready';vTitle='⛔ NOT READY';vMsg='One or more potential Level 1 findings identified (CRITICAL gaps). EASA POI visit would likely find significant non-compliance. Address all critical items immediately — Level 1 findings can trigger POA suspension.';}
+  else if(score>=85){vClass='ready';vTitle='✓ POA AUDIT READY';vMsg='No Level 1 gaps. Score ≥85%. Complete evidence file review and POE currency check before EASA surveillance visit.';}
+  else if(score>=65){vClass='conditional';vTitle='⚠ CONDITIONAL';vMsg='No Level 1 gaps but score <85%. Multiple Level 2 finding risks remain. Address identified gaps before EASA surveillance.';}
+  else{vClass='not-ready';vTitle='⛔ NOT READY';vMsg='Multiple compliance gaps. Significant corrective work needed before EASA POA surveillance visit.';}
+
+  document.getElementById('verdict-display').innerHTML=`<div class="verdict-bar ${vClass}"><h3>${vTitle}</h3><p>${vMsg}</p></div>`;
+  document.getElementById('score-pct').textContent=score+'%';
+  document.getElementById('score-yes').textContent=yes;
+  document.getElementById('score-partial').textContent=partial;
+  document.getElementById('score-no').textContent=no;
+  document.getElementById('score-crit').textContent=critNo;
+
+  document.getElementById('mai-obs').innerHTML=`<div class="mai-badge"><span>M-AI Observation</span> Regulation: EASA Part 21 Subpart G | Score: ${score}% | Level 1 gaps: ${critNo} | Verdict: ${vTitle.replace(/[✓⛔⚠]\s*/,'')} | DIMs: poe-document-control, accountable-manager-authority, conformity-inspection-records, airworthiness-release-form1, production-assurance-system</div>`;
+
+  const tbody=document.getElementById('gap-tbody');
+  tbody.innerHTML='';
+  if(gaps.length){
+    document.getElementById('gap-section').classList.remove('hidden');
+    gaps.forEach((g,i)=>{
+      const tr=document.createElement('tr');
+      if(g.q.crit&&g.val==='No') tr.className='crit-row';
+      tr.innerHTML=`<td>${i+1}</td><td>${g.q.text}${g.q.crit?'<br><span style="color:#dc2626;font-size:11px;font-weight:700;">⚡ Potential Level 1 — POA suspension risk</span>':''}</td><td>${g.q.section}</td><td>${g.val}</td><td>${g.q.crit&&g.val==='No'?'<strong style="color:#dc2626">Level 1 — RESOLVE IMMEDIATELY</strong>':g.val==='No'?'Level 2':'Level 2 / OFI'}</td>`;
+      tbody.appendChild(tr);
+    });
+  } else document.getElementById('gap-section').classList.add('hidden');
+
+  document.getElementById('mr-narrative').innerHTML=`<div style="background:#f4f6fb;border:1px solid #d0d8e8;border-radius:6px;padding:14px;font-size:12px;color:var(--easa-blue);margin-top:10px;"><strong>Accountable Manager Review Note:</strong><br>EASA Part 21 POA compliance self-assessment completed ${new Date().toISOString().split('T')[0]}. ${yes+partial+no} of ${total} questions answered. Score: ${score}%. Potential Level 1 gaps: ${critNo}. Verdict: ${vTitle.replace(/[✓⛔⚠]\s*/,'')}. ${gaps.length} gap(s) identified for corrective action.</div>`;
+
+  document.getElementById('results-panel').classList.remove('hidden');
+  document.getElementById('results-panel').scrollIntoView({behavior:'smooth'});
+}
+
+function exportJSON(){
+  const data={
+    tool:'EASA Part 21 POA Compliance Self-Assessment',
+    vendor:'Conform-Edge Quality Consulting',
+    regulation:'Commission Regulation (EU) No 748/2012 Part 21 Subpart G',
+    date:new Date().toISOString().split('T')[0],
+    responses:{},
+    mai:{domain:'easa-part21-poa-compliance',architecture:'DEFINED',dims:['poe-document-control','accountable-manager-authority','conformity-inspection-records','airworthiness-release-form1','production-assurance-system']}
+  };
+  QUESTIONS.forEach(q=>{
+    const sel=document.querySelector('input[name="'+q.id+'"]:checked');
+    data.responses[q.id]={text:q.text,critical:q.crit,section:q.section,response:sel?sel.value:'unanswered'};
+  });
+  const a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));
+  a.download='easa-poa-assessment-'+data.date+'.json';
+  a.click();
+}
+
+function resetAll(){
+  document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.response-row label').forEach(l=>l.className='');
+  document.getElementById('results-panel').classList.add('hidden');
+}
+
+buildResponseRows();
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+{
+ "assessments": [],
+ "audit": {
+  "type": "synthetic demo"
+ },
+ "audit_id": "DEMO-AUDIT-001 (synthetic)",
+ "checklist_items": [],
+ "evidence": [
+  {
+   "auditor": "Auditor B",
+   "description": "SYNTHETIC record",
+   "evidence_type": "record",
+   "file_path": null,
+   "id": "EV-001",
+   "source_ref": "8.2",
+   "timestamp": "2026-10-08T11:00:00"
+  }
+ ],
+ "export_id": "EXP-SYNTH-0001",
+ "findings": [
+  {
+   "audit_id": "DEMO-AUDIT-001",
+   "checklist_item_ref": "CI-8.2 (synthetic)",
+   "evidence_ids": [
+    "EV-001"
+   ],
+   "id": "F-001",
+   "lead_classification": "MINOR_NC",
+   "lead_classified_at": "2026-10-08T12:00:00",
+   "lead_classified_by": "Lead C",
+   "lead_role": "LEAD_AUDITOR",
+   "proposed_by": "Auditor B",
+   "proposed_classification": "MINOR_NC",
+   "requirement_ids": [
+    "STD:SAE AS9110C:8.2"
+   ],
+   "statement": "SYNTHETIC: approval record not found for the sampled supplier.",
+   "status": "CLASSIFIED"
+  }
+ ],
+ "generated_at": "2026-10-08T12:30:00",
+ "interviews": [],
+ "manual": {
+  "reviewed_by": null,
+  "reviewed_on": null,
+  "sha256": null,
+  "source_class": null,
+  "status": null,
+  "uploaded_on": null
+ },
+ "not_assessed": [],
+ "organization": "Burrana Inc.",
+ "package_version": "1.0",
+ "prior_car_reviews": [],
+ "sampling": [],
+ "snapshot": {
+  "version": 1
+ },
+ "sources": [
+  {
+   "edition": "AS9100D",
+   "licence_scope_owner": "Burrana Inc.",
+   "licence_use": "ORG_PRIVATE_LICENSED",
+   "next_review_due": null,
+   "publication_url": null,
+   "retrieved_on": null,
+   "sha256": "e4f399daaa6d2f907bb8cb0e8e491ef75e06f6e01dafd5a4f03d2d1fe7a81413",
+   "source_id": "AS9100D",
+   "standard": "SAE AS9100D",
+   "status": "proposed"
+  },
+  {
+   "edition": "AS9110C",
+   "licence_scope_owner": "Burrana Inc.",
+   "licence_use": "ORG_PRIVATE_LICENSED",
+   "next_review_due": null,
+   "publication_url": null,
+   "retrieved_on": null,
+   "sha256": "0af526813f6636639a37382a731e41e703ce23488882082d146d529fcbdd2c71",
+   "source_id": "AS9110C",
+   "standard": "SAE AS9110C",
+   "status": "proposed"
+  },
+  {
+   "edition": "eCFR snapshot 2026-09-01",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-09-01/title-14.xml?part=145",
+   "retrieved_on": "2026-10-08",
+   "sha256": "7f5e362ee7db965ce62cb402372bae331d39141f4890f9b2834dbfbf6a2f40d8",
+   "source_id": "FAA-14CFR-145",
+   "standard": "14 CFR Part 145",
+   "status": "unverified"
+  },
+  {
+   "edition": "eCFR snapshot 2026-09-01",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-09-01/title-14.xml?part=21",
+   "retrieved_on": "2026-10-08",
+   "sha256": "435031ef59dcfd99674ba96f7fca011b7e219e28bbf6211d54f124148525ea6e",
+   "source_id": "FAA-14CFR-21",
+   "standard": "14 CFR Part 21",
+   "status": "unverified"
+  },
+  {
+   "edition": "EUR-Lex",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R1321",
+   "retrieved_on": "2026-10-08",
+   "sha256": "38288e43cecde3e0736fd448567ba6f985829bfd296ece2a8c5f13ba6c873007",
+   "source_id": "EASA-PART145",
+   "standard": "Reg. (EU) 1321/2014 Annex II",
+   "status": "unverified"
+  },
+  {
+   "edition": "EUR-Lex",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32012R0748",
+   "retrieved_on": "2026-10-08",
+   "sha256": "1df842a116209fd3a9a7edf740086efe97827906d40fd147413989d76d383a53",
+   "source_id": "EASA-PART21",
+   "standard": "Reg. (EU) 748/2012 Annex I",
+   "status": "unverified"
+  },
+  {
+   "edition": "legislation.gov.uk",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://www.legislation.gov.uk/eur/2014/1321/annex/II/data.htm?view=plain",
+   "retrieved_on": "2026-10-08",
+   "sha256": "ca14aa6fa317197c5dd77314d6bebbb933ad13cb16049aa163fb9aafe665c171",
+   "source_id": "UK-PART145",
+   "standard": "UK retained Reg. (EU) 1321/2014 Annex II",
+   "status": "unverified"
+  },
+  {
+   "edition": "eff. 2022-07-01",
+   "licence_scope_owner": "Public regulator publication",
+   "licence_use": "SHARED_DISTRIBUTABLE",
+   "next_review_due": null,
+   "publication_url": "https://xxgk.mot.gov.cn/gz/202202/W020220228592655663336.doc",
+   "retrieved_on": "2026-10-08",
+   "sha256": "d40c3ad9f8751c5cf9ed070ff08c0ae5f2493a9c62fa011b8c12af951cb90c8f",
+   "source_id": "CAAC-CCAR145-R4",
+   "standard": "CAAC CCAR-145-R4 (MOT Order 8/2022)",
+   "status": "unverified"
+  },
+  {
+   "edition": null,
+   "licence_scope_owner": null,
+   "licence_use": "UNVERIFIED_OR_UNAVAILABLE",
+   "next_review_due": null,
+   "publication_url": null,
+   "retrieved_on": null,
+   "sha256": null,
+   "source_id": "MX-AFAC-RAC145",
+   "standard": "MX AFAC RAC 145",
+   "status": "unavailable"
+  }
+ ],
+ "sources_withheld_for_licence": [],
+ "unresolved_items": []
+}

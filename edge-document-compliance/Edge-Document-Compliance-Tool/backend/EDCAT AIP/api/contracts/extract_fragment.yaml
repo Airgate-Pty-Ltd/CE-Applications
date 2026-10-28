@@ -1,0 +1,48 @@
+
+post:
+  summary: Extract normalized requirements from a source document
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [tenant_id, session_id, source_doc_id]
+          properties:
+            tenant_id: { type: string, format: uuid }
+            session_id: { type: string, format: uuid }
+            source_doc_id: { type: string, format: uuid }
+            scope:
+              type: object
+              properties:
+                pages: { type: array, items: { type: integer } }
+                clause_filters: { type: array, items: { type: string } }
+                customer: { type: boolean }
+  responses:
+    '200':
+      description: Extraction results
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              requirements:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    req_id: { type: string }
+                    obligation: { type: string }
+                    actor: { type: string }
+                    action: { type: string }
+                    object: { type: string }
+                    conditions: { type: string }
+                    evidence_type: { type: string }
+                    tags: { type: array, items: { type: string } }
+                    citation: { type: string }
+              stats:
+                type: object
+                properties:
+                  total: { type: integer }
+                  kept: { type: integer }
+                  dropped: { type: integer }

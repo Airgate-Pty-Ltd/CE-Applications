@@ -1,0 +1,349 @@
+{
+  "registry_version": "1.0.0",
+  "domain": "standards",
+  "identity_markers_needs_review": true,
+  "last_full_validation": null,
+  "sources": [
+    {
+      "id": "STD-298",
+      "authority": "ISO",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "",
+      "url": "https://www.iso.org/standards.html",
+      "identity_markers": [
+        "ISO"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-299",
+      "authority": "ISO Online Browsing Platform",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Terminology, clauses, metadata",
+      "url": "https://www.iso.org/obp/ui/",
+      "identity_markers": [
+        "ISO",
+        "Terminology"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-300",
+      "authority": "IEC Webstore",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "",
+      "url": "https://webstore.iec.ch/",
+      "identity_markers": [
+        "IEC"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-301",
+      "authority": "IEC advanced search",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Status and edition search",
+      "url": "https://webstore.iec.ch/advanced-search-form",
+      "identity_markers": [
+        "IEC",
+        "Status"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-302",
+      "authority": "ASTM standards",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "",
+      "url": "https://www.astm.org/products-services/standards-and-publications/standards.html",
+      "identity_markers": [
+        "ASTM"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-303",
+      "authority": "ASTM work items",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Draft-development monitoring",
+      "url": "https://www.astm.org/workitem-wk.html",
+      "identity_markers": [
+        "ASTM",
+        "Draft"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-304",
+      "authority": "IAQG",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "",
+      "url": "https://iaqg.org/standards/",
+      "identity_markers": [
+        "IAQG"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-305",
+      "authority": "IAQG SCMH",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Supply-chain guidance",
+      "url": "https://iaqg.org/tools/scmh/",
+      "identity_markers": [
+        "IAQG",
+        "Supply"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-306",
+      "authority": "RTCA",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "",
+      "url": "https://www.rtca.org/products/",
+      "identity_markers": [
+        "RTCA"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-307",
+      "authority": "EUROCAE",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "",
+      "url": "https://www.eurocae.net/eurocae-documents/",
+      "identity_markers": [
+        "EUROCAE"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-308",
+      "authority": "AAMI",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "",
+      "url": "https://store.aami.org/",
+      "identity_markers": [
+        "AAMI"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-309",
+      "authority": "IEEE standards",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "",
+      "url": "https://standards.ieee.org/",
+      "identity_markers": [
+        "IEEE"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-310",
+      "authority": "UL standards",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "",
+      "url": "https://www.shopulstandards.com/",
+      "identity_markers": [
+        "standards"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-311",
+      "authority": "NFPA codes and standards",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Public-input and revision cycles",
+      "url": "https://www.nfpa.org/codes-and-standards",
+      "identity_markers": [
+        "NFPA",
+        "Public"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-312",
+      "authority": "ASME codes and standards",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Standards committees",
+      "url": "https://www.asme.org/codes-standards",
+      "identity_markers": [
+        "ASME",
+        "Standards"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-313",
+      "authority": "API standards",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Petroleum/extractive standards",
+      "url": "https://www.api.org/products-and-services/standards",
+      "identity_markers": [
+        "API",
+        "Petroleum"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-314",
+      "authority": "IPC standards",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Electronics manufacturing standards",
+      "url": "https://www.ipc.org/ipc-standards",
+      "identity_markers": [
+        "IPC",
+        "Electronics"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-315",
+      "authority": "JEDEC standards",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Semiconductor standards",
+      "url": "https://www.jedec.org/standards-documents",
+      "identity_markers": [
+        "JEDEC",
+        "Semiconductor"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-316",
+      "authority": "CEN",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "European standards development",
+      "url": "https://standards.cencenelec.eu/",
+      "identity_markers": [
+        "CEN",
+        "European"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-317",
+      "authority": "ETSI",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "",
+      "url": "https://www.etsi.org/standards",
+      "identity_markers": [
+        "ETSI"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-318",
+      "authority": "BSI",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "UK standards status",
+      "url": "https://knowledge.bsigroup.com/",
+      "identity_markers": [
+        "BSI",
+        "Standards"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-319",
+      "authority": "DIN",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "German standards",
+      "url": "https://www.dinmedia.de/en",
+      "identity_markers": [
+        "DIN",
+        "German"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-320",
+      "authority": "Standards Australia",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Australian standards",
+      "url": "https://store.standards.org.au/",
+      "identity_markers": [
+        "Standards",
+        "Australian"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-321",
+      "authority": "SCC Canada",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Canadian standards",
+      "url": "https://www.scc.ca/en/standardsdb/standards",
+      "identity_markers": [
+        "SCC",
+        "Canadian"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-322",
+      "authority": "ABNT Brazil",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Brazilian standards",
+      "url": "https://www.abntcatalogo.com.br/",
+      "identity_markers": [
+        "ABNT",
+        "Brazilian"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-323",
+      "authority": "Japan JIS search",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "Japanese standards",
+      "url": "https://www.jisc.go.jp/eng/jis-act/",
+      "identity_markers": [
+        "Japan",
+        "Japanese"
+      ],
+      "criticality": "common"
+    },
+    {
+      "id": "STD-324",
+      "authority": "Mexico SINEC",
+      "tier": "primary",
+      "country": "Multiple",
+      "purpose": "NOM and NMX search",
+      "url": "https://www.sinec.gob.mx/",
+      "identity_markers": [
+        "Mexico",
+        "Search"
+      ],
+      "criticality": "common"
+    }
+  ]
+}

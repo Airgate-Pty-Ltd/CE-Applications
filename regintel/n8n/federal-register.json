@@ -1,0 +1,79 @@
+{
+  "name": "RegIntel — Federal Register ingest (FAA, FDA, NHTSA)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "cronExpression", "expression": "0 8 * * 1-5" }
+          ]
+        }
+      },
+      "id": "schedule",
+      "name": "Every weekday 08:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [220, 400]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "cfg-url", "name": "supabaseUrl", "value": "https://YOUR-PROJECT.supabase.co", "type": "string" },
+            { "id": "cfg-key", "name": "serviceKey", "value": "YOUR_SUPABASE_SERVICE_ROLE_KEY", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "config",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [440, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Fetch recent Federal Register documents for each agency and map them to\n// the upsert_finding() argument shape. Mirrors scraper/sources.py\n// FederalRegisterSource exactly (category lookup, priority arithmetic, verbatim\n// abstract, verified provenance). One agency failing must not sink the rest.\n\nconst LOOKBACK_DAYS = 14;\nconst today = new Date();\nconst reportDate = today.toISOString().slice(0, 10);\nconst since = new Date(today.getTime() - LOOKBACK_DAYS * 86400000).toISOString().slice(0, 10);\n\nconst AGENCIES = [\n  { authority: 'FAA',   slug: 'federal-aviation-administration' },\n  { authority: 'FDA',   slug: 'food-and-drug-administration' },\n  { authority: 'NHTSA', slug: 'national-highway-traffic-safety-administration' },\n];\n\nconst FR_CATEGORY = {\n  'Rule': 'final_rule',\n  'Proposed Rule': 'nprm',\n  'Notice': 'notice',\n  'Presidential Document': 'presidential_document',\n};\nconst FIELDS = ['document_number','title','type','abstract','publication_date','effective_on','comments_close_on','html_url','docket_ids'];\n\nfunction daysUntil(d) {\n  if (!d) return null;\n  const t = Date.parse(d + 'T00:00:00Z');\n  if (Number.isNaN(t)) return null;\n  const start = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());\n  return Math.round((t - start) / 86400000);\n}\nfunction derivePriority(eff, deadline) {\n  const dd = daysUntil(deadline); const ed = daysUntil(eff);\n  const d = (dd !== null && dd >= 0) ? dd : null;\n  const e = (ed !== null && ed >= 0) ? ed : null;\n  if ((d !== null && d <= 7)  || (e !== null && e <= 7))  return 'urgent';\n  if ((d !== null && d <= 30) || (e !== null && e <= 30)) return 'high';\n  if (d !== null || e !== null) return 'normal';\n  return 'low';\n}\n\nconst out = [];\nfor (const a of AGENCIES) {\n  const qs = new URLSearchParams();\n  qs.set('per_page', '200');\n  qs.set('order', 'newest');\n  qs.append('conditions[agencies][]', a.slug);\n  qs.append('conditions[publication_date][gte]', since);\n  for (const f of FIELDS) qs.append('fields[]', f);\n  const url = 'https://www.federalregister.gov/api/v1/documents.json?' + qs.toString();\n\n  let resp;\n  try {\n    resp = await this.helpers.httpRequest({\n      method: 'GET', url, json: true,\n      headers: { 'User-Agent': 'Conform-Edge RegIntel/1.0 (+https://conform-edge.com; n8n)' },\n    });\n  } catch (e) {\n    // Surface the gap by logging; do not fail the whole run.\n    console.log('Federal Register fetch failed for ' + a.authority + ': ' + e.message);\n    continue;\n  }\n\n  for (const doc of (resp.results || [])) {\n    const link = doc.html_url;\n    const title = (doc.title || '').trim();\n    if (!link || !title) continue;\n\n    const dockets = doc.docket_ids || [];\n    const detail = [\n      doc.document_number ? ('Document ' + doc.document_number) : null,\n      doc.type || null,\n      dockets.length ? ('Docket ' + dockets.join(', ')) : null,\n      doc.publication_date ? ('Published ' + doc.publication_date) : null,\n    ].filter(Boolean).join(' \\u00b7 ');\n    const abstract = (doc.abstract || '').trim();\n    const summary = abstract || ((doc.type || 'Document') + ' published ' + (doc.publication_date || 'date not stated') + '.');\n\n    out.push({ json: {\n      p_finding_key: (doc.document_number || '').trim() || link,\n      p_authority: a.authority,\n      p_category: FR_CATEGORY[doc.type] || 'other',\n      p_priority: derivePriority(doc.effective_on, doc.comments_close_on),\n      p_title: title,\n      p_summary: summary,\n      p_detail: detail,\n      p_source_url: link,\n      p_effective_date: doc.effective_on || null,\n      p_comment_deadline: doc.comments_close_on || null,\n      p_document_number: doc.document_number || null,\n      p_verification: 'verified',\n      p_source_id: 'federal-register',\n      p_report_date: reportDate,\n    } });\n  }\n}\nreturn out;\n"
+      },
+      "id": "fetchmap",
+      "name": "Fetch + map Federal Register",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.supabaseUrl }}/rest/v1/rpc/upsert_finding",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $('Config').first().json.serviceKey }}" },
+            { "name": "Authorization", "value": "=Bearer {{ $('Config').first().json.serviceKey }}" },
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "Prefer", "value": "return=minimal" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "response": { "response": { "neverError": true } }
+        }
+      },
+      "id": "upsert",
+      "name": "Upsert via Supabase RPC",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 400]
+    }
+  ],
+  "connections": {
+    "Every weekday 08:00": { "main": [[{ "node": "Config", "type": "main", "index": 0 }]] },
+    "Config": { "main": [[{ "node": "Fetch + map Federal Register", "type": "main", "index": 0 }]] },
+    "Fetch + map Federal Register": { "main": [[{ "node": "Upsert via Supabase RPC", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {},
+  "meta": {}
+}

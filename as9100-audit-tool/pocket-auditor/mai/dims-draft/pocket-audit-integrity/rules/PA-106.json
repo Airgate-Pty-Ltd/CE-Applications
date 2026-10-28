@@ -1,0 +1,48 @@
+{
+  "ruleId": "PA-106",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "major",
+  "category": "traceability",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit"
+  ],
+  "events": [
+    "audit.report.issue_requested"
+  ],
+  "description": "One or more evidence files failed integrity verification.",
+  "requiredFields": [
+    "evidence_hash_mismatch_ids"
+  ],
+  "findingText": "One or more evidence files failed integrity verification.",
+  "resolutionHint": "Re-upload the original evidence files.",
+  "clauseRefs": [],
+  "condition": {
+    "field": "evidence_hash_mismatch_ids",
+    "op": "length_gte",
+    "value": 1
+  },
+  "decision": {
+    "decisionState": "HOLD",
+    "permittedHostAction": "hold:report-issuance",
+    "humanReviewRequired": true,
+    "overrideAuthority": [
+      "lead_auditor"
+    ],
+    "authorityScope": "AP-PA-REPORT-HOLD"
+  },
+  "testCases": [
+    "PA-106-POS-001",
+    "PA-106-NEG-001",
+    "PA-106-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

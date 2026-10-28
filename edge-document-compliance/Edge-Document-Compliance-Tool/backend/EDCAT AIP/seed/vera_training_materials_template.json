@@ -1,0 +1,152 @@
+{
+  "version": "1.0",
+  "persona_code": "vera",
+  "training_materials": {
+    "instructions": "Add your specific training materials, course content, and certification details here. This will enhance Vera's knowledge base with your specific expertise.",
+    "cqe_training": {
+      "course_provider": "ADD YOUR CQE COURSE PROVIDER",
+      "course_content": [
+        "ADD SPECIFIC TOPICS FROM YOUR CQE TRAINING",
+        "ADD CASE STUDIES OR EXAMPLES",
+        "ADD SPECIFIC METHODOLOGIES TAUGHT"
+      ],
+      "certification_details": {
+        "certifying_body": "ASQ (American Society for Quality) or other",
+        "certification_number": "YOUR CERTIFICATION NUMBER (optional)",
+        "certification_date": "YOUR CERTIFICATION DATE (optional)"
+      },
+      "additional_notes": "ADD ANY ADDITIONAL KNOWLEDGE OR INSIGHTS FROM YOUR CQE TRAINING"
+    },
+    "faa_auditor_training": {
+      "course_provider": "ADD YOUR FAA AUDITOR TRAINING PROVIDER",
+      "course_content": [
+        "ADD SPECIFIC FAA REGULATIONS COVERED",
+        "ADD AUDIT TECHNIQUES TAUGHT",
+        "ADD CASE STUDIES OR REAL-WORLD EXAMPLES"
+      ],
+      "certification_details": {
+        "certifying_body": "FAA or training organization",
+        "certification_number": "YOUR CERTIFICATION NUMBER (optional)",
+        "certification_date": "YOUR CERTIFICATION DATE (optional)"
+      },
+      "specific_expertise": [
+        "ADD YOUR SPECIFIC AREAS OF FAA EXPERTISE",
+        "ADD COMMON FINDINGS YOU'VE OBSERVED",
+        "ADD BEST PRACTICES YOU'VE LEARNED"
+      ]
+    },
+    "fda_auditor_training": {
+      "course_provider": "ADD YOUR FDA AUDITOR TRAINING PROVIDER",
+      "course_content": [
+        "ADD SPECIFIC FDA REGULATIONS COVERED (21 CFR Part 820, etc.)",
+        "ADD QSIT METHODOLOGY DETAILS",
+        "ADD CASE STUDIES OR 483 OBSERVATIONS REVIEWED"
+      ],
+      "certification_details": {
+        "certifying_body": "FDA or training organization",
+        "certification_number": "YOUR CERTIFICATION NUMBER (optional)",
+        "certification_date": "YOUR CERTIFICATION DATE (optional)"
+      },
+      "specific_expertise": [
+        "ADD YOUR SPECIFIC AREAS OF FDA EXPERTISE",
+        "ADD COMMON 483 OBSERVATIONS YOU'VE SEEN",
+        "ADD BEST PRACTICES FOR FDA COMPLIANCE"
+      ]
+    },
+    "as9100_certification_auditor_training": {
+      "course_provider": "ADD YOUR AS9100 CERTIFICATION AUDITOR TRAINING PROVIDER",
+      "course_content": [
+        "ADD SPECIFIC AS9100D REQUIREMENTS COVERED",
+        "ADD AS9101 AUDIT REQUIREMENTS",
+        "ADD AEROSPACE-SPECIFIC FOCUS AREAS"
+      ],
+      "certification_details": {
+        "certifying_body": "IAQG, ASQ, or other",
+        "certification_number": "YOUR CERTIFICATION NUMBER (optional)",
+        "certification_date": "YOUR CERTIFICATION DATE (optional)"
+      },
+      "specific_expertise": [
+        "ADD YOUR SPECIFIC AREAS OF AS9100 EXPERTISE",
+        "ADD COMMON NONCONFORMITIES YOU'VE OBSERVED",
+        "ADD BEST PRACTICES FOR AS9100 CERTIFICATION"
+      ]
+    },
+    "as9100_internal_auditor_training": {
+      "course_provider": "ADD YOUR AS9100 INTERNAL AUDITOR TRAINING PROVIDER",
+      "course_content": [
+        "ADD INTERNAL AUDIT TECHNIQUES TAUGHT",
+        "ADD PROCESS AUDITING APPROACHES",
+        "ADD FINDING CLASSIFICATION METHODS"
+      ],
+      "certification_details": {
+        "certifying_body": "Training organization",
+        "certification_number": "YOUR CERTIFICATION NUMBER (optional)",
+        "certification_date": "YOUR CERTIFICATION DATE (optional)"
+      },
+      "specific_expertise": [
+        "ADD YOUR INTERNAL AUDIT EXPERIENCE",
+        "ADD EFFECTIVE INTERNAL AUDIT PRACTICES",
+        "ADD TIPS FOR INTERNAL AUDIT SUCCESS"
+      ]
+    },
+    "iso13485_lead_auditor_training": {
+      "course_provider": "ADD YOUR ISO 13485 LEAD AUDITOR TRAINING PROVIDER",
+      "course_content": [
+        "ADD SPECIFIC ISO 13485:2016 REQUIREMENTS COVERED",
+        "ADD ISO 14971 RISK MANAGEMENT INTEGRATION",
+        "ADD MEDICAL DEVICE-SPECIFIC REQUIREMENTS"
+      ],
+      "certification_details": {
+        "certifying_body": "IRCA, RABQSA, or other",
+        "certification_number": "YOUR CERTIFICATION NUMBER (optional)",
+        "certification_date": "YOUR CERTIFICATION DATE (optional)"
+      },
+      "specific_expertise": [
+        "ADD YOUR SPECIFIC AREAS OF ISO 13485 EXPERTISE",
+        "ADD COMMON NONCONFORMITIES IN MEDICAL DEVICES",
+        "ADD BEST PRACTICES FOR ISO 13485 CERTIFICATION"
+      ]
+    },
+    "mdsap_auditor_training": {
+      "course_provider": "ADD YOUR MDSAP AUDITOR TRAINING PROVIDER",
+      "course_content": [
+        "ADD MDSAP AUDIT MODEL DETAILS",
+        "ADD REGULATORY AUTHORITY-SPECIFIC REQUIREMENTS",
+        "ADD MULTI-REGULATORY COMPLIANCE STRATEGIES"
+      ],
+      "certification_details": {
+        "certifying_body": "MDSAP or training organization",
+        "certification_number": "YOUR CERTIFICATION NUMBER (optional)",
+        "certification_date": "YOUR CERTIFICATION DATE (optional)"
+      },
+      "specific_expertise": [
+        "ADD YOUR MDSAP AUDIT EXPERIENCE",
+        "ADD REGULATORY AUTHORITY-SPECIFIC INSIGHTS",
+        "ADD BEST PRACTICES FOR MDSAP COMPLIANCE"
+      ]
+    }
+  },
+  "additional_knowledge": {
+    "real_world_experiences": [
+      "ADD REAL-WORLD AUDIT EXPERIENCES",
+      "ADD COMMON FINDINGS YOU'VE OBSERVED",
+      "ADD LESSONS LEARNED FROM AUDITS"
+    ],
+    "best_practices": [
+      "ADD YOUR BEST PRACTICES FOR COMPLIANCE",
+      "ADD EFFECTIVE AUDIT TECHNIQUES",
+      "ADD QUALITY SYSTEM IMPROVEMENT STRATEGIES"
+    ],
+    "industry_insights": [
+      "ADD INDUSTRY-SPECIFIC INSIGHTS",
+      "ADD TRENDS YOU'VE OBSERVED",
+      "ADD EMERGING REQUIREMENTS"
+    ]
+  },
+  "usage_notes": {
+    "how_to_use": "Fill in this template with your specific training materials, then load it into Vera's knowledge base using the seed script.",
+    "integration": "This knowledge will be integrated into Vera's responses when answering questions related to these certifications and regulatory requirements.",
+    "updates": "You can update this file anytime with new knowledge or experiences, then re-seed the database."
+  }
+}
+

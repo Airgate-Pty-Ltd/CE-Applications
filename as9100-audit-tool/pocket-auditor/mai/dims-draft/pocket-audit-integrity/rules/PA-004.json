@@ -1,0 +1,52 @@
+{
+  "ruleId": "PA-004",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "minor",
+  "category": "completeness",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit_item"
+  ],
+  "events": [
+    "audit.item.assessed"
+  ],
+  "description": "Item marked not applicable without justification.",
+  "requiredFields": [
+    "na_selected",
+    "na_justification"
+  ],
+  "findingText": "Item marked not applicable without justification. Exclusions need documented justification.",
+  "resolutionHint": "Record why this requirement does not apply to this auditee or scope.",
+  "clauseRefs": [],
+  "condition": {
+    "all": [
+      {
+        "field": "na_selected",
+        "op": "eq",
+        "value": true
+      },
+      {
+        "field": "na_justification",
+        "op": "is_empty"
+      }
+    ]
+  },
+  "decision": {
+    "decisionState": "ADVISE",
+    "permittedHostAction": "none"
+  },
+  "testCases": [
+    "PA-004-POS-001",
+    "PA-004-NEG-001",
+    "PA-004-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

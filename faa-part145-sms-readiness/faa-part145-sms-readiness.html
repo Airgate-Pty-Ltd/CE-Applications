@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAA Part 145 SMS Readiness Tool | Conform-Edge</title>
+<style>
+:root {
+  --navy: #1e2a47; --steel: #4a6fa5; --steel-light: #6b8cbe;
+  --ink: #1a1a2e; --bg: #f0f4f9; --panel: #ffffff; --border: #c8d4e8;
+  --green: #166534; --green-bg: #f0fdf4; --green-border: #86efac;
+  --amber: #92400e; --amber-bg: #fffbeb; --amber-border: #fcd34d;
+  --red: #991b1b; --red-bg: #fef2f2; --red-border: #fca5a5;
+  --text: #1e2a47; --muted: #64748b; --tag-bg: #e8eef8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); }
+header { background: var(--navy); color: #fff; padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
+header h1 { font-size: 18px; font-weight: 700; }
+header span { font-size: 12px; background: var(--steel); padding: 3px 8px; border-radius: 4px; }
+.main { max-width: 880px; margin: 0 auto; padding: 28px 20px; }
+.reg-notice { background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: 8px; padding: 12px 16px; font-size: 12px; color: var(--amber); margin-bottom: 16px; line-height: 1.6; }
+.disclaimer { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+.progress { display: flex; margin-bottom: 28px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.progress-step { flex: 1; padding: 10px 14px; font-size: 12px; font-weight: 600; background: var(--panel); color: var(--muted); text-align: center; border-right: 1px solid var(--border); }
+.progress-step:last-child { border-right: none; }
+.progress-step.active { background: var(--navy); color: #fff; }
+.progress-step.done { background: var(--steel); color: #fff; }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.card h2 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+.component-header { background: var(--navy); color: #fff; border-radius: 8px 8px 0 0; padding: 12px 18px; margin: -24px -24px 20px -24px; display: flex; align-items: center; gap: 10px; }
+.component-header .cnum { background: var(--steel); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.component-header .ctitle { font-size: 15px; font-weight: 700; }
+.component-header .csub { font-size: 11px; opacity: 0.8; }
+.question { border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; }
+.question.critical { border-left: 4px solid var(--red); }
+.q-text { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+.q-basis { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+.critical-tag { display: inline-block; background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); border-radius: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; margin-left: 6px; vertical-align: middle; }
+.response-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.response-btn { padding: 6px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; background: var(--bg); color: var(--muted); font-family: inherit; transition: all 0.15s; }
+.response-btn:hover { border-color: var(--steel); color: var(--steel); }
+.response-btn.sel-IN-PLACE { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+.response-btn.sel-PARTIAL { background: var(--amber-bg); border-color: var(--amber-border); color: var(--amber); }
+.response-btn.sel-NOT-IN-PLACE { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+.response-btn.sel-NA { background: var(--tag-bg); border-color: var(--steel); color: var(--steel); }
+.form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+label { font-size: 12px; font-weight: 600; color: var(--navy); }
+input[type="text"], select { border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-size: 13px; color: var(--text); background: var(--bg); width: 100%; font-family: inherit; }
+input:focus, select:focus { outline: 2px solid var(--steel); background: #fff; }
+.btn { padding: 10px 24px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.btn-primary { background: var(--steel); color: #fff; }
+.btn-primary:hover { background: var(--navy); }
+.btn-secondary { background: var(--bg); color: var(--navy); border: 1px solid var(--border); }
+.btn-row { display: flex; gap: 12px; margin-top: 20px; }
+.hidden { display: none !important; }
+.verdict-READY { background: var(--green-bg); border: 2px solid var(--green-border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.verdict-DEVELOPING { background: var(--amber-bg); border: 2px solid var(--amber-border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.verdict-NOT-STARTED { background: var(--red-bg); border: 2px solid var(--red-border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.v-label { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.v-ready { color: var(--green); }
+.v-developing { color: var(--amber); }
+.v-nostart { color: var(--red); }
+.v-info { font-size: 13px; line-height: 1.6; }
+.easa-callout { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; font-size: 13px; color: #1e40af; }
+.easa-callout strong { display: block; margin-bottom: 6px; font-size: 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+th { background: var(--navy); color: #fff; padding: 8px 12px; text-align: left; font-size: 12px; font-weight: 600; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: var(--bg); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.tag-ok { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.tag-partial { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.tag-gap { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.tag-na { background: var(--tag-bg); color: var(--steel); border: 1px solid var(--border); }
+.progress-bar-wrap { background: var(--border); border-radius: 4px; height: 8px; margin-bottom: 4px; }
+.progress-bar-fill { height: 8px; border-radius: 4px; background: var(--steel); }
+.narrative { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-size: 13px; line-height: 1.7; color: var(--muted); white-space: pre-wrap; }
+.mai-badge { display: inline-flex; align-items: center; gap: 6px; background: #ede9fe; border: 1px solid #c4b5fd; border-radius: 6px; padding: 4px 10px; font-size: 11px; color: #5b21b6; font-weight: 600; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>FAA Part 145 SMS Readiness Tool</h1>
+  <span>Conform-Edge</span>
+</header>
+
+<div class="main">
+  <div class="reg-notice">
+    <strong>⚠ Regulatory Status Notice:</strong> As of this tool's publication, the FAA has not issued a final mandatory SMS rule for Part 145 repair stations. This tool is designed for readiness preparation and gap identification — not compliance to a final rule. Organizations with EASA Part 145 bilateral approval are subject to SMS/SMSVP requirements per MAG Change 10, Section 20 (effective October 10, 2025). Airline customers may also require SMS evidence independently of regulatory mandates.
+  </div>
+  <div class="disclaimer">
+    This self-assessment identifies SMS implementation gaps based on the ICAO Annex 19 / FAA AC 120-92B framework. Results are advisory. Your organization retains all safety determinations. Consult qualified safety and legal advisors before making compliance representations.
+  </div>
+
+  <div class="progress">
+    <div class="progress-step active" id="ps1">1 · Organization</div>
+    <div class="progress-step" id="ps2">2 · Safety Policy</div>
+    <div class="progress-step" id="ps3">3 · Risk Mgmt</div>
+    <div class="progress-step" id="ps4">4 · Assurance</div>
+    <div class="progress-step" id="ps5">5 · Promotion</div>
+    <div class="progress-step" id="ps6">6 · Report</div>
+  </div>
+
+  <!-- STEP 1: Org Profile -->
+  <div id="step1">
+    <div class="card">
+      <h2>Step 1 — Organization Profile</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Organization Name</label>
+          <input type="text" id="orgName" placeholder="Your repair station name">
+        </div>
+        <div class="form-group">
+          <label>Certificate / RSRS Number</label>
+          <input type="text" id="certNum" placeholder="e.g. ABCD123K">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Rating(s)</label>
+          <input type="text" id="ratings" placeholder="e.g. Airframe Class 4, Powerplant Class 3">
+        </div>
+        <div class="form-group">
+          <label>EASA Part 145 Bilateral Approval?</label>
+          <select id="easaBilateral">
+            <option value="no">No</option>
+            <option value="yes">Yes — EASA Part 145 bilateral (BASA/MAG)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Airline Customers Requiring SMS?</label>
+          <select id="airlineSMS">
+            <option value="no">No / Unknown</option>
+            <option value="yes">Yes — one or more customers require SMS evidence</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Assessor Name</label>
+          <input type="text" id="assessorName" placeholder="Name of person completing this assessment">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="showQ(2)">Begin Assessment →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS: generated for components 2-5 -->
+  <div id="step2" class="hidden"></div>
+  <div id="step3" class="hidden"></div>
+  <div id="step4" class="hidden"></div>
+  <div id="step5" class="hidden"></div>
+
+  <!-- STEP 6: Report -->
+  <div id="step6" class="hidden">
+    <div id="reportOut"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="showQ(1)">← New Assessment</button>
+      <button class="btn btn-primary" onclick="exportJSON()">Export JSON</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── SMS QUESTION DATA ────────────────────────────────────────────────────────
+// ICAO Annex 19 / FAA AC 120-92B framework
+// critical: true = mandatory minimum; NOT IN PLACE forces NOT-STARTED verdict
+
+const COMPONENTS = [
+  {
+    id: 'policy', num: 1, step: 2,
+    title: 'Safety Policy & Objectives',
+    subtitle: 'ICAO SMS Component 1 | FAA AC 120-92B §5.1',
+    questions: [
+      { id: 'q1_1', critical: true, text: 'Does the organization have a documented Safety Policy signed by the Accountable Manager (CEO/Director of Maintenance)?', basis: 'ICAO Annex 19, Element 1.1; FAA AC 120-92B §5.1.1' },
+      { id: 'q1_2', critical: false, text: 'Are safety objectives documented, measurable, and reviewed at defined intervals?', basis: 'ICAO Annex 19, Element 1.2' },
+      { id: 'q1_3', critical: false, text: 'Is the Safety Policy communicated to all personnel and visibly endorsed by management?', basis: 'ICAO Annex 19, Element 1.3' },
+      { id: 'q1_4', critical: true, text: 'Is an Accountable Manager appointed with authority and accountability for implementing and maintaining the SMS?', basis: 'ICAO Annex 19, Element 1.1; MAG CHG 10 §20.1 (EASA stations)' },
+      { id: 'q1_5', critical: false, text: 'Is a Safety Manager / SMS coordinator appointed with defined responsibilities?', basis: 'ICAO Annex 19, Element 1.3' },
+      { id: 'q1_6', critical: false, text: 'Does the Safety Policy include a commitment to reporting, non-punitive reporting, and continuous improvement?', basis: 'ICAO Annex 19, Element 1.1' },
+    ]
+  },
+  {
+    id: 'risk', num: 2, step: 3,
+    title: 'Safety Risk Management',
+    subtitle: 'ICAO SMS Component 2 | FAA AC 120-92B §5.2',
+    questions: [
+      { id: 'q2_1', critical: true, text: 'Does the organization have a documented hazard identification process for aviation maintenance activities?', basis: 'ICAO Annex 19, Element 2.1; FAA AC 120-92B §5.2.1' },
+      { id: 'q2_2', critical: true, text: 'Is a risk assessment methodology in place (likelihood × severity matrix) with defined acceptance criteria?', basis: 'ICAO Annex 19, Element 2.2' },
+      { id: 'q2_3', critical: false, text: 'Are risk controls identified and implemented for unacceptable risks?', basis: 'ICAO Annex 19, Element 2.3' },
+      { id: 'q2_4', critical: false, text: 'Is there a documented change management process to identify safety hazards in operational changes?', basis: 'ICAO Annex 19, Element 3.3; FAA AC 120-92B §5.3.3' },
+      { id: 'q2_5', critical: false, text: 'Is there a Hazard Log (risk register) capturing identified hazards, risk assessments, controls, and residual risk?', basis: 'ICAO Annex 19, Element 2.1; MAG CHG 10 §20.3 (EASA stations)' },
+      { id: 'q2_6', critical: false, text: 'Are system descriptions (interfaces, boundaries, critical functions) documented as part of the SMS foundation?', basis: 'ICAO Annex 19, Element 1.4; FAA AC 120-92B §5.1.4' },
+    ]
+  },
+  {
+    id: 'assurance', num: 3, step: 4,
+    title: 'Safety Assurance',
+    subtitle: 'ICAO SMS Component 3 | FAA AC 120-92B §5.3',
+    questions: [
+      { id: 'q3_1', critical: false, text: 'Are safety performance indicators (SPIs) and safety performance targets (SPTs) defined and monitored?', basis: 'ICAO Annex 19, Element 3.1; FAA AC 120-92B §5.3.1' },
+      { id: 'q3_2', critical: false, text: 'Is there a safety reporting system (including voluntary confidential reporting) in place and actively used?', basis: 'ICAO Annex 19, Element 3.1; FAA AC 120-92B §5.3.1' },
+      { id: 'q3_3', critical: false, text: 'Are safety investigations and analysis of hazard reports conducted and documented?', basis: 'ICAO Annex 19, Element 3.2' },
+      { id: 'q3_4', critical: false, text: 'Is there an SMS internal audit process that verifies SMS effectiveness (not just QMS audits)?', basis: 'ICAO Annex 19, Element 3.2' },
+      { id: 'q3_5', critical: false, text: 'Are management review / safety review meetings conducted at defined intervals, with minutes and action tracking?', basis: 'ICAO Annex 19, Element 3.1; MAG CHG 10 §20 (EASA stations)' },
+      { id: 'q3_6', critical: false, text: 'Is there a documented process for identifying safety improvement opportunities from audit findings, incident data, and industry alerts?', basis: 'ICAO Annex 19, Element 3.4' },
+    ]
+  },
+  {
+    id: 'promotion', num: 4, step: 5,
+    title: 'Safety Promotion',
+    subtitle: 'ICAO SMS Component 4 | FAA AC 120-92B §5.4',
+    questions: [
+      { id: 'q4_1', critical: false, text: 'Do all personnel receive SMS awareness training appropriate to their role?', basis: 'ICAO Annex 19, Element 4.1; FAA AC 120-92B §5.4.1' },
+      { id: 'q4_2', critical: false, text: 'Does management (Accountable Manager, supervisors) receive SMS leadership training?', basis: 'ICAO Annex 19, Element 4.1' },
+      { id: 'q4_3', critical: false, text: 'Are safety communication channels documented and actively used (safety bulletins, safety notices, toolbox talks)?', basis: 'ICAO Annex 19, Element 4.2' },
+      { id: 'q4_4', critical: false, text: 'Are SMS training records maintained and current?', basis: 'ICAO Annex 19, Element 4.1; FAA AC 120-92B §5.4.1' },
+      { id: 'q4_5', critical: false, text: 'Is a positive safety culture actively promoted (non-punitive reporting, lessons learned shared)?', basis: 'ICAO Annex 19, Element 4.2' },
+      { id: 'q4_6', critical: false, text: 'For EASA bilateral stations: Is a Safety Management System Verification Plan (SMSVP) documented and signed by the Accountable Manager?', basis: 'MAG CHG 10 §20.4 — EASA bilateral stations only; N/A for non-bilateral' },
+    ]
+  }
+];
+
+// Responses state
+const responses = {};
+
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function setProgress(step) {
+  const steps = ['ps1','ps2','ps3','ps4','ps5','ps6'];
+  steps.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.className = 'progress-step';
+    if (i + 1 === step) el.classList.add('active');
+    else if (i + 1 < step) el.classList.add('done');
+  });
+}
+
+function showQ(stepNum) {
+  for (let i = 1; i <= 6; i++) {
+    document.getElementById('step' + i).classList.toggle('hidden', i !== stepNum);
+  }
+  setProgress(stepNum);
+
+  // Build question cards for components 2–5
+  if (stepNum >= 2 && stepNum <= 5) {
+    const comp = COMPONENTS[stepNum - 2];
+    if (!comp) return;
+    const div = document.getElementById('step' + stepNum);
+    let html = `<div class="card">
+      <div class="component-header">
+        <div class="cnum">${comp.num}</div>
+        <div>
+          <div class="ctitle">${escHtml(comp.title)}</div>
+          <div class="csub">${escHtml(comp.subtitle)}</div>
+        </div>
+      </div>`;
+
+    comp.questions.forEach(q => {
+      const sel = responses[q.id] || '';
+      html += `<div class="question ${q.critical ? 'critical' : ''}">
+        <div class="q-text">${escHtml(q.text)}${q.critical ? '<span class="critical-tag">CRITICAL</span>' : ''}</div>
+        <div class="q-basis">${escHtml(q.basis)}</div>
+        <div class="response-group">`;
+      ['IN-PLACE','PARTIAL','NOT-IN-PLACE','NA'].forEach(r => {
+        const labels = { 'IN-PLACE': 'In Place', 'PARTIAL': 'Partial', 'NOT-IN-PLACE': 'Not In Place', 'NA': 'N/A' };
+        const cls = sel === r ? `response-btn sel-${r}` : 'response-btn';
+        html += `<button class="${cls}" onclick="setResponse('${q.id}','${r}',this,${q.critical})">${labels[r]}</button>`;
+      });
+      html += `</div></div>`;
+    });
+
+    const prevStep = stepNum - 1;
+    const nextStep = stepNum < 5 ? stepNum + 1 : 6;
+    const nextLabel = stepNum < 5 ? `Next: ${COMPONENTS[stepNum - 1]?.title || 'Next'} →` : 'Generate Report →';
+    const nextAction = stepNum < 5 ? `showQ(${nextStep})` : 'generateReport()';
+
+    html += `<div class="btn-row">
+      <button class="btn btn-secondary" onclick="showQ(${prevStep})">← Back</button>
+      <button class="btn btn-primary" onclick="${nextAction}">${nextLabel}</button>
+    </div></div>`;
+
+    div.innerHTML = html;
+  }
+
+  if (stepNum === 6) generateReport();
+  window.scrollTo(0, 0);
+}
+
+function setResponse(qId, value, btn, isCritical) {
+  responses[qId] = value;
+  // Update button states in this question's group
+  const group = btn.closest('.response-group');
+  group.querySelectorAll('.response-btn').forEach(b => {
+    b.className = 'response-btn';
+  });
+  btn.className = `response-btn sel-${value}`;
+}
+
+function generateReport() {
+  const orgName = document.getElementById('orgName').value || '[Organization Name]';
+  const certNum = document.getElementById('certNum').value || '';
+  const easaBilateral = document.getElementById('easaBilateral').value === 'yes';
+  const airlineSMS = document.getElementById('airlineSMS').value === 'yes';
+  const assessorName = document.getElementById('assessorName').value || '';
+
+  // ─── SCORING ENGINE ───────────────────────────────────────────────────────
+  let totalIn = 0, totalPartial = 0, totalGap = 0, criticalGaps = 0;
+  const componentResults = [];
+  const gapItems = [];
+
+  COMPONENTS.forEach(comp => {
+    let cIn = 0, cPartial = 0, cGap = 0, cCritGap = 0, cNA = 0;
+    comp.questions.forEach(q => {
+      const r = responses[q.id] || '';
+      if (r === 'IN-PLACE') cIn++;
+      else if (r === 'PARTIAL') { cPartial++; if (q.critical) { cCritGap++; gapItems.push({ comp: comp.title, text: q.text, resp: 'PARTIAL', critical: q.critical, basis: q.basis }); } else gapItems.push({ comp: comp.title, text: q.text, resp: 'PARTIAL', critical: q.critical, basis: q.basis }); }
+      else if (r === 'NOT-IN-PLACE') { cGap++; if (q.critical) { cCritGap++; criticalGaps++; } gapItems.push({ comp: comp.title, text: q.text, resp: 'NOT-IN-PLACE', critical: q.critical, basis: q.basis }); }
+      else if (r === 'NA') cNA++;
+      else { /* unanswered = gap */ cGap++; if (q.critical) { cCritGap++; criticalGaps++; } gapItems.push({ comp: comp.title, text: q.text, resp: 'NOT-IN-PLACE', critical: q.critical, basis: q.basis }); }
+    });
+    const applicable = comp.questions.length - cNA;
+    const pct = applicable > 0 ? Math.round((cIn / applicable) * 100) : 100;
+    totalIn += cIn; totalPartial += cPartial; totalGap += cGap;
+    componentResults.push({ ...comp, cIn, cPartial, cGap, cCritGap, cNA, applicable, pct });
+  });
+
+  // Verdict engine
+  const totalApplicable = COMPONENTS.reduce((s, c) => s + c.questions.length, 0) - componentResults.reduce((s, r) => s + r.cNA, 0);
+  const totalInRate = totalApplicable > 0 ? (totalIn / totalApplicable) : 0;
+
+  let verdict;
+  if (criticalGaps > 0) verdict = 'NOT-STARTED';
+  else if (totalInRate >= 0.80 && totalPartial === 0) verdict = 'READY';
+  else if (totalInRate >= 0.50) verdict = 'DEVELOPING';
+  else verdict = 'NOT-STARTED';
+
+  // Store for export
+  window._smsData = { orgName, certNum, easaBilateral, airlineSMS, assessorName, verdict, criticalGaps, totalIn, totalPartial, totalGap, totalApplicable, componentResults, gapItems, generated: new Date().toISOString() };
+
+  // ─── RENDER ───────────────────────────────────────────────────────────────
+  let html = '';
+  const date = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+  html += `<div class="mai-badge">M-AI Kernel Interface — Domain: part145-sms-readiness | Status: ARCHITECTURE DEFINED | Runtime: RESERVED</div>`;
+
+  // Verdict
+  const vLabels = { 'READY': '✅ SMS-READY', 'DEVELOPING': '⚠ DEVELOPING', 'NOT-STARTED': '❌ NOT-STARTED / CRITICAL GAPS' };
+  const vColors = { 'READY': 'v-ready', 'DEVELOPING': 'v-developing', 'NOT-STARTED': 'v-nostart' };
+  html += `<div class="verdict-${verdict}">
+    <div class="v-label ${vColors[verdict]}">${vLabels[verdict]}</div>
+    <div class="v-info">
+      ${verdict === 'READY' ? 'Your SMS implementation appears substantially complete. Review EASA bilateral and airline-specific requirements for any additional obligations.' :
+        verdict === 'DEVELOPING' ? 'SMS elements are partially in place. Prioritize critical element gaps and document incomplete areas with target implementation dates.' :
+        `${criticalGaps} critical SMS element(s) are not in place. Safety Policy and/or Safety Risk Management are mandatory foundations — address these before other SMS elements.`}
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted);">
+      Organization: ${escHtml(orgName)}${certNum ? ` | Certificate: ${escHtml(certNum)}` : ''} | Assessed: ${date}${assessorName ? ` | Assessor: ${escHtml(assessorName)}` : ''}
+    </div>
+  </div>`;
+
+  // EASA callout
+  if (easaBilateral) {
+    html += `<div class="easa-callout">
+      <strong>⚠ EASA Bilateral Advisory — MAG Change 10, Section 20</strong>
+      Your organization holds EASA Part 145 bilateral approval. MAG Change 10 (effective October 10, 2025) requires an SMS and a Safety Management System Verification Plan (SMSVP) signed by the Accountable Manager. Check Question 4.6 (SMSVP) and ensure your SMS is aligned to the SMSVP format. The Conform-Edge EASA SMSVP Starter Kit provides the required document templates.
+    </div>`;
+  }
+  if (airlineSMS && !easaBilateral) {
+    html += `<div class="easa-callout" style="background:#f0fdf4;border-color:var(--green-border);color:var(--green);">
+      <strong>ℹ Airline Customer Requirement</strong>
+      One or more of your airline customers require SMS evidence. Confirm their specific requirements (format, elements, submission cadence) directly. This assessment uses the ICAO Annex 19 framework as the common baseline.
+    </div>`;
+  }
+
+  // Component summary
+  html += `<div class="card"><h2>Component Summary</h2><table>
+    <thead><tr><th>Component</th><th>In Place</th><th>Partial</th><th>Gaps</th><th>Readiness</th></tr></thead><tbody>`;
+  componentResults.forEach(r => {
+    const barColor = r.pct >= 80 ? 'var(--green)' : r.pct >= 50 ? 'var(--amber)' : 'var(--red)';
+    html += `<tr><td><strong>${escHtml(r.title)}</strong>${r.cCritGap > 0 ? ' <span class="tag tag-gap">CRITICAL GAP</span>' : ''}</td>
+      <td>${r.cIn}</td><td>${r.cPartial}</td><td>${r.cGap}</td>
+      <td>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${r.pct}%;background:${barColor}"></div></div>
+        <span style="font-size:11px;color:var(--muted);">${r.pct}% in place</span>
+      </td></tr>`;
+  });
+  html += `</tbody></table></div>`;
+
+  // Gap table
+  if (gapItems.length > 0) {
+    const critGaps = gapItems.filter(g => g.critical);
+    const nonCritGaps = gapItems.filter(g => !g.critical);
+    const allOrdered = [...critGaps, ...nonCritGaps];
+
+    html += `<div class="card"><h2>Gap & Remediation Prioritization</h2>`;
+    html += `<table><thead><tr><th>Priority</th><th>Component</th><th>Gap Item</th><th>Status</th><th>Basis</th></tr></thead><tbody>`;
+    allOrdered.forEach((g, i) => {
+      const stTag = g.resp === 'PARTIAL' ? 'tag-partial' : 'tag-gap';
+      const stLabel = g.resp === 'PARTIAL' ? 'PARTIAL' : 'NOT IN PLACE';
+      html += `<tr><td>${i+1}${g.critical ? ' <span class="tag tag-gap">CRITICAL</span>' : ''}</td>
+        <td style="font-size:12px;">${escHtml(g.comp)}</td>
+        <td style="font-size:12px;">${escHtml(g.text)}</td>
+        <td><span class="tag ${stTag}">${stLabel}</span></td>
+        <td style="font-size:11px;color:var(--muted);">${escHtml(g.basis)}</td></tr>`;
+    });
+    html += `</tbody></table></div>`;
+  }
+
+  // MR Narrative
+  const narrative = `FAA Part 145 SMS Readiness Assessment — ${date}
+Organization: ${orgName}${certNum ? ` | Certificate: ${certNum}` : ''}
+EASA Bilateral: ${easaBilateral ? 'Yes — MAG CHG 10 §20 applies' : 'No'}
+Assessor: ${assessorName || 'Not recorded'}
+
+Overall Verdict: ${verdict}
+Critical Gaps: ${criticalGaps} | In Place: ${totalIn} | Partial: ${totalPartial} | Gaps: ${totalGap} | Total Applicable: ${totalApplicable}
+
+Component Results:
+${componentResults.map(r => `  ${r.title}: ${r.pct}% in place${r.cCritGap > 0 ? ' — CRITICAL GAPS PRESENT' : ''}`).join('\n')}
+
+Priority Gaps (${gapItems.filter(g=>g.critical).length} critical, ${gapItems.filter(g=>!g.critical).length} non-critical):
+${gapItems.map((g,i) => `  ${i+1}. [${g.critical?'CRITICAL':'STANDARD'}] ${g.comp}: ${g.text} — ${g.resp}`).join('\n')||'  None identified.'}
+
+${easaBilateral ? 'EASA Bilateral Note: MAG Change 10, Section 20 requires a documented SMSVP signed by the Accountable Manager. Ensure SMSVP is in place.' : ''}
+
+Note: This self-assessment uses the ICAO Annex 19 / FAA AC 120-92B framework as a readiness baseline. No final FAA SMS rule for Part 145 repair stations was in effect as of this tool\'s publication. The organization retains all safety determinations and should consult qualified safety advisors before making compliance representations.`;
+
+  html += `<div class="card"><h2>Management Review Narrative</h2><div class="narrative">${escHtml(narrative)}</div></div>`;
+
+  document.getElementById('reportOut').innerHTML = html;
+  document.getElementById('step6').classList.remove('hidden');
+}
+
+function exportJSON() {
+  if (!window._smsData) return;
+  const blob = new Blob([JSON.stringify(window._smsData, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `sms-readiness-${window._smsData.generated?.slice(0,10)||'export'}.json`;
+  a.click();
+}
+</script>
+</body>
+</html>

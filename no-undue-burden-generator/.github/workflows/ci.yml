@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      CI: 'true'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # The build has to happen before the gates. Both gates scan dist/ as well
+      # as src/, and they fail rather than skip when dist/ is missing under CI —
+      # a gate that silently checks nothing is worse than no gate.
+      - name: Build
+        run: npm run build
+
+      - name: Gate — proprietary content scrub
+        run: npx vitest run tests/gates/scrub.test.ts
+
+      - name: Gate — forbidden regulatory claims
+        run: npx vitest run tests/gates/forbidden-phrases.test.ts
+
+      # Coverage, not just pass/fail. The engine carries a 100% branch threshold
+      # because every branch in it is a regulatory path — an uncovered branch is
+      # a determination that ships without ever having been executed in a test.
+      - name: Unit tests and engine coverage
+        run: npm run test:coverage

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System-Detected Conditions · PMA Autopilot</title>
+  <link rel="stylesheet" href="assets/vera.css" />
+</head>
+<body data-page="cases">
+  <div class="layout">
+    <main class="content">
+      <div class="row spread"><h1>Hydraulic Bracket Assembly</h1><span class="stag signal">Gap review</span></div>
+      <div class="mai-badge" style="margin-bottom:14px">● M-AI active — advisory only. Human authority controls all decisions. <a href="#charter" onclick="document.getElementById('charter').style.display='flex'" style="margin-left:8px;text-decoration:underline">What can this assistant do?</a></div>
+
+      <div class="tabs">
+        <a class="tab" href="case.html">Overview</a>
+        <a class="tab" href="upload.html">Intake</a>
+        <span class="tab active">Conditions (4)</span>
+        <a class="tab" href="documents.html">Documents</a>
+        <a class="tab" href="library.html">Precedents</a>
+      </div>
+
+      <div class="cond blocking">
+        <div class="row spread"><span class="stag blocking">blocking</span><span class="small muted">data confidence: high</span></div>
+        <div class="cond-find">The applicant's legal name is not recorded. It is a mandatory element of the PMA application letter per AC 21.303-4 §8.</div>
+        <div class="cond-hint">→ Record the applicant's exact legal name from the applicant's source documents.</div>
+        <div class="cond-refs">PMA-COMPLETE-001 r1 · AC 21.303-4 §8 · 14 CFR 21.303</div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn btn-ghost">Confirm</button>
+          <button class="btn btn-cancel">Dismiss — incorrect</button>
+          <button class="btn btn-cancel">Dismiss — N/A</button>
+        </div>
+      </div>
+
+      <div class="cond warning">
+        <div class="row spread"><span class="stag warning">warning</span><span class="small muted">data confidence: high</span></div>
+        <div class="cond-find">The FAA submission office is not recorded. It must be confirmed for the geographic area of the manufacturing facility per AC 21.303-4 §7a and is never assumed.</div>
+        <div class="cond-hint">→ Confirm and record the ACO or MIDO for the manufacturing facility's geographic area (AC 21.303-4 Appendix F).</div>
+        <div class="cond-refs">PMA-COMPLETE-003 r1 · AC 21.303-4 §7a · AC 21.303-4 Appendix F</div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn btn-ghost">Confirm</button>
+          <button class="btn btn-cancel">Dismiss — incorrect</button>
+          <button class="btn btn-cancel">Dismiss — N/A</button>
+        </div>
+      </div>
+
+      <div class="cond warning">
+        <div class="row spread"><span class="stag warning">warning</span><span class="small muted">data confidence: high</span></div>
+        <div class="cond-find">The authorized signatory name and/or title is not recorded. The AC §8 application letter must be signed by an authorized representative of the applicant.</div>
+        <div class="cond-hint">→ Record the name and title of the person authorized to sign the application.</div>
+        <div class="cond-refs">PMA-COMPLETE-004 r1 · AC 21.303-4 §8</div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn btn-ghost">Confirm</button>
+          <button class="btn btn-cancel">Dismiss — incorrect</button>
+          <button class="btn btn-cancel">Dismiss — N/A</button>
+        </div>
+      </div>
+
+      <div class="cond" style="border-color:var(--border-hi)">
+        <div class="row spread"><span class="stag signal">info</span><span class="small muted">data confidence: high</span></div>
+        <div class="cond-find">Evidence suggests an STC_IDENTICALITY basis (STC number present, PMA production authorized). Confirm the approval basis before drafting.</div>
+        <div class="cond-hint">→ Confirm the approval basis in the case record.</div>
+        <div class="cond-refs">PMA-BASIS-001 r1 · 14 CFR 21.303(a)(4) · AC 21-43</div>
+        <div class="row" style="margin-top:10px"><span class="stag ok">resolved · confirmed by Ada Admin</span></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="charter" class="center-screen" style="display:none;position:fixed;inset:0;z-index:300;background:rgba(2,5,12,.72);backdrop-filter:blur(8px)">
+    <div class="panel panel-hi" style="width:640px;max-height:86vh;overflow:auto">
+      <div class="row spread" style="margin-bottom:12px"><div style="font-weight:700">Authority Charter — pma-application-assessment</div><button class="ib" onclick="document.getElementById('charter').style.display='none'">✕</button></div>
+      <p class="small muted">This DIM evaluates recorded data completeness and cross-document consistency only. It makes no PMA eligibility determination, never classifies an approval basis on its own authority, and never blocks a human from proceeding — it surfaces System-Detected Conditions for a human to confirm or dismiss.</p>
+      <div class="label" style="margin-top:12px">What it can never do</div>
+      <p class="small muted">Approve, reject, close, or disposition anything; change case status or ownership; judge airworthiness; mark a package “ready for FAA submission”; communicate externally; or alter its own rules.</p>
+      <div class="label" style="margin-top:12px">Governing rules (generated from the rule JSON)</div>
+      <p class="small muted">PMA-BASIS-001…003, PMA-BASIS-CONFLICT-001, PMA-COMPLETE-001…008, PMA-LINK-001…003 — each citing the exact AC/CFR clause it enforces.</p>
+    </div>
+  </div>
+  <script src="assets/layout.js"></script>
+</body>
+</html>

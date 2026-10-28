@@ -1,0 +1,28 @@
+{
+  "standard": {
+    "code": "ISO-55000",
+    "revision": "2014",
+    "title": "Asset management \u2014 Overview, principles and terminology",
+    "authority": "ISO",
+    "citation_style": "page_line",
+    "parser_profile": "pdf_generic_v1",
+    "metadata": {
+      "domain": "Cross-Industry"
+    }
+  },
+  "clauses": [
+    {
+      "clause_id": "2",
+      "label": "Asset management overview & principles",
+      "parent": null,
+      "order_index": 20
+    },
+    {
+      "clause_id": "3",
+      "label": "Terms and definitions",
+      "parent": null,
+      "order_index": 30
+    }
+  ],
+  "crosswalk_targets": []
+}

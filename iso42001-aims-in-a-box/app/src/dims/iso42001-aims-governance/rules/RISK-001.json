@@ -1,0 +1,28 @@
+{
+  "ruleId": "RISK-001",
+  "dimId": "iso42001-aims-governance",
+  "revision": 1,
+  "effectiveDate": "2026-07-10",
+  "approvedBy": "Brian R. Olea",
+  "approvalRef": "MAI-CCB-2026-014",
+  "severity": "major",
+  "category": "authority",
+  "riskClass": "B",
+  "basisType": "deterministic-record-completeness",
+  "description": "A scored risk (likelihood x impact recorded) must have a named accountable owner.",
+  "requiredFields": ["score", "owner"],
+  "events": ["risk.created", "risk.updated"],
+  "findingText": "Risk has no accountable owner",
+  "resolutionHint": "Assign a named owner responsible for treatment",
+  "clauseRefs": ["6.1.2"],
+  "condition": {
+    "all": [
+      { "field": "score", "not_null": true },
+      { "field": "owner", "is_empty": true }
+    ]
+  },
+  "testCases": ["RISK-001-POS-001", "RISK-001-NEG-001", "RISK-001-MISSING-001"],
+  "limitations": [
+    "Confirms only that an owner name is recorded — cannot verify the named person has actually accepted accountability or has the authority to treat the risk."
+  ]
+}

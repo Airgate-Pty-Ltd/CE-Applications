@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+#
+# Clean-room pre-commit gate.
+#
+# This hook is the control that actually protects the repository. CI reports a
+# leak after the fact; by then the string is in a commit object and removing it
+# later does not remove it from history. This hook stops it existing at all.
+#
+# Scans STAGED content only — what is about to become a commit.
+#
+# There is no supported way to skip this. If it fires, fix the content: the
+# value it caught belongs in configuration, supplied by the customer at runtime.
+
+exec sh "$(git rev-parse --show-toplevel)/scripts/scrub-check.sh" --staged

@@ -1,0 +1,53 @@
+{
+  "ruleId": "PA-005",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "minor",
+  "category": "completeness",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit_item"
+  ],
+  "events": [
+    "audit.item.assessed"
+  ],
+  "description": "High-risk item assessed with fewer samples than the plan requires.",
+  "requiredFields": [
+    "risk_level",
+    "sample_count_below_min"
+  ],
+  "findingText": "High-risk item assessed with fewer samples than the plan requires.",
+  "resolutionHint": "Sample more records or record why the planned sample was not available.",
+  "clauseRefs": [],
+  "condition": {
+    "all": [
+      {
+        "field": "risk_level",
+        "op": "eq",
+        "value": "HIGH"
+      },
+      {
+        "field": "sample_count_below_min",
+        "op": "eq",
+        "value": true
+      }
+    ]
+  },
+  "decision": {
+    "decisionState": "ADVISE",
+    "permittedHostAction": "none"
+  },
+  "testCases": [
+    "PA-005-POS-001",
+    "PA-005-NEG-001",
+    "PA-005-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

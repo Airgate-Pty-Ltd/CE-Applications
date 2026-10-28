@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supplier FAIR Review Tool — Conform-Edge</title>
+<style>
+  :root {
+    --navy: #1a2b4a;
+    --steel: #4a6fa5;
+    --ink: #1c2333;
+    --silver: #e8edf4;
+    --mist: #f4f6fa;
+    --accept: #1a7a4a;
+    --accept-bg: #e8f5ee;
+    --conditional: #a06000;
+    --conditional-bg: #fff8e6;
+    --rejected: #b01e28;
+    --rejected-bg: #fde8ea;
+    --critical-border: #b01e28;
+    --text: #2a3245;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--mist); color: var(--text); font-size: 14px; }
+
+  /* Header */
+  header { background: var(--navy); color: white; padding: 18px 28px; display: flex; align-items: center; gap: 18px; }
+  header .logo { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #9ab0cc; text-transform: uppercase; }
+  header h1 { font-size: 18px; font-weight: 700; }
+  header .subtitle { font-size: 11px; color: #9ab0cc; }
+
+  /* Layout */
+  .container { max-width: 1000px; margin: 0 auto; padding: 24px 20px; }
+
+  /* Setup panel */
+  .setup-card { background: white; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; border: 1px solid #dde3ef; }
+  .setup-card h2 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .setup-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; }
+  .setup-field { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 160px; }
+  .setup-field label { font-size: 11px; font-weight: 600; color: #5a6480; text-transform: uppercase; letter-spacing: 0.5px; }
+  .setup-field input, .setup-field select {
+    padding: 8px 10px; border: 1px solid #c8d0e0; border-radius: 5px;
+    font-size: 13px; color: var(--ink); background: white;
+  }
+  .setup-field input:focus, .setup-field select:focus { outline: none; border-color: var(--steel); }
+
+  /* Section headers */
+  .section-header { background: var(--navy); color: white; padding: 10px 16px; border-radius: 6px 6px 0 0; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; }
+  .section-body { background: white; border: 1px solid #dde3ef; border-top: none; border-radius: 0 0 6px 6px; overflow: hidden; }
+
+  /* Question rows */
+  .q-row { display: grid; grid-template-columns: 28px 1fr 200px; gap: 0; border-bottom: 1px solid #edf0f7; }
+  .q-row:last-child { border-bottom: none; }
+  .q-row.critical { border-left: 3px solid var(--critical-border); }
+  .q-num { display: flex; align-items: flex-start; justify-content: center; padding: 12px 6px 12px 8px; font-size: 11px; color: #8899bb; font-weight: 600; min-width: 28px; }
+  .q-text { padding: 12px 10px; }
+  .q-label { font-size: 13px; color: var(--ink); line-height: 1.45; }
+  .q-ref { font-size: 10px; color: #8899bb; margin-top: 3px; }
+  .critical-tag { display: inline-block; background: #fde8ea; color: var(--rejected); font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; margin-left: 6px; vertical-align: middle; }
+  .q-answer { display: flex; flex-direction: column; justify-content: center; padding: 12px 10px; gap: 6px; }
+  .radio-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .radio-label { display: flex; align-items: center; gap: 4px; cursor: pointer; padding: 5px 9px; border-radius: 4px; border: 1px solid #d0d8e8; font-size: 12px; font-weight: 600; color: #4a5470; transition: all 0.15s; white-space: nowrap; }
+  .radio-label:has(input:checked) { background: var(--navy); color: white; border-color: var(--navy); }
+  .radio-label.yes:has(input:checked) { background: var(--accept); border-color: var(--accept); }
+  .radio-label.no:has(input:checked) { background: var(--rejected); border-color: var(--rejected); }
+  .radio-label.partial:has(input:checked) { background: var(--conditional); border-color: var(--conditional); }
+  .radio-label.na:has(input:checked) { background: #607090; border-color: #607090; }
+  .radio-label input { display: none; }
+  .notes-input { padding: 5px 7px; border: 1px solid #d0d8e8; border-radius: 4px; font-size: 11px; color: var(--ink); resize: none; width: 100%; }
+
+  /* Verdict */
+  .verdict-panel { background: white; border-radius: 8px; padding: 24px; margin-top: 20px; border: 1px solid #dde3ef; }
+  .verdict-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #5a6480; margin-bottom: 10px; }
+  .verdict-box { border-radius: 8px; padding: 18px 22px; margin-bottom: 16px; }
+  .verdict-box.accept { background: var(--accept-bg); border: 2px solid var(--accept); }
+  .verdict-box.conditional { background: var(--conditional-bg); border: 2px solid var(--conditional); }
+  .verdict-box.rejected { background: var(--rejected-bg); border: 2px solid var(--rejected); }
+  .verdict-box.pending { background: var(--silver); border: 2px solid #c0c8d8; }
+  .verdict-title { font-size: 20px; font-weight: 800; }
+  .verdict-box.accept .verdict-title { color: var(--accept); }
+  .verdict-box.conditional .verdict-title { color: var(--conditional); }
+  .verdict-box.rejected .verdict-title { color: var(--rejected); }
+  .verdict-sub { font-size: 12px; margin-top: 6px; color: #4a5470; }
+  .score-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+  .score-badge { background: var(--silver); border-radius: 6px; padding: 8px 14px; text-align: center; min-width: 90px; }
+  .score-badge .n { font-size: 22px; font-weight: 800; color: var(--navy); }
+  .score-badge .t { font-size: 10px; color: #5a6480; text-transform: uppercase; letter-spacing: 0.5px; }
+  .gap-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 12px; }
+  .gap-table th { background: var(--navy); color: white; padding: 7px 10px; text-align: left; font-size: 11px; }
+  .gap-table td { padding: 7px 10px; border-bottom: 1px solid #edf0f7; vertical-align: top; }
+  .gap-table tr:last-child td { border-bottom: none; }
+  .gap-table tr:nth-child(even) td { background: var(--mist); }
+  .tag-critical { background: var(--rejected-bg); color: var(--rejected); font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px; }
+  .tag-partial { background: var(--conditional-bg); color: var(--conditional); font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px; }
+
+  /* MAI signal */
+  .mai-badge { display: inline-flex; align-items: center; gap: 6px; background: #e8f0fb; border: 1px solid #b0c4e4; color: var(--navy); font-size: 10px; font-weight: 700; padding: 5px 10px; border-radius: 4px; margin-bottom: 14px; }
+  .mai-badge::before { content: "M-AI"; background: var(--navy); color: white; padding: 1px 5px; border-radius: 3px; font-size: 9px; }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .btn { padding: 10px 20px; border-radius: 5px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; }
+  .btn-primary { background: var(--steel); color: white; }
+  .btn-primary:hover { background: var(--navy); }
+  .btn-outline { background: white; color: var(--navy); border: 1.5px solid var(--navy); }
+  .btn-outline:hover { background: var(--silver); }
+  .btn-export { background: #2a5c3a; color: white; }
+  .btn-export:hover { background: #1a4a2a; }
+
+  /* Narrative */
+  .narrative-box { background: var(--silver); border-radius: 6px; padding: 14px 16px; font-size: 12px; line-height: 1.7; color: var(--ink); white-space: pre-wrap; margin-top: 14px; font-family: 'Courier New', monospace; }
+
+  /* Progress bar */
+  .progress-wrap { background: #dde3ef; border-radius: 4px; height: 6px; margin: 12px 0; }
+  .progress-fill { height: 6px; border-radius: 4px; background: var(--steel); transition: width 0.4s; }
+
+  /* delta note */
+  .delta-note { background: #fff8e6; border: 1px solid #e8c840; border-radius: 5px; padding: 8px 12px; font-size: 11px; color: #604000; margin-top: 10px; display: none; }
+
+  .fair-type-note { font-size: 11px; color: #8899bb; margin-top: 8px; }
+
+  /* Conditional show/hide for FAIR type */
+  .full-only, .delta-only, .partial-only { display: none; }
+
+  footer { text-align: center; padding: 20px; font-size: 10px; color: #8899bb; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">Conform-Edge</div>
+    <h1>Supplier FAIR Review Tool</h1>
+    <div class="subtitle">AS9102B — OEM / Receiving Organisation Incoming FAIR Package Review</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Setup -->
+  <div class="setup-card">
+    <h2>Review Setup</h2>
+    <div class="setup-row">
+      <div class="setup-field">
+        <label>FAIR Type</label>
+        <select id="fairType" onchange="onFairTypeChange()">
+          <option value="">— Select —</option>
+          <option value="full">Full FAI (New Part / Major Change)</option>
+          <option value="partial">Partial FAI (Substantiation)</option>
+          <option value="delta">Delta FAI (Change-Driven)</option>
+        </select>
+      </div>
+      <div class="setup-field">
+        <label>Part Number</label>
+        <input type="text" id="partNumber" placeholder="e.g. 12345-001">
+      </div>
+      <div class="setup-field">
+        <label>Drawing Revision</label>
+        <input type="text" id="drawingRev" placeholder="e.g. Rev C">
+      </div>
+      <div class="setup-field">
+        <label>Supplier Name</label>
+        <input type="text" id="supplierName" placeholder="e.g. Acme Machining LLC">
+      </div>
+      <div class="setup-field">
+        <label>Reviewer</label>
+        <input type="text" id="reviewer" placeholder="Your name">
+      </div>
+    </div>
+    <div class="delta-note" id="deltaNoteBox">
+      <strong>Delta FAI:</strong> Review covers only characteristics and documentation affected by the change. Confirm the change scope is documented in Form 1 and unchanged characteristics are substantiated from the previous full FAIR.
+    </div>
+    <div class="delta-note" id="partialNoteBox">
+      <strong>Partial FAI:</strong> Supplier must identify and substantiate all AS9102B requirements satisfied by the partial. Review for completeness against the agreed partial scope.
+    </div>
+  </div>
+
+  <!-- Section 1: Form 1 — Design Documentation Review -->
+  <div class="section-header">Section 1 — Form 1: Design Documentation Identification</div>
+  <div class="section-body" id="s1">
+
+    <div class="q-row critical" data-key="q1" data-critical="true">
+      <div class="q-num">1</div>
+      <div class="q-text">
+        <div class="q-label">Part number and drawing revision level on Form 1 match the purchase order and current design release. <span class="critical-tag">⚑ Critical</span></div>
+        <div class="q-ref">AS9102B §4.1; Form 1 Block 2, 3, 4</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q1" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q1" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q1"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q2" data-critical="false">
+      <div class="q-num">2</div>
+      <div class="q-text">
+        <div class="q-label">FAI Part Number Accountability section (Form 1) includes all sub-components, assemblies, and fasteners as applicable.</div>
+        <div class="q-ref">AS9102B §4.2; Form 1 Block 5-11</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q2" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q2" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q2" value="na"> N/A</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q2"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q3" data-critical="false">
+      <div class="q-num">3</div>
+      <div class="q-text">
+        <div class="q-label">Accountable Manager / Authorized Release Signatory signature and date are present on Form 1.</div>
+        <div class="q-ref">AS9102B §4.1.2; Form 1 Block 20</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q3" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q3" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q3"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q4" data-critical="false">
+      <div class="q-num">4</div>
+      <div class="q-text">
+        <div class="q-label">FAI date and FAI Part Number on Form 1 are consistent with all other forms submitted.</div>
+        <div class="q-ref">AS9102B §4.1; Form 1 Block 1, 2</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q4" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q4" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q4"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row delta-only" data-key="q5" data-critical="false">
+      <div class="q-num">5</div>
+      <div class="q-text">
+        <div class="q-label"><em>(Delta FAI)</em> Change description is documented in Form 1; scope of affected characteristics is clearly identified and bounded.</div>
+        <div class="q-ref">AS9102B §3.1 Delta FAI; Form 1 remarks block</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q5" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q5" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q5" value="na"> N/A</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q5"></textarea>
+      </div>
+    </div>
+
+  </div><!-- /Section 1 -->
+
+  <!-- Section 2: Form 2 — Drawing & Specification Accountability -->
+  <div class="section-header">Section 2 — Form 2: Drawing &amp; Specification Accountability</div>
+  <div class="section-body" id="s2">
+
+    <div class="q-row critical" data-key="q6" data-critical="true">
+      <div class="q-num">6</div>
+      <div class="q-text">
+        <div class="q-label">Ballooned drawing is present, at the current revision, with all dimensions/characteristics numbered and traceable to Form 4. <span class="critical-tag">⚑ Critical</span></div>
+        <div class="q-ref">AS9102B §4.2; Form 2</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q6" value="yes"> Yes</label>
+          <label class="radio-label partial"><input type="radio" name="q6" value="partial"> Partial</label>
+          <label class="radio-label no"><input type="radio" name="q6" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q6"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q7" data-critical="false">
+      <div class="q-num">7</div>
+      <div class="q-text">
+        <div class="q-label">Design documentation list on Form 2 includes all applicable drawings, specifications, and standards referenced in the design data.</div>
+        <div class="q-ref">AS9102B §4.2.1</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q7" value="yes"> Yes</label>
+          <label class="radio-label partial"><input type="radio" name="q7" value="partial"> Partial</label>
+          <label class="radio-label no"><input type="radio" name="q7" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q7"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q8" data-critical="false">
+      <div class="q-num">8</div>
+      <div class="q-text">
+        <div class="q-label">All customer-identified engineering change orders (ECOs / EOs) or design change notices are reflected at their correct revision in Form 2.</div>
+        <div class="q-ref">AS9102B §4.2.1; design data currency</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q8" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q8" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q8" value="na"> N/A</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q8"></textarea>
+      </div>
+    </div>
+
+  </div><!-- /Section 2 -->
+
+  <!-- Section 3: Form 3 — Materials & Process Tests -->
+  <div class="section-header">Section 3 — Form 3: Materials, Chemical, Physical &amp; Functional Tests</div>
+  <div class="section-body" id="s3">
+
+    <div class="q-row critical" data-key="q9" data-critical="true">
+      <div class="q-num">9</div>
+      <div class="q-text">
+        <div class="q-label">Material certifications (CoCs / mill certs) are present, traceable to the raw material lot used for the first article, and reference the applicable material specification at correct revision. <span class="critical-tag">⚑ Critical</span></div>
+        <div class="q-ref">AS9102B §4.3.1; Form 3 Block 2</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q9" value="yes"> Yes</label>
+          <label class="radio-label partial"><input type="radio" name="q9" value="partial"> Partial</label>
+          <label class="radio-label no"><input type="radio" name="q9" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q9" value="na"> N/A</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q9"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row critical" data-key="q10" data-critical="true">
+      <div class="q-num">10</div>
+      <div class="q-text">
+        <div class="q-label">Special processes are performed by qualified sources. Qualified Manufacturer List (QPL/PAS) approval is current at time of FAI and documented. <span class="critical-tag">⚑ Critical</span></div>
+        <div class="q-ref">AS9102B §4.3.2; Form 3 Block 3</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q10" value="yes"> Yes</label>
+          <label class="radio-label partial"><input type="radio" name="q10" value="partial"> Partial</label>
+          <label class="radio-label no"><input type="radio" name="q10" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q10" value="na"> N/A</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q10"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q11" data-critical="false">
+      <div class="q-num">11</div>
+      <div class="q-text">
+        <div class="q-label">Chemical analysis and/or physical test reports are present for all design-required tests (tensile, hardness, conductivity, etc.) with pass/fail verdicts.</div>
+        <div class="q-ref">AS9102B §4.3.3; Form 3 Block 4</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q11" value="yes"> Yes</label>
+          <label class="radio-label partial"><input type="radio" name="q11" value="partial"> Partial</label>
+          <label class="radio-label no"><input type="radio" name="q11" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q11" value="na"> N/A</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q11"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q12" data-critical="false">
+      <div class="q-num">12</div>
+      <div class="q-text">
+        <div class="q-label">Functional / performance test results are documented per design requirements, with acceptance criteria stated and pass/fail verdicts recorded.</div>
+        <div class="q-ref">AS9102B §4.3.4; Form 3 Block 5</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q12" value="yes"> Yes</label>
+          <label class="radio-label partial"><input type="radio" name="q12" value="partial"> Partial</label>
+          <label class="radio-label no"><input type="radio" name="q12" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q12" value="na"> N/A</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q12"></textarea>
+      </div>
+    </div>
+
+  </div><!-- /Section 3 -->
+
+  <!-- Section 4: Form 4 — Dimensional Results -->
+  <div class="section-header">Section 4 — Form 4: Characteristic Accountability &amp; Dimensional Results</div>
+  <div class="section-body" id="s4">
+
+    <div class="q-row critical" data-key="q13" data-critical="true">
+      <div class="q-num">13</div>
+      <div class="q-text">
+        <div class="q-label">All balloon numbers from the ballooned drawing are accounted for in Form 4 — 100% accountability, with no characteristics left unmeasured without documented disposition. <span class="critical-tag">⚑ Critical</span></div>
+        <div class="q-ref">AS9102B §4.4.1; Form 4 100% accountability rule</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q13" value="yes"> Yes</label>
+          <label class="radio-label partial"><input type="radio" name="q13" value="partial"> Partial</label>
+          <label class="radio-label no"><input type="radio" name="q13" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q13"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q14" data-critical="false">
+      <div class="q-num">14</div>
+      <div class="q-text">
+        <div class="q-label">Actual measurement values (not just pass/fail) are recorded for each characteristic with nominal, tolerance, and actual value columns populated.</div>
+        <div class="q-ref">AS9102B §4.4.2; Form 4 column requirements</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q14" value="yes"> Yes</label>
+          <label class="radio-label partial"><input type="radio" name="q14" value="partial"> Partial</label>
+          <label class="radio-label no"><input type="radio" name="q14" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q14"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row critical" data-key="q15" data-critical="true">
+      <div class="q-num">15</div>
+      <div class="q-text">
+        <div class="q-label">Key Characteristics (KCs) are identified on Form 4 and have measurement data with Cpk index (or justified alternative for low-volume KCs). All KC results are within spec. <span class="critical-tag">⚑ Critical</span></div>
+        <div class="q-ref">AS9102B §4.4.3; Key Characteristic accountability</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q15" value="yes"> Yes</label>
+          <label class="radio-label partial"><input type="radio" name="q15" value="partial"> Partial</label>
+          <label class="radio-label no"><input type="radio" name="q15" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q15" value="na"> N/A — No KCs designated</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q15"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q16" data-critical="false">
+      <div class="q-num">16</div>
+      <div class="q-text">
+        <div class="q-label">Gauge / measurement tool identification is referenced (gauge number or CMM report reference) for each measurement in Form 4, and calibration status is current.</div>
+        <div class="q-ref">AS9102B §4.4.4; measurement traceability</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q16" value="yes"> Yes</label>
+          <label class="radio-label partial"><input type="radio" name="q16" value="partial"> Partial</label>
+          <label class="radio-label no"><input type="radio" name="q16" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q16"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q17" data-critical="false">
+      <div class="q-num">17</div>
+      <div class="q-text">
+        <div class="q-label">All out-of-tolerance or non-conforming characteristics are identified with an N/C flag and dispositioned (concession, rework, scrap) before FAI submission.</div>
+        <div class="q-ref">AS9102B §4.4.5; NC disposition</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q17" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q17" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q17" value="na"> N/A — No OOT found</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q17"></textarea>
+      </div>
+    </div>
+
+  </div><!-- /Section 4 -->
+
+  <!-- Section 5: Form 5 — Approved Design / FAI Disposition -->
+  <div class="section-header">Section 5 — Form 5: FAI Disposition &amp; Supplier Approval</div>
+  <div class="section-body" id="s5">
+
+    <div class="q-row critical" data-key="q18" data-critical="true">
+      <div class="q-num">18</div>
+      <div class="q-text">
+        <div class="q-label">Form 5 FAI Disposition block is completed: FAIR Accepted / FAIR Accepted with conditions / FAIR Rejected — with authorized signature and date. <span class="critical-tag">⚑ Critical</span></div>
+        <div class="q-ref">AS9102B §4.5; Form 5 FAI disposition</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q18" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q18" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q18"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q19" data-critical="false">
+      <div class="q-num">19</div>
+      <div class="q-text">
+        <div class="q-label">Conformance Statement is signed by an authorized representative of the supplier confirming the first article is representative of production tooling, equipment, and processes.</div>
+        <div class="q-ref">AS9102B §4.5.1; Form 5 conformance statement</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q19" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q19" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q19"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q20" data-critical="false">
+      <div class="q-num">20</div>
+      <div class="q-text">
+        <div class="q-label">All conditions or open action items noted on Form 5 (if FAIR Accepted with Conditions) have a documented closure path with dates and responsible party.</div>
+        <div class="q-ref">AS9102B §4.5.2; conditional acceptance tracking</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q20" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q20" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q20" value="na"> N/A — Unconditional</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q20"></textarea>
+      </div>
+    </div>
+
+  </div><!-- /Section 5 -->
+
+  <!-- Section 6: Supplier Approval Status & Production Representativeness -->
+  <div class="section-header">Section 6 — Production Representativeness &amp; Supplier Status</div>
+  <div class="section-body" id="s6">
+
+    <div class="q-row" data-key="q21" data-critical="false">
+      <div class="q-num">21</div>
+      <div class="q-text">
+        <div class="q-label">Supplier is on the Approved Supplier List (ASL) and approval status is current. Quality Management certification (AS9100D/ISO 9001 etc.) is valid at time of FAI.</div>
+        <div class="q-ref">AS9102B §3.2; supplier approval status</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q21" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q21" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q21"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q22" data-critical="false">
+      <div class="q-num">22</div>
+      <div class="q-text">
+        <div class="q-label">First article part is confirmed as production-representative: manufactured using production tooling, production equipment, and production processes — no prototype processes used.</div>
+        <div class="q-ref">AS9102B §3.3; production representativeness</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q22" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q22" value="no"> No</label>
+          <label class="radio-label partial"><input type="radio" name="q22" value="partial"> Uncertain</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q22"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q23" data-critical="false">
+      <div class="q-num">23</div>
+      <div class="q-text">
+        <div class="q-label">Part serial number / lot number of the first article is recorded and traceable through all forms to the actual hardware.</div>
+        <div class="q-ref">AS9102B §4.1; traceability</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q23" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q23" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q23"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q24" data-critical="false">
+      <div class="q-num">24</div>
+      <div class="q-text">
+        <div class="q-label">Record retention statement or plan is identified for the FAIR package (typically life of part / product, per customer or regulatory requirement).</div>
+        <div class="q-ref">AS9102B §3.4; record retention</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q24" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q24" value="no"> No</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q24"></textarea>
+      </div>
+    </div>
+
+    <div class="q-row" data-key="q25" data-critical="false">
+      <div class="q-num">25</div>
+      <div class="q-text">
+        <div class="q-label">No previously-open corrective actions (SCARs) from this supplier related to this part family are outstanding that would affect FAIR validity.</div>
+        <div class="q-ref">AS9102B §3.2; supplier quality history</div>
+      </div>
+      <div class="q-answer">
+        <div class="radio-row">
+          <label class="radio-label yes"><input type="radio" name="q25" value="yes"> Yes</label>
+          <label class="radio-label no"><input type="radio" name="q25" value="no"> No</label>
+          <label class="radio-label na"><input type="radio" name="q25" value="na"> N/A</label>
+        </div>
+        <textarea class="notes-input" rows="1" placeholder="Notes…" id="n_q25"></textarea>
+      </div>
+    </div>
+
+  </div><!-- /Section 6 -->
+
+  <!-- Evaluate button -->
+  <div class="btn-row" style="margin-top:20px;">
+    <button class="btn btn-primary" onclick="evaluate()">Evaluate FAIR Package</button>
+    <button class="btn btn-outline" onclick="clearAll()">Clear All</button>
+  </div>
+
+  <!-- Verdict Panel -->
+  <div class="verdict-panel" id="verdictPanel" style="display:none;">
+    <div class="mai-badge">ARCHITECTURE DEFINED — domain: as9102b-fair-review | Reserved Kernel Interface</div>
+    <div class="verdict-label">FAIR Review Verdict</div>
+    <div id="verdictBox" class="verdict-box pending">
+      <div id="verdictTitle" class="verdict-title">—</div>
+      <div id="verdictSub" class="verdict-sub"></div>
+    </div>
+    <div class="score-row" id="scoreRow"></div>
+    <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+    <div id="gapSection" style="display:none;">
+      <table class="gap-table">
+        <thead><tr><th>Q#</th><th>Item</th><th>Response</th><th>Priority</th></tr></thead>
+        <tbody id="gapBody"></tbody>
+      </table>
+    </div>
+    <div id="narrativeSection">
+      <div class="verdict-label" style="margin-top:16px;">FAIR Review Record</div>
+      <div class="narrative-box" id="narrativeBox"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-export" onclick="exportJSON()">Export JSON</button>
+      <button class="btn btn-outline" onclick="copyNarrative()">Copy Review Record</button>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>Conform-Edge Quality Consulting LLC · Supplier FAIR Review Tool v1.0 · AS9102B · For readiness assessment only — the receiving organisation's authorized representative owns the final FAIR acceptance determination.</footer>
+
+<script>
+// Question registry
+const QUESTIONS = [
+  {key:'q1',  label:'Part number and drawing revision match PO and current design release',       critical:true,  section:'Form 1'},
+  {key:'q2',  label:'Form 1 Part Number Accountability complete (sub-components, assemblies)',    critical:false, section:'Form 1'},
+  {key:'q3',  label:'Authorized signatory signature and date on Form 1',                          critical:false, section:'Form 1'},
+  {key:'q4',  label:'FAI date/part number consistent across all forms',                           critical:false, section:'Form 1'},
+  {key:'q5',  label:'(Delta FAI) Change scope documented and bounded in Form 1',                  critical:false, section:'Form 1', deltaOnly:true},
+  {key:'q6',  label:'Ballooned drawing present at current revision, all dimensions numbered',     critical:true,  section:'Form 2'},
+  {key:'q7',  label:'Design documentation list (Form 2) complete',                                critical:false, section:'Form 2'},
+  {key:'q8',  label:'All ECOs/design changes reflected at correct revision',                      critical:false, section:'Form 2'},
+  {key:'q9',  label:'Material CoCs/mill certs present and traceable to material lot',            critical:true,  section:'Form 3'},
+  {key:'q10', label:'Special processes from qualified sources (QPL/PAS current)',                 critical:true,  section:'Form 3'},
+  {key:'q11', label:'Chemical/physical test reports present with pass/fail verdicts',             critical:false, section:'Form 3'},
+  {key:'q12', label:'Functional/performance test results documented with acceptance criteria',    critical:false, section:'Form 3'},
+  {key:'q13', label:'100% balloon accountability in Form 4 — all characteristics measured',      critical:true,  section:'Form 4'},
+  {key:'q14', label:'Actual measurement values recorded (nominal, tolerance, actual)',            critical:false, section:'Form 4'},
+  {key:'q15', label:'Key Characteristics identified with Cpk data, all within spec',             critical:true,  section:'Form 4'},
+  {key:'q16', label:'Gauge/CMM reference and calibration status documented',                      critical:false, section:'Form 4'},
+  {key:'q17', label:'All OOT characteristics dispositioned before submission',                    critical:false, section:'Form 4'},
+  {key:'q18', label:'Form 5 FAI Disposition completed and signed',                               critical:true,  section:'Form 5'},
+  {key:'q19', label:'Conformance Statement signed — production-representative statement',         critical:false, section:'Form 5'},
+  {key:'q20', label:'Conditions/open items have documented closure path',                         critical:false, section:'Form 5'},
+  {key:'q21', label:'Supplier on current ASL with valid QMS certification',                       critical:false, section:'Supplier Status'},
+  {key:'q22', label:'First article confirmed production-representative (tooling, equipment, process)', critical:false, section:'Supplier Status'},
+  {key:'q23', label:'Serial/lot number traceable through all forms to hardware',                  critical:false, section:'Supplier Status'},
+  {key:'q24', label:'Record retention identified',                                                critical:false, section:'Supplier Status'},
+  {key:'q25', label:'No outstanding SCARs affecting FAIR validity',                              critical:false, section:'Supplier Status'},
+];
+
+function getVal(key) {
+  const inputs = document.querySelectorAll(`input[name="${key}"]`);
+  for (const i of inputs) if (i.checked) return i.value;
+  return null;
+}
+
+function onFairTypeChange() {
+  const ft = document.getElementById('fairType').value;
+  document.getElementById('deltaNoteBox').style.display = ft === 'delta' ? 'block' : 'none';
+  document.getElementById('partialNoteBox').style.display = ft === 'partial' ? 'block' : 'none';
+  // show/hide delta-only questions
+  document.querySelectorAll('.delta-only').forEach(el => {
+    el.style.display = ft === 'delta' ? 'grid' : 'none';
+  });
+}
+
+function evaluate() {
+  const fairType = document.getElementById('fairType').value;
+  if (!fairType) { alert('Please select a FAIR Type before evaluating.'); return; }
+
+  let applicable = QUESTIONS.filter(q => {
+    if (q.deltaOnly && fairType !== 'delta') return false;
+    const v = getVal(q.key);
+    return v !== 'na' && v !== null; // count answered non-NA
+  });
+
+  let totalAnswered = 0, totalYes = 0, totalCriticalFail = false;
+  const gaps = [];
+
+  for (const q of QUESTIONS) {
+    if (q.deltaOnly && fairType !== 'delta') continue;
+    const v = getVal(q.key);
+    if (v === null) continue; // unanswered = gap
+    if (v === 'na') continue; // excluded from score
+    totalAnswered++;
+    if (v === 'yes') {
+      totalYes++;
+    } else {
+      // no or partial
+      if (q.critical && v === 'no') totalCriticalFail = true;
+      gaps.push({q, v});
+    }
+  }
+
+  // Count unanswered applicable questions as gaps
+  for (const q of QUESTIONS) {
+    if (q.deltaOnly && fairType !== 'delta') continue;
+    const v = getVal(q.key);
+    if (v === null) {
+      totalAnswered++;
+      if (q.critical) totalCriticalFail = true;
+      gaps.push({q, v: 'unanswered'});
+    }
+  }
+
+  const pct = totalAnswered > 0 ? Math.round((totalYes / totalAnswered) * 100) : 0;
+
+  let verdict, cls;
+  if (totalCriticalFail) {
+    verdict = '✖ FAIR REJECTED';
+    cls = 'rejected';
+  } else if (pct >= 90) {
+    verdict = '✔ FAIR ACCEPTABLE';
+    cls = 'accept';
+  } else if (pct >= 75) {
+    verdict = '◎ FAIR CONDITIONAL';
+    cls = 'conditional';
+  } else {
+    verdict = '✖ FAIR REJECTED';
+    cls = 'rejected';
+  }
+
+  const sub = totalCriticalFail
+    ? 'One or more critical items failed. The FAIR package cannot be accepted in its current state. Return to supplier with documented rejection items.'
+    : (cls === 'accept'
+      ? 'All critical items passed and overall compliance is ≥90%. FAIR package may be accepted. Document review record and file with FAIR.'
+      : (cls === 'conditional'
+        ? 'Critical items passed. Overall compliance is 75–89%. Conditional acceptance may be granted at the authority of the reviewing engineer. Open items must be tracked to closure.'
+        : 'Critical items passed but overall compliance is below 75%. FAIR package requires resubmission with corrections addressed.'));
+
+  // Render
+  const vb = document.getElementById('verdictBox');
+  vb.className = `verdict-box ${cls}`;
+  document.getElementById('verdictTitle').textContent = verdict;
+  document.getElementById('verdictSub').textContent = sub;
+
+  document.getElementById('scoreRow').innerHTML = `
+    <div class="score-badge"><div class="n">${pct}%</div><div class="t">Overall Score</div></div>
+    <div class="score-badge"><div class="n">${totalYes}</div><div class="t">Items Passed</div></div>
+    <div class="score-badge"><div class="n">${gaps.length}</div><div class="t">Gaps / Fails</div></div>
+    <div class="score-badge"><div class="n">${totalCriticalFail ? 'YES' : 'NO'}</div><div class="t">Critical Fail</div></div>
+  `;
+
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  // Gap table
+  if (gaps.length > 0) {
+    document.getElementById('gapSection').style.display = 'block';
+    const tbody = document.getElementById('gapBody');
+    tbody.innerHTML = '';
+    for (const {q, v} of gaps) {
+      const priority = q.critical ? `<span class="tag-critical">Critical</span>` : (v === 'partial' ? `<span class="tag-partial">Partial</span>` : '');
+      const resp = v === 'unanswered' ? '— Not answered' : v.charAt(0).toUpperCase() + v.slice(1);
+      const notes = document.getElementById(`n_${q.key}`)?.value || '';
+      tbody.innerHTML += `<tr>
+        <td>${q.key.replace('q','')}</td>
+        <td>${q.label}${notes ? `<br><em style="font-size:11px;color:#666">${notes}</em>` : ''}</td>
+        <td>${resp}</td>
+        <td>${priority}</td>
+      </tr>`;
+    }
+  } else {
+    document.getElementById('gapSection').style.display = 'none';
+  }
+
+  // Narrative
+  const partNo = document.getElementById('partNumber').value || '[Part Number]';
+  const drawRev = document.getElementById('drawingRev').value || '[Rev]';
+  const supplier = document.getElementById('supplierName').value || '[Supplier]';
+  const rvwr = document.getElementById('reviewer').value || '[Reviewer]';
+  const now = new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+  const typeLabel = {full:'Full FAI', partial:'Partial FAI', delta:'Delta FAI'}[fairType] || fairType;
+
+  let narr = `FAIR REVIEW RECORD\n${'='.repeat(50)}\nDate: ${now}\nReviewer: ${rvwr}\nPart Number: ${partNo}  |  Drawing Rev: ${drawRev}\nSupplier: ${supplier}\nFAI Type: ${typeLabel}\n\nVERDICT: ${verdict}\n${sub}\n\nSCORE SUMMARY\n${'─'.repeat(30)}\nOverall: ${pct}% (${totalYes}/${totalAnswered} items passed)\nCritical Item Failure: ${totalCriticalFail ? 'YES — see gaps below' : 'NONE'}\nGaps / Fails: ${gaps.length}\n`;
+
+  if (gaps.length > 0) {
+    narr += `\nGAPS / OPEN ITEMS\n${'─'.repeat(30)}\n`;
+    for (const {q, v} of gaps) {
+      const crit = q.critical ? '[CRITICAL] ' : '';
+      const notes = document.getElementById(`n_${q.key}`)?.value || '';
+      narr += `• ${crit}Q${q.key.replace('q','')}: ${q.label}\n  Response: ${v}${notes ? `\n  Notes: ${notes}` : ''}\n`;
+    }
+  }
+  narr += `\nM-AI SIGNAL: ARCHITECTURE DEFINED — domain as9102b-fair-review; governed decisions reserved for Kernel integration.\n\nThis review supports FAIR acceptance determination. Final authority rests with the receiving organisation's authorised engineering/quality representative.\nConform-Edge Supplier FAIR Review Tool v1.0 | AS9102B`;
+
+  document.getElementById('narrativeBox').textContent = narr;
+  document.getElementById('verdictPanel').style.display = 'block';
+  document.getElementById('verdictPanel').scrollIntoView({behavior:'smooth'});
+}
+
+function exportJSON() {
+  const fairType = document.getElementById('fairType').value;
+  const answers = {};
+  for (const q of QUESTIONS) {
+    answers[q.key] = {
+      label: q.label,
+      critical: q.critical,
+      value: getVal(q.key),
+      notes: document.getElementById(`n_${q.key}`)?.value || ''
+    };
+  }
+  const payload = {
+    tool: 'Conform-Edge Supplier FAIR Review Tool v1.0',
+    standard: 'AS9102B',
+    fairType,
+    partNumber: document.getElementById('partNumber').value,
+    drawingRev: document.getElementById('drawingRev').value,
+    supplier: document.getElementById('supplierName').value,
+    reviewer: document.getElementById('reviewer').value,
+    date: new Date().toISOString(),
+    answers,
+    verdict: document.getElementById('verdictTitle').textContent,
+    mAiSignal: 'ARCHITECTURE_DEFINED',
+    domain: 'as9102b-fair-review',
+    kernelDependency: 'RESERVED_INTERFACE'
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `FAIR-Review-${document.getElementById('partNumber').value || 'export'}-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function copyNarrative() {
+  const text = document.getElementById('narrativeBox').textContent;
+  navigator.clipboard.writeText(text).then(() => alert('Review record copied to clipboard.'));
+}
+
+function clearAll() {
+  document.querySelectorAll('input[type=radio]').forEach(i => i.checked = false);
+  document.querySelectorAll('.notes-input').forEach(i => i.value = '');
+  document.getElementById('verdictPanel').style.display = 'none';
+  document.getElementById('fairType').value = '';
+  document.getElementById('partNumber').value = '';
+  document.getElementById('drawingRev').value = '';
+  document.getElementById('supplierName').value = '';
+  document.getElementById('reviewer').value = '';
+  document.getElementById('deltaNoteBox').style.display = 'none';
+  document.getElementById('partialNoteBox').style.display = 'none';
+  document.querySelectorAll('.delta-only').forEach(el => el.style.display = 'none');
+}
+</script>
+
+</body>
+</html>

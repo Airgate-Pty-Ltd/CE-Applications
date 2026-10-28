@@ -1,0 +1,362 @@
+// Conform-Edge · PMA Autopilot — data model
+// FAA Part 21 Subpart K / AC 21.303-4 PMA application drafting tool.
+//
+// TWO LOGICAL LAYERS live in this schema:
+//   1. HOST tables  — the application's own records (Organization, User, PmaCase, …).
+//   2. mai_* tables — the embedded M-AI Core kernel's append-only assessment log.
+//
+// GOVERNANCE INVARIANTS (enforced structurally, tested by AT-04/AT-12 later):
+//   • The kernel writes ONLY to mai_* tables — never to a host table.
+//   • The `mai_kernel` DB role gets INSERT on mai_* + SELECT on host tables, no host UPDATE.
+//   • Human responses to assessments are written under the host app principal, not the kernel.
+//   • Every host table carries tenantId and is filtered on every query (structural isolation).
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── ENUMS ────────────────────────────────────────────────────────────────────
+
+enum UserRole {
+  PREPARER
+  REVIEWER // Quality Engineer — required to move a case out of Drafting
+  ADMIN
+}
+
+// PMA_Case lifecycle. A case may NEVER leave GAP_REVIEW with an open BLOCKING finding.
+enum CaseStatus {
+  INTAKE
+  GAP_REVIEW
+  DRAFTING
+  UNDER_REVIEW
+  READY_FOR_SIGNATURE
+  EXPORTED
+  ARCHIVED
+}
+
+// Approval basis per AC 21.303-4. Never classified by a model — set by a human decision
+// after the DIM surfaces a basis signal. AMBIGUOUS = conflicting/no signal, awaiting human.
+enum ApprovalBasis {
+  STC_IDENTICALITY
+  TC_LICENSED
+  IDENTICALITY_NO_LICENSE
+  TEST_AND_COMPUTATION
+  AMBIGUOUS
+}
+
+// Data confidence is qualitative ONLY — never a numeric score in any UI or document.
+enum DataConfidence {
+  high
+  medium
+  low
+}
+
+// A Data_Field is CONFIRMED or MISSING only. There is NO LIKELY/unconfirmed state:
+// every populated value came from a structured read, a pattern match, or a human
+// transcribing it off the source document. (Spec §3, §6.)
+enum FieldState {
+  CONFIRMED
+  MISSING
+}
+
+// How a Data_Field value was obtained — all three are deterministic, no LLM.
+enum ExtractionMethod {
+  form_field_read // structured PDF form-field read
+  pattern_match // regex against a known FAA identifier format
+  preparer_transcribed // human read it off the source document in front of them
+}
+
+enum GeneratedDocType {
+  APPLICATION_LETTER // AC 21.303-4 §8
+  PMA_SUPPLEMENT // AC 21.303-4 Appendix C (unnumbered)
+  SUBMISSION_CHECKLIST // F-851-45 + AC Appendix B
+  MANAGEMENT_REVIEW_PACK
+}
+
+// Submission status the tool is allowed to state. It NEVER says "ready for FAA submission".
+enum SubmissionStatus {
+  DRAFTED
+  DRAFTED_WITH_GAPS
+  BLOCKED
+}
+
+enum EvidenceType {
+  STC
+  ASSIST_LETTER
+  TC_HOLDER_LETTER
+  MASTER_DRAWING_LIST
+  DRAWING
+  TEST_REPORT
+  QMS_MANUAL_EXCERPT
+  OTHER
+}
+
+enum RegulatorySourceCategory {
+  AC
+  CFR_SECTION
+  FAA_FORM
+}
+
+enum RegulatorySourceStatus {
+  OK
+  BROKEN
+  CHANGED
+}
+
+// ─── HOST: TENANT & IDENTITY ────────────────────────────────────────────────────
+
+/// The customer account. Holds its OWN Submission Office Profile — tenant-specific,
+/// NEVER defaulted from another org's data (spec §3, constraint §11).
+model Organization {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  legalName String?
+
+  // Submission Office Profile — per-tenant, never a global default.
+  submissionOfficeName    String?
+  submissionOfficeAddress String?
+  submissionOfficeContact String?
+  submissionMethod        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users               User[]
+  cases               PmaCase[]
+  evidenceDocuments   EvidenceDocument[]
+  dataFields          DataField[]
+  generatedDocuments  GeneratedDocument[]
+  libraryEntries      ApprovedLibraryEntry[]
+  regulatorySources   RegulatorySource[]
+  auditLedgerEntries  AuditLedger[]
+
+  @@index([slug])
+}
+
+model User {
+  id           String   @id @default(uuid())
+  tenantId     String
+  email        String
+  passwordHash String
+  fullName     String
+  role         UserRole @default(PREPARER)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  organization Organization @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+}
+
+// ─── HOST: PMA CASE ─────────────────────────────────────────────────────────────
+
+/// One per article/project. The DIM readsFields (spec §4a manifest) are materialized
+/// as columns here so the kernel evaluates a self-contained snapshot and the linkage
+/// rules (e.g. PMA-LINK-001) stay inside the approved same-record rule grammar.
+model PmaCase {
+  id          String   @id @default(uuid())
+  tenantId    String
+  articleName String
+  status      CaseStatus @default(INTAKE)
+
+  // Basis is a HUMAN decision; AMBIGUOUS until confirmed. confidence is qualitative.
+  approvalBasis ApprovalBasis?
+  basisConfidence DataConfidence?
+  basisConfirmedByUserId String?
+  basisConfirmedAt       DateTime?
+
+  // Which Regulatory_Source revision the case was last assessed against.
+  regulatorySourceRevision String?
+  lastAssessedAt           DateTime?
+
+  // ── DIM snapshot fields (readsFields, spec §4a) ──────────────────────────────
+  stcNumber              String?
+  tcNumber               String?
+  tcHolder               String?
+  licenseAgreementPresent Boolean?
+  complianceDataPresent   Boolean?
+  applicantLegalName      String?
+  manufacturingAddress    String?
+  faaSubmissionOffice     String?
+  qmsManualNumber         String?
+  qmsManualRevision       String?
+  qmsManualDate           String?
+  markingSchemeRef        String?
+  icaDispositionStated    Boolean?
+  adImpactAddressed       Boolean?
+  signatoryName           String?
+  signatoryTitle          String?
+  pmaPartNumbers          String[]
+  oemPartNumbers          String[]
+  // Materialized cross-document values so linkage rules compare same-record fields.
+  letterStcNumber            String?
+  supplementStcNumber        String?
+  letterModelEligibility     String?
+  supplementModelEligibility String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization       Organization        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  evidenceDocuments  EvidenceDocument[]
+  dataFields         DataField[]
+  generatedDocuments GeneratedDocument[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+}
+
+// ─── HOST: EVIDENCE & FIELDS ────────────────────────────────────────────────────
+
+/// Every uploaded source file, versioned. Deterministic intake only (spec §6).
+model EvidenceDocument {
+  id           String       @id @default(uuid())
+  tenantId     String
+  caseId       String
+  type         EvidenceType
+  fileName     String
+  storageKey   String
+  contentHash  String
+  version      Int          @default(1)
+  uploadedByUserId String?
+  createdAt    DateTime     @default(now())
+
+  organization Organization @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  case         PmaCase      @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  dataFields   DataField[]
+
+  @@index([tenantId])
+  @@index([caseId])
+}
+
+/// One row per required field. CONFIRMED or MISSING only (no LIKELY state).
+/// Provenance: which document, cited where, and by what deterministic method.
+model DataField {
+  id                 String           @id @default(uuid())
+  tenantId           String
+  caseId             String
+  fieldKey           String // e.g. "qms_manual_number", "stc_number"
+  value              String?
+  state              FieldState       @default(MISSING)
+  method             ExtractionMethod?
+  sourceEvidenceId   String?
+  sourceCitation     String? // page/field/section the value was read from
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+
+  organization Organization      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  case         PmaCase           @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  sourceEvidence EvidenceDocument? @relation(fields: [sourceEvidenceId], references: [id], onDelete: SetNull)
+
+  @@unique([caseId, fieldKey])
+  @@index([tenantId])
+  @@index([caseId])
+}
+
+/// Versioned output. Stamped with the data-snapshot hash and regulatory-source
+/// revision it was generated against, and always watermarked DRAFT (spec §7).
+model GeneratedDocument {
+  id                       String           @id @default(uuid())
+  tenantId                 String
+  caseId                   String
+  type                     GeneratedDocType
+  version                  Int              @default(1)
+  storageKey               String
+  dataSnapshotHash         String
+  regulatorySourceRevision String
+  submissionStatus         SubmissionStatus
+  generatedByUserId        String?
+  createdAt                DateTime         @default(now())
+
+  organization Organization @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  case         PmaCase      @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([caseId])
+}
+
+/// An org's own past PMA packages, promoted to a searchable precedent library
+/// ONLY by explicit human action. Never auto-copied into a new case.
+model ApprovedLibraryEntry {
+  id             String        @id @default(uuid())
+  tenantId       String
+  sourceCaseId   String?
+  articleName    String
+  approvalBasis  ApprovalBasis
+  summary        String?
+  promotedByUserId String?
+  createdAt      DateTime      @default(now())
+
+  organization Organization @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, approvalBasis])
+}
+
+// ─── HOST: SELF-REPAIRING REGULATORY SOURCE REGISTRY (spec §5) ───────────────────
+
+model RegulatorySource {
+  id               String                   @id @default(uuid())
+  tenantId         String
+  title            String
+  canonicalUrl     String
+  category         RegulatorySourceCategory
+  currentRevision  String?
+  lastKnownHash    String?
+  status           RegulatorySourceStatus   @default(OK)
+  lastCheckedAt    DateTime?
+  frozen           Boolean                  @default(false) // frozen from new drafts on CHANGED until Admin review
+  proposedUrl      String? // fallback candidate awaiting Admin approval on BROKEN
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+
+  organization Organization @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+}
+
+// ─── HOST: AUDIT LEDGER (append-only, immutable) ─────────────────────────────────
+
+/// The record that proves what the tool did and when. Append-only — treat as immutable.
+model AuditLedger {
+  id          String   @id @default(uuid())
+  tenantId    String
+  actorUserId String?
+  action      String // upload | extraction | assessment | generation | human_response | reg_source_change …
+  recordType  String
+  recordId    String
+  contentHash String
+  detail      Json?
+  occurredAt  DateTime @default(now())
+
+  organization Organization @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, recordType, recordId])
+}
+
+// ─── M-AI CORE KERNEL TABLES (mai_*) — NOT modeled here on purpose ───────────────
+//
+// The kernel OWNS its own tables (mai_events, mai_assessments, mai_error_log,
+// mai_rule_registry). They are defined in kernel-owned SQL DDL:
+//     apps/api/src/mai/sql/mai_schema.sql
+// and provisioned under a dedicated least-privilege role by:
+//     apps/api/src/mai/sql/mai_kernel_role.sql
+//
+// They are deliberately kept OUT of this Prisma schema so that:
+//   • `prisma db push` (host principal) never manages or alters kernel tables, and
+//   • the dependency direction stays one-way — the kernel imports nothing from the
+//     host, and the host never writes the kernel's tables (spec §4a, design law 12).
+//
+// Deploy order: `prisma db push` (host tables) → `psql -f mai_schema.sql` →
+// `psql -f mai_kernel_role.sql` (see railway.json).

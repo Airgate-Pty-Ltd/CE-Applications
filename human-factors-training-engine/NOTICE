@@ -1,0 +1,54 @@
+NOTICE — Intellectual Property Boundaries
+Human Factors Training Platform (HF-ENGINE)
+
+===============================================================================
+SOFTWARE
+===============================================================================
+All application source code, database schema, services, API routes, UI
+components, and build tooling in this repository are:
+
+    Copyright © 2026 Conform-Edge Quality Consulting LLC. All rights reserved.
+
+See LICENSE for terms. This is proprietary software; it is not open source.
+
+===============================================================================
+EMBEDDED COURSE / TRAINING CONTENT
+===============================================================================
+This platform is designed to host learning content (courses, lessons, learning
+atoms, case studies, assessment questions) whose intellectual property may
+belong to a party other than Conform-Edge — most notably Annex Quality, whose
+authored training material may be delivered through this platform under a
+separate content-licensing arrangement.
+
+The data model enforces this separation explicitly:
+  - `LearningAtom.owner` and `LearningAtom.licenseClass` record which party
+    authored a given piece of content and under what license it is used
+    (e.g. "public_domain", "cc_by", "annex_quality", "proprietary", "burrana").
+  - `EvidenceClassification` / `HfEvidence.classification` record the
+    confidentiality of source evidence, independent of who owns any content
+    derived from it.
+
+As of this repository's current state, no Annex Quality-authored course
+content is embedded in the seed data or fixtures — the seed data used
+throughout this codebase's test suite is synthetic, written for testing
+purposes only, and is Conform-Edge software-test material, not licensed
+third-party course content. This NOTICE establishes the boundary in advance
+of any such content being loaded, so that a future content import does not
+require retrofitting attribution.
+
+Where content IS later loaded with `owner: "Annex Quality"` (or any other
+third-party owner value), that content:
+  - remains the intellectual property of its stated owner,
+  - is used by this platform under whatever license arrangement governs that
+    content's delivery, separate from the software license in LICENSE,
+  - is NOT covered by the Conform-Edge software copyright above, and
+  - must not be redistributed outside the terms of its own content license,
+    regardless of the software's license terms.
+
+===============================================================================
+QUESTIONS
+===============================================================================
+For questions about which parts of a specific deployment's content are
+Conform-Edge software vs. third-party content, consult the `owner` and
+`licenseClass` fields on the relevant `LearningAtom` / `PolicyPack` records,
+or contact Conform-Edge Quality Consulting LLC.

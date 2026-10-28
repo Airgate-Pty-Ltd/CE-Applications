@@ -1,0 +1,340 @@
+{
+ "changes": [
+  {
+   "file": "content\\checklists\\AS9100D.json",
+   "standard": "AS9100D",
+   "ref": "5.1.1(b)",
+   "field": "question",
+   "old": "Show the quality policy and quality objectives, and how they are compatible with the context and strategic direction.",
+   "new": "What quality policy and quality objectives do you hold, and how do they fit your organization's context and strategy?"
+  },
+  {
+   "file": "content\\checklists\\AS9100D.json",
+   "standard": "AS9100D",
+   "ref": "5.1.1(f)",
+   "field": "question",
+   "old": "How does top management communicate the importance of effective quality management and of conforming to QMS requirements?",
+   "new": "How does top management explain why effective quality management and conformity to QMS requirements matter to the people doing the work?"
+  },
+  {
+   "file": "content\\checklists\\AS9100D.json",
+   "standard": "AS9100D",
+   "ref": "7.5.3.1(a)",
+   "field": "question",
+   "old": "Is this controlled document available and suitable for use where and when it is needed? Show the point of use.",
+   "new": "Can the people who need this controlled document reach a current copy, and is it usable where the work happens? Show the point of use."
+  },
+  {
+   "file": "content\\checklists\\AS9100D.json",
+   "standard": "AS9100D",
+   "ref": "7.5.3.1(b)",
+   "field": "question",
+   "old": "How is the document protected from loss of confidentiality, improper use, or loss of integrity?",
+   "new": "How do you guard this document against unauthorised disclosure, misuse or corruption?"
+  },
+  {
+   "file": "content\\checklists\\AS9100D.json",
+   "standard": "AS9100D",
+   "ref": "8.3.4.1(b)",
+   "field": "question",
+   "old": "Do the test procedures describe the methods, how to perform the test and how to record results?",
+   "new": "Do the test procedures set out the methods, the steps to carry out the test, and what to record?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C-part1.json",
+   "standard": "AS9110C",
+   "ref": "5.3.1",
+   "field": "question",
+   "old": "Who is the Accountable Manager, and how do they know maintenance can be financed and carried out to standard?",
+   "new": "Who holds the Accountable Manager role, and how do they know maintenance can be financed and carried out to standard?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C-part1.json",
+   "standard": "AS9110C",
+   "ref": "5.3.1",
+   "field": "evidence",
+   "old": "Direct access to top executive if the Accountable Manager is not the top executive",
+   "new": "Direct reporting line to the top executive where the Accountable Manager and the top executive are different people"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "5.1.1(b)",
+   "field": "question",
+   "old": "Show the quality policy and quality objectives, and how they are compatible with the context and strategic direction.",
+   "new": "What quality policy and quality objectives do you hold, and how do they fit your organization's context and strategy?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "5.1.1(f)",
+   "field": "question",
+   "old": "How does top management communicate the importance of effective quality management and of conforming to QMS requirements?",
+   "new": "How does top management explain why effective quality management and conformity to QMS requirements matter to the people doing the work?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "5.3.1",
+   "field": "question",
+   "old": "Who is the Accountable Manager, and how do they know maintenance can be financed and carried out to standard?",
+   "new": "Who holds the Accountable Manager role, and how do they know maintenance can be financed and carried out to standard?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "5.3.1",
+   "field": "evidence",
+   "old": "Direct access to top executive if the Accountable Manager is not the top executive",
+   "new": "Direct reporting line to the top executive where the Accountable Manager and the top executive are different people"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "7.5.3.1(a)",
+   "field": "question",
+   "old": "Is this controlled document available and suitable for use where and when it is needed? Show the point of use.",
+   "new": "Can the people who need this controlled document reach a current copy, and is it usable where the work happens? Show the point of use."
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "7.5.3.1(b)",
+   "field": "question",
+   "old": "How is the document protected from loss of confidentiality, improper use, or loss of integrity?",
+   "new": "How do you guard this document against unauthorised disclosure, misuse or corruption?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "8.1(d)",
+   "field": "question",
+   "old": "How do you implement control of the processes in accordance with the criteria? Show it for one maintenance process.",
+   "new": "How do you run each maintenance process against the criteria you set? Show it for one maintenance process."
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "8.1(g)",
+   "field": "question",
+   "old": "What process and resources support the use and maintenance of the products and services you maintain?",
+   "new": "What process and resources sustain the products and services you maintain?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "8.1(j)",
+   "field": "question",
+   "old": "How are maintenance tasks identified as critical by the customer or the type certificate holder managed? Show one critical task and its planning and change control.",
+   "new": "How do you manage the maintenance tasks that the customer or the type certificate holder has flagged as critical? Show one critical task and its planning and change control."
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "8.1.6(e)",
+   "field": "question",
+   "old": "If a part was removed from an aircraft involved in an accident or incident, was it processed under a specific work order that includes the inspections and repairs needed for airworthiness?",
+   "new": "If a part came off an aircraft that was involved in an accident or incident, was it processed under a specific work order covering the inspections and repairs needed for airworthiness?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "8.1.6(e)",
+   "field": "evidence",
+   "old": "Technical data source acceptable to the competent authority and the customer",
+   "new": "Technical data source that both the competent authority and the customer approve"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "8.2.2(d)",
+   "field": "question",
+   "old": "What operational risks, such as ability and capacity to deliver on time, have been identified?",
+   "new": "What operational risks have you identified, for example pressure on delivery dates or resource shortfalls?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "8.5.1(n)",
+   "field": "question",
+   "old": "How do you confirm compliance with reference standards, quality plans, type certificate holder recommendations, customer specifications and documented procedures for one job?",
+   "new": "For one job, how do you show the work matches the applicable reference standards, quality plans, type certificate holder recommendations, customer specifications and documented procedures?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "8.5.1(p)",
+   "field": "question",
+   "old": "How do you assure that maintenance operations do not adversely affect the airworthiness of parts of the article outside the scope of the work ordered?",
+   "new": "How do you show that work on one item cannot harm the airworthiness of parts outside the scope of the work order?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "9.3.2(h)",
+   "field": "question",
+   "old": "At the last management review, were the adequacy, accomplishment and effectiveness of the training programme considered?",
+   "new": "At the last management review, was the training programme assessed for whether it is adequate, completed and effective?"
+  },
+  {
+   "file": "content\\checklists\\AS9110C.json",
+   "standard": "AS9110C",
+   "ref": "9.3.2(i)",
+   "field": "question",
+   "old": "At the last management review, were future changes to competent authority and customer requirements that could affect the organization considered?",
+   "new": "At the last management review, were upcoming changes in what the competent authority and customers will require, and their effect on the organization, discussed?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9100D-batch-01.json",
+   "standard": "AS9100D",
+   "ref": "5.1.1(b)",
+   "field": "question",
+   "old": "Show the quality policy and quality objectives, and how they are compatible with the context and strategic direction.",
+   "new": "What quality policy and quality objectives do you hold, and how do they fit your organization's context and strategy?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9100D-batch-01.json",
+   "standard": "AS9100D",
+   "ref": "5.1.1(f)",
+   "field": "question",
+   "old": "How does top management communicate the importance of effective quality management and of conforming to QMS requirements?",
+   "new": "How does top management explain why effective quality management and conformity to QMS requirements matter to the people doing the work?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9100D-batch-02.json",
+   "standard": "AS9100D",
+   "ref": "7.5.3.1(a)",
+   "field": "question",
+   "old": "Is this controlled document available and suitable for use where and when it is needed? Show the point of use.",
+   "new": "Can the people who need this controlled document reach a current copy, and is it usable where the work happens? Show the point of use."
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9100D-batch-02.json",
+   "standard": "AS9100D",
+   "ref": "7.5.3.1(b)",
+   "field": "question",
+   "old": "How is the document protected from loss of confidentiality, improper use, or loss of integrity?",
+   "new": "How do you guard this document against unauthorised disclosure, misuse or corruption?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9100D-batch-03.json",
+   "standard": "AS9100D",
+   "ref": "8.3.4.1(b)",
+   "field": "question",
+   "old": "Do the test procedures describe the methods, how to perform the test and how to record results?",
+   "new": "Do the test procedures set out the methods, the steps to carry out the test, and what to record?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-01.json",
+   "standard": "AS9110C",
+   "ref": "5.1.1(b)",
+   "field": "question",
+   "old": "Show the quality policy and quality objectives, and how they are compatible with the context and strategic direction.",
+   "new": "What quality policy and quality objectives do you hold, and how do they fit your organization's context and strategy?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-01.json",
+   "standard": "AS9110C",
+   "ref": "5.1.1(f)",
+   "field": "question",
+   "old": "How does top management communicate the importance of effective quality management and of conforming to QMS requirements?",
+   "new": "How does top management explain why effective quality management and conformity to QMS requirements matter to the people doing the work?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-02.json",
+   "standard": "AS9110C",
+   "ref": "7.5.3.1(a)",
+   "field": "question",
+   "old": "Is this controlled document available and suitable for use where and when it is needed? Show the point of use.",
+   "new": "Can the people who need this controlled document reach a current copy, and is it usable where the work happens? Show the point of use."
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-02.json",
+   "standard": "AS9110C",
+   "ref": "7.5.3.1(b)",
+   "field": "question",
+   "old": "How is the document protected from loss of confidentiality, improper use, or loss of integrity?",
+   "new": "How do you guard this document against unauthorised disclosure, misuse or corruption?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-03.json",
+   "standard": "AS9110C",
+   "ref": "8.1(d)",
+   "field": "question",
+   "old": "How do you implement control of the processes in accordance with the criteria? Show it for one maintenance process.",
+   "new": "How do you run each maintenance process against the criteria you set? Show it for one maintenance process."
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-03.json",
+   "standard": "AS9110C",
+   "ref": "8.1(g)",
+   "field": "question",
+   "old": "What process and resources support the use and maintenance of the products and services you maintain?",
+   "new": "What process and resources sustain the products and services you maintain?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-03.json",
+   "standard": "AS9110C",
+   "ref": "8.1(j)",
+   "field": "question",
+   "old": "How are maintenance tasks identified as critical by the customer or the type certificate holder managed? Show one critical task and its planning and change control.",
+   "new": "How do you manage the maintenance tasks that the customer or the type certificate holder has flagged as critical? Show one critical task and its planning and change control."
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-03.json",
+   "standard": "AS9110C",
+   "ref": "8.1.6(e)",
+   "field": "question",
+   "old": "If a part was removed from an aircraft involved in an accident or incident, was it processed under a specific work order that includes the inspections and repairs needed for airworthiness?",
+   "new": "If a part came off an aircraft that was involved in an accident or incident, was it processed under a specific work order covering the inspections and repairs needed for airworthiness?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-03.json",
+   "standard": "AS9110C",
+   "ref": "8.1.6(e)",
+   "field": "evidence",
+   "old": "Technical data source acceptable to the competent authority and the customer",
+   "new": "Technical data source that both the competent authority and the customer approve"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-03.json",
+   "standard": "AS9110C",
+   "ref": "8.2.2(d)",
+   "field": "question",
+   "old": "What operational risks, such as ability and capacity to deliver on time, have been identified?",
+   "new": "What operational risks have you identified, for example pressure on delivery dates or resource shortfalls?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-04.json",
+   "standard": "AS9110C",
+   "ref": "8.5.1(n)",
+   "field": "question",
+   "old": "How do you confirm compliance with reference standards, quality plans, type certificate holder recommendations, customer specifications and documented procedures for one job?",
+   "new": "For one job, how do you show the work matches the applicable reference standards, quality plans, type certificate holder recommendations, customer specifications and documented procedures?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-04.json",
+   "standard": "AS9110C",
+   "ref": "8.5.1(p)",
+   "field": "question",
+   "old": "How do you assure that maintenance operations do not adversely affect the airworthiness of parts of the article outside the scope of the work ordered?",
+   "new": "How do you show that work on one item cannot harm the airworthiness of parts outside the scope of the work order?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-05.json",
+   "standard": "AS9110C",
+   "ref": "9.3.2(h)",
+   "field": "question",
+   "old": "At the last management review, were the adequacy, accomplishment and effectiveness of the training programme considered?",
+   "new": "At the last management review, was the training programme assessed for whether it is adequate, completed and effective?"
+  },
+  {
+   "file": "content\\checklists\\lettered\\AS9110C-batch-05.json",
+   "standard": "AS9110C",
+   "ref": "9.3.2(i)",
+   "field": "question",
+   "old": "At the last management review, were future changes to competent authority and customer requirements that could affect the organization considered?",
+   "new": "At the last management review, were upcoming changes in what the competent authority and customers will require, and their effect on the organization, discussed?"
+  }
+ ]
+}

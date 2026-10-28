@@ -1,0 +1,23 @@
+{
+  "ruleId": "OBJ-001",
+  "dimId": "iso42001-aims-governance",
+  "revision": 1,
+  "effectiveDate": "2026-07-10",
+  "approvedBy": "Brian R. Olea",
+  "approvalRef": "MAI-CCB-2026-014",
+  "severity": "minor",
+  "category": "completeness",
+  "riskClass": "C",
+  "basisType": "deterministic-record-completeness",
+  "description": "An AIMS objective must have a measurable target so progress can be tracked.",
+  "requiredFields": ["measurable_target"],
+  "events": ["objective.created", "objective.updated"],
+  "findingText": "Objective isn't measurable as required",
+  "resolutionHint": "Add a specific, measurable target value",
+  "clauseRefs": ["6.2"],
+  "condition": { "field": "measurable_target", "is_empty": true },
+  "testCases": ["OBJ-001-POS-001", "OBJ-001-NEG-001", "OBJ-001-MISSING-001"],
+  "limitations": [
+    "Checks only that a measurable_target string is present — cannot judge whether the target is actually SMART or realistic."
+  ]
+}

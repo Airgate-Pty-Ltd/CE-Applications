@@ -1,0 +1,38 @@
+{
+  "rubrics": [
+    {
+      "name": "clause_accuracy_v1",
+      "metrics": [
+        {
+          "metric": "ClauseQuoteExact",
+          "target": 0.98
+        },
+        {
+          "metric": "CitationValidity",
+          "target": 1.0
+        },
+        {
+          "metric": "HallucinationRate",
+          "target": 0.01
+        }
+      ]
+    },
+    {
+      "name": "formatting_style_v1",
+      "metrics": [
+        {
+          "metric": "NoHowToInProcedure",
+          "target": 1.0
+        },
+        {
+          "metric": "SingleSpacing",
+          "target": 0.95
+        },
+        {
+          "metric": "ParagraphHeadersUsed",
+          "target": 1.0
+        }
+      ]
+    }
+  ]
+}

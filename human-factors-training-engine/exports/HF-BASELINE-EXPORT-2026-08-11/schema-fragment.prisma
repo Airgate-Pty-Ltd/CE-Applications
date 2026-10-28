@@ -1,0 +1,105 @@
+// HF-BASELINE-EXPORT-2026-08-11 — Prisma schema fragment
+//
+// This is NOT a standalone schema file — it's the exact set of additions this export's seed
+// scripts depend on, extracted from HF-ENGINE's live prisma/schema.prisma for reference and for
+// dropping into a target repo's own schema. A target repo needs:
+//   1. These four new models (RequirementSpineTopic, ClauseTopicMap, AtomTopicMap, PackAdoption).
+//   2. A `PolicyPack` model with at least: id, name, version, regulatoryFramework,
+//      regulatoryReference, recurrenceMonths, spineRevision, clauses relation, approvedBy,
+//      approvedAt (HF-ENGINE's PolicyPack has more fields than this export's seeds touch —
+//      only the fields the seed scripts actually write are load-bearing here).
+//   3. A `PolicyPackClause` model with: id, packId/pack relation, clauseNumber, clauseTitle,
+//      clauseText, section, sectionLabel, mappedAtomIds (JSON-array-as-string), topicMaps relation.
+//   4. A `LearningAtom` model (or equivalent) with at minimum: id, title, objective, format,
+//      content, status, origin, sourceClause, contentSource, approvedBy, approvedAt.
+//   5. A JSON-array-as-string convention matching lib/json.ts's toDbArray/fromDbArray (SQLite
+//      has no native array type; this pattern is used throughout — see HF-ENGINE's D-005).
+//
+// If PolicyPack/PolicyPackClause don't already exist in the target repo, they need to be added
+// too — this export assumes they're already present (as they are in HF-ENGINE, from WP-4.5)
+// and only lists the D-060/D-061 additions layered on top.
+
+// === New models (D-060) ===
+
+model RequirementSpineTopic {
+  id                      String    @id @default(cuid())
+  code                    String    // "SP-01".."SP-15"
+  title                   String
+  intent                  String    // regulator-neutral, intent-level only - never clause text
+  spineRevision           Int       @default(1)
+  status                  String    @default("ACTIVE")
+  createdAt               DateTime  @default(now())
+  clauseTopicMaps         ClauseTopicMap[]
+  atomTopicMaps           AtomTopicMap[]
+
+  @@unique([code, spineRevision])
+  @@index([spineRevision])
+  @@index([status])
+  @@map("requirement_spine_topic")
+}
+
+model ClauseTopicMap {
+  id                      String    @id @default(cuid())
+  clauseId                String
+  clause                  PolicyPackClause @relation(fields: [clauseId], references: [id], onDelete: Cascade)
+  topicId                 String?
+  topic                   RequirementSpineTopic? @relation(fields: [topicId], references: [id], onDelete: Restrict)
+  coverage                String    // FULL | PARTIAL | DELTA
+  deltaNote               String?
+  mappedBy                String?
+  approvedBy              String?
+  effectiveDate           DateTime?
+  createdAt               DateTime  @default(now())
+
+  @@unique([clauseId, topicId])
+  @@index([clauseId])
+  @@index([topicId])
+  @@map("clause_topic_map")
+}
+
+model AtomTopicMap {
+  id                      String    @id @default(cuid())
+  atomId                  String
+  topicId                 String
+  topic                   RequirementSpineTopic @relation(fields: [topicId], references: [id], onDelete: Restrict)
+  mappedBy                String
+  approvedAt              DateTime  @default(now())
+
+  @@unique([atomId, topicId])
+  @@index([atomId])
+  @@index([topicId])
+  @@map("atom_topic_map")
+}
+
+model PackAdoption {
+  id                      String    @id @default(cuid())
+  tenantId                String
+  packId                  String
+  pack                    PolicyPack @relation(fields: [packId], references: [id], onDelete: Cascade)
+  packRevision            Int
+  adoptedAt               DateTime  @default(now())
+  approvedBy              String?
+  status                  String    @default("ACTIVE")
+  supersededAt            DateTime?
+
+  @@unique([tenantId, packId, packRevision])
+  @@index([tenantId])
+  @@index([packId])
+  @@map("pack_adoption")
+}
+
+// === Additions to existing models ===
+
+// Add to PolicyPack:
+//   spineRevision  Int?
+//   adoptions      PackAdoption[]
+
+// Add to PolicyPackClause:
+//   section        String?
+//   sectionLabel   String?
+//   topicMaps      ClauseTopicMap[]
+
+// Add to LearningAtom:
+//   origin         String  @default("event")   // "event" | "regulatory-baseline"
+//   sourceClause   String?                      // human-readable citation, e.g. "GM1 145.A.30(e) item 4.1"
+//   contentSource  String?                      // exact source file path for imported content

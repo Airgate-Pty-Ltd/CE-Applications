@@ -1,0 +1,43 @@
+{
+  "ruleId": "PA-001",
+  "dimId": "pocket-audit-integrity",
+  "revision": 1,
+  "effectiveDate": null,
+  "approvedBy": null,
+  "approvalRef": null,
+  "status": "DRAFT \u2014 proposed, pending Brian's content authority",
+  "severity": "major",
+  "category": "traceability",
+  "riskClass": null,
+  "basisType": "deterministic-record-completeness",
+  "applicableEntityTypes": [
+    "audit_finding"
+  ],
+  "events": [
+    "audit.finding.created",
+    "audit.finding.updated"
+  ],
+  "description": "Finding has no linked objective evidence.",
+  "requiredFields": [
+    "evidence_ids"
+  ],
+  "findingText": "Finding has no linked objective evidence. A finding must be supported by objective evidence reviewed during the audit.",
+  "resolutionHint": "Attach the record, document, photo or observation that supports this finding.",
+  "clauseRefs": [],
+  "condition": {
+    "field": "evidence_ids",
+    "op": "is_empty"
+  },
+  "decision": {
+    "decisionState": "ADVISE",
+    "permittedHostAction": "none"
+  },
+  "testCases": [
+    "PA-001-POS-001",
+    "PA-001-NEG-001",
+    "PA-001-MISSING-001"
+  ],
+  "limitations": [
+    "Verifies recorded data only; cannot confirm the physical evidence or the auditor's judgment."
+  ]
+}

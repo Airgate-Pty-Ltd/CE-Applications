@@ -1,0 +1,29 @@
+{
+  "evidence_kits": [
+    {
+      "clause": "AS9100 7.5.3.2",
+      "examples": [
+        "Record index with retention categories and access controls",
+        "Change history for controlled documents",
+        "Training records demonstrating awareness of document control"
+      ],
+      "forms": [
+        "F-750-002 Document Change Request",
+        "F-710-003 Man-Hour Capacity Sheet"
+      ],
+      "recommendation": "Verify retention mapping per Category A/B/C and show at least one retrieval from the system."
+    },
+    {
+      "clause": "AS9100 8.7",
+      "examples": [
+        "NCR log with disposition fields populated",
+        "Segregation evidence (quarantine location / status)",
+        "Rework/repair approvals where applicable"
+      ],
+      "forms": [
+        "F-870-001 Nonconforming Output Record"
+      ],
+      "recommendation": "Ensure WI exists for disposition workflow and signatures are authoritative."
+    }
+  ]
+}
